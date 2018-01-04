@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: b9d9662ce277e4f7b3d6f997a5117a0592f59fa3
-ms.sourcegitcommit: c72d85805db0aa95f980514a18381fdc5e17c786
+ms.openlocfilehash: 0ea02876b9594d54c971a7b70fcf7ce591e56ba0
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/01/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="disconnected-entities"></a>Odpojené entity
 
@@ -46,7 +46,7 @@ EF má však také předdefinovaný způsob, jak to udělat pro libovolného typ
 
 ### <a name="with-other-keys"></a>Pomocí jiných klíčů
 
-Jinému kontrolnímu mechanismu je potřeba k nové entity identity, pokud nejsou automaticky generované hodnoty klíče. Existují dvě obecné přístupy k tomuto:
+K identifikaci nové entity, když nejsou automaticky generované hodnoty klíče je nutné jinému kontrolnímu mechanismu. Existují dvě obecné přístupy k tomuto:
  * Dotaz pro entitu
  * Předat příznak z klienta
 

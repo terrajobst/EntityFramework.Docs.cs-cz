@@ -6,11 +6,11 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 0bd1ea2476621f826cca7d4a526a49a1b902acf8
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: 380f27c9f00943a2909ec7b876e151572a67dc37
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Upgrade aplikace z předchozích verzí na EF základní 2.0
 
@@ -31,7 +31,7 @@ Aktualizace stávající aplikace do EF základní 2.0 může vyžadovat:
 1. Viz zejména [nové vzor pro inicializaci aplikace poskytovatele služeb](#new-way-of-getting-application-services) popsané dole.
 
 > [!TIP]  
-> Přijetí této nové vzor při aktualizaci aplikace na 2.0 se důrazně doporučuje a je potřeba, aby na funkce produktu, jako je migrace základní Entity Framework pracovat. Další běžné alternativou je [implementovat *IDesignTimeDbContextFactory\<TContext >*](configuring-dbcontext.md#using-idesigntimedbcontextfactorytcontext).
+> Přijetí této nové vzor při aktualizaci aplikace na 2.0 se důrazně doporučuje a je potřeba, aby na funkce produktu, jako je migrace základní Entity Framework pracovat. Další běžné alternativou je [implementovat *IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory).
 
 2. Cílení na technologii ASP.NET 2.0 základní aplikace můžete použít EF základní 2.0 bez další závislosti, kromě zprostředkovatelů databáze třetích stran. Aplikace cílené na předchozích verzích ASP.NET Core je však nutné upgrade na technologii ASP.NET 2.0 Core-li používat EF základní 2.0. Další podrobnosti týkající se upgradu aplikací ASP.NET Core 2.0 najdete v tématu [ASP.NET Core dokumentaci na předmět](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/).
 

@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 4900b882-79c5-40d2-a44a-ccb0292f6ed9
 ms.technology: entity-framework-core
 uid: core/providers/mysql/index
-ms.openlocfilehash: c151845c8b08ef6a668b352f15545752156b0a9d
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: 1500d017cb463c3f394131a79b9063ff90cce5e2
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="mysql-ef-core-database-provider"></a>Zprostředkovatel databáze základní EF MySQL
 
@@ -43,3 +43,5 @@ V tématu [počínaje MySQL EF základní zprostředkovatel a Connector/Net 7.0.
 * Rozhraní .NET framework (4.5.1 a vyšší)
 
 * .NET Core
+
+Nezapomeňte si přečíst v dokumentaci MySQL pro informace o kompatibilitě verze [sem](https://dev.mysql.com/doc/connector-net/en/connector-net-versions.html) a [sem](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core.html)

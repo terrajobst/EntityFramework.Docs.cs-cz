@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: ddf3a841800684688d50dcf9323f4d83c851222f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 79894c7b9fd9e40cdf14460abf5d872ee2f4b9f0
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="raw-sql-queries"></a>Nezpracovaná SQL dotazy
 
@@ -29,6 +29,13 @@ Existuje několik omezení vzít na vědomí při použití nezpracovaná dotaz�
 * Názvy sloupců, které vlastnosti jsou namapované na musí shodovat s názvy sloupců v sadě výsledků dotazu. Všimněte si, že se to neliší od EF6 kde mapování vlastnost nebo sloupce bylo ignorováno pro nezpracovanou dotazy SQL a výsledek sady sloupců museli názvy shodovat s názvy vlastností.
 
 * Příkaz jazyka SQL nemůže obsahovat související data. Ale v mnoha případech můžete vytvoříte nad pomocí dotazu `Include` operátor vrátit související data (najdete v části [včetně souvisejících dat](#including-related-data)).
+
+* `SELECT`příkazy předaná této metodě by měl být obecně bez možnosti složení: Pokud základní EF musí vyhodnocování operátory další dotazu na serveru (například přeložit LINQ operátory použity po `FromSql`), zadaný SQL, budou považovány za poddotazu. To znamená, že SQL předán neměl obsahovat žádné znaky nebo možnosti, které nejsou platné v poddotazu, jako například:
+  * Koncové středníkem
+  * Na serveru SQL Server koncové úrovni dotazu pomocného parametru, například`OPTION (HASH JOIN)`
+  * Na serveru SQL Server `ORDER BY` klauzule, který není uveden z `TOP 100 PERCENT` v `SELECT` – klauzule
+
+* SQL příkazy jinak než `SELECT` , se rozpoznávají automaticky jako bez možnosti složení. V důsledku toho úplné výsledky uložené procedury jsou vždy vrácen do klienta a jakékoli LINQ operátory použity po `FromSql` se vyhodnotí v paměti. 
 
 ## <a name="basic-raw-sql-queries"></a>Základní nezpracovaná dotazy SQL
 

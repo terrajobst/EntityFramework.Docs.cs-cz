@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 ms.technology: entity-framework-core
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: a7f697dfe2b93c7b93a2dd14945732db4f37628c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 55286adf08a6a1c3286b7059d747a62e1feffd22
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="inheritance-relational-database"></a>Dědičnost (relační databáze)
 
@@ -19,11 +19,14 @@ ms.lasthandoff: 10/27/2017
 
 Dědičnost ve EF model slouží k řízení, jak je reprezentována dědičnosti ve třídách entity v databázi.
 
+> [!NOTE]  
+> V současné době pouze vzoru tabulce pro hierarchii (TPH) je implementovaná v EF jádra. Další obecné vzory jako tabulka za type (TPT) a -za konkrétní – typ tabulky (TPC) ještě nejsou k dispozici.
+
 ## <a name="conventions"></a>Konvence
 
 Podle konvence budou mapována dědičnosti pomocí vzoru tabulce pro hierarchii (TPH). TPH používá jednu tabulku pro ukládání dat pro všechny typy v hierarchii. Sloupce diskriminátoru slouží k identifikaci typů, které se každý řádek představuje.
 
-EF bude pouze nastavení dědičnosti, pokud jsou dva nebo více typů zděděné výslovně zahrnuty v modelu (viz [dědičnosti](../inheritance.md) podrobnosti).
+EF základní bude pouze nastavení dědičnosti, pokud dva nebo více typů zděděné jsou explicitně součástí modelu (viz [dědičnosti](../inheritance.md) podrobnosti).
 
 Níže je příkladem zobrazujícím scénář jednoduchá dědičnost a data uložená v tabulce relační databáze pomocí vzoru TPH. *Diskriminátoru* identifikuje sloupce typu *Blog* je uložený v jednotlivých řádcích.
 

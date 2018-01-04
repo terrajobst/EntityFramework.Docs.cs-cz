@@ -6,25 +6,49 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 ms.technology: entity-framework-core
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 96abf3b94be3e1d19f833644f1c2f6f13fe0e730
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: de26e3b28851d4dc4e50f0490093dd05ad489b31
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
-Tento článek popisuje vzory pro konfiguraci `DbContext` s `DbContextOptions`. Možnosti se primárně používají konfigurace úložiště dat a vyberte.
+Tento článek ukazuje základní vzory pro konfiguraci `DbContext` prostřednictvím `DbContextOptions` pro připojení k databázi pomocí konkrétního zprostředkovatele EF jádra a volitelné chování.
+
+## <a name="design-time-dbcontext-configuration"></a>Konfigurace DbContext během návrhu
+
+EF základní návrhu nástroje jako [migrace](xref:core/managing-schemas/migrations/index) musí být schopni zjistit a vytvořit funkční instanci `DbContext` typu, aby bylo možné shromáždit informace o typy entit a jak jsou mapovány na schéma databáze aplikace. Tento proces může být automatická, tak dlouho, dokud tento nástroj můžete snadno vytvořit `DbContext` tak, že bude nakonfigurován podobně jak by se nakonfigurovat v o době.
+
+Při jakékoli vzor, který obsahuje informace nezbytné konfigurace, které `DbContext` můžete pracovat v době spuštění, nástroje, které vyžadují použití `DbContext` v době návrhu můžete pracovat pouze s omezený počet vzory. Ty jsou popsané v podrobněji [vytvoření kontextu návrhu](xref:core/miscellaneous/cli/dbcontext-creation) části.
 
 ## <a name="configuring-dbcontextoptions"></a>Konfigurace DbContextOptions
 
-`DbContext`musíte mít instanci `DbContextOptions` provádění. To se dá nakonfigurovat přepsání `OnConfiguring`, nebo zadaná externě prostřednictvím argument konstruktoru.
+`DbContext`musíte mít instanci `DbContextOptions` za účelem provedení veškerou práci. `DbContextOptions` Instance představuje informace o konfiguraci, jako například:
 
-Pokud se používá, `OnConfiguring` se spouští na zadaný možnosti, což znamená, je doplňkové a můžete je zadaný pro argument konstruktoru možnosti přepsání.
+- Zprostředkovatel databáze, které chcete použít, je obvykle vybrána vyvoláním metody `UseSqlServer` nebo`UseSqlite`
+- Všechny nezbytné připojovací řetězec nebo identifikátor instance databáze obvykle předat jako argument výše popsané metody výběru zprostředkovatele
+- Budete potřebovat volitelné chování zprostředkovatele úrovni, obvykle se také zřetězené uvnitř volání metody výběru zprostředkovatele
+- Obecné základní EF chování budete potřebovat, obvykle zřetězené po nebo před voláním metody selektor zprostředkovatele
+
+Následující příklad konfiguruje `DbContextOptions` použití zprostředkovatele SQL Server, připojení součástí `connectionString` proměnné, vypršení časového limitu příkaz úrovni zprostředkovatele a selektor chování EF jádra, která umožňuje všechny dotazy spouštěné v `DbContext` [ne sledování](xref:core/querying/tracking#no-tracking-queries) ve výchozím nastavení:
+
+``` csharp
+optionsBuilder
+    .UseSqlServer(connectionString, providerOptions=>providerOptions.CommandTimeout(60))
+    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+```
+
+> [!NOTE]  
+> Zprostředkovatel pro výběr metody a jiné chování pro výběr metody uvedené výše jsou rozšiřující metody na `DbContextOptions` nebo třídy možnost specifický pro zprostředkovatele. Chcete-li mít přístup k tyto rozšiřující metody, budete muset obor názvů (obvykle `Microsoft.EntityFrameworkCore`) v oboru a obsahovat závislosti, další balíčky v projektu.
+
+`DbContextOptions` Mohou být poskytnuty `DbContext` přepsáním `OnConfiguring` metoda nebo externě prostřednictvím argument konstruktoru.
+
+Pokud se používá, `OnConfiguring` je použito jako poslední a můžete přepsat možnosti zadaný pro argument konstruktoru.
 
 ### <a name="constructor-argument"></a>Argument konstruktoru
 
-Kontext kódu pomocí konstruktoru
+Kontext kód s konstruktorem:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -38,9 +62,9 @@ public class BloggingContext : DbContext
 ```
 
 > [!TIP]  
-> Základní konstruktoru DbContext také přijímá neobecnou verzi `DbContextOptions`. Pro aplikace s více typy kontextu se nedoporučuje používat na neobecnou verzi.
+> Základní konstruktoru DbContext také přijímá neobecnou verzi `DbContextOptions`, ale pro aplikace s více typy kontextu se nedoporučuje používat na neobecnou verzi.
 
-Kód aplikace k chybě při inicializaci z argument konstruktoru
+Kód aplikace k chybě při inicializaci z argument konstruktoru:
 
 ``` csharp
 var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
@@ -53,9 +77,6 @@ using (var context = new BloggingContext(optionsBuilder.Options))
 ```
 
 ### <a name="onconfiguring"></a>OnConfiguring
-
-> [!WARNING]  
-> `OnConfiguring`Probíhá poslední a můžete přepsat možnosti získaný od DI nebo konstruktoru. Tento přístup není jít o testování (Pokud cílíte databázi úplná).
 
 Kontext kódu s použitím `OnConfiguring`:
 
@@ -71,7 +92,7 @@ public class BloggingContext : DbContext
 }
 ```
 
-Kód aplikace se nezdařila s `OnConfiguring`:
+Kód aplikace k chybě při inicializaci `DbContext` používající `OnConfiguring`:
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -80,15 +101,18 @@ using (var context = new BloggingContext())
 }
 ```
 
-## <a name="using-dbcontext-with-dependency-injection"></a>DbContext pomocí vkládání závislostí
+> [!TIP]
+> Tento přístup není jít o testování, pokud testy používat úplnou databázi.
 
-EF podporuje používání `DbContext` s kontejner vkládání závislostí. Váš typ DbContext můžete přidat do kontejneru služby pomocí `AddDbContext<TContext>`.
+### <a name="using-dbcontext-with-dependency-injection"></a>DbContext pomocí vkládání závislostí
 
-`AddDbContext`budou obě váš typ DbContext, `TContext`, a `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služby.
+Základní EF podporuje používání `DbContext` s kontejner vkládání závislostí. Váš typ DbContext můžete přidat do kontejneru služby pomocí `AddDbContext<TContext>` metoda.
 
-V tématu [další čtení](#more-reading) níže informace o vkládání závislostí.
+`AddDbContext<TContext>`budou obě váš typ DbContext, `TContext`a odpovídající `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služby.
 
-Přidání dbcontext k vkládání závislostí
+V tématu [další čtení](#more-reading) níže Další informace o vkládání závislostí.
+
+Přidávání `Dbcontext` k vkládání závislostí:
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
@@ -97,7 +121,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-To vyžaduje, přidávání [argument konstruktoru](#constructor-argument) pro váš typ DbContext, který přijímá `DbContextOptions`.
+To vyžaduje, přidávání [argument konstruktoru](#constructor-argument) pro váš typ DbContext, který přijímá `DbContextOptions<TContext>`.
 
 Kontext kód:
 
@@ -115,7 +139,17 @@ public class BloggingContext : DbContext
 Kód aplikace (v ASP.NET Core):
 
 ``` csharp
-public MyController(BloggingContext context)
+public class MyController
+{
+    private readonly BloggingContext _context;
+
+    public MyController(BloggingContext context)
+    {
+      _context = context;
+    }
+
+    ...
+}
 ```
 
 Kód aplikace (pomocí položku ServiceProvider přímo, méně běžné):
@@ -129,35 +163,8 @@ using (var context = serviceProvider.GetService<BloggingContext>())
 var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
 
-## <a name="using-idesigntimedbcontextfactorytcontext"></a>Pomocí`IDesignTimeDbContextFactory<TContext>`
-
-Jako alternativu k výše uvedených možností, může taky poskytnout implementaci `IDesignTimeDbContextFactory<TContext>`. EF nástroje můžete použít k vytvoření instance vaší DbContext tento objekt pro vytváření. To může být potřeba Chcete-li povolit konkrétní návrhu činnosti, jako je například migrace.
-
-Implementace tohoto rozhraní povolit návrhu služby pro kontextové typy, které nemají výchozí veřejný konstruktor. Implementace tohoto rozhraní, které jsou ve stejném sestavení jako kontext odvozené automaticky zjistí použití návrhu služby.
-
-Příklad:
-
-``` csharp
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-
-namespace MyProject
-{
-    public class BloggingContextFactory : IDesignTimeDbContextFactory<BloggingContext>
-    {
-        public BloggingContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
-            optionsBuilder.UseSqlite("Data Source=blog.db");
-
-            return new BloggingContext(optionsBuilder.Options);
-        }
-    }
-}
-```
-
 ## <a name="more-reading"></a>Další čtení
 
 * Čtení [Začínáme na ASP.NET Core](../get-started/aspnetcore/index.md) Další informace o používání EF s ASP.NET Core.
-* Čtení [vkládání závislostí](https://docs.asp.net/en/latest/fundamentals/dependency-injection.html) Další informace o používání DI.
+* Čtení [vkládání závislostí](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) Další informace o používání DI.
 * Čtení [testování](testing/index.md) Další informace.
