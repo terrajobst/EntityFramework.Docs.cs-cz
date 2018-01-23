@@ -8,7 +8,7 @@ ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
 ms.openlocfilehash: a9481fe851cc264ab3eaecad052c2e683ae57a44
 ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/08/2017
 ---
@@ -16,7 +16,7 @@ ms.lasthandoff: 11/08/2017
 
 Kaskádové odstranění se běžně používá v terminologii databáze k popisu vlastnosti, který umožňuje odstranění řádku automaticky spouštět odstranění související řádky. Úzce související koncept také předmětem EF základní odstranit chování je automatické odstranění podřízené entity, když se nejedná o relaci k nadřazenému má porušeno – tento i obvykle označuje jako "odstranění osamocené položky".
 
-Základní EF implementuje několik různých odstranit chování a umožňuje konfigurovat chování odstranění jednotlivých relací. Základní EF také implementuje konvence, který automaticky nakonfiguruje užitečné výchozí chování delete pro každý vztah podle [requiredness relace] (.. /Modeling/Relationships.MD#Required-and-Optional-Relationships).
+Základní EF implementuje několik různých odstranit chování a umožňuje konfigurovat chování odstranění jednotlivých relací. Základní EF také implementuje konvence, který automaticky nakonfiguruje užitečné výchozí chování delete pro každý vztah podle [requiredness relace] (../modeling/relationships.md#required-and-optional-relationships).
 
 ## <a name="delete-behaviors"></a>Odstranit chování
 Odstranit chování jsou definovány v *DeleteBehavior* enumerátor typu a se dá předat do *OnDelete* rozhraní fluent API na ovládací prvek zda odstranění hlavní/nadřazená entita nebo severing z vztah k závislé nebo podřízených entit by měl mít vedlejším účinkem závislé nebo podřízených entit.
