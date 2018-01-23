@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: a9481fe851cc264ab3eaecad052c2e683ae57a44
-ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
-ms.translationtype: HT
+ms.openlocfilehash: e1cb194d7c7472af59eb44fe2a084fa16c40c186
+ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/08/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -35,19 +35,19 @@ Existují čtyři odstranit chování, jak je uvedené v následujících tabulk
 
 | Název chování | Vliv na závislé a podřízené v paměti | Vliv na závislé a podřízené databáze
 |-|-|-
-| **CASCADE** | Entity se odstraní. | Entity se odstraní.
-| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Žádná
+| **Cascade** | Entity se odstraní. | Entity se odstraní.
+| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Žádné
 | **SetNull** | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Vlastnosti cizího klíče jsou nastaveny na hodnotu null
-| **Omezení** | Žádná | Žádná
+| **Omezení** | Žádné | Žádné
 
 Pro požadované relace (použití hodnot Null cizí klíč) je _není_ možné ukládat cizího klíče hodnotu null, což vede k tyto důsledky:
 
 | Název chování | Vliv na závislé a podřízené v paměti | Vliv na závislé a podřízené databáze
 |-|-|-
 | **CASCADE** (výchozí) | Entity se odstraní. | Entity se odstraní.
-| **ClientSetNull** | Vyvolá SaveChanges | Žádná
+| **ClientSetNull** | Vyvolá SaveChanges | Žádné
 | **SetNull** | Vyvolá SaveChanges | Vyvolá SaveChanges
-| **Omezení** | Žádná | Žádná
+| **Omezení** | Žádné | Žádné
 
 V tabulkách výš *žádné* může mít za následek porušení omezení. Například pokud je odstraněn objekt nebo podřízený entity, ale chcete-li změnit cizí klíč závislé a podřízené nebyla provedena žádná akce, poté databázi bude pravděpodobně vyvolat na SaveChanges z důvodu narušení omezení pro cizí.
 
@@ -67,7 +67,7 @@ Na vysoké úrovni:
 
 ## <a name="entity-deletion-examples"></a>Příklady odstranění entity
 
-Následující kód je součástí [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) který lze stáhnout spustit. Ukázka zobrazuje, co se stane pro každý odstranit chování pro volitelné a požadované relace při odstranění nadřazená entita.
+Následující kód je součástí [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , je možné stáhnout a spustit. Ukázka zobrazuje, co se stane pro každý odstranit chování pro volitelné a požadované relace při odstranění nadřazená entita.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
