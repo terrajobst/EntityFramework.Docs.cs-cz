@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 ms.technology: entity-framework-core
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: de26e3b28851d4dc4e50f0490093dd05ad489b31
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 6980acd53b0a74055af7a1e04b476f4625c327c9
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
@@ -18,15 +18,15 @@ Tento článek ukazuje základní vzory pro konfiguraci `DbContext` prostřednic
 
 ## <a name="design-time-dbcontext-configuration"></a>Konfigurace DbContext během návrhu
 
-EF základní návrhu nástroje jako [migrace](xref:core/managing-schemas/migrations/index) musí být schopni zjistit a vytvořit funkční instanci `DbContext` typu, aby bylo možné shromáždit informace o typy entit a jak jsou mapovány na schéma databáze aplikace. Tento proces může být automatická, tak dlouho, dokud tento nástroj můžete snadno vytvořit `DbContext` tak, že bude nakonfigurován podobně jak by se nakonfigurovat v o době.
+EF základní návrhu nástroje jako [migrace](xref:core/managing-schemas/migrations/index) musí být schopni zjistit a vytvořit funkční instanci `DbContext` typu, aby bylo možné shromáždit informace o typy entit a jak jsou mapovány na schéma databáze aplikace. Tento proces může být automatická, tak dlouho, dokud tento nástroj můžete snadno vytvořit `DbContext` tak, že bude nakonfigurován podobně jak by se nakonfigurovat při spuštění.
 
 Při jakékoli vzor, který obsahuje informace nezbytné konfigurace, které `DbContext` můžete pracovat v době spuštění, nástroje, které vyžadují použití `DbContext` v době návrhu můžete pracovat pouze s omezený počet vzory. Ty jsou popsané v podrobněji [vytvoření kontextu návrhu](xref:core/miscellaneous/cli/dbcontext-creation) části.
 
 ## <a name="configuring-dbcontextoptions"></a>Konfigurace DbContextOptions
 
-`DbContext`musíte mít instanci `DbContextOptions` za účelem provedení veškerou práci. `DbContextOptions` Instance představuje informace o konfiguraci, jako například:
+`DbContext` musíte mít instanci `DbContextOptions` za účelem provedení veškerou práci. `DbContextOptions` Instance představuje informace o konfiguraci, jako například:
 
-- Zprostředkovatel databáze, které chcete použít, je obvykle vybrána vyvoláním metody `UseSqlServer` nebo`UseSqlite`
+- Zprostředkovatel databáze, které chcete použít, je obvykle vybrána vyvoláním metody `UseSqlServer` nebo `UseSqlite`
 - Všechny nezbytné připojovací řetězec nebo identifikátor instance databáze obvykle předat jako argument výše popsané metody výběru zprostředkovatele
 - Budete potřebovat volitelné chování zprostředkovatele úrovni, obvykle se také zřetězené uvnitř volání metody výběru zprostředkovatele
 - Obecné základní EF chování budete potřebovat, obvykle zřetězené po nebo před voláním metody selektor zprostředkovatele
@@ -108,7 +108,7 @@ using (var context = new BloggingContext())
 
 Základní EF podporuje používání `DbContext` s kontejner vkládání závislostí. Váš typ DbContext můžete přidat do kontejneru služby pomocí `AddDbContext<TContext>` metoda.
 
-`AddDbContext<TContext>`budou obě váš typ DbContext, `TContext`a odpovídající `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služby.
+`AddDbContext<TContext>` budou obě váš typ DbContext, `TContext`a odpovídající `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služby.
 
 V tématu [další čtení](#more-reading) níže Další informace o vkládání závislostí.
 

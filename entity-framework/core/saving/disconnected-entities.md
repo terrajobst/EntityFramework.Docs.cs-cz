@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 0ea02876b9594d54c971a7b70fcf7ce591e56ba0
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="disconnected-entities"></a>Odpojené entity
 
@@ -20,6 +20,9 @@ Ale někdy entity jsou předmětem dotazování pomocí jedné instance kontextu
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/) na Githubu.
+
+> [!TIP]
+> Základní EF můžete sledovat pouze jednu instanci entitu s danou hodnotu primárního klíče. Nejlepší způsob, jak se vyhnout této probíhá, kterou problém použít krátkodobou kontext pro každou jednotku pracovní tak, aby kontext spuštění prázdný, obsahuje entity připojený, uloží tyto entity a kontext zrušen a zahodí.
 
 ## <a name="identifying-new-entities"></a>Identifikace nové entity
 
@@ -85,6 +88,10 @@ Postup v tomto poli se:
 > SetValues pouze označíte jako upravená vlastnosti, které mají různé hodnoty na hodnoty v sledovaných entity. To znamená, pokud jsou odesílány, je aktualizován pouze sloupce, které se změnily ve skutečnosti. (A pokud se nic změnila, pak žádná aktualizace se budou odesílat vůbec.)
 
 ## <a name="working-with-graphs"></a>Práce s grafy
+
+### <a name="identity-resolution"></a>Řešení identity
+
+Jak jsme uvedli výše, EF základní můžete sledovat pouze jednu instanci entitu s danou hodnotu primárního klíče. Při práci s grafy grafu by v ideálním případě se vytvořit tak, aby tento neutrální zachovaný a kontext se mají použít pro pouze jednu jednotku pracovní. Pokud graf obsahovat duplikáty, pak bude potřeba zpracovat grafu před odesláním do EF pro konsolidaci víc instancí do jednoho. Toto nemusí být trivial kde instance mají konfliktní hodnoty a vztahy, takže sloučením duplikáty by mělo být provedeno co nejdříve v kanálu aplikace předejdete řešení konfliktů.
 
 ### <a name="all-newall-existing-entities"></a>Všechny nové nebo žádná existující entity
 

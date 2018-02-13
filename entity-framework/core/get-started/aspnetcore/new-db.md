@@ -8,11 +8,11 @@ ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 7e7ecaff29e9830bf3bcf742e6a5d54e1ced24de
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: f6ed19d3c5d2ae8d1f5756558e50c1f0dddd2f07
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF základní na ASP.NET Core s novou databázi
 
@@ -47,15 +47,15 @@ Nainstalujte balíček pro následující zprostředkovatele databáze EF jádra
 
 * **Nástroje > Správce balíčků NuGet > Konzola správce balíčků**
 
-* Spustit`Install-Package Microsoft.EntityFrameworkCore.SqlServer`
+* Spustit `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 Použijeme některé Entity Framework jádra nástroje k vytvoření databáze z modelu EF jádra. Proto se nainstaluje balíček nástroje:
 
-* Spustit`Install-Package Microsoft.EntityFrameworkCore.Tools`
+* Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 Nemůžeme vytvořit kontrolery a zobrazení později na pomocí některé nástroje ASP.NET Core generování uživatelského rozhraní. Proto se nainstaluje tohoto návrhu balíčku:
 
-* Spustit`Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
+* Spustit `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## <a name="create-the-model"></a>Vytvoření modelu
 
@@ -86,7 +86,7 @@ Přidat `AddDbContext` metody pro registraci jako služba:
 
  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
 
-Poznámka: Skutečné aplikace gennerally přepnutím připojovací řetězec v konfiguračním souboru. Z důvodu zjednodušení jsme se jeho definováním v kódu. V tématu [připojovací řetězce](../../miscellaneous/connection-strings.md) Další informace.
+Poznámka: Skutečné aplikace obecně přepnutím připojovací řetězec v konfiguračním souboru. Z důvodu zjednodušení jsme se jeho definováním v kódu. V tématu [připojovací řetězce](../../miscellaneous/connection-strings.md) Další informace.
 
 ## <a name="create-your-database"></a>Vytvoření databáze
 
@@ -118,7 +118,7 @@ Teď, když je povoleno generování uživatelského rozhraní, jsme vygenerovat
 
 Stisknutím klávesy F5 spusťte a testování aplikací.
 
-* Přejděte na`/Blogs`
+* Přejděte na `/Blogs`
 * Pomocí odkazu vytvořte vytvořit některé položky blogu. Testování podrobnosti a odstraňte odkazy.
 
 ![obrázek](_static/create.png)
@@ -130,4 +130,4 @@ Stisknutím klávesy F5 spusťte a testování aplikací.
 * [EF - novou databázi pomocí SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzoly napříč platformami.
 * [Úvod do základní ASP.NET MVC v Mac nebo Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
 * [Úvod do základní ASP.NET MVC pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [Začínáme s ASP.NET Core a Entity Framework Core pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* [Začínáme s technologiemi ASP.NET Core a Entity Framework Core pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
