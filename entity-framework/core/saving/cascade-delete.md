@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: e1cb194d7c7472af59eb44fe2a084fa16c40c186
-ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.openlocfilehash: 1ab9d114e27aac0bec972df631a426c8ce87a518
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2018
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -33,21 +33,21 @@ Druhou akci výše uvedených nastavení hodnoty cizího klíče na hodnotu null
 
 Existují čtyři odstranit chování, jak je uvedené v následujících tabulkách. Pro volitelné relace (s možnou hodnotou Null cizí klíč) je _je_ možné ukládat cizího klíče hodnotu null, což vede k tyto důsledky:
 
-| Název chování | Vliv na závislé a podřízené v paměti | Vliv na závislé a podřízené databáze
-|-|-|-
-| **Cascade** | Entity se odstraní. | Entity se odstraní.
-| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Žádné
-| **SetNull** | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Vlastnosti cizího klíče jsou nastaveny na hodnotu null
-| **Omezení** | Žádné | Žádné
+| Název chování               | Vliv na závislé a podřízené v paměti    | Vliv na závislé a podřízené databáze  |
+|:----------------------------|:---------------------------------------|:---------------------------------------|
+| **Cascade**                 | Entity se odstraní.                   | Entity se odstraní.                   |
+| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Žádné                                   |
+| **SetNull**                 | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Vlastnosti cizího klíče jsou nastaveny na hodnotu null |
+| **Omezení**                | Žádné                                   | Žádné                                   |
 
 Pro požadované relace (použití hodnot Null cizí klíč) je _není_ možné ukládat cizího klíče hodnotu null, což vede k tyto důsledky:
 
-| Název chování | Vliv na závislé a podřízené v paměti | Vliv na závislé a podřízené databáze
-|-|-|-
-| **CASCADE** (výchozí) | Entity se odstraní. | Entity se odstraní.
-| **ClientSetNull** | Vyvolá SaveChanges | Žádné
-| **SetNull** | Vyvolá SaveChanges | Vyvolá SaveChanges
-| **Omezení** | Žádné | Žádné
+| Název chování         | Vliv na závislé a podřízené v paměti | Vliv na závislé a podřízené databáze |
+|:----------------------|:------------------------------------|:--------------------------------------|
+| **CASCADE** (výchozí) | Entity se odstraní.                | Entity se odstraní.                  |
+| **ClientSetNull**     | Vyvolá SaveChanges                  | Žádné                                  |
+| **SetNull**           | Vyvolá SaveChanges                  | Vyvolá SaveChanges                    |
+| **Omezení**          | Žádné                                | Žádné                                  |
 
 V tabulkách výš *žádné* může mít za následek porušení omezení. Například pokud je odstraněn objekt nebo podřízený entity, ale chcete-li změnit cizí klíč závislé a podřízené nebyla provedena žádná akce, poté databázi bude pravděpodobně vyvolat na SaveChanges z důvodu narušení omezení pro cizí.
 

@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 ms.technology: entity-framework-core
 uid: core/saving/transactions
-ms.openlocfilehash: a2f890c0af1e83cbcc1d40d68540ff7132a9bafd
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 2dda7b7d58ae058fc2aa89fe16fbf46adc8c6bdc
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="using-transactions"></a>Použití transakcí
 
@@ -74,19 +74,9 @@ Sdílení `DbConnection` vyžaduje možnost předat připojení v kontextu při 
 Nejjednodušší způsob, jak povolit `DbConnection` externě zadat, je přestat používat, `DbContext.OnConfiguring` metoda konfigurace kontextu a externě vytvořit `DbContextOptions` a předat je do kontextu konstruktoru.
 
 > [!TIP]  
-> `DbContextOptionsBuilder`je rozhraní API, kterou jste použili v `DbContext.OnConfiguring` konfigurace kontextu, teď chcete externě použít k vytvoření `DbContextOptions`.
+> `DbContextOptionsBuilder` je rozhraní API, kterou jste použili v `DbContext.OnConfiguring` konfigurace kontextu, teď chcete externě použít k vytvoření `DbContextOptions`.
 
-<!-- [!code-csharp[Main](samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?highlight=3,4,5)] -->
-``` csharp
-    public class BloggingContext : DbContext
-    {
-        public BloggingContext(DbContextOptions<BloggingContext> options)
-            : base(options)
-        { }
-
-        public DbSet<Blog> Blogs { get; set; }
-    }
-```
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
 
 Alternativou je dál používat `DbContext.OnConfiguring`, ale přijmout `DbConnection` , uložit a potom použít v `DbContext.OnConfiguring`.
 
@@ -113,41 +103,7 @@ public class BloggingContext : DbContext
 
 Nyní můžete vytvořit více instancí kontextu, které sdílejí stejné připojení. Potom pomocí `DbContext.Database.UseTransaction(DbTransaction)` rozhraní API zařazení i kontexty ve stejné transakci.
 
-<!-- [!code-csharp[Main](samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?highlight=1,2,3,7,16,23,24,25)] -->
-``` csharp
-        var options = new DbContextOptionsBuilder<BloggingContext>()
-            .UseSqlServer(new SqlConnection(connectionString))
-            .Options;
-
-        using (var context1 = new BloggingContext(options))
-        {
-            using (var transaction = context1.Database.BeginTransaction())
-            {
-                try
-                {
-                    context1.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/dotnet" });
-                    context1.SaveChanges();
-
-                    using (var context2 = new BloggingContext(options))
-                    {
-                        context2.Database.UseTransaction(transaction.GetDbTransaction());
-
-                        var blogs = context2.Blogs
-                            .OrderBy(b => b.Url)
-                            .ToList();
-                    }
-
-                    // Commit transaction if all commands succeed, transaction will auto-rollback
-                    // when disposed if either commands fails
-                    transaction.Commit();
-                }
-                catch (Exception)
-                {
-                    // TODO: Handle failure
-                }
-            }
-        }
-```
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
 
 ## <a name="using-external-dbtransactions-relational-databases-only"></a>Pomocí externích DbTransactions (pouze relační databáze)
 
@@ -155,39 +111,26 @@ Pokud používáte více technologie přístup k datům pro přístup k relačn�
 
 Následující příklad ukazuje, jak k provedení operace ADO.NET SqlClient a Entity Framework Core operace ve stejné transakci.
 
-<!-- [!code-csharp[Main](samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?highlight=4,10,21,26,27,28)] -->
-``` csharp
-        var connection = new SqlConnection(connectionString);
-        connection.Open();
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
 
-        using (var transaction = connection.BeginTransaction())
-        {
-            try
-            {
-                // Run raw ADO.NET command in the transaction
-                var command = connection.CreateCommand();
-                command.Transaction = transaction;
-                command.CommandText = "DELETE FROM dbo.Blogs";
-                command.ExecuteNonQuery();
+## <a name="using-systemtransactions"></a>System.Transactions – použití
 
-                // Run an EF Core command in the transaction
-                var options = new DbContextOptionsBuilder<BloggingContext>()
-                    .UseSqlServer(connection)
-                    .Options;
+> [!NOTE]  
+> Tato funkce je nového v EF základní 2.1.
 
-                using (var context = new BloggingContext(options))
-                {
-                    context.Database.UseTransaction(transaction);
-                    context.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/dotnet" });
-                    context.SaveChanges();
-                }
+Je možné použít vedlejším transakcí, pokud je potřeba koordinovat ve větší rozsah.
 
-                // Commit transaction if all commands succeed, transaction will auto-rollback
-                // when disposed if either commands fails
-                transaction.Commit();
-            }
-            catch (System.Exception)
-            {
-                // TODO: Handle failure
-            }
-```
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,24,25,26)]
+
+Je také možné uvést v explicitní transakce.
+
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,13,26,27,28)]
+
+### <a name="limitations-of-systemtransactions"></a>System.Transactions – omezení  
+
+1. Základní EF spoléhá na zprostředkovatele databáze pro implementaci podpory System.Transactions. I když podpora je celkem běžné mezi zprostředkovatele ADO.NET pro rozhraní .NET Framework, rozhraní API pouze byl nedávno přidán do .NET Core a proto podporují není možné jako rozšířeným. Pokud zprostředkovatele neimplementuje podporu pro System.Transactions, je možné, že volání tato rozhraní API budou zcela ignorovány. SqlClient pro .NET Core podporuje z 2.1 a vyšší. SqlClient pro rozhraní .NET 2.0 základní vyvolá výjimku z pokusíte použít funkci. 
+
+   > [!IMPORTANT]  
+   > Doporučujeme, abyste otestovali, že rozhraní API chovat správně u svého poskytovatele předtím, než byste tedy spoléhat na něm pro správu transakcí. Jste vyzváni ke kontaktování funkce maintainer zprostředkovatele databáze, pokud neexistuje. 
+
+2. Od verze 2.1 System.Transactions – implementace v .NET Core nezahrnuje podpora distribuovaných transakcí, takže nemůže používat `TransactionScope` nebo `CommitableTransaction`koordinovat transakce napříč více správců prostředků. 

@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: b4ecb27edf94e7b9ad6c7fe65a891dcbf1593309
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: aacf8c8564a3966db6202c9ff1c1c02a19a10814
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 <a name="ef-core-package-manager-console-tools"></a>Nástroje konzoly Správce balíčků EF jádra
 =====================================
@@ -49,7 +49,7 @@ Projekt po spuštění je emulovaných nástrojů při provádění kódu vašeh
 Společné parametry:
 
 |                           |                             |
-| ------------------------- | --------------------------- |
+|:--------------------------|:----------------------------|
 | -Kontext- \<řetězec >        | DbContext používat.       |
 | -Projektu \<řetězec >        | Projekt, který používá.         |
 | -StartupProject \<řetězec > | Spuštění projektu pro použití. |
@@ -72,10 +72,10 @@ Přidá nové migrace.
 
 Parametry:
 
-|                                    |                                                                                 |
-| ---------------------------------- | ------------------------------------------------------------------------------- |
-| ***-Název*** \<řetězec >              | Název migrace.                                                      |
-| <nobr>-OutputDir \<řetězec ></nobr>  | Adresář (a podklíčů – obor názvů) používat. Cesty se vztahují k adresáři projektu. Výchozí hodnota je "Migrace". |
+|                                   |                                                                                                                  |
+|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| ***-Název*** \<řetězec >             | Název migrace.                                                                                       |
+| <nobr>-OutputDir \<řetězec ></nobr> | Adresář (a podklíčů – obor názvů) používat. Cesty se vztahují k adresáři projektu. Výchozí hodnota je "Migrace". |
 
 > [!NOTE]
 > Parametry v **tučné** jsou povinné a ty, které v *italics* jsou poziční.
@@ -86,9 +86,9 @@ Zahodí databáze.
 
 Parametry:
 
-|          |                                                          |
-| -------- | -------------------------------------------------------- |
-| -WhatIf  | Zobrazit databázi, kterou by být vyřazen, ale nemáte vyřadit. |
+|         |                                                          |
+|:--------|:---------------------------------------------------------|
+| -WhatIf | Zobrazit databázi, kterou by být vyřazen, ale nemáte vyřadit. |
 
 ### <a name="get-dbcontext"></a>Get-DbContext
 
@@ -101,7 +101,7 @@ Odebere poslední migrace.
 Parametry:
 
 |        |                                                                       |
-| ------ | --------------------------------------------------------------------- |
+|:-------|:----------------------------------------------------------------------|
 | -Force | Nekontrolovat Pokud chcete zobrazit, pokud se migrace použil k databázi. |
 
 ### <a name="scaffold-dbcontext"></a>DbContext vygenerované uživatelské rozhraní
@@ -110,17 +110,17 @@ Scaffold a typy DbContext a entity pro databázi.
 
 Parametry:
 
-|                                          |                                                                           |
-| ---------------------------------------- | ------------------------------------------------------------------------- |
-| <nobr>***-Připojení*** \<řetězec ></nobr> | Připojovací řetězec k databázi.                                    |
-| ***-Poskytovatel*** \<řetězec >                | Zprostředkovatel, který se má používat. (Např.) Microsoft.EntityFrameworkCore.SqlServer)       |
-| -OutputDir \<řetězec >                     | Adresář, který chcete umístit soubory do. Cesty se vztahují k adresáři projektu. |
-| -Kontext- \<řetězec >                       | Název DbContext ke generování.                                    |
-| -Schémata \<řetězec [] >                     | Schémata tabulkami k vygenerování typy entit pro.                       |
-| -Tabulky \<řetězec [] >                      | S tabulkami k vygenerování typy entit pro.                                  |
+|                                          |                                                                                                  |
+|:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
+| <nobr>***-Připojení*** \<řetězec ></nobr> | Připojovací řetězec k databázi.                                                           |
+| ***-Poskytovatel*** \<řetězec >                | Zprostředkovatel, který se má používat. (Např.) Microsoft.EntityFrameworkCore.SqlServer)                              |
+| -OutputDir \<řetězec >                     | Adresář, který chcete umístit soubory do. Cesty se vztahují k adresáři projektu.                      |
+| -Kontext- \<řetězec >                       | Název DbContext ke generování.                                                           |
+| -Schémata \<řetězec [] >                     | Schémata tabulkami k vygenerování typy entit pro.                                              |
+| -Tabulky \<řetězec [] >                      | S tabulkami k vygenerování typy entit pro.                                                         |
 | -DataAnnotations                         | Pomocí atributů (kde je to možné), nakonfigurujte model. Pokud tento parametr vynechán, použije se rozhraní fluent API. |
-| -UseDatabaseNames                        | Používejte názvy tabulek a sloupců přímo z databáze.                    |
-| -Force                                   | Přepište existující soubory.                                                 |
+| -UseDatabaseNames                        | Používejte názvy tabulek a sloupců přímo z databáze.                                           |
+| -Force                                   | Přepište existující soubory.                                                                        |
 
 ### <a name="script-migration"></a>Skript migrace
 
@@ -129,7 +129,7 @@ Generuje skriptu SQL z migrace.
 Parametry:
 
 |                   |                                                                    |
-| ----------------- | ------------------------------------------------------------------ |
+|:------------------|:-------------------------------------------------------------------|
 | *-Z* \<řetězec > | Počáteční migrace. Výchozí hodnota je 0 (počáteční databáze).      |
 | *-Na* \<řetězec >   | Koncová migrace. Výchozí hodnoty na poslední migrace.              |
 | -Idempotent       | Generovat skript, který lze použít v databázi v žádné migrace. |
@@ -140,8 +140,8 @@ Parametry:
 
 ### <a name="update-database"></a>Update-Database
 
-|                                     |                                                                                |
-| ----------------------------------- | ------------------------------------------------------------------------------ |
+|                                     |                                                                                                |
+|:------------------------------------|:-----------------------------------------------------------------------------------------------|
 | <nobr>*-Migrace* \<řetězec ></nobr> | Cílová migrace. Pokud je to "0", budou vráceny všechny migrace. Výchozí hodnoty na poslední migrace. |
 
 > [!TIP]

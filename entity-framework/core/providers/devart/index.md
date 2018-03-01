@@ -7,10 +7,10 @@ ms.assetid: aad70a75-d04d-4d63-a489-7f9062a3c73d
 ms.technology: entity-framework-core
 uid: core/providers/devart/index
 ms.openlocfilehash: 04de917b3327a6f544292781bca42a1170c199ad
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.sourcegitcommit: 6ed04bb05a3d05c367f0f55616807af2bf4037ae
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/27/2018
 ---
 # <a name="devart-ef-core-database-providers"></a>Devart EF základní databáze zprostředkovatelů
 

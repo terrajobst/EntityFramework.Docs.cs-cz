@@ -6,26 +6,28 @@ ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 ms.technology: entity-framework-core
 uid: core/index
-ms.openlocfilehash: 13de9cf98111b8e253e073c591fcec04206b4c4f
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: c76b4cd318151b502c549fa0a82800f9987ed94c
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="entity-framework-core-quick-overview"></a>Rychlý přehled základní Entity Framework
 
 Základní Entity Framework (EF) je lightweight rozšiřitelný, a přístup technologie a platformy verzi oblíbených datům Entity Framework.
 
-Základní EF je objekt relační mapper (O/RM), která umožňuje vývojářům rozhraní .NET pro práci s objekty .NET pomocí databáze. Eliminuje nutnost většinu kódu přístup k datům, které vývojáři potřebují obvykle k zápisu. Jádro EF podporuje mnoho databázové stroje najdete v tématu [zprostředkovatelů databáze](providers/index.md) podrobnosti.
+Základní EF je objekt relační mapper (O/RM), která umožňuje vývojářům rozhraní .NET pro práci s objekty .NET pomocí databáze. Díky tomu není nutná většina kódu pro přístup k datům, který vývojáři obvykle musí vytvářet. Jádro EF podporuje mnoho databázové stroje najdete v tématu [zprostředkovatelů databáze](providers/index.md) podrobnosti.
 
 Pokud chcete další informace o psaní kódu, bychom doporučili jeden z našich [Začínáme](get-started/index.md) příručky, které vám pomůžou začít s EF jádra.
 
-## <a name="latest-version-ef-core-20"></a>Nejnovější verzi: základní EF 2.0
+## <a name="what-is-new-in-ef-core"></a>Co je nového v EF jádra
 
-Pokud jste se seznámili s EF jádra a chcete přejít rovnou do podrobnosti nové verze:
+Pokud jste se seznámili s EF jádra a chcete přejít rovnou do podrobnosti o nejnovějších verzích:
 
-- **[Nové funkce v EF základní 2.0](what-is-new/index.md)**
-- **[Upgrade existující aplikace, aby EF základní 2.0](miscellaneous/1x-2x-upgrade.md)**
+- **[Co je nového v EF základní 2.1 (momentálně ve verzi preview)](xref:core/what-is-new/ef-core-2.1)**
+- **[Co je nového v EF základní 2.0 (na nejnovější prodejní verzi)](xref:core/what-is-new/ef-core-2.0)**
+- **[Upgrade existující aplikace, aby EF základní 2.0](xref:core/miscellaneous/1x-2x-upgrade)**
+
 
 ## <a name="get-entity-framework-core"></a>Získat Entity Framework Core
 

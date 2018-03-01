@@ -6,11 +6,11 @@ ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 ms.technology: entity-framework-core
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 08a4b8c26a3678491d412b333a7415cb45d4231f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 3e0f375fa3e01747565cc158af02f6d21f6ae898
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>Omezení poskytovatele SQLite EF základní databáze
 
@@ -27,24 +27,29 @@ Běžné knihovny relační (sdílené zprostředkovatelé relační databáze E
 
 Databázový stroj SQLite nepodporuje počet operací schématu, které jsou podporovány většinou jiných relačních databází. Pokud se pokusíte provést některé z nepodporované operací k databázi SQLite pak `NotSupportedException` bude vyvolána.
 
-| Operace            | Podporovány? |
-| -------------------- | ---------- |
-| AddColumn            | ✔          |
-| Addforeignkey a        | ✗          |
-| AddPrimaryKey        | ✗          |
-| AddUniqueConstraint  | ✗          |
-| AlterColumn          | ✗          |
-| CreateIndex          | ✔          |
-| CreateTable          | ✔          |
-| DropColumn           | ✗          |
-| DropForeignKey       | ✗          |
-| DropIndex            | ✔          |
-| DropPrimaryKey       | ✗          |
-| DropTable            | ✔          |
-| DropUniqueConstraint | ✗          |
-| RenameColumn         | ✗          |
-| RenameIndex          | ✗          |
-| RenameTable          | ✔          |
+| Operace            | Podporovány? | Vyžaduje verzi |
+|:---------------------|:-----------|:-----------------|
+| AddColumn            | ✔          | 1.0              |
+| AddForeignKey        | ✗          |                  |
+| AddPrimaryKey        | ✗          |                  |
+| AddUniqueConstraint  | ✗          |                  |
+| AlterColumn          | ✗          |                  |
+| CreateIndex          | ✔          | 1.0              |
+| CreateTable          | ✔          | 1.0              |
+| DropColumn           | ✗          |                  |
+| DropForeignKey       | ✗          |                  |
+| DropIndex            | ✔          | 1.0              |
+| DropPrimaryKey       | ✗          |                  |
+| DropTable            | ✔          | 1.0              |
+| DropUniqueConstraint | ✗          |                  |
+| RenameColumn         | ✔          | 2.1              |
+| RenameIndex          | ✔          | 1.0              |
+| RenameTable          | ✔          | 1.0              |
+| EnsureSchema         | ✔ (no-op)  | 2.0              |
+| DropSchema           | ✔ (no-op)  | 2.0              |
+| Insert               | ✔          | 2.0              |
+| Aktualizace               | ✔          | 2.0              |
+| Odstranit               | ✔          | 2.0              |
 
 ## <a name="migrations-limitations-workaround"></a>Alternativní řešení omezení migrace
 
@@ -52,4 +57,4 @@ Alternativní řešení můžete některé z těchto omezení podle ručně psan
 
 V tématu [provedení další typy z změny schématu tabulky](http://sqlite.org/lang_altertable.html#otheralter) v dokumentaci k SQLite další podrobnosti.
 
-V budoucnu EF může podporovat některé z těchto operací pomocí přístup opětovné sestavení tabulky v pozadí. Můžete [sledovat tuto funkci na našem projektu Githubu](https://github.com/aspnet/EntityFramework/issues/329).
+V budoucnu EF může podporovat některé z těchto operací pomocí přístup opětovné sestavení tabulky v pozadí. Můžete [sledovat tuto funkci na našem projektu Githubu](https://github.com/aspnet/EntityFrameworkCore/issues/329).
