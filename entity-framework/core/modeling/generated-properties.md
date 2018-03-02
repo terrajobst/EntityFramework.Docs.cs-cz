@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 2d79bf1339ebe522c39fe8971d908c30e1f4dca0
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="generated-values"></a>Generované hodnoty
 
@@ -50,7 +50,7 @@ Jako `value generated on add`, pokud zadáte hodnotu pro vlastnost na nově při
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence bude primární klíče, které jsou celé číslo nebo identifikátor GUID datového typu instalační program hodnoty vygenerovaný přidat. Všechny ostatní vlastnosti bude instalační program se generací žádná hodnota.
+Podle konvence dlouhé bez složené primární klíče typu short, int, nebo identifikátor Guid bude instalační program a hodnoty generované na Přidat. Všechny ostatní vlastnosti bude instalační program se generací žádná hodnota.
 
 ## <a name="data-annotations"></a>Datových poznámek
 
@@ -85,7 +85,7 @@ Chcete-li změnit hodnotu generování vzor pro danou vlastnost můžete použí
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> `ValueGeneratedOnAdd()`právě umožňuje EF vědět, že hodnoty jsou generovány pro přidání entity, není zaručeno, že bude EF nastavit vlastní mechanizmus ke generování hodnot.  V tématu [přidat hodnotu generovanou na](#value-generated-on-add) další podrobnosti.
+> `ValueGeneratedOnAdd()` právě umožňuje EF vědět, že hodnoty jsou generovány pro přidání entity, není zaručeno, že bude EF nastavit vlastní mechanizmus ke generování hodnot.  V tématu [přidat hodnotu generovanou na](#value-generated-on-add) další podrobnosti.
 
 ### <a name="value-generated-on-add-or-update-fluent-api"></a>Hodnotu generovanou na přidání nebo aktualizace (rozhraní Fluent API)
 

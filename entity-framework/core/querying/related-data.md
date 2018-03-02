@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: ec69bb128890a1e0b72fe77014f37747585bb5a5
-ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.openlocfilehash: dadc6235c3879ae27ad5c99988a5e594872045df
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2018
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="loading-related-data"></a>Načítání související Data
 
 Entity Framework Core umožňuje používat navigační vlastnosti v modelu se načíst související entity. Existují tři obecné vzory O/RM používají k zatížení související data.
 * **Přes načítání** znamená, že související data načtená z databáze jako součást počáteční dotazu.
 * **Explicitní načítání** znamená, že související data se explicitně načíst z databáze později.
-* **Opožděného načítání** znamená, že související transparentně načtení dat z databáze při přístupu k navigační vlastnost. Opožděného načítání ještě není možné s EF jádra.
+* **Opožděného načítání** znamená, že související transparentně načtení dat z databáze při přístupu k navigační vlastnost.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
@@ -57,6 +57,61 @@ Můžete zahrnout více entit v relaci pro jednu z entity, které bude zahrnut. 
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
+### <a name="include-on-derived-types"></a>Zahrnout na odvozené typy
+
+Můžete zahrnout související data z navigací definovaný jenom pro odvozený typ pomocí `Include` a `ThenInclude`. 
+
+Zadaný model následující:
+
+```Csharp
+    public class SchoolContext : DbContext
+    {
+        public DbSet<Person> People { get; set; }
+        public DbSet<School> Schools { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<School>().HasMany(s => s.Students).WithOne(s => s.School);
+        }
+    }
+
+    public class Person
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Student : Person
+    {
+        public School School { get; set; }
+    }
+
+    public class School
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public List<Student> Students { get; set; }
+    }
+```
+
+Obsah `School` navigační všichni uživatelé, kteří jsou studenti, kteří mohou být načteny například, s počtem vzorků:
+
+- pomocí přetypování
+```Csharp
+context.People.Include(person => ((Student)person).School).ToList()
+```
+
+- pomocí `as` – operátor
+```Csharp
+context.People.Include(person => (person as Student).School).ToList()
+```
+
+- pomocí přetížení `Include` , která má parametr typu `string`
+```Csharp
+context.People.Include("Student").ToList()
+```
+
 ### <a name="ignored-includes"></a>Ignorovat zahrnuje
 
 Pokud změníte dotaz tak, že už vrátí instance typu entity, které začne dotaz s, se ignorují operátory zahrnout.
@@ -94,13 +149,174 @@ Můžete také filtrovat, které entit v relaci jsou načtena do paměti.
 
 ## <a name="lazy-loading"></a>opožděného načítání
 
-Opožděného načítání ještě nepodporuje EF jádra. Můžete zobrazit [opožděného načítání položky na našem nevyřízených položek](https://github.com/aspnet/EntityFramework/issues/3797) sledovat tuto funkci.
+> [!NOTE]  
+> Tato funkce byla zavedená v EF základní 2.1.
+
+Nejjednodušší způsob, jak používat opožděného načítání, je instalace [Microsoft.EntityFramworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) balíček a jeho povolení pomocí volání `UseLazyLoadingProxies`. Příklad:
+```Csharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseLazyLoadingProxies()
+        .UseSqlServer(myConnectionString);
+```
+Nebo pokud používáte AddDbContext:
+```Csharp
+    .AddDbContext<BloggingContext>(
+        b => b.UseLazyLoadingProxies()
+              .UseSqlServer(myConnectionString));
+```
+Základní EF potom umožní opožděného načítání pro vlastnost navigace, která je možné přepsat – a který je, musí být `virtual` a na třídu, která je možné zdědit z. Například v následujících entit `Post.Blog` a `Blog.Posts` navigační vlastnosti bude opožděné načíst.
+```Csharp
+public class Blog
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public virtual ICollection<Post> Posts { get; set; }
+}
+
+public class Post
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public virtual Blog Blog { get; set; }
+}
+```
+### <a name="lazy-loading-without-proxies"></a>Lazy načítání bez proxy
+
+Lazy načítání proxy fungovat vložením `ILazyLoader` služby do entity, jak je popsáno v [konstruktory typu Entity](../modeling/constructors.md). Příklad:
+```Csharp
+public class Blog
+{
+    private ICollection<Post> _posts;
+
+    public Blog()
+    {
+    }
+
+    private Blog(ILazyLoader lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private ILazyLoader LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public ICollection<Post> Posts
+    {
+        get => LazyLoader?.Load(this, ref _posts);
+        set => _posts = value;
+    }
+}
+
+public class Post
+{
+    private Blog _blog;
+
+    public Post()
+    {
+    }
+
+    private Post(ILazyLoader lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private ILazyLoader LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public Blog Blog
+    {
+        get => LazyLoader?.Load(this, ref _blog);
+        set => _blog = value;
+    }
+}
+```
+To nevyžaduje typy entit byla zděděna z a navigačních vlastností pro virtuální a umožňuje instancí entit, které jsou vytvořené pomocí `new` opožděné načtení jednou připojené k kontextu. To ale vyžaduje odkaz na `ILazyLoader` službu, která spáruje sestavení EF základní typy entit. Aby se zabránilo tento základní EF umožňuje `ILazyLoader.Load` metoda vložit jako delegáta. Příklad:
+```Csharp
+public class Blog
+{
+    private ICollection<Post> _posts;
+
+    public Blog()
+    {
+    }
+
+    private Blog(Action<object, string> lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private Action<object, string> LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public ICollection<Post> Posts
+    {
+        get => LazyLoader?.Load(this, ref _posts);
+        set => _posts = value;
+    }
+}
+
+public class Post
+{
+    private Blog _blog;
+
+    public Post()
+    {
+    }
+
+    private Post(Action<object, string> lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private Action<object, string> LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public Blog Blog
+    {
+        get => LazyLoader?.Load(this, ref _blog);
+        set => _blog = value;
+    }
+}
+```
+Kód výše používá `Load` metoda rozšíření, aby pomocí delegát trochu čisticí:
+```Csharp
+public static class PocoLoadingExtensions
+{
+    public static TRelated Load<TRelated>(
+        this Action<object, string> loader,
+        object entity,
+        ref TRelated navigationField,
+        [CallerMemberName] string navigationName = null)
+        where TRelated : class
+    {
+        loader?.Invoke(entity, navigationName);
+
+        return navigationField;
+    }
+}
+```
+> [!NOTE]  
+> Parametr konstruktoru pro delegáta opožděného načítání musí být voláno "lazyLoader". Konfigurace použijte jiný název, který to je plánovaná pro budoucí použití.
 
 ## <a name="related-data-and-serialization"></a>Související data a serializace
 
 Protože základní EF bude automaticky opravu up navigační vlastnosti, můžete skončili s cykly v grafu objektu. Například načítání blog a nesouvisí způsobí příspěvcích na blogu objekt, který odkazuje na kolekci zpráv. Každý z těchto příspěvcích bude mít odkaz na blogu.
 
-Některé architektury serializace neumožňují takové cykly. Například Json.NET vyvolá následující výjimky, pokud je encoutered cyklus.
+Některé architektury serializace neumožňují takové cykly. Například Json.NET vyvolá následující výjimka, pokud se zjistil cyklický odkaz.
 
 > Newtonsoft.Json.JsonSerializationException: Vlastní odkazující na smyčky zjištěna vlastnost 'Blog' typu 'MyApplication.Models.Blog'.
 
