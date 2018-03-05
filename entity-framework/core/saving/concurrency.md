@@ -1,33 +1,61 @@
 ---
-title: "Concurrency – zpracování EF jádra"
+title: "Zpracování konfliktů souběžnosti - EF jádra"
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
-ms.assetid: bce0539d-b0cd-457d-be71-f7ca16f3baea
+ms.date: 03/03/2018
 ms.technology: entity-framework-core
 uid: core/saving/concurrency
-ms.openlocfilehash: bbd3e154c1b27b16c7d8f8fbf9ed51df0849795c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 288d9c6fced5ebbaa2c366248c68547502c3698e
+ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/05/2018
 ---
-# <a name="handling-concurrency"></a>Zpracování souběžnosti
+# <a name="handling-concurrency-conflicts"></a>Zpracování konfliktů souběžnosti
 
-Pokud vlastnost je nakonfigurovaný jako token souběžnosti pak EF zkontroluje, že žádný jiný uživatel změnil tuto hodnotu v databázi při ukládání změn do záznamů.
+> [!NOTE]
+> Tato stránka dokumenty fungování souběžnosti v EF jádra a způsobu řešení konfliktů souběžnosti ve vaší aplikaci. V tématu [tokenů souběžnosti](xref:core/modeling/concurrency) podrobnosti o tom, jak nakonfigurovat tokenů souběžnosti v modelu.
 
-> [!TIP]  
+> [!TIP]
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Concurrency/) na Githubu.
 
-## <a name="how-concurrency-handling-works-in-ef-core"></a>Jak funguje zpracování souběžnosti v EF jádra
+_Databáze souběžnosti_ odkazuje na situace, ve kterých více procesů nebo uživatelé přístup, nebo změňte stejná data v databázi ve stejnou dobu. _Kontrola souběžnosti_ odkazuje na konkrétní mechanismy, které se používá k zajištění konzistence dat v přítomnost souběžných změny.
 
-Podrobný popis toho, jak funguje zpracování souběžnosti v Entity Framework Core, najdete v části [tokenů souběžnosti](../modeling/concurrency.md).
+Implementuje EF základní _optimistické řízení souběžného_, což znamená, že se vám umožní více procesů nebo uživatelé provádět změny nezávisle bez režie synchronizace nebo uzamčení. V ideálním případě tyto změny nebude docházet k vzájemnému rušení a proto nebudou úspěšné. V nejhorším scénářem případu dvě nebo více procesů se pokusí provést konfliktní změny a pouze jeden z nich by měl být úspěšné.
+
+## <a name="how-concurrency-control-works-in-ef-core"></a>Jak funguje řízení souběžného zpracování EF jádra
+
+Vlastnosti nakonfigurovaný jako tokenů souběžnosti slouží k implementaci optimistické řízení souběžného: vždy, když se provádí operace aktualizace nebo odstranění během `SaveChanges`, hodnota tokenu souběžnosti v databázi se porovná s původní Hodnota číst EF jádra.
+
+- Pokud se hodnoty shodují, můžete dokončit operaci.
+- Pokud se hodnoty neshodují, EF základní předpokládá, že jiný uživatel provedl konfliktní operace a zruší aktuální transakci.
+
+V případě, když jiného uživatele byla provedena operace, které jsou v konfliktu s aktuální operace se označuje jako _souběžnosti konflikt_.
+
+Zprostředkovatelé databáze jsou zodpovědní za implementaci porovnání hodnot token souběžnosti.
+
+U relačních databází EF základní zahrnuje kontrolu hodnoty tokenu souběžnosti v `WHERE` klauzule libovolného `UPDATE` nebo `DELETE` příkazy. Po provedení příkazy, přečte EF základní počet řádků, které situace měla vliv na.
+
+Pokud jsou vliv na žádné řádky, je zjištěn konflikt souběžnosti a vyvolá EF základní `DbUpdateConcurrencyException`.
+
+Například může chceme konfigurovat `LastName` na `Person` být token souběžnosti. Potom všechny operace aktualizace na osoba bude obsahovat souběžnosti změnami `WHERE` klauzule:
+
+``` sql
+UPDATE [Person] SET [FirstName] = @p1
+WHERE [PersonId] = @p0 AND [LastName] = @p2;
+```
 
 ## <a name="resolving-concurrency-conflicts"></a>Řešení konfliktů souběžnosti
 
-Řešení konfliktů souběžnosti zahrnuje použití algoritmu sloučit čekajících změn z aktuálního uživatele se změny provedené v databázi. Přesný postup budou lišit v závislosti na vaší aplikace, ale běžný postup je zobrazí hodnoty pro uživatele a potom kliknul rozhodnout správné hodnoty, které mají být uloženy v databázi.
+Pokračovat na předchozí příklad, pokud se jeden uživatel se pokusí uložit některé změny `Person`, ale již změnil jiný uživatel `LastName` k výjimce.
 
-**Existují tři sady hodnot, které vám pomůžou vyřešit konflikt souběžnosti.**
+V tomto okamžiku může aplikace jednoduše informujte uživatele, že aktualizace nebyla úspěšná kvůli konfliktu změn a přesunutí na. Ale může být žádoucí výzvy, ujistěte se, že tento záznam stále představuje stejná skutečná osoba a operaci opakujte.
+
+Tento proces je příkladem _vyřešení konfliktu souběžnosti_.
+
+Řešení konfliktů souběžnosti zahrnuje slučování čekajících změn z aktuální `DbContext` s hodnotami v databázi. Jaké hodnoty nesloučí budou lišit v závislosti na aplikaci a může přesměrováni vstup uživatele.
+
+**Existují tři sady hodnot, které vám pomůžou vyřešit konflikt souběžnosti:**
 
 * **Aktuální hodnoty** jsou hodnoty, které aplikace při pokusu o zápis do databáze.
 
@@ -35,106 +63,13 @@ Podrobný popis toho, jak funguje zpracování souběžnosti v Entity Framework 
 
 * **Databáze hodnoty** jsou hodnoty, které jsou aktuálně uloženy v databázi.
 
-Pro zpracování konflikt souběžnosti, catch `DbUpdateConcurrencyException` během `SaveChanges()`, použijte `DbUpdateConcurrencyException.Entries` připravit novou sadu změn pro ovlivněné entity, a poté opakujte `SaveChanges()` operaci.
+Obecné postup pro zpracování konfliktů souběžnosti je:
 
-V následujícím příkladu `Person.FirstName` a `Person.LastName` se instalační program jako token souběžnosti. Došlo `// TODO:` komentář do umístění, kde by mělo zahrnovat určitou logiku aplikace zvolit hodnota, která má být uložen do databáze.
+1. Catch – `DbUpdateConcurrencyException` během `SaveChanges`.
+2. Použití `DbUpdateConcurrencyException.Entries` připravit novou sadu změn pro ovlivněné entity.
+3. Obnovte původní hodnoty tokenu souběžnosti tak, aby odrážela aktuálních hodnot v databázi.
+4. Proces opakujte, dokud dojít ke konfliktům.
 
-<!-- [!code-csharp[Main](samples/core/Saving/Saving/Concurrency/Sample.cs?highlight=53,54)] -->
-``` csharp
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+V následujícím příkladu `Person.FirstName` a `Person.LastName` se instalační program jako tokenů souběžnosti. Je `// TODO:` komentář do umístění, kde zahrnete určitou logiku aplikace zvolte hodnotu uložit.
 
-namespace EFSaving.Concurrency
-{
-    public class Sample
-    {
-        public static void Run()
-        {
-            // Ensure database is created and has a person in it
-            using (var context = new PersonContext())
-            {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-
-                context.People.Add(new Person { FirstName = "John", LastName = "Doe" });
-                context.SaveChanges();
-            }
-
-            using (var context = new PersonContext())
-            {
-                // Fetch a person from database and change phone number
-                var person = context.People.Single(p => p.PersonId == 1);
-                person.PhoneNumber = "555-555-5555";
-
-                // Change the persons name in the database (will cause a concurrency conflict)
-                context.Database.ExecuteSqlCommand("UPDATE dbo.People SET FirstName = 'Jane' WHERE PersonId = 1");
-
-                try
-                {
-                    // Attempt to save changes to the database
-                    context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    foreach (var entry in ex.Entries)
-                    {
-                        if (entry.Entity is Person)
-                        {
-                            // Using a NoTracking query means we get the entity but it is not tracked by the context
-                            // and will not be merged with existing entities in the context.
-                            var databaseEntity = context.People.AsNoTracking().Single(p => p.PersonId == ((Person)entry.Entity).PersonId);
-                            var databaseEntry = context.Entry(databaseEntity);
-
-                            foreach (var property in entry.Metadata.GetProperties())
-                            {
-                                var proposedValue = entry.Property(property.Name).CurrentValue;
-                                var originalValue = entry.Property(property.Name).OriginalValue;
-                                var databaseValue = databaseEntry.Property(property.Name).CurrentValue;
-
-                                // TODO: Logic to decide which value should be written to database
-                                // entry.Property(property.Name).CurrentValue = <value to be saved>;
-
-                                // Update original values to
-                                entry.Property(property.Name).OriginalValue = databaseEntry.Property(property.Name).CurrentValue;
-                            }
-                        }
-                        else
-                        {
-                            throw new NotSupportedException("Don't know how to handle concurrency conflicts for " + entry.Metadata.Name);
-                        }
-                    }
-
-                    // Retry the save operation
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        public class PersonContext : DbContext
-        {
-            public DbSet<Person> People { get; set; }
-
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFSaving.Concurrency;Trusted_Connection=True;");
-            }
-        }
-
-        public class Person
-        {
-            public int PersonId { get; set; }
-
-            [ConcurrencyCheck]
-            public string FirstName { get; set; }
-
-            [ConcurrencyCheck]
-            public string LastName { get; set; }
-
-            public string PhoneNumber { get; set; }
-        }
-
-    }
-}
-```
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]

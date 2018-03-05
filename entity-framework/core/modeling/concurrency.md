@@ -2,35 +2,22 @@
 title: "Tokeny souběžnosti - EF jádra"
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
+ms.date: 03/03/2018
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 ms.technology: entity-framework-core
 uid: core/modeling/concurrency
-ms.openlocfilehash: 6574a9098d38c4aa525ffb4896adb01082420b5f
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: f3cf28d5c54e63aa76058e9fe1d9f3de5b37d579
+ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 03/05/2018
 ---
 # <a name="concurrency-tokens"></a>Tokeny souběžnosti
 
-Pokud vlastnost je nakonfigurovaný jako token souběžnosti pak EF zkontroluje, že žádný jiný uživatel změnil tuto hodnotu v databázi při ukládání změn do záznamů. EF používá optimistickou metodu souběžného vzor, znamená se bude předpokládat, že hodnota nebyla změněna a pokuste se ukládat data, ale výjimku, pokud zjistí, že byla hodnota změněna.
-
-Například může chceme konfigurovat `LastName` na `Person` být token souběžnosti. To znamená, že pokud jeden uživatel se pokusí uložit některé změny `Person`, ale došlo ke změně jiného uživatele `LastName` pak bude vyvolána výjimka. To může být žádoucí, aby vaše aplikace může vyzvat uživatele k Ujistěte se, že tento záznam stále představuje stejná skutečná osoba před uložením jejich změny.
-
 > [!NOTE]
-> Tato stránka dokumenty postup konfigurace tokenů souběžnosti. V tématu [zpracování souběžnosti](../saving/concurrency.md) příklady, jak použít optimistickou metodu souběžného v aplikaci.
+> Tato stránka dokumenty postup konfigurace tokenů souběžnosti. V tématu [zpracování konfliktů souběžnosti](../saving/concurrency.md) pro podrobné vysvětlení, jak funguje řízení souběžnosti na základní EF a příklady způsobu řešení konfliktů souběžnosti ve vaší aplikaci.
 
-## <a name="how-concurrency-tokens-work-in-ef"></a>Jak fungují tokenů souběžnosti v EF
-
-Úložiště dat můžete vynutit tokenů souběžnosti kontrolou, že všechny záznam bude aktualizován nebo odstraněn stále má stejnou hodnotu pro concurrency token, který byl přiřazen při kontext původně načtení dat z databáze.
-
-Například relačních databází dosáhnout zahrnutím token souběžnosti v `WHERE` klauzule libovolného `UPDATE` nebo `DELETE` příkazy a kontrola počet řádků, které situace měla vliv na. Pokud token souběžnosti stále shoduje se bude aktualizovat jeden řádek. Pokud se změnila hodnota v databázi, jsou aktualizovány žádné řádky.
-
-```sql
-UPDATE [Person] SET [FirstName] = @p1
-WHERE [PersonId] = @p0 AND [LastName] = @p2;
-```
+Vlastnosti, které jsou nakonfigurované jako tokenů souběžnosti slouží k implementaci optimistické řízení souběžného.
 
 ## <a name="conventions"></a>Konvence
 
