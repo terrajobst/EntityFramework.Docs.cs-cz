@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 076e9251850ba10df323cd25922aa8b95b3a5491
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db25ed55e3724ee71743e563f39a6e4b16c17589
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/08/2018
 ---
 <a name="entity-framework-core-tools"></a>Základní nástroje Entity Framework
 ===========================
@@ -24,15 +24,9 @@ Oba nástroje zveřejňují stejné funkce. Pokud vyvíjíte v sadě Visual Stud
 ----------
 Nástroje pro podporu projektech zacílených na rozhraní .NET Framework nebo .NET Core.
 
-Pokud je cílem vašeho projektu je jiný framework (například Universal Windows nebo Xamarin), doporučujeme vytvořit samostatnou .NET Standard projektu a cílení na mezi jeden z podporovaných architektur.
+Pokud chcete používat knihovny tříd, pak zvažte, pokud je to možné použití knihovny tříd .NET Core nebo rozhraní .NET Framework. Tato akce způsobí alespoň problémy s nástrojů .NET. Pokud chcete místo toho použijte rozhraní .NET standardní knihovny tříd, budete muset použít spouštěný projekt s cílem rozhraní .NET Framework nebo .NET Core tak, aby nástroje Cílová platforma conrete, do kterého je možné načíst knihovny tříd. Tento projekt po spuštění může být fiktivní projektu žádné skutečné kódem – je pouze potřebných k poskytování cíl pro nástrojů.
 
-Cíl mezi .NET Core, například klikněte pravým tlačítkem na projekt a vyberte **upravit \*.csproj**. Aktualizace `TargetFramework` vlastnost následujícím způsobem. (Všimněte si, název vlastnosti stane množném čísle.)
-
-``` xml
-<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>
-```
-
-Pokud používáte .NET Standard knihovny tříd, nemusíte mezi cíl, pokud je cílem vašeho projektu spuštění rozhraní .NET Framework nebo .NET Core.
+Pokud cílem vašeho projektu je jiný framework (například Universal Windows nebo Xamarin), pak bude muset vytvořit samostatný .NET standardní knihovny tříd. V takovém případě podle pokynů uvedených výše můžete také vytvořit spouštěný projekt, který lze nástroji.
 
 <a name="startup-and-target-projects"></a>Spuštění a cíl projekty
 ---------------------------

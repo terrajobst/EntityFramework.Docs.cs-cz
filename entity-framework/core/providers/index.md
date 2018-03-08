@@ -6,11 +6,11 @@ ms.date: 2/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 ms.technology: entity-framework-core
 uid: core/providers/index
-ms.openlocfilehash: 520afe85af5a2eacbfc2764fdc0a8addb78c07ab
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 6311f6a336198b45d307fa8c4318abd2e64e9df0
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/08/2018
 ---
 # <a name="database-providers"></a>Zprostředkovatelé databáze
 
@@ -71,7 +71,8 @@ install-package provider_package_name
 Po instalaci můžete nakonfigurovat poskytovatele v vaše `DbContext`, buď v `OnConfiguring` metoda nebo v `AddDbContext` metoda, pokud používáte kontejner vkládání závislostí. Například následující řádek konfiguruje zprostředkovatele SQL Server s předaný připojovací řetězec:
 
 ``` csharp
-  optionsBuilder.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
+optionsBuilder.UseSqlServer(
+    "Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
 ```  
 
 Zprostředkovatelé databáze můžete rozšířit EF jádra k povolení funkcí, které jsou jedinečné pro konkrétní databáze. Některé pojmy jsou společné pro většinu databází a jsou součástí primární EF základních komponent. Tyto koncepty zahrnují vyjadřující dotazy v technologii LINQ, transakce a sledování změn pro objekty, jakmile jsou načteny z databáze. Některé pojmy jsou specifické pro konkrétního poskytovatele. Například zprostředkovatele SQL Server umožňuje [konfigurace paměťově optimalizované tabulky](xref:core/providers/sql-server/memory-optimized-tables) (funkce specifické pro systém SQL Server). Další koncepty jsou specifické pro třídu zprostředkovatelů. Například EF hlavními zprostředkovateli pro relační databáze sestavení na nejběžnější `Microsoft.EntityFrameworkCore.Relational` knihovny, která poskytuje rozhraní API pro konfiguraci mapování tabulky a sloupce, omezení cizích klíčů, atd. Poskytovatelé jsou obvykle distribuován jako balíčky NuGet.
