@@ -6,11 +6,11 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: 1e5e9839bae1e5da4082d90c02d098bb3b2b43bd
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: bb1e691e0f22bd36467d58c02bde22c63067207e
+ms.sourcegitcommit: fcaeaf085171dfb5c080ec42df1d1df8dfe204fb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/15/2018
 ---
 # <a name="new-features-in-ef-core-21"></a>Nové funkce v EF základní 2.1
 > [!NOTE]  
@@ -124,7 +124,7 @@ var query = context.Customers.Select(
 
 Všimněte si, že tento dotaz bude možné přeložit pouze dva dotazy SQL: jeden pro zákazníky a dalším pro objednávky.
 
-### <a name="ownedattribute"></a>OwnedAttribute
+## <a name="ownedattribute"></a>OwnedAttribute
 
 Nyní je možné nakonfigurovat [vlastní typy entit](xref:core/modeling/owned-entities) podle jednoduše zadávání poznámek k na typ s `[Owned]` a pak zajistit, owner entity přidají do modelu:
 
@@ -145,7 +145,7 @@ public class Order
 
 ## <a name="database-provider-compatibility"></a>Zprostředkovatel kompatibility databáze
 
-Základní EF 2.1 byla navržená tak, aby byl kompatibilní s poskytovateli databáze vytvořené pro EF základní 2.0. Zatímco některé funkce popsané výše (např. převody hodnot) vyžadují poskytovatele aktualizované jiné (například opožděného načítání) bude light zprostředkovatelům existující.
+Základní EF 2.1 byla navržená tak, aby byl kompatibilní s poskytovateli databáze vytvořené pro EF základní 2.0. Zatímco některé funkce popsané výše (např. převody hodnot) vyžadují poskytovatele aktualizované, ostatní (např. opožděného načítání) bude light zprostředkovatelům existující.
 
 > [!TIP]
 > Pokud zjistíte, že jsou všechny neočekávané nekompatibilita žádný problém nové funkce nebo pokud máte zpětnou vazbu na, nahlaste jej pomocí [náš sledovací modul problém](https://github.com/aspnet/EntityFrameworkCore/issues/new).
