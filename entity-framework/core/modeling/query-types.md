@@ -6,11 +6,11 @@ ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: 19a371c65da33e8209cc1ab3423a67c34ddae61e
-ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
+ms.openlocfilehash: dfd08cd1c30debddc79740bbf05c39c22e973855
+ms.sourcegitcommit: 01b5cf3b7c983bcced91e7cc4c78391ced2d2caa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2018
+ms.lasthandoff: 03/17/2018
 ---
 # <a name="query-types"></a>Typy dotazů
 > [!NOTE]
@@ -20,7 +20,7 @@ Typy dotazů jsou typy výsledků dotazu jen pro čtení, které mohou být při
 
 Jsou koncepčně podobá typy entit v tom, že:
 
-- Jsou typy objektů POCO C#, které jsou přidány do modelu, buď v ```OnModelCreating``` pomocí ```ModelBuilder.Query``` metoda, nebo přes vlastnost DbContext "set" (pro dotaz typy tato vlastnost je zadán jako ```DbQuery<T>``` místo, ```DbSet<T>```).
+- Jsou typy objektů POCO C#, které jsou přidány do modelu, buď v ```OnModelCreating``` pomocí ```ModelBuilder.Query``` metoda, nebo přes vlastnost DbContext "set" (pro dotaz typy tato vlastnost je zadán jako ```DbQuery<T>``` místo ```DbSet<T>```).
 - Podporují většinu stejné mapování funkcí jako typy pravidelných entit. Například mapování dědění, navigací (viz níže limitiations) a na relační úložiště umožňuje konfiguraci cílové databázi objektů schématu prostřednictvím ```ToTable```, ```HasColumn``` metody rozhraní fluent api (nebo pomocí datových poznámek).
 
 Typy dotazů se liší od entity typy v tom, že se:
