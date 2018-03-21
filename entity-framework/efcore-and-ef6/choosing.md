@@ -5,11 +5,11 @@ ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 288f825b-b3e6-4096-971b-d0a1cb96770e
 uid: efcore-and-ef6/choosing
-ms.openlocfilehash: 9a113e0965fa75a03510199fb75165f6e9be0bbd
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: f0a632902384a65ea3cddf752ad262c7a2e89e2e
+ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/20/2018
 ---
 # <a name="ef-core-and-ef6-which-one-is-right-for-you"></a>Základní EF a EF6: který z nich je pro vás nejvhodnější
 
@@ -17,13 +17,11 @@ Následující informace vám pomůže vybrat mezi Entity Framework Core a Entit
 
 ## <a name="guidance-for-new-applications"></a>Pokyny pro nové aplikace
 
-Protože základní EF je novém produktu a stále chybí některé důležité funkce O/RM, zůstanou EF6 nejvhodnější volbou pro mnoho aplikací.
+Zvažte použití EF jádra pro nové aplikace, pokud chcete využít výhod všechny funkce EF jádra a aplikace nevyžaduje žádné funkce, které zatím nejsou implementované v EF jádra.
 
-**Toto jsou typy aplikací, které by doporučujeme používat jádro EF pro:**
+EF6 vyžaduje rozhraní .NET Framework 4.0 (nebo novější verzi) a je podporován pouze v systému Windows (tj, že nefunguje na .NET Core a není podporováno v jiných operačních systémech), ale je stále vhodným řešením pro nové aplikace jsou přijatelné dlouho těchto omezení a aplikačních nevyžaduje nové funkce v EF jádra, které nejsou k dispozici pro EF6.
 
-* Nové aplikace, které nevyžadují funkce, které zatím nejsou implementované v EF jádra. Zkontrolujte [porovnání funkcí](features.md) chcete zobrazit, pokud základní EF může být vhodné volbu pro vaši aplikaci.
-
-* Aplikace, které cílí na .NET Core, jako jsou například aplikace pro univerzální platformu Windows (UWP) a ASP.NET Core. Tyto aplikace nemůžou používat EF6, jak to vyžaduje rozhraní .NET Framework (tj. rozhraní .NET Framework 4.5).
+Zkontrolujte [porovnání funkcí](features.md) chcete zobrazit, pokud základní EF může být vhodné volbu pro vaši aplikaci.
 
 ## <a name="guidance-for-existing-ef6-applications"></a>Pokyny pro existující aplikace EF6
 
