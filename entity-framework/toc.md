@@ -13,10 +13,11 @@
 ## [Entity Framework Core](core/index.md)
 
 ### [Novinky v EF Core](core/what-is-new/index.md)
+#### [EF Core – plán](core/what-is-new/roadmap.md)
 #### [EF Core 2.1 (ve verzi Preview)](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0 (nejnovější vydaná verze)](core/what-is-new/ef-core-2.0.md)
-#### [EF Core 1.1 (předchozí verze)](core/what-is-new/ef-core-1.1.md)
-#### [EF Core 1.0 (předchozí verze)](core/what-is-new/ef-core-1.0.md)
+#### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)
+#### [EF Core 1.0](core/what-is-new/ef-core-1.0.md)
 
 ### [Začínáme](core/get-started/index.md)
 #### [Instalace EF Core](core/get-started/install/index.md)
