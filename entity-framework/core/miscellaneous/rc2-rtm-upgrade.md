@@ -1,16 +1,16 @@
 ---
-title: "Upgrade z EF základní 1.0 RC2 na RTM – EF jádra"
+title: Upgrade z EF základní 1.0 RC2 na RTM – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 ms.technology: entity-framework-core
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 7a1d85949a5f9e1ad7efdbf585a608d815e8ce63
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 4bb4c5736708413f6581cad250b089b7bc22a559
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Upgrade na verzi RTM EF Core 1.0 RC2
 
@@ -50,7 +50,7 @@ Tato změna ovlivňuje projekty, které používají ASP.NET Identity a byly vyt
 
    * NormalizedUserName
 
-   * Uživatelské jméno
+   * UserName
 
 K provedení této změny bude neuděláte následující výjimka při počáteční migrace se použije k databázi.
 
@@ -69,6 +69,9 @@ Pokud byly cílem .NET Core RC2, je potřeba přidat `imports` do souboru projec
   }
 }
 ```
+
+> [!NOTE]  
+> Od verze 1.0 RTM, [.NET Core SDK](https://www.microsoft.com/net/download/core) již nepodporuje `project.json` nebo vývoj aplikací .NET Core pomocí sady Visual Studio 2015. Doporučujeme [migrovat ze souboru project.json csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Pokud používáte Visual Studio, doporučujeme upgradu na [Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
 ## <a name="uwp-add-binding-redirects"></a>UWP: Přidejte přesměrování vazby
 

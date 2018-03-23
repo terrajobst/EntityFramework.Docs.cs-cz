@@ -1,21 +1,18 @@
 ---
-title: "Začínáme na základní EF ASP.NET Core - existující databázi –"
+title: Začínáme na základní EF ASP.NET Core - existující databázi –
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: afd99d68d2ba25ce58a21dc48d2c7ce27f208807
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db2469d0badd428734425c1f568667f00bef2f4f
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Začínáme s EF základní na ASP.NET Core s existující databázi
-
-> [!IMPORTANT]  
-> [.NET Core SDK](https://www.microsoft.com/net/download/core) již nepodporuje `project.json` nebo Visual Studio 2015. Všichni provádění vývoj .NET Core je doporučujeme, aby [migrovat ze souboru project.json csproj](https://docs.microsoft.com/dotnet/articles/core/migration/) a [Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
 V tomto návodu vytvoříte aplikaci ASP.NET MVC jádra, která provádí základní data přístup pomocí rozhraní Entity Framework. Zpětná analýza použije pro vytvoření modelu Entity Framework založené na existující databázi.
 
@@ -39,7 +36,7 @@ Tento kurz používá **blogu** databáze ve vaší instanci LocalDb jako existu
 > [!TIP]  
 > Pokud jste již vytvořili **blogu** databázi jako součást jiného kurzu, můžete přeskočit tyto kroky.
 
-* Otevřete Visual Studio
+* Open Visual Studio
 * **Nástroje -> připojit k databázi...**
 * Vyberte **Microsoft SQL Server** a klikněte na tlačítko **pokračovat**
 * Zadejte **\mssqllocaldb (localdb)** jako **název serveru**
@@ -69,15 +66,15 @@ Abyste mohli používat EF jádra, nainstalujte balíček pro následující zpr
 
 * **Nástroje > Správce balíčků NuGet > Konzola správce balíčků**
 
-* Spustit`Install-Package Microsoft.EntityFrameworkCore.SqlServer`
+* Spustit `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
 Použijeme některé nástroje Entity Framework pro vytvoření modelu z databáze. Proto se nainstaluje balíček nástroje:
 
-* Spustit`Install-Package Microsoft.EntityFrameworkCore.Tools`
+* Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
 Nemůžeme vytvořit kontrolery a zobrazení později na pomocí některé nástroje ASP.NET Core generování uživatelského rozhraní. Proto se nainstaluje tohoto návrhu balíčku:
 
-* Spustit`Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
+* Spustit `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## <a name="reverse-engineer-your-model"></a>Provést zpětnou analýzu modelu
 
@@ -144,7 +141,7 @@ Koncept vkládání závislostí je důležitá pro ASP.NET Core. Služby (např
 
 V ASP.NET Core, konfigurace se obvykle provádí v **Startup.cs**. Tak, aby odpovídala tento vzor, jsme se přesune o konfiguraci zprostředkovatele databáze na **Startup.cs**.
 
-* Otevřete`Models\BloggingContext.cs`
+* Otevřete `Models\BloggingContext.cs`
 * Odstranit `OnConfiguring(...)` – metoda
 
 ``` csharp
@@ -198,7 +195,7 @@ Nyní můžete spustit aplikaci najdete v části v akci.
 
 * **-Ladění > Spustit bez ladění**
 * Aplikace bude sestavovat a otevřete ve webovém prohlížeči
-* Přejděte na`/Blogs`
+* Přejděte na `/Blogs`
 * Klikněte na tlačítko **vytvořit nový**
 * Zadejte **Url** pro nové blog a klikněte na tlačítko **vytvořit**
 
