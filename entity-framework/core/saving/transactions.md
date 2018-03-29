@@ -1,16 +1,16 @@
 ---
-title: "Transakce - EF jádra"
+title: Transakce - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 ms.technology: entity-framework-core
 uid: core/saving/transactions
-ms.openlocfilehash: 2dda7b7d58ae058fc2aa89fe16fbf46adc8c6bdc
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: fe4c0d6ad7ccb2e97dc94fbf2eb26a41e7fbcb19
+ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/28/2018
 ---
 # <a name="using-transactions"></a>Použití transakcí
 
@@ -133,4 +133,4 @@ Je také možné uvést v explicitní transakce.
    > [!IMPORTANT]  
    > Doporučujeme, abyste otestovali, že rozhraní API chovat správně u svého poskytovatele předtím, než byste tedy spoléhat na něm pro správu transakcí. Jste vyzváni ke kontaktování funkce maintainer zprostředkovatele databáze, pokud neexistuje. 
 
-2. Od verze 2.1 System.Transactions – implementace v .NET Core nezahrnuje podpora distribuovaných transakcí, takže nemůže používat `TransactionScope` nebo `CommitableTransaction`koordinovat transakce napříč více správců prostředků. 
+2. Od verze 2.1 System.Transactions – implementace v .NET Core nezahrnuje podpora distribuovaných transakcí, takže nemůže používat `TransactionScope` nebo `CommitableTransaction` koordinovat transakce napříč více správců prostředků. 
