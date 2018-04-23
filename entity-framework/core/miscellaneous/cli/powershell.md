@@ -1,14 +1,14 @@
 ---
-title: "Konzola správce balíčků (Visual Studio) – EF jádra"
+title: Konzola správce balíčků (Visual Studio) – EF jádra
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: aacf8c8564a3966db6202c9ff1c1c02a19a10814
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: a53455a78db4bc504c45abafdacf9a15381f608e
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 <a name="ef-core-package-manager-console-tools"></a>Nástroje konzoly Správce balíčků EF jádra
 =====================================
@@ -100,9 +100,9 @@ Odebere poslední migrace.
 
 Parametry:
 
-|        |                                                                       |
-|:-------|:----------------------------------------------------------------------|
-| -Force | Nekontrolovat Pokud chcete zobrazit, pokud se migrace použil k databázi. |
+|        |                                                              |
+|:-------|:-------------------------------------------------------------|
+| -Force | Migrace vrátit, pokud nebyla použita k databázi. |
 
 ### <a name="scaffold-dbcontext"></a>DbContext vygenerované uživatelské rozhraní
 
@@ -115,6 +115,7 @@ Parametry:
 | <nobr>***-Připojení*** \<řetězec ></nobr> | Připojovací řetězec k databázi.                                                           |
 | ***-Poskytovatel*** \<řetězec >                | Zprostředkovatel, který se má používat. (Např.) Microsoft.EntityFrameworkCore.SqlServer)                              |
 | -OutputDir \<řetězec >                     | Adresář, který chcete umístit soubory do. Cesty se vztahují k adresáři projektu.                      |
+| -ContextDir \<řetězec >                    | Adresář, který chcete umístit do souboru DbContext. Cesty se vztahují k adresáři projektu.             |
 | -Kontext- \<řetězec >                       | Název DbContext ke generování.                                                           |
 | -Schémata \<řetězec [] >                     | Schémata tabulkami k vygenerování typy entit pro.                                              |
 | -Tabulky \<řetězec [] >                      | S tabulkami k vygenerování typy entit pro.                                                         |

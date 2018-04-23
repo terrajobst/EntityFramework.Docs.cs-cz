@@ -1,16 +1,16 @@
 ---
-title: "Vlastní typy entit - EF jádra"
+title: Vlastní typy entit - EF jádra
 author: julielerman
 ms.author: divega
 ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: a6823377eb626ca92263c31351e1aef61db5a787
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: f2f05499a3e3494f420d916df2db19667a6f1e29
+ms.sourcegitcommit: 26f33758c47399ae933f22fec8e1d19fa7d2c0b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/19/2018
 ---
 # <a name="owned-entity-types"></a>Typy entit ve vlastnictví
 
@@ -21,7 +21,7 @@ Základní EF umožňuje modelu typy entit, které se mohou objevit pouze někdy
 
 ## <a name="explicit-configuration"></a>Explicitní konfigurace
 
-Vlastní entity, které typy jsou nikdy součástí podle EF základní model pomocí konvence. Můžete použít `OwnsOne` metoda v `OnModelCreating` nebo opatřit poznámkami na typ s `OwnedAttrbibute` (v EF základní 2.1 nového) ke konfiguraci typu jako typ vlastní.
+Vlastní entity, které typy jsou nikdy součástí podle EF základní model pomocí konvence. Můžete použít `OwnsOne` metoda v `OnModelCreating` nebo opatřit poznámkami na typ s `OwnedAttribute` (v EF základní 2.1 nového) ke konfiguraci typu jako typ vlastní.
 
 V tomto příkladu je StreetAddress typu s žádná vlastnost identity. Jako vlastnost typu pořadí slouží k určení adresy příjemce pro konkrétní pořadí. V `OnModelCreating`, použijeme `OwnsOne` metoda k určení, zda je vlastnost ShippingAddress vlastněná entita typu pořadí.
 

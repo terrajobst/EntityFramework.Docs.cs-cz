@@ -1,22 +1,22 @@
 ---
-title: "Co je nového v EF základní 2.1 - EF jádra"
+title: Co je nového v EF základní 2.1 - EF jádra
 author: divega
 ms.author: divega
 ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: bb1e691e0f22bd36467d58c02bde22c63067207e
-ms.sourcegitcommit: fcaeaf085171dfb5c080ec42df1d1df8dfe204fb
+ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/15/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="new-features-in-ef-core-21"></a>Nové funkce v EF základní 2.1
 > [!NOTE]  
 > Tato verze je stále ve verzi preview.
 
-Kromě malé množství vylepšení a opravy chyb pro více než 100 produktu EF základní 2.1 obsahuje několik nových funkcí:
+Kromě množství oprav chyb a malé vylepšení funkčnosti a výkonu EF základní 2.1 obsahuje některé zajímavé nové funkce:
 
 ## <a name="lazy-loading"></a>opožděného načítání
 Základní EF nyní obsahuje stavební bloky potřebné pro každý, kdo k vytváření tříd entit, které můžete načíst jejich navigační vlastnosti na vyžádání. Také jsme vytvořili nový balíček, Microsoft.EntityFrameworkCore.Proxies, která využívá tyto stavební bloky k vytvoření opožděného načítání proxy třídy na základě minimálně upravit tříd entit (např. tříd pomocí virtuální navigační vlastnosti).
@@ -71,7 +71,7 @@ S novou verzí je možné zajistit počáteční data k naplnění databáze. Na
 Jako příklad, můžete to konfigurovat počáteční data pro metodu Post v `OnModelCreating`:
 
 ``` csharp
-modelBuilder.Entity<Post>().SeedData(new Post{ Id = 1, Text = "Hello World!" });
+modelBuilder.Entity<Post>().HasData(new Post{ Id = 1, Text = "Hello World!" });
 ```
 
 Pro čtení [část dat synchronizace replik indexů](xref:core/modeling/data-seeding) Další informace o tomto tématu.  
@@ -143,9 +143,29 @@ public class Order
 }
 ```
 
+## <a name="new-dotnet-ef-global-tool"></a>Nový nástroj globální ef dotnet.
+
+_Dotnet ef_ příkazy byly převedeny na globální nástroj příkazového řádku .NET, takže už nebude nutné k použití DotNetCliToolReference v projektu, abyste mohli používat migrace nebo vygenerovat DbContext z existující databáze.
+
+## <a name="microsoftentityframeworkcoreabstractions-package"></a>Balíček Microsoft.EntityFrameworkCore.Abstractions
+Nový balíček obsahuje atributy a rozhraní, které můžete ve svých projektech light až EF hlavní funkce bez nutnosti převádět závislost na základní EF jako celek. Například atribut [vlastněno] zavedená v Preview 1 byla přesunout do tohoto umístění.
+
+## <a name="state-change-events"></a>Události změny stavu
+
+Nové `Tracked` a `StateChanged` událostí na `ChangeTracker` slouží k zápisu logiky, která reaguje na entity zadáním DbContext nebo změně jejich stavu.
+
+## <a name="raw-sql-parameter-analyzer"></a>Nezpracovaná analyzátoru parametr SQL
+
+Nový analyzátor kódu je součástí EF jádra, který zjistí potenciálně nebezpečného použití rozhraní API nezpracovaná SQL, jako je třeba `FromSql` nebo `ExecuteSqlCommand`. Například pro tento dotaz, se zobrazí upozornění, protože _minAge_ není parametry:
+
+``` csharp
+var sql = $"SELECT * FROM People WHERE Age > {minAge}";
+var query = context.People.FromSql(sql);
+```
+
 ## <a name="database-provider-compatibility"></a>Zprostředkovatel kompatibility databáze
 
-Základní EF 2.1 byla navržená tak, aby byl kompatibilní s poskytovateli databáze vytvořené pro EF základní 2.0. Zatímco některé funkce popsané výše (např. převody hodnot) vyžadují poskytovatele aktualizované, ostatní (např. opožděného načítání) bude light zprostředkovatelům existující.
+Základní EF 2.1 byly navrženy pro být kompatibilní s poskytovateli databáze vytvořené pro EF základní 2.0 nebo vyžadují alespoň minimální změny. Zatímco některé funkce popsané výše (např. převody hodnot) vyžadují poskytovatele aktualizované, ostatní (např. opožděného načítání) bude light zprostředkovatelům existující.
 
 > [!TIP]
 > Pokud zjistíte, že jsou všechny neočekávané nekompatibilita žádný problém nové funkce nebo pokud máte zpětnou vazbu na, nahlaste jej pomocí [náš sledovací modul problém](https://github.com/aspnet/EntityFrameworkCore/issues/new).

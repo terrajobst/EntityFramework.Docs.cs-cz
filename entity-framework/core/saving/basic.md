@@ -1,16 +1,16 @@
 ---
-title: "Základní uložit - EF jádra"
+title: Základní uložit - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: e99d755b8f7c42b15a73cfdb6a2f8999a405a739
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: deead323301dc4a0ee0748b4536ddff4596b99e6
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="basic-save"></a>Základní uložit
 
@@ -24,6 +24,9 @@ Naučte se přidávat, upravovat a odebírat dat pomocí třídy kontextu a enti
 Použití *DbSet.Add* metoda pro přidání nové instance třídy entity. Data se vloží v databázi při volání *SaveChanges*.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Add)]
+
+> [!TIP]  
+> Metody přidat, připojit a aktualizace všech pracovních na úplné graf entit předaný, jak je popsáno v [související Data](related-data.md) části. Alternativně vlastnost EntityEntry.State slouží k nastavení stavu právě jednu entitu. Například `context.Entry(blog).State = EntityState.Modified`.
 
 ## <a name="updating-data"></a>Aktualizace dat
 

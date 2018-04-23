@@ -1,16 +1,16 @@
 ---
-title: "Převody hodnot - EF jádra"
+title: Převody hodnot - EF jádra
 author: ajcvickers
 ms.author: divega
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 50acba39cdec16caa9300fcaf47ab6242a4f69fb
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 329d2757059462468ca30772d37789343c03ba7b
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="value-conversions"></a>Převody hodnot
 
@@ -137,6 +137,6 @@ Hodnoty výčtu pak bude uložena jako řetězce v databázi bez další konfigu
 
 Existuje několik známá aktuální omezení systému převod hodnoty:
 * Jak jsme uvedli výše, `null` nelze převést.
-* Aktuálně neexistuje žádný způsob, jak šíří převod jednu vlastnost multuple sloupce nebo naopak.
+* Aktuálně neexistuje žádný způsob, jak šíří převodu z jedné vlastnosti do více sloupců nebo naopak.
 * Použití převody hodnot může mít vliv na schopnost EF základní převede výrazy jazyka SQL. Upozornění bude protokolována takových případech.
 Odebrání těchto omezení se považuje za pro budoucí použití.
