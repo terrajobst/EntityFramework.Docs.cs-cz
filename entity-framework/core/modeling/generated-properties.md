@@ -1,16 +1,16 @@
 ---
-title: "Generované hodnoty - EF jádra"
+title: Generované hodnoty - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: 88ccc2da3c2b6cbba8920d7113c82e769b459897
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="generated-values"></a>Generované hodnoty
 
@@ -28,7 +28,7 @@ Hodnotu generovanou na přidání znamená generovaný hodnotu pro nové entity.
 
 V závislosti na poskytovateli databáze používá hodnoty mohou být vygenerována na straně klienta EF nebo v databázi. Pokud hodnota je generován databáze, pak EF může přiřadit dočasnou hodnotou při Přidat entitu do kontextu. Toto dočasný hodnota nahradí pak podle hodnoty generovaný databází během `SaveChanges()`.
 
-Pokud přidáte entitu do kontextu, který má hodnotu přiřazeno k vlastnosti, EF se pokusí vložit tuto hodnotu místo generování novou. Vlastnost má mít hodnota přiřazená, pokud není přiřazen CLR výchozí hodnota (`null` pro `string`, `0` pro `int`, `Guid.Empty` pro `Guid`atd.). Další informace najdete v tématu [explicitní hodnoty vlastností generovaného](..\saving\explicit-values-generated-properties.md).
+Pokud přidáte entitu do kontextu, který má hodnotu přiřazeno k vlastnosti, EF se pokusí vložit tuto hodnotu místo generování novou. Vlastnost má mít hodnota přiřazená, pokud není přiřazen CLR výchozí hodnota (`null` pro `string`, `0` pro `int`, `Guid.Empty` pro `Guid`atd.). Další informace najdete v tématu [explicitní hodnoty vlastností generovaného](../saving/explicit-values-generated-properties.md).
 
 > [!WARNING]  
 > Jak hodnota je generována pro přidání entity bude záviset na používaný zprostředkovatel databáze. Zprostředkovatelé databáze může automaticky nastavit hodnotu generování pro některé typy vlastností, ale jiné může vyžadovat ručně nastavit, jak je generována hodnota.
@@ -39,13 +39,13 @@ Pokud přidáte entitu do kontextu, který má hodnotu přiřazeno k vlastnosti,
 
 Hodnotu generovanou na přidání nebo aktualizace znamená, že nové hodnoty je vygenerováno pokaždé, když uložení záznamu (vložení nebo aktualizace).
 
-Jako `value generated on add`, pokud zadáte hodnotu pro vlastnost na nově přidané instanci entity, že bude místo hodnotu generován vložit hodnotu. Také je možné nastavit explicitní hodnotu, při aktualizaci. Další informace najdete v tématu [explicitní hodnoty vlastností generovaného](..\saving\explicit-values-generated-properties.md).
+Jako `value generated on add`, pokud zadáte hodnotu pro vlastnost na nově přidané instanci entity, že bude místo hodnotu generován vložit hodnotu. Také je možné nastavit explicitní hodnotu, při aktualizaci. Další informace najdete v tématu [explicitní hodnoty vlastností generovaného](../saving/explicit-values-generated-properties.md).
 
-> [!WARNING]  
+> [!WARNING]
 > Jak hodnota je generována pro entity added a aktualizované bude záviset na používaný zprostředkovatel databáze. Zprostředkovatele databáze může automaticky nastavit generování hodnoty pro některé typy vlastností, zatímco ostatní bude vyžadovat, abyste ručně nastavit, jak je generována hodnota.
->
+> 
 > Při použití SQL serveru, například `byte[]` vlastnosti, které jsou nastavené generovaná na Přidat nebo aktualizovat a označen jako tokeny souběžnosti, bude instalační program se `rowversion` datový typ - tak, aby hodnoty se budou generovat v databázi. Ale pokud určíte `DateTime` vlastnost se generuje na přidáte nebo aktualizujete, pak je potřeba nastavit způsob, jak hodnoty má být vygenerován. Jeden způsob, jak to provést, je výchozí hodnota je konfigurace `GETDATE()` (viz [výchozí hodnoty](relational/default-values.md)) ke generování hodnot pro nové řádky. Pak můžete použít aktivační událost databáze ke generování hodnot během aktualizací (jako jsou následující příklad aktivační události).
->
+> 
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.sql)]
 
 ## <a name="conventions"></a>Konvence

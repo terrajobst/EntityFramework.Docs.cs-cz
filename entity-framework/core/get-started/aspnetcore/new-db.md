@@ -1,5 +1,5 @@
 ---
-title: "Začínáme na základní EF ASP.NET Core - novou databázi –"
+title: Začínáme na základní EF ASP.NET Core - novou databázi –
 author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
@@ -8,11 +8,11 @@ ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: f6ed19d3c5d2ae8d1f5756558e50c1f0dddd2f07
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 80477ca57b8b3df6de8ba3595c9056c6b8412040
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF základní na ASP.NET Core s novou databázi
 
@@ -65,7 +65,7 @@ Definujte kontext a entity třídy, které tvoří modelu:
 * Zadejte **Model.cs** jako název a klikněte na tlačítko **OK**.
 * Obsah souboru nahraďte následujícím kódem:
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
 
 Poznámka: V reálné aplikaci byste obvykle umístili každá třída z modelu v samostatném souboru. Z důvodu zjednodušení jsme jsou uvedení všechny třídy v jednom souboru pro účely tohoto kurzu.
 
@@ -78,13 +78,13 @@ V pořadí pro naše řadiče MVC, chcete-li použít `BloggingContext` jsme se 
 * Otevřete **Startup.cs**
 * Přidejte následující `using` příkazy:
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
 
 Přidat `AddDbContext` metody pro registraci jako služba:
 
 * Přidejte následující kód, který `ConfigureServices` metoda:
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
 
 Poznámka: Skutečné aplikace obecně přepnutím připojovací řetězec v konfiguračním souboru. Z důvodu zjednodušení jsme se jeho definováním v kódu. V tématu [připojovací řetězce](../../miscellaneous/connection-strings.md) Další informace.
 

@@ -1,22 +1,22 @@
 ---
-title: "Odstranění – základní EF v kaskádě"
+title: Odstranění – základní EF v kaskádě
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 1ab9d114e27aac0bec972df631a426c8ce87a518
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
-Kaskádové odstranění se běžně používá v terminologii databáze k popisu vlastnosti, který umožňuje odstranění řádku automaticky spouštět odstranění související řádky. Úzce související koncept také předmětem EF základní odstranit chování je automatické odstranění podřízené entity, když se nejedná o relaci k nadřazenému má porušeno – tento i obvykle označuje jako "odstranění osamocené položky".
+Kaskádové odstranění se běžně používá v terminologii databáze k popisu vlastnosti, který umožňuje odstranění řádku automaticky spouštět odstranění související řádky. Úzce související koncept také předmětem EF základní odstranit chování je automatické odstranění entita na podřízené při jeho vztah s nadřazenou položkou bylo porušeno – to se běžně označuje jako "odstranění osamocené položky".
 
-Základní EF implementuje několik různých odstranit chování a umožňuje konfigurovat chování odstranění jednotlivých relací. Základní EF také implementuje konvence, který automaticky nakonfiguruje užitečné výchozí chování delete pro každý vztah podle [requiredness relace] (../modeling/relationships.md#required-and-optional-relationships).
+Základní EF implementuje několik různých odstranit chování a umožňuje konfigurovat chování odstranění jednotlivých relací. Základní EF také implementuje konvence, který automaticky nakonfiguruje užitečné výchozí chování delete pro každý vztah na základě [requiredness relace](../modeling/relationships.md#required-and-optional-relationships).
 
 ## <a name="delete-behaviors"></a>Odstranit chování
 Odstranit chování jsou definovány v *DeleteBehavior* enumerátor typu a se dá předat do *OnDelete* rozhraní fluent API na ovládací prvek zda odstranění hlavní/nadřazená entita nebo severing z vztah k závislé nebo podřízených entit by měl mít vedlejším účinkem závislé nebo podřízených entit.
@@ -35,7 +35,7 @@ Existují čtyři odstranit chování, jak je uvedené v následujících tabulk
 
 | Název chování               | Vliv na závislé a podřízené v paměti    | Vliv na závislé a podřízené databáze  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
-| **Cascade**                 | Entity se odstraní.                   | Entity se odstraní.                   |
+| **CASCADE**                 | Entity se odstraní.                   | Entity se odstraní.                   |
 | **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Žádné                                   |
 | **SetNull**                 | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Vlastnosti cizího klíče jsou nastaveny na hodnotu null |
 | **Omezení**                | Žádné                                   | Žádné                                   |
