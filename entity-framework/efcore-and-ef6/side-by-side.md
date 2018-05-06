@@ -11,15 +11,15 @@ ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
 ---
-# <a name="using-ef-core-and-ef6-in-the-same-application"></a>Pomocí EF jádra a EF6 ve stejné aplikaci
+# <a name="using-ef-core-and-ef6-in-the-same-application"></a>EF Core a EF6 současně ve stejné aplikaci
 
-Je možné použít EF jádra a EF6 ve stejném aplikace rozhraní .NET Framework nebo knihovna nainstalováním oba balíčky NuGet. 
+V případě .NET Frameworku je možné použít současně EF Core a EF6 ve stejné aplikaci. Za tímto účelem je nutné mít nainstalované příslušné NuGet balíčky pro EF Core a EF6. 
 
-Některé typy se stejnými názvy v EF jádra a EF6 a liší pouze v oboru názvů, který může zkomplikovat pomocí EF jádra a EF6 ve stejném souboru kódu. Nejednoznačnosti lze snadno odebrat pomocí direktiv alias oboru názvů, například:
+Mějte na vědomí, že některé typy (třídy) jsou obsažené v EF Core i v EF6 a mohou tak zkomplikovat práci s oběma ORM současně. Nejednoznačné a konfliktní části lze snadno vyřešit použitím aliasů pro obory názvů (namespaces), např.:
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
 using EF6 = System.Data.Entity; // e.g. EF6.DbContext
 ```
 
-Pokud provádíte přenos existující aplikace, která má více EF modelů, můžete selektivně portu některá z nich na jádro EF a pokračovat v používání EF6 pro jiné.
+Pokud migrujete existující databázi, která má v aplikaci více EF modelů, můžete se rozhodnout některé z těchto modelů spravovat pomocí EF Core a jiné nadále spravovat pomocí EF6.
