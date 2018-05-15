@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 396d31c9d0c0f47d299f49e82e557ed29b8420e7
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: d053d53bd50d2e7d16223c5b4e4009c9bb2298bb
+ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/14/2018
 ---
 <a name="ef-core-net-command-line-tools"></a>Nástroje příkazového řádku .NET Core EF
 ===============================
@@ -19,14 +19,18 @@ Nástroje příkazového řádku .NET Core Entity Framework se rozšíření pro
 
 <a name="installing-the-tools"></a>Instalace nástrojů
 --------------------
-Nainstalujte nástroje příkazového řádku EF základní v rozhraní .NET, pomocí těchto kroků:
+> [!NOTE]
+> .NET Core SDK verze 2.1.300 a novější obsahuje **dotnet ef** příkazy, které jsou kompatibilní s EF základní 2.0 a novějšími verzemi. Proto pokud používáte nejnovější verze rozhraní .NET Core SDK a EF Core runtime, není třeba žádná instalace a zbývající část tohoto oddílu můžete ignorovat.
+>
+> Na druhé straně **dotnet ef** nástroj obsažené ve verzi rozhraní .NET Core SDK 2.1.300 a novějších není kompatibilní s EF základní verze 1.0 a 1.1. Než můžete pracovat s projekt, který používá tyto starší verze EF jádra na počítači, který má .NET Core SDK 2.1.300 nebo novější nainstalována, je nutné také nainstalovat verzi 2.1.200 nebo starší sady SDK a konfigurace aplikace pro použití této starší verze úpravou jeho  [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) souboru. Tento soubor je obvykle součástí adresář řešení (předchozímu projekt). Pak můžete pokračovat s installlation pokynů níže.
+
+Pro předchozí verze rozhraní .NET Core SDK můžete nainstalovat nástroje příkazového řádku EF základní v rozhraní .NET, pomocí těchto kroků:
 
 1. Upravte soubor projektu a přidejte Microsoft.EntityFrameworkCore.Tools.DotNet jako položka DotNetCliToolReference (viz níže)
 2. Spusťte následující příkazy:
 
        dotnet add package Microsoft.EntityFrameworkCore.Design
        dotnet restore
-
 
 Výsledný projekt by měl vypadat přibližně takto:
 
