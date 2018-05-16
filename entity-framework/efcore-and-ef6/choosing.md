@@ -1,5 +1,5 @@
 ---
-title: "Základní EF a EF6 – což jeden je pro vás nejvhodnější"
+title: Základní EF a EF6 – což jeden je pro vás nejvhodnější
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -17,7 +17,7 @@ Následující informace vám pomohou při výběru mezi Entity Framework Core a
 
 ## <a name="guidance-for-new-applications"></a>Doporučení pro nové aplikace
 
-EF Core můžete použít pro vývoj nových aplikací, pokud chcete využít všech možností, které EF Core poskytuje, a vaše aplikace nevyžaduje funkce, které ještě nejsou v EF Core implementované.	
+EF Core můžete použít pro vývoj nových aplikací, pokud chcete využít všech možností, které EF Core poskytuje, a vaše aplikace nevyžaduje funkce, které ještě nejsou v EF Core implementované.
 
 Rozhraní EF 6 vyžaduje .NET Framework 4.0 (nebo novější verzi) a je podporované jenom ve Windows (neběží na .NET Core a není podporované v jiných operačních systémech). Stále je však vhodným řešením pro nové aplikace, pokud jsou tato omezení přijatelná a aplikace nevyžaduje nové funkce EF Core, které nejsou v EF6 k dispozici.
 
