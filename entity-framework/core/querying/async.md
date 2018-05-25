@@ -1,5 +1,5 @@
 ---
-title: "Asynchronní dotazy – EF jádra"
+title: Asynchronní dotazy – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 01/24/2017

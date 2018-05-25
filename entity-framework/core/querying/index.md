@@ -1,5 +1,5 @@
 ---
-title: "Dotazování na Data - EF jádra"
+title: Dotazování na Data - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016

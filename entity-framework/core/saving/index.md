@@ -1,5 +1,5 @@
 ---
-title: "Ukládání dat – EF jádra"
+title: Ukládání dat – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016

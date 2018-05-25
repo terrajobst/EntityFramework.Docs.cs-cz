@@ -1,5 +1,5 @@
 ---
-title: "Jak dotazuje pracovní – základní EF"
+title: Jak dotazuje pracovní – základní EF
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -42,7 +42,7 @@ Při volání LINQ operátory jednoduše vytváříte až reprezentaci v paměti
 
 Nejběžnější operace, jejichž výsledkem dotazu odesílány do databáze jsou:
 * Iterace výsledky v `for` smyčky
-* Pomocí operátor, jako třeba `ToList`, `ToArray`, `Single`,`Count`
+* Pomocí operátor, jako třeba `ToList`, `ToArray`, `Single`, `Count`
 * Datové vazby výsledků dotazu do uživatelského rozhraní
 
 > [!WARNING]  
