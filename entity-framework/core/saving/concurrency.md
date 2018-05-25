@@ -1,5 +1,5 @@
 ---
-title: "Zpracování konfliktů souběžnosti - EF jádra"
+title: Zpracování konfliktů souběžnosti - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 03/03/2018

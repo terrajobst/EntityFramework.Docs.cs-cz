@@ -1,5 +1,5 @@
 ---
-title: "Explicitní hodnoty vlastností generovaného - EF základní nastavení"
+title: Explicitní hodnoty vlastností generovaného - EF základní nastavení
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016

@@ -1,5 +1,5 @@
 ---
-title: "Asynchronní ukládání - EF jádra"
+title: Asynchronní ukládání - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 01/24/2017

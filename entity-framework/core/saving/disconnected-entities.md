@@ -1,5 +1,5 @@
 ---
-title: "Odpojené entity - EF jádra"
+title: Odpojené entity - EF jádra
 author: ajcvickers
 ms.author: avickers
 ms.date: 10/27/2016

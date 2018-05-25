@@ -1,5 +1,5 @@
 ---
-title: "Dotaz globální filtry - EF jádra"
+title: Dotaz globální filtry - EF jádra
 author: anpete
 ms.author: anpete
 ms.date: 11/03/2017

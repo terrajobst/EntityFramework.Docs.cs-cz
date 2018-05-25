@@ -1,5 +1,5 @@
 ---
-title: "Klient vs. Zkušební verze serveru – EF jádra"
+title: Klient vs. Zkušební verze serveru – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
