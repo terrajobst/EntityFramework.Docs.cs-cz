@@ -5,11 +5,12 @@ ms.author: divega
 ms.date: 03/03/2018
 ms.technology: entity-framework-core
 uid: core/saving/concurrency
-ms.openlocfilehash: 288d9c6fced5ebbaa2c366248c68547502c3698e
-ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
+ms.openlocfilehash: 2d8909585201a45eb020537847800f125b3b0120
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754390"
 ---
 # <a name="handling-concurrency-conflicts"></a>Zpracování konfliktů souběžnosti
 
@@ -47,7 +48,7 @@ WHERE [PersonId] = @p0 AND [LastName] = @p2;
 
 ## <a name="resolving-concurrency-conflicts"></a>Řešení konfliktů souběžnosti
 
-Pokračovat na předchozí příklad, pokud se jeden uživatel se pokusí uložit některé změny `Person`, ale již změnil jiný uživatel `LastName` k výjimce.
+Pokračovat na předchozí příklad, pokud se jeden uživatel se pokusí uložit některé změny `Person`, ale už změnil jiný uživatel `LastName`, pak bude vyvolána výjimka.
 
 V tomto okamžiku může aplikace jednoduše informujte uživatele, že aktualizace nebyla úspěšná kvůli konfliktu změn a přesunutí na. Ale může být žádoucí výzvy, ujistěte se, že tento záznam stále představuje stejná skutečná osoba a operaci opakujte.
 

@@ -4,11 +4,13 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: d053d53bd50d2e7d16223c5b4e4009c9bb2298bb
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+uid: core/miscellaneous/cli/dotnet
+ms.openlocfilehash: 721235b07e695efd8df43294e1f4e90c28ae83d7
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754493"
 ---
 <a name="ef-core-net-command-line-tools"></a>Nástroje příkazového řádku .NET Core EF
 ===============================
@@ -130,10 +132,10 @@ Scaffold a typy DbContext a entity pro databázi.
 
 Argumenty:
 
-|               |                                                                     |
-|:--------------|:--------------------------------------------------------------------|
-| \<PŘIPOJENÍ &GT; | Připojovací řetězec k databázi.                              |
-| \<ZPROSTŘEDKOVATEL &GT;   | Zprostředkovatel, který se má používat. (Např.) Microsoft.EntityFrameworkCore.SqlServer) |
+|               |                                                                             |
+|:--------------|:----------------------------------------------------------------------------|
+| \<PŘIPOJENÍ &GT; | Připojovací řetězec k databázi.                                      |
+| \<ZPROSTŘEDKOVATEL &GT;   | Zprostředkovatel, který se má používat. (například Microsoft.EntityFrameworkCore.SqlServer) |
 
 Možnosti:
 

@@ -10,7 +10,7 @@ ms.openlocfilehash: 3befcbd3ff3da5dd159e6e6cb5fe7140c81317c2
 ms.sourcegitcommit: a2b38dedc88ca3ccbfe7b1db9602ca02da8294cd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/31/2018
+ms.lasthandoff: 06/04/2018
 ms.locfileid: "34686659"
 ---
 # <a name="entity-framework-core-quick-overview"></a>Rychlý přehled základní Entity Framework

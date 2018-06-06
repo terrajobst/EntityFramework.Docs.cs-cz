@@ -6,20 +6,19 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 2372a6b2e3f3b7b1d9214a6ea321fe28cea45fff
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754422"
 ---
 # <a name="new-features-in-ef-core-21"></a>Nové funkce v EF základní 2.1
-> [!NOTE]  
-> Tato verze je stále ve verzi preview.
 
 Kromě množství oprav chyb a malé vylepšení funkčnosti a výkonu EF základní 2.1 obsahuje některé zajímavé nové funkce:
 
 ## <a name="lazy-loading"></a>opožděného načítání
-Základní EF nyní obsahuje stavební bloky potřebné pro každý, kdo k vytváření tříd entit, které můžete načíst jejich navigační vlastnosti na vyžádání. Také jsme vytvořili nový balíček, Microsoft.EntityFrameworkCore.Proxies, která využívá tyto stavební bloky k vytvoření opožděného načítání proxy třídy na základě minimálně upravit tříd entit (např. tříd pomocí virtuální navigační vlastnosti).
+Základní EF nyní obsahuje stavební bloky potřebné pro každý, kdo k vytváření tříd entit, které můžete načíst jejich navigační vlastnosti na vyžádání. Také jsme vytvořili nový balíček, Microsoft.EntityFrameworkCore.Proxies, která využívá tyto stavební bloky k vytvoření opožděného načítání proxy třídy na základě minimálně upravit tříd entit (například třídy s virtuální navigační vlastnosti).
 
 Pro čtení [část opožděného načítání](xref:core/querying/related-data#lazy-loading) Další informace o tomto tématu.
 
@@ -38,7 +37,7 @@ Až do této chvíle může EF základní mapují jenom vlastnosti typů nativn�
 Pro čtení [část převody hodnot](xref:core/modeling/value-conversions) Další informace o tomto tématu.  
 
 ## <a name="linq-groupby-translation"></a>Překlad LINQ GroupBy
-Před vyhodnocením verze 2.1, které jsou v základní EF operátor GroupBy LINQ byl vždy v paměti. Teď podporují překladu klauzule SQL GROUP BY ve nejběžnější případy.
+Před verzí 2.1, v základní EF operátor GroupBy LINQ by vždy vyhodnoceny v paměti. Teď podporují překladu klauzule SQL GROUP BY ve nejběžnější případy.
 
 Tento příklad ukazuje dotaz s GroupBy slouží k výpočtu různé agregační funkce:
 
@@ -124,7 +123,7 @@ var query = context.Customers.Select(
 
 Všimněte si, že tento dotaz bude možné přeložit pouze dva dotazy SQL: jeden pro zákazníky a dalším pro objednávky.
 
-## <a name="ownedattribute"></a>OwnedAttribute
+## <a name="owned-attribute"></a>Atribut [vlastní]
 
 Nyní je možné nakonfigurovat [vlastní typy entit](xref:core/modeling/owned-entities) podle jednoduše zadávání poznámek k na typ s `[Owned]` a pak zajistit, owner entity přidají do modelu:
 
@@ -143,12 +142,14 @@ public class Order
 }
 ```
 
-## <a name="new-dotnet-ef-global-tool"></a>Nový nástroj globální ef dotnet.
+## <a name="command-line-tool-dotnet-ef-included-in-net-core-sdk"></a>Nástroj příkazového řádku dotnet-ef zahrnuté v rozhraní .NET Core SDK
 
-_Dotnet ef_ příkazy byly převedeny na globální nástroj příkazového řádku .NET, takže už nebude nutné k použití DotNetCliToolReference v projektu, abyste mohli používat migrace nebo vygenerovat DbContext z existující databáze.
+_Dotnet ef_ příkazy jsou teď součástí rozhraní .NET Core SDK, proto ji už nebude nutné k použití DotNetCliToolReference v projektu, abyste mohli používat migrace nebo vygenerovat DbContext z existující databáze.
+
+Projděte část o [instalaci nástrojů](xref:core/miscellaneous/cli/dotnet#installing-the-tools) další podrobnosti o tom, jak povolit nástroje příkazového řádku pro různé verze rozhraní .NET Core SDK a EF jádra.
 
 ## <a name="microsoftentityframeworkcoreabstractions-package"></a>Balíček Microsoft.EntityFrameworkCore.Abstractions
-Nový balíček obsahuje atributy a rozhraní, které můžete ve svých projektech light až EF hlavní funkce bez nutnosti převádět závislost na základní EF jako celek. Například atribut [vlastněno] zavedená v Preview 1 byla přesunout do tohoto umístění.
+Nový balíček obsahuje atributy a rozhraní, které můžete ve svých projektech light až EF hlavní funkce bez nutnosti převádět závislost na základní EF jako celek. Například ILazyLoader rozhraní a atribut [vlastněno] jsou umístěné v tomto poli.
 
 ## <a name="state-change-events"></a>Události změny stavu
 
@@ -165,7 +166,7 @@ var query = context.People.FromSql(sql);
 
 ## <a name="database-provider-compatibility"></a>Zprostředkovatel kompatibility databáze
 
-Základní EF 2.1 byly navrženy pro být kompatibilní s poskytovateli databáze vytvořené pro EF základní 2.0 nebo vyžadují alespoň minimální změny. Zatímco některé funkce popsané výše (např. převody hodnot) vyžadují poskytovatele aktualizované, ostatní (např. opožděného načítání) bude light zprostředkovatelům existující.
+Doporučuje se použít EF základní 2.1 zprostředkovatelům, které byly aktualizovány nebo alespoň testována pro práci s EF základní 2.1.
 
 > [!TIP]
 > Pokud zjistíte, že jsou všechny neočekávané nekompatibilita žádný problém nové funkce nebo pokud máte zpětnou vazbu na, nahlaste jej pomocí [náš sledovací modul problém](https://github.com/aspnet/EntityFrameworkCore/issues/new).

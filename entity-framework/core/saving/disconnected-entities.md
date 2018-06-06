@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: dae6265fe2b9dd2cd5da78dc69d081950f374436
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754396"
 ---
 # <a name="disconnected-entities"></a>Odpojené entity
 
@@ -34,7 +35,7 @@ Zbytek této části popisuje případy kde je potřeba určit jiným způsobem,
 
 ### <a name="with-auto-generated-keys"></a>Automaticky generovaného klíče
 
-Hodnota automaticky generovaného klíče můžete často používá k určení, jestli entity je nutné vložit nebo aktualizovat. Pokud klíč nebylo nebyl nastavený, (tj. stále má CLR výchozí hodnotu null, nula, atd.), pak musí být nové entity a potřebuje vkládání. Na druhé straně-li nastavena hodnota klíče, pak se musí již byly dříve uloženy a nyní je nutné aktualizovat. Jinými slovy Pokud klíč má hodnotu, pak entity byla dotazována může odeslat klientovi a má teď vraťte aktualizovat.
+Hodnota automaticky generovaného klíče můžete často používá k určení, jestli entity je nutné vložit nebo aktualizovat. Pokud klíč nebylo nebyl nastavený, (tj. stále má CLR výchozí hodnotu null, nula, atd.), pak musí být nové entity a potřebuje vkládání. Na druhé straně-li nastavena hodnota klíče, pak se musí již byly dříve uloženy a nyní je nutné aktualizovat. Jinými slovy Pokud klíč má hodnotu a pak entita byla dotazována může odeslat klientovi a má teď vraťte aktualizovat.
 
 Je snadné vyhledávat nenastavené klíč, když je známý typ entity:
 

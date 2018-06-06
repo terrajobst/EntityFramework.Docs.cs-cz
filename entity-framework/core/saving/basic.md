@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: deead323301dc4a0ee0748b4536ddff4596b99e6
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 35bf14af43289ad6308a49482d3f45a7a8be9067
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754393"
 ---
 # <a name="basic-save"></a>Základní uložit
 
@@ -38,7 +39,7 @@ Stačí upravit hodnot přiřazených vlastnosti a pak zavolají *SaveChanges*.
 
 ## <a name="deleting-data"></a>Odstraňování dat
 
-Použití *DbSet.Remove* metodu pro instance tříd entit můžete odstranit.
+Použití *DbSet.Remove* metoda odstranění instancí tříd entity.
 
 Pokud entita již existuje v databázi, se odstraní při *SaveChanges*. Pokud entita ještě nebyl uložen do databáze (tj. jeho sledování jak byl přidán) pak ji bude odebrána z kontextu a bude vložen při *SaveChanges* je volána.
 
