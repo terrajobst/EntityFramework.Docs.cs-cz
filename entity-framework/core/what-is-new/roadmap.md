@@ -6,22 +6,21 @@ ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 ms.technology: entity-framework-core
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: 6c10e64a4fa3bf26dc0da64bb9e102c8b76d3a6e
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: e23f5d7b1ff95bead310fa8e618a88c161a4e10c
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754441"
 ---
 # <a name="entity-framework-core-roadmap"></a>Přehled základní Entity Framework
 
 > [!IMPORTANT]
 > Upozorňujeme, že sady funkcí a plány budoucích verzí se vždy mohou změnit a i když se pokusíte průběžně aktualizovat tuto stránku, nemusí odrážet naše nejnovější plány vůbec časů.
 
-Druhá verze preview EF základní 2.1 byla vydána duben 2018. Teď můžete získat další informace o tomto vydání v [co je nového v EF základní 2.1](xref:core/what-is-new/ef-core-2.1).
+Stabilní verze 2.1 základní EF byla vydána 30 může 2018. Můžete najít další informace o tomto vydání v [co je nového v EF základní 2.1](xref:core/what-is-new/ef-core-2.1).
 
-Plánujeme vydat další náhledy EF základní měsíčně 2.1 a finální verzi na druhý čtvrtletí kalendáře podle 2018.
-
-Jsme nedokončili [verze plánování](#release-planning-process) na další vydání po 2.1.
+Jsme nedokončili [verze procesu plánování](#release-planning-process) na další vydání po 2.1.
 
 ## <a name="schedule"></a>Plán
 
@@ -31,7 +30,7 @@ Plán pro základní EF je synchronizovaná s [.NET Core plán](https://github.c
 
 Používáme [nevyřízených položek milník](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc) v našem sledovací modul problém udržovat podrobný seznam problémů a funkce. Zákazníci mohou komentovat a až hlas, tyto.
 
-Jsme zpravidla zůstat otevřeno, že to bude přiměřeně Očekáváme, že budeme pracovat na v určitém okamžiku nebo někdo z komunity může řešení, ale který neznamená cílem vyřešit v určitém časovém rámci, dokud jsme přiřadit konkrétní verze jako součást naše problémy[verze procesu plánování](#release-planning-process).
+Jsme zpravidla zůstat otevřeno, že to bude přiměřeně Očekáváme, že budeme pracovat na v určitém okamžiku nebo někdo z komunity může řešení, ale který neznamená cílem vyřešit v určitém časovém rámci, dokud jsme přiřadit konkrétní verze jako součást naše problémy [verze procesu plánování](#release-planning-process).
 
 Pokud jsme nemáte v plánu někdy implementovat funkci, jsme se zavře pravděpodobně problém. Pokud jsme získat nové informace o tom můžete znovu problém, který jsme uzavřený posouzeno později.
 
