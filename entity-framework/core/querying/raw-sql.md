@@ -6,15 +6,16 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: 29b7e20e875bf791a88a92636c1df4bc4e31656b
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: 7ed9a8938f8b6dffa7149d64d7e869b0b0078169
+ms.sourcegitcommit: 3adf1267be92effc3c9daa893906a7f36834204f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2018
+ms.lasthandoff: 06/08/2018
+ms.locfileid: "35232172"
 ---
 # <a name="raw-sql-queries"></a>Nezpracovaná SQL dotazy
 
-Entity Framework Core umožňuje rozevírací nabídku nezpracovaná dotazy SQL při práci s relační databáze. To může být užitečné, pokud je dotaz, který chcete provést nedají vyjádřit pomocí LINQ, nebo pokud pomocí dotazu LINQ je výsledkem neefektivní SQL odesílány do databáze.
+Entity Framework Core umožňuje rozevírací nabídku nezpracovaná dotazy SQL při práci s relační databáze. To může být užitečné, pokud je dotaz, který chcete provést nedají vyjádřit pomocí LINQ, nebo pokud pomocí dotazu LINQ je výsledkem neefektivní SQL odesílány do databáze. Nezpracovaná SQL dotazy mohou vracet typy entit nebo, počínaje EF základní 2.1, [typy dotazů](xref:core/modeling/query-types) které jsou součástí modelu.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
@@ -22,7 +23,6 @@ Entity Framework Core umožňuje rozevírací nabídku nezpracovaná dotazy SQL 
 ## <a name="limitations"></a>Omezení
 
 Je třeba vzít na vědomí při použití nezpracovaná dotazů SQL několik omezení:
-* Dotazy SQL slouží pouze k návratové typy entit, které jsou součástí modelu. Je vylepšení na našem nevyřízených položek do [povolit vrácení ad-hoc typy z nezpracovaná dotazy SQL](https://github.com/aspnet/EntityFramework/issues/1862).
 
 * Příkaz jazyka SQL musí vracet data pro všechny vlastnosti typu entity nebo dotazu.
 

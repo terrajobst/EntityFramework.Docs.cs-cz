@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 ms.technology: entity-framework-core
 uid: core/saving/transactions
-ms.openlocfilehash: fe4c0d6ad7ccb2e97dc94fbf2eb26a41e7fbcb19
-ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
+ms.openlocfilehash: 21a03f8915cba926d55f8b122ae585bd8946eeee
+ms.sourcegitcommit: 5715caf923c3761e72b1b4ae589547584b459708
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/28/2018
+ms.lasthandoff: 06/09/2018
+ms.locfileid: "35250769"
 ---
 # <a name="using-transactions"></a>Použití transakcí
 
@@ -128,7 +129,7 @@ Je také možné uvést v explicitní transakce.
 
 ### <a name="limitations-of-systemtransactions"></a>System.Transactions – omezení  
 
-1. Základní EF spoléhá na zprostředkovatele databáze pro implementaci podpory System.Transactions. I když podpora je celkem běžné mezi zprostředkovatele ADO.NET pro rozhraní .NET Framework, rozhraní API pouze byl nedávno přidán do .NET Core a proto podporují není možné jako rozšířeným. Pokud zprostředkovatele neimplementuje podporu pro System.Transactions, je možné, že volání tato rozhraní API budou zcela ignorovány. SqlClient pro .NET Core podporuje z 2.1 a vyšší. SqlClient pro rozhraní .NET 2.0 základní vyvolá výjimku z pokusíte použít funkci. 
+1. Základní EF spoléhá na zprostředkovatele databáze pro implementaci podpory System.Transactions. I když podpora je celkem běžné mezi zprostředkovatele ADO.NET pro rozhraní .NET Framework, proto není podpora jako rozšířeným a rozhraní API pouze byl nedávno přidán do .NET Core. Pokud zprostředkovatele neimplementuje podporu pro System.Transactions, je možné, že volání tato rozhraní API budou zcela ignorovány. SqlClient pro .NET Core podporuje z 2.1 a vyšší. SqlClient pro rozhraní .NET 2.0 základní vyvolá výjimku z pokusíte použít funkci. 
 
    > [!IMPORTANT]  
    > Doporučujeme, abyste otestovali, že rozhraní API chovat správně u svého poskytovatele předtím, než byste tedy spoléhat na něm pro správu transakcí. Jste vyzváni ke kontaktování funkce maintainer zprostředkovatele databáze, pokud neexistuje. 
