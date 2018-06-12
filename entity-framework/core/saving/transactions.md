@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 ms.technology: entity-framework-core
 uid: core/saving/transactions
-ms.openlocfilehash: 21a03f8915cba926d55f8b122ae585bd8946eeee
-ms.sourcegitcommit: 5715caf923c3761e72b1b4ae589547584b459708
+ms.openlocfilehash: 6e6ded74e15187b387e8e0b2ad00cb47a84ff7e8
+ms.sourcegitcommit: 6cf6493d81b6d81b0b0f37a00e0fc23ec7189158
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2018
-ms.locfileid: "35250769"
+ms.lasthandoff: 06/12/2018
+ms.locfileid: "35323829"
 ---
 # <a name="using-transactions"></a>Použití transakcí
 
@@ -32,35 +32,7 @@ Můžete použít `DbContext.Database` rozhraní API, chcete-li začít, potvrze
 
 Ne všechny databáze zprostředkovatelé podporovat transakce. Někteří poskytovatelé může vyvolat nebo no-op při transakce jsou volání rozhraní API.
 
-<!-- [!code-csharp[Main](samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?highlight=3,17,18,19)] -->
-``` csharp
-        using (var context = new BloggingContext())
-        {
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                try
-                {
-                    context.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/dotnet" });
-                    context.SaveChanges();
-
-                    context.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/visualstudio" });
-                    context.SaveChanges();
-
-                    var blogs = context.Blogs
-                        .OrderBy(b => b.Url)
-                        .ToList();
-
-                    // Commit transaction if all commands succeed, transaction will auto-rollback
-                    // when disposed if either commands fails
-                    transaction.Commit();
-                }
-                catch (Exception)
-                {
-                    // TODO: Handle failure
-                }
-            }
-        }
-```
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
 
 ## <a name="cross-context-transaction-relational-databases-only"></a>Mezi kontextu transakce (pouze relační databáze)
 
@@ -121,11 +93,11 @@ Následující příklad ukazuje, jak k provedení operace ADO.NET SqlClient a E
 
 Je možné použít vedlejším transakcí, pokud je potřeba koordinovat ve větší rozsah.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,24,25,26)]
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
 
 Je také možné uvést v explicitní transakce.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,13,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
 
 ### <a name="limitations-of-systemtransactions"></a>System.Transactions – omezení  
 
