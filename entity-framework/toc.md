@@ -127,7 +127,7 @@
 #### [Upgrade z verze 1.0 RC2 na RTM](core/miscellaneous/rc2-rtm-upgrade.md)
 #### [Upgrade na EF Core 2.0](core/miscellaneous/1x-2x-upgrade.md)
 
-### [⤤ Referenční dokumentace k rozhraním API](https://docs.microsoft.com/dotnet/api/?view=efcore-2.0)
+### [⤤ Referenční dokumentace k rozhraním API](https://docs.microsoft.com/dotnet/api/?view=efcore-2.1)
 
 ## [Entity Framework 6](ef6/index.md)
 ### [⤤ Dokumentace](http://msdn.com/data/ef)
