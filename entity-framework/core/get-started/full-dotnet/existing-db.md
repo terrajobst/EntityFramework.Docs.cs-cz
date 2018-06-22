@@ -11,6 +11,7 @@ ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812622"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework-with-an-existing-database"></a>Začínáme s EF základní na rozhraní .NET Framework s existující databázi
 

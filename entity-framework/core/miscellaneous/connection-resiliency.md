@@ -1,5 +1,5 @@
 ---
-title: "Odolnost připojení - EF jádra"
+title: Odolnost připojení - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 11/15/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/05/2017
+ms.locfileid: "26054556"
 ---
 # <a name="connection-resiliency"></a>Odolnost připojení
 

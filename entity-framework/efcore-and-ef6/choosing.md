@@ -10,6 +10,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002818"
 ---
 # <a name="ef-core-and-ef6-which-one-is-right-for-you"></a>EF Core a EF6: který z nich je pro vás nejvhodnější
 

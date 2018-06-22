@@ -1,5 +1,5 @@
 ---
-title: "Portování ze EF6 na jádro EF – portování Model založené na kódu"
+title: Portování ze EF6 na jádro EF – portování Model založené na kódu
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054283"
 ---
 # <a name="porting-an-ef6-code-based-model-to-ef-core"></a>Portování Model založené na kódu EF6 na jádro EF
 

@@ -1,5 +1,5 @@
 ---
-title: "Testování s InMemory - EF jádra"
+title: Testování s InMemory - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: d096484dcf9eff73d9943fa60db7a418b10ca0b3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 01/22/2018
+ms.locfileid: "27995584"
 ---
 # <a name="testing-with-inmemory"></a>Testování s InMemory
 

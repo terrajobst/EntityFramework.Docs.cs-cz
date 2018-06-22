@@ -1,5 +1,5 @@
 ---
-title: "Střídání mezi více modely stejného typu DbContext - EF jádra"
+title: Střídání mezi více modely stejného typu DbContext - EF jádra
 author: AndriySvyryd
 ms.author: divega
 ms.date: 12/10/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678719"
 ---
 # <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Střídání mezi více modely stejného typu DbContext
 

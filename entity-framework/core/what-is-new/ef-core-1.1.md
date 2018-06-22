@@ -1,5 +1,5 @@
 ---
-title: "Co je nového v EF základní 1.1 - EF jádra"
+title: Co je nového v EF základní 1.1 - EF jádra
 author: divega
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054286"
 ---
 # <a name="new-features-in-ef-core-11"></a>Nové funkce v EF základní 1.1
 

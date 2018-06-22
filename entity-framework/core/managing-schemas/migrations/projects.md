@@ -1,5 +1,5 @@
 ---
-title: "Migrace s více projekty - EF jádra"
+title: Migrace s více projekty - EF jádra
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 12/22/2017
+ms.locfileid: "27161224"
 ---
 <a name="using-a-separate-project"></a>Pomocí samostatného projektu
 ========================

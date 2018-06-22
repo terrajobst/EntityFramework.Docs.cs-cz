@@ -1,5 +1,5 @@
 ---
-title: "Správa databáze schémata - EF jádra"
+title: Správa databáze schémata - EF jádra
 author: bricelam
 ms.author: divega
 ms.date: 10/30/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054739"
 ---
 # <a name="managing-database-schemas"></a>Správa schémat databáze
 Základní EF poskytuje dva primární způsoby udržování schéma modelu a databázi EF základní synchronizace. Vybrat mezi nimi, rozhodnete, jestli váš model EF jádra nebo schéma databáze zdroj pravdivosti.

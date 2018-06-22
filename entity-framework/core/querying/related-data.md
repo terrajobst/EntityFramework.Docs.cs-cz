@@ -6,11 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: 5f1fb9376300739ab0e306d9d60e7ec71aa2d2e7
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: dc8ef0b2f194fbedfaf58a9499719531a96f70da
+ms.sourcegitcommit: 3d69ea20a7a0cca4d8e5d68bcfd3d1ee16950390
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2018
+ms.lasthandoff: 06/21/2018
+ms.locfileid: "36299359"
 ---
 # <a name="loading-related-data"></a>Načítání související Data
 
@@ -208,7 +209,7 @@ public class Blog
 
     public ICollection<Post> Posts
     {
-        get => LazyLoader?.Load(this, ref _posts);
+        get => LazyLoader.Load(this, ref _posts);
         set => _posts = value;
     }
 }
@@ -234,12 +235,12 @@ public class Post
 
     public Blog Blog
     {
-        get => LazyLoader?.Load(this, ref _blog);
+        get => LazyLoader.Load(this, ref _blog);
         set => _blog = value;
     }
 }
 ```
-To nevyžaduje typy entit byla zděděna z a navigačních vlastností pro virtuální a umožňuje instancí entit, které jsou vytvořené pomocí `new` opožděné načtení jednou připojené k kontextu. To ale vyžaduje odkaz na `ILazyLoader` službu, která spáruje sestavení EF základní typy entit. Aby se zabránilo tento základní EF umožňuje `ILazyLoader.Load` metoda vložit jako delegáta. Příklad:
+To nevyžaduje typy entit byla zděděna z a navigačních vlastností pro virtuální a umožňuje instancí entit, které jsou vytvořené pomocí `new` opožděné načtení jednou připojené k kontextu. To ale vyžaduje odkaz na `ILazyLoader` služba, která je definována v [Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) balíčku. Tento balíček obsahuje minimální sadu typů tak, aby bylo velmi malý vliv v v závislosti na jeho. Abyste se vyhnuli zcela v závislosti na balíčcích EF základní v typy entit, je však možné vložit `ILazyLoader.Load` metoda jako delegáta. Příklad:
 ```Csharp
 public class Blog
 {
@@ -261,7 +262,7 @@ public class Blog
 
     public ICollection<Post> Posts
     {
-        get => LazyLoader?.Load(this, ref _posts);
+        get => LazyLoader.Load(this, ref _posts);
         set => _posts = value;
     }
 }
@@ -287,7 +288,7 @@ public class Post
 
     public Blog Blog
     {
-        get => LazyLoader?.Load(this, ref _blog);
+        get => LazyLoader.Load(this, ref _blog);
         set => _blog = value;
     }
 }

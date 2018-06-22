@@ -1,5 +1,5 @@
 ---
-title: "Podporované implementace rozhraní .NET – EF jádra"
+title: Podporované implementace rozhraní .NET – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 08/30/2017
@@ -10,6 +10,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678673"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>Implementace rozhraní .NET podporuje EF jádra
 

@@ -1,5 +1,5 @@
 ---
-title: "Dědičnost (relační databáze) - EF jádra"
+title: Dědičnost (relační databáze) - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152353"
 ---
 # <a name="inheritance-relational-database"></a>Dědičnost (relační databáze)
 

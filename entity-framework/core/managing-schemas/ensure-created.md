@@ -1,5 +1,5 @@
 ---
-title: "Vytvoření a vyřadit rozhraní API – EF jádra"
+title: "\U0001F527Vytvoření a vyřadit rozhraní API – EF jádra"
 author: bricelam
 ms.author: bricelam
 ms.date: 11/10/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054730"
 ---
 # <a name="-create-and-drop-apis"></a>🔧Vytvoření a vyřadit rozhraní API
 

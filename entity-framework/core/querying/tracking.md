@@ -11,6 +11,7 @@ ms.sourcegitcommit: 3b6159db8a6c0653f13c7b528367b4e69ac3d51e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/28/2017
+ms.locfileid: "26054784"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Sledování vs. Ne sledování dotazy
 

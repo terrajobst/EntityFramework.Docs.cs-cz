@@ -10,6 +10,7 @@ ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/28/2018
+ms.locfileid: "30202481"
 ---
 <a name="design-time-dbcontext-creation"></a>Vytváření návrhu DbContext
 ==============================

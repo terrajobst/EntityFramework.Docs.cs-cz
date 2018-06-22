@@ -11,6 +11,7 @@ ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 04/16/2018
+ms.locfileid: "31006647"
 ---
 # <a name="saving-related-data"></a>Ukládání souvisejících dat
 

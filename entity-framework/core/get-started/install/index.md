@@ -1,5 +1,5 @@
 ---
-title: "Instalace jádra EF"
+title: Instalace jádra EF
 author: divega
 ms.author: divega
 ms.date: 08/06/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054646"
 ---
 # <a name="installing-ef-core"></a>Instalace jádra EF
 

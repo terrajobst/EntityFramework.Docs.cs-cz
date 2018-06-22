@@ -1,5 +1,5 @@
 ---
-title: "Migrace s několika poskytovateli - EF jádra"
+title: Migrace s několika poskytovateli - EF jádra
 author: bricelam
 ms.author: bricelam
 ms.date: 11/8/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002802"
 ---
 <a name="migrations-with-multiple-providers"></a>Migrace s několika poskytovateli
 ==================================

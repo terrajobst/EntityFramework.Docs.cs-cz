@@ -11,6 +11,7 @@ ms.sourcegitcommit: 605e42232854ce44bae09624a6eebc35b8e2473b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 05/16/2018
+ms.locfileid: "34191113"
 ---
 # <a name="value-conversions"></a>Převody hodnot
 

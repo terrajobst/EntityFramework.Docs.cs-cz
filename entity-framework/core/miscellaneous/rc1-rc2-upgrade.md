@@ -1,5 +1,5 @@
 ---
-title: "Upgrade z EF základní 1.0 RC1 na RC2 - EF jádra"
+title: Upgrade z EF základní 1.0 RC1 na RC2 - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678624"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>Upgrade z EF základní 1.0 RC1 na 1.0 RC2
 
