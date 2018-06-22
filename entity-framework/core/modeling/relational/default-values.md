@@ -1,5 +1,5 @@
 ---
-title: "Výchozí hodnoty - EF jádra"
+title: Výchozí hodnoty - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054190"
 ---
 # <a name="default-values"></a><span data-ttu-id="13cd4-102">Výchozí hodnoty</span><span class="sxs-lookup"><span data-stu-id="13cd4-102">Default Values</span></span>
 

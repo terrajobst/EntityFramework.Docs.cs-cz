@@ -1,5 +1,5 @@
 ---
-title: "Zprostředkovatel databáze SQLite – EF jádra"
+title: Zprostředkovatel databáze SQLite – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678745"
 ---
 # <a name="sqlite-ef-core-database-provider"></a><span data-ttu-id="80652-102">Zprostředkovatel SQLite EF základní databáze</span><span class="sxs-lookup"><span data-stu-id="80652-102">SQLite EF Core Database Provider</span></span>
 

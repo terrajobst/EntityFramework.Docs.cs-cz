@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054103"
 ---
 # <a name="basic-queries"></a><span data-ttu-id="d0719-102">Základní dotazy</span><span class="sxs-lookup"><span data-stu-id="d0719-102">Basic Queries</span></span>
 

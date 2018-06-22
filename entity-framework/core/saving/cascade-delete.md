@@ -11,6 +11,7 @@ ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812674"
 ---
 # <a name="cascade-delete"></a><span data-ttu-id="3685e-102">Kaskádové odstranění</span><span class="sxs-lookup"><span data-stu-id="3685e-102">Cascade Delete</span></span>
 

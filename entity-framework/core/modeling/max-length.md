@@ -1,5 +1,5 @@
 ---
-title: "Maximální délka - EF jádra"
+title: Maximální délka - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054163"
 ---
 # <a name="maximum-length"></a><span data-ttu-id="872cc-102">Maximální délka</span><span class="sxs-lookup"><span data-stu-id="872cc-102">Maximum Length</span></span>
 

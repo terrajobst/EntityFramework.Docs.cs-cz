@@ -1,5 +1,5 @@
 ---
-title: "Začínáme v rozhraní .NET Framework – EF jádra"
+title: Začínáme v rozhraní .NET Framework – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152357"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework"></a><span data-ttu-id="e03bd-102">Začínáme s EF základní na rozhraní .NET Framework</span><span class="sxs-lookup"><span data-stu-id="e03bd-102">Getting Started with EF Core on .NET Framework</span></span>
 

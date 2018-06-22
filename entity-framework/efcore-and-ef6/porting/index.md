@@ -1,5 +1,5 @@
 ---
-title: "Portování ze EF6 do EF jádra"
+title: Portování ze EF6 do EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054199"
 ---
 # <a name="porting-from-ef6-to-ef-core"></a><span data-ttu-id="46f6f-102">Portování ze EF6 do EF jádra</span><span class="sxs-lookup"><span data-stu-id="46f6f-102">Porting from EF6 to EF Core</span></span>
 

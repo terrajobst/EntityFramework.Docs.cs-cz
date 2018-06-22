@@ -1,5 +1,5 @@
 ---
-title: "Co je nového v EF základní 1.0 - EF jádra"
+title: Co je nového v EF základní 1.0 - EF jádra
 author: divega
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054295"
 ---
 # <a name="features-included-in-ef-core-10"></a><span data-ttu-id="2301c-102">Funkce obsažené v EF základní 1.0</span><span class="sxs-lookup"><span data-stu-id="2301c-102">Features included in EF Core 1.0</span></span>
 

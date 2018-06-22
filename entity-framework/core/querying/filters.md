@@ -10,6 +10,7 @@ ms.sourcegitcommit: 6e379265e4f087fb7cf180c824722c81750554dc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054760"
 ---
 # <a name="global-query-filters"></a><span data-ttu-id="5a39e-102">Filtry globální dotazu</span><span class="sxs-lookup"><span data-stu-id="5a39e-102">Global Query Filters</span></span>
 

@@ -1,5 +1,5 @@
 ---
-title: "Porovnání EF Core a EF6"
+title: Porovnání EF Core a EF6
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002753"
 ---
 # <a name="compare-ef-core--ef6"></a><span data-ttu-id="5cb31-102">Porovnání EF Core a EF6</span><span class="sxs-lookup"><span data-stu-id="5cb31-102">Compare EF Core & EF6</span></span>
 

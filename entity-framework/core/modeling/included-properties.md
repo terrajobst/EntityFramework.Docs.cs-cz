@@ -1,5 +1,5 @@
 ---
-title: "Včetně & vyloučení vlastnosti – EF jádra"
+title: Včetně & vyloučení vlastnosti – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054073"
 ---
 # <a name="including--excluding-properties"></a><span data-ttu-id="4f6b3-102">Včetně & vyloučení vlastnosti</span><span class="sxs-lookup"><span data-stu-id="4f6b3-102">Including & Excluding Properties</span></span>
 

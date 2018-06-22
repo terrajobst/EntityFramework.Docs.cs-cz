@@ -1,5 +1,5 @@
 ---
-title: "Upgrade z předchozí verze na 2 jádra EF – EF jádra"
+title: Upgrade z předchozí verze na 2 jádra EF – EF jádra
 author: divega
 ms.author: divega
 ms.date: 8/13/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678611"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a><span data-ttu-id="82fd1-102">Upgrade aplikace z předchozích verzí na EF základní 2.0</span><span class="sxs-lookup"><span data-stu-id="82fd1-102">Upgrading applications from previous versions to EF Core 2.0</span></span>
 

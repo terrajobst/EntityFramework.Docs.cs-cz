@@ -1,5 +1,5 @@
 ---
-title: "Migrace v prostředích Team - EF jádra"
+title: Migrace v prostředích Team - EF jádra
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26054724"
 ---
 <a name="migrations-in-team-environments"></a><span data-ttu-id="6481f-102">Migrace v prostředích Team</span><span class="sxs-lookup"><span data-stu-id="6481f-102">Migrations in Team Environments</span></span>
 ===============================

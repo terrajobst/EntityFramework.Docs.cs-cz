@@ -1,5 +1,5 @@
 ---
-title: "Dědičnost – EF jádra"
+title: Dědičnost – EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054196"
 ---
 # <a name="inheritance"></a><span data-ttu-id="611f9-102">Dědičnost</span><span class="sxs-lookup"><span data-stu-id="611f9-102">Inheritance</span></span>
 

@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054214"
 ---
 # <a name="querying-data"></a><span data-ttu-id="37467-102">Dotazování na Data</span><span class="sxs-lookup"><span data-stu-id="37467-102">Querying Data</span></span>
 

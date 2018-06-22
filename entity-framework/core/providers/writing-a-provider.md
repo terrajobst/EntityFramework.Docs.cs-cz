@@ -1,5 +1,5 @@
 ---
-title: "Zápis poskytovatele databáze - EF jádra"
+title: Zápis poskytovatele databáze - EF jádra
 author: anmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678957"
 ---
 # <a name="writing-a-database-provider"></a><span data-ttu-id="53ca4-102">Zápis poskytovatele databáze</span><span class="sxs-lookup"><span data-stu-id="53ca4-102">Writing a Database Provider</span></span>
 

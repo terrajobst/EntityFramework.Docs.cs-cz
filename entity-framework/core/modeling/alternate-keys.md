@@ -1,5 +1,5 @@
 ---
-title: "Alternativní klíče - EF jádra"
+title: Alternativní klíče - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054067"
 ---
 # <a name="alternate-keys"></a><span data-ttu-id="b0e2c-102">Alternativní klíče</span><span class="sxs-lookup"><span data-stu-id="b0e2c-102">Alternate Keys</span></span>
 

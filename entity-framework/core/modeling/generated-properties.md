@@ -11,6 +11,7 @@ ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812635"
 ---
 # <a name="generated-values"></a><span data-ttu-id="59c08-102">Generované hodnoty</span><span class="sxs-lookup"><span data-stu-id="59c08-102">Generated Values</span></span>
 

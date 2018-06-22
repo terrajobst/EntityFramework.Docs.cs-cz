@@ -1,5 +1,5 @@
 ---
-title: "Začínáme na základní EF UWP - novou databázi –"
+title: Začínáme na základní EF UWP - novou databázi –
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -12,6 +12,7 @@ ms.sourcegitcommit: 96324e58c02b97277395ed43173bf13ac80d2012
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 12/01/2017
+ms.locfileid: "26054814"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a><span data-ttu-id="dd893-102">Začínáme s EF základní na univerzální platformu Windows (UWP) s novou databázi</span><span class="sxs-lookup"><span data-stu-id="dd893-102">Getting Started with EF Core on Universal Windows Platform (UWP) with a New Database</span></span>
 

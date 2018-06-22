@@ -1,5 +1,5 @@
 ---
-title: "Požadované a volitelné vlastnosti - EF jádra"
+title: Požadované a volitelné vlastnosti - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054250"
 ---
 # <a name="required-and-optional-properties"></a><span data-ttu-id="c17fe-102">Požadované a volitelné vlastnosti</span><span class="sxs-lookup"><span data-stu-id="c17fe-102">Required and Optional Properties</span></span>
 

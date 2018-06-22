@@ -1,5 +1,5 @@
 ---
-title: "Reference k příkazovému řádku - EF jádra"
+title: Reference k příkazovému řádku - EF jádra
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/08/2018
+ms.locfileid: "29769403"
 ---
 <a name="entity-framework-core-tools"></a><span data-ttu-id="bf852-102">Základní nástroje Entity Framework</span><span class="sxs-lookup"><span data-stu-id="bf852-102">Entity Framework Core Tools</span></span>
 ===========================

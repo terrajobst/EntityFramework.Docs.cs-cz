@@ -1,5 +1,5 @@
 ---
-title: "Databáze SQLite zprostředkovatele - omezení - EF jádra"
+title: Databáze SQLite zprostředkovatele - omezení - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 04/09/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 60b831318c4f5ec99061e8af6a7c9e7c03b3469c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/02/2018
+ms.locfileid: "29719482"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a><span data-ttu-id="1c35f-102">Omezení poskytovatele SQLite EF základní databáze</span><span class="sxs-lookup"><span data-stu-id="1c35f-102">SQLite EF Core Database Provider Limitations</span></span>
 

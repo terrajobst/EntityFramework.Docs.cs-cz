@@ -1,5 +1,5 @@
 ---
-title: "Nástroje a rozšíření – EF jádra"
+title: Nástroje a rozšíření – EF jádra
 author: ErikEJ
 ms.author: divega
 ms.date: 7/3/2018
@@ -11,6 +11,7 @@ ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/08/2018
+ms.locfileid: "29769436"
 ---
 # <a name="ef-core-tools--extensions"></a><span data-ttu-id="87dd0-102">EF základní nástroje a rozšíření</span><span class="sxs-lookup"><span data-stu-id="87dd0-102">EF Core Tools & Extensions</span></span>
 

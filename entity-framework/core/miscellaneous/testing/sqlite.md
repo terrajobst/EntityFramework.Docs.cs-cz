@@ -1,5 +1,5 @@
 ---
-title: "Testování pomocí SQLite - EF jádra"
+title: Testování pomocí SQLite - EF jádra
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26054172"
 ---
 # <a name="testing-with-sqlite"></a><span data-ttu-id="5d03a-102">Testování pomocí SQLite</span><span class="sxs-lookup"><span data-stu-id="5d03a-102">Testing with SQLite</span></span>
 
