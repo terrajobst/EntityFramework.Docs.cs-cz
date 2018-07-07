@@ -1,70 +1,71 @@
 ---
-title: Testování s InMemory - EF jádra
+title: Testování s InMemory – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 0d0590f1-1ea3-4d5c-8f44-db17395cd3f3
 ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/in-memory
-ms.openlocfilehash: 33690e3424d0777930d3cb8167575fb0f4ddd8f7
-ms.sourcegitcommit: d096484dcf9eff73d9943fa60db7a418b10ca0b3
+ms.openlocfilehash: f814c8955e155688bb5e8d34b9c9f6d24dcc6601
+ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2018
-ms.locfileid: "27995584"
+ms.lasthandoff: 07/07/2018
+ms.locfileid: "37900259"
 ---
 # <a name="testing-with-inmemory"></a>Testování s InMemory
 
-Zprostředkovatel InMemory je užitečné, když chcete testovat komponent pomocí něco, co blíží připojení k databázi skutečné bez režie skutečné databázových operací.
+Zprostředkovatel InMemory je užitečné, když chcete testovat komponenty pomocí nějakého nástroje, které se blíží připojení k databázi skutečné bez režie skutečné databázových operací.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) na Githubu.
 
 ## <a name="inmemory-is-not-a-relational-database"></a>InMemory není relační databáze
 
-EF základní databáze zprostředkovatelé nemusí být relačních databází. InMemory je navržený jako databázi obecné účely pro testování a není navržen tak, aby napodoboval relační databáze.
+Poskytovatelé databází EF Core nemají být relačních databází. InMemory byla navržena jako univerzální databázi pro účely testování a není navržen tak, aby napodoboval relační databáze.
 
-Některé příklady tohoto:
+Příklady zahrnují:
+
 * InMemory vám umožní uložit data, která by způsobila porušení omezení referenční integrity v relační databázi.
-
-* Pokud používáte DefaultValueSql(string) pro vlastnost v modelu, to je rozhraní API, relační databáze a nebude mít žádný vliv, při spuštění proti InMemory.
+* Pokud používáte DefaultValueSql(string) pro vlastnost v modelu, to je relační databáze rozhraní API a nebude mít žádný vliv, pokud provádějí InMemory.
+* [Souběžnost prostřednictvím verze časové razítko/řádku](xref:core/modeling/concurrency#timestamprow-version) (`[Timestamp]` nebo `IsRowVersion`) se nepodporuje. Ne [DbUpdateConcurrencyException](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception) bude vyvolána, pokud se provádí aktualizace pomocí staré tokenem souběžnosti.
 
 > [!TIP]  
-> Pro mnoho testovací účely nebude podstatné tyto rozdíly. Ale pokud chcete k testování proti něco, co se chová podobně jako hodnota true, relační databáze, pak zvažte použití [SQLite v paměti režimu](sqlite.md).
+> Pro mnoho testovací účely nebude důležité tyto rozdíly. Nicméně, pokud chcete testování proti objektu, který se chová podobně jako true relační databáze, pak zvažte použití [režimu in-memory SQLite](sqlite.md).
 
-## <a name="example-testing-scenario"></a>Příklad scénáře testování
+## <a name="example-testing-scenario"></a>Ukázkový scénář testování
 
-Vezměte v úvahu následující služby, který umožňuje aplikaci provádět některé operace související s blogy. Interně používá `DbContext` která se připojuje k databázi systému SQL Server. Je užitečné odkládacího souboru tímto kontextem za účelem připojení k databázi InMemory, aby jsme můžete zapsat efektivní testy pro tuto službu bez nutnosti změnit kód, nebo můžete provést spoustu práce vytvoření testu dvojité kontextu.
+Vezměte v úvahu následující služba, která umožňuje provádět některé operace související s blogy kódu aplikace. Interně používá `DbContext` , která se připojuje k databázi SQL serveru. Bylo by užitečné přepínat tímto kontextem za účelem připojení k databázi InMemory tak, aby jsme zápisu efektivních testů pro tuto službu bez nutnosti upravovat kód, nebo dělat spoustu práce pro vytvoření testu double kontextu.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
 
-## <a name="get-your-context-ready"></a>Příprava váš kontext
+## <a name="get-your-context-ready"></a>Připravte váš kontext
 
-### <a name="avoid-configuring-two-database-providers"></a>Vyhnout konfiguraci dva poskytovatelé databáze
+### <a name="avoid-configuring-two-database-providers"></a>Nechcete konfigurovat dva poskytovatelé databází
 
-Ve vašich testech budete externě nakonfigurovat kontext pro použití poskytovatele InMemory. Pokud konfigurujete poskytovatele databáze přepsáním `OnConfiguring` v kontextu, budete muset přidat podmíněného kód, který Ujistěte se, pokud nebylo bylo nakonfigurováno pouze konfiguraci poskytovatele za databáze.
+Ve vašich testech se chystáte externě nakonfigurovat místní na použití poskytovatele InMemory. Pokud konfigurujete poskytovatele databáze tak, že přepíšete `OnConfiguring` v kontextu, pak budete muset přidat některé podmíněný kód tak, aby, pokud ještě nebyl nakonfigurován pouze konfigurace poskytovatele databáze.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
 
 > [!TIP]  
-> Pokud používáte ASP.NET Core, neměli vzhledem k tomu, že poskytovatel databáze je již nakonfigurována mimo kontext (v souboru Startup.cs) potřebovat tento kód.
+> Pokud používáte ASP.NET Core, by neměla od svého poskytovatele databáze je již nakonfigurován mimo kontext (v souboru Startup.cs) musí tento kód.
 
-### <a name="add-a-constructor-for-testing"></a>Přidejte konstruktor pro testování
+### <a name="add-a-constructor-for-testing"></a>Přidejte konstruktor pro účely testování
 
-Nejjednodušší způsob, jak povolit testování proti do jiné databáze je cílem upravit váš kontext vystavit konstruktor, který přijímá `DbContextOptions<TContext>`.
+Nejjednodušší způsob, jak povolit testování na jinou databázi je upravit kontext k vystavení konstruktor, který přijímá `DbContextOptions<TContext>`.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
 
 > [!TIP]  
-> `DbContextOptions<TContext>`informuje kontextu veškeré jeho nastavení, jako je například databázi, ke které připojit k. Toto je stejný objekt, který je sestavena spuštění metody OnConfiguring ve vašem kontextu.
+> `DbContextOptions<TContext>` říká kontextu veškeré jeho nastavení, jako je například pro připojení k databázi. Toto je stejný objekt, který je sestavený používané metody OnConfiguring váš kontext.
 
 ## <a name="writing-tests"></a>Zápis testů
 
-Klíč k testování s tímto poskytovatelem přístup je schopnost říct kontext, který má použít poskytovatele InMemory a řízení rozsahu databázi v paměti. Obvykle budete chtít vyčištění databáze pro každou metodu test.
+Klíčem k testování s tímto poskytovatelem je možnost předat kontext, který má používat poskytovatele InMemory a řízení rozsahu databázi v paměti. Obvykle chcete vyčistit databázi pro každou metodu testu.
 
-Tady je příklad testovací třídu, která používá databázi InMemory. Každá metoda testovací Určuje jedinečný název databáze, což znamená, že každá z metod má svou vlastní databázi InMemory.
+Tady je příklad testovací třídy, která používá databázi InMemory. Každá testovací metoda Určuje jedinečný název databáze, což znamená, že každá z metod má svou vlastní databázi InMemory.
 
 >[!TIP]
-> Chcete-li použít `.UseInMemoryDatabase()` metoda rozšíření, odkaz na balíček NuGet `Microsoft.EntityFrameworkCore.InMemory`.
+> Použít `.UseInMemoryDatabase()` metody rozšíření, odkaz na balíček NuGet `Microsoft.EntityFrameworkCore.InMemory`.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/InMemory/BlogServiceTests.cs)]
