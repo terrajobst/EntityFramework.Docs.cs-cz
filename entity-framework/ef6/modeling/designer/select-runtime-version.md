@@ -1,0 +1,57 @@
+---
+title: Výběr Entity Framework verze modulu Runtime EF návrháře modelů - EF6
+author: divega
+ms.date: 2016-10-23
+ms.prod: entity-framework
+ms.author: divega
+ms.manager: avickers
+ms.technology: entity-framework-6
+ms.topic: article
+ms.assetid: 7ace90a6-46f8-4f55-a88c-7cad9620085c
+caps.latest.revision: 3
+ms.openlocfilehash: 75f7b4ed81528683801893c31de490ce15be6733
+ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914254"
+---
+# <a name="selecting-entity-framework-runtime-version-for-ef-designer-models"></a><span data-ttu-id="cfb70-102">Výběr Entity Framework verze modulu Runtime EF návrháře modelů</span><span class="sxs-lookup"><span data-stu-id="cfb70-102">Selecting Entity Framework Runtime Version for EF Designer Models</span></span>
+> [!NOTE]
+> <span data-ttu-id="cfb70-103">**EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6.</span><span class="sxs-lookup"><span data-stu-id="cfb70-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="cfb70-104">Pokud používáte starší verzi, některé nebo všechny informace neplatí.</span><span class="sxs-lookup"><span data-stu-id="cfb70-104">If you are using an earlier version, some or all of the information does not apply.</span></span>
+
+<span data-ttu-id="cfb70-105">Počínaje EF6 na tomto obrázku byl přidán do EF designeru a umožňuje tak vybrat verzi modulu runtime, kterou chcete cílit při vytváření modelu.</span><span class="sxs-lookup"><span data-stu-id="cfb70-105">Starting with EF6 the following screen was added to the EF Designer to allow you to select the version of the runtime you wish to target when creating a model.</span></span> <span data-ttu-id="cfb70-106">Na obrazovce se objeví, když v projektu již není nainstalována nejnovější verze Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="cfb70-106">The screen will appear when the latest version of Entity Framework is not already installed in the project.</span></span> <span data-ttu-id="cfb70-107">Pokud už je nainstalovaná nejnovější verze budou používat jenom ve výchozím nastavení.</span><span class="sxs-lookup"><span data-stu-id="cfb70-107">If the latest version is already installed it will just be used by default.</span></span>
+
+![Obrazovka](~/ef6/media/screen.png)
+
+
+## <a name="targeting-ef6x"></a><span data-ttu-id="cfb70-109">Cílení EF6.x</span><span class="sxs-lookup"><span data-stu-id="cfb70-109">Targeting EF6.x</span></span>
+
+<span data-ttu-id="cfb70-110">EF6 můžete vybrat z obrazovky zvolte si verzi přidat modul runtime EF6 do projektu.</span><span class="sxs-lookup"><span data-stu-id="cfb70-110">You can choose EF6 from the 'Choose Your Version' screen to add the EF6 runtime to your project.</span></span> <span data-ttu-id="cfb70-111">Po přidání EF6, už nebudou zobrazovat tuto obrazovku v aktuálním projektu.</span><span class="sxs-lookup"><span data-stu-id="cfb70-111">Once you've added EF6, you’ll stop seeing this screen in the current project.</span></span>
+
+<span data-ttu-id="cfb70-112">EF6 bude zakázáno, pokud už máte starší verzi EF nainstalovaný (protože je nelze cílit na více verzí modulu runtime ve stejném projektu).</span><span class="sxs-lookup"><span data-stu-id="cfb70-112">EF6 will be disabled if you already have an older version of EF installed (since you can't target multiple versions of the runtime from the same project).</span></span> <span data-ttu-id="cfb70-113">Pokud tady není povolená možnost EF6, upgradujte váš projekt EF6 pomocí těchto kroků:</span><span class="sxs-lookup"><span data-stu-id="cfb70-113">If EF6 option is not enabled here, follow these steps to upgrade your project to EF6:</span></span>
+
+1.  <span data-ttu-id="cfb70-114">Klikněte pravým tlačítkem na projekt v Průzkumníku řešení a vyberte **spravovat balíčky NuGet...**</span><span class="sxs-lookup"><span data-stu-id="cfb70-114">Right-click on your project in Solution Explorer and select **Manage NuGet Packages...**</span></span>
+2.  <span data-ttu-id="cfb70-115">Vyberte **aktualizace**</span><span class="sxs-lookup"><span data-stu-id="cfb70-115">Select **Updates**</span></span>
+3.  <span data-ttu-id="cfb70-116">Vyberte **EntityFramework** (ujistěte se, že se bude aktualizovat na požadovanou verzi)</span><span class="sxs-lookup"><span data-stu-id="cfb70-116">Select **EntityFramework** (make sure it is going to update it to the version you want)</span></span>
+4.  <span data-ttu-id="cfb70-117">Klikněte na tlačítko **aktualizace**</span><span class="sxs-lookup"><span data-stu-id="cfb70-117">Click **Update**</span></span>
+
+ 
+
+## <a name="targeting-ef5x"></a><span data-ttu-id="cfb70-118">Cílení EF5.x</span><span class="sxs-lookup"><span data-stu-id="cfb70-118">Targeting EF5.x</span></span>
+
+<span data-ttu-id="cfb70-119">EF5 můžete vybrat z obrazovky zvolte si verzi modulu runtime EF5 přidejte do projektu.</span><span class="sxs-lookup"><span data-stu-id="cfb70-119">You can choose EF5 from the 'Choose Your Version' screen to add the EF5 runtime to your project.</span></span> <span data-ttu-id="cfb70-120">Po přidání EF5, pořád uvidíte na obrazovce s EF6 možnost zakázána.</span><span class="sxs-lookup"><span data-stu-id="cfb70-120">Once you've added EF5, you’ll still see the screen with the EF6 option disabled.</span></span>
+
+<span data-ttu-id="cfb70-121">Pokud máte EF4.x verzi modulu runtime nainstalovány uvidíte, že tato verze EF uvedené v EF5 obrazovky spíše než.</span><span class="sxs-lookup"><span data-stu-id="cfb70-121">If you have an EF4.x version of the runtime already installed then you will see that version of EF listed in the screen rather than EF5.</span></span> <span data-ttu-id="cfb70-122">V takovém případě můžete upgradovat na EF5 pomocí následujících kroků:</span><span class="sxs-lookup"><span data-stu-id="cfb70-122">In this situation you can upgrade to EF5 using the following steps:</span></span>
+
+1.  <span data-ttu-id="cfb70-123">Vyberte **nástroje –&gt; Správce balíčků knihoven -&gt; Konzola správce balíčků**</span><span class="sxs-lookup"><span data-stu-id="cfb70-123">Select **Tools -&gt; Library Package Manager -&gt; Package Manager Console**</span></span>
+2.  <span data-ttu-id="cfb70-124">Spustit **Install-Package EntityFramework – verze 5.0.0**</span><span class="sxs-lookup"><span data-stu-id="cfb70-124">Run **Install-Package EntityFramework -version 5.0.0**</span></span>
+
+ 
+
+## <a name="targeting-ef4x"></a><span data-ttu-id="cfb70-125">Cílení EF4.x</span><span class="sxs-lookup"><span data-stu-id="cfb70-125">Targeting EF4.x</span></span>
+
+<span data-ttu-id="cfb70-126">Modul runtime EF4.x můžete nainstalovat do vašeho projektu pomocí následujících kroků:</span><span class="sxs-lookup"><span data-stu-id="cfb70-126">You can install the EF4.x runtime to your project using the following steps:</span></span>
+
+1.  <span data-ttu-id="cfb70-127">Vyberte **nástroje –&gt; Správce balíčků knihoven -&gt; Konzola správce balíčků**</span><span class="sxs-lookup"><span data-stu-id="cfb70-127">Select **Tools -&gt; Library Package Manager -&gt; Package Manager Console**</span></span>
+2.  <span data-ttu-id="cfb70-128">Spustit **EntityFramework Install-Package-verze 4.3.0**</span><span class="sxs-lookup"><span data-stu-id="cfb70-128">Run **Install-Package EntityFramework -version 4.3.0**</span></span>
