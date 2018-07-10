@@ -1,31 +1,31 @@
 ---
-title: Co je nového v EF základní 2.0 - EF jádra
+title: Novinky v EF Core 2.0 – EF Core
 author: divega
 ms.author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 02d0b6fe2956e819e08e08c9a0658008abd36c34
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 4b319e7d4571e5e32ae7470601345e6f98807551
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29680162"
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "37911538"
 ---
-# <a name="new-features-in-ef-core-20"></a>Nové funkce v EF základní 2.0
+# <a name="new-features-in-ef-core-20"></a>Novinky v EF Core 2.0
 
-## <a name="net-standard-20"></a>Rozhraní .NET standard 2.0
-Základní EF teď cílí standardní 2.0 rozhraní .NET, která znamená, že můžete pracovat s .NET Core 2.0, .NET Framework 4.6.1 a další knihovny, které implementují rozhraní .NET 2.0 standardní.
-V tématu [podporované implementace rozhraní .NET](../platforms/index.md) další podrobnosti o co je podporováno.
+## <a name="net-standard-20"></a>.NET standard 2.0
+EF Core teď cílí na .NET Standard 2.0, což znamená, že můžete pracovat s .NET Core 2.0, rozhraní .NET Framework 4.6.1 a dalších knihoven, které implementují rozhraní .NET Standard 2.0.
+Zobrazit [implementace .NET nepodporuje](../platforms/index.md) podrobné informace o podporovaných.
 
 ## <a name="modeling"></a>Modelování
 
 ### <a name="table-splitting"></a>Rozdělení tabulky
 
-Nyní je možné namapovat minimálně dva typy entit na stejnou tabulku, kde budou sdílet primární klíče sloupce a každý řádek odpovídá položce dvě nebo více entit.
+Nyní je možné mapovat dvěma nebo více typů entit do stejné tabulky, kde primární klíč sloupců, které se bude sdílet, a každý řádek odpovídá dva nebo více entit.
 
-Chcete-li tabulka rozdělení identifikační vztah (kde vlastnosti cizího klíče formuláři primární klíč) nutné nakonfigurovat mezi všemi typy entit sdílení v tabulce:
+Pokud chcete používat tabulky rozdělení identifikační vztah (kde vlastnosti cizího klíče tvoří primární klíč) musí nakonfigurovat mezi všemi typy entit v tabulce pro sdílení obsahu:
 
 ``` csharp
 modelBuilder.Entity<Product>()
@@ -35,11 +35,11 @@ modelBuilder.Entity<Product>().ToTable("Products");
 modelBuilder.Entity<ProductDetails>().ToTable("Products");
 ```
 
-### <a name="owned-types"></a>Vlastní typy
+### <a name="owned-types"></a>Vlastněné typy
 
-Typ entity ve vlastnictví můžete sdílet stejný typ CLR s jiným typem vlastní entity, ale vzhledem k tomu, že ho nelze identifikovat právě typ CLR musí být navigaci k němu z jiného typu entity. Entita obsahující definující navigační je vlastníkem. Při dotazování vlastník, budou ve výchozím nastavení zahrnuty vlastní typy.
+Typ vlastnictví entity můžete sdílet stejný typ CLR s jiným typem vlastnictví entity, ale protože nebylo možné identifikovat jenom podle typu CLR musí být navigaci k němu z jiného typu entity. Entita obsahující definující navigace je vlastníkem. Při dotazování na vlastníka vlastněné typy budou zahrnuty ve výchozím nastavení.
 
-Podle konvence se vytvoří stínové primární klíč pro vlastní typ a bude být namapované na stejné tabulce jako vlastník pomocí rozdělení tabulky. To umožňuje použití vlastní typy podobně jako na tom, jak komplexní typy, které se používají v EF6:
+Podle konvence se vytvoří stínové primární klíč pro typ vlastnictví a ho budou zmapována do stejné tabulky jako vlastník pomocí rozdělení tabulky. To umožňuje použití vlastní typy podobně jako na tom, jak komplexní typy, které se používají v EF6:
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, cb =>
@@ -66,16 +66,16 @@ public class StreetAddress
     public string City { get; set; }
 }
 ```
-Pro čtení [části na typy entit ve vlastnictví](xref:core/modeling/owned-entities) Další informace o této funkci.
+Přečtěte si [věnované vlastněné typy entit](xref:core/modeling/owned-entities) Další informace o této funkci.
 
-### <a name="model-level-query-filters"></a>Dotaz na úrovni modelu filtry
+### <a name="model-level-query-filters"></a>Filtry na úrovni modelu dotazu
 
-Základní EF 2.0 obsahuje novou funkci říkáme filtry dotazu na úrovni modelu. Tato funkce umožňuje predikáty dotaz LINQ (logický výraz obvykle předaný operátor dotazu LINQ kde) aby byla definována přímo na typy entit v modelu metadat (obvykle v OnModelCreating). Tyto filtry jsou automaticky použita pro všechny dotazy LINQ zahrnující tyto typy entit, včetně typů entit odkazované nepřímo, jako prostřednictvím zahrnout nebo přímé navigační vlastnost odkazů. Některé běžné aplikace této funkce jsou:
+EF Core 2.0 obsahuje novou funkci označujeme je jako filtry dotazu modelu. Tato funkce umožňuje predikáty dotazu LINQ (logický výraz předaný operátoru dotazu LINQ kde obvykle) Chcete-li definovat přímo na typy entit v modelu metadat (obvykle v OnModelCreating). Tyto filtry se automaticky použijí na všechny LINQ dotazy zahrnující tyto typy entit, včetně odkazy na typy entit odkazované nepřímo, jako například pomocí zahrnutí nebo přímé navigační vlastnosti. Jsou některé běžné aplikace tuto funkci:
 
-- Soft odstranit – typy entit definuje vlastnost IsDeleted.
-- Víceklientský – typ Entity definuje vlastnost TenantId.
+- Obnovitelné odstranění – typy entit definuje vlastnost IsDeleted.
+- Víceklientská architektura – typ Entity definuje vlastnost TenantId.
 
-Zde je jednoduchý příklad ukázka funkce pro dva scénáře uvedené výše:
+Tady je ukázka funkce pro dva scénáře uvedené výše jednoduchý příklad:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -93,22 +93,22 @@ public class BloggingContext : DbContext
     }
 }
 ```
-Jsme definovali filtr na úrovni modelu, který implementuje víceklientský a konfigurace soft odstranění pro instance ```Post``` typ Entity. Všimněte si použití úrovně vlastnost instance DbContext: ```TenantId```. Filtry na úrovni modelu použije hodnotu z instance správný kontext. Například ten, který je provádění dotazu.
+Definujeme filtr modelu, který implementuje více tenantů a obnovitelného odstranění pro instance ```Post``` typu Entity. Všimněte si použití úrovně vlastnost instance DbContext: ```TenantId```. Filtry na úrovni modelu bude používat hodnotu z instance správný kontext. To znamená ten, který spouští dotaz.
 
 U jednotlivých dotazů LINQ pomocí operátoru IgnoreQueryFilters() může být zakázáno filtry.
 
 #### <a name="limitations"></a>Omezení
 
-- Navigační odkazy nejsou povoleny. Tuto funkci lze přidat podle zpětnou vazbu.
-- Filtry lze definovat pouze v kořenovém adresáři typ Entity v hierarchii.
+- Navigační odkazy nejsou povoleny. Tato funkce se můžou přidávat na základě zpětné vazby.
+- Filtry je možné definovat pouze na kořenový typ Entity v hierarchii.
 
 ### <a name="database-scalar-function-mapping"></a>Mapování skalární funkce databáze
 
-Základní EF 2.0 zahrnuje důležitým příspěvkem z [Paul Middleton](https://github.com/pmiddleton) která umožňuje mapování databáze skalární funkce metodě zástupných procedur tak, aby bylo možné použít v dotazech LINQ a převedeny na SQL.
+EF Core 2.0 obsahuje důležité příspěvku [Paul Middleton](https://github.com/pmiddleton) umožňující skalární funkce databáze mapování metody tříd stub tak, aby bylo možné použít v dotazech LINQ a do kódu SQL.
 
-Zde je stručný popis, jak můžete použít funkci:
+Tady je stručný popis, jak je možné tuto funkci:
 
-Deklarovat statickou metodu na vaše `DbContext` a její přidání poznámek ke `DbFunctionAttribute`:
+Deklarovat statickou metodu na vaše `DbContext` a opatřovat je poznámkami s `DbFunctionAttribute`:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -121,7 +121,7 @@ public class BloggingContext : DbContext
 }
 ```
 
-Metody jako to jsou automaticky registruje. Po registraci můžete volání metody v dotazu LINQ převedeny na volání funkcí v systému SQL:
+Metody tímto způsobem je automaticky zaregistrovaná. Po registraci volání metody v dotazu LINQ lze přeložit do volání funkcí v SQL:
 
 ``` csharp
 var query =
@@ -130,15 +130,15 @@ var query =
     select p;
 ```
 
-Všimněte si, několik akcí:
+Mějte na paměti několik věcí:
 
-- Podle konvence, které název metody, je použita jako název funkce (v tomto případě funkce definované uživatelem) při generování SQL, ale můžete přepsat název a schéma během registrace – metoda
+- Podle konvence, název metody se používá jako název funkce (v tomto případě uživatelsky definovaná funkce) při generování SQL, ale můžete přepsat název a schéma během registrace – metoda
 - Aktuálně jsou podporovány pouze skalární funkce
-- Je nutné vytvořit funkci namapované v databázi, například základní EF migrace nebude postará o její vytvoření
+- Je nutné vytvořit funkci pro mapovanou v databázi, například EF Core migrace nebude postará o jeho vytvoření
 
-### <a name="self-contained-type-configuration-for-code-first"></a>Samostatný typ konfigurace pro kód první
+### <a name="self-contained-type-configuration-for-code-first"></a>Typ samostatné konfigurace pro kód první
 
-V EF6 bylo možné zapouzdření kód první konfiguraci určitý typ entity odvozené z *EntityTypeConfiguration*. V rámci EF základní 2.0 jsme zpět přináší tento vzor:
+V EF6 bylo možné k zapouzdření kódu první konfigurace konkrétní entitu typu odvozením z *EntityTypeConfiguration*. V EF Core 2.0 přinášíme tento vzor zpět:
 
 ``` csharp
 class CustomerConfiguration : IEntityTypeConfiguration<Customer>
@@ -159,33 +159,33 @@ builder.ApplyConfiguration(new CustomerConfiguration());
 
 ### <a name="dbcontext-pooling"></a>Sdružování DbContext
 
-Základní vzor pro používání jádra EF v aplikaci ASP.NET Core obvykle zahrnuje registrace vlastního typu DbContext do systému vkládání závislostí a později získání instance tohoto typu prostřednictvím parametrů konstruktor v seznamu zařízení. To znamená, že se pro každý požadavky vytvoří novou instanci třídy DbContext.
+Základní vzor pro pomocí EF Core v aplikaci ASP.NET Core obvykle zahrnuje registrace vlastního typu DbContext do systému injektáž závislostí a později získání instance tohoto typu pomocí konstruktoru parametry v seznamu zařízení. To znamená, že pro každé žádosti se vytvoří novou instanci třídy DbContext.
 
-Ve verzi 2.0 Představujeme nový způsob, jak zaregistrovat vlastní typy DbContext v vkládání závislostí, které transparentně představuje fond opakovaně použitelné instance DbContext. Pokud chcete použít, sdružování DbContext, použijte ```AddDbContextPool``` místo ```AddDbContext``` během registraci služby:
+Ve verzi 2.0 přinášíme nový způsob, jak zaregistrovat vlastní typy DbContext v injektáž závislostí, které transparentně představuje fond opakovaně použitelných instancí DbContext. Pokud chcete použít, sdružování DbContext, použijte ```AddDbContextPool``` místo ```AddDbContext``` během registrace služby:
 
 ``` csharp
 services.AddDbContextPool<BloggingContext>(
     options => options.UseSqlServer(connectionString));
 ```
 
-Pokud tato metoda se používá, v době DbContext instance je vyžádala řadič že jsme se nejdřív zkontrolujte, jestli instance k dispozici ve fondu. Po zpracování žádosti dokončí, je resetovat jakýkoli stav v instanci a instance se vrátí do fondu.
+Pokud tato metoda se používá, v době instanci DbContext požádá o kontroleru, že jsme se nejprve zkontrolujte, jestli instance k dispozici ve fondu. Po zpracování žádosti se dokončí, jakýkoli stav instance se resetuje a instance je vrácen do fondu.
 
-Toto je koncepčně podobá jak sdružování připojení funguje ve zprostředkovatelích ADO.NET a nabízí výhodu v podobě ukládání některé náklady na inicializaci instance DbContext.
+To se koncepčně podobá jak sdružování připojení funguje ve zprostředkovatelích ADO.NET a nabízí výhodu v podobě ukládá některé náklady na inicializaci instance DbContext.
 
 ### <a name="limitations"></a>Omezení
 
-Metoda new zavádí několik omezení co můžete udělat v ```OnConfiguring()``` metoda DbContext.
+Nová metoda zavádí několik omezení na co se dá dělat ```OnConfiguring()``` metoda uvolněn objekt DbContext.
 
 > [!WARNING]  
-> Vyhněte se používání sdružování DbContext, pokud chcete zachovat vlastní stavu (např. privátním polím) odvozené třídy DbContext, který by neměl být sdílení napříč požadavky. Základní EF pouze obnoví stav, který je vědět před přidáním DbContext instance do fondu.
+> Vyhněte se použití DbContext sdružování udržujete svůj vlastní stav (např. privátní pole) v odvozené třídy DbContext, který by neměl být sdíleny napříč požadavky. EF Core pouze resetuje stav, který je vědět před přidáním DbContext instance do fondu.
 
 ### <a name="explicitly-compiled-queries"></a>Explicitně kompilované dotazy
 
-Toto je druhý souhlas výkonu funkce určená k poskytování výhody ve scénářích velkého rozsahu.
+Toto je funkce druhé vyjádřit výslovný souhlas výkonu, které jsou navržené tak, aby nabízí výhody ve velkém měřítku scénářích.
 
-Ruční nebo explicitně kompilovaném dotazu byly k dispozici v předchozích verzích EF a také v technologii LINQ to SQL k aplikacím pro ukládání do mezipaměti překlad dotazů, takže může být pouze jednou počítaný a provést mnohokrát rozhraní API.
+Ruční nebo explicitně zkompilovaného dotazu byly k dispozici v předchozích verzích EF a také v technologii LINQ to SQL, pokud chcete umožnit aplikacím pro ukládání do mezipaměti překlad dotazů, takže mohou být vypočítány pouze jednou a spustit v mnoha případech rozhraní API.
 
-I když obecně možné EF základní automaticky zkompilovat a dotazy založené na hash reprezentace výrazy dotazů do mezipaměti, tento mechanismus lze použít k získání malé výkonnější vynecháte výpočet hodnoty hash a mezipaměti vyhledávání, což aplikace pro používání již kompilovaném dotazu prostřednictvím vyvolání delegáta.
+I když EF Core lze obecně automaticky zkompilují a dotazy podle hodnoty hash reprezentace výrazy dotazu do mezipaměti, tento mechanismus je možné získat malé výkonnější obejitím výpočtu hodnoty hash a mezipaměti vyhledávání, umožňuje aplikace pro použití už zkompilovaný dotaz prostřednictvím vyvolání delegáta.
 
 ``` csharp
 // Create an explicitly compiled query
@@ -204,23 +204,23 @@ using (var db = new CustomerContext())
 
 ## <a name="change-tracking"></a>Sledování změn
 
-### <a name="attach-can-track-a-graph-of-new-and-existing-entities"></a>Připojení můžete sledovat graf nových nebo stávajících entit
+### <a name="attach-can-track-a-graph-of-new-and-existing-entities"></a>Připojit můžete sledovat graf nová a existující entity
 
-Jádro EF podporuje automatické generování hodnoty klíče prostřednictvím řady různých mechanismy. Při použití této funkce, hodnota je vygenerováno, pokud vlastnost klíče je výchozí CLR – obvykle nula nebo hodnota null. To znamená, že graf entit se dá předat do `DbContext.Attach` nebo `DbSet.Attach` a EF základní označíte tyto entity, které mají klíč již nastaven jako `Unchanged` při tyto entity, které nemají sady klíčů budou označeny jako `Added`. To umožňuje snadno připojit graf smíšený nové a stávající entity při použití generují klíče. `DbContext.Update` a `DbSet.Update` fungovat stejným způsobem, s tím rozdílem, že entity s sady klíčů jsou označeny jako `Modified` místo `Unchanged`.
+EF Core podporuje automatické generování hodnoty klíče prostřednictvím různých mechanismů. Při použití této funkce, hodnoty je vygenerováno, pokud vlastnost klíče je výchozí CLR – obvykle nula nebo hodnota null. To znamená, že graf entit může být předán `DbContext.Attach` nebo `DbSet.Attach` a EF Core označí tyto entity, které mají klíč již nastaven jako `Unchanged` během těchto entit, které nemají sady klíčů se označí jako `Added`. To usnadňuje připojení graf smíšené nové a existující entity při použití vygenerované klíče. `DbContext.Update` a `DbSet.Update` fungovat stejným způsobem, s tím rozdílem, že entity, které sady klíčů jsou označeny jako `Modified` místo `Unchanged`.
 
 ## <a name="query"></a>Dotazy
 
-### <a name="improved-linq-translation"></a>Překlad vylepšené LINQ
+### <a name="improved-linq-translation"></a>Překlad lepší LINQ
 
-Umožňuje další dotazy k byl úspěšně spuštěn s další logiku vyhodnocovaný v databázi (namísto v paměti) a méně dat zbytečně načítány z databáze.
+Umožňuje další dotazy k byl úspěšně spuštěn s další logiku právě vyhodnocuje v databázi (namísto v paměti) a méně dat zbytečně načtených z databáze.
 
 ### <a name="groupjoin-improvements"></a>GroupJoin vylepšení
 
-Tento pracovní zlepšuje SQL, který se vygeneruje pro skupiny spojení. Group JOIN – klauzule jsou nejčastěji způsobeno poddotazech na volitelné navigační vlastnosti.
+Tato práce zlepšuje SQL, který je generován pro group JOIN – klauzule. Group JOIN – klauzule jsou nejčastěji výsledkem poddotazy na volitelné navigační vlastnosti.
 
-### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Řetězec interpolace v FromSql a ExecuteSqlCommand
+### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Interpolace řetězců v FromSql a ExecuteSqlCommand
 
-C# 6 zavedla řetězec interpolace, funkce, která umožňuje výrazy jazyka C# a přímo vložený textové literály, poskytuje dobrý způsob vytváření řetězců za běhu. V rámci EF základní 2.0 jsme přidali speciální podporu pro interpolované řetězce pro naše dvě primární rozhraní API, které přijímají nezpracovaná řetězce SQL: ```FromSql``` a ```ExecuteSqlCommand```. Tato nová podpora umožňuje C# řetězec interpolace použije "bezpečnou" způsobem. Tj způsobem, který chrání před běžných chyb vkládání SQL, které může dojít, když dynamické konstruování SQL za běhu.
+C# 6 zavedené interpolace řetězců, funkce, která umožňuje výrazy jazyka C# má být vložen přímo v řetězcové literály, dobrý způsob vytváření řetězců v době běhu. V EF Core 2.0 jsme přidali zvláštní podporu pro interpolované řetězce do našich dva primární rozhraní API, které přijímají nezpracovaných řetězců SQL: ```FromSql``` a ```ExecuteSqlCommand```. Tato nová podpora umožňuje jazyka C# interpolace řetězců pro použití v podobě "bezpečné". To znamená způsobem, který chrání před běžných chyb prostřednictvím injektáže SQL, které může dojít, když dynamické konstruování SQL za běhu.
 
 Tady je příklad:
 
@@ -240,7 +240,7 @@ using (var context = CreateContext())
   }
 ```
 
-V tomto příkladu jsou dvě proměnné, které jsou součástí řetězec formátu SQL. Základní EF vytvoří následující příkaz SQL:
+V tomto příkladu jsou dvě proměnné, vložený ve formátovacím řetězci SQL. EF Core vytvoří následující příkaz SQL:
 
 ```sql
 @p0='London' (Size = 4000)
@@ -254,24 +254,24 @@ WHERE ""City"" = @p0
 
 ### <a name="effunctionslike"></a>EF. Functions.Like()
 
-Jsme přidali EF. Vlastnost funkce, která lze použít EF jádra nebo poskytovatelé definovat metody, které jsou mapovány na funkce databáze nebo operátory tak, aby těch, které nelze vyvolat v dotazech LINQ. V prvním příkladu tato metoda je Like():
+Přidali jsme EF. Vlastnosti funkce, která je možné definovat metody, které mapují na funkce databáze nebo operátory tak, aby ty mohou být vyvolány v dotazech LINQ pomocí EF Core nebo poskytovatelů. První příklad této metody je Like():
 
 ``` csharp
 var aCustomers =
     from c in context.Customers
-    where EF.Functions.Like(c.Name, "a%");
+    where EF.Functions.Like(c.Name, "a%")
     select c;
 ```
 
-Všimněte si, že Like() dodává s implementace v paměti, které mohou být užitečné při práci s databázi v paměti, nebo při vyhodnocení predikátu musí proběhnout na straně klienta.
+Všimněte si, že Like() přinášejí implementaci v paměti, což může být užitečný při práci databázi v paměti nebo když vyhodnocení predikátu je potřeba provést na straně klienta.
 
 ## <a name="database-management"></a>Správa databáze
 
-### <a name="pluralization-hook-for-dbcontext-scaffolding"></a>Pluralizační háku pro DbContext generování uživatelského rozhraní
+### <a name="pluralization-hook-for-dbcontext-scaffolding"></a>Pluralizace vidlici pro generování uživatelského rozhraní DbContext
 
-Základní EF 2.0 představuje novou *IPluralizer* služba, která se používá k singularizovat entity zadejte názvy a pluralizovat DbSet názvy. Výchozí implementace je žádná operace, to je právě háku, kde můžete snadno připojit zaměstnance ve svých vlastních pluralizer.
+EF Core 2.0 představuje nové *IPluralizer* služba, která se používá k množné číslo entity zadejte názvy a pluralize DbSet názvy. Výchozí implementace je no-op, takže je to právě hook, kde můžete snadno připojit uživatelům ve své vlastní pluralizer.
 
-Zde je, jak vypadá pro vývojáře napojit ve svých vlastních pluralizer:
+Zde je, jak to vypadá pro vývojáře k připojení do své vlastní pluralizer:
 
 ``` csharp
 public class MyDesignTimeServices : IDesignTimeServices
@@ -298,20 +298,20 @@ public class MyPluralizer : IPluralizer
 
 ## <a name="others"></a>Ostatním uživatelům
 
-### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>Zprostředkovatel ADO.NET SQLite přesunuty SQLitePCL.raw
-To nám poskytuje robustnější řešení v Microsoft.Data.Sqlite pro distribuci nativní SQLite binárních souborů na různých platformách.
+### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>Přesunout do SQLitePCL.raw zprostředkovatele ADO.NET SQLite
+To nám poskytuje informace o robustnějším řešení v Microsoft.Data.Sqlite distribuce nativní binární soubory SQLite na různých platformách.
 
 ### <a name="only-one-provider-per-model"></a>Pouze jednoho poskytovatele na modelu
-Výrazně rozšiřuje, jak mohou poskytovatelé komunikovat s modelem a zjednodušuje, jak pracovat s různé zprostředkovatele konvence, poznámky a rozhraní fluent API.
+Výrazně argumentech, jak mohou poskytovatelé komunikovat s modelem a zjednodušuje vytváření, poznámky a rozhraní fluent API fungování s jiným poskytovatelům.
 
-Základní EF 2.0 nyní sestavení jiné [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) pro každý používaný jiný zprostředkovatel. To je obvykle transparentní k aplikaci. To má usnadňují zjednodušení nižší úrovně metadat rozhraní API, tak, aby žádný přístup k *běžné koncepty relační metadata* je vždy provedeny prostřednictvím volání `.Relational` místo `.SqlServer`, `.Sqlite`atd.
+EF Core 2.0 nyní vytvořit jiný [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) pro každý jiný poskytovatel používá. Toto je obvykle zřejmé do aplikace. To má zajišťované zjednodušení nižší úrovně metadat rozhraní API tak, aby žádný přístup k *běžné koncepty relační metadat* se vždycky provádí pomocí volání `.Relational` místo `.SqlServer`, `.Sqlite`atd.
 
-### <a name="consolidated-logging-and-diagnostics"></a>Konsolidované protokolování a diagnostiky
+### <a name="consolidated-logging-and-diagnostics"></a>Konsolidované protokolování a Diagnostika
 
-(Podle objektu ILogger) protokolování a diagnostiky (podle DiagnosticSource) mechanismy nyní sdílet další kód.
+Protokolování (podle objektu ILogger) a mechanismy diagnostiky (podle DiagnosticSource) teď sdílet další kód.
 
-ID události pro zprávy odeslané do objektu ILogger změnily v 2.0. ID událostí jsou nyní jedinečné v rámci EF jádro kódu. Tyto zprávy teď také použít standardní vzor strukturovaných protokolování používá, například MVC.
+ID události pro zprávy odeslané do ILogger změnili ve verzi 2.0. ID událostí jsou nyní jedinečné v EF Core kódu. Tyto zprávy nyní také použít standardní vzor strukturované protokolování používá, například MVC.
 
-Změnily také kategorie protokolovacího nástroje. Má nyní dobře známé sadu kategorií přistupovat prostřednictvím [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
+Kategorie protokolovací nástroj se také změnily. Má nyní prostřednictvím dobře známé sady kategorií [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
 
-Události DiagnosticSource teď použít stejné názvy ID událostí jako odpovídající `ILogger` zprávy.
+Události DiagnosticSource teď používají stejné ID názvy událostí jako odpovídající `ILogger` zprávy.

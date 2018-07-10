@@ -22,15 +22,21 @@
             - name: Vytvoření modelu
               tocHref: /ef/core/modeling/
               topicHref: /ef/core/modeling/index
-            - name: Dotazy na data
+            - name: Dotazování na data
               tocHref: /ef/core/querying/
               topicHref: /ef/core/querying/index
             - name: Ukládání dat
               tocHref: /ef/core/saving/
               topicHref: /ef/core/saving/index
+            - name: Podporovaná implementace .NET
+              tocHref: /ef/core/platforms/
+              topicHref: /ef/core/platofms/index
             - name: Poskytovatelé databází
               tocHref: /ef/core/providers/
               topicHref: /ef/core/providers/index
+            - name: Správa schémat databází
+              tocHref: /ef/core/managing-schemas/
+              topicHref: /ef/core/managing-schemas/index
             - name: "Referenční dokumentace k\_příkazovému řádku"
               tocHref: /ef/core/miscellaneous/cli/
               topicHref: /ef/core/miscellaneous/cli/index
@@ -43,3 +49,25 @@
         - name: Entity Framework 6
           tocHref: /ef/ef6/
           topicHref: /ef/ef6/index
+          items:
+            - name: Co je nového
+              tocHref: /ef/ef6/what-is-new/
+              topicHref: /ef/ef6/what-is-new/index
+            - name: Začínáme
+              tocHref: /ef/ef6/get-started
+              topicHref: /ef/ef6/get-started
+            - name: Základy
+              tocHref: /ef/ef6/fundamentals/
+              topicHref: /ef/ef6/fundamentals/index
+            - name: Vytvoření modelu
+              tocHref: /ef/ef6/modeling/
+              topicHref: /ef/ef6/modeling/index
+            - name: Dotazování na data
+              tocHref: /ef/ef6/querying/
+              topicHref: /ef/ef6/querying/index
+            - name: Ukládání dat
+              tocHref: /ef/ef6/saving/
+              topicHref: /ef/ef6/saving/index
+            - name: Další prostředky
+              tocHref: /ef/ef6/resources/
+              topicHref: /ef/ef6/resources/index

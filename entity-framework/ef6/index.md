@@ -1,20 +1,56 @@
 ---
-title: Entity Framework 6
-author: rowanmiller
+title: Rychlý přehled Entity Framework 6
+author: divega
+ms.date: 2016-10-23
+ms.prod: entity-framework
 ms.author: divega
-ms.date: 10/27/2016
-ms.assetid: d16eb5be-7e94-477a-84cd-e6dce25df12a
+ms.manager: avickers
 ms.technology: entity-framework-6
+ms.topic: article
+ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
+caps.latest.revision: 5
 uid: ef6/index
-ms.openlocfilehash: 235a1404e56b5a78a3ef4f85e37c84a8bde2c014
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 7bb51ea82640ef29bb376c2320ea29a81eeb175e
+ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054220"
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914338"
 ---
-# <a name="entity-framework-6"></a>Entity Framework 6
+# <a name="entity-framework-6-quick-overview"></a>Rychlý přehled Entity Framework 6
+Entity Framework 6 (EF6) je vyzkoušená a otestovaná objektově relační Mapovač (O/RM) pro .NET s mnoha letech řídit vývoj funkcí a stabilizaci.
 
-Rozhraní Entity Framework 6 (EF6) je technologie pokusů a otestovaná data přístup s mnoha let funkcí a ustálení. Ho prvního vydání v 2008, v rámci rozhraní .NET Framework 3.5 SP1 a Visual Studio 2008 SP1. Od verze EF4.1 je dodávána jako [balíček EntityFramework NuGet](https://www.nuget.org/packages/EntityFramework/) -aktuálně jeden z nejoblíbenější balíčky na NuGet.org.
+Jako O/RM, snižuje EF6 vzniklé vzájemné napětí Neshoda mezi relačními a objektově orientované světů a umožňuje vývojářům psát aplikace, které pracují s daty uloženými v relačních databází pomocí .NET objektů se silným typem, které představují domény a aplikace není potom potřeba velkou částí dat přístup "tedy jakousi instalaci" kód, který je obvykle potřeba psát.
 
-Je aktuálně k dispozici v dokumentaci rozhraní Entity Framework 6 [msdn.com/data/ef](http://msdn.com/data/ef).
+EF6 implementuje mnoho oblíbených funkcí O/RM:
+- Mapování [POCO](~/ef6/resources/glossary.md#poco) tříd entit, které nezávisí na typy, které EF
+- Automatické sledování změn
+- Rozlišení identity a jednotek práce
+- Nemůžou dočkat, až, opožděné a explicitní načtení
+- Překlad dotazů silného typu pomocí LINQ (Language INtegrated Query)
+- Bohaté možnosti mapování, včetně podpory pro:
+  - Relace 1: 1, 1 n a n n
+  - Dědičnost (tabulka na hierarchii, tabulky podle typu a na konkrétní třídy)
+  - Komplexní typy
+  - Uložené procedury
+- Vizuálního návrháře pro vytváření modelů entity.
+- "Code First" prostředí pro vytváření modelů entity napsáním kódu.
+- Modely můžou být existující databáze generovaném formuláři a potom ručně upravit, nebo mohou být vytvořené z nuly a pak použije k vygenerování nových databází.
+- Integrace s modely aplikace rozhraní .NET Framework, včetně ASP.NET a pomocí vazby dat s WPF a WinForms.
+- Připojení k databázi na základě technologie ADO.NET a řada poskytovatelů k dispozici pro připojení k serveru SQL Server, Oracle, MySQL, SQLite, PostgreSQL, DB2, atd.
+
+## <a name="should-i-use-ef6-or-ef-core"></a>Můžu použít EF6 a EF Core?
+
+EF Core je verzi Entity Frameworku, který má velmi podobné funkce a výhody, které EF6 Modernější, jednoduchý a rozšiřitelný.
+EF Core je kompletní revize a obsahuje mnoho nových funkcí nejsou k dispozici v EF6, i když pořád chybí některé z EF6 nejpokročilejší funkce mapování.
+Doporučujeme, abyste pomocí EF Core v nové aplikace, tak dlouho, dokud sada funkcí odpovídá vašim požadavkům.
+[Porovnání EF Core a EF6](xref:efcore-and-ef6/index) zkontroluje tato volba podrobněji.
+
+## <a name="get-startedef6get-startedmd"></a>[Začínáme](~/ef6/get-started.md)
+
+Přidejte do projektu balíček EntityFramework NuGet nebo nainstalujte Entity Framework Tools for Visual Studio. Potom sledujte videa, přečtěte si kurzy a pokročilé dokumentací a pomohou vám využít na maximum EF6.
+
+## <a name="past-entity-framework-versions"></a>Starší verze Entity Framework
+
+Toto je v dokumentaci k nejnovější verzi Entity Framework 6, i když většina článku platí také pro minulých verzích.
+Podívejte se na [novinky](~/ef6/what-is-new/index.md) a [posledních verzí](~/ef6/what-is-new/past-releases.md) úplný seznam EF vydaných verzí a funkce tyto funkce poprvé představeny.

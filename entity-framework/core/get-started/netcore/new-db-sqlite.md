@@ -1,47 +1,44 @@
 ---
-title: Začínáme na základní EF .NET Core - novou databázi –
+title: Začínáme na .NET Core – nová databáze – EF Core
 author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
 description: Začínáme s .NET Core pomocí Entity Framework Core
-keywords: .NET core, Entity Framework Core, VS kód, Visual Studio Code, Mac, Linux
-ms.date: 04/05/2017
+keywords: .NET core, Entity Framework Core, VS Code, Visual Studio Code, Mac, Linux
+ms.date: 06/05/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 ms.technology: entity-framework-core
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: fcace3c0f259b1a456d9ca1086e6a1549c070d57
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: e4eafed037325237345efbc3d7d42b32270a54e3
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812531"
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "37911499"
 ---
-# <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Začínáme s EF základní na konzolové aplikace .NET Core s novou databázi
+# <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Začínáme s EF Core na aplikace konzoly .NET Core s novou databázi
 
-V tomto návodu vytvoříte konzolovou aplikaci .NET Core, která provádí základní přístup k datům s použitím Entity Framework Core databáze SQLite. Migrace použije k vytvoření databáze z modelu. V tématu [ASP.NET Core - novou databázi](xref:core/get-started/aspnetcore/new-db) pro verzi Visual Studio pomocí technologie ASP.NET MVC jádra.
+V tomto návodu vytvoříte konzolovou aplikaci .NET Core, který provádí přístup k datům s použitím Entity Framework Core databáze SQLite. Migrace použijete k vytvoření databáze z modelu. Zobrazit [ASP.NET Core – nová databáze](xref:core/get-started/aspnetcore/new-db) pro verzi sady Visual Studio pomocí ASP.NET Core MVC.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite) na Githubu.
 
 ## <a name="prerequisites"></a>Požadavky
 
-Následující požadované součásti jsou nutné k dokončení tohoto názorného postupu:
-* Operační systém, který podporuje .NET Core.
-* [.NET Core SDK](https://www.microsoft.com/net/core) 2.0 (i když pokyny slouží k vytvoření aplikace s předchozí verzí s velmi málo změny).
+[.NET Core SDK](https://www.microsoft.com/net/core) 2.1
 
 ## <a name="create-a-new-project"></a>Vytvoření nového projektu
 
-* Vytvořte novou `ConsoleApp.SQLite` složky pro váš projekt a použití `dotnet` příkaz k naplnění s aplikací .NET Core.
+* Vytvořte nový projekt konzoly:
 
 ``` Console
-mkdir ConsoleApp.SQLite
+dotnet new console -o ConsoleApp.SQLite
 cd ConsoleApp.SQLite/
-dotnet new console
 ```
 
-## <a name="install-entity-framework-core"></a>Instalace jádra Entity Framework
+## <a name="install-entity-framework-core"></a>Nainstalujte Entity Framework Core
 
-Abyste mohli používat EF jádra, nainstalujte balíček pro následující zprostředkovatele databáze, kterou chcete zacílit. Tento návod používá SQLite. Seznam dostupných zprostředkovatelů naleznete v části [zprostředkovatelů databáze](../../providers/index.md).
+Použití EF Core, nainstalujte balíček pro poskytovatelů databáze, kterou chcete cílit. Tento návod používá SQLite. Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md).
 
 * Instalace Microsoft.EntityFrameworkCore.Sqlite a Microsoft.EntityFrameworkCore.Design
 
@@ -50,53 +47,38 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 
-* Ručně upravte `ConsoleApp.SQLite.csproj` přidat DotNetCliToolReference do Microsoft.EntityFrameworkCore.Tools.DotNet:
-
-  ``` xml
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
-  </ItemGroup>
-  ```
-
-`ConsoleApp.SQLite.csproj` má teď obsahují následující:
-
-[!code[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/ConsoleApp.SQLite.csproj)]
-
- Poznámka: Byly čísla verzí používá výše v době publikování správně.
-
-*  Spustit `dotnet restore` k instalaci nové balíčky.
+* Spustit `dotnet restore` nainstalovat nové balíčky.
 
 ## <a name="create-the-model"></a>Vytvoření modelu
 
-Definujte kontextu a entity třídy, které tvoří modelu.
+Definování kontextu a entity třídy, které tvoří modelu.
 
-* Vytvořte novou *Model.cs* soubor s tímto obsahem.
+* Vytvořte nový *Model.cs* soubor s tímto obsahem.
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Model.cs)]
 
-Tip: V reálné aplikaci jste by uložte každá třída v samostatném souboru a připojovací řetězec v konfiguračním souboru. Zjednodušení tento kurz, jsme jsou uvedení vše v jednom souboru.
+Tip: V reálné aplikaci můžete vložit každá třída v samostatném souboru a vložit připojovací řetězec do konfiguračního souboru. Pro zjednodušení tento kurz, všechno, co je obsažen v jednom souboru.
 
 ## <a name="create-the-database"></a>Vytvoření databáze
 
-Jakmile máte modelu, můžete použít [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) k vytvoření databáze.
+Jakmile budete mít modelu, použijete [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) k vytvoření databáze.
 
-* Spustit `dotnet ef migrations add InitialCreate` vygenerovat migrace a vytvořit počáteční sadu tabulek pro model.
-* Spustit `dotnet ef database update` použít nové migrace do databáze. Tento příkaz vytvoří databázi před použitím migrace.
+* Spustit `dotnet ef migrations add InitialCreate` generování uživatelského rozhraní migrace a vytvářet počáteční sadu tabulek pro model.
+* Spustit `dotnet ef database update` použít novou migraci databáze. Tento příkaz vytvoří databázi před použitím migrace.
 
-> [!NOTE]  
-> Při použití relativní cesty s SQLite, cesta bude relativně k hlavní sestavení aplikace. V této ukázce je hlavní binární `bin/Debug/netcoreapp2.0/ConsoleApp.SQLite.dll`, aby se v databázi SQLite `bin/Debug/netcoreapp2.0/blogging.db`.
+*Blogging.db** je databáze SQLite v adresáři projektu.
 
 ## <a name="use-your-model"></a>Použití modelu
 
-* Otevřete *Program.cs* a nahraďte jeho obsah následujícím kódem:
+* Otevřít *Program.cs* a nahraďte jeho obsah následujícím kódem:
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Program.cs)]
 
-* Testovací aplikace:
+* Testování aplikace:
 
   `dotnet run`
 
-  Blogů je uložený na databázi a podrobnosti o všech blogy se zobrazují v konzole.
+  Blogů se uloží do databáze a podrobnosti o všech blogy se zobrazují v konzole.
 
   ``` Console
   ConsoleApp.SQLite>dotnet run
@@ -108,13 +90,13 @@ Jakmile máte modelu, můžete použít [migrace](https://docs.microsoft.com/asp
 
 ### <a name="changing-the-model"></a>Změna modelu:
 
-- Pokud provedete změny modelu, můžete použít `dotnet ef migrations add` příkaz chcete vygenerovat nový [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) aby odpovídající schéma změn v databázi. Po zaškrtnutí automaticky generovaný kód (a všechny požadované změny provedené), můžete použít `dotnet ef database update` příkaz k použití změn do databáze.
-- Používá EF `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, která již byla do databáze použít.
-- SQLite nepodporuje všechny migrace (změny schématu) z důvodu omezení v SQLite. V tématu [SQLite omezení](../../providers/sqlite/limitations.md). Pro nový vývoj zvažte vyřazení databáze a vytvoření nového než pomocí migrace, když se změní modelu.
+- Pokud provedete změny modelu, můžete použít `dotnet ef migrations add` příkaz scaffold nový [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) provést odpovídající schématu změn v databázi. Po zaškrtnutí automaticky generovaný kód (a všechny požadované změny), můžete použít `dotnet ef database update` příkaz změny se projeví do databáze.
+- Používá EF `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, které již byly implementovány do databáze.
+- SQLite nepodporuje všechny migrace (změny schématu) z důvodu omezení v SQLite. Zobrazit [omezení SQLite](../../providers/sqlite/limitations.md). Pro nový vývoj zvažte vyřazení databáze a vytvořením nového spíš než migrace při změně vašeho modelu.
 
 ## <a name="additional-resources"></a>Další prostředky
 
-* [.NET core - novou databázi pomocí SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzoly napříč platformami.
-* [Úvod do základní ASP.NET MVC v Mac nebo Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
-* [Úvod do základní ASP.NET MVC pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
+* [.NET core – nová databáze s SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzole pro různé platformy.
+* [Úvod do ASP.NET Core MVC v systému Mac nebo Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
+* [Úvod do ASP.NET Core MVC se sadou Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
 * [Začínáme s technologiemi ASP.NET Core a Entity Framework Core pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
