@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 9a7ae7f9-4072-4843-877d-506dd7eef576
 caps.latest.revision: 3
-ms.openlocfilehash: bb27d416dcf931a29005160be7eae3806803b1b6
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
-ms.translationtype: HT
+ms.openlocfilehash: 6f8466601bedb705775b11e0b2732b1c4215aeac
+ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914118"
+ms.locfileid: "37914468"
 ---
 # <a name="code-first-insert-update-and-delete-stored-procedures"></a>Kód první vložení, aktualizace a odstranění uložených procedur
 > [!NOTE]
@@ -36,8 +36,8 @@ To způsobí, že Code First pomocí některé konvence můžete vytvářet oče
 
 - Tři uložené procedury s názvem  **\<type_name\>_komentářů**,  **\<type_name\>_aktualizovat** a  **\<type_ název\>_odstranit** (např. Blog_Insert, Blog_Update a Blog_Delete).  
 - Názvy parametrů odpovídají názvům vlastností.  
-    > [!NOTE]
-> Pokud používáte HasColumnName() nebo atribut sloupce přejmenujte sloupec pro danou vlastnost tento název se používá pro parametry místo názvu vlastnosti.  
+  > [!NOTE]
+  > Pokud používáte HasColumnName() nebo atribut sloupce přejmenujte sloupec pro danou vlastnost tento název se používá pro parametry místo názvu vlastnosti.  
 - **Uložená procedura insert** bude mít parametr pro každou vlastnost, kromě těch, které označené jako úložiště vygeneruje (identity nebo vypočítat). Uloženou proceduru by měla vrátit sadu sloupec pro každou vlastnost úložiště vygeneruje výsledků.  
 - **Aktualizace uložené procedury** bude mít parametr pro každou vlastnost, kromě těch, které označené úložiště vygeneruje vzor "Vypočítané". Některé tokeny souběžnosti vyžadují parametr pro původní hodnoty, najdete v článku *tokeny souběžnosti* níže v části Podrobnosti. Uloženou proceduru by měla vrátit sadu výsledků obsahující sloupec pro každé počítané vlastnosti.  
 - **Odstranit uloženou proceduru** by měl mít parametr pro hodnotu klíče entity (nebo více parametrů, pokud má entita složený klíč). Kromě toho postup odstranění musí být také parametry pro jakékoli nezávislé přidružení cizího klíče v cílové tabulce (vztahy, které nemají odpovídající vlastnosti cizího klíče deklarované v entitě). Některé tokeny souběžnosti vyžadují parametr pro původní hodnoty, najdete v článku *tokeny souběžnosti* níže v části Podrobnosti.  

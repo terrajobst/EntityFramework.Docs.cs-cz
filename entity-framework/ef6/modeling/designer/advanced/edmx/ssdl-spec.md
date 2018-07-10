@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
 caps.latest.revision: 3
-ms.openlocfilehash: ac76d416d806e18b3acfabe746a7015191b3a9e1
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
-ms.translationtype: HT
+ms.openlocfilehash: a9977c80d9a9401afdcad2284a705bcb28790fb8
+ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912781"
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914474"
 ---
 # <a name="ssdl-specification"></a>Specifikace SSDL
 Store schema definition language (SSDL) je jazyk založený na formátu XML, který popisuje model úložiště aplikace Entity Framework.
@@ -50,12 +50,8 @@ Následující tabulka popisuje atributy, které mohou být použity **přidruž
 |:---------------|:------------|:---------------------------------------------------------------------------------|
 | **Jméno**       | Ano         | Název odpovídající omezení cizího klíče v podkladové databázi. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **přidružení** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -79,9 +75,6 @@ Následující příklad ukazuje **přidružení** element, který se používá
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="associationset-element-ssdl"></a>Element AssociationSet (SSDL)
 
@@ -104,12 +97,8 @@ Následující tabulka popisuje atributy, které mohou být použity **Associati
 | **Jméno**        | Ano         | Název omezení cizího klíče, nastavte přidružení představuje.                          |
 | **Přidružení** | Ano         | Název přidružení, které definuje sloupce, které se účastní v omezení cizího klíče. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **AssociationSet** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -122,9 +111,6 @@ Následující příklad ukazuje **AssociationSet** elementu, který představuj
    <End Role="Orders" EntitySet="Orders" />
  </AssociationSet>
 ```
- 
-
- 
 
 ## <a name="collectiontype-element-ssdl"></a>Element CollectionType (SSDL)
 
@@ -132,8 +118,6 @@ Následující příklad ukazuje **AssociationSet** elementu, který představuj
 
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **CollectionType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -154,9 +138,6 @@ Následující příklad ukazuje funkci, která se používá **CollectionType**
      </ReturnType>
    </Function>
 ```
- 
-
- 
 
 ## <a name="commandtext-element-ssdl"></a>Element CommandText (SSDL)
 
@@ -185,13 +166,10 @@ Následující příklad ukazuje **funkce** element s podřízený **CommandText
               Type="int"/>
  </Function>
 ```
- 
-
- 
 
 ## <a name="definingquery-element-ssdl"></a>Element DefiningQuery (SSDL)
 
- **DefiningQuery** prvek store schema definition language (SSDL) umožňuje spouštění příkazu SQL přímo v podkladové databázi. **DefiningQuery** element se často používá jako zobrazení databáze, ale zobrazení je definováno v modelu úložiště, ne na databázi. Definováno v zobrazení **DefiningQuery** elementu je možné mapovat na typ entity v konceptuálním modelu prostřednictvím EntitySetMapping element. Tato mapování jsou jen pro čtení.  
+**DefiningQuery** prvek store schema definition language (SSDL) umožňuje spouštění příkazu SQL přímo v podkladové databázi. **DefiningQuery** element se často používá jako zobrazení databáze, ale zobrazení je definováno v modelu úložiště, ne na databázi. Definováno v zobrazení **DefiningQuery** elementu je možné mapovat na typ entity v konceptuálním modelu prostřednictvím EntitySetMapping element. Tato mapování jsou jen pro čtení.  
 
 Následující syntaxe SSDL znázorňuje deklaraci **objektu EntitySet** následovaný **DefiningQuery** element, který obsahuje dotaz použitý k načtení zobrazení.
 
@@ -207,13 +185,10 @@ Následující syntaxe SSDL znázorňuje deklaraci **objektu EntitySet** násled
      </EntitySet>
  </Schema>
 ```
- 
 
 Uložené procedury v Entity Framework slouží k povolení scénářů pro čtení a zápis přes zobrazení. Zobrazení zdroje dat nebo zobrazení Entity SQL můžete použít jako základní tabulky pro načítání dat a změna zpracování uložených procedur.
 
 Můžete použít **DefiningQuery** element do cílového serveru Microsoft SQL Server Compact 3.5. I když SQL Server Compact 3.5 nepodporuje uložené procedury, podobné funkce s můžete implementovat **DefiningQuery** elementu. Jiné místo, kde může být užitečné je při vytváření uložených procedur k překonání Neshoda mezi datovými typy v programovacím jazyce a těch, které zdroj dat použít. Můžete napsat **DefiningQuery** , která používá sadu parametrů a pak volá uloženou proceduru s jinou sadu parametrů, třeba uloženou proceduru, která odstraní data.
-
- 
 
 ## <a name="dependent-element-ssdl"></a>Závislé – Element (SSDL)
 
@@ -232,12 +207,8 @@ Následující tabulka popisuje atributy, které mohou být použity **závislé
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Role**       | Ano         | Stejná hodnota jako **Role** atribut (Pokud se používá) odpovídajícího prvku End; v opačném případě se název tabulky, která obsahuje objekt odkazujícího sloupce. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **závislé** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -261,9 +232,6 @@ Následující příklad ukazuje element přidružení, který se používá **e
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="documentation-element-ssdl"></a>Element Documentation (SSDL)
 
@@ -295,9 +263,6 @@ Následující příklad ukazuje **dokumentaci** element jako podřízený prvek
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="end-element-ssdl"></a>Element end (SSDL)
 
@@ -323,12 +288,8 @@ Následující tabulka popisuje atributy, které mohou být použity **End** prv
 | **Role**         | Ne          | Hodnota **Role** atribut v elementu objektu nebo závislé na odpovídající element v elementu ReferentialConstraint (Pokud se používá).                                                                                                                                                                                                                                             |
 | **Násobnost** | Ano         | **1**, **0..1**, nebo **\*** v závislosti na počtu řádků, které mohou být na konci omezení cizího klíče. <br/> **1** označuje, že přesně jeden řádek existuje na konci omezení cizího klíče. <br/> **0..1** znamená, že neexistuje žádný nebo jeden řádek na konci omezení cizího klíče. <br/> **\*** Udává, že žádný, jeden nebo více řádků existuje na straně cizího klíče. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **End** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 #### <a name="example"></a>Příklad
 
@@ -352,7 +313,6 @@ Následující příklad ukazuje **přidružení** element, který definuje **FK
    </ReferentialConstraint>
  </Association>
 ```
- 
 
 ### <a name="end-element-as-a-child-of-the-associationset-element"></a>Koncový Element jako podřízený AssociationSet Element
 
@@ -372,12 +332,8 @@ Následující tabulka popisuje atributy, které mohou být použity **End** prv
 | **Objekt EntitySet**  | Ano         | Název sady entit SSDL, který je na konci omezení cizího klíče.                                      |
 | **Role**       | Ne          | Hodnota jednoho z **Role** atributy určené v jednom **End** odpovídajícího elementu Association elementu. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **End** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 #### <a name="example"></a>Příklad
 
@@ -398,9 +354,6 @@ Následující příklad ukazuje **EntityContainer** element s **AssociationSet*
    </AssociationSet>
  </EntityContainer>
 ```
- 
-
- 
 
 ## <a name="entitycontainer-element-ssdl"></a>Element EntityContainer (SSDL)
 
@@ -422,12 +375,8 @@ Následující tabulka popisuje atributy, které mohou být použity **EntityCon
 |:---------------|:------------|:------------------------------------------------------------------------|
 | **Jméno**       | Ano         | Název kontejneru entity. Tento název nesmí obsahovat tečky (.). |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **EntityContainer** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -448,13 +397,10 @@ Následující příklad ukazuje **EntityContainer** element, který definuje dv
    </AssociationSet>
  </EntityContainer>
 ```
- 
-
- 
 
 ## <a name="entityset-element-ssdl"></a>Element EntitySet (SSDL)
 
- **Objektu EntitySet** prvek v store schema definition language (SSDL) představuje tabulku nebo zobrazení v podkladové databázi. Element EntityType v SSDL představuje řádek v tabulce nebo zobrazení. **EntityType** atribut **objektu EntitySet** prvek určuje konkrétní typ entity SSDL, který představuje řádků v SSDL sadu entit. V elementu EntitySetMapping je určeno mapování mezi sadu entit CSDL a sadu entit SSDL.
+**Objektu EntitySet** prvek v store schema definition language (SSDL) představuje tabulku nebo zobrazení v podkladové databázi. Element EntityType v SSDL představuje řádek v tabulce nebo zobrazení. **EntityType** atribut **objektu EntitySet** prvek určuje konkrétní typ entity SSDL, který představuje řádků v SSDL sadu entit. V elementu EntitySetMapping je určeno mapování mezi sadu entit CSDL a sadu entit SSDL.
 
 **Objektu EntitySet** prvek může mít následující podřízené prvky (v uvedeném pořadí):
 
@@ -469,25 +415,15 @@ Následující tabulka popisuje atributy, které mohou být použity **objektu E
 > [!NOTE]
 > Některé atributy (tu nejsou uvedené) může být kvalifikován s **ukládání** alias. Tyto atributy jsou používány v Průvodci modelů aktualizace při aktualizaci modelu.
 
- 
-
 | Název atributu | Vyžaduje se | Hodnota                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
 | **Jméno**       | Ano         | Název sady entit.                                                              |
 | **Typ entity** | Ano         | Plně kvalifikovaný název typu entity, pro kterou sada entit obsahuje instance. |
 | **Schéma**     | Ne          | Schéma databáze.                                                                     |
 | **Tabulka**      | Ne          | Databázové tabulky.                                                                      |
- 
- 
- 
- 
- 
- 
 
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **objektu EntitySet** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -508,9 +444,6 @@ Následující příklad ukazuje **EntityContainer** element, který má dva **o
    </AssociationSet>
  </EntityContainer>
 ```
- 
-
- 
 
 ## <a name="entitytype-element-ssdl"></a>Element EntityType (SSDL)
 
@@ -530,12 +463,8 @@ Následující tabulka popisuje atributy, které mohou být použity **EntityTyp
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Jméno**       | Ano         | Název typu entity. Tato hodnota je obvykle stejný jako název tabulky, ve které představuje typ entity řádek. Tato hodnota může obsahovat žádné tečky (.). |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **EntityType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -554,9 +483,6 @@ Následující příklad ukazuje **EntityType** element s dvě vlastnosti:
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="function-element-ssdl"></a>Element Function (SSDL)
 
@@ -581,8 +507,6 @@ Následující tabulka popisuje atributy, které mohou být použity **funkce** 
 > [!NOTE]
 > Některé atributy (tu nejsou uvedené) může být kvalifikován s **ukládání** alias. Tyto atributy jsou používány v Průvodci modelů aktualizace při aktualizaci modelu.
 
- 
-
 | Název atributu             | Vyžaduje se | Hodnota                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Jméno**                   | Ano         | Název uložené procedury.                                                                                                                                                                                  |
@@ -595,8 +519,6 @@ Následující tabulka popisuje atributy, které mohou být použity **funkce** 
 | **ParameterTypeSemantics** | Ne          | Výčet, který definuje typ sémantice použité vyřešit přetížení funkce. Výčet je definovaný v manifestu zprostředkovatele za definici funkce. Výchozí hodnota je **AllowImplicitConversion**. |
 | **Schéma**                 | Ne          | Název schématu, ve kterém je definována uloženou proceduru.                                                                                                                                                   |
 
- 
-
 <sup>1</sup> integrované funkce je funkce, která je definována v databázi. Informace o funkcích, které jsou definovány v modelu úložiště najdete v tématu Element CommandText (SSDL).
 
 <sup>2</sup> bez vstupních parametrů funkce je funkce, která nepřijímá žádné parametry a při volání, nevyžaduje závorky.
@@ -605,8 +527,6 @@ Následující tabulka popisuje atributy, které mohou být použity **funkce** 
 
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **funkce** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -624,9 +544,6 @@ Následující příklad ukazuje **funkce** element, který odpovídá **UpdateO
    <Parameter Name="newQuantity" Type="int" Mode="In" />
  </Function>
 ```
- 
-
- 
 
 ## <a name="key-element-ssdl"></a>Klíčovým prvkem (SSDL)
 
@@ -656,9 +573,6 @@ Následující příklad ukazuje **EntityType** element s klíčem, který odkaz
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="ondelete-element-ssdl"></a>Elementy OnDelete – Element (SSDL)
 
@@ -677,12 +591,8 @@ Následující tabulka popisuje atributy, které mohou být použity **elementy 
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
 | **Akce**     | Ano         | **Kaskádové** nebo **žádný**. (Hodnota **s omezeným přístupem** je platný, ale má stejné chování jako **žádný**.) |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **elementy OnDelete** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -706,9 +616,6 @@ Následující příklad ukazuje **přidružení** element, který definuje **FK
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="parameter-element-ssdl"></a>Parameter – Element (SSDL)
 
@@ -733,12 +640,8 @@ Následující tabulka popisuje atributy, které mohou být použity **parametr*
 | **Škálování**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
 | **SRID**       | Ne          | Odkaz na identifikátor spatial systému. Platí jenom pro parametry prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **parametr** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -756,9 +659,6 @@ Následující příklad ukazuje **funkce** element, který má dva **parametr**
    <Parameter Name="newQuantity" Type="int" Mode="In" />
  </Function>
 ```
- 
-
- 
 
 ## <a name="principal-element-ssdl"></a>Instanční objekt – Element (SSDL)
 
@@ -777,12 +677,8 @@ Následující tabulka popisuje atributy, které mohou být použity **hlavní**
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Role**       | Ano         | Stejná hodnota jako **Role** atribut (Pokud se používá) odpovídajícího prvku End; v opačném případě se název tabulky, který obsahuje Odkazovaný sloupec. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **hlavní** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -806,9 +702,6 @@ Následující příklad ukazuje element přidružení, který se používá **e
    </ReferentialConstraint>
  </Association>
 ```
- 
-
- 
 
 ## <a name="property-element-ssdl"></a>Property – Element (SSDL)
 
@@ -835,12 +728,8 @@ Následující tabulka popisuje atributy, které mohou být použity **vlastnost
 | **SRID**                  | Ne          | Odkaz na identifikátor spatial systému. Platí pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Výčet StoreGeneratedPattern** | Ne          | **Žádný**, **Identity** (Pokud je hodnota odpovídající sloupec identity, který je vygenerován v databázi), nebo **vypočítané** (Pokud odpovídající sloupec hodnota byla vypočítána v databázi). Není platné pro RowType vlastnosti. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **vlastnost** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -859,9 +748,6 @@ Následující příklad ukazuje **EntityType** element s dva podřízené **vla
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="propertyref-element-ssdl"></a>Element PropertyRef (SSDL)
 
@@ -883,12 +769,8 @@ Následující tabulka popisuje atributy, které mohou být použity **PropertyR
 |:---------------|:------------|:-------------------------------------|
 | **Jméno**       | Ano         | Název odkazované vlastnosti. |
 
- 
-
 > [!NOTE]
 > Libovolný počet atributů poznámky (vlastní atributy XML) lze na **PropertyRef** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -907,9 +789,6 @@ Následující příklad ukazuje **PropertyRef** element sloužící k odkazová
    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="referentialconstraint-element-ssdl"></a>Element elementu ReferentialConstraint (SSDL)
 
@@ -1015,9 +894,6 @@ Následující příklad ukazuje funkci úložiště, který používá **Collec
      </ReturnType>
    </Function>
 ```
- 
-
- 
 
 ## <a name="schema-element-ssdl"></a>Element schématu (SSDL)
 
@@ -1044,8 +920,6 @@ Následující tabulka popisuje atributy lze použít **schématu** elementu.
 | **Alias**                 | Ne          | Identifikátor, použijí se místo názvu oboru názvů. Například pokud **EntityType** s názvem *zákazníka* je v oboru názvů ExampleModel.Store a hodnoty **Alias** atribut je *StorageModel*, můžete použít StorageModel.Customer jako plně kvalifikovaný název **EntityType.**                                                                                                                                                                                                                                                                                    |
 | **Zprostředkovatel**              | Ano         | Zprostředkovatel dat.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **ProviderManifestToken** | Ano         | Token, který označuje které manifest zprostředkovatele se vraťte k poskytovateli. Je definován žádný formát pro daný token. Hodnoty pro daný token je definována v poskytovateli. Informace o manifestu tokeny zprostředkovatele SQL Server najdete v tématu SqlClient pro Entity Framework.                                                                                                                                                                                                                                                                                                                        |
-
- 
 
 ### <a name="example"></a>Příklad
 
@@ -1134,9 +1008,6 @@ Následující příklad ukazuje **schématu** element, který obsahuje **Entity
    </Function>
  </Schema>
 ```
- 
-
- 
 
 ## <a name="annotation-attributes"></a>Atributy poznámek
 
@@ -1166,9 +1037,6 @@ Následující příklad ukazuje element EntityType, který má anotaci atribute
    </c:CustomElement>
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="annotation-elements-ssdl"></a>Elementů poznámky (SSDL)
 
@@ -1199,9 +1067,6 @@ Následující příklad ukazuje element EntityType, který má element anotace 
    </c:CustomElement>
  </EntityType>
 ```
- 
-
- 
 
 ## <a name="facets-ssdl"></a>Omezující vlastnosti (SSDL)
 

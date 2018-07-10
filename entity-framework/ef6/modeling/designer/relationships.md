@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 402fe960-754b-470f-976b-e5de3e9986b5
 caps.latest.revision: 3
-ms.openlocfilehash: df752722dafbeff3042acdc95a58741f6e0f271d
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
-ms.translationtype: HT
+ms.openlocfilehash: f924945b19dd6d73847ff3ec52c0b5a286c591bb
+ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912673"
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914465"
 ---
 # <a name="relationships---ef-designer"></a>Relace – EF designeru
 > [!NOTE]
@@ -53,7 +53,8 @@ Vytváření přidružení k EF designeru aktualizace modelu obsahu souboru .edm
     ![AddAssociation](~/ef6/media/addassociation.png)
 
     > [!NOTE]
-> Můžete také bez přidání navigační vlastnosti nebo vlastnosti cizího klíče k entitám stranách asociace zrušením ** navigační vlastnost ** a ** přidat vlastnosti cizího klíče &lt;názvu typu entity&gt; Entity ** Zaškrtávací políčka. Pokud chcete přidat pouze jednu vlastnost navigace, přidružení bude pouze v jednom směru umožňujících přechody. Pokud chcete přidat žádné navigační vlastnosti, musíte zvolit přidání vlastnosti cizího klíče pro přístup k entitám stranách asociace.
+    > Můžete také bez přidání navigační vlastnosti nebo vlastnosti cizího klíče k entitám stranách asociace zrušením ** navigační vlastnost ** a ** přidat vlastnosti cizího klíče &lt;názvu typu entity&gt; Entity ** Zaškrtávací políčka. Pokud chcete přidat pouze jednu vlastnost navigace, přidružení bude pouze v jednom směru umožňujících přechody. Pokud chcete přidat žádné navigační vlastnosti, musíte zvolit přidání vlastnosti cizího klíče pro přístup k entitám stranách asociace.
+    
 3.  Klikněte na tlačítko **OK**.
 
 ### <a name="to-delete-an-association"></a>Odstranit spojení
