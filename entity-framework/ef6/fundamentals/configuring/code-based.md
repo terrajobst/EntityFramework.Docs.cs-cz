@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
 caps.latest.revision: 3
-ms.openlocfilehash: da63d36e76b9658a17557707076073be4c1cd95e
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: d6a33434e582fcd7ce756b447d7f2cbab4ca43ec
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914232"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949029"
 ---
 # <a name="code-based-configuration"></a>Konfigurace založená na kódu
 > [!NOTE]
@@ -126,6 +126,6 @@ V kódu nad MyProviderServices a MyConnectionFactory představují vaše impleme
 
 Můžete také přidat další závislosti obslužné rutiny pro docílíte stejného efektu.  
 
-Všimněte si, že můžete také zabalit DbProviderFactory tímto způsobem, ale to bude pouze efekt EF a není použití DbProviderFactory mimo EF. Z tohoto důvodu budete pravděpodobně chtít zabalení DbProviderFactory máte před i nadále.  
+Všimněte si, že můžete také zabalit DbProviderFactory tímto způsobem, ale udělat to ovlivní pouze EF a ne používá DbProviderFactory mimo EF. Z tohoto důvodu budete pravděpodobně chtít zabalení DbProviderFactory máte před i nadále.  
 
-Je třeba také zachovat v paměti služby, které se do vaší aplikace – třeba spouštění migrace z konzoly Správce balíčků spustíte externě. Když spustíte migraci z konzoly, pokusí se najít vaše DbConfiguration. Jestli se budou získávat zabalené služby však závisí, ve kterém obslužné rutiny událostí zaregistrované. Pokud je registrován jako součást procesu vytváření vaší DbConfiguration by se měl spustit kód a služby by měl získat zabalena. Obvykle to nebude tento případ a to znamená, že nástroje nedostali zabalené služby.  
+Je třeba také zachovat v paměti služby, které běží externě do vaší aplikace – například při spuštění migrace v konzole Správce balíčků. Když spustíte migraci z konzoly, pokusí se najít vaše DbConfiguration. Jestli se budou získávat zabalené služby však závisí, ve kterém obslužné rutiny událostí zaregistrované. Pokud je registrován jako součást procesu vytváření vaší DbConfiguration by se měl spustit kód a služby by měl získat zabalena. Obvykle to nebude tento případ a to znamená, že nástroje nedostali zabalené služby.  

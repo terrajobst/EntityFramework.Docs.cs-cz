@@ -1,41 +1,41 @@
 ---
-title: Upgrade z EF základní 1.0 RC2 na RTM – EF jádra
+title: Upgrade z EF Core 1.0 RC2 na RTM – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 ms.technology: entity-framework-core
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 4bb4c5736708413f6581cad250b089b7bc22a559
-ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
+ms.openlocfilehash: 9561eac253517188251fece9a03f434482246051
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/23/2018
-ms.locfileid: "30151037"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949054"
 ---
-# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Upgrade na verzi RTM EF Core 1.0 RC2
+# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Upgrade z EF Core 1.0 RC2 na RTM
 
-Tento článek obsahuje pokyny pro přesouvání aplikace vytvořené s nástroji RC2 balíčky, do kterých 1.0.0 RTM.
+Tento článek obsahuje pokyny pro přesouvání aplikace sestavené s balíčky RC2 nastavená na 1.0.0 RTM.
 
 ## <a name="package-versions"></a>Verze balíčku
 
-Názvy balíčky nejvyšší úrovně, které by obvykle nainstalovat do aplikace mezi RC2 a RTM nezměnila.
+Názvy balíčků na nejvyšší úrovni, která by obvykle instalují do aplikace neliší RC2 a verze RTM.
 
-**Je třeba upgradovat na verze RTM nainstalované balíčky:**
+**Je třeba nainstalované balíčky s upgradem na verzi RTM verze:**
 
-* Modul runtime balíčky (například `Microsoft.EntityFrameworkCore.SqlServer`) se změnil z `1.0.0-rc2-final` k `1.0.0`.
+* Balíčky runtime (například `Microsoft.EntityFrameworkCore.SqlServer`) změnil z `1.0.0-rc2-final` k `1.0.0`.
 
-* `Microsoft.EntityFrameworkCore.Tools` Balíčku se změnil z `1.0.0-preview1-final` k `1.0.0-preview2-final`. Upozorňujeme, že nástrojů se stále předběžné verze.
+* `Microsoft.EntityFrameworkCore.Tools` Balíčku změnil z `1.0.0-preview1-final` k `1.0.0-preview2-final`. Všimněte si, že nástroje je stále předběžné verze.
 
 ## <a name="existing-migrations-may-need-maxlength-added"></a>Existující migrace může být nutné přidat maxLength
 
-V RC2, definice sloupců v migraci hledá jako `table.Column<string>(nullable: true)` a délka sloupce byla vyhledávány v některá metadata ukládáme v kódu migrace. Ve verzi RTM, délka je nyní zahrnutá v automaticky generovaný kód `table.Column<string>(maxLength: 450, nullable: true)`.
+Ve verzi RC2, definice sloupců v migraci vypadal `table.Column<string>(nullable: true)` a délka sloupce byla vyhledána v některá metadata uložíme v kódu na migraci. Ve verzi RTM, délka je teď součástí automaticky generovaný kód `table.Column<string>(maxLength: 450, nullable: true)`.
 
-Nebude mít žádné existující migrace, které byly před použitím RTM generované uživatelské rozhraní `maxLength` byl zadán neplatný argument. To znamená, že se použije maximální délka podporovaná databáze (`nvarchar(max)` na serveru SQL Server). To může být vhodná pro některé sloupce, ale sloupce, které jsou součástí klíč, cizí klíč nebo index musí být aktualizováno, aby zahrnovalo maximální délku. Podle konvence je 450 maximální délku použít pro klíče, cizí klíče a indexované sloupce. Pokud jste nakonfigurovali explicitně délkou v modelu, měli byste použít dlouhou místo.
+Všechny existující migrace, které byly automaticky před použitím RTM nebude mít `maxLength` zadaný argument. To znamená, že se použije maximální délka podporována databází (`nvarchar(max)` na SQL serveru). To může být u některých sloupců, ale sloupce, které jsou součástí klíče, cizí klíč nebo index musí být aktualizováno, aby zahrnovalo maximální délku. Podle konvence je 450 maximální počet znaků použitý pro klíče, cizí klíče a indexovaných sloupců. Pokud jste nakonfigurovali explicitně délku v modelu, měli byste použít delší místo.
 
 **ASP.NET Identity**
 
-Tato změna ovlivňuje projekty, které používají ASP.NET Identity a byly vytvořeny z po předem-RTM šablona projektu. Šablona projektu zahrnuje migraci použít k vytvoření databáze. Tato migrace musí upravit, chcete-li určit maximální délku `256` pro následující sloupce.
+Tato změna ovlivní projekty, které používají ASP.NET Identity a byly vytvořeny z předprodukčním-RTM šablony projektu. Šablona projektu zahrnuje migraci použít k vytvoření databáze. Tato migrace je nutné upravit k určení maximální délce `256` pro tyto sloupce.
 
 *  **AspNetRoles**
 
@@ -53,13 +53,13 @@ Tato změna ovlivňuje projekty, které používají ASP.NET Identity a byly vyt
 
    * UserName
 
-K provedení této změny bude neuděláte následující výjimka při počáteční migrace se použije k databázi.
+K provedení této změny bude dojít k následující výjimce při použití u počáteční migraci databáze.
 
     System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
 
-## <a name="net-core-remove-imports-in-projectjson"></a>.NET core: Odeberte "importy" v souboru project.json
+## <a name="net-core-remove-imports-in-projectjson"></a>.NET core: Odebere "importy" v souboru project.json
 
-Pokud byly cílem .NET Core RC2, je potřeba přidat `imports` do souboru project.json jako dočasné řešení pro některé základní EF závislosti nejsou podporovány .NET Standard. Tyto nyní může být odebrán.
+Pokud se zaměřujete na .NET Core RC2, je potřeba přidat `imports` k souboru project.json jako dočasným řešením pro některý ze EF Core závislosti, které nepodporují .NET Standard. Ty nyní je možné odebrat.
 
 ``` json
 {
@@ -72,15 +72,15 @@ Pokud byly cílem .NET Core RC2, je potřeba přidat `imports` do souboru projec
 ```
 
 > [!NOTE]  
-> Od verze 1.0 RTM, [.NET Core SDK](https://www.microsoft.com/net/download/core) již nepodporuje `project.json` nebo vývoj aplikací .NET Core pomocí sady Visual Studio 2015. Doporučujeme [migrovat ze souboru project.json csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Pokud používáte Visual Studio, doporučujeme upgradu na [Visual Studio 2017](https://www.visualstudio.com/downloads/).
+> Od verze 1.0 RTM, [.NET Core SDK](https://www.microsoft.com/net/download/core) už nepodporuje `project.json` nebo vývoj aplikací .NET Core pomocí sady Visual Studio 2015. Doporučujeme [migrace z project.json na csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Pokud používáte Visual Studio, doporučujeme je upgradovat na [Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
-## <a name="uwp-add-binding-redirects"></a>UWP: Přidejte přesměrování vazby
+## <a name="uwp-add-binding-redirects"></a>UPW: Přidat přesměrování vazby
 
-Došlo k pokusu o spuštění EF příkazy na výsledky projekty univerzální platformu Windows (UWP) s následující chybou:
+Došlo k pokusu o spuštění EF příkazy na univerzální platformu Windows (UPW) výsledky projekty s následující chybou:
 
     System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
 
-Budete muset ručně přidejte přesměrování vazby do projektu UPW. Vytvořte soubor s názvem `App.config` v projektu kořenová složka a přidejte přesměrování verzí sestavení správný.
+Budete muset ručně přidat přesměrování vazby do projektu UPW. Vytvořte soubor s názvem `App.config` v projektu kořenová složka a přidání přesměrování verze sestavení správná.
 
 ``` xml
 <configuration>

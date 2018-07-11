@@ -1,23 +1,23 @@
 ---
-title: Migrace v prostředích Team - EF jádra
+title: Migrace v prostředích Team – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 40cbc1c1bb0273bf733fadb884bffadcceeb162b
-ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
+ms.openlocfilehash: cf76df32099c25f33d5d94edf6bccec099cf714a
+ms.sourcegitcommit: de491b0988eab91b84dcbd941b7551e597e9c051
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2017
-ms.locfileid: "26054724"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38228377"
 ---
 <a name="migrations-in-team-environments"></a>Migrace v prostředích Team
 ===============================
-Při práci s migrací v prostředích team, věnujte zvláštní pozornost snímku souboru modelu. Tento soubor lze zjistit, pokud migrace vaší teammate slučuje řádně s vaším z Pokud potřebujete vyřešit konflikt znovu vytvořením migrace před její sdílení.
+Při práci s migrací v týmu prostředí je třeba věnujte zvláštní pozornost snímku souboru modelu. Tento soubor můžete říct, pokud se migrace vašich programujete sloučí čistě s vaším nebo pokud je potřeba vyřešit konflikt tak, že znovu vytvoříte migraci před jejich sdílením.
 
 <a name="merging"></a>sloučení
 -------
-Při slučování migrace z ostatními členy týmu, může dojít v konfliktu v snímku souboru modelu. Pokud jsou obě změny nesouvisejícími, sloučení je jednoduchá a dvě migrace mohou existovat vedle sebe. Například může dojít ke konfliktu sloučení v konfiguraci typu entity zákazníka, které vypadá takto:
+Při sloučení migrace z vašeho týmu, může zobrazit je v konfliktu v modelu snímku souboru. Pokud jsou obě změny nesouvisející, sloučení je jednoduché a dvě migrace mohou existovat vedle sebe. Například může získat konfliktu při slučování v konfiguraci typu entity zákazník, který vypadá takto:
 
     <<<<<<< Mine
     b.Property<bool>("Deactivated");
@@ -25,18 +25,18 @@ Při slučování migrace z ostatními členy týmu, může dojít v konfliktu v
     b.Property<int>("LoyaltyPoints");
     >>>>>>> Theirs
 
-Vzhledem k tomu, že obě tyto vlastnosti musí existovat v posledním modelu, dokončete sloučení přidáním obě vlastnosti. V mnoha případech může váš systém správy verzí automaticky sloučení tyto změny za vás.
+Protože obě tyto vlastnosti musí existovat v finálního modelu, sloučit tak, že přidáte obě vlastnosti. V mnoha případech může váš systém správy verzí automaticky sloučit tyto změny za vás.
 
 ``` csharp
 b.Property<bool>("Deactivated");
 b.Property<int>("LoyaltyPoints");
 ```
 
-V těchto případech migrace a vaše teammate migrace jsou navzájem nezávislé. Vzhledem k tomu, že buď z nich může být použije první, nemusíte provádět žádné další změny migrace před sdílením se svým týmem.
+V těchto případech se migrace a migrace vašich programujete nezávisle na sobě navzájem. Protože některou z nich můžete uplatnit v první, není nutné provádět žádné další změny migraci před jejich sdílením se svým týmem.
 
 <a name="resolving-conflicts"></a>Řešení konfliktů
 -------------------
-Někdy dojde true konflikt při slučování snímků model modelu. Například můžete a vaše teammate může každý přejmenovaná stejnou vlastnost.
+Někdy narazíte na true konfliktu při slučování snímků model modelu. Například vám a vaší programujete může každý přejmenovali stejnou vlastnost.
 
     <<<<<<< Mine
     b.Property<string>("Username");
@@ -44,13 +44,13 @@ Někdy dojde true konflikt při slučování snímků model modelu. Například 
     b.Property<string>("Alias");
     >>>>>>> Theirs
 
-Pokud narazíte na tento druh konflikt vyřešte znovu vytvořením migrace. Postupujte takto:
+Pokud narazíte na tento druh konflikt vyřešte opětovné vytvoření migrace. Postupujte podle těchto kroků:
 
-1. Abort – sloučení a vrácení zpět do pracovního adresáře před sloučení
+1. Zrušit sloučení a vrácení zpět do pracovního adresáře ještě před sloučením
 2. Odebrat migrace (ale zachovat změny modelu)
-3. Sloučit změny vašeho teammate do pracovní adresář
-4. Znovu přidejte migrace
+3. Vaše programujete změny sloučíte do pracovního adresáře
+4. Migrace je znovu přidat
 
-Po této, můžete použít dvě migrace ve správném pořadí. Jejich migrace se použije první, přejmenování sloupce, který se *Alias*, následně migrace přejmenuje jeho *uživatelské jméno*.
+Po této, můžete použít dvě migrace ve správném pořadí. Jejich migrace se použije první, přejmenování sloupce za účelem *Alias*, po tomto datu migrace přejmenuje na *uživatelské jméno*.
 
-Migrace je možné bezpečně sdílet s zbytek týmu.
+Migrace je bezpečně sdílet s ostatními členy týmu.

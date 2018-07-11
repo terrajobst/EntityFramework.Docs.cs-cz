@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: ecaa5a27-b19e-4bf9-8142-a3fb00642270
 caps.latest.revision: 3
-ms.openlocfilehash: 361065def0e83a097d4bb0109d468983ce41cd86
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 9588ef85435d3c0218defdc098f1e7150fb7ef72
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914046"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949045"
 ---
 # <a name="connection-management"></a>Správa připojení
 Tato stránka popisuje chování Entity Framework s ohledem na předávání připojení do kontextu a funkce **Database.Connection.Open()** rozhraní API.  
@@ -146,7 +146,7 @@ V dřívějších verzích a EF5 je chyba tak, aby **ObjectContext.Connection.St
 ((IObjectContextAdapter)context).ObjectContext.Connection.State
 ```  
 
-Samostatně je-li otevřít připojení k databázi pomocí volání Database.Connection.Open() bude otevřen až při příštím spuštění dotazu, nebo volat nic, která vyžaduje připojení k databázi (například SaveChanges()) ale za, že základní ukládání připojení se zavře. Kontext se pak znovu otevřete a znovu ukončete připojení pokaždé, když jiná operace databáze se vyžaduje:  
+Samostatně, je-li otevřít připojení k databázi pomocí volání Database.Connection.Open() bude otevřen až při příštím spuštění dotazu, nebo volat nic, která vyžaduje připojení k databázi (například SaveChanges()) ale za základní ukládání, připojení bude ukončeno. Kontext se pak znovu otevřete a znovu ukončete připojení pokaždé, když jiná operace databáze se vyžaduje:  
 
 ``` csharp
 using System;

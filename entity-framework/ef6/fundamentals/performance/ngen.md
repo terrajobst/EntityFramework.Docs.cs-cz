@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: dc6110a0-80a0-4370-8190-cea942841cee
 caps.latest.revision: 4
-ms.openlocfilehash: 18df636685da2373549437b4830e11ac8ad2d2ec
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: cffd2deea3148a16ed704d1e5e7b365eda06f72b
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914082"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949048"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>Zlepšuje výkon při spouštění pomocí technologie NGen
 > [!NOTE]
@@ -28,7 +28,7 @@ Empirických pozorování ukazují, že můžete vyjmout nativní bitové kopie 
 
 ## <a name="how-to-use-ngenexe"></a>Jak používat NGen.exe  
 
-Většina základních funkcí nástroj NGen.exe je "instalaci" (vytvořit a uložit na disk) nativních bitových kopií pro sestavení a všechny její závislosti s přímým přístupem. Tady je způsob, který můžete dosáhnout:  
+Většina základních funkcí nástroj NGen.exe je "instalaci" (to znamená, že pro vytvoření a uložení na disk) nativních bitových kopií pro sestavení a všechny její závislosti s přímým přístupem. Tady je způsob, který můžete dosáhnout:  
 
 1. Otevřete okno příkazového řádku jako správce  
 2. Změňte aktuální pracovní adresář na umístění sestavení, kterou chcete vygenerovat nativních bitových kopií pro:  
@@ -57,17 +57,17 @@ NGen.exe podporuje také další funkce, jako je například odinstalace a zobra
 Pokud jde o rozhodnout, která sestavení pro generování nativních bitových kopií pro aplikace založené na EF verze 6 nebo novější, je třeba zvážit následující možnosti:  
 
 - **Hlavní EF sestavení modulu runtime, EntityFramework.dll**: Typická aplikace EF na základě spustí značné množství kódu z tohoto sestavení při spuštění nebo na jeho první přístup k databázi. Vytvoření nativní bitové kopie tohoto sestavení. v důsledku toho vytvoří největší nárůst výkon při spuštění.  
-- **Jakékoli sestavení zprostředkovatele na EF používaný vaší aplikací**: spuštění také využívají výhod mírně generování nativních bitových kopií z nich, například pokud aplikace používá zprostředkovatele EF pro SQL Server, budete chtít generování nativních bitových kopií pro EntityFramework.SqlServer.dll.  
+- **Jakékoli sestavení zprostředkovatele na EF používaný vaší aplikací**: spuštění také využívají výhod mírně generování nativních bitových kopií z nich. Například pokud aplikace používá zprostředkovatele EF pro SQL Server můžete ke generování nativních bitových kopií pro EntityFramework.SqlServer.dll.  
 - **Sestavení vaší aplikace a další závislosti**: [NGen.exe dokumentaci](https://msdn.microsoft.com/library/6t9t5wcf.aspx) popisuje obecná kritéria pro výběr sestavení pro generování nativních bitových kopií pro a dopad na zabezpečení, nativní bitové kopie Rozšířené možnosti, jako například "Pevná vazba" scénáře, jako je třeba použití nativních bitových kopií při ladění a profilování scénáře atd.  
 
 > [!TIP]
-> Ujistěte se, že pečlivě měřit dopad na výkon při spouštění a celkového výkonu aplikace pomocí nativních bitových kopií a porovnání skutečné požadavky. Zatímco nativní bitové kopie obvykle pomůže zvýšit výkon spuštění a v některých případech omezit využití paměti, bude rovnoměrně přínosem pro všechny scénáře. Například na stálé spuštění (tj. Jakmile všechny metody, které používá aplikaci alespoň jednou vyvolání) kód generovaný kompilátorem JIT může ve skutečnosti přinést mírně vyšší výkon než nativní bitové kopie.  
+> Ujistěte se, že pečlivě měřit dopad na výkon při spouštění a celkového výkonu aplikace pomocí nativních bitových kopií a porovnání skutečné požadavky. Zatímco nativní bitové kopie obvykle pomůže zvýšit výkon spuštění a v některých případech omezit využití paměti, bude rovnoměrně přínosem pro všechny scénáře. Například na stálé spuštění (po všechny metody, které používá aplikaci alespoň jednou vyvolání) kód generovaný kompilátorem JIT může ve skutečnosti přinést mírně vyšší výkon než nativní bitové kopie.  
 
 ## <a name="using-ngenexe-in-a-development-machine"></a>Pomocí NGen.exe ve vývojovém počítači  
 
 Při vývoji v .NET JIT kompilátoru nabídne doporučené celkové kompromis pro kód, který se často mění. Generování nativních bitových kopií pro kompilované závislosti, jako jsou sestavení modulu runtime EF pomáhá urychlit vývoj a testování pomocí cutting pár sekund navýšení kapacity na začátku každé spuštění.  
 
-Umístění balíčku NuGet pro řešení, například pro aplikaci s využitím EF 6.0.2 s SQL serverem je vhodné místo, kde můžete najít sestavení modulu runtime EF a cílit na rozhraní .NET 4.5 nebo vyšší můžete zadat následující v okně příkazového řádku (nezapomeňte spustit jako administr operátor):  
+Je vhodné místo, kde můžete najít sestavení modulu runtime EF umístění balíčku NuGet pro řešení. Pro aplikaci pomocí EF 6.0.2 s SQL serverem a cílit na rozhraní .NET 4.5 nebo vyšší můžete například zadat následující, v okně příkazového řádku (nezapomeňte ho spusťte jako správce):  
 
 ``` console
 cd <Solution directory>\packages\EntityFramework.6.0.2\lib\net45
@@ -84,7 +84,7 @@ Podporuje se sadou nástrojů WiX služby Řízení front generování nativníc
 
 ## <a name="verifying-that-native-images-are-being-used-for-ef"></a>Ověřuje se, že se nativní bitové kopie slouží pro EF  
 
-Můžete ověřit, že konkrétní aplikace používá nativní sestavení tím, že hledají načtená sestavení, které mají příponu ". ni.dll"nebo". ni.exe", například nativní bitovou kopii pro sestavení EF hlavní modul runtime zavolá se EntityFramework.ni.dll. Snadný způsob, jak kontrolovat načtená sestavení .NET procesu je použití [Process Explorer](https://technet.microsoft.com/sysinternals/bb896653).  
+Můžete ověřit, že konkrétní aplikace používá nativní sestavení tím, že hledají načtená sestavení, které mají příponu ". ni.dll"nebo". ni.exe". Například nativní bitovou kopii pro sestavení EF hlavní modul runtime zavolá se EntityFramework.ni.dll. Snadný způsob, jak kontrolovat načtená sestavení .NET procesu je použití [Process Explorer](https://technet.microsoft.com/sysinternals/bb896653).  
 
 ## <a name="other-things-to-be-aware-of"></a>Je dobré mít na paměti  
 

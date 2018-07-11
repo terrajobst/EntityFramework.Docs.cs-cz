@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
 caps.latest.revision: 4
-ms.openlocfilehash: 52bc05bd25da919052ee58bbcc19d57e12ebc9d3
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 400bf1428e6754a88dbc1264c346bb66282725a0
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912652"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949000"
 ---
 # <a name="get-entity-framework"></a>Získat Entity Framework
 Entity Framework se skládá z EF nástrojů pro Visual Studio a modul Runtime EF.
@@ -51,7 +51,7 @@ Z EF 4.1 a vyšší, byly vydány nové verze modulu EF runtime jako [balíčku 
 Install-Package EntityFramework -Version <number>
 ```
 
-Všimněte si, že `<number>` představuje konkrétní verze EF k instalaci, třeba 6.2.0 je verze číslo pro EF 6.2.   
+Všimněte si, že `<number>` představuje konkrétní verze EF k instalaci. Například 6.2.0 je verze číslo pro EF 6.2.   
 
 Moduly runtime EF před 4.1 byly součástí rozhraní .NET Framework a se nedá nainstalovat samostatně.
 

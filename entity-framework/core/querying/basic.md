@@ -1,30 +1,30 @@
 ---
-title: Základní dotazy – EF jádra
+title: Základní dotazy – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ab6e35f1-397f-41c0-9ef4-85aec5466377
 ms.technology: entity-framework-core
 uid: core/querying/basic
-ms.openlocfilehash: 5070faf2aeeffad680e24e7de5a0ffa03a8f0064
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: eceac81546b23157611edd530b8b71f71e970c1f
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054103"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949064"
 ---
 # <a name="basic-queries"></a>Základní dotazy
 
-Zjistěte, jak načíst entity z databáze pomocí jazykové integrují dotazu (LINQ).
+Další informace o načtení entit z databáze pomocí Language Integrated Query (LINQ).
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
 
-## <a name="101-linq-samples"></a>101 ukázky LINQ
+## <a name="101-linq-samples"></a>101 ukázek pro LINQ
 
-Tato stránka zobrazuje několik příkladů k dosažení běžné úlohy s Entity Framework Core. Rozsáhlá sada ukázek zobrazuje, co je možné s dotazy LINQ, najdete v části [101 ukázky LINQ](https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b).
+Tato stránka zobrazuje několik příkladů běžných úloh s Entity Framework Core dosáhnout. Rozsáhlou sadu ukázky zobrazuje, jaké jsou možnosti s dotazy LINQ, naleznete v tématu [101 ukázek pro LINQ](https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b).
 
-## <a name="loading-all-data"></a>Načítání všech dat
+## <a name="loading-all-data"></a>Načítají se všechna data
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Basics/Sample.cs)] -->
 ``` csharp
