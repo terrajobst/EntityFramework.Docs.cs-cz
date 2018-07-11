@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 caps.latest.revision: 3
-ms.openlocfilehash: 8a06cfb2dbe79364c3f5cc21ecb32fd60d239e8a
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: cbd61838afc23dfb37cee7c624c65476c5270099
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914106"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949099"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework – glosář
 ## <a name="code-first"></a>Kód nejprve
@@ -48,13 +48,13 @@ Vzor načítání souvisejících dat, kde jsou načteny související objekty v
 Rozhraní API, které lze použít ke konfiguraci modelu Code First.
 
 ## <a name="foreign-key-association"></a>Přidružení cizího klíče
-Přidružení mezi entitami, kde je vlastnost, která představuje klíč, cizí součástí třídy závislé entity (například produkt obsahuje vlastnost ID kategorie).
+Přidružení mezi entitami, kde je vlastnost, která představuje klíč, cizí součástí třídy entity závislé. Vlastnost ID kategorie obsahuje například produktu.
 
 ## <a name="identifying-relationship"></a>Určení vztahu
 Vztah, kde primární klíč entity, objektu zabezpečení je součástí primárního klíče entity závislé. V tento druh vztahu závislé entity nemůže existovat bez instančního objektu entity.
 
 ## <a name="independent-association"></a>Nezávislé přidružení
-Přidružení mezi entitami tam, kde není žádná vlastnost představující cizí klíč ve třídě závislé entity (například produktu třída obsahuje vztah ke kategorii, ale žádná vlastnost ID kategorie). Entity Framework pomocí nezávislý objekt sledovat tuto relaci.
+Přidružení mezi entitami tam, kde není žádná vlastnost představující cizí klíč ve třídě závislé entity. Například třída produkt obsahuje vztah ke kategorii, ale žádná vlastnost ID kategorie. Entity Framework sleduje stav přidružení bez ohledu na jejich stav entit na koncích dva přidružení.
 
 ## <a name="lazy-loading"></a>Opožděné načtení
 Vzor načítání souvisejících dat, kde načteny související objekty jsou automaticky při přístupu k vlastnosti navigace.
@@ -63,7 +63,7 @@ Vzor načítání souvisejících dat, kde načteny související objekty jsou a
 Vytvoření modelu Entity Framework, pomocí EF designeru, který potom slouží k vytvoření nové databáze.
 
 ## <a name="navigation-property"></a>Navigační vlastnost
-Vlastnosti entity, která odkazuje na jinou entitu (například produkt obsahuje vlastnost navigace kategorie a kategorie obsahuje vlastnost navigace produkty).
+Vlastnosti entity, která odkazuje na jinou entitou. Například produkt obsahuje vlastnost navigace kategorie a kategorie obsahuje produkty navigační vlastnost.
 
 ## <a name="poco"></a>OBJEKTŮ POCO
 Zkratka pro objekt CLR prostý staré. Jednoduché uživatelské třídu, která nemá žádné závislosti pomocí libovolné architektury. V souvislosti s EF třídu entity, která není odvozena od EntityObject, implementuje všechna rozhraní, nebo představuje libovolné atributy definované v EF. Takové entity třídy, které jsou oddělené od rozhraní trvalost se také označují jako "trvalost ignorant".  

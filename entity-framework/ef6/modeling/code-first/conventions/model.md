@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
 caps.latest.revision: 3
-ms.openlocfilehash: 58a895d0cccdd9caa076168d8314d997be2ae96c
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 135a51d93a06c0d64732438f067df4ce2675fbe2
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914043"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949070"
 ---
 # <a name="model-based-conventions"></a>Vytváření názvů založených na modelu
 > [!NOTE]
@@ -89,7 +89,7 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 
 Další složitější příklad modelu na základě konvencí v akci, je nakonfigurovat tak, že jsou názvy nezávislé přidružení (IAs).  Toto je případě, že se dají použít, protože služba ověřování v Internetu jsou generovány pomocí EF a nejsou k dispozici v modelu, s přístupem k rozhraní API DbModelBuilder modelu konvencí.  
 
-Když EF generuje IA, vytvoří se sloupec s názvem EntityType_KeyName to znamená pro přidružení s názvem zákazníků s klíčový sloupec s názvem CustomerId vygeneruje sloupec s názvem Customer_CustomerId.  Následující pásky konvence "\_" znak mimo název sloupce, který je generován pro i a.  
+Když EF generuje IA, vytvoří se sloupec s názvem EntityType_KeyName. Například pro přidružení s názvem zákazníků s klíčový sloupec s názvem CustomerId vygeneruje sloupec s názvem Customer_CustomerId. Následující pásky konvence "\_" znak mimo název sloupce, který je generován pro i a.  
 
 ``` csharp
 using System.Data.Entity;
@@ -197,7 +197,7 @@ public class CustomKeyDiscoveryConvention : KeyDiscoveryConvention
 }
 ```  
 
-Pak potřebujeme přidat naše nová konvence před existující klíče konvence. Po přidání CustomKeyDiscoveryConvention, můžeme odebrat IdKeyDiscoveryConvention.  Pokud jsme neměli odebrat existující IdKeyDiscoveryConvention Tato konvence by stále přednost konvenci zjišťování Id vzhledem k tomu, že je spuštěn jako první, ale v případě, pokud je nalezena žádná vlastnost "klíče", "id" konvence poběží.  Toto chování vidíme, protože každý konvence vidí modelu při aktualizaci předchozí konvence (nikoli na provoz na něm nezávisle a všechny je zkopírovat dohromady) tak, že pokud předchozí konvence aktualizovat například sloupec název tak, aby odpovídaly něco, abyste vaše vlastní konvence (pokud dříve nebyla název zájmu) pak bude platit pro tento sloupec.  
+Pak potřebujeme přidat naše nová konvence před existující klíče konvence. Po přidání CustomKeyDiscoveryConvention, můžeme odebrat IdKeyDiscoveryConvention.  Pokud jsme neměli odebrat existující IdKeyDiscoveryConvention Tato konvence by stále přednost konvenci zjišťování Id vzhledem k tomu, že je spuštěn jako první, ale v případě, pokud je nalezena žádná vlastnost "klíče", "id" konvence poběží.  Toto chování vidíme, protože každý konvence vidí modelu, která jsou aktualizovány předchozí konvence (nikoli na provoz na něm nezávisle a všechny je zkopírovat dohromady) tak, aby Pokud například předchozí konvence aktualizovat název sloupce tak, aby odpovídaly něco z zajímavé pro váš vlastní konvence (pokud dříve nebyla název zájmu) pak bude platit pro tento sloupec.  
 
 ``` csharp
 public class BlogContext : DbContext

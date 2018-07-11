@@ -1,92 +1,93 @@
 ---
-title: "Základní EF & EF6 porovnání jednotlivých funkcí"
+title: Porovnání EF Core a EF6 jednotlivých funkcí
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f22f29ef-efc0-475d-b0b2-12a054f80f95
 uid: efcore-and-ef6/features
-ms.openlocfilehash: 3f05fbe53439826a4e1e1b188a7c03951dc109ec
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 84b40f03cdab27fd6fc68c5bb65c6e3d238f226a
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37967150"
 ---
-# <a name="ef-core-and-ef6-feature-by-feature-comparison"></a>Porovnání jednotlivých funkcí EF jádra a EF6
+# <a name="ef-core-and-ef6-feature-by-feature-comparison"></a>Porovnání EF Core a EF6 jednotlivých funkcí
 
-Následující tabulka porovnává funkce dostupné v EF jádra a EF6. Je určena k dát srovnání a není seznamu všechny funkce nebo se pokuste o uvádí podrobné informace o možných rozdíly mezi jak stejné funkce funguje.
+Následující tabulka obsahuje porovnání funkcí, které jsou k dispozici v EF Core a EF6. Jeho účelem je poskytnout základní porovnání a není seznamu všechny funkce nebo se pokuste o uvádí podrobné informace o možných rozdíly mezi jak stejné funkce.
 
-Základní EF sloupec obsahuje číslo verze produktu, ve kterém se nejdřív objevil funkci.
+EF Core sloupec obsahuje číslo verze produktu, ve kterém nejprve funkci objevily.
 
-| **Vytvoření modelu**                                  | **EF 6** | **EF jádra**                           |
+| **Vytvoření modelu**                                  | **EF 6** | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Základní třída mapování                                   | Ano      | 1.0                                   |
 | Konstruktory s parametry                          |          | 2.1                                   |
 | Převody hodnot vlastností                            |          | 2.1                                   |
-| Typy namapované žádné klíče (typy dotazů)               |          | 2.1                                   |
+| Mapovaných typech bez klíčů (typy dotazů)               |          | 2.1                                   |
 | Konvence                                           | Ano      | 1.0                                   |
-| Vlastní konvence                                    | Ano      | 1.0 (částečné)                         |
+| Vlastní konvence                                    | Ano      | 1.0 (částečná podpora)                         |
 | Datové poznámky                                      | Ano      | 1.0                                   |
 | Rozhraní Fluent API                                            | Ano      | 1.0                                   |
 | Dědičnosti: Tabulky na hierarchii (TPH)                | Ano      | 1.0                                   |
-| Dědičnosti: Tabulky na typ (TPT)                     | Ano      |                                       |
+| Dědičnosti: Tabulky podle typu (TPT)                     | Ano      |                                       |
 | Dědičnosti: Tabulky na konkrétní třídy (TPC)           | Ano      |                                       |
-| Vlastnosti stínové stavu                               |          | 1.0                                   |
+| Stínové vlastnosti stavu                               |          | 1.0                                   |
 | Alternativní klíče                                        |          | 1.0                                   |
-| M n bez připojení k entity                      | Ano      |                                       |
-| Generování klíče: databáze                              | Ano      | 1.0                                   |
-| Generování klíče: klienta                                |          | 1.0                                   |
-| Ve vlastnictví nebo komplexní typy                                   | Ano      | 2.0                                   |
+| Many-to-many bez připojení k entitě                      | Ano      |                                       |
+| Generování klíčů: databáze                              | Ano      | 1.0                                   |
+| Generování klíčů: klienta                                |          | 1.0                                   |
+| Vlastní/komplexní typy                                   | Ano      | 2.0                                   |
 | Prostorová data                                          | Ano      |                                       |
-| Grafické vizualizace modelu                      | Ano      |                                       |
-| Model grafického editoru                                | Ano      |                                       |
-| Model formátu: kódu                                    | Ano      | 1.0                                   |
-| Model formátu: EDMX (XML)                              | Ano      |                                       |
-| Vytvoření modelu z databáze: příkazového řádku              | Ano      | 1.0                                   |
+| Grafická vizualizace modelu                      | Ano      |                                       |
+| Editor modelů grafické                                | Ano      |                                       |
+| Vzor formátu: kód                                    | Ano      | 1.0                                   |
+| Vzor formátu: EDMX (XML)                              | Ano      |                                       |
+| Vytvoření modelu z databáze: Příkazový řádek              | Ano      | 1.0                                   |
 | Vytvoření modelu z databáze: Průvodce VS                 | Ano      |                                       |
-| Aktualizovat model z databáze                            | Částečné  |                                       |
-| Filtry globální dotazu                                  |          | 2.0                                   |
+| Aktualizace modelu z databáze                            | Částečné  |                                       |
+| Globální filtry dotazů                                  |          | 2.0                                   |
 | Rozdělení tabulky                                       | Ano      | 2.0                                   |
 | Rozdělení entity                                      | Ano      |                                       |
 | Mapování skalární funkce databáze                      | Slabé     | 2.0                                   |
 | Mapování polí                                         |          | 1.1                                   |
 |                                                       |          |                                       |
-| **Dotazy na data**                                     | **EF6**  | **EF jádra**                           |
-| LINQ – dotazy                                          | Ano      | 1.0 (probíhající pro složité dotazy) |
-| Parametr Readable generované SQL                                | Slabé     | 1.0                                   |
-| Vyhodnocení smíšený klient server                        |          | 1.0                                   |
-| GroupBy překlad                                   | Ano      | 2.1                                   |
-| Načítání dat v relaci: přes                           | Ano      | 1.0                                   |
-| Načítání dat v relaci: načítání pro nápovědy Eager odvozených typů |          | 2.1                                   |
-| Načítání dat v relaci: opožděné                            | Ano      | 2.1                                   |
-| Načítání dat v relaci: explicitní                        | Ano      | 1.1                                   |
-| Nezpracovaná dotazů SQL: typy entit                         | Ano      | 1.0                                   |
-| Nezpracovaná dotazů SQL: typy nonentity (např. typy dotazů)  | Ano      | 2.1                                   |
-| Nezpracovaná dotazů SQL: skládání s dotazy LINQ                  |          | 1.0                                   |
+| **Dotazy na data**                                     | **EF6**  | **EF Core**                           |
+| LINQ – dotazy                                          | Ano      | 1.0 (Probíhá pro složité dotazy) |
+| Parametr Readable generovaného SQL                                | Slabé     | 1.0                                   |
+| Vyhodnocení smíšené klient/server                        |          | 1.0                                   |
+| GroupBy překladu                                   | Ano      | 2.1                                   |
+| Načítání souvisejících dat: nemůžou dočkat, až                           | Ano      | 1.0                                   |
+| Načítání souvisejících dat: Eager načítání pro odvozené typy |          | 2.1                                   |
+| Načítání souvisejících dat: opožděné                            | Ano      | 2.1                                   |
+| Načítání souvisejících dat: explicitní                        | Ano      | 1.1                                   |
+| Nezpracované dotazy SQL: typy entit                         | Ano      | 1.0                                   |
+| Nezpracované dotazy SQL: typy nonentity (typy dotazů)       | Ano      | 2.1                                   |
+| Nezpracované dotazy SQL: sestavování s jazykem LINQ                  |          | 1.0                                   |
 | Explicitně kompilované dotazy                           | Slabé     | 2.0                                   |
-| Založený na textu dotazovací jazyk (např. SQL Entity)           | 1.0      |                                       |
+| Jazyk založený na textu dotazu (Entity SQL)                | Ano      |                                       |
 |                                                       |          |                                       |
-| **Ukládání dat**                                       | **EF6**  | **EF jádra**                           |
+| **Ukládání dat**                                       | **EF6**  | **EF Core**                           |
 | Sledování změn: snímku                             | Ano      | 1.0                                   |
 | Sledování změn: oznámení                         | Ano      | 1.0                                   |
-| Sledování změn: proxy                              | Ano      |                                       |
-| Přístup k sledovaných stavu                               | Ano      | 1.0                                   |
-| Optimistickou metodu souběžného zpracování                                | Ano      | 1.0                                   |
+| Sledování změn: proxy servery                              | Ano      |                                       |
+| Přístup k sledované stavu                               | Ano      | 1.0                                   |
+| Optimistická souběžnost                                | Ano      | 1.0                                   |
 | Transakce                                          | Ano      | 1.0                                   |
-| Dávkování příkazů                                |          | 1.0                                   |
+| Dávkové zpracování příkazů                                |          | 1.0                                   |
 | Mapování uložené procedury                              | Ano      |                                       |
-| Odpojení graf nízké úrovně rozhraní API                     | Slabé     | 1.0                                   |
-| Odpojené grafu začátku do konce                         |          | 1.0 (částečné)                         |
+| Odpojení rozhraní graph API nízké úrovně                     | Slabé     | 1.0                                   |
+| Odpojené grafu začátku do konce                         |          | 1.0 (částečná podpora)                         |
 |                                                       |          |                                       |
-| **Další funkce**                                    | **EF6**  | **EF jádra**                           |
+| **Další funkce**                                    | **EF6**  | **EF Core**                           |
 | Migrace                                            | Ano      | 1.0                                   |
-| Vytvoření nebo odstranění databáze rozhraní API                       | Ano      | 1.0                                   |
-| Počáteční hodnoty data                                             | Ano      | 2.1                                   |
+| Databáze vytváření/odstraňování rozhraní API                       | Ano      | 1.0                                   |
+| Počáteční hodnota dat                                             | Ano      | 2.1                                   |
 | Odolnost připojení                                 | Ano      | 1.1                                   |
-| Životní cyklus háky (události, zachycením)                | Ano      |                                       |
-| Jednoduché protokolování (např. Database.Log)                    | Ano      |                                       |
+| Životní cyklus zavěšení (události, zachycení)                | Ano      |                                       |
+| Jednoduché protokolování (Database.Log)                         | Ano      |                                       |
 | Sdružování DbContext                                     |          | 2.0                                   |
 |                                                       |          |                                       |
-| **Poskytovatelé databází**                                | **EF6**  | **EF jádra**                           |
+| **Poskytovatelé databází**                                | **EF6**  | **EF Core**                           |
 | SQL Server                                            | Ano      | 1.0                                   |
 | MySQL                                                 | Ano      | 1.0                                   |
 | PostgreSQL                                            | Ano      | 1.0                                   |
@@ -96,13 +97,13 @@ Základní EF sloupec obsahuje číslo verze produktu, ve kterém se nejdřív o
 | DB2                                                   | Ano      | 1.0                                   |
 | Firebird                                              | Ano      | 2.0                                   |
 | Jet (Microsoft Access)                                |          | 2.0 <sup>(2)</sup>                    |
-| V paměti (pro testování)                               |          | 1.0                                   |
+| V paměti (pro účely testování)                               |          | 1.0                                   |
 |                                                       |          |                                       |
-| **Platformy**                                         | **EF6**  | **EF jádra**                           |
-| Rozhraní .NET framework (konzole, WinForms, WPF, ASP.NET)      | Ano      | 1.0                                   |
-| .NET core (konzole, ASP.NET Core)                     |          | 1.0                                   |
+| **Platformy**                                         | **EF6**  | **EF Core**                           |
+| Rozhraní .NET framework (konzola, WinForms, WPF, technologii ASP.NET)      | Ano      | 1.0                                   |
+| .NET core (konzola, ASP.NET Core)                     |          | 1.0                                   |
 | Mono & Xamarin                                        |          | 1.0 (Probíhá)                     |
 | UWP                                                   |          | 1.0 (Probíhá)                     |
 
-<sup>1</sup> je aktuálně placené zprostředkovatele k dispozici. Volné oficiálního zprostředkovatele pro Oracle je pracuje.
+<sup>1</sup> je aktuálně placené zprostředkovatele k dispozici. Bezplatné oficiálního zprostředkovatele pro Oracle se právě zpracovává.
 <sup>2</sup> tohoto zprostředkovatele funguje pouze na rozhraní .NET Framework (ne na .NET Core).

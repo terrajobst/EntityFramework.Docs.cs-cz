@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
 caps.latest.revision: 3
-ms.openlocfilehash: 76bb350f2407e0e33a20d0c4f6961ba57d646818
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 88fd859b4f9a8069eeb08f32bb1d35ddcd21aec5
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914215"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949282"
 ---
 # <a name="dependency-resolution"></a>Řešení závislostí
 > [!NOTE]
@@ -31,7 +31,7 @@ public interface IDbDependencyResolver
 
 Metoda GetService je obvykle volána EF a zařizuje služba implementace IDbDependencyResolver EF nebo aplikace k dispozici. Při volání, typ argumentu je typ rozhraní nebo základní třídy požadované služby a klíče objektu je buď null, nebo objekt, který poskytuje kontextové informace o požadovanou službu.  
 
-Tento článek obsahuje podrobnosti o tom, jak implementovat IDbDependencyResolver, ale místo toho funguje jako reference pro typy služeb (tj. rozhraní a typy základní třídy), pro které EF volá GetService a sémantika klíčový objekt pro každou z těchto volání. Tento dokument se zachová aktuální při přidání dalších služeb.  
+Tento článek neobsahuje všechny podrobnosti o tom, jak implementovat IDbDependencyResolver, ale místo toho funguje jako reference pro pro které EF volá GetService a sémantika klíčový objekt pro každou z těchto typů služeb (to znamená, typy rozhraní a základní třídy) volání. Tento dokument se zachová aktuální při přidání dalších služeb.  
 
 ## <a name="services-resolved"></a>Služby Vyřešeno  
 

@@ -6,12 +6,12 @@ ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 768429b857b09c1974f4ade31b5bbb6b1c7e15c3
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 476a1dcaadcd99eba0cd4f5f0ac40c32a97af5c9
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912691"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949424"
 ---
 # <a name="owned-entity-types"></a>Vlastněné typy entit
 
@@ -155,7 +155,7 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
 
 Je možné dosáhnout stejnou věc, kterou pomocí `OwnedAttribute` OrderDetails a StreetAdress.
 
-Kromě vnořené typy vlastnictví může odkazovat na typ vlastnictví regulární entity. V následujícím příkladu je země regulární entita (to znamená bez vlastnictví):
+Kromě vnořené typy vlastnictví může odkazovat na typ vlastnictví regulární entity. V následujícím příkladu je země regulární – vlastní entity:
 
 ``` csharp
 public class StreetAddress
@@ -182,7 +182,7 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
 
 ## <a name="querying-owned-types"></a>Zjišťují se vlastněné typy
 
-Při dotazování na vlastníka vlastněné typy budou zahrnuty ve výchozím nastavení. Není nutné používat `Include` metoda, i když vlastněné typy jsou uložené v samostatné tabulce. Na základě modelu před popsané, následující dotaz bude o přijetí změn pořadí, OrderDetails a dva StreeAddresses vlastnictví pro všechny čekající na vyřízení objednávky z databáze:
+Při dotazování na vlastníka vlastněné typy budou zahrnuty ve výchozím nastavení. Není nutné používat `Include` metoda, i když vlastněné typy jsou uložené v samostatné tabulce. Na základě modelu před popsané, následující dotaz bude o přijetí změn pořadí, OrderDetails a dva StreetAddresses vlastnictví pro všechny čekající na vyřízení objednávky z databáze:
 
 ``` csharp
 var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
@@ -194,11 +194,11 @@ Některé z těchto omezení jsou základem pro jak vlastněné pracovní typy e
 
 ### <a name="shortcomings-in-previous-versions"></a>Nedostatky v předchozích verzích
 - V EF Core 2.0 navigaci na, který vlastní typy entit se nedá deklarovat v typy odvozené entit, pokud vlastnictví entity jsou explicitně namapovány na samostatnou tabulku z hierarchie vlastníka. Toto omezení byl odebrán v EF Core 2.1
- 
+
 ### <a name="current-shortcomings"></a>Aktuální nedostatky
 - Hierarchie dědičnosti, které zahrnují vlastněné typy entit nejsou podporovány.
 - Vlastněné typy entit nemůže být na kterou odkazoval navigační vlastnost kolekce (pouze odkaz, který se aktuálně podporují navigaci)
-- Navigaci vlastněné typy entit nemůže mít hodnotu null, pokud jsou explicitně namapované na samostatnou tabulku od vlastníka 
+- Navigaci vlastněné typy entit nemůže mít hodnotu null, pokud jsou explicitně namapované na samostatnou tabulku od vlastníka
 - Instance vlastněné typy entit nemůže je sdílet více vlastníky (to je dobře známé scénář pro hodnotu objekty, které nelze implementovat s využitím vlastněné typy entit)
 
 ### <a name="by-design-restrictions"></a>Omezení podle návrhu

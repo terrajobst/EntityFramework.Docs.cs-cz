@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
 caps.latest.revision: 3
-ms.openlocfilehash: 56a7179a522bc4d8eadf631b0db7be7b3fc9874e
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 77e139a29bb4708b00fc6198a57780ce75197252
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914257"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949105"
 ---
 # <a name="code-first-migrations-with-an-existing-database"></a>Migrace Code First s existující databáze
 > [!NOTE]
@@ -90,7 +90,7 @@ Tady je několik příkladů, když je třeba tomu věnovat pozornost:
 
 **Pokud jste použili "možnost 2: použití prázdnou databázi jako výchozí bod" z kroku 3:**
 
--   Chcete spustit metodu nižší počáteční migraci (například návrat k prázdné databáze) na místní databázi může selhat, protože se pokusí migrace vyřaďte indexy a omezení cizího klíče pomocí správné názvy. Jen to bude mít vliv na vaše místní databáze od jiných databází se vytvoří úplně od začátku pomocí metody nahoru počáteční migraci.
+-   Chcete spustit metodu nižší počáteční migraci (který se vrátí k prázdnou databázi) na místní databázi může selhat, protože se pokusí migrace vyřaďte indexy a omezení cizího klíče pomocí správné názvy. Jen to bude mít vliv na vaše místní databáze od jiných databází se vytvoří úplně od začátku pomocí metody nahoru počáteční migraci.
     Pokud chcete přejít na nižší verzi vaší stávající místní databázi pro prázdný stav je nejjednodušší provést ručně, buď ve vyřazení databáze nebo vyřadit všechny tabulky. Po tomto počáteční přechod na starší verzi, které všechny objekty databáze se znovu vytvoří s výchozími názvy proto tento problém nebude k dispozici samotné znovu.
 -   Pokud budoucí změny v modelu nevyžaduje změnu nebo jeden z databázových objektů, které je pojmenované jinak vyřadit, to nebude fungovat na vaší stávající místní databázi – protože názvy nebudou odpovídat výchozí hodnoty. Však bude fungovat s databázemi, které byly vytvořeny 'od začátku' vzhledem k tomu, že se mají používat výchozí názvy zvolí migrace.
     Může tyto změny provést ručně ve vaší stávající místní databázi, nebo zvažte, jestli by migrace znovu vytvořit databázi úplně od začátku – stejně jako ji na jiné počítače.

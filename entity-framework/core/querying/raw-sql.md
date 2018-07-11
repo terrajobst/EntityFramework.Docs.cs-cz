@@ -1,45 +1,45 @@
 ---
-title: Nezpracovaná SQL dotazy – EF jádra
+title: Nezpracované dotazy SQL – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: 7ed9a8938f8b6dffa7149d64d7e869b0b0078169
-ms.sourcegitcommit: 3adf1267be92effc3c9daa893906a7f36834204f
+ms.openlocfilehash: a1d554795dcd8a3e5b44e89ac014f538598461cc
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/08/2018
-ms.locfileid: "35232172"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949244"
 ---
-# <a name="raw-sql-queries"></a>Nezpracovaná SQL dotazy
+# <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
-Entity Framework Core umožňuje rozevírací nabídku nezpracovaná dotazy SQL při práci s relační databáze. To může být užitečné, pokud je dotaz, který chcete provést nedají vyjádřit pomocí LINQ, nebo pokud pomocí dotazu LINQ je výsledkem neefektivní SQL odesílány do databáze. Nezpracovaná SQL dotazy mohou vracet typy entit nebo, počínaje EF základní 2.1, [typy dotazů](xref:core/modeling/query-types) které jsou součástí modelu.
+Entity Framework Core umožňuje rozevírací seznam pro nezpracované dotazy SQL při práci s relační databáze. To může být užitečné, pokud dotaz, který chcete provést nelze vyjádřen pomocí jazyka LINQ, nebo pomocí dotazu LINQ je výsledkem neefektivní SQL odesílané do databáze. Nezpracované dotazy SQL může vrátit typy entit nebo, počínaje EF Core 2.1 [typy dotazů](xref:core/modeling/query-types) , které jsou součástí modelu.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
 
 ## <a name="limitations"></a>Omezení
 
-Je třeba vzít na vědomí při použití nezpracovaná dotazů SQL několik omezení:
+Existuje několik omezení, která je potřeba při používání nezpracované dotazy SQL:
 
 * Příkaz jazyka SQL musí vracet data pro všechny vlastnosti typu entity nebo dotazu.
 
-* Názvy sloupců, které vlastnosti jsou namapované na musí shodovat s názvy sloupců v sadě výsledků dotazu. Všimněte si, že se to neliší od EF6 kde mapování vlastnost nebo sloupce bylo ignorováno pro nezpracovanou dotazy SQL a výsledek sady sloupců museli názvy shodovat s názvy vlastností.
+* Názvy sloupců v sadě výsledků musí shodovat s názvy sloupců, které vlastnosti jsou mapovány na. Všimněte si, že se liší od EF6, ve kterém byl ignorován, vlastnost nebo sloupec mapování pro nezpracované dotazy SQL a názvy musí shodovat s názvy vlastností, které sloupce sady výsledků dotazu.
 
-* Příkaz jazyka SQL nemůže obsahovat související data. Ale v mnoha případech můžete vytvoříte nad pomocí dotazu `Include` operátor vrátit související data (najdete v části [včetně souvisejících dat](#including-related-data)).
+* Příkaz jazyka SQL nemůže obsahovat související data. Ale v mnoha případech můžete vytvářet nad pomocí dotazu `Include` operátor vrátí související data (naleznete v tématu [včetně souvisejících dat](#including-related-data)).
 
-* `SELECT` příkazy předaná této metodě by měl být obecně bez možnosti složení: Pokud základní EF musí vyhodnocování operátory další dotazu na serveru (například přeložit LINQ operátory použity po `FromSql`), zadaný SQL, budou považovány za poddotazu. To znamená, že SQL předán neměl obsahovat žádné znaky nebo možnosti, které nejsou platné v poddotazu, jako například:
-  * Koncové středníkem
-  * Na serveru SQL Server koncové úrovni dotazu pomocného parametru, například `OPTION (HASH JOIN)`
-  * Na serveru SQL Server `ORDER BY` klauzule, který není uveden z `TOP 100 PERCENT` v `SELECT` – klauzule
+* `SELECT` příkazy předaný této metodě by měl být obecně sestavitelný: pokud EF Core potřebuje k vyhodnocení operátorů další dotazu na serveru (například pro převod operátory LINQ použity po `FromSql`), zadaný SQL bude zacházeno jako s poddotaz. To znamená, že SQL předán nesmí obsahovat žádné znaky nebo možnosti, které nejsou platné v poddotazu, jako například:
+  * koncovou středníkem
+  * Na serveru SQL Server, koncové pomocný parametr dotazu úrovni (třeba `OPTION (HASH JOIN)`)
+  * Na serveru SQL Server `ORDER BY` klauzuli, která se připojí z `TOP 100 PERCENT` v `SELECT` – klauzule
 
-* SQL příkazy jinak než `SELECT` , se rozpoznávají automaticky jako bez možnosti složení. V důsledku toho úplné výsledky uložené procedury jsou vždy vrácen do klienta a jakékoli LINQ operátory použity po `FromSql` se vyhodnotí v paměti. 
+* SQL příkazy jiných než `SELECT` jsou automaticky uznáváni jako bez možnosti složení. V důsledku toho úplné výsledky uložené procedury jsou vždy vrácen do klienta a jakékoli operátory LINQ použity po `FromSql` jsou vyhodnocené jako v paměti.
 
-## <a name="basic-raw-sql-queries"></a>Základní nezpracovaná dotazy SQL
+## <a name="basic-raw-sql-queries"></a>Základní nezpracované dotazy SQL
 
-Můžete použít *FromSql* metoda rozšíření zahájíte dotazu LINQ na základě nezpracované dotazu SQL.
+Můžete použít *FromSql* metodu rozšíření k začátku dotazu LINQ na základě nezpracované dotazu SQL.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -48,7 +48,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Nezpracovaná dotazy SQL můžete použít ke spuštění uložené procedury.
+Nezpracované dotazy SQL můžete použít ke spuštění uložené procedury.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -59,9 +59,9 @@ var blogs = context.Blogs
 
 ## <a name="passing-parameters"></a>Předávání parametrů
 
-Stejně jako u jakéhokoli rozhraní API, který přijímá SQL, je důležité o parametrizaci žádné vstupem uživatele k ochraně proti útok prostřednictvím injektáže SQL. Můžete zahrnout zástupné symboly parametrů v řetězci dotazu SQL a potom zadejte hodnoty parametrů jako další argumenty. Všechny hodnoty parametrů můžete zadat budou automaticky převedeny na `DbParameter`.
+Stejně jako u jakékoli rozhraní API, které přijímá SQL, je potřeba parametrizovat libovolný uživatelský vstup k ochraně proti útoku prostřednictvím injektáže SQL. Můžete zahrnout parametr zástupné symboly v řetězci dotazu SQL a pak zadejte hodnoty parametrů jako další argumenty. Všechny hodnoty parametrů, které zadáte, se automaticky převedou na `DbParameter`.
 
-Následující příklad předá jeden parametr uložené procedury. Když to bude vypadat jako `String.Format` syntaxe, zadaná hodnota je uzavřen do parametr a název vygenerovaný parametru vložit where `{0}` byl zadán zástupný symbol.
+Následující příklad předá jeden parametr uložené procedury. Přestože to může vypadat, jako jsou `String.Format` syntaxe, zadaná hodnota je zabalena v parametru a název vygenerovaný parametru vložen where `{0}` byl určen zástupný.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -72,7 +72,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Jde o stejný dotaz, ale pomocí syntaxe interpolace řetězec, který není podporovaný v EF základní 2.0 a vyšší:
+Jde o stejný dotaz, ale pomocí syntaxe interpolace řetězce, který není podporovaný v EF Core 2.0 a vyšší:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -83,7 +83,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Můžete také vytvořit DbParameter a zadejte jako hodnotu parametru. To umožňuje používat pojmenované parametry v řetězci dotazu SQL
+Můžete také sestavit DbParameter a zadat jako hodnotu parametru. Díky tomu můžete použít pojmenované parametry v řetězci dotazu SQL
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -94,11 +94,11 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-## <a name="composing-with-linq"></a>Sestavování s dotazy LINQ
+## <a name="composing-with-linq"></a>Sestavování s jazykem LINQ
 
-Pokud příkaz jazyka SQL se může skládat na v databázi, potom můžete vytvořit nad počáteční nezpracovaná SQL dotazu pomocí LINQ operátory. Dotazy SQL, které se dají sestavit na probíhá pomocí `SELECT` – klíčové slovo.
+Pokud se dotaz SQL se může skládat na v databázi, potom můžete vytvářet nad rámec počáteční neupraveného dotazu SQL pomocí operátorů LINQ. Dotazy SQL, které mohou být složené na právě s `SELECT` – klíčové slovo.
 
-Následující příklad používá nezpracovaná dotaz SQL, který vybere z zavolat – funkce (TVF) a potom vytvoří na pomocí LINQ pro filtrování a řazení.
+Následující příklad používá nezpracovaná dotaz SQL, který vybere z Table-Valued – funkce (TVF) a pak vytvoří v něm pomocí jazyka LINQ k provedení filtrování a řazení.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -111,9 +111,9 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-### <a name="including-related-data"></a>Včetně související data
+### <a name="including-related-data"></a>Včetně souvisejících dat
 
-Sestavování s operátory LINQ lze zahrnout související data v dotazu.
+Sestavování s operátory LINQ, je možné zahrnout související data v dotazu.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -126,4 +126,4 @@ var blogs = context.Blogs
 ```
 
 > [!WARNING]  
-> **Vždy používat Parametrizace pro nezpracovanou dotazů SQL:** rozhraní API, které přijímají nezpracovaná SQL řetězec, jako `FromSql` a `ExecuteSqlCommand` povolit hodnoty, které se snadno předat jako parametry. Kromě ověřování uživatelského vstupu, vždy Parametrizace používejte pro všechny hodnoty používané v nezpracovaných dotazu nebo příkaz SQL. Pokud používáte zřetězení řetězců dynamicky vytvářet jakékoliv části řetězce dotazu, pak jste zodpovědní za ověření žádný vstup chránit před útoky Injektáž SQL.
+> **Vždy používat Parametrizace pro nezpracované dotazy SQL:** rozhraní API, které přijímají nezpracovaná SQL, jako řetězec `FromSql` a `ExecuteSqlCommand` povolit hodnot do snadno předat jako parametry. Kromě ověřování uživatelského vstupu, vždy používejte Parametrizace pro všechny hodnoty použité v nezpracované dotazu nebo příkaz SQL. Pokud používáte zřetězení řetězců dynamicky vytvářet všechny části řetězce dotazu, pak budete muset ověřování jakékoli vstupu pro ochranu před útoky prostřednictvím injektáže SQL.

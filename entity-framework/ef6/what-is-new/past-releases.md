@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
 caps.latest.revision: 4
-ms.openlocfilehash: 64cf28b858ad364243447a529f26475d449cf73e
-ms.sourcegitcommit: 45494121254ad4fdcec613d1dd22d850068d6f39
+ms.openlocfilehash: 5be3632fd3a3f04e12e2d3aa67de6c1d9c7b56a2
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37913451"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949323"
 ---
 # <a name="past-releases-of-entity-framework"></a>Předchozími verzemi nástroje Entity Framework
 
@@ -68,10 +68,10 @@ EF 6.1.0 runtime byla vydána NuGet v březnu 2014.
 Tento dílčí aktualizace obsahuje velký počet nových funkcí:
 
 - **Nástroje konsolidace** poskytuje konzistentní způsob, jak vytvořit nový model EF. Tato funkce [rozšiřuje průvodce datový Model Entity ADO.NET pro podporu vytváření modelů Code First](~/ef6/modeling/code-first/workflows/existing-database.md), včetně zpětná analýza z existující databáze. Tyto funkce byly dříve k dispozici v beta verzi kvality v EF Power Tools.
-- **[Zpracování chyb potvrzení transakce](~/ef6/fundamentals/connection-resiliency/commit-failures.md) ** poskytuje CommitFailureHandler, která využívá nově zavedená možnost zachycení operace transakce. CommitFailureHandler umožňuje automatické obnovení v případě selhání připojení, zatímco potvrzení transakce.
-- **[IndexAttribute](~/ef6/modeling/code-first/data-annotations.md) ** umožňuje indexů možné zadat tak, že `[Index]` atributu pro vlastnost (nebo vlastnosti) v modelu Code First. Kód nejprve pak vytvoří odpovídající index v databázi.
+- **[Zpracování chyb potvrzení transakce](~/ef6/fundamentals/connection-resiliency/commit-failures.md)**  poskytuje CommitFailureHandler, která využívá nově zavedená možnost zachycení operace transakce. CommitFailureHandler umožňuje automatické obnovení v případě selhání připojení, zatímco potvrzení transakce.
+- **[IndexAttribute](~/ef6/modeling/code-first/data-annotations.md)**  umožňuje indexů možné zadat tak, že `[Index]` atributu pro vlastnost (nebo vlastnosti) v modelu Code First. Kód nejprve pak vytvoří odpovídající index v databázi.
 - **Mapování veřejného rozhraní API** poskytuje přístup k informacím EF má na typy a vlastnosti zpřístupněných sloupců a tabulek v databázi. V minulých verzích tohoto rozhraní API byla interní.
-- **[Možnost konfigurace sběrače prostřednictvím souboru App/Web.config](~/ef6/fundamentals/configuring/config-file.md) ** umožňuje sběrače přidávané bez opětovné kompilace aplikace.
+- **[Možnost konfigurace sběrače prostřednictvím souboru App/Web.config](~/ef6/fundamentals/configuring/config-file.md)**  umožňuje sběrače přidávané bez opětovné kompilace aplikace.
 - **System.Data.Entity.Infrastructure.Interception.DatabaseLogger**je nový sběrač, se kterou snadno protokolovat všechny operace databáze do souboru. V kombinaci s předchozí funkce, můžete tak snadno [zapnout protokolování databázové operace pro nasazenou aplikaci](~/ef6/fundamentals/configuring/config-file.md), aniž by bylo nutné znovu zkompilovat.
 - **Detekce změn modelu migrace** jsme vylepšili tak, aby byly přesnější; výkon samotného procesu zjišťování změn je taky Vylepšená vygenerované migrace.
 - **Vylepšení výkonu** včetně nižší databázové operace při inicializaci, optimalizace pro porovnání rovnosti null v dotazech LINQ, rychleji zobrazit. generace (vytvoření modelu) ve více scénářích, přehledné a efektivnější materializace sledované entit s několika přidružení.
@@ -95,14 +95,14 @@ Naleznete v části [upgrade na Entity Framework 6](upgrading-to-ef6.md) podrobn
 Tato verze obsahuje mnoho nových funkcí.
 Tyto funkce fungují pro modely vytvořené pomocí Code First nebo EF designeru:
 
-- **[Asynchronní dotazy a uložit](~/ef6/fundamentals/async.md) ** přidává podporu pro založené na úlohách asynchronních vzorech, které byly zavedeny v rozhraní .NET 4.5.
-- **[Odolnost připojení](~/ef6/fundamentals/connection-resiliency/retry-logic.md) ** umožňuje automatické obnovení v případě selhání přechodné připojení.
-- **[Konfigurace založená na kódu](~/ef6/fundamentals/configuring/code-based.md) ** získáte možnost provádět konfiguraci – které tradičně bylo provedeno v konfiguračním souboru – v kódu.
-- **[Řešení závislostí](~/ef6/fundamentals/configuring/dependency-resolution.md) ** zavádí podporu pro lokátoru služeb vzor a My jsme dostaneme si některé části funkcí, které je možné nahradit vlastní implementace.
-- **[Zachycení/SQL protokolování](~/ef6/fundamentals/logging-and-interception.md) ** poskytuje nízké úrovně stavební bloky pro zachycení EF operace s jednoduchou protokolování SQL vytvořené v horní části.
+- **[Asynchronní dotazy a uložit](~/ef6/fundamentals/async.md)**  přidává podporu pro založené na úlohách asynchronních vzorech, které byly zavedeny v rozhraní .NET 4.5.
+- **[Odolnost připojení](~/ef6/fundamentals/connection-resiliency/retry-logic.md)**  umožňuje automatické obnovení v případě selhání přechodné připojení.
+- **[Konfigurace založená na kódu](~/ef6/fundamentals/configuring/code-based.md)**  získáte možnost provádět konfiguraci – které tradičně bylo provedeno v konfiguračním souboru – v kódu.
+- **[Řešení závislostí](~/ef6/fundamentals/configuring/dependency-resolution.md)**  zavádí podporu pro lokátoru služeb vzor a My jsme dostaneme si některé části funkcí, které je možné nahradit vlastní implementace.
+- **[Zachycení/SQL protokolování](~/ef6/fundamentals/logging-and-interception.md)**  poskytuje nízké úrovně stavební bloky pro zachycení EF operace s jednoduchou protokolování SQL vytvořené v horní části.
 - **Zlepšení testovatelnosti** usnadňují vytvoření testu zdvojnásobí pro kontext databáze a DbSet při [pomocí napodobování framework](~/ef6/fundamentals/testing/mocking.md) nebo [sestavování vlastních testu zdvojnásobí](~/ef6/fundamentals/testing/writing-test-doubles.md).
-- **[Kontext databáze. teď se dají vytvářet pomocí DbConnection, který je již otevřen](~/ef6/fundamentals/connection-management.md) ** která umožňuje scénáře, ve kterém by bylo užitečné, pokud připojení může být otevřený, při vytváření kontextu (například sdílení připojení mezi komponentami kde je nelze zaručit stav připojení).
-- **[Vylepšená podpora transakce](~/ef6/saving/transactions.md) ** poskytuje podporu pro externí rozhraní framework a také vylepšené možnosti vytváření transakcí v rámci transakce.
+- **[Kontext databáze. teď se dají vytvářet pomocí DbConnection, který je již otevřen](~/ef6/fundamentals/connection-management.md)**  která umožňuje scénáře, ve kterém by bylo užitečné, pokud připojení může být otevřený, při vytváření kontextu (například sdílení připojení mezi komponentami kde je nelze zaručit stav připojení).
+- **[Vylepšená podpora transakce](~/ef6/saving/transactions.md)**  poskytuje podporu pro externí rozhraní framework a také vylepšené možnosti vytváření transakcí v rámci transakce.
 - **Výčty, Spatial a lepší výkon v .NET 4.0** – přesunutím základní součásti, které mají být používány v rozhraní .NET Framework do balíčku EF NuGet jsme schopní teď nabízí podporu výčtu, typy prostorových dat a vylepšení výkonu z EF5 na rozhraní .NET 4.0.
 - **Vylepšený výkon Enumerable.Contains v dotazech LINQ**.
 - **Vylepšené záložním čas (generování zobrazení)**, zejména u velkých modelů.
@@ -114,14 +114,14 @@ Tyto funkce fungují pro modely vytvořené pomocí Code First nebo EF designeru
 
 Tyto funkce použít jenom na Code First:
 
-- **[Vlastní první konvence kódu](~/ef6/modeling/code-first/conventions/custom.md) ** umožňují napsat vlastní zásady odvíjející zabránit tomu, aby opakované konfigurace. Zajišťuje jednoduché rozhraní API pro zjednodušené vytváření názvů, jakož i nějakou složitější stavební bloky a umožňuje tak vytvářet složitější konvence.
-- **[Kód první mapování na uložené procedury Insert/Update/Delete](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md) ** se teď podporuje.
-- **[Skripty migrace Idempotentní](~/ef6/modeling/code-first/migrations/index.md) ** mohli generovat skript SQL, který můžete upgradovat databáze v libovolné verze na nejnovější verzi.
-- **[Tabulky historie konfigurovatelné migrace](~/ef6/modeling/code-first/migrations/history-customization.md) ** vám umožní přizpůsobit definici tabulky historie migrace. To je užitečné hlavně pro poskytovatelé databází, které vyžadují příslušné datové typy atd. pro tabulku historie migrace mohly fungovat správně.
+- **[Vlastní první konvence kódu](~/ef6/modeling/code-first/conventions/custom.md)**  umožňují napsat vlastní zásady odvíjející zabránit tomu, aby opakované konfigurace. Zajišťuje jednoduché rozhraní API pro zjednodušené vytváření názvů, jakož i nějakou složitější stavební bloky a umožňuje tak vytvářet složitější konvence.
+- **[Kód první mapování na uložené procedury Insert/Update/Delete](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md)**  se teď podporuje.
+- **[Skripty migrace Idempotentní](~/ef6/modeling/code-first/migrations/index.md)**  mohli generovat skript SQL, který můžete upgradovat databáze v libovolné verze na nejnovější verzi.
+- **[Tabulky historie konfigurovatelné migrace](~/ef6/modeling/code-first/migrations/history-customization.md)**  vám umožní přizpůsobit definici tabulky historie migrace. To je užitečné hlavně pro poskytovatelé databází, které vyžadují příslušné datové typy atd. pro tabulku historie migrace mohly fungovat správně.
 - **Více kontexty na databázi** odebere předchozí omezení jednoho Code First modelu na databázi při použití migrace nebo Code First automaticky vytvoří databáze za vás.
-- **[DbModelBuilder.HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md) ** je nový kód prvního rozhraní API, která umožňuje výchozí schéma databáze modelu Code First v jednom místě. Dříve byl Code First výchozí schéma pevně zakódované &quot;dbo&quot; a byl jediný způsob, jak nakonfigurovat schématu, do které tabulky patřil přes ToTable rozhraní API.
+- **[DbModelBuilder.HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)**  je nový kód prvního rozhraní API, která umožňuje výchozí schéma databáze modelu Code First v jednom místě. Dříve byl Code First výchozí schéma pevně zakódované &quot;dbo&quot; a byl jediný způsob, jak nakonfigurovat schématu, do které tabulky patřil přes ToTable rozhraní API.
 - **Metoda DbModelBuilder.Configurations.AddFromAssembly** umožňuje snadno přidat všechny třídy konfigurace definované v sestavení, při použití třídy pro konfiguraci s první Fluent API kódu.
-- **[Vlastní operace migrace](http://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/) ** povolená, můžete přidat další operace se používá v migrací založený na kódu.
+- **[Vlastní operace migrace](http://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)**  povolená, můžete přidat další operace se používá v migrací založený na kódu.
 - **Výchozí úroveň izolace transakce se změní na možnost READ_COMMITTED_SNAPSHOT** pro databáze vytvořené využitím Code First, umožňuje další škálovatelnost a méně zablokování.
 - **Entity a komplexní typy může být nyní nestedinside třídy**. |
 
@@ -229,7 +229,7 @@ Tyto součásti jsou používány migrace Code First (zahrnutý v EF 4.3) a EF P
 
 Můžete si všimnout, že číslo neobvyklé verze 4.1.10715 balíčku.
 Použili jsme používat data na základě opravy verze předtím, než jsme se rozhodli přijmout [Semantic Versioning](https://semver.org).
-Tato verze si můžete představit jako oprava EF 4.1 1 (tj. 4.1.1).
+Představte si tuto verzi jako oprava EF 4.1 1 (nebo EF 4.1.1).
 
 Tady je seznam obsahu, sestavili jsme pro 4.1.1 verze:
 

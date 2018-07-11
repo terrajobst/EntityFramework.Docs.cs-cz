@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 2c50d94aafb3788761efc4225b6340a8e0da712d
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 7e1c87ae3a955c22b267a108ea7c2bb504e9acc3
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911564"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949287"
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -28,7 +28,7 @@ Existují tři akce, které EF můžete provést, když je odstraněn objekt zab
 * Podřízené zůstane beze změny
 
 > [!NOTE]  
-> Odstranit chování nakonfigurovaném v modelu EF Core platí jenom při instančního objektu entity se odstraní pomocí EF Core a entity, které závislé jsou načtena do paměti (tj. pro položky závislé na sledovaných). Odpovídající chování cascade musí být, že má instalační program v databázi pro zajištění dat, která není sledována kontextu použité potřebné akce. Pokud použijete k vytvoření databáze EF Core, bude toto chování cascade nastavení za vás.
+> Odstranit chování nakonfigurovaném v modelu EF Core platí pouze při instančního objektu entity se odstraní pomocí EF Core a entity, které závislé jsou načtena do paměti (to znamená pro sledované závislosti). Odpovídající chování cascade musí být, že má instalační program v databázi pro zajištění dat, která není sledována kontextu použité potřebné akce. Pokud použijete k vytvoření databáze EF Core, bude toto chování cascade nastavení za vás.
 
 Pro druhý výše uvedenou akci nastavení hodnoty cizího klíče na hodnotu null není platná, pokud není cizí klíč s možnou hodnotou Null. (Je ekvivalentní povinný vztah cizího klíče nepřipouštějící.) V těchto případech EF Core sleduje, že vlastnost cizího klíče byl označen jako null dokud se nazývá SaveChanges, kdy je vyvolána výjimka, protože změny nelze nastavit jako trvalý do databáze. Toto je podobný získávání porušení omezení z databáze.
 

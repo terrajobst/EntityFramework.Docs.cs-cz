@@ -5,12 +5,12 @@ ms.author: anpete
 ms.date: 11/03/2017
 ms.technology: entity-framework-core
 uid: core/querying/filters
-ms.openlocfilehash: 0c7858d660665b4f17aedea2101452048f9aff25
-ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
+ms.openlocfilehash: 2bb0666ba7b75a38e44a348aea735e6fe7eadb29
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2018
-ms.locfileid: "37900295"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949418"
 ---
 # <a name="global-query-filters"></a>Globální filtry dotazů
 
@@ -30,7 +30,7 @@ Nejprve definujte entity:
 
 [!code-csharp[Main](../../../efcore-repo/samples/QueryFilters/Program.cs#Entities)]
 
-Poznámka: deklarace __tenantId_ pole na _blogu_ entity. Ten se použije pro každou instanci blogu přidružit konkrétního tenanta. Je také definováno _IsDeleted_ vlastnost _příspěvek_ typu entity. Slouží ke sledování toho, jestli to _příspěvek_ instance byla "obnovitelně odstraněný". To znamená Instance je označen jako odstraněný withouth fyzickým odebráním podkladová data.
+Poznámka: deklarace __tenantId_ pole na _blogu_ entity. Ten se použije pro každou instanci blogu přidružit konkrétního tenanta. Je také definováno _IsDeleted_ vlastnost _příspěvek_ typu entity. To se používá ke sledování toho, jestli _příspěvek_ instance byla "obnovitelně odstraněný". To znamená, že instance je označen jako odstraněný bez fyzickým odebráním podkladová data.
 
 V dalším kroku Nakonfigurujte filtry dotazu v _OnModelCreating_ pomocí ```HasQueryFilter``` rozhraní API.
 
@@ -39,7 +39,7 @@ V dalším kroku Nakonfigurujte filtry dotazu v _OnModelCreating_ pomocí ```Has
 Predikátu výraz předaný _HasQueryFilter_ volání se teď automaticky použijí na všechny dotazy LINQ pro tyto typy.
 
 > [!TIP]
-> Všimněte si použití úrovně pole instance DbContext: ```_tenantId``` slouží k nastavení aktuálního tenanta. Filtry na úrovni modelu bude používat hodnotu z instance správný kontext. To znamená Instance, který spouští dotaz.
+> Všimněte si použití úrovně pole instance DbContext: ```_tenantId``` slouží k nastavení aktuálního tenanta. Filtry na úrovni modelu bude používat hodnotu z instance správného kontextu (to znamená, instance, který spouští dotaz).
 
 ## <a name="disabling-filters"></a>Zakázání filtrů
 

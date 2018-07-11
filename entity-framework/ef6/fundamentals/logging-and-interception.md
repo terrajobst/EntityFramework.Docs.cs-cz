@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
 caps.latest.revision: 3
-ms.openlocfilehash: 9c95b7490c11a28524a1468518261aa4bc317262
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 1d0e953309f3c81a2941d6850e169aaa31ae8de0
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914269"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949285"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>Protokolování a zachycení databázové operace
 > [!NOTE]
@@ -134,7 +134,7 @@ Hledání na výše uvedeném příkladu výstupu, každý ze čtyř příkazů 
 
 Jak je znázorněno výše protokolování do konzoly máte velmi snadný. Se dá taky snadno protokolovat do paměti, souborů, atd. pomocí různých typů z [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx).  
 
-Pokud jste se seznámili s jazykem LINQ to SQL můžete všimnout, že v technologii LINQ to SQL protokolu je nastavena na skutečné TextWriter objektu (například Console.Out) při v EF protokolu vlastnost nastavena na metodu, která přijímá řetězec (např. Console.Write nebo Console.Out.Write). Důvodem je oddělit EF z TextWriter přijetím jakýkoli delegát, který může fungovat jako jímka pro řetězce. Představte si například, že už máte některé protokolovacího rozhraní a definuje metodu protokolování takto:  
+Pokud jste se seznámili s jazykem LINQ to SQL pravděpodobně zjistíte, že v technologii LINQ to SQL protokolu vlastnost nastavena na skutečné TextWriter objekt (například Console.Out) při v EF protokolu vlastnost nastavena na metodu, která přijímá řetězec (například Console.Write nebo Console.Out.Write). Důvodem je oddělit EF z TextWriter přijetím jakýkoli delegát, který může fungovat jako jímka pro řetězce. Představte si například, že už máte některé protokolovacího rozhraní a definuje metodu protokolování takto:  
 
 ``` csharp
 public class MyLogger
@@ -275,7 +275,7 @@ Hledání na metody definované na žádném z rozhraní zachycování je zřejm
 
 ### <a name="result-handling"></a>Výsledek zpracování  
 
-DbCommandInterceptionContext\< \> třída obsahuje vlastnosti s názvem výsledek, OriginalResult, výjimky a původní výjimka. Tyto vlastnosti jsou nastaveny na hodnotu null nebo nulu pro volání metody zachycení, které jsou volány, než se operace executed—i.e.... Provádění metody. Pokud operace se spustí a proběhne úspěšně, potom výsledek a OriginalResult jsou nastavenou na výsledek operace. Tyto hodnoty pak můžete pozorovat zachycení metody, které jsou volány po operaci má executed—i.e.... Provedený metody. Podobně pokud vyvolá operaci, pak výjimku a původní výjimka budou nastaveny vlastnosti.  
+DbCommandInterceptionContext\< \> třída obsahuje vlastnosti s názvem výsledek, OriginalResult, výjimky a původní výjimka. Tyto vlastnosti jsou nastaveny na hodnotu null nebo nulu pro volání metod zachycení, které jsou volány předtím, než se operace provede – to znamená pro... Provádění metody. Pokud operace se spustí a proběhne úspěšně, potom výsledek a OriginalResult jsou nastavenou na výsledek operace. Tyto hodnoty pak můžete pozorovat zachycení metody, které jsou volány po provedení operace – to znamená na... Provedený metody. Podobně pokud vyvolá operaci, pak výjimku a původní výjimka budou nastaveny vlastnosti.  
 
 #### <a name="suppressing-execution"></a>Potlačení spuštění  
 

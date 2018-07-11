@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
 caps.latest.revision: 4
-ms.openlocfilehash: 00a6194896370db2578dad21dc641bbb183aa3fb
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: c01cf2b28e56fb73783bd9ed0d133bffa0a7dbe7
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914319"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949335"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Faktory ovlivňující výkon u EF 6, 4 a 5
 David Obando, Eric Dettinger a další
@@ -403,7 +403,7 @@ Entity Framework také podporuje ukládání do mezipaměti metadat. To je v pod
 #### <a name="341-metadata-caching-algorithm"></a>3.4.1 ukládání do mezipaměti metadat algoritmus
 
 1.  Informace metadat modelu je uložen v objektu ItemCollection pro každý EntityConnection.
-    -   Jako poznámka na okraj existují různé objekty ItemCollection pro různé součásti modelu, například StoreItemCollections obsahuje informace o modelu databáze; ObjectItemCollection obsahuje informace o modelu dat Kolekci EdmItemCollection obsahuje informace o konceptuálního modelu.
+    -   Jako poznámka na okraj existují různé objekty ItemCollection pro různé součásti modelu. Například StoreItemCollections obsahuje informace o modelu databáze; ObjectItemCollection obsahuje informace o modelu dat Kolekci EdmItemCollection obsahuje informace o konceptuálního modelu.
 
 2.  Pokud dvě připojení používat stejný připojovací řetězec, budou sdílet stejnou instanci ItemCollection.
 3.  Funkčně ekvivalentní, ale pomocí textu jiné připojovací řetězce může vést k rozdílná metadata mezipaměti. Připojovací řetězce, není to jednoduše změnou pořadí tokeny by měl být sdílená metadata tokenizovat. Ale dva připojovací řetězce, které vypadá to, že funkčně stejný nemusí být vyhodnoceny jako shodné Tokenizace.
@@ -893,7 +893,7 @@ Při vytváření modelu přes existující databázi, která má schéma TPT ne
 
 Při použití modelu první v Průvodci návrháře entit, zobrazí se TPT jakékoli dědičnosti ve vašem modelu. Pokud chcete přepnout na strategii TPH dědičnosti s první Model, můžete použít "Entity návrháře databáze generování Power Pack" k dispozici z Galerie sady Visual Studio ( \< http://visualstudiogallery.msdn.microsoft.com/df3541c3-d833-4b65-b942-989e7ec74c87/>).
 
-Při použití Code First pro konfiguraci mapování modelu s dědičnosti, EF použije TPH ve výchozím nastavení, to znamená všechny entity v hierarchii dědičnosti budou zmapována do stejné tabulky. V části "Mapování s rozhraní Fluent API" z "Kód první v entitě Framework4.1" článek v časopise MSDN Magazine ( [ http://msdn.microsoft.com/magazine/hh126815.aspx ](https://msdn.microsoft.com/magazine/hh126815.aspx)) pro další podrobnosti.
+Při použití Code First pro konfiguraci mapování modelu s dědičnosti, EF použije TPH ve výchozím nastavení, proto všechny entity v hierarchii dědičnosti budou zmapována do stejné tabulky. V části "Mapování s rozhraní Fluent API" z "Kód první v entitě Framework4.1" článek v časopise MSDN Magazine ( [ http://msdn.microsoft.com/magazine/hh126815.aspx ](https://msdn.microsoft.com/magazine/hh126815.aspx)) pro další podrobnosti.
 
 ### <a name="72-------upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 upgrade z EF4 ke zlepšení generování modelu čas
 
@@ -1105,7 +1105,7 @@ Není žádná taková věc, kterou jako univerzální výběrem předběžné n
 
 Slyšeli jsme, že otázky výkonu, které zahrnují problémech čas odpovědi serveru, příčinu problému při často dotazy s více příkazy Include. Zatímco včetně souvisejících entit v dotazu je efektivní, je důležité pochopit, co se děje na pozadí.
 
-Trvá poměrně dlouho pro dotaz s více příkazy Include tak, projděte si naše interní plán kompilátor vytvoří příkaz úložiště. Většina této doby se věnovalo snaze optimalizovat výsledný dotaz. Příkaz generované úložiště bude obsahovat Outer Join nebo sjednocení pro každé zahrnutí, v závislosti na vaší mapování. Dotazy, jako je následně v připojených velkých grafů z databáze v jedné datové části, která bude acerbate jakékoli potíže se šířkou pásma, zejména v případě, že dochází k mnoha redundance v datové části (tj. s více úrovní zahrnout k procházení přidružení v Směr 1 n).
+Trvá poměrně dlouho pro dotaz s více příkazy Include tak, projděte si naše interní plán kompilátor vytvoří příkaz úložiště. Většina této doby se věnovalo snaze optimalizovat výsledný dotaz. Příkaz generované úložiště bude obsahovat Outer Join nebo sjednocení pro každé zahrnutí, v závislosti na vaší mapování. Dotazy tímto způsobem bude přenést velkých grafů připojených z databáze v jedné datové části, která bude acerbate jakékoli potíže se šířkou pásma, zejména v případě, že dochází k mnoha redundance v datové části (například pokud několik úrovní zahrnout se používá k procházení přidružení ve směru 1 n).
 
 Můžete zkontrolovat pro případy, kde dotazů jako nadměrně velké datové části vrací tak přístup k podkladové TSQL pro dotaz s použitím ToTraceString a spouští se příkaz úložiště v SQL Server Management Studio zobrazíte velikost datové části. V takovém případě můžete zkusit snížit počet vložených příkazů v dotazu jenom umožňuje přinést si data, která potřebujete. Nebo je možné rozdělit svůj dotaz na menší posloupnost poddotazy, například:
 

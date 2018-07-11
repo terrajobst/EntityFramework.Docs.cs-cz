@@ -6,12 +6,12 @@ ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 4b319e7d4571e5e32ae7470601345e6f98807551
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 538458cf49ee86b9a5cba2f606adc04e583605e2
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911538"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949124"
 ---
 # <a name="new-features-in-ef-core-20"></a>Novinky v EF Core 2.0
 
@@ -93,7 +93,7 @@ public class BloggingContext : DbContext
     }
 }
 ```
-Definujeme filtr modelu, který implementuje více tenantů a obnovitelného odstranění pro instance ```Post``` typu Entity. Všimněte si použití úrovně vlastnost instance DbContext: ```TenantId```. Filtry na úrovni modelu bude používat hodnotu z instance správný kontext. To znamená ten, který spouští dotaz.
+Definujeme filtr modelu, který implementuje více tenantů a obnovitelného odstranění pro instance ```Post``` typu Entity. Všimněte si použití úrovně vlastnost instance DbContext: ```TenantId```. Filtry na úrovni modelu bude používat hodnotu z instance správného kontextu (to znamená, že tato instance kontextu, který spouští dotaz).
 
 U jednotlivých dotazů LINQ pomocí operátoru IgnoreQueryFilters() může být zakázáno filtry.
 
@@ -134,7 +134,7 @@ Mějte na paměti několik věcí:
 
 - Podle konvence, název metody se používá jako název funkce (v tomto případě uživatelsky definovaná funkce) při generování SQL, ale můžete přepsat název a schéma během registrace – metoda
 - Aktuálně jsou podporovány pouze skalární funkce
-- Je nutné vytvořit funkci pro mapovanou v databázi, například EF Core migrace nebude postará o jeho vytvoření
+- V databázi je nutné vytvořit mapované funkce. Migrace EF Core se postará o jeho vytvoření
 
 ### <a name="self-contained-type-configuration-for-code-first"></a>Typ samostatné konfigurace pro kód první
 
@@ -177,7 +177,7 @@ To se koncepčně podobá jak sdružování připojení funguje ve zprostředkov
 Nová metoda zavádí několik omezení na co se dá dělat ```OnConfiguring()``` metoda uvolněn objekt DbContext.
 
 > [!WARNING]  
-> Vyhněte se použití DbContext sdružování udržujete svůj vlastní stav (např. privátní pole) v odvozené třídy DbContext, který by neměl být sdíleny napříč požadavky. EF Core pouze resetuje stav, který je vědět před přidáním DbContext instance do fondu.
+> Vyhněte se použití sdružování kontext databáze. Pokud chcete zachovat vlastní stav (například privátní pole) v odvozené třídy DbContext, který by neměl být sdíleny napříč požadavky. EF Core pouze resetuje stav, který je vědět před přidáním DbContext instance do fondu.
 
 ### <a name="explicitly-compiled-queries"></a>Explicitně kompilované dotazy
 
@@ -220,7 +220,7 @@ Tato práce zlepšuje SQL, který je generován pro group JOIN – klauzule. Gro
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>Interpolace řetězců v FromSql a ExecuteSqlCommand
 
-C# 6 zavedené interpolace řetězců, funkce, která umožňuje výrazy jazyka C# má být vložen přímo v řetězcové literály, dobrý způsob vytváření řetězců v době běhu. V EF Core 2.0 jsme přidali zvláštní podporu pro interpolované řetězce do našich dva primární rozhraní API, které přijímají nezpracovaných řetězců SQL: ```FromSql``` a ```ExecuteSqlCommand```. Tato nová podpora umožňuje jazyka C# interpolace řetězců pro použití v podobě "bezpečné". To znamená způsobem, který chrání před běžných chyb prostřednictvím injektáže SQL, které může dojít, když dynamické konstruování SQL za běhu.
+C# 6 zavedené interpolace řetězců, funkce, která umožňuje výrazy jazyka C# má být vložen přímo v řetězcové literály, dobrý způsob vytváření řetězců v době běhu. V EF Core 2.0 jsme přidali zvláštní podporu pro interpolované řetězce do našich dva primární rozhraní API, které přijímají nezpracovaných řetězců SQL: ```FromSql``` a ```ExecuteSqlCommand```. Tato nová podpora umožňuje jazyka C# interpolace řetězců pro použití v podobě "bezpečné". To znamená způsobem, který chrání před běžných chyb prostřednictvím injektáže SQL, které může dojít, když dynamicky vytváření SQL za běhu.
 
 Tady je příklad:
 

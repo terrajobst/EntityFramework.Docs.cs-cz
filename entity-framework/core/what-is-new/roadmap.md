@@ -1,57 +1,57 @@
 ---
-title: Přehled základní Entity Framework
+title: Entity Framework Core – plán
 author: divega
 ms.author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 ms.technology: entity-framework-core
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: e23f5d7b1ff95bead310fa8e618a88c161a4e10c
-ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
+ms.openlocfilehash: f319aabb53019e0f153c911dde5814328423081b
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34754441"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949163"
 ---
-# <a name="entity-framework-core-roadmap"></a>Přehled základní Entity Framework
+# <a name="entity-framework-core-roadmap"></a>Entity Framework Core – plán
 
 > [!IMPORTANT]
-> Upozorňujeme, že sady funkcí a plány budoucích verzí se vždy mohou změnit a i když se pokusíte průběžně aktualizovat tuto stránku, nemusí odrážet naše nejnovější plány vůbec časů.
+> Mějte prosím na paměti, že sady funkcí a plány budoucích verzí se vždy mohou změnit a přestože se snažíme se zachovat aktuální, nemusí odrážet naše nejnovější plány vůbec na této stránce vyprší.
 
-Stabilní verze 2.1 základní EF byla vydána 30 může 2018. Můžete najít další informace o tomto vydání v [co je nového v EF základní 2.1](xref:core/what-is-new/ef-core-2.1).
+Stabilní verze EF Core 2.1 vydané 30. května 2018. Můžete najít další informace o této verzi v [Novinky v EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
 
-Jsme nedokončili [verze procesu plánování](#release-planning-process) na další vydání po 2.1.
+Jsme dosud provedli [vydání proces plánování](#release-planning-process) pro další verzi po 2.1.
 
 ## <a name="schedule"></a>Plán
 
-Plán pro základní EF je synchronizovaná s [.NET Core plán](https://github.com/dotnet/core/blob/master/roadmap.md) a [ASP.NET Core plán](https://github.com/aspnet/Home/wiki/Roadmap).
+Plán pro jádro EF Core je synchronizace s [.NET Core plán](https://github.com/dotnet/core/blob/master/roadmap.md) a [ASP.NET Core plán](https://github.com/aspnet/Home/wiki/Roadmap).
 
 ## <a name="backlog"></a>Nevyřízená položka
 
-Používáme [nevyřízených položek milník](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc) v našem sledovací modul problém udržovat podrobný seznam problémů a funkce. Zákazníci mohou komentovat a až hlas, tyto.
+Používáme [nevyřízených položek milník](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc) v našich sledování problémů udržovat podrobný seznam problémů a funkce. Zákazníci mohou přidávat komentáře a nahoru hlas, tyto.
 
 Jsme zpravidla zůstat otevřeno, že to bude přiměřeně Očekáváme, že budeme pracovat na v určitém okamžiku nebo někdo z komunity může řešení, ale který neznamená cílem vyřešit v určitém časovém rámci, dokud jsme přiřadit konkrétní verze jako součást naše problémy [verze procesu plánování](#release-planning-process).
 
-Pokud jsme nemáte v plánu někdy implementovat funkci, jsme se zavře pravděpodobně problém. Pokud jsme získat nové informace o tom můžete znovu problém, který jsme uzavřený posouzeno později.
+Pokud jsme nemáte v plánu někdy implementovat funkci, jsme tento problém pravděpodobně ukončena. Problém, který jsme uzavřeno, můžete později přezkoumány, pokud jsme získat nové informace o tom.
 
-Všechny možnosti, které ale nutné dodat, nemáme dostatek informací o budoucnosti mohly k tomu, že tato funkce X vyřeší čas a verze Y. Stejně jako všechny projekty softwaru můžete kdykoli změnit priority, verze plány a dostupné prostředky.
+Všechny možnosti, které ale nutné dodat, nemáme dostatek informací o budoucnosti budete moci Řekněme, že tuto funkci X vyřeší čas nebo vydané verzi Y. Jako všech softwarových projektů můžete kdykoli změnit priority, plány verze a dostupných prostředků.
 
-## <a name="release-planning-process"></a>Verze procesu plánování
+## <a name="release-planning-process"></a>Plánování proces vydávání verzí
 
-Nemůžeme získat často dotazy o tom, jak jsme zvolte konkrétní funkce Přejít na konkrétní verzi. Naše nevyřízených položek určitě neprojevuje automaticky verze plány. Přítomnost funkce v EF6 také neznamená automaticky, musí být implementován v EF základní funkci.
+Často získáme dotazy týkající se jak můžeme zvolit konkrétní funkce, které chcete přejít na konkrétní verzi. Backlogu a určitě neprojevuje automaticky uvádění. Přítomnost funkce EF6 také nemusí znamenat automaticky, že funkce by měl být implementována v EF Core.
 
-Je obtížné podrobností zde celý proces, který jsme při plánování verze, částečně, protože spoustu se diskutuje specifické funkce, příležitostí a priority, a částečně, protože samotný proces obvykle zpracovaní všechny verze. Je však je poměrně snadné ho shrnout běžné otázky, které jsme zkuste zodpovědět při rozhodování, kterým chcete pracovat další:
+Je obtížné podrobnosti tady celého procesu, kterou budeme postupovat podle plánování vydání, částečně je to proto diskutuje spoustu konkrétní funkce, příležitostí a priority a částečně, protože samotný proces obvykle vyvíjí s každá vydaná verze. Je však poměrně snadné slouží ke shrnutí běžné otázky, na které jsme pokuste odpovědět při rozhodování o tom, co pro práci na další:
 
-1. **Myslíme si, kolik vývojářům používat funkci a kolik lépe budou své aplikace prostředí?** Jsme agregovat zpětné vazby z mnoha zdrojů do této – komentáře a problémy hlasů je jedním z těchto zdrojů.
+1. **Myslíme si, jak mnoho vývojářů použije funkci a kolik lépe zajistí jejich aplikace/prostředí?** Jsme agregovat zpětné vazby z mnoha zdrojů do tohoto – komentáře a hlasy problémů je jedním z těchto zdrojů.
 
-2. **Co jsou osoby alternativní řešení můžete použít, pokud zatím jsme nemáte implementací této funkce?** Celá řada vývojářů jsou například mohou mapovat tabulku spojení, aby bylo možné obejít nedostatečná nativní podpora m: n. Samozřejmě ne všechny vývojáře můžete to provést, ale mnoho můžete a toto je faktorem, který udává.
+2. **Co jsou lidé alternativní řešení můžete použít, pokud ještě neimplementujeme tuto funkci?** Například mnoho vývojářů budou moct mapování vazební tabulka za účelem obejít chybějící nativní podpora many-to-many. Samozřejmě ne všichni vývojáři, můžete to provést, ale mnoho můžete, a to je faktorem, který počítá.
 
-3. **Implementací této funkce momentální Architektura jádra EF tak, že nám blíže přesune k implementaci dalších funkcí?** Jsme zpravidla upřednostnit funkce, které fungují jako stavební bloky u jiných funkcí – například rozdělení tabulky, které bylo provedeno pro vlastní typy nám pomáhá přesuňte směrem TPT podpory.
+3. **Implementaci této funkce vyvíjí architektura EF Core tak, aby nám ještě víc přibližuje přesune k implementaci dalšími funkcemi?** Často Představujeme upřednostnit funkce, které slouží jako stavební bloky pro další funkce – například rozdělení tabulky, který bylo provedeno pro vlastní typy nám pomáhá přesunout TPT podpory.
 
-4. **Je funkce bod rozšiřitelnosti?** Jsme zpravidla upřednostnit body rozšiřitelnosti, protože umožňují vývojářům snadno připojit v jejich vlastní chování a získat některé z funkcí, které chybí tímto způsobem. Jsme plánování provést některé z jako počáteční na opožděného načítání fungují.
+4. **Je funkce bod rozšiřitelnosti?** Často Představujeme upřednostnit bodů rozšiřitelnosti, protože umožňují vývojářům snadno integrovat do své vlastní chování a některé chybějící funkce získat tímto způsobem. Plánujeme provést některé tuto část berte jako počáteční opožděné načtení práce.
 
-5. **Co je součinnost funkci, pokud se používá v kombinaci s jinými produkty?** Jsme zpravidla upřednostnit funkce, které umožňují EF jádra, který se má použít s jinými produkty nebo na výrazné zlepšení uživatelského rozhraní pomocí jiné produkty, jako je například .NET Core, nejnovější verzi sady Visual Studio, Microsoft Azure, atd.
+5. **Co je synergii funkce, když použijete v kombinaci s jinými produkty?** Často Představujeme upřednostnit funkce, které EF Core, který se má použít s jinými produkty nebo k výraznému zlepšení používáním další produkty Microsoftu, jako je .NET Core, nejnovější verze sady Visual Studio, Microsoft Azure, atd.
 
-6. **Jaké jsou možnosti osob, které jsou k dispozici pro práci na funkce a jak nejlépe využít tyto prostředky?** Každý člen týmu EF a i naše přispěvatelé komunit mají různé úrovně prostředí v různých oblastech a musíme podle toho naplánovat. I v případě, že jsme chtěli tak, aby měl "podlaží všechny rukou" práce na konkrétní funkci jako překlady GroupBy nebo m: n, který nebude praktické.
+6. **Jaké jsou možnosti lidem pracovat na funkce a jak nejlépe můžete využít tyto prostředky k dispozici?** Každý člen týmu EF a dokonce i naše komunitní přispěvatelé mají různé úrovně prostředí v různých oblastech a musíme podle toho naplánujte. I v případě, že chceme mít "Brigáda na palubě" práci na konkrétní funkce, jako jsou překlady GroupBy nebo many-to-many, který by praktické.
 
-Jak je uvedeno nahoře, tento proces zpracovaní v každé verzi a v budoucnu jsme chcete přidat další možnosti pro členy komunity vývojářů zadejte vstupy do plánu uvádění, například tím, že zkontrolujte navrhované koncepty funkce a nástroje samotný plán verze.
+Jak jsme zmínili, tento proces vyvíjí na každá vydaná verze, a rádi v budoucnu přidat více příležitostí pro členy komunity vývojářů k poskytnutí vstupy do uvádění, například tak, což usnadňuje revizemi navrhované funkce a vydané verze naplánovat samotný.

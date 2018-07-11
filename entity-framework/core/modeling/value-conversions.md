@@ -1,34 +1,34 @@
 ---
-title: Převody hodnot - EF jádra
+title: Převody hodnot – EF Core
 author: ajcvickers
 ms.author: divega
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 3e97c05a87ad9b4817c03f446031ea6c74704f5b
-ms.sourcegitcommit: 605e42232854ce44bae09624a6eebc35b8e2473b
+ms.openlocfilehash: 5bfb6111ac450db91f3f1a7074a924a1c8400ce7
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/16/2018
-ms.locfileid: "34191113"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949089"
 ---
 # <a name="value-conversions"></a>Převody hodnot
 
 > [!NOTE]  
-> Tato funkce je nového v EF základní 2.1.
+> Tato funkce je nového v EF Core 2.1.
 
-Převodníky hodnot povolit hodnoty vlastností, které má být převeden při čtení nebo zápisu do databáze. Tento převod může být z jednu hodnotu do jiné stejného typu (například šifrování řetězce), nebo z hodnoty jednoho typu na hodnotu jiného typu (například převod hodnoty výčtu do a z řetězce v databázi.)
+Převodníky hodnot povolit hodnoty vlastností, které převedou při čtení nebo zápisu do databáze. Tento převod může být z jedné hodnoty do jiného stejného typu (například šifrování řetězců) nebo z hodnoty jednoho typu na hodnotu jiný typ (například převod hodnoty výčtu do a z řetězce v databázi.)
 
 ## <a name="fundamentals"></a>Základy
 
-Převodníky hodnot nejsou zadány z hlediska `ModelClrType` a `ProviderClrType`. Typ modelu je typ formátu .NET vlastnosti v typu entity. Typ zprostředkovatele je typ formátu .NET rozumí zprostředkovatelem databáze. Například uložit výčty jako řetězce v databázi, typu modelu je typ výčtového typu, a je typ poskytovatele `String`. Tyto dva typy může být stejné.
+Převodníky hodnot zadávají se stanovují `ModelClrType` a `ProviderClrType`. Typ modelu je typ formátu .NET vlastnosti v typu entity. Typ zprostředkovatele je typ formátu .NET srozumitelné pro poskytovatele databáze. Například uložte výčty jako řetězce v databázi, je typ modelu typ výčtu a zprostředkovatele nejedná `String`. Tyto dva typy mohou být stejné.
 
-Převody jsou definovány pomocí dvou `Func` stromů výrazů: jeden z `ModelClrType` k `ProviderClrType` a dalších z `ProviderClrType` k `ModelClrType`. Stromy výrazů se používají tak, aby mohou být zkompilovány do kódu přístup k databázi pro efektivní převody. Pro komplexní převody strom výrazu může být jednoduché volání metody, která provádí převod.
+Převody jsou definovány pomocí dvou `Func` stromů výrazů: jedna z `ModelClrType` k `ProviderClrType` a druhý z `ProviderClrType` k `ModelClrType`. Stromy výrazů se používají tak, aby může být zkompilovány do databáze přístupový kód pro efektivní převody. Pro komplexní převody stromu výrazů může být jednoduché volání metody, která provádí převod.
 
 ## <a name="configuring-a-value-converter"></a>Převaděč hodnoty konfigurace
 
-Převody hodnot jsou definovány na vlastnosti v OnModelCreating z vaší DbContext. Představte si třeba definovaný jako typ výčtu a entity:
+Převody hodnot jsou definovány na vlastnosti v OnModelCreating vaše DbContext. Představte si třeba typu výčtu a entity definován jako:
 ```Csharp
 public class Rider
 {
@@ -44,7 +44,7 @@ public enum EquineBeast
     Unicorn
 }
 ```
-Pak lze definovat převody v OnModelCreating ukládání hodnot výčtu jako řetězce (např.) "Oslů", "Mul",...) v databázi:
+Převody pak lze definovat v OnModelCreating pro uložení hodnoty výčtu jako řetězce (například "Oslů", "Mul",...) v databázi:
 ```Csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -57,11 +57,11 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 > [!NOTE]  
-> A `null` hodnota se nikdy předá převaděč hodnoty. To usnadňuje provádění převody a umožňuje jejich sdílení mezi vlastnosti s možnou hodnotou Null a neumožňuje hodnotu Null.
+> A `null` se nikdy být předána hodnota převaděč hodnoty. To usnadňuje provádění převodů a umožňuje jejich sdílí mezi vlastností s možnou hodnotou Null a Null.
 
-## <a name="the-valueconverter-class"></a>ValueConverter – třída
+## <a name="the-valueconverter-class"></a>Třída ValueConverter
 
-Volání metody `HasConversion` jako v příkladu nahoře, vytvoří `ValueConverter` instance a nastavte ji na vlastnosti. `ValueConverter` Lze vytvořit místo explicitně. Příklad:
+Volání `HasConversion` jak uvádíme výš, se vytvoří `ValueConverter` instance a nastavte ji na vlastnost. `ValueConverter` Lze vytvořit místo toho explicitně. Příklad:
 ```Csharp
 var converter = new ValueConverter<EquineBeast, string>(
     v => v.ToString(),
@@ -72,37 +72,37 @@ modelBuilder
     .Property(e => e.Mount)
     .HasConversion(converter);
 ```
-To může být užitečné, když používají stejné převod více vlastností.
+To může být užitečné, když používají stejný převod více vlastností.
 
 > [!NOTE]  
-> Aktuálně neexistuje žádný způsob, jak určit na jednom místě, že všechny vlastnosti daného typu musí používat stejné převaděč hodnoty. Tato funkce bude považovat za pro budoucí použití.
+> Aktuálně neexistuje žádný způsob, jak určit na jednom místě, že každé vlastnosti daného typu musí používat stejnou převaděč hodnoty. Tato funkce se budou považovat za pro budoucí verzi.
 
 ## <a name="built-in-converters"></a>Vestavěné převaděče
 
-Předem definované EF základní dodává se sadou `ValueConverter` třídy, které jsou součástí `Microsoft.EntityFrameworkCore.Storage.ValueConversion` oboru názvů. Ty jsou:
+EF Core se dodává se sadou předem definovanou `ValueConverter` třídy, v rámci `Microsoft.EntityFrameworkCore.Storage.ValueConversion` oboru názvů. Toto jsou:
 * `BoolToZeroOneConverter` – Bool na 0 a 1
-* `BoolToStringConverter` – Bool do řetězců, jako je například "Y" a "N"
-* `BoolToTwoValuesConverter` – Bool jakékoli dvě hodnoty
-* `BytesToStringConverter` -Bajtové pole pro řetězec s kódováním Base64
-* `CastingConverter` – Převody, které vyžadují jenom přetypování Csharp
-* `CharToStringConverter` -Char jednoho znaku řetězec
-* `DateTimeOffsetToBinaryConverter` – DateTimeOffset kódováním binární hodnotu 64-bit
-* `DateTimeOffsetToBytesConverter` – DateTimeOffset do bajtového pole
-* `DateTimeOffsetToStringConverter` – DateTimeOffset řetězec
-* `DateTimeToBinaryConverter` -Datum a čas 64 bitů hodnotu včetně parametr DateTimeKind
+* `BoolToStringConverter` – Bool na řetězce jako je například "Y" a "N"
+* `BoolToTwoValuesConverter` – Bool na jakékoli dvě hodnoty
+* `BytesToStringConverter` -Bajtové pole na řetězec kódovaný ve formátu Base64
+* `CastingConverter` -Převody, které vyžadují pouze přetypování Csharp
+* `CharToStringConverter` -Char jeden znak řetězec
+* `DateTimeOffsetToBinaryConverter` – DateTimeOffset zakódovaná binární hodnotu 64-bit
+* `DateTimeOffsetToBytesConverter` – DateTimeOffset na pole bajtů
+* `DateTimeOffsetToStringConverter` -Typu DateTimeOffset mimo řetězec
+* `DateTimeToBinaryConverter` -Datum a čas na 64 bitů hodnotu včetně DateTimeKind
 * `DateTimeToStringConverter` -Datum a čas na řetězec
-* `DateTimeToTicksConverter` -Datum a čas k rysky
+* `DateTimeToTicksConverter` -Datum a čas k značky
 * `EnumToNumberConverter` – Enum základní číslo
 * `EnumToStringConverter` – Enum řetězec
-* `GuidToBytesConverter` -Guid do bajtového pole
-* `GuidToStringConverter` -Guid do řetězce
-* `NumberToBytesConverter` -Jakékoli číselné hodnoty do bajtového pole
-* `NumberToStringConverter` -Všechny číselnou hodnotu na řetězec
-* `StringToBytesConverter` -Řetězce UTF8 bajtů
+* `GuidToBytesConverter` -Identifikátor Guid bajtové pole
+* `GuidToStringConverter` -Identifikátor Guid do řetězce
+* `NumberToBytesConverter` – Jakékoli číselné hodnoty do bajtového pole
+* `NumberToStringConverter` – Libovolná číselnou hodnotu na řetězec
+* `StringToBytesConverter` -Řetězec, který se bajty UTF8
 * `TimeSpanToStringConverter` -Časový interval na řetězec
-* `TimeSpanToTicksConverter` -Časový interval na dílky
+* `TimeSpanToTicksConverter` -Časový interval má značky
 
-Všimněte si, že `EnumToStringConverter` je zahrnuta v tomto seznamu. To znamená, že je nutné specifikovat převod explicitně, jak je uvedeno výše. Místo toho použijte předdefinovaný převaděč:
+Všimněte si, že `EnumToStringConverter` je zahrnuta v tomto seznamu. To znamená, že není potřeba specifikovat převod explicitně, jak je znázorněno výše. Místo toho použijte integrované převaděč:
 ```Csharp
 var converter = new EnumToStringConverter<EquineBeast>();
 
@@ -111,18 +111,18 @@ modelBuilder
     .Property(e => e.Mount)
     .HasConversion(converter);
 ```
-Upozorňujeme, že jsou všechny vestavěné převaděče bezstavové a tak jediné instance lze bezpečně sdílet mezi více vlastností.
+Všimněte si, že všechny vestavěné převaděče bezstavové a tak jediné instance může bezpečně sdílet víc vlastností.
 
 ## <a name="pre-defined-conversions"></a>Předem definované převody
 
-Pro běžné převody, pro které existuje předdefinované převaděč není nutné explicitně zadat převaděč. Místo toho stačí pouze nakonfigurovat které typ zprostředkovatele má být použit a EF budou automaticky používat odpovídající sestavení převaděč. Enum pro převod řetězců slouží jako příklad výše, ale EF ve skutečnosti to automaticky v případě nastaven typ poskytovatele:
+Běžné převody, pro které existuje integrované převaděč není nutné explicitně zadat převaděč. Místo toho stačí pouze nakonfigurovat poskytovatele typu by měla sloužit a automaticky se použije odpovídající sestavení převaděč EF. Výčet pro převod řetězců se používají jako příklad výše, ale EF ve skutečnosti to automaticky v případě nakonfigurovaný typ poskytovatele:
 ```Csharp
 modelBuilder
     .Entity<Rider>()
     .Property(e => e.Mount)
     .HasConversion<string>();
 ```
-Samé lze dosáhnout explicitním zadáním typ sloupce. Například pokud je definován typ entity typu tak:
+Totéž lze dosáhnout explicitního určení typu sloupce. Například pokud je definován typ entity, jako jsou proto:
 ```Csharp
 public class Rider
 {
@@ -132,12 +132,12 @@ public class Rider
     public EquineBeast Mount { get; set; }
 }
 ```
-Hodnoty výčtu pak bude uložena jako řetězce v databázi bez další konfigurace v OnModelCreating.
+Potom hodnoty výčtu se uloží jako řetězce v databázi bez jakékoli další konfigurace v OnModelCreating.
 
 ## <a name="limitations"></a>Omezení
 
-Existuje několik známá aktuální omezení systému převod hodnoty:
-* Jak jsme uvedli výše, `null` nelze převést.
-* Aktuálně neexistuje žádný způsob, jak šíří převodu z jedné vlastnosti do více sloupců nebo naopak.
-* Použití převody hodnot může mít vliv na schopnost EF základní převede výrazy jazyka SQL. Upozornění bude protokolována takových případech.
-Odebrání těchto omezení se považuje za pro budoucí použití.
+Existuje několik známých aktuální omezení systému a převést tak hodnotu:
+* Jak bylo uvedeno výše, `null` nelze převést.
+* Aktuálně neexistuje žádný způsob, jak rozšířit převod jednoho vlastnosti na více sloupců nebo naopak.
+* Použití převody hodnot může mít vliv na schopnost EF Core překlad výrazů jazyka SQL. Upozornění se protokolují pro tyto případy.
+Odebrání těchto omezení se považují za pro budoucí verzi.

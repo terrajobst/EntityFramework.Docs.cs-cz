@@ -1,55 +1,55 @@
 ---
-title: Základní uložit - EF jádra
+title: Základní uložení – EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: 35bf14af43289ad6308a49482d3f45a7a8be9067
-ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
+ms.openlocfilehash: ecf8f344a5baae37a5e7255a4affb1085f1b3ff3
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34754393"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949402"
 ---
-# <a name="basic-save"></a>Základní uložit
+# <a name="basic-save"></a>Základní uložení
 
-Naučte se přidávat, upravovat a odebírat dat pomocí třídy kontextu a entity.
+Zjistěte, jak přidávat, upravovat a odebírat dat pomocí třídy kontextu a entity.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/) na Githubu.
 
-## <a name="adding-data"></a>Přidávání dat
+## <a name="adding-data"></a>Přidání dat
 
-Použití *DbSet.Add* metoda pro přidání nové instance třídy entity. Data se vloží v databázi při volání *SaveChanges*.
+Použití *DbSet.Add* způsob, jak přidat nové instance třídy entity. Data se vloží do databáze při volání *SaveChanges*.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Add)]
 
 > [!TIP]  
-> Metody přidat, připojit a aktualizace všech pracovních na úplné graf entit předaný, jak je popsáno v [související Data](related-data.md) části. Alternativně vlastnost EntityEntry.State slouží k nastavení stavu právě jednu entitu. Například `context.Entry(blog).State = EntityState.Modified`.
+> Metody přidat, připojit a aktualizovat všechny práce na úplný graf entity předaný k nim, jak je popsáno v [souvisejících dat](related-data.md) oddílu. Alternativně EntityEntry.State vlastnost lze nastavit stav pouze jednu entitu. Například `context.Entry(blog).State = EntityState.Modified`.
 
 ## <a name="updating-data"></a>Aktualizace dat
 
-EF automaticky zjistí změny provedené v existující entita, která se sleduje kontextu. To zahrnuje entity, které můžete načíst nebo dotazu z databáze a entity, které byly dříve přidány a uloženy do databáze.
+EF automaticky rozpozná změny provedené na existující entitu, která je sledována podle kontextu. To zahrnuje entity, které můžete načíst/dotazu z databáze a entity, které byly dříve přidány a uloženy do databáze.
 
-Stačí upravit hodnot přiřazených vlastnosti a pak zavolají *SaveChanges*.
+Stačí upravit hodnoty přiřazené k vlastnosti a pak vyvolejte *SaveChanges*.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Update)]
 
-## <a name="deleting-data"></a>Odstraňování dat
+## <a name="deleting-data"></a>Odstranění dat
 
-Použití *DbSet.Remove* metoda odstranění instancí tříd entity.
+Použití *DbSet.Remove* metodu k odstranění instancí tříd entit.
 
-Pokud entita již existuje v databázi, se odstraní při *SaveChanges*. Pokud entita ještě nebyl uložen do databáze (tj. jeho sledování jak byl přidán) pak ji bude odebrána z kontextu a bude vložen při *SaveChanges* je volána.
+Pokud entita již existuje v databázi, bude odstraněna během *SaveChanges*. Pokud entita ještě nebyla uložena do databáze (to znamená, ho je sledovat přidávání), se odeberou z kontextu a nebude vložen při *SaveChanges* je volána.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Remove)]
 
-## <a name="multiple-operations-in-a-single-savechanges"></a>Více operací v jednom SaveChanges
+## <a name="multiple-operations-in-a-single-savechanges"></a>Více operací v jedné SaveChanges
 
-Můžete kombinovat více operací přidat/aktualizovat nebo odebrat do jediné volání *SaveChanges*.
+Můžete zkombinovat několik operací přidání/aktualizaci/odebrání do jednoho volání *SaveChanges*.
 
 > [!NOTE]  
-> Pro většinu poskytovatelů databáze *SaveChanges* transakční. To znamená, že všechny operace bude úspěch nebo neúspěch a operace se nikdy vlevo použijí částečně.
+> Pro většinu poskytovatelů databáze *SaveChanges* je transakční. To znamená, že všechny operace bude úspěch nebo neúspěch a operace se nikdy vlevo použijí částečně.
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#MultipleOperations)]

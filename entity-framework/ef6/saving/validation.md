@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
 caps.latest.revision: 3
-ms.openlocfilehash: 7f0b778d45d0618c9ebfb5a34110c5094d133cc7
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 758865255d7868337dc1d7801bd9ff77f0bb57a9
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914316"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949263"
 ---
 # <a name="data-validation"></a>Ověřování dat
 > [!NOTE]
@@ -202,7 +202,7 @@ DbEntityValidationResult jsou uloženy DbEntityEntry a rozhraní ICollection DbV
 
 Volání SaveChanges aktivuje všechny ověřovací popsaná v tomto článku. Ale nemusíte spoléhat na SaveChanges. Můžete chtít ověřit jinde v aplikaci.
 
-DbContext.GetValidationErrors aktivují všech ověření, těmi definovanými ve poznámky nebo rozhraní Fluent API, ověření vytvořené v IValidatableObject (například Blog.Validate) a ověření provádět v metodě DbContext.ValidateEntity.
+DbContext.GetValidationErrors aktivují všech ověření, těmi definovanými ve poznámky nebo rozhraní Fluent API, ověření vytvořené v IValidatableObject (například Blog.Validate) a ověření provádět v DbContext.ValidateEntity Metoda.
 
 Následující kód zavolá GetValidationErrors na aktuální instancí třídy DbContext. ValidationErrors jsou seskupené podle typu entity do DbValidationRestuls. Kód prochází nejprve prostřednictvím DbValidationResults vrácený metodou a potom každý ValidationError uvnitř.
 

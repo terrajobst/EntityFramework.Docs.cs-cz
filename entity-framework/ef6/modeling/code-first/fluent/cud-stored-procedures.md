@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 9a7ae7f9-4072-4843-877d-506dd7eef576
 caps.latest.revision: 3
-ms.openlocfilehash: 6f8466601bedb705775b11e0b2732b1c4215aeac
-ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.openlocfilehash: 1f100ed888abd98df83c80d0de2086cfb1ba7b4f
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914468"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949075"
 ---
 # <a name="code-first-insert-update-and-delete-stored-procedures"></a>Kód první vložení, aktualizace a odstranění uložených procedur
 > [!NOTE]
@@ -34,7 +34,7 @@ modelBuilder
 
 To způsobí, že Code First pomocí některé konvence můžete vytvářet očekávané tvar uložené procedury v databázi.  
 
-- Tři uložené procedury s názvem  **\<type_name\>_komentářů**,  **\<type_name\>_aktualizovat** a  **\<type_ název\>_odstranit** (např. Blog_Insert, Blog_Update a Blog_Delete).  
+- Tři uložené procedury s názvem  **\<type_name\>_komentářů**,  **\<type_name\>_aktualizovat** a  **\<type_ název\>_odstranit** (například Blog_Insert Blog_Update a Blog_Delete).  
 - Názvy parametrů odpovídají názvům vlastností.  
   > [!NOTE]
   > Pokud používáte HasColumnName() nebo atribut sloupce přejmenujte sloupec pro danou vlastnost tento název se používá pro parametry místo názvu vlastnosti.  
@@ -220,7 +220,7 @@ Update a delete uložené procedury vypořádat se souběžností také potřebo
 
 - Pokud entita obsahuje tokeny souběžnosti, uložené procedury můžou mít výstupní parametr, který vrací počet řádků, aktualizovat ani odstranit, (ovlivněných řádků). Takový parametr musí být nakonfigurovaný pomocí metody RowsAffectedParameter.  
 Ve výchozím nastavení používá EF návratovou hodnotu z metodu ExecuteNonQuery k určení, kolik řádků vliv. Určení výstupní parametr ovlivněných řádků je užitečné, pokud provedete jakékoli logiky ve vašich sproc, výsledkem by byla návratová hodnota metodu ExecuteNonQuery byla zadána nesprávná (z hlediska na EF) na konci spuštění.  
-- Pro každé souběžnosti existuje token bude parametr s názvem  **\<%{Property_Name/\>_Original** (tj. Timestamp_Original). Tím se předají původní hodnota této vlastnosti – hodnotu, pokud se dotaz z databáze.  
+- Pro každé souběžnosti existuje token bude parametr s názvem  **\<%{Property_Name/\>_Original** (například Timestamp_Original). Tím se předají původní hodnota této vlastnosti – hodnotu, pokud se dotaz z databáze.  
     - Tokeny souběžnosti, které se vypočítávají v databázi – například časová razítka – bude mít jenom původní parametr hodnoty.  
     - Bez vypočítané vlastnosti, které jsou nastaveny jako tokeny souběžnosti má také parametr nové hodnoty v procesu aktualizace. Tato služba využívá zásady vytváření názvů pro nové hodnoty již probírali. Příkladem takových token by pomocí adresy URL blogu jako tokenem souběžnosti, nová hodnota je povinné, protože to je možné aktualizovat na novou hodnotu podle kódu (na rozdíl od časové razítko token, který se aktualizují v databázi).  
 
@@ -336,8 +336,8 @@ modelBuilder
 
 Pokud není zadána žádná další konfigurace se standardně používá následující tvar uloženou proceduru.  
 
-- Dvě uložené procedury s názvem  **\<type_one\>\<type_two\>_komentářů** a  **\<type_one\>\<type_two \>_Odstranit** (tj. PostTag_Insert a PostTag_Delete).  
-- Parametry budou klíčové hodnoty, které pro každý typ. Název každého parametru se **\<type_name\>_\<%{Property_Name/\>** (tj. Post_PostId a Tag_TagId).
+- Dvě uložené procedury s názvem  **\<type_one\>\<type_two\>_komentářů** a  **\<type_one\>\<type_two \>_Odstranit** (například PostTag_Insert a PostTag_Delete).  
+- Parametry budou klíčové hodnoty, které pro každý typ. Název každého parametru se **\<type_name\>_\<%{Property_Name/\>** (například Post_PostId a Tag_TagId).
 
 Tady je příklad vkládací a aktualizační uložené procedury.  
 
