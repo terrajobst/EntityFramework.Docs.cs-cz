@@ -12,7 +12,7 @@
 
 ## [Entity Framework Core](core/index.md)
 
-### [Novinky v EF Core](core/what-is-new/index.md)
+### [Co je nového](core/what-is-new/index.md)
 #### [EF Core – plán](core/what-is-new/roadmap.md)
 #### [EF Core 2.1](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0](core/what-is-new/ef-core-2.0.md)
@@ -67,6 +67,16 @@
 ##### [Alternativní klíče (jedinečná omezení)](core/modeling/relational/unique-constraints.md)
 ##### [Dědičnost (relační databáze)](core/modeling/relational/inheritance.md)
 
+### [Správa schémat databází](core/managing-schemas/index.md)
+#### [Migrace](core/managing-schemas/migrations/index.md)
+##### [Týmová prostředí](core/managing-schemas/migrations/teams.md)
+##### [Vlastní operace](core/managing-schemas/migrations/operations.md)
+##### [Použití samostatného projektu](core/managing-schemas/migrations/projects.md)
+##### [Více poskytovatelů](core/managing-schemas/migrations/providers.md)
+##### [Vlastní tabulka historie](core/managing-schemas/migrations/history-table.md)
+#### [🔧 Vytvoření a přemístění rozhraní API](core/managing-schemas/ensure-created.md)
+#### [🔧 Zpětná analýza](core/managing-schemas/scaffolding.md)
+
 ### [Dotazy na data](core/querying/index.md)
 #### [Základní dotaz](core/querying/basic.md)
 #### [Načítání souvisejících dat](core/querying/related-data.md)
@@ -97,23 +107,13 @@
 #### [InMemory (pro testování)](core/providers/in-memory/index.md)
 #### [Vytvoření poskytovatele databáze](core/providers/writing-a-provider.md)
 
-### [Správa schémat databází](core/managing-schemas/index.md)
-#### [Migrace](core/managing-schemas/migrations/index.md)
-##### [Týmová prostředí](core/managing-schemas/migrations/teams.md)
-##### [Vlastní operace](core/managing-schemas/migrations/operations.md)
-##### [Použití samostatného projektu](core/managing-schemas/migrations/projects.md)
-##### [Více poskytovatelů](core/managing-schemas/migrations/providers.md)
-##### [Vlastní tabulka historie](core/managing-schemas/migrations/history-table.md)
-#### [🔧 Vytvoření a přemístění rozhraní API](core/managing-schemas/ensure-created.md)
-#### [🔧 Zpětná analýza](core/managing-schemas/scaffolding.md)
+### [Nástroje a rozšíření](core/extensions/index.md)
 
 ### [Referenční dokumentace k příkazovému řádku](core/miscellaneous/cli/index.md)
 #### [Konzola Správce balíčků (Visual Studio)](core/miscellaneous/cli/powershell.md)
 #### [Rozhraní příkazového řádku .NET Core](core/miscellaneous/cli/dotnet.md)
 #### [Vytváření DbContext v době návrhu](core/miscellaneous/cli/dbcontext-creation.md)
 #### [Služby v době návrhu](core/miscellaneous/cli/services.md)
-
-### [Nástroje a rozšíření](core/extensions/index.md)
 
 ### Různé
 #### [Připojovací řetězce](core/miscellaneous/connection-strings.md)
@@ -127,8 +127,158 @@
 #### [Upgrade z verze 1.0 RC2 na RTM](core/miscellaneous/rc2-rtm-upgrade.md)
 #### [Upgrade na EF Core 2.0](core/miscellaneous/1x-2x-upgrade.md)
 
-### [⤤ Referenční dokumentace k rozhraním API](https://docs.microsoft.com/dotnet/api/?view=efcore-2.1)
+### [⤤ Referenční dokumentace k rozhraním API EF Core](https://docs.microsoft.com/dotnet/api/?view=efcore-2.1)
 
 ## [Entity Framework 6](ef6/index.md)
-### [⤤ Dokumentace](http://msdn.com/data/ef)
-### [⤤ Referenční dokumentace k rozhraním API](https://msdn.microsoft.com/library/dn223258.aspx)
+
+### [Co je nového](ef6/what-is-new/index.md)
+#### [Plán](ef6/what-is-new/roadmap.md)
+#### [Předchozí verze](ef6/what-is-new/past-releases.md)
+#### [Upgrade na EF6](ef6/what-is-new/upgrading-to-ef6.md)
+#### [Verze sady Visual Studio](ef6/what-is-new/visual-studio.md)
+
+### [Začínáme](ef6/get-started.md)
+
+### [Základy](ef6/fundamentals/index.md)
+#### [Jak získat Entity Framework](ef6/fundamentals/install.md)
+#### [Práce s DbContext](ef6/fundamentals/working-with-dbcontext.md)
+#### [Principy relací](ef6/fundamentals/relationships.md)
+#### [Asynchronní dotaz a ukládání](ef6/fundamentals/async.md)
+#### Konfigurace
+##### [Založená na kódu](ef6/fundamentals/configuring/code-based.md)
+##### [Konfigurační soubor](ef6/fundamentals/configuring/config-file.md)
+##### [Připojovací řetězce](ef6/fundamentals/configuring/connection-strings.md)
+##### [Řešení závislostí](ef6/fundamentals/configuring/dependency-resolution.md)
+#### [Správa připojení](ef6/fundamentals/connection-management.md)
+#### Odolnost připojení
+##### [Logika pro opakování](ef6/fundamentals/connection-resiliency/retry-logic.md)
+##### [Selhání potvrzení transakce](ef6/fundamentals/connection-resiliency/commit-failures.md)
+#### Datové vazby
+##### [WinForms](ef6/fundamentals/databinding/winforms.md)
+##### [WPF](ef6/fundamentals/databinding/wpf.md)
+#### [Odpojené entity](ef6/fundamentals/disconnected-entities/index.md)
+##### [Entity s vlastním sledováním](ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md)
+###### [Návod](ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md)
+#### [Protokolování a zachytávání](ef6/fundamentals/logging-and-interception.md)
+#### Výkon
+##### [Důležité informace o výkonu (dokument white paper)](ef6/fundamentals/performance/perf-whitepaper.md)
+##### [Použití technologie NGEN](ef6/fundamentals/performance/ngen.md)
+##### [Použití předem vygenerovaných zobrazení](ef6/fundamentals/performance/pre-generated-views.md)
+#### [Zprostředkovatelé](ef6/fundamentals/providers/index.md)
+##### [Model zprostředkovatele EF6](ef6/fundamentals/providers/provider-model.md)
+##### [Prostorová podpora mezi zprostředkovateli](ef6/fundamentals/providers/spatial-support.md)
+#### [Použití proxy serverů](ef6/fundamentals/proxies.md)
+#### Testování v EF6
+##### [Použití napodobování](ef6/fundamentals/testing/mocking.md)
+##### [Psaní vlastních testovacích dvojníků](ef6/fundamentals/testing/writing-test-doubles.md)
+##### [Testovatelnost v EF4 (článek)](ef6/fundamentals/testing/testability-article.md)
+
+### [Vytvoření modelu](ef6/modeling/index.md)
+#### Použití přístupu Code First
+##### Pracovní postupy
+###### [S novou databází](ef6/modeling/code-first/workflows/new-database.md)
+###### [Se stávající databází](ef6/modeling/code-first/workflows/existing-database.md)
+##### [Datové poznámky](ef6/modeling/code-first/data-annotations.md)
+##### [Objekty DbSet](ef6/modeling/code-first/dbsets.md)
+##### Datové typy
+###### [Výčty](ef6/modeling/code-first/data-types/enums.md)
+###### [Prostorové](ef6/modeling/code-first/data-types/spatial.md)
+##### Konvence
+###### [Integrované konvence](ef6/modeling/code-first/conventions/built-in.md)
+###### [Vlastní konvence](ef6/modeling/code-first/conventions/custom.md)
+###### [Modelové konvence](ef6/modeling/code-first/conventions/model.md)
+##### Plynulá konfigurace
+###### [Relace](ef6/modeling/code-first/fluent/relationships.md)
+###### [Typy a vlastnosti](ef6/modeling/code-first/fluent/types-and-properties.md)
+###### [Použití ve Visual Basicu](ef6/modeling/code-first/fluent/vb.md)
+###### [Mapování uložených procedur](ef6/modeling/code-first/fluent/cud-stored-procedures.md)
+##### [Migrace](ef6/modeling/code-first/migrations/index.md)
+###### [Automatické migrace](ef6/modeling/code-first/migrations/automatic.md)
+###### [Práce se stávajícími databázemi](ef6/modeling/code-first/migrations/existing-database.md)
+###### [Přizpůsobení historie migrací](ef6/modeling/code-first/migrations/history-customization.md)
+###### [Použití Migrate.exe](ef6/modeling/code-first/migrations/migrate-exe.md)
+###### [Migrace v týmových prostředích](ef6/modeling/code-first/migrations/teams.md)
+
+#### Použití EF Designeru
+##### Pracovní postupy
+###### [Model-First](ef6/modeling/designer/workflows/model-first.md)
+###### [Database-First](ef6/modeling/designer/workflows/database-first.md)
+##### Typy dat
+###### [Komplexní typy](ef6/modeling/designer/data-types/complex-types.md)
+###### [Výčty](ef6/modeling/designer/data-types/enums.md)
+###### [Prostorové](ef6/modeling/designer/data-types/spatial.md)
+##### Mapování dělení
+###### [Dělení entity](ef6/modeling/designer/entity-splitting.md)
+###### [Dělení tabulky](ef6/modeling/designer/table-splitting.md)
+##### Mapování dědičností
+###### [Tabulka za hierarchii](ef6/modeling/designer/inheritance/tph.md)
+###### [Tabulka za typ](ef6/modeling/designer/inheritance/tpt.md)
+##### Mapování uložených procedur
+###### [Dotaz](ef6/modeling/designer/stored-procedures/query.md)
+###### [Aktualizace](ef6/modeling/designer/stored-procedures/cud.md)
+##### [Mapování relací](ef6/modeling/designer/relationships.md)
+##### [Více diagramů](ef6/modeling/designer/multiple-diagrams.md)
+##### [Výběr verze modulu runtime](ef6/modeling/designer/select-runtime-version.md)
+##### [Generování kódu](ef6/modeling/designer/codegen/index.md)
+###### [Starší ObjectContext ](ef6/modeling/designer/codegen/legacy-objectcontext.md)
+##### Upřesnit
+###### Formát souboru EDMX
+####### [Specifikace CSDL](ef6/modeling/designer/advanced/edmx/csdl-spec.md)
+####### [Specifikace MSL](ef6/modeling/designer/advanced/edmx/msl-spec.md)
+####### [Specifikace SSDL](ef6/modeling/designer/advanced/edmx/ssdl-spec.md)
+###### [Definice dotazu](ef6/modeling/designer/advanced/defining-query.md)
+###### [Více sad výsledků](ef6/modeling/designer/advanced/multiple-result-sets.md)
+###### [Funkce vracející tabulku](ef6/modeling/designer/advanced/tvfs.md)
+##### [Klávesové zkratky](ef6/modeling/designer/keyboard-shortcuts.md)
+
+### [Dotazy na data](ef6/querying/index.md)
+#### [Load – metoda](ef6/querying/load-method.md)
+#### [Místní data](ef6/querying/local-data.md)
+#### [Dotazy se sledováním a bez sledování](ef6/querying/no-tracking.md)
+#### [Použití nezpracovaných dotazů SQL](ef6/querying/raw-sql.md)
+#### [Dotazy na související data](ef6/querying/related-data.md)
+
+### [Ukládání dat](ef6/saving/index.md)
+#### Sledování změn
+##### [Automatické zjišťování změn](ef6/saving/change-tracking/auto-detect-changes.md)
+##### [Stav entity](ef6/saving/change-tracking/entity-state.md)
+##### [Hodnoty vlastností](ef6/saving/change-tracking/property-values.md)
+#### [Zpracování konfliktů souběžnosti](ef6/saving/concurrency.md)
+#### [Použití transakcí](ef6/saving/transactions.md)
+#### [Ověřování dat](ef6/saving/validation.md)
+
+### [Další prostředky](ef6/resources/index.md)
+#### [Blogy](ef6/resources/blogs.md)
+#### [Případové studie](ef6/resources/case-studies.md)
+#### [Získání nápovědy](ef6/resources/get-help.md)
+#### [Glosář](ef6/resources/glossary.md)
+#### [Ukázková školní databáze](ef6/resources/school-database.md)
+#### [Nástroje a rozšíření](ef6/resources/tools.md)
+#### Licence
+##### EF5
+###### [čínština (zjednodušená)](ef6/resources/licenses/ef5/chs.md)
+###### [čínština (tradiční)](ef6/resources/licenses/ef5/cht.md)
+###### [němčina](ef6/resources/licenses/ef5/deu.md)
+###### [angličtina](ef6/resources/licenses/ef5/enu.md)
+###### [španělština](ef6/resources/licenses/ef5/esn.md)
+###### [francouzština](ef6/resources/licenses/ef5/fra.md)
+###### [italština](ef6/resources/licenses/ef5/ita.md)
+###### [japonština](ef6/resources/licenses/ef5/jpn.md)
+###### [korejština](ef6/resources/licenses/ef5/kor.md)
+###### [ruština](ef6/resources/licenses/ef5/rus.md)
+##### EF6
+###### Předběžná verze
+####### [Alfa](ef6/resources/licenses/ef6/prerelease/alpha.md)
+####### [Beta – Release Candidate](ef6/resources/licenses/ef6/prerelease/beta-rc.md)
+###### [čínština (zjednodušená)](ef6/resources/licenses/ef6/chs.md)
+###### [čínština (tradiční)](ef6/resources/licenses/ef6/cht.md)
+###### [němčina](ef6/resources/licenses/ef6/deu.md)
+###### [angličtina](ef6/resources/licenses/ef6/enu.md)
+###### [španělština](ef6/resources/licenses/ef6/esn.md)
+###### [francouzština](ef6/resources/licenses/ef6/fra.md)
+###### [italština](ef6/resources/licenses/ef6/ita.md)
+###### [japonština](ef6/resources/licenses/ef6/jpn.md)
+###### [korejština](ef6/resources/licenses/ef6/kor.md)
+###### [ruština](ef6/resources/licenses/ef6/rus.md)
+
+### [⤤ Referenční dokumentace k rozhraním API EF6](https://msdn.microsoft.com/library/dn223258.aspx)
