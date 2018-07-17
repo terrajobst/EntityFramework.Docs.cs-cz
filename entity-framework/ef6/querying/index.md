@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
 caps.latest.revision: 3
-ms.openlocfilehash: f0319e97d8ca8cfc9c90dac51d2ecbe7a29c1929
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 92467e1a93f576eca627cf7b7d2351054a882c2c
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912715"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067544"
 ---
 # <a name="querying-and-finding-entities"></a>Dotazování a hledání entit
 Toto téma popisuje různé způsoby, můžete zadat dotaz na data pomocí Entity Frameworku, včetně LINQ a metodu Find. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 Všimněte si, že DbSet IDbSet vždy vytvořit dotazy na databázi a bude vždy zahrnovat odezvy databáze, i v případě, že entity, které vrátil již existují v kontextu. Dotaz je proveden v databázi při:  
 
 - Ve výčtu **foreach** (C#) nebo **pro každou** – příkaz (Visual Basic).  
-- Kolekce operací je uveden jako [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary), nebo ToList[zadat popis odkazu](https://msdn.microsoft.com/library/bb342261).  
+- Kolekce operací je uveden jako [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary), nebo [ToList](https://msdn.microsoft.com/library/bb342261).  
 - Operátory LINQ, jako například [první](https://msdn.microsoft.com/library/bb291976) nebo [jakékoli](https://msdn.microsoft.com/library/bb337697) jsou určené v nejkrajnější část dotazu.  
 - Tyto metody jsou volány: [zatížení](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) rozšiřující metody na DbSet, [DbEntityEntry.Reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx)a Database.ExecuteSqlCommand.  
 

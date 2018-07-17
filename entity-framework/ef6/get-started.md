@@ -9,23 +9,23 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
 caps.latest.revision: 3
-ms.openlocfilehash: 7cdc2efc3e3f45e464728f0a17a120c6f0fc6e34
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 36857650bc546acd769e629a1e92948a63bfb786
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912007"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067538"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Začínáme s Entity Framework 6
 
 Tato příručka obsahuje odkazy na články dokumentace k vybrané kolekce, kurzy a videa, které vám pomůžou rychle začít:
 
-## <a name="get-entity-frameworkef6fundamentalsinstallmd"></a>[Získat Entity Framework](~/ef6/fundamentals/install.md)
+## <a name="get-entity-frameworkef6fundamentalsinstallmd"></a>[Jak získat Entity Framework](~/ef6/fundamentals/install.md)
 Zde se dozvíte, jak aplikace obohatit o Entity Framework a pokud chcete použít EF designeru, ujistěte se, že je nainstalována v sadě Visual Studio získáte.
 
 ## <a name="creating-a-model-code-first-the-ef-designer-and-the-ef-workflowsef6modelingindexmd"></a>[Vytvoření modelu: kódu nejprve EF designeru a EF pracovních postupů](~/ef6/modeling/index.md)
 Budete chtít zadat model EF psaní kódu nebo vykreslování polí a řádky?
-Chystáte se použít k mapování objektů hromada existující databáze EF nebo chcete EF k vytvoření databáze přizpůsobená pro objekty?
+Chystáte se použít k mapování objektů k existující databázi EF nebo chcete EF k vytvoření databáze přizpůsobená pro objekty?
 Tady vaše informace o dvou různé přístupy k použití EF6: EF designeru a Code First.
 Ujistěte se, že sledovat diskusi a podívejte se na video o různých.
 
@@ -60,8 +60,8 @@ Entity Framework 6 používá model otevřeného vývoje. Zjistěte, jak může 
   - [Tabulky mapování typu dědičnosti](~/ef6/modeling/designer/inheritance/tpt.md)
   - [Uložená procedura mapování pro aktualizace](~/ef6/modeling/designer/stored-procedures/cud.md)
   - [Uložená procedura mapování pro dotaz](~/ef6/modeling/designer/stored-procedures/query.md)
-  - [Rozdělení entity](~/ef6/modeling/designer/entity-splitting.md)
-  - [Rozdělení tabulky](~/ef6/modeling/designer/table-splitting.md)
+  - [Dělení entity](~/ef6/modeling/designer/entity-splitting.md)
+  - [Dělení tabulky](~/ef6/modeling/designer/table-splitting.md)
   - [Definování dotazu](~/ef6/modeling/designer/advanced/defining-query.md) (rozšířené)
   - [Funkce vracející tabulku](~/ef6/modeling/designer/advanced/tvfs.md) (rozšířené)
 
