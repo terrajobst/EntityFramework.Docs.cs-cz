@@ -6,12 +6,12 @@ ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 476a1dcaadcd99eba0cd4f5f0ac40c32a97af5c9
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 3eb7480625db4ebc3ce0b7a18d042139f888dab8
+ms.sourcegitcommit: 0935ff275ae739243297f5b97eb21414398125c6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949424"
+ms.lasthandoff: 07/23/2018
+ms.locfileid: "39201890"
 ---
 # <a name="owned-entity-types"></a>Vlastněné typy entit
 
@@ -70,7 +70,7 @@ public class Order
 
 V EF Core 2.0 a 2.1 může odkazovat pouze vlastnosti navigace odkaz na vlastní typy. Kolekce vlastněné typy nejsou podporovány. Tyto referenční vlastní typy musí mít vždy po jejím obnovení relace s vlastníkem, proto prohlížející nemusí mít své vlastní hodnoty klíče. V předchozím příkladu StreetAddress typ není nutné definovat vlastnost klíče.  
 
-V pořadí pro pochopení, jak EF Core sleduje tyto objekty, je vhodné popřemýšlet, primární klíč je vytvořen jako [stínové vlastnosti](xref:core/modeling/shadow-properties) pro typ vlastnictví. Hodnota klíče instance typu vlastnictví budou stejné jako hodnotu klíče vlastníka instance.      
+Chcete-li pochopit, jak EF Core sleduje tyto objekty, je vhodné popřemýšlet, primární klíč je vytvořen jako [stínové vlastnosti](xref:core/modeling/shadow-properties) pro typ vlastnictví. Hodnota klíče instance typu vlastnictví budou stejné jako hodnotu klíče vlastníka instance.      
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>Mapování vlastní typy s rozdělení tabulky
 
