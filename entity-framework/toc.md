@@ -250,6 +250,7 @@
 ### [Další prostředky](ef6/resources/index.md)
 #### [Blogy](ef6/resources/blogs.md)
 #### [Případové studie](ef6/resources/case-studies.md)
+#### [Psaní příspěvků](ef6/resources/contribute.md)
 #### [Získání nápovědy](ef6/resources/get-help.md)
 #### [Glosář](ef6/resources/glossary.md)
 #### [Ukázková školní databáze](ef6/resources/school-database.md)
