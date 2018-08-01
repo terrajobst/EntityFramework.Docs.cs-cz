@@ -5,12 +5,12 @@ ms.author: anpete
 ms.date: 11/03/2017
 ms.technology: entity-framework-core
 uid: core/querying/filters
-ms.openlocfilehash: 2bb0666ba7b75a38e44a348aea735e6fe7eadb29
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 6b7a4069917c93015a218c131ff0d0a3920fb69d
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949418"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39388407"
 ---
 # <a name="global-query-filters"></a>Globální filtry dotazů
 
@@ -24,7 +24,7 @@ Globální filtry dotazů jsou predikáty dotazu LINQ (obvykle předaný logick�
 Následující příklad ukazuje, jak použít globální filtry dotazů k implementaci chování dotazu obnovitelného odstranění a více tenantů v modelu jednoduché blogů.
 
 > [!TIP]
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryFilters) na Githubu.
+> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryFilters) na Githubu.
 
 Nejprve definujte entity:
 

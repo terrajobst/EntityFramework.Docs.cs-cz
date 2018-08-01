@@ -6,12 +6,12 @@ ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: 89f5be356654dc02e353441a83e34c90fc727593
-ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
+ms.openlocfilehash: 5a2cd451da8833daf2c315419559eb4a2c705b13
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2018
-ms.locfileid: "37900301"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39388478"
 ---
 # <a name="query-types"></a>Typy dotazů
 > [!NOTE]
@@ -53,7 +53,7 @@ Zde jsou některé scénáře hlavní použití pro typy dotazů:
 Následující příklad ukazuje, jak používat typ dotazu do databáze zobrazení dotazu.
 
 > [!TIP]
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryTypes) na Githubu.
+> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryTypes) na Githubu.
 
 Nejprve definujte jsme jednoduchý model blogu a příspěvek:
 

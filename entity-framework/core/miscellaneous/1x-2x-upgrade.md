@@ -6,12 +6,12 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: dca9a3fb9e514b6eb22281a0f0140539681efb71
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 9be2368159fe7ab7b6951cc14a84ee63762ce90c
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949253"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39388449"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Upgrade aplikací z předchozí verze na EF Core 2.0
 
@@ -154,7 +154,7 @@ To vytváří a používá databázi s názvem "Databáze". Pokud `UseInMemoryDa
 
 ### <a name="read-only-api-changes"></a>Jen pro čtení změn rozhraní API
 
-`IsReadOnlyBeforeSave`, `IsReadOnlyAferSave`, a `IsStoreGeneratedAlways` bylo vyřazeno a nahradí [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) a [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Tyto chování platí pro všechny vlastnosti (nejen generovaných úložištěm vlastnosti) a určit, jak hodnota vlastnosti má být použita při vkládání do řádku databáze (`BeforeSaveBehavior`) nebo když existující databáze se aktualizuje řádek (`AfterSaveBehavior`).
+`IsReadOnlyBeforeSave`, `IsReadOnlyAfterSave`, a `IsStoreGeneratedAlways` bylo vyřazeno a nahradí [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) a [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Tyto chování platí pro všechny vlastnosti (nejen generovaných úložištěm vlastnosti) a určit, jak hodnota vlastnosti má být použita při vkládání do řádku databáze (`BeforeSaveBehavior`) nebo když existující databáze se aktualizuje řádek (`AfterSaveBehavior`).
 
 Vlastnosti jsou označeny jako [ValueGenerated.OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (třeba u počítaných sloupcích) bude ve výchozím nastavení ignorovat libovolná hodnota aktuálně nastavená na vlastnost. To znamená, že hodnota generovaná úložištěm se budou získávat vždy bez ohledu na to, jestli nastavit nebo změnit u sledovaných entity libovolnou hodnotu. To se dá změnit tak, že nastavíte jinou `Before\AfterSaveBehavior`.
 
