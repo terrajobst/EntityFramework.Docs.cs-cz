@@ -27,8 +27,8 @@ Použijte STE jenom v případě, že kontextu není k dispozici na na úrovni k
 
 Tato položka šablony vytvoří dva soubory .tt (textové šablony):  
 
-- ** \<Název modelu\>.tt** generuje soubor typy entit a pomocná třída, která obsahuje logiku sledování změn, která používá vlastní sledování entit a metody rozšíření, které umožní nastavit stav na místním sledování entity.  
-- ** \<Název modelu\>. Context.tt** generuje soubor odvozené kontextu a rozšíření třídy, která obsahuje **applychanges –** metody **ObjectContext** a **ObjectSet** třídy. Tyto metody prozkoumejte informace sledování změn, které je obsažen v grafu svým sledování entity k odvození sadu operací, které je nutné provést k uložení změn v databázi.  
+- **\<Název modelu\>.tt** generuje soubor typy entit a pomocná třída, která obsahuje logiku sledování změn, která používá vlastní sledování entit a metody rozšíření, které umožní nastavit stav na místním sledování entity.  
+- **\<Název modelu\>. Context.tt** generuje soubor odvozené kontextu a rozšíření třídy, která obsahuje **applychanges –** metody **ObjectContext** a **ObjectSet** třídy. Tyto metody prozkoumejte informace sledování změn, které je obsažen v grafu svým sledování entity k odvození sadu operací, které je nutné provést k uložení změn v databázi.  
 
 ## <a name="get-started"></a>Začínáme  
 
