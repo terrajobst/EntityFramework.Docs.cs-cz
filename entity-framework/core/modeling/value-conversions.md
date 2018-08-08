@@ -6,12 +6,12 @@ ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 5bfb6111ac450db91f3f1a7074a924a1c8400ce7
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: d5189cef6d44fdf3fd6116a2952ce07ff3a389d4
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949089"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614396"
 ---
 # <a name="value-conversions"></a>Převody hodnot
 
@@ -28,7 +28,7 @@ Převody jsou definovány pomocí dvou `Func` stromů výrazů: jedna z `ModelCl
 
 ## <a name="configuring-a-value-converter"></a>Převaděč hodnoty konfigurace
 
-Převody hodnot jsou definovány na vlastnosti v OnModelCreating vaše DbContext. Představte si třeba typu výčtu a entity definován jako:
+Převody hodnot, které jsou definovány na vlastnosti v `OnModelCreating` z vaší `DbContext`. Představte si třeba typu výčtu a entity definován jako:
 ```Csharp
 public class Rider
 {
@@ -44,7 +44,7 @@ public enum EquineBeast
     Unicorn
 }
 ```
-Převody pak lze definovat v OnModelCreating pro uložení hodnoty výčtu jako řetězce (například "Oslů", "Mul",...) v databázi:
+Pak převody lze definovat v `OnModelCreating` pro uložení hodnoty výčtu jako řetězce (například "Oslů", "Mul",...) v databázi:
 ```Csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -115,7 +115,7 @@ Všimněte si, že všechny vestavěné převaděče bezstavové a tak jediné i
 
 ## <a name="pre-defined-conversions"></a>Předem definované převody
 
-Běžné převody, pro které existuje integrované převaděč není nutné explicitně zadat převaděč. Místo toho stačí pouze nakonfigurovat poskytovatele typu by měla sloužit a automaticky se použije odpovídající sestavení převaděč EF. Výčet pro převod řetězců se používají jako příklad výše, ale EF ve skutečnosti to automaticky v případě nakonfigurovaný typ poskytovatele:
+Běžné převody, pro které existuje integrované převaděč není nutné explicitně zadat převaděč. Místo toho stačí pouze nakonfigurovat poskytovatele typu by měla sloužit a automaticky se použije odpovídající integrované převaděč EF. Výčet pro převod řetězců se používají jako příklad výše, ale EF ve skutečnosti to automaticky v případě nakonfigurovaný typ poskytovatele:
 ```Csharp
 modelBuilder
     .Entity<Rider>()
@@ -132,11 +132,11 @@ public class Rider
     public EquineBeast Mount { get; set; }
 }
 ```
-Potom hodnoty výčtu se uloží jako řetězce v databázi bez jakékoli další konfigurace v OnModelCreating.
+Potom hodnoty výčtu se uloží jako řetězce v databázi bez jakékoli další konfigurace v `OnModelCreating`.
 
 ## <a name="limitations"></a>Omezení
 
-Existuje několik známých aktuální omezení systému a převést tak hodnotu:
+Existuje několik známých aktuální omezení systému převod hodnoty:
 * Jak bylo uvedeno výše, `null` nelze převést.
 * Aktuálně neexistuje žádný způsob, jak rozšířit převod jednoho vlastnosti na více sloupců nebo naopak.
 * Použití převody hodnot může mít vliv na schopnost EF Core překlad výrazů jazyka SQL. Upozornění se protokolují pro tyto případy.

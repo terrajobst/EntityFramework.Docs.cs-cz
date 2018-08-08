@@ -2,46 +2,34 @@
 title: Začínáme v rozhraní .NET Framework – existující databáze – EF Core
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
+ms.date: 08/06/2018
 ms.assetid: a29a3d97-b2d8-4d33-9475-40ac67b3b2c6
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/existing-db
-ms.openlocfilehash: 39e77ab8c124df67458cc5fa6db2882b65943ebe
-ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
+ms.openlocfilehash: d5c548927b736199c7d6fddc9c74139ca5f6614e
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/01/2018
-ms.locfileid: "39388465"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614412"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework-with-an-existing-database"></a>Začínáme s EF Core na rozhraní .NET Framework s existující databáze
 
-V tomto návodu vytvoříte konzolovou aplikaci, která provádí základní přístup k datům pro databázi serveru Microsoft SQL Server používá nástroj Entity Framework. Zpětná analýza použije k vytvoření Entity Framework model založený na existující databázi.
+V tomto kurzu vytvoříte konzolovou aplikaci, která provádí základní přístup k datům pro databázi serveru Microsoft SQL Server používá nástroj Entity Framework. Vytvoření modelu Entity Framework ve zpětné analýze existující databázi.
 
-> [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb) na Githubu.
+[Zobrazit ukázky v tomto článku na Githubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb).
 
 ## <a name="prerequisites"></a>Požadavky
 
-Následující požadované součásti jsou potřeba k dokončení tohoto návodu:
+* [Visual Studio 2017 verze 15.7 nebo novější](https://www.visualstudio.com/downloads/)
 
-* [Visual Studio 2017](https://www.visualstudio.com/downloads/) – minimální verze 15.3
+## <a name="create-blogging-database"></a>Vytvoření databáze blogovací
 
-* [Nejnovější verzi správce balíčků NuGet](https://dist.nuget.org/index.html)
-
-* [Nejnovější verzi prostředí Windows PowerShell](https://docs.microsoft.com/powershell/scripting/setup/installing-windows-powershell)
-
-* [Blogovací databáze](#blogging-database)
-
-### <a name="blogging-database"></a>Blogovací databáze
-
-Tento kurz používá **blogovací** databáze na instanci LocalDb jako existující databázi.
-
-> [!TIP]  
-> Pokud jste již vytvořili **blogovací** databázi jako součást další kurz, můžete přeskočit tyto kroky.
+Tento kurz používá **blogovací** databáze na instanci LocalDb jako existující databázi. Pokud jste již vytvořili **blogovací** databáze jako součást další kurz, přeskočit tyto kroky.
 
 * Otevřít Visual Studio
 
-* Nástroje > připojení k databázi...
+* **Nástroje > připojení k databázi...**
 
 * Vyberte **Microsoft SQL Server** a klikněte na tlačítko **pokračovat**
 
@@ -53,7 +41,7 @@ Tento kurz používá **blogovací** databáze na instanci LocalDb jako existuj�
 
 * Klikněte pravým tlačítkem na databázi v **Průzkumníka serveru** a vyberte **nový dotaz**
 
-* Zkopírujte skript uvedený níže, do editoru dotazů
+* Zkopírujte skript níže do editoru dotazů
 
 * Klikněte pravým tlačítkem myši na editor dotazů a vyberte **spouštění**
 
@@ -61,142 +49,77 @@ Tento kurz používá **blogovací** databáze na instanci LocalDb jako existuj�
 
 ## <a name="create-a-new-project"></a>Vytvoření nového projektu
 
-* Otevřít Visual Studio
+* Otevřít Visual Studio 2017
 
-* Soubor > Nový > projekt...
+* **Soubor > Nový > projekt...**
 
-* V levé nabídce vyberte šablony > Visual C# > Windows
+* V levé nabídce vyberte **nainstalováno > Visual C# > Windows Desktop**
 
-* Vyberte **konzolovou aplikaci** šablony projektu
+* Vyberte **Konzolová aplikace (.NET Framework)** šablony projektu
 
-* Zkontrolujte cílovou **rozhraní .NET Framework 4.6.1** nebo novější
+* Ujistěte se, že projekt cílí **rozhraní .NET Framework 4.6.1** nebo novější
 
-* Pojmenujte projekt a klikněte na tlačítko **OK**
+* Pojmenujte projekt *ConsoleApp.ExistingDb* a klikněte na tlačítko **OK**
 
 ## <a name="install-entity-framework"></a>Nainstalujte rozhraní Entity Framework
 
-Použití EF Core, nainstalujte balíček pro poskytovatelů databáze, kterou chcete cílit. Tento návod používá systém SQL Server. Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md).
+Použití EF Core, nainstalujte balíček pro poskytovatelů databáze, kterou chcete cílit. Tento kurz používá systém SQL Server. Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md).
 
-* Nástroje > Správce balíčků NuGet > Konzola správce balíčků
+* **Nástroje > Správce balíčků NuGet > Konzola správce balíčků**
 
 * Spustit `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
 
-Povolit zpětnou analýzu z existující databáze potřebujeme příliš nainstalovat několik dalších balíčků.
+V dalším kroku použijete některé Entity Framework Tools provést zpětnou analýzu databáze. Balíček nástroje tak instalaci.
 
 * Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`
 
-## <a name="reverse-engineer-your-model"></a>Provést zpětnou analýzu modelu
+## <a name="reverse-engineer-the-model"></a>Zpětná analýza modelu
 
 Nyní je čas vytvořit EF model založený na existující databázi.
 
-* Balíček NuGet –> nástroje Správce –> Konzola správce balíčků
+* **Balíček NuGet –> nástroje Správce –> Konzola správce balíčků**
 
 * Spusťte následující příkaz pro vytvoření modelu z existující databáze
 
-``` powershell
-Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
-```
+  ``` powershell
+  Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
+  ```
 
-Zpětná analýza procesu vytvoření tříd entit a odvozené kontext na základě schématu existující databázi. Entity třídy jsou jednoduché C# objekty, jež reprezentují data budete dotazování a ukládání.
+> [!TIP]  
+> Můžete zadat tabulkami k vygenerování entity pro tak, že přidáte `-Tables` argument výše uvedeného příkazu. Například `-Tables Blog,Post`.
 
-<!-- [!code-csharp[Main](samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/Blog.cs)] -->
-``` csharp
-using System;
-using System.Collections.Generic;
+Zpětná analýza procesu vytvoření tříd entit (`Blog` a `Post`) a odvozené kontextu (`BloggingContext`) na základě schématu existující databázi.
 
-namespace EFGetStarted.ConsoleApp.ExistingDb
-{
-    public partial class Blog
-    {
-        public Blog()
-        {
-            Post = new HashSet<Post>();
-        }
+Entity třídy jsou jednoduché C# objekty, jež reprezentují data budete dotazování a ukládání. Tady jsou `Blog` a `Post` tříd entit:
 
-        public int BlogId { get; set; }
-        public string Url { get; set; }
+ [!code-csharp[Main](../../../../samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/Blog.cs)]
 
-        public virtual ICollection<Post> Post { get; set; }
-    }
-}
-```
+[!code-csharp[Main](../../../../samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/Post.cs)]
 
-Kontext představuje relaci s databází a umožňuje dotazování a uložit instancí tříd entit.
+> [!TIP]  
+> Povolit opožděné načtení, můžete nastavit vlastnosti navigace `virtual` (Blog.Post a Post.Blog).
 
-<!-- [!code-csharp[Main](samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/BloggingContext.cs)] -->
-``` csharp
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+Kontext představuje relaci s databází. Obsahuje metody, které můžete použít k dotazování a uložit instancí tříd entit.
 
-namespace EFGetStarted.ConsoleApp.ExistingDb
-{
-    public partial class BloggingContext : DbContext
-    {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;");
-        }
+[!code-csharp[Main](../../../../samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/BloggingContext.cs)]
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Blog>(entity =>
-            {
-                entity.Property(e => e.Url).IsRequired();
-            });
+## <a name="use-the-model"></a>Použití modelu
 
-            modelBuilder.Entity<Post>(entity =>
-            {
-                entity.HasOne(d => d.Blog)
-                    .WithMany(p => p.Post)
-                    .HasForeignKey(d => d.BlogId);
-            });
-        }
-
-        public virtual DbSet<Blog> Blog { get; set; }
-        public virtual DbSet<Post> Post { get; set; }
-    }
-}
-```
-
-## <a name="use-your-model"></a>Použití modelu
-
-Teď můžete svůj model přístup k datům.
+Nyní můžete model přístup k datům.
 
 * Otevřít *Program.cs*
 
 * Obsah souboru nahraďte následujícím kódem
 
-<!-- [!code-csharp[Main](samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/Program.cs)] -->
-``` csharp
-using System;
-
-namespace EFGetStarted.ConsoleApp.ExistingDb
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            using (var db = new BloggingContext())
-            {
-                db.Blog.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-                var count = db.SaveChanges();
-                Console.WriteLine("{0} records saved to database", count);
-
-                Console.WriteLine();
-                Console.WriteLine("All blogs in database:");
-                foreach (var blog in db.Blog)
-                {
-                    Console.WriteLine(" - {0}", blog.Url);
-                }
-            }
-        }
-    }
-}
-```
+  [!code-csharp[Main](../../../../samples/core/GetStarted/FullNet/ConsoleApp.ExistingDb/Program.cs)] 
 
 * Ladit > Spustit bez ladění
 
-Uvidíte, že blogů se uloží do databáze a pak se podrobnosti o všech blogy vytisknou na konzole.
+  Uvidíte, že jeden blogu se uloží do databáze a pak se podrobnosti o všech blogy vytisknou na konzole.
 
-![obrázek](_static/output-existing-db.png)
+  ![obrázek](_static/output-existing-db.png)
+
+## <a name="additional-resources"></a>Další prostředky
+
+* [EF Core na rozhraní .NET Framework s novou databázi](xref:core/get-started/full-dotnet/new-db)
+* [EF Core na .NET Core s novou databázi - SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzole pro různé platformy.

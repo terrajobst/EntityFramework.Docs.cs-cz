@@ -1,23 +1,23 @@
 ---
-title: Začínáme v rozhraní .NET Framework – EF jádra
+title: Začínáme v rozhraní .NET Framework – EF Core
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
+ms.date: 08/06/2018
 ms.assetid: 06f1f18b-3267-4f79-b94e-173f9db0a7cb
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/index
-ms.openlocfilehash: b6b265ed8742459921b7ba4f3f04720eb43d06da
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 410a8320d1e36c672f3d69a172719f8b8c47a152
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2018
-ms.locfileid: "29152357"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614376"
 ---
-# <a name="getting-started-with-ef-core-on-net-framework"></a>Začínáme s EF základní na rozhraní .NET Framework
+# <a name="getting-started-with-ef-core-on-net-framework"></a>Začínáme s EF Core na rozhraní .NET Framework
 
-Tyto kurzy 101 vyžadují žádné předchozí informace o základní Entity Framework nebo Visual Studio. Se přesměruje vás provede procesem vytvoření jednoduché aplikace rozhraní .NET Framework konzoly, která provádí dotazy a uloží data z databáze. Můžete zvolit, kurz, který vytvoří model založeno na existující databázi, nebo vytvoří databázi založené na modelu.
+Tyto kurzy 101 úrovně vyžadují žádné předchozí zkušenosti Entity Framework Core nebo Visual Studio. Budou mít vás provede vytvořením jednoduchého konzoly aplikace rozhraní .NET Framework, který dotazuje a uloží data z databáze. Můžete také kurz, který vytvoří model založený na existující databázi, nebo se vytvoří databáze založené na modelu.
 
-Můžete použít techniky se naučili v těchto kurzech v jakékoli aplikaci, která cílí rozhraní .NET Framework, včetně WPF a WinForms.
+Můžete použít postupy se naučili v těchto kurzech v libovolné aplikaci, která cílí na .NET Framework, včetně WPF a WinForms.
 
 > [!NOTE]  
-> Tyto kurzy a doprovodné ukázky byly aktualizovány na používání EF základní 2.0. Ale ve většině případů to musí být možné vytvořit aplikace, které používají předchozích verzích s minimální změny podle pokynů.
+> Tyto kurzy a ukázky doprovodné aktualizované na používání EF Core 2.1. Ale ve většině případů je třeba možné vytvořit aplikace, které používají předchozích verzích se vyžaduje minimální úpravy na pokyny k.

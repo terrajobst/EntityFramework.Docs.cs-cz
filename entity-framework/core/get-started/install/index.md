@@ -6,22 +6,22 @@ ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 ms.technology: entity-framework-core
 uid: core/get-started/install/index
-ms.openlocfilehash: 7bb2ee11940a4fd5736c7a23c16533ef53018f7b
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 00924af2a7beaba8575e12d91678208b517f1a09
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949189"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614269"
 ---
 # <a name="installing-ef-core"></a>Instalace EF Core
 
 ## <a name="prerequisites"></a>Požadavky
 
-Abyste mohli vyvíjet aplikace .NET Core 2.0 (včetně aplikací ASP.NET Core 2.0, které cílit na .NET Core) budete muset stáhnout a nainstalovat verzi [.NET Core 2.0 SDK](https://www.microsoft.com/net/download/core) , která je vhodná pro vaši platformu. **To platí i v případě, že jste si nainstalovali aplikaci Visual Studio 2017 verze 15.3.**
+Abyste mohli vyvíjet aplikace .NET Core 2.1 (včetně aplikací ASP.NET Core 2.1, které cílí na .NET Core) budete muset stáhnout a nainstalovat verzi [sady SDK .NET Core 2.1](https://www.microsoft.com/net/download/core) , která je vhodná pro vaši platformu. **To platí i v případě, že jste si nainstalovali aplikaci Visual Studio 2017 verze 15.7.**
 
-Chcete-li použít EF Core 2.0 nebo jiná knihovna .NET Standard 2.0 pomocí platformy .NET kromě .NET Core 2.0 (například v rozhraní .NET Framework 4.6.1 nebo vyšší) budete potřebovat verzi Nugetu, která zná .NET Standard 2.0 a jeho rozhraní kompatibilní. Tady je několik způsobů, jak lze získat:
+Chcete-li použít EF Core 2.1 nebo jiná knihovna .NET Standard 2.0 na platformě .NET kromě .NET Core 2.1 (například v rozhraní .NET Framework 4.6.1 nebo vyšší) budete potřebovat verzi Nugetu, která zná .NET Standard 2.0 a jeho rozhraní kompatibilní. Tady je několik způsobů, jak lze získat:
 
-* Instalace sady Visual Studio 2017 verze 15.3
+* Instalace sady Visual Studio 2017 verze 15.7
 * Pokud používáte Visual Studio 2015, [stáhnout a upgradovat na verzi 3.6.0 pro klienta NuGet](https://www.nuget.org/downloads)
 
 Projekty vytvořené v předchozích verzích sady Visual Studio a cílí na rozhraní .NET Framework možná bude nutné další změny-li být kompatibilní s knihovnami .NET Standard 2.0:
@@ -42,10 +42,10 @@ Doporučeným způsobem, jak do aplikace přidejte knihovny runtime EF Core je i
 Kromě knihovny runtime můžete nainstalovat nástroje, které usnadňují provést několik úloh souvisejících s EF Core ve vašem projektu v době návrhu, jako je například vytváření a použití migrace a vytváří model založený na existující databázi.
 
 > [!TIP]  
-> Pokud je potřeba aktualizovat aplikaci, která používá databázi jiného poskytovatele, vždy vyhledejte aktualizace zprostředkovatele, který je kompatibilní s verzí EF Core, kterou chcete použít. Poskytovatelé databází pro předchozí verze například nejsou kompatibilní s verzí modulu runtime EF Core 2.0.  
+> Pokud je potřeba aktualizovat aplikaci, která používá databázi jiného poskytovatele, vždy vyhledejte aktualizace zprostředkovatele, který je kompatibilní s verzí EF Core, kterou chcete použít. Poskytovatelé databází pro předchozí verze například nejsou kompatibilní s verzí 2.1 runtime EF Core.  
 
 > [!TIP]  
-> Aplikace pro ASP.NET Core 2.0, můžete použít EF Core 2.0 bez další závislosti kromě poskytovatelé databází výrobců. Aplikace cílené na předchozích verzích technologie ASP.NET Core zapotřebí provést upgrade na technologie ASP.NET Core 2.0, aby bylo možné používat EF Core 2.0.
+> Aplikace pro ASP.NET Core 2.1 můžete bez další závislosti kromě poskytovatelé databází výrobců EF Core 2.1. Aplikace cílené na předchozích verzích technologie ASP.NET Core zapotřebí provést upgrade na technologie ASP.NET Core 2.1, aby bylo možné používat EF Core 2.1.
 
 <a name="cli"></a>
 ### <a name="cross-platform-development-using-the-net-core-command-line-interface-cli"></a>Vývoj pro různé platformy pomocí rozhraní příkazového řádku .NET Core (CLI)
@@ -53,7 +53,7 @@ Kromě knihovny runtime můžete nainstalovat nástroje, které usnadňují prov
 K vývoji aplikací, které se zaměřují [.NET Core](https://www.microsoft.com/net/download/core) můžete použít [ `dotnet` příkazy rozhraní příkazového řádku](https://docs.microsoft.com/dotnet/core/tools/) v kombinaci s oblíbeném textovém editoru nebo integrované vývojové prostředí (IDE) takové Visual Studio, Visual Studio for Mac nebo Visual Studio Code.
 
 > [!IMPORTANT]  
-> Aplikací určených pro .NET Core vyžádat konkrétní verze sady Visual Studio. Vývoj v .NET Core 1.x například vyžaduje Visual Studio 2017, ale vývoj pro .NET Core 2.0 vyžaduje Visual Studio 2017 verze 15.3.
+> Aplikací určených pro .NET Core vyžádat konkrétní verze sady Visual Studio. Vývoj v .NET Core 1.x například vyžaduje Visual Studio 2017, ale vývoj pro .NET Core 2.1 vyžaduje Visual Studio 2017 verze 15.7.
 
 Pro instalaci nebo upgrade zprostředkovatele SQL Server v aplikaci .NET Core napříč platformami, přejděte do adresáře aplikace a spusťte následující příkaz v příkazovém řádku:
 
@@ -61,24 +61,16 @@ Pro instalaci nebo upgrade zprostředkovatele SQL Server v aplikaci .NET Core na
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-Můžete určit konkrétní verzi instalace v `dotnet add package` příkaz a `-v` modifikátor. Například chcete-li instalovat balíčky EF Core 2.0, přidejte `-v 2.0.0` k příkazu.
+Můžete určit konkrétní verzi instalace v `dotnet add package` příkaz a `-v` modifikátor. Například chcete-li instalovat balíčky EF Core 2.1, přidejte `-v 2.1.0` k příkazu.
 
-EF Core obsahuje sadu [další příkazy `dotnet` rozhraní příkazového řádku](../../miscellaneous/cli/dotnet.md)počínaje `dotnet ef`. Chcete-li použít `dotnet ef` příkazy rozhraní příkazového řádku, vaše aplikace `.csproj` soubor musí obsahovat následující položku:
+EF Core obsahuje sadu [další příkazy `dotnet` rozhraní příkazového řádku](../../miscellaneous/cli/dotnet.md)počínaje `dotnet ef`. Nástroje rozhraní příkazového řádku .NET Core pro jádro EF Core vyžadují balíček s názvem `Microsoft.EntityFrameworkCore.Design`. Můžete ho přidat do projektu pomocí:
 
-``` xml
-<ItemGroup>
-  <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
-</ItemGroup>
-```
+ ``` Console    
+dotnet add package Microsoft.EntityFrameworkCore.Design 
+``` 
 
-Nástroje rozhraní příkazového řádku .NET Core pro jádro EF Core také vyžadovat samostatný balíček s názvem Microsoft.EntityFrameworkCore.Design. Můžete ji jednoduše přidat do projektu pomocí:
-
-``` Console
-dotnet add package Microsoft.EntityFrameworkCore.Design
-```
-
-> [!IMPORTANT]  
-> Vždy používejte balíčky nástrojů, které odpovídají hlavní verzi balíčky runtime verze.
+> [!IMPORTANT]      
+> Vždy používejte verzi sady nástrojů, který odpovídá hlavní verzi balíčky runtime.
 
 <a name="visual-studio"></a>
 ### <a name="visual-studio-development"></a>Vývoj sady Visual Studio
@@ -106,14 +98,11 @@ V aplikaci Visual Studio můžete nainstalovat poskytovatele EF Core k databázi
   ```
 * Můžete použít `Update-Package` místo toho příkaz k aktualizaci balíčku, který je už nainstalovaná novější verze
 
-* Chcete-li zadat konkrétní verzi, můžete použít `-Version` modifikátor. Například chcete-li instalovat balíčky EF Core 2.0, přidejte `-Version 2.0.0` k příkazům
+* Chcete-li zadat konkrétní verzi, můžete použít `-Version` modifikátor. Například chcete-li instalovat balíčky EF Core 2.1, přidejte `-Version 2.1.0` k příkazům
 
 #### <a name="tools"></a>Nástroje
 
-Je také verze prostředí PowerShell [EF Core příkazy, které spusťte v konzole PMC](../../miscellaneous/cli/powershell.md) v sadě Visual Studio nabízí podobné funkce, `dotnet ef` příkazy. Pokud chcete použít, nainstalujte `Microsoft.EntityFrameworkCore.Tools` balíček pomocí uživatelského rozhraní Správce balíčků nebo konzolu PMC.
-
-> [!IMPORTANT]  
-> Vždy používejte balíčky nástrojů, které odpovídají hlavní verzi balíčky runtime verze.
+Je také verze prostředí PowerShell [EF Core příkazy, které spusťte v konzole PMC](../../miscellaneous/cli/powershell.md) v sadě Visual Studio nabízí podobné funkce, `dotnet ef` příkazy. 
 
 > [!TIP]  
 > I když je možné použít `dotnet ef` příkazy z konzole PMC v sadě Visual Studio, je mnohem více pohodlné používat ho na verzi prostředí PowerShell:
@@ -121,4 +110,9 @@ Je také verze prostředí PowerShell [EF Core příkazy, které spusťte v konz
 > * Automaticky otevřou soubory generované záznamem pro příkazy v sadě Visual Studio po dokončení příkazu.
 
 > [!IMPORTANT]  
-> **Zastaralé balíčky v EF Core 2.0:** Pokud provádíte upgrade stávající aplikace na EF Core 2.0, některé odkazy na balíčky starší EF Core může být nutné ručně odebrat. Zejména databáze jako poskytovatel návrhu balíčky `Microsoft.EntityFrameworkCore.SqlServer.Design` jsou už povinné nebo nejsou podporovány v EF Core 2.0, ale nebude automaticky odebrána při upgradu balíčky.
+> **Zastaralé balíčky v EF Core 2.1:** Pokud upgradujete existující aplikaci do EF Core 2.1, může být nutné ručně odebrat některé odkazy na balíčky starší EF Core:
+> * Databáze jako poskytovatel návrhu balíčky `Microsoft.EntityFrameworkCore.SqlServer.Design` jsou již požadované nebo nejsou podporovány v EF Core 2.1, ale nebude automaticky odebrána při upgradu balíčky.
+> * Nástroje rozhraní příkazového řádku .NET jsou teď součástí sady .NET SDK, můžete z odebrat odkaz na tento balíček *.csproj* souboru:
+>   ```
+>   <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+>   ```

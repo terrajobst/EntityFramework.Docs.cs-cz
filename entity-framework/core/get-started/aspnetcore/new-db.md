@@ -1,126 +1,111 @@
 ---
-title: Začínáme na základní EF ASP.NET Core - novou databázi –
+title: Začínáme v ASP.NET Core – nová databáze – EF Core
 author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
-ms.date: 04/07/2017
+ms.date: 08/03/2018
 ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 80477ca57b8b3df6de8ba3595c9056c6b8412040
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 9e86bc9cff028ad9791f23cbb45f0a93110c0064
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812570"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614347"
 ---
-# <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF základní na ASP.NET Core s novou databázi
+# <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF Core v ASP.NET Core s novou databázi
 
-V tomto návodu vytvoříte aplikaci ASP.NET MVC jádra, která provádí základní přístup k datům používá Entity Framework Core. Migrace použije k vytvoření databáze z modelu EF jádra. V tématu [další prostředky](#additional-resources) pro další kurzy Entity Framework Core.
+V tomto kurzu sestavíte aplikaci ASP.NET Core MVC, která provádí základní přístup k datům pomocí Entity Framework Core. Vytvoření databáze z vašeho modelu EF Core pomocí migrace.
 
-Tento kurz vyžaduje:
-* [Visual Studio 2017 15.3](https://www.visualstudio.com/downloads/) s tyto úlohy:
-  * **Vývoj pro ASP.NET a webové** (v části **Web a Cloud**)
-  * **Vývoj pro různé platformy .NET core** (v části **ostatní modulové**)
-* [Základní rozhraní .NET 2.0 SDK](https://www.microsoft.com/net/download/core).
+[Zobrazit ukázky v tomto článku na Githubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb).
 
-> [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb) na Githubu.
+## <a name="prerequisites"></a>Požadavky
 
-## <a name="create-a-new-project-in-visual-studio-2017"></a>Vytvořte nový projekt v Visual Studio 2017
+Nainstalujte následující software:
 
+* [Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) se tyto úlohy:
+  * **Vývoj pro ASP.NET a web** (v části **Web a Cloud**)
+  * **Vývoj pro různé platformy .NET core** (v části **další sady nástrojů**)
+* [.NET core 2.1 SDK](https://www.microsoft.com/net/download/core).
+
+## <a name="create-a-new-project-in-visual-studio-2017"></a>Vytvoření nového projektu v sadě Visual Studio 2017
+
+* Otevřít Visual Studio 2017
 * **Soubor > Nový > Projekt**
-* V levé nabídce vyberte **nainstalovaná > šablony > Visual C# > .NET Core**.
-* Vyberte **webové aplikace ASP.NET Core**.
-* Zadejte **EFGetStarted.AspNetCore.NewDb** pro název a klikněte na tlačítko **OK**.
-* V **nové webové aplikace ASP.NET Core** dialogové okno:
-  * Zkontrolujte možnosti **.NET Core** a **technologii ASP.NET 2.0 základní** jsou vybrány v rozevíracích seznamů
-  * Vyberte **webové aplikace (Model-View-Controller)** šablona projektu
-  * Ujistěte se, že **ověřování** je nastaven na **bez ověřování**
+* V levé nabídce vyberte **nainstalováno > Visual C# > .NET Core**.
+* Vyberte **webová aplikace ASP.NET Core**.
+* Zadejte **EFGetStarted.AspNetCore.NewDb** název a klikněte na **OK**.
+* V **nová webová aplikace ASP.NET Core** dialogové okno:
+  * Zkontrolujte možnosti **.NET Core** a **ASP.NET Core 2.1** jsou vybrány v rozevíracích seznamech
+  * Vyberte **webové aplikace (Model-View-Controller)** šablony projektu
+  * Ujistěte se, že **ověřování** je nastavena na **bez ověřování**
   * Klikněte na tlačítko **OK**
 
-Upozornění: Pokud používáte **jednotlivé uživatelské účty** místo **žádné** pro **ověřování** pak model Entity Framework Core přidá do projektu v `Models\IdentityModel.cs`. Pomocí technik, které se dozvíte v tomto návodu, můžete přidat druhý modelu nebo rozšířit tento existující model tak, aby obsahovala vaše třídy entity.
+Upozornění: Pokud používáte **jednotlivé uživatelské účty** místo **žádný** pro **ověřování** pak model Entity Framework Core se přidají do vašeho projektu v `Models\IdentityModel.cs`. Pomocí technik, které se naučíte v tomto kurzu, můžete přidat druhý modelu nebo rozšiřte tento existující model tak, aby obsahovala tříd entit.
 
-## <a name="install-entity-framework-core"></a>Instalace jádra Entity Framework
+## <a name="install-entity-framework-core"></a>Nainstalujte Entity Framework Core
 
-Nainstalujte balíček pro následující zprostředkovatele databáze EF jádra, které chcete cílit. Tento návod používá SQL Server. Seznam dostupných zprostředkovatelů naleznete v části [zprostředkovatelů databáze](../../providers/index.md).
+Instalace EF Core, nainstalujte balíček vytvořeno EF Core databáze, kterou chcete cílit na pro. Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md). 
 
-* **Nástroje > Správce balíčků NuGet > Konzola správce balíčků**
-
-* Spustit `Install-Package Microsoft.EntityFrameworkCore.SqlServer`
-
-Použijeme některé Entity Framework jádra nástroje k vytvoření databáze z modelu EF jádra. Proto se nainstaluje balíček nástroje:
-
-* Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`
-
-Nemůžeme vytvořit kontrolery a zobrazení později na pomocí některé nástroje ASP.NET Core generování uživatelského rozhraní. Proto se nainstaluje tohoto návrhu balíčku:
-
-* Spustit `Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design`
+Pro účely tohoto kurzu není nutné instalovat balíček poskytovatele, protože v tomto kurzu použijete SQL Server. Je součástí balíčku zprostředkovatele SQL Server [Microsoft.AspnetCore.App Microsoft.aspnetcore.all](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).
 
 ## <a name="create-the-model"></a>Vytvoření modelu
 
-Definujte kontext a entity třídy, které tvoří modelu:
+Definování třídy kontextu a tříd entit, které tvoří modelu:
 
-* Klikněte pravým tlačítkem na **modely** složky a vyberte **Přidat > třída**.
-* Zadejte **Model.cs** jako název a klikněte na tlačítko **OK**.
+* Klikněte pravým tlačítkem na **modely** a pak zvolte položku **Přidat > třída**.
+* Zadejte **Model.cs** jako název a klikněte na **OK**.
 * Obsah souboru nahraďte následujícím kódem:
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
 
-Poznámka: V reálné aplikaci byste obvykle umístili každá třída z modelu v samostatném souboru. Z důvodu zjednodušení jsme jsou uvedení všechny třídy v jednom souboru pro účely tohoto kurzu.
+V reálné aplikaci obvykle vložíte každá třída z vašeho modelu v samostatném souboru. V tomto kurzu z důvodu zjednodušení, umístí všechny třídy v jednom souboru.
 
-## <a name="register-your-context-with-dependency-injection"></a>Zaregistrovat váš kontext vkládání závislostí
+## <a name="register-your-context-with-dependency-injection"></a>Kontext zaregistrovat injektáž závislostí
 
-Služby (například `BloggingContext`) jsou registrovány [vkládání závislostí](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) během spuštění aplikace. Součásti, které vyžadují tyto služby (například vaše řadiče MVC) jsou pak k dispozici tyto služby prostřednictvím konstruktor parametry nebo vlastnosti.
+Služby (například `BloggingContext`) jsou registrovány [injektáž závislostí](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) během spuštění aplikace. Komponenty, které vyžadují tyto služby (například vaše řadiče MVC) jsou pak k dispozici tyto služby prostřednictvím vlastnosti nebo parametry konstruktoru.
 
-V pořadí pro naše řadiče MVC, chcete-li použít `BloggingContext` jsme se registrovat jako službu.
+Chcete-li `BloggingContext` k dispozici pro kontrolery MVC, zaregistrujte ho jako služba.
 
-* Otevřete **Startup.cs**
+* Otevřít **Startup.cs**
 * Přidejte následující `using` příkazy:
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
 
-Přidat `AddDbContext` metody pro registraci jako služba:
+Volání `AddDbContext` metody pro registraci kontextu jako služba.
 
-* Přidejte následující kód, který `ConfigureServices` metoda:
+* Přidejte následující zvýrazněný kód do `ConfigureServices` metody:
 
-  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=13-14)]
 
-Poznámka: Skutečné aplikace obecně přepnutím připojovací řetězec v konfiguračním souboru. Z důvodu zjednodušení jsme se jeho definováním v kódu. V tématu [připojovací řetězce](../../miscellaneous/connection-strings.md) Další informace.
+Poznámka: Skutečné aplikace obecně vložili připojovací řetězec v konfigurační soubor nebo prostředí proměnnou. Z důvodu zjednodušení v tomto kurzu ji definuje v kódu. Zobrazit [připojovací řetězce](../../miscellaneous/connection-strings.md) Další informace.
 
-## <a name="create-your-database"></a>Vytvoření databáze
+## <a name="create-the-database"></a>Vytvoření databáze
 
-Jakmile máte modelu, můžete použít [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) k vytvoření databáze.
+Jakmile budete mít modelu, můžete použít [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) k vytvoření databáze.
 
-* Otevřete pomocí PMC:
+* **Nástroje > Správce balíčků NuGet > Konzola správce balíčků**
+* Spustit `Add-Migration InitialCreate` k migraci na vytvoření počáteční sadu tabulek pro váš model. Pokud se zobrazí chyba `The term 'add-migration' is not recognized as the name of a cmdlet`, zavřete a znovu otevřete Visual Studio.
+* Spustit `Update-Database` použít novou migraci databáze. Tento příkaz vytvoří databázi před použitím migrace.
 
-  **Nástroje pro –> balíček NuGet Manager –> Konzola správce balíčků**
-* Spustit `Add-Migration InitialCreate` chcete vygenerovat migraci k vytvoření počáteční sadu tabulek pro váš model. Pokud se zobrazí chybová zpráva, `The term 'add-migration' is not recognized as the name of a cmdlet`, zavřete a znovu otevřete Visual Studio.
-* Spustit `Update-Database` použít nové migrace do databáze. Tento příkaz vytvoří databázi před použitím migrace.
+## <a name="create-a-controller"></a>Vytvoření kontroleru
 
-## <a name="create-a-controller"></a>Vytvořit řadič
+Kontroler a zobrazení pro generování uživatelského rozhraní `Blog` entity.
 
-Povolte generování uživatelského rozhraní v projektu:
-
-* Klikněte pravým tlačítkem na **řadiče** složky v **Průzkumníku řešení** a vyberte **Přidat > řadiče**.
-* Vyberte **minimální závislosti** a klikněte na tlačítko **přidat**.
-* Můžete ignorovat nebo odstranit *ScaffoldingReadMe.txt* souboru.
-
-Teď, když je povoleno generování uživatelského rozhraní, jsme vygenerovat řadič pro `Blog` entity.
-
-* Klikněte pravým tlačítkem na **řadiče** složky v **Průzkumníku řešení** a vyberte **Přidat > řadiče**.
-* Vyberte **kontroler MVC se zobrazeními s využitím nástroje Entity Framework** a klikněte na tlačítko **Ok**.
-* Nastavit **třída modelu** k **Blog** a **třída kontextu dat** k **BloggingContext**.
+* Klikněte pravým tlačítkem na **řadiče** složky **Průzkumníku řešení** a vyberte **Přidat > kontroler**.
+* Vyberte **kontroler MVC se zobrazeními, s použitím Entity Framework** a klikněte na tlačítko **přidat**.
+* Nastavte **třída modelu** k **blogu** a **třída kontextu dat** k **BloggingContext**.
 * Klikněte na tlačítko **přidat**.
 
 
 ## <a name="run-the-application"></a>Spuštění aplikace
 
-Stisknutím klávesy F5 spusťte a testování aplikací.
+Stiskněte klávesu F5 ke spuštění a testování aplikace.
 
 * Přejděte na `/Blogs`
-* Pomocí odkazu vytvořte vytvořit některé položky blogu. Testování podrobnosti a odstraňte odkazy.
+* Pomocí odkazu vytvořit některé položky blogu. Otestujte podrobnosti a odkazy odstranit.
 
 ![obrázek](_static/create.png)
 
@@ -128,7 +113,7 @@ Stisknutím klávesy F5 spusťte a testování aplikací.
 
 ## <a name="additional-resources"></a>Další prostředky
 
-* [EF - novou databázi pomocí SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzoly napříč platformami.
-* [Úvod do základní ASP.NET MVC v Mac nebo Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
-* [Úvod do základní ASP.NET MVC pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
+* [EF - novou databázi pomocí SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzole pro různé platformy.
+* [Úvod do ASP.NET Core MVC v systému Mac nebo Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
+* [Úvod do ASP.NET Core MVC se sadou Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
 * [Začínáme s technologiemi ASP.NET Core a Entity Framework Core pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
