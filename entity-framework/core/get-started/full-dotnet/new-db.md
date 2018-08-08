@@ -1,165 +1,101 @@
 ---
-title: Začínáme v rozhraní .NET Framework – nové databáze - EF Core
+title: Začínáme v rozhraní .NET Framework – nová databáze – EF Core
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
+ms.date: 08/06/2018
 ms.assetid: 52b69727-ded9-4a7b-b8d5-73f3acfbbad3
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/new-db
-ms.openlocfilehash: bd7054c6834ae11bfdc352d63654e4304771e432
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 088ac915041489242eb8090e7bf3a2bdc8036534
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812518"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614425"
 ---
-# <a name="getting-started-with-ef-core-on-net-framework-with-a-new-database"></a><span data-ttu-id="423e4-102">Začínáme s EF základní na rozhraní .NET Framework s novou databázi</span><span class="sxs-lookup"><span data-stu-id="423e4-102">Getting started with EF Core on .NET Framework with a New Database</span></span>
+# <a name="getting-started-with-ef-core-on-net-framework-with-a-new-database"></a><span data-ttu-id="0e4d0-102">Začínáme s EF Core na rozhraní .NET Framework s novou databázi</span><span class="sxs-lookup"><span data-stu-id="0e4d0-102">Getting started with EF Core on .NET Framework with a New Database</span></span>
 
-<span data-ttu-id="423e4-103">V tomto návodu vytvoříte konzolovou aplikaci, která provádí základní data přístup ověřit v databázi Microsoft SQL Server pomocí rozhraní Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="423e4-103">In this walkthrough, you will build a console application that performs basic data access against a Microsoft SQL Server database using Entity Framework.</span></span> <span data-ttu-id="423e4-104">Migrace použije k vytvoření databáze z modelu.</span><span class="sxs-lookup"><span data-stu-id="423e4-104">You will use migrations to create the database from your model.</span></span>
+<span data-ttu-id="0e4d0-103">V tomto kurzu vytvoříte konzolovou aplikaci, která provádí základní přístup k datům pro databázi serveru Microsoft SQL Server používá nástroj Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-103">In this tutorial, you build a console application that performs basic data access against a Microsoft SQL Server database using Entity Framework.</span></span> <span data-ttu-id="0e4d0-104">Migrace použijete k vytvoření databáze z modelu.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-104">You use migrations to create the database from a model.</span></span>
 
-> [!TIP]  
-> <span data-ttu-id="423e4-105">Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.NewDb) na Githubu.</span><span class="sxs-lookup"><span data-stu-id="423e4-105">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.NewDb) on GitHub.</span></span>
+<span data-ttu-id="0e4d0-105">[Zobrazit ukázky v tomto článku na Githubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.NewDb).</span><span class="sxs-lookup"><span data-stu-id="0e4d0-105">[View this article's sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/FullNet/ConsoleApp.NewDb).</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="423e4-106">Požadavky</span><span class="sxs-lookup"><span data-stu-id="423e4-106">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="0e4d0-106">Požadavky</span><span class="sxs-lookup"><span data-stu-id="0e4d0-106">Prerequisites</span></span>
 
-<span data-ttu-id="423e4-107">Následující požadované součásti jsou nutné k dokončení tohoto názorného postupu:</span><span class="sxs-lookup"><span data-stu-id="423e4-107">The following prerequisites are needed to complete this walkthrough:</span></span>
+* [<span data-ttu-id="0e4d0-107">Visual Studio 2017 verze 15.7 nebo novější</span><span class="sxs-lookup"><span data-stu-id="0e4d0-107">Visual Studio 2017 version 15.7 or later</span></span>](https://www.visualstudio.com/downloads/)
 
-* [<span data-ttu-id="423e4-108">Visual Studio 2017</span><span class="sxs-lookup"><span data-stu-id="423e4-108">Visual Studio 2017</span></span>](https://www.visualstudio.com/downloads/)
+## <a name="create-a-new-project"></a><span data-ttu-id="0e4d0-108">Vytvoření nového projektu</span><span class="sxs-lookup"><span data-stu-id="0e4d0-108">Create a new project</span></span>
 
-* [<span data-ttu-id="423e4-109">Nejnovější verze Správce balíčků NuGet</span><span class="sxs-lookup"><span data-stu-id="423e4-109">Latest version of NuGet Package Manager</span></span>](https://dist.nuget.org/index.html)
+* <span data-ttu-id="0e4d0-109">Otevřít Visual Studio 2017</span><span class="sxs-lookup"><span data-stu-id="0e4d0-109">Open Visual Studio 2017</span></span>
 
-* [<span data-ttu-id="423e4-110">Nejnovější verzi prostředí Windows PowerShell</span><span class="sxs-lookup"><span data-stu-id="423e4-110">Latest version of Windows PowerShell</span></span>](https://docs.microsoft.com/powershell/scripting/setup/installing-windows-powershell)
+* <span data-ttu-id="0e4d0-110">**Soubor > Nový > projekt...**</span><span class="sxs-lookup"><span data-stu-id="0e4d0-110">**File > New > Project...**</span></span>
 
-## <a name="create-a-new-project"></a><span data-ttu-id="423e4-111">Vytvoření nového projektu</span><span class="sxs-lookup"><span data-stu-id="423e4-111">Create a new project</span></span>
+* <span data-ttu-id="0e4d0-111">V levé nabídce vyberte **nainstalováno > Visual C# > Windows Desktop**</span><span class="sxs-lookup"><span data-stu-id="0e4d0-111">From the left menu select **Installed > Visual C# > Windows Desktop**</span></span>
 
-* <span data-ttu-id="423e4-112">Otevřete Visual Studio</span><span class="sxs-lookup"><span data-stu-id="423e4-112">Open Visual Studio</span></span>
+* <span data-ttu-id="0e4d0-112">Vyberte **Konzolová aplikace (.NET Framework)** šablony projektu</span><span class="sxs-lookup"><span data-stu-id="0e4d0-112">Select the **Console App (.NET Framework)** project template</span></span>
 
-* <span data-ttu-id="423e4-113">Soubor > Nový > projekt...</span><span class="sxs-lookup"><span data-stu-id="423e4-113">File > New > Project...</span></span>
+* <span data-ttu-id="0e4d0-113">Ujistěte se, že projekt cílí **rozhraní .NET Framework 4.6.1** nebo novější</span><span class="sxs-lookup"><span data-stu-id="0e4d0-113">Make sure that the project targets **.NET Framework 4.6.1** or later</span></span>
 
-* <span data-ttu-id="423e4-114">V levé nabídce vyberte šablony > Visual C# > klasické ploše systému Windows</span><span class="sxs-lookup"><span data-stu-id="423e4-114">From the left menu select Templates > Visual C# > Windows Classic Desktop</span></span>
+* <span data-ttu-id="0e4d0-114">Pojmenujte projekt *ConsoleApp.NewDb* a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="0e4d0-114">Name the project *ConsoleApp.NewDb* and click **OK**</span></span>
 
-* <span data-ttu-id="423e4-115">Vyberte **konzolovou aplikaci (rozhraní .NET Framework)** šablona projektu</span><span class="sxs-lookup"><span data-stu-id="423e4-115">Select the **Console App (.NET Framework)** project template</span></span>
+## <a name="install-entity-framework"></a><span data-ttu-id="0e4d0-115">Nainstalujte rozhraní Entity Framework</span><span class="sxs-lookup"><span data-stu-id="0e4d0-115">Install Entity Framework</span></span>
 
-* <span data-ttu-id="423e4-116">Ujistěte se, kterou cílíte **rozhraní .NET Framework 4.5.1** nebo novější</span><span class="sxs-lookup"><span data-stu-id="423e4-116">Ensure you are targeting **.NET Framework 4.5.1** or later</span></span>
+<span data-ttu-id="0e4d0-116">Použití EF Core, nainstalujte balíček pro poskytovatelů databáze, kterou chcete cílit.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-116">To use EF Core, install the package for the database provider(s) you want to target.</span></span> <span data-ttu-id="0e4d0-117">Tento kurz používá systém SQL Server.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-117">This tutorial uses SQL Server.</span></span> <span data-ttu-id="0e4d0-118">Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="0e4d0-118">For a list of available providers see [Database Providers](../../providers/index.md).</span></span>
 
-* <span data-ttu-id="423e4-117">Pojmenujte projekt a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="423e4-117">Give the project a name and click **OK**</span></span>
+* <span data-ttu-id="0e4d0-119">Nástroje > Správce balíčků NuGet > Konzola správce balíčků</span><span class="sxs-lookup"><span data-stu-id="0e4d0-119">Tools > NuGet Package Manager > Package Manager Console</span></span>
 
-## <a name="install-entity-framework"></a><span data-ttu-id="423e4-118">Nainstalujte rozhraní Entity Framework</span><span class="sxs-lookup"><span data-stu-id="423e4-118">Install Entity Framework</span></span>
+* <span data-ttu-id="0e4d0-120">Spustit `Install-Package Microsoft.EntityFrameworkCore.SqlServer`</span><span class="sxs-lookup"><span data-stu-id="0e4d0-120">Run `Install-Package Microsoft.EntityFrameworkCore.SqlServer`</span></span>
 
-<span data-ttu-id="423e4-119">Abyste mohli používat EF jádra, nainstalujte balíček pro následující zprostředkovatele databáze, kterou chcete zacílit.</span><span class="sxs-lookup"><span data-stu-id="423e4-119">To use EF Core, install the package for the database provider(s) you want to target.</span></span> <span data-ttu-id="423e4-120">Tento návod používá SQL Server.</span><span class="sxs-lookup"><span data-stu-id="423e4-120">This walkthrough uses SQL Server.</span></span> <span data-ttu-id="423e4-121">Seznam dostupných zprostředkovatelů naleznete v části [zprostředkovatelů databáze](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="423e4-121">For a list of available providers see [Database Providers](../../providers/index.md).</span></span>
+<span data-ttu-id="0e4d0-121">Později v tomto kurzu použijete některé Entity Framework Tools pro správnou údržbu databáze.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-121">Later in this tutorial you use some Entity Framework Tools to maintain the database.</span></span> <span data-ttu-id="0e4d0-122">Balíček nástroje tak instalaci.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-122">So install the tools package as well.</span></span>
 
-* <span data-ttu-id="423e4-122">Nástroje > Správce balíčků NuGet > Konzola správce balíčků</span><span class="sxs-lookup"><span data-stu-id="423e4-122">Tools > NuGet Package Manager > Package Manager Console</span></span>
+* <span data-ttu-id="0e4d0-123">Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`</span><span class="sxs-lookup"><span data-stu-id="0e4d0-123">Run `Install-Package Microsoft.EntityFrameworkCore.Tools`</span></span>
 
-* <span data-ttu-id="423e4-123">Spustit `Install-Package Microsoft.EntityFrameworkCore.SqlServer`</span><span class="sxs-lookup"><span data-stu-id="423e4-123">Run `Install-Package Microsoft.EntityFrameworkCore.SqlServer`</span></span>
+## <a name="create-the-model"></a><span data-ttu-id="0e4d0-124">Vytvoření modelu</span><span class="sxs-lookup"><span data-stu-id="0e4d0-124">Create the model</span></span>
 
-<span data-ttu-id="423e4-124">Dále v tomto návodu také použijeme některé nástroje Entity Framework pro správnou údržbu databáze.</span><span class="sxs-lookup"><span data-stu-id="423e4-124">Later in this walkthrough we will also be using some Entity Framework Tools to maintain the database.</span></span> <span data-ttu-id="423e4-125">Proto se nainstaluje balíček nástroje.</span><span class="sxs-lookup"><span data-stu-id="423e4-125">So we will install the tools package as well.</span></span>
+<span data-ttu-id="0e4d0-125">Nyní je možné definovat kontext a entity třídy, které tvoří modelu.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-125">Now it's time to define a context and entity classes that make up the model.</span></span>
 
-* <span data-ttu-id="423e4-126">Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`</span><span class="sxs-lookup"><span data-stu-id="423e4-126">Run `Install-Package Microsoft.EntityFrameworkCore.Tools`</span></span>
+* <span data-ttu-id="0e4d0-126">**Projekt > Přidat třídu...**</span><span class="sxs-lookup"><span data-stu-id="0e4d0-126">**Project > Add Class...**</span></span>
 
-## <a name="create-your-model"></a><span data-ttu-id="423e4-127">Vytvoření modelu</span><span class="sxs-lookup"><span data-stu-id="423e4-127">Create your model</span></span>
+* <span data-ttu-id="0e4d0-127">Zadejte *Model.cs* jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="0e4d0-127">Enter *Model.cs* as the name and click **OK**</span></span>
 
-<span data-ttu-id="423e4-128">Nyní je čas k definování kontextu a entity tříd, které tvoří modelu.</span><span class="sxs-lookup"><span data-stu-id="423e4-128">Now it's time to define a context and entity classes that make up your model.</span></span>
+* <span data-ttu-id="0e4d0-128">Obsah souboru nahraďte následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="0e4d0-128">Replace the contents of the file with the following code</span></span>
 
-* <span data-ttu-id="423e4-129">Projekt > přidejte třídu...</span><span class="sxs-lookup"><span data-stu-id="423e4-129">Project > Add Class...</span></span>
-
-* <span data-ttu-id="423e4-130">Zadejte *Model.cs* jako název a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="423e4-130">Enter *Model.cs* as the name and click **OK**</span></span>
-
-* <span data-ttu-id="423e4-131">Obsah souboru nahraďte následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="423e4-131">Replace the contents of the file with the following code</span></span>
-
-<!-- [!code-csharp[Main](samples/core/GetStarted/FullNet/ConsoleApp.NewDb/Model.cs)] -->
-``` csharp
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-
-namespace EFGetStarted.ConsoleApp
-{
-    public class BloggingContext : DbContext
-    {
-        public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Post> Posts { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFGetStarted.ConsoleApp.NewDb;Trusted_Connection=True;");
-        }
-    }
-
-    public class Blog
-    {
-        public int BlogId { get; set; }
-        public string Url { get; set; }
-
-        public List<Post> Posts { get; set; }
-    }
-
-    public class Post
-    {
-        public int PostId { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
-
-        public int BlogId { get; set; }
-        public Blog Blog { get; set; }
-    }
-}
-```
+  [!code-csharp[Main](../../../../samples/core/GetStarted/FullNet/ConsoleApp.NewDb/Model.cs)] 
 
 > [!TIP]  
-> <span data-ttu-id="423e4-132">V reálné aplikaci byste put každá třída v samostatném souboru a chápat připojovací řetězec `App.Config` souboru a přečtěte si ho použití `ConfigurationManager`.</span><span class="sxs-lookup"><span data-stu-id="423e4-132">In a real application you would put each class in a separate file and put the connection string in the `App.Config` file and read it out using `ConfigurationManager`.</span></span> <span data-ttu-id="423e4-133">Z důvodu zjednodušení jsme jsou uvedení všechno, co v souboru jednoho kódu pro účely tohoto kurzu.</span><span class="sxs-lookup"><span data-stu-id="423e4-133">For the sake of simplicity, we are putting everything in a single code file for this tutorial.</span></span>
+> <span data-ttu-id="0e4d0-129">V reálné aplikaci byste umístit každá třída v samostatném souboru a vložte připojovací řetězec konfigurační soubor nebo prostředí proměnnou.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-129">In a real application you would put each class in a separate file and put the connection string in a configuration file or environment variable.</span></span> <span data-ttu-id="0e4d0-130">Z důvodu zjednodušení všechno, co je v souboru jednoho kódu pro účely tohoto kurzu.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-130">For the sake of simplicity, everything is in a single code file for this tutorial.</span></span>
 
-## <a name="create-your-database"></a><span data-ttu-id="423e4-134">Vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="423e4-134">Create your database</span></span>
+## <a name="create-the-database"></a><span data-ttu-id="0e4d0-131">Vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="0e4d0-131">Create the database</span></span>
 
-<span data-ttu-id="423e4-135">Teď, když máte model, můžete k vytvoření databáze pro vás migrace.</span><span class="sxs-lookup"><span data-stu-id="423e4-135">Now that you have a model, you can use migrations to create a database for you.</span></span>
+<span data-ttu-id="0e4d0-132">Teď, když máte model, můžete k vytvoření databáze migrace.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-132">Now that you have a model, you can use migrations to create a database.</span></span>
 
-* <span data-ttu-id="423e4-136">Nástroje pro –> balíček NuGet Manager –> Konzola správce balíčků</span><span class="sxs-lookup"><span data-stu-id="423e4-136">Tools –> NuGet Package Manager –> Package Manager Console</span></span>
+* <span data-ttu-id="0e4d0-133">**Nástroje > Správce balíčků NuGet > Konzola správce balíčků**</span><span class="sxs-lookup"><span data-stu-id="0e4d0-133">**Tools > NuGet Package Manager > Package Manager Console**</span></span>
 
-* <span data-ttu-id="423e4-137">Spustit `Add-Migration MyFirstMigration` chcete vygenerovat migraci k vytvoření počáteční sadu tabulek pro váš model.</span><span class="sxs-lookup"><span data-stu-id="423e4-137">Run `Add-Migration MyFirstMigration` to scaffold a migration to create the initial set of tables for your model.</span></span>
+* <span data-ttu-id="0e4d0-134">Spustit `Add-Migration InitialCreate` k migraci na vytvoření počáteční sadu tabulek pro model.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-134">Run `Add-Migration InitialCreate` to scaffold a migration to create the initial set of tables for the model.</span></span>
 
-* <span data-ttu-id="423e4-138">Spustit `Update-Database` použít nové migrace do databáze.</span><span class="sxs-lookup"><span data-stu-id="423e4-138">Run `Update-Database` to apply the new migration to the database.</span></span> <span data-ttu-id="423e4-139">Protože vaše databáze ještě neexistuje, vytvoří se vám před použitím migrace.</span><span class="sxs-lookup"><span data-stu-id="423e4-139">Because your database doesn't exist yet, it will be created for you before the migration is applied.</span></span>
+* <span data-ttu-id="0e4d0-135">Spustit `Update-Database` použít novou migraci databáze.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-135">Run `Update-Database` to apply the new migration to the database.</span></span> <span data-ttu-id="0e4d0-136">Vzhledem k tomu, že databáze ještě neexistuje, vytvoří se před použitím migrace.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-136">Because the database doesn't exist yet, it will be created before the migration is applied.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="423e4-140">Pokud provedete budoucí změny modelu, můžete použít `Add-Migration` příkaz chcete vygenerovat nový migraci, aby schéma odpovídající změn v databázi.</span><span class="sxs-lookup"><span data-stu-id="423e4-140">If you make future changes to your model, you can use the `Add-Migration` command to scaffold a new migration to make the corresponding schema changes to the database.</span></span> <span data-ttu-id="423e4-141">Po zaškrtnutí automaticky generovaný kód (a všechny požadované změny provedené), můžete použít `Update-Database` příkaz k použití změn do databáze.</span><span class="sxs-lookup"><span data-stu-id="423e4-141">Once you have checked the scaffolded code (and made any required changes), you can use the `Update-Database` command to apply the changes to the database.</span></span>
+> <span data-ttu-id="0e4d0-137">Pokud provedete změny modelu, můžete použít `Add-Migration` příkaz scaffold novou migraci provést odpovídající schématu změn v databázi.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-137">If you make changes to the model, you can use the `Add-Migration` command to scaffold a new migration to make the corresponding schema changes to the database.</span></span> <span data-ttu-id="0e4d0-138">Po zaškrtnutí automaticky generovaný kód (a všechny požadované změny), můžete použít `Update-Database` příkaz změny se projeví do databáze.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-138">Once you have checked the scaffolded code (and made any required changes), you can use the `Update-Database` command to apply the changes to the database.</span></span>
 >
-><span data-ttu-id="423e4-142">Používá EF `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, která již byla do databáze použít.</span><span class="sxs-lookup"><span data-stu-id="423e4-142">EF uses a `__EFMigrationsHistory` table in the database to keep track of which migrations have already been applied to the database.</span></span>
+> <span data-ttu-id="0e4d0-139">Používá EF `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, které již byly implementovány do databáze.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-139">EF uses a `__EFMigrationsHistory` table in the database to keep track of which migrations have already been applied to the database.</span></span>
 
-## <a name="use-your-model"></a><span data-ttu-id="423e4-143">Použití modelu</span><span class="sxs-lookup"><span data-stu-id="423e4-143">Use your model</span></span>
+## <a name="use-the-model"></a><span data-ttu-id="0e4d0-140">Použití modelu</span><span class="sxs-lookup"><span data-stu-id="0e4d0-140">Use the model</span></span>
 
-<span data-ttu-id="423e4-144">Nyní můžete modelu provádí přístup k datům.</span><span class="sxs-lookup"><span data-stu-id="423e4-144">You can now use your model to perform data access.</span></span>
+<span data-ttu-id="0e4d0-141">Nyní můžete model přístup k datům.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-141">You can now use the model to perform data access.</span></span>
 
-* <span data-ttu-id="423e4-145">Otevřete *Program.cs*</span><span class="sxs-lookup"><span data-stu-id="423e4-145">Open *Program.cs*</span></span>
+* <span data-ttu-id="0e4d0-142">Otevřít *Program.cs*</span><span class="sxs-lookup"><span data-stu-id="0e4d0-142">Open *Program.cs*</span></span>
 
-* <span data-ttu-id="423e4-146">Obsah souboru nahraďte následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="423e4-146">Replace the contents of the file with the following code</span></span>
+* <span data-ttu-id="0e4d0-143">Obsah souboru nahraďte následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="0e4d0-143">Replace the contents of the file with the following code</span></span>
 
-<!-- [!code-csharp[Main](samples/core/GetStarted/FullNet/ConsoleApp.NewDb/Program.cs)] -->
-``` csharp
-using System;
+  [!code-csharp[Main](../../../../samples/core/GetStarted/FullNet/ConsoleApp.NewDb/Program.cs)]
 
-namespace EFGetStarted.ConsoleApp
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            using (var db = new BloggingContext())
-            {
-                db.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-                var count = db.SaveChanges();
-                Console.WriteLine("{0} records saved to database", count);
+* <span data-ttu-id="0e4d0-144">**Ladit > Spustit bez ladění**</span><span class="sxs-lookup"><span data-stu-id="0e4d0-144">**Debug > Start Without Debugging**</span></span>
 
-                Console.WriteLine();
-                Console.WriteLine("All blogs in database:");
-                foreach (var blog in db.Blogs)
-                {
-                    Console.WriteLine(" - {0}", blog.Url);
-                }
-            }
-        }
-    }
-}
-```
+  <span data-ttu-id="0e4d0-145">Uvidíte, že jeden blogu se uloží do databáze a pak se podrobnosti o všech blogy vytisknou na konzole.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-145">You see that one blog is saved to the database and then the details of all blogs are printed to the console.</span></span>
 
-* <span data-ttu-id="423e4-147">Ladění > Spustit bez ladění</span><span class="sxs-lookup"><span data-stu-id="423e4-147">Debug > Start Without Debugging</span></span>
+  ![obrázek](_static/output-new-db.png)
 
-<span data-ttu-id="423e4-148">Zobrazí se, že blogů se ukládá do databáze a pak budou vytištěny podrobnosti o všech blogy ke konzole.</span><span class="sxs-lookup"><span data-stu-id="423e4-148">You will see that one blog is saved to the database and then the details of all blogs are printed to the console.</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="0e4d0-147">Další prostředky</span><span class="sxs-lookup"><span data-stu-id="0e4d0-147">Additional Resources</span></span>
 
-![obrázek](_static/output-new-db.png)
+* [<span data-ttu-id="0e4d0-148">EF Core na rozhraní .NET Framework s existující databáze</span><span class="sxs-lookup"><span data-stu-id="0e4d0-148">EF Core on .NET Framework with an existing database</span></span>](xref:core/get-started/full-dotnet/existing-db)
+* <span data-ttu-id="0e4d0-149">[EF Core na .NET Core s novou databázi - SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzole pro různé platformy.</span><span class="sxs-lookup"><span data-stu-id="0e4d0-149">[EF Core on .NET Core with a new database - SQLite](xref:core/get-started/netcore/new-db-sqlite) -  a cross-platform console EF tutorial.</span></span>
