@@ -1,17 +1,15 @@
 ---
 title: Převody hodnot – EF Core
 author: ajcvickers
-ms.author: divega
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
-ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: d5189cef6d44fdf3fd6116a2952ce07ff3a389d4
-ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
+ms.openlocfilehash: d6b51a0a70ee527844b6fe995f39bec534dbaba8
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/07/2018
-ms.locfileid: "39614396"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996285"
 ---
 # <a name="value-conversions"></a>Převody hodnot
 

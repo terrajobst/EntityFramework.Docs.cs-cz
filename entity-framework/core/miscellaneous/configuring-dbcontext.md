@@ -1,38 +1,36 @@
 ---
-title: Konfigurace DbContext - EF jádra
+title: Konfigurace DbContext – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
-ms.technology: entity-framework-core
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 6980acd53b0a74055af7a1e04b476f4625c327c9
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 393349c05ffaf42c6d2520e73abce23def6becc0
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2018
-ms.locfileid: "29152387"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995935"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
-Tento článek ukazuje základní vzory pro konfiguraci `DbContext` prostřednictvím `DbContextOptions` pro připojení k databázi pomocí konkrétního zprostředkovatele EF jádra a volitelné chování.
+Tento článek ukazuje základní vzorce pro konfiguraci `DbContext` prostřednictvím `DbContextOptions` pro připojení k databázi pomocí konkrétního zprostředkovatele EF Core a volitelné chování.
 
-## <a name="design-time-dbcontext-configuration"></a>Konfigurace DbContext během návrhu
+## <a name="design-time-dbcontext-configuration"></a>Konfigurace DbContext v době návrhu
 
-EF základní návrhu nástroje jako [migrace](xref:core/managing-schemas/migrations/index) musí být schopni zjistit a vytvořit funkční instanci `DbContext` typu, aby bylo možné shromáždit informace o typy entit a jak jsou mapovány na schéma databáze aplikace. Tento proces může být automatická, tak dlouho, dokud tento nástroj můžete snadno vytvořit `DbContext` tak, že bude nakonfigurován podobně jak by se nakonfigurovat při spuštění.
+EF Core návrhových nástrojů, jako je například [migrace](xref:core/managing-schemas/migrations/index) musí mít možnost zjistit a vytvořit instanci pracovní `DbContext` aby bylo možné shromažďovat údaje o typy entit a jak jsou mapovány na schéma databáze vaší aplikace. Tento proces může být automatické, tak dlouho, dokud nástroj můžete snadno vytvářet `DbContext` tak, že bude nakonfigurován podobně jak by se nakonfigurovat v době běhu.
 
-Při jakékoli vzor, který obsahuje informace nezbytné konfigurace, které `DbContext` můžete pracovat v době spuštění, nástroje, které vyžadují použití `DbContext` v době návrhu můžete pracovat pouze s omezený počet vzory. Ty jsou popsané v podrobněji [vytvoření kontextu návrhu](xref:core/miscellaneous/cli/dbcontext-creation) části.
+Při jakékoli vzor, který obsahuje informace související s konfigurací, které `DbContext` můžete pracovat v době běhu, nástroje, které vyžadují použití `DbContext` v době návrhu lze pracovat pouze s omezený počet vzorů. Ty jsou podrobně popsané v další v [kontextu vytváření návrhu](xref:core/miscellaneous/cli/dbcontext-creation) oddílu.
 
 ## <a name="configuring-dbcontextoptions"></a>Konfigurace DbContextOptions
 
-`DbContext` musíte mít instanci `DbContextOptions` za účelem provedení veškerou práci. `DbContextOptions` Instance představuje informace o konfiguraci, jako například:
+`DbContext` musíte mít instanci `DbContextOptions` aby bylo možné provést žádnou práci. `DbContextOptions` Instance přenáší informace o konfiguraci, jako:
 
-- Zprostředkovatel databáze, které chcete použít, je obvykle vybrána vyvoláním metody `UseSqlServer` nebo `UseSqlite`
+- Poskytovatel databáze, které chcete použít, je obvykle vybrána vyvoláním metody `UseSqlServer` nebo `UseSqlite`
 - Všechny nezbytné připojovací řetězec nebo identifikátor instance databáze obvykle předat jako argument výše popsané metody výběru zprostředkovatele
-- Budete potřebovat volitelné chování zprostředkovatele úrovni, obvykle se také zřetězené uvnitř volání metody výběru zprostředkovatele
-- Obecné základní EF chování budete potřebovat, obvykle zřetězené po nebo před voláním metody selektor zprostředkovatele
+- Libovolné volitelné chování zprostředkovatele úroveň selektory, obvykle také zřetězené uvnitř volání metody výběru zprostředkovatele
+- Žádné obecné EF Core chování selektory, obvykle zřetězené po nebo před voláním metody výběru zprostředkovatele
 
-Následující příklad konfiguruje `DbContextOptions` použití zprostředkovatele SQL Server, připojení součástí `connectionString` proměnné, vypršení časového limitu příkaz úrovni zprostředkovatele a selektor chování EF jádra, která umožňuje všechny dotazy spouštěné v `DbContext` [ne sledování](xref:core/querying/tracking#no-tracking-queries) ve výchozím nastavení:
+Následující příklad nastaví `DbContextOptions` použití zprostředkovatele SQL Server, součástí připojení `connectionString` proměnnou, časový limit příkazu úrovni zprostředkovatele a výběr chování EF Core, která provádí všechny dotazy spouštěné v `DbContext` [bez sledování](xref:core/querying/tracking#no-tracking-queries) ve výchozím nastavení:
 
 ``` csharp
 optionsBuilder
@@ -41,15 +39,15 @@ optionsBuilder
 ```
 
 > [!NOTE]  
-> Zprostředkovatel pro výběr metody a jiné chování pro výběr metody uvedené výše jsou rozšiřující metody na `DbContextOptions` nebo třídy možnost specifický pro zprostředkovatele. Chcete-li mít přístup k tyto rozšiřující metody, budete muset obor názvů (obvykle `Microsoft.EntityFrameworkCore`) v oboru a obsahovat závislosti, další balíčky v projektu.
+> Výběr metody poskytovatele a jiné chování metody selektor uvedených výše jsou metody rozšíření na `DbContextOptions` nebo třídy možností specifickým pro zprostředkovatele. Pokud chcete mít přístup k tyto rozšiřující metody, budete muset máte obor názvů (obvykle `Microsoft.EntityFrameworkCore`) v oboru a zahrnout další balíčky závislostí do projektu.
 
-`DbContextOptions` Mohou být poskytnuty `DbContext` přepsáním `OnConfiguring` metoda nebo externě prostřednictvím argument konstruktoru.
+`DbContextOptions` Mohou být poskytnuty `DbContext` tak, že přepíšete `OnConfiguring` metoda nebo externě přes argument konstruktoru.
 
-Pokud se používá, `OnConfiguring` je použito jako poslední a můžete přepsat možnosti zadaný pro argument konstruktoru.
+Pokud se oba používají `OnConfiguring` je použito jako poslední a později jej můžete přepsat možnosti zadaný pro argument konstruktoru.
 
 ### <a name="constructor-argument"></a>Argument konstruktoru
 
-Kontext kód s konstruktorem:
+Kontext kódu pomocí konstruktoru:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -63,9 +61,9 @@ public class BloggingContext : DbContext
 ```
 
 > [!TIP]  
-> Základní konstruktoru DbContext také přijímá neobecnou verzi `DbContextOptions`, ale pro aplikace s více typy kontextu se nedoporučuje používat na neobecnou verzi.
+> Konstruktor základní třídy DbContext přijímá také obecné verzi `DbContextOptions`, ale pro aplikace s více typy kontextu není doporučeno používat obecné verze.
 
-Kód aplikace k chybě při inicializaci z argument konstruktoru:
+Aplikace kód pro inicializaci z argumentu konstruktoru:
 
 ``` csharp
 var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
@@ -79,7 +77,7 @@ using (var context = new BloggingContext(optionsBuilder.Options))
 
 ### <a name="onconfiguring"></a>OnConfiguring
 
-Kontext kódu s použitím `OnConfiguring`:
+Kontext kódu pomocí `OnConfiguring`:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -93,7 +91,7 @@ public class BloggingContext : DbContext
 }
 ```
 
-Kód aplikace k chybě při inicializaci `DbContext` používající `OnConfiguring`:
+Aplikace kód pro inicializaci `DbContext` , která používá `OnConfiguring`:
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -103,17 +101,17 @@ using (var context = new BloggingContext())
 ```
 
 > [!TIP]
-> Tento přístup není jít o testování, pokud testy používat úplnou databázi.
+> Tento přístup se nepropůjčuje s testováním, není-li testy používat úplnou databázi.
 
-### <a name="using-dbcontext-with-dependency-injection"></a>DbContext pomocí vkládání závislostí
+### <a name="using-dbcontext-with-dependency-injection"></a>Pomocí vkládání závislostí DbContext
 
-Základní EF podporuje používání `DbContext` s kontejner vkládání závislostí. Váš typ DbContext můžete přidat do kontejneru služby pomocí `AddDbContext<TContext>` metoda.
+EF Core podporuje používání `DbContext` s kontejner vkládání závislostí. Váš typ DbContext můžete přidat do kontejneru služby s použitím `AddDbContext<TContext>` metody.
 
-`AddDbContext<TContext>` budou obě váš typ DbContext, `TContext`a odpovídající `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služby.
+`AddDbContext<TContext>` provede oba váš typ DbContext `TContext`a odpovídající `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služeb.
 
-V tématu [další čtení](#more-reading) níže Další informace o vkládání závislostí.
+Zobrazit [další čtení](#more-reading) níže pro další informace o vkládání závislostí.
 
-Přidávání `Dbcontext` k vkládání závislostí:
+Přidávání `Dbcontext` pro vkládání závislostí:
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
@@ -122,9 +120,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-To vyžaduje, přidávání [argument konstruktoru](#constructor-argument) pro váš typ DbContext, který přijímá `DbContextOptions<TContext>`.
+K tomu je potřeba přidat [argument konstruktoru](#constructor-argument) do typu DbContext, který přijímá `DbContextOptions<TContext>`.
 
-Kontext kód:
+Kontext kódu:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -153,7 +151,7 @@ public class MyController
 }
 ```
 
-Kód aplikace (pomocí položku ServiceProvider přímo, méně běžné):
+Kód aplikace (pomocí ServiceProvider přímo, méně běžné):
 
 ``` csharp
 using (var context = serviceProvider.GetService<BloggingContext>())
@@ -166,6 +164,6 @@ var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 
 ## <a name="more-reading"></a>Další čtení
 
-* Čtení [Začínáme na ASP.NET Core](../get-started/aspnetcore/index.md) Další informace o používání EF s ASP.NET Core.
-* Čtení [vkládání závislostí](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) Další informace o používání DI.
+* Čtení [Začínáme v ASP.NET Core](../get-started/aspnetcore/index.md) Další informace o používání EF s ASP.NET Core.
+* Čtení [injektáž závislostí](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) Další informace o používání DI.
 * Čtení [testování](testing/index.md) Další informace.

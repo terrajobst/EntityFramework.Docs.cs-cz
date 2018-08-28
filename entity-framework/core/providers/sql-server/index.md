@@ -1,19 +1,17 @@
 ---
-title: Zprostředkovatel databáze Microsoft SQL Server – základní EF
+title: Poskytovatel databáze Microsoft SQL Server – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 2e007c82-c6e4-45bb-8129-851b79ec1a0a
-ms.technology: entity-framework-core
 uid: core/providers/sql-server/index
-ms.openlocfilehash: 2ed7c0dd127db03d5e7340fde1ef83cf01b30135
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: a524794a61a9f5078998aea04b45c31c19357f2b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29678647"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995666"
 ---
-# <a name="microsoft-sql-server-ef-core-database-provider"></a>Zprostředkovatel databáze Microsoft SQL Server EF jádra
+# <a name="microsoft-sql-server-ef-core-database-provider"></a>Poskytovatel databáze Microsoft SQL Server EF Core
 
 Tento poskytovatel databáze umožňuje Entity Framework Core pro použití s Microsoft SQL Server (včetně SQL Azure). Zprostředkovatel se udržuje v rámci [Entity Framework Core projektu](https://github.com/aspnet/EntityFrameworkCore).
 
@@ -28,7 +26,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 ## <a name="get-started"></a>Začínáme
 
 Následující prostředky vám pomůže začít pracovat s tímto poskytovatelem.
-* [Začínáme v rozhraní .NET Framework (konzole, WinForms, WPF atd.)](../../get-started/full-dotnet/index.md)
+* [Začínáme v rozhraní .NET Framework (konzola, WinForms, WPF atd.)](../../get-started/full-dotnet/index.md)
 
 * [Začínáme v ASP.NET Core](../../get-started/aspnetcore/index.md)
 
@@ -36,11 +34,11 @@ Následující prostředky vám pomůže začít pracovat s tímto poskytovatele
 
 ## <a name="supported-database-engines"></a>Podporované databázové stroje
 
-* Microsoft SQL Server (2008 a vyšší)
+* Microsoft SQL Server (2008 a novější)
 
 ## <a name="supported-platforms"></a>Podporované platformy
 
-* Rozhraní .NET framework (4.5.1 a vyšší)
+* Rozhraní .NET framework (verze 4.5.1)
 
 * .NET Core
 

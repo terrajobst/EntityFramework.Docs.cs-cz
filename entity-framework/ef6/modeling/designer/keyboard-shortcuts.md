@@ -2,19 +2,13 @@
 title: Entity Framework Designer klávesové zkratky – EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 3c76cdd5-17c5-4c54-a6a5-cf21b974636b
-caps.latest.revision: 3
-ms.openlocfilehash: a4ed95647872949d9e34a6bb5d83d5d6119b0022
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 70c9705956b58f4d00908dd9cca6ad0e0a078fc6
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949329"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997760"
 ---
 # <a name="entity-framework-designer-keyboard-shortcuts"></a>Entity Framework Designer klávesové zkratky
 Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostupné na různých obrazovkách Entity Framework Tools for Visual Studio.
@@ -68,9 +62,9 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 | **ALT + k** | Přepněte možnost "Zahrnout do modelu sloupce cizích klíčů"                              | Není k dispozici pro celý výběr obsahu modelu.                 |
 | **ALT + i** | Přepněte možnost "Import vybraných uložených procedur a funkcí do entity model" | Není k dispozici pro celý výběr obsahu modelu.                 |
 | **ALT + m** | Přepne fokus do pole text "Model Namespace"                                        | Není k dispozici pro celý výběr obsahu modelu.                 |
-| **Místo** | Přepnout výběr na prvek                                                               | Pokud element obsahuje podřízené položky, budou všechny podřízené prvky také přepínat |
-| **Doleva**  | Sbalit podřízeného stromu                                                                       |                                                                     |
-| **Doprava** | Rozbalte strom podřízené                                                                         |                                                                     |
+| **místo** | Přepnout výběr na prvek                                                               | Pokud element obsahuje podřízené položky, budou všechny podřízené prvky také přepínat |
+| **doleva**  | Sbalit podřízeného stromu                                                                       |                                                                     |
+| **doprava** | Rozbalte strom podřízené                                                                         |                                                                     |
 | **Nahoru**    | Přejít na předchozí prvek ve stromu                                                      |                                                                     |
 | **Dolů**  | Přejděte na další prvek ve stromu                                                          |                                                                     |
 
@@ -90,7 +84,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 | **Shift + šipka vlevo**                                                                  | Velikost tvaru vlevo             | Šířka vybranou entitu snižuje v přírůstcích po jedné mřížce.                                                                                                                                                                     |
 | **Shift + šipka vpravo**                                                                 | Velikost tvaru vpravo            | Zvětšuje šířku vybranou entitu v přírůstcích po jedné mřížce.                                                                                                                                                                   |
 | **Domovská stránka**                                                                                | První Peer                  | Přesune fokus a výběr na první objekt na návrhové ploše na stejné úrovni druhé strany.                                                                                                                                         |
-| **Ukončení**                                                                                 | Poslední Peer                   | Přesune fokus a výběr na poslední objekt na návrhové ploše na stejné úrovni druhé strany.                                                                                                                                          |
+| **ukončení**                                                                                 | Poslední Peer                   | Přesune fokus a výběr na poslední objekt na návrhové ploše na stejné úrovni druhé strany.                                                                                                                                          |
 | **Ctrl + Home**                                                                         | První Peer (Přepne fokus)          | Stejně jako první sdílené, ale aktivuje místo přesunete fokus a výběr.                                                                                                                                                          |
 | **CTRL + End**                                                                          | Poslední Peer (Přepne fokus)           | Stejné jako poslední vytvořit partnerský vztah, ale přesune fokus místo přesunete fokus a výběr.                                                                                                                                                           |
 | **Karta**                                                                                 | Další Peer                   | Přesune fokus a výběr další objekt na návrhové ploše na stejné úrovni druhé strany.                                                                                                                                          |
@@ -125,7 +119,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|
 | **Karta**                   | Přepněte kontext | Přepne mezi oblasti hlavního okna a v levém panelu nástrojů                                                                     |
 | **Klávesy se šipkami**            | Navigace     | Přesunout nahoru a dolů řádky, nebo doprava a doleva ve sloupcích v oblasti hlavního okna. Přesunutí mezi tlačítky na panelu nástrojů na levé straně. |
-| **Zadejte** <br/> **Místo** | Vyberte         | Vybere tlačítko na panelu nástrojů na levé straně.                                                                                          |
+| **Zadejte** <br/> **místo** | Vyberte         | Vybere tlačítko na panelu nástrojů na levé straně.                                                                                          |
 | **ALT + Šipka dolů**      | Otevřít seznam      | Pokud je zaškrtnuto buňku, která má rozevíracího seznamu rozevírací seznam.                                                                     |
 | **Zadejte**                 | Seznam Select    | Vybere element v rozevíracím seznamu.                                                                                               |
 | **ESC**                   | Zavření seznamu     | Zavře rozevíracího seznamu.                                                                                                              |

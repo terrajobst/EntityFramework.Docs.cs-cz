@@ -1,28 +1,28 @@
 ---
-title: Migrace s více projekty - EF jádra
+title: Migrace s více projekty – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: 3684e86cce0005056380d89604d038c734054d14
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 76e88dd486b1c53dc69a24e35710511bf9cb673b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/22/2017
-ms.locfileid: "27161224"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997984"
 ---
-<a name="using-a-separate-project"></a>Pomocí samostatného projektu
+<a name="using-a-separate-project"></a>Použití samostatného projektu
 ========================
-Můžete chtít uložit vaše migrace v jiném sestavení než jeden obsahující vaše `DbContext`. Můžete také tuto strategii zachování více sad migrace, například, jeden pro vývoj a druhý pro upgrade verze verze.
+Můžete chtít ukládat vaše migrace v jiném sestavení než jeden obsahující vaše `DbContext`. Můžete také tuto strategii udržovat několik sad migrace, například, jeden pro vývoj a druhý pro upgrady verzí.
 
 Postup...
 
-1. Vytvořte nové knihovny tříd.
+1. Vytvořte novou knihovnu tříd.
 
-2. Přidáte odkaz na sestavení vaší DbContext.
+2. Přidejte odkaz na sestavení DbContext.
 
 3. Přesuňte soubory snímků modelu a migrace do knihovny tříd.
-   * Pokud nepřidali jste žádné, přidat do projektu DbContext a přesunout ho.
+   > [!TIP]
+   > Pokud máte k dispozici žádné existující migrace, vygenerujte ho projekt, který obsahuje objekt DbContext a přesuňte ho. To je důležité, protože pokud migrace sestavení neobsahuje existující migrace, příkazu Add-migrace nebude moci najít uvolněn objekt DbContext.
 
 4. Konfigurace sestavení migrace:
 
@@ -32,16 +32,16 @@ Postup...
        x => x.MigrationsAssembly("MyApp.Migrations"));
    ```
 
-5. Přidáte odkaz na vaše migrace sestavení ze sestavení po spuštění.
-   * Pokud to způsobuje cyklickou závislost, aktualizujte výstupní cesta knihovny tříd:
+5. Přidejte odkaz na sestavení migrace ze spuštění sestavení.
+   * Pokud to způsobuje cyklickou závislost, aktualizujte výstupní cestu knihovny tříd:
 
      ``` xml
      <PropertyGroup>
-       <OutputPath>..\MyStarupProject\bin\$(Configuration)\</OutputPath>
+       <OutputPath>..\MyStartupProject\bin\$(Configuration)\</OutputPath>
      </PropertyGroup>
      ```
 
-Pokud jste to udělali všechno správně, byste měli přidávat nové migrace do projektu.
+Pokud jste to udělali všechno správně, byste měli možnost přidávat nové migrace do projektu.
 
 ``` powershell
 Add-Migration NewMigration -Project MyApp.Migrations

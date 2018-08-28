@@ -1,32 +1,31 @@
 ---
-title: .NET core rozhraní příkazového řádku - EF jádra
+title: .NET core CLI – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
-ms.technology: entity-framework-core
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 721235b07e695efd8df43294e1f4e90c28ae83d7
-ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
+ms.openlocfilehash: 81427b010f63bdd591ffb9117c1556722313c3fa
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34754493"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995294"
 ---
-<a name="ef-core-net-command-line-tools"></a>Nástroje příkazového řádku .NET Core EF
+<a name="ef-core-net-command-line-tools"></a>Nástroje příkazového řádku .NET EF Core
 ===============================
-Nástroje příkazového řádku .NET Core Entity Framework se rozšíření pro různé platformy **dotnet** příkaz, který je součástí systému [.NET Core SDK][2].
+Nástroje příkazového řádku .NET Core Entity Framework jsou rozšíření pro různé platformy **dotnet** příkaz, který je součástí sady [.NET Core SDK][2].
 
 > [!TIP]
-> Pokud používáte Visual Studio, doporučujeme [nástroje pomocí PMC] [ 1] místo, protože poskytují lepší integrace.
+> Pokud používáte Visual Studio, doporučujeme [nástroje PMC] [ 1] místo toho od té doby poskytují více integrované prostředí.
 
 <a name="installing-the-tools"></a>Instalace nástrojů
 --------------------
 > [!NOTE]
-> .NET Core SDK verze 2.1.300 a novější obsahuje **dotnet ef** příkazy, které jsou kompatibilní s EF základní 2.0 a novějšími verzemi. Proto pokud používáte nejnovější verze rozhraní .NET Core SDK a EF Core runtime, není třeba žádná instalace a zbývající část tohoto oddílu můžete ignorovat.
+> Sada .NET Core SDK verze 2.1.300 a novější obsahuje **dotnet ef** příkazy, které jsou kompatibilní s EF Core 2.0 a novějších verzích. Proto pokud používáte nejnovější verze sady .NET Core SDK a modul runtime EF Core, bez instalace je vyžadován a zbytku této části můžete ignorovat.
 >
-> Na druhé straně **dotnet ef** nástroj obsažené ve verzi rozhraní .NET Core SDK 2.1.300 a novějších není kompatibilní s EF základní verze 1.0 a 1.1. Než můžete pracovat s projekt, který používá tyto starší verze EF jádra na počítači, který má .NET Core SDK 2.1.300 nebo novější nainstalována, je nutné také nainstalovat verzi 2.1.200 nebo starší sady SDK a konfigurace aplikace pro použití této starší verze úpravou jeho  [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) souboru. Tento soubor je obvykle součástí adresář řešení (předchozímu projekt). Pak můžete pokračovat s installlation pokynů níže.
+> Na druhé straně **dotnet ef** nástroj obsažené ve verzi .NET Core SDK 2.1.300 a novějších verzí není kompatibilní s verzí EF Core 1.0 a 1.1. Předtím, než můžete pracovat s projektem, který používá tyto starší verze EF Core na počítači s .NET Core SDK 2.1.300 nebo novější nainstalován, je nutné také nainstalovat verzi 2.1.200 nebo starší sady SDK a nakonfigurovat aplikaci, aby používala tuto starší verzi změnou jeho  [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) souboru. Tento soubor je obvykle součástí adresář řešení (jedna nad projektu). Pak pokračujte podle pokynů installlation níže.
 
-Pro předchozí verze rozhraní .NET Core SDK můžete nainstalovat nástroje příkazového řádku EF základní v rozhraní .NET, pomocí těchto kroků:
+V předchozích verzích sady .NET Core SDK můžete nainstalovat nástroje pro .NET příkazového řádku EF Core pomocí těchto kroků:
 
 1. Upravte soubor projektu a přidejte Microsoft.EntityFrameworkCore.Tools.DotNet jako položka DotNetCliToolReference (viz níže)
 2. Spusťte následující příkazy:
@@ -55,9 +54,9 @@ Výsledný projekt by měl vypadat přibližně takto:
 ```
 
 > [!NOTE]
-> Odkaz balíček s `PrivateAssets="All"` znamená není vystavený projekty, které odkazují na tento projekt, který je obzvláště užitečná pro balíčky, které se obvykle používají pouze během vývoje.
+> Odkaz na balíček s `PrivateAssets="All"` znamená, že není vystavený projekty, které odkazují na tento projekt, což je užitečné zejména pro balíčky, které se obvykle používají pouze během vývoje.
 
-Pokud jste to udělali všechno právo, byste měli moct úspěšně spuštěním následujícího příkazu v příkazovém řádku.
+Pokud jste to udělali všechno hned, byste měli mít k úspěšnému spuštění následujícího příkazu v příkazovém řádku.
 
 ``` Console
 dotnet ef
@@ -65,39 +64,39 @@ dotnet ef
 
 <a name="using-the-tools"></a>Pomocí nástrojů
 ---------------
-Při každém vyvolání příkazu, existují dva projekty související se situací:
+Při každém vyvolání příkazu, existují dva projekty zahrnuté:
 
-Cílový projekt je tam, kde jsou přidány všechny soubory (nebo v některých případech odebrat). Cílový projekt výchozí nastavení na projekt v aktuálním adresáři, ale můžete změnit pomocí <nobr> **– projekt** </nobr> možnost.
+Cílový projekt je tam, kde se přidají všechny soubory (nebo v některých případech odebrána). Výchozí hodnota je projekt v aktuálním adresáři na cílový projekt, ale můžete změnit pomocí <nobr> **– projekt** </nobr> možnost.
 
-Projekt po spuštění je emulovaných nástrojů při provádění kódu vašeho projektu. Také výchozí hodnoty na projekt v aktuálním adresáři, ale můžete změnit pomocí **– projekt po spuštění** možnost.
+Projekt po spuštění je emulován nástroji při spuštění kódu projektu. Je také ve výchozím nastavení do aktuálního adresáře projektu, ale lze změnit pomocí **– projekt po spuštění** možnost.
 
 > [!NOTE]
-> Například aktualizace databáze webové aplikace, který má základní EF nainstalované v na jiný projekt bude vypadat takto: `dotnet ef database update --project {project-path}` (z adresáře vaší webové aplikace)
+> Aktualizuje se databáze webové aplikace, který má nainstalovaný v jiném projektu EF Core, by vypadalo takto: `dotnet ef database update --project {project-path}` (v adresáři webové aplikace)
 
 Běžné možnosti:
 
 |    |                                  |                             |
 |:---|:---------------------------------|:----------------------------|
-|    | – json                           | Zobrazit výstup JSON.           |
-| -c | --kontextu \<DBCONTEXT >           | DbContext používat.       |
-| -p | --projektu \<Projekt >             | Projekt, který používá.         |
-| -s | --spouštěný projekt \<projektu >     | Spuštění projektu pro použití. |
-|    | --framework \<FRAMEWORK >         | Cílové rozhraní.       |
-|    | – konfigurace \<konfigurace > | Konfigurace používat.   |
-|    | modul runtime – \<IDENTIFIKÁTOR >          | Modul runtime používat.         |
+|    | --json                           | Zobrazit výstup ve formátu JSON.           |
+| -c | --kontextu \<DBCONTEXT >           | Chcete-li použít uvolněn objekt DbContext.       |
+| -p | --projektu \<Projekt >             | Projekt pro použití.         |
+| -s | --projekt po spuštění \<Projekt >     | Použít spouštěný projekt. |
+|    | --framework \<rámec >         | Cílová architektura.       |
+|    | --konfigurace \<CONFIGURATION > | Konfigurace pro použití.   |
+|    | modulu runtime-- \<IDENTIFIKÁTOR >          | Modul runtime pro použití.         |
 | -h | – Nápověda                           | Zobrazit informace nápovědy.      |
 | -v | -verbose                        | Zobrazit podrobný výstup.        |
-|    | – bez barvy                       | Nemáte Kolorovat výstup.      |
-|    | – Předpona output                  | Předpona výstup s úrovní.   |
+|    | --no-color                       | Není barevně zvýrazňovat výstup.      |
+|    | --předponu výstupu                  | Předpona výstup s úrovní.   |
 
 
 > [!TIP]
-> Chcete-li zadat prostředí ASP.NET Core, nastavte **ASPNETCORE_ENVIRONMENT** proměnnou prostředí dřív, než spustíte.
+> Chcete-li určit prostředí ASP.NET Core, nastavte **ASPNETCORE_ENVIRONMENT** proměnnou prostředí před spuštěním.
 
 <a name="commands"></a>Příkazy
 --------
 
-### <a name="dotnet-ef-database-drop"></a>Vyřaďte databázi ef DotNet.
+### <a name="dotnet-ef-database-drop"></a>DotNet ef database přetažení
 
 Zahodí databáze.
 
@@ -105,72 +104,72 @@ Možnosti:
 
 |    |           |                                                          |
 |:---|:----------|:---------------------------------------------------------|
-| -f | --Vynutit   | Nemáte potvrďte.                                           |
-|    | – Test | Zobrazit databázi, kterou by být vyřazen, ale nemáte vyřadit. |
+| -f | --force   | Není potvrzení.                                           |
+|    | --Test | Zobrazit, které databáze bude vyřazena, ale ji. |
 
-### <a name="dotnet-ef-database-update"></a>aktualizace databáze ef DotNet.
+### <a name="dotnet-ef-database-update"></a>aktualizace databáze ef DotNet
 
-Aktualizuje databázi na zadané migrace.
+Aktualizace databáze na zadané migrace.
 
 Argumenty:
 
 |              |                                                                                              |
 |:-------------|:---------------------------------------------------------------------------------------------|
-| \<MIGRACE &GT; | Cílová migrace. Pokud je 0, budou vráceny všechny migrace. Výchozí hodnoty na poslední migrace. |
+| \<MIGRACE &GT; | Cíl migrace. Pokud je 0, se vrátí zpět všechny migrace. Výchozí hodnota je poslední migrace. |
 
-### <a name="dotnet-ef-dbcontext-info"></a>informace o dbcontext ef DotNet.
+### <a name="dotnet-ef-dbcontext-info"></a>informace o DotNet ef dbcontext
 
 Získá informace o typu DbContext.
 
-### <a name="dotnet-ef-dbcontext-list"></a>seznam dbcontext ef DotNet.
+### <a name="dotnet-ef-dbcontext-list"></a>DotNet ef dbcontext v seznamu
 
-Jsou uvedeny dostupné typy DbContext.
+Zobrazí seznam dostupných typů DbContext.
 
 ### <a name="dotnet-ef-dbcontext-scaffold"></a>DotNet ef dbcontext vygenerované uživatelské rozhraní
 
-Scaffold a typy DbContext a entity pro databázi.
+Nástroj scaffold kontext databáze a entity typy pro databázi.
 
 Argumenty:
 
 |               |                                                                             |
 |:--------------|:----------------------------------------------------------------------------|
 | \<PŘIPOJENÍ &GT; | Připojovací řetězec k databázi.                                      |
-| \<ZPROSTŘEDKOVATEL &GT;   | Zprostředkovatel, který se má používat. (například Microsoft.EntityFrameworkCore.SqlServer) |
+| \<ZPROSTŘEDKOVATEL &GT;   | Zprostředkovatel k použití. (například Microsoft.EntityFrameworkCore.SqlServer) |
 
 Možnosti:
 
 |                 |                                         |                                                                                                  |
 |:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr> | --datovými poznámkami                      | Pomocí atributů (kde je to možné), nakonfigurujte model. Pokud tento parametr vynechán, použije se rozhraní fluent API. |
-| -c              | --kontextu \<NAME >                       | Název DbContext.                                                                       |
-|                 | --kontextu dir \<cesta >                   | Adresář, který chcete umístit do souboru DbContext. Cesty se vztahují k adresáři projektu.             |
-| -f              | --Vynutit                                 | Přepište existující soubory.                                                                        |
-| -o              | --výstup dir \<cesta >                    | Adresář, který chcete umístit soubory do. Cesty se vztahují k adresáři projektu.                      |
-|                 | <nobr>--schema \<SCHEMA_NAME>...</nobr> | Schémata tabulkami k vygenerování typy entit pro.                                              |
-| -t              | --tabulky \<TABLE_NAME >...                | S tabulkami k vygenerování typy entit pro.                                                         |
-|                 | --use-database-names                    | Používejte názvy tabulek a sloupců přímo z databáze.                                           |
+| <nobr>-d</nobr> | --datovými poznámkami                      | Atributy lze použijte ke konfiguraci modelu (Pokud je to možné). Pokud tento parametr vynechán, použije se pouze rozhraní fluent API. |
+| -c              | --kontextu \<NAME >                       | Název uvolněn objekt DbContext.                                                                       |
+|                 | -dir kontextu \<cesta >                   | Adresář, který se má vložit DbContext. Cesty jsou relativní vzhledem k adresáři projektu.             |
+| -f              | --force                                 | Přepište existující soubory.                                                                        |
+| -o              | -dir výstup \<cesta >                    | Adresář, který se má vložit soubory. Cesty jsou relativní vzhledem k adresáři projektu.                      |
+|                 | <nobr>--schema \<SCHEMA_NAME>...</nobr> | Schémata tabulek ke generování typů entit pro.                                              |
+| -t              | --tabulky \<TABLE_NAME >...                | Tabulky pro typy entit pro generování.                                                         |
+|                 | --use-database-names                    | Použijte názvy tabulek a sloupců přímo z databáze.                                           |
 
-### <a name="dotnet-ef-migrations-add"></a>Přidat migrace ef DotNet.
+### <a name="dotnet-ef-migrations-add"></a>Přidejte migraci ef DotNet
 
-Přidá nové migrace.
+Přidá novou migraci.
 
 Argumenty:
 
 |         |                            |
 |:--------|:---------------------------|
-| \<NAME &GT; | Název migrace. |
+| \<NÁZEV &GT; | Název migrace. |
 
 Možnosti:
 
 |                 |                                   |                                                                                                                  |
 |:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <nobr>-o</nobr> | <nobr>--výstup dir \<cesta ></nobr> | Adresář (a podklíčů – obor názvů) používat. Cesty se vztahují k adresáři projektu. Výchozí hodnota je "Migrace". |
+| <nobr>-o</nobr> | <nobr>-dir výstup \<cesta ></nobr> | Adresáři (a v podřízeném oboru názvů) používat. Cesty jsou relativní vzhledem k adresáři projektu. Výchozí hodnota je "Migrace". |
 
-### <a name="dotnet-ef-migrations-list"></a>seznam migrace ef DotNet.
+### <a name="dotnet-ef-migrations-list"></a>Přehled migrace ef DotNet
 
 Zobrazí seznam dostupných migrace.
 
-### <a name="dotnet-ef-migrations-remove"></a>odebrat migrace ef DotNet.
+### <a name="dotnet-ef-migrations-remove"></a>odebrat migrace ef DotNet
 
 Odebere poslední migrace.
 
@@ -178,25 +177,25 @@ Možnosti:
 
 |    |         |                                                                       |
 |:---|:--------|:----------------------------------------------------------------------|
-| -f | --Vynutit | Migrace vrátit, pokud nebyla použita k databázi. |
+| -f | --force | Vrácení migrace, pokud byl použit k databázi. |
 
-### <a name="dotnet-ef-migrations-script"></a>skript migrace ef DotNet.
+### <a name="dotnet-ef-migrations-script"></a>skript migrace ef DotNet
 
-Generuje skriptu SQL z migrace.
+Vygeneruje skript SQL z migrace.
 
 Argumenty:
 
 |         |                                                               |
 |:--------|:--------------------------------------------------------------|
-| \<Z &GT; | Počáteční migrace. Výchozí hodnota je 0 (počáteční databáze). |
-| \<TO>   | Koncová migrace. Výchozí hodnoty na poslední migrace.         |
+| \<Z &GT; | Počáteční migraci. Výchozí hodnota je 0 (výchozí databáze). |
+| \<TO>   | Dokončení migrace. Výchozí hodnota je poslední migrace.         |
 
 Možnosti:
 
 |    |                  |                                                                    |
 |:---|:-----------------|:-------------------------------------------------------------------|
-| -o | --výstup \<souboru > | Soubor k zápisu výsledek, který má.                                   |
-| -i | --idempotent     | Generovat skript, který lze použít v databázi v žádné migrace. |
+| -o | --výstup \<souboru > | Soubor pro zápis výsledek.                                   |
+| -i | --idempotentní     | Generovat skript, který jde použít na databáze v libovolné migrace. |
 
 
   [1]: powershell.md

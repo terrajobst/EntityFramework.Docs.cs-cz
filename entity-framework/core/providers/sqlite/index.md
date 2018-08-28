@@ -1,21 +1,19 @@
 ---
-title: Zprostředkovatel databáze SQLite – EF jádra
+title: Poskytovatel databáze SQLite – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 3e2f7698-fec2-4cec-9e2d-2e3e0074120c
-ms.technology: entity-framework-core
 uid: core/providers/sqlite/index
-ms.openlocfilehash: 2e392f382f0e6f4d092a362c44f2149eb336db17
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 31de8449a12a10d4f98ebb4bb6125389606e9bbd
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29678745"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993999"
 ---
-# <a name="sqlite-ef-core-database-provider"></a>Zprostředkovatel SQLite EF základní databáze
+# <a name="sqlite-ef-core-database-provider"></a>Poskytovatel databáze EF Core SQLite
 
-Tento poskytovatel databáze umožňuje Entity Framework Core pro použití s SQLite. Zprostředkovatel se udržuje v rámci [Entity Framework Core projektu](https://github.com/aspnet/EntityFrameworkCore).
+Tento poskytovatel databáze umožňuje Entity Framework Core, který se má použít s SQLite. Zprostředkovatel se udržuje v rámci [Entity Framework Core projektu](https://github.com/aspnet/EntityFrameworkCore).
 
 ## <a name="install"></a>Instalace
 
@@ -28,13 +26,13 @@ Install-Package Microsoft.EntityFrameworkCore.Sqlite
 ## <a name="get-started"></a>Začínáme
 
 Následující prostředky vám pomůže začít pracovat s tímto poskytovatelem.
-* [Místní SQLite na UWP](../../get-started/uwp/getting-started.md)
+* [Místní SQLite na UPW](../../get-started/uwp/getting-started.md)
 
-* [Aplikace .NET core k nové databázi SQLite](../../get-started/netcore/new-db-sqlite.md)
+* [Aplikaci .NET core pro novou databázi SQLite](../../get-started/netcore/new-db-sqlite.md)
 
-* [Unicorn Clicker ukázkové aplikace](https://github.com/rowanmiller/UnicornStore/tree/master/UnicornClicker/UWP)
+* [Unicornu Clicker ukázkové aplikace](https://github.com/rowanmiller/UnicornStore/tree/master/UnicornClicker/UWP)
 
-* [Unicorn balírna ukázkové aplikace](https://github.com/rowanmiller/UnicornStore/tree/master/UnicornPacker)
+* [Unicornu Packeru ukázkové aplikace](https://github.com/rowanmiller/UnicornStore/tree/master/UnicornPacker)
 
 ## <a name="supported-database-engines"></a>Podporované databázové stroje
 
@@ -42,7 +40,7 @@ Následující prostředky vám pomůže začít pracovat s tímto poskytovatele
 
 ## <a name="supported-platforms"></a>Podporované platformy
 
-* Rozhraní .NET framework (4.5.1 a vyšší)
+* Rozhraní .NET framework (verze 4.5.1)
 
 * .NET Core
 
@@ -52,4 +50,4 @@ Následující prostředky vám pomůže začít pracovat s tímto poskytovatele
 
 ## <a name="limitations"></a>Omezení
 
-V tématu [SQLite omezení](limitations.md) pro některé důležité omezení poskytovatele SQLite.
+Zobrazit [omezení SQLite](limitations.md) pro důležitá omezení SQLite poskytovatele.

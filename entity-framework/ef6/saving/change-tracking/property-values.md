@@ -2,19 +2,13 @@
 title: Práce s hodnoty vlastností - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
-caps.latest.revision: 3
-ms.openlocfilehash: 07b71c9efe4e1fc3fd25a52c9cfb25f61e92f859
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: a9b969950ec7dcfb86a2abc9c8bd6cc24899948c
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912118"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998300"
 ---
 # <a name="working-with-property-values"></a>Práce s hodnotami vlastností
 Ve většině případů Entity Framework se postará o sledování stavu, původní hodnoty a aktuální hodnoty vlastností instance entity. Však může být někdy – například odpojená řešení – Pokud chcete zobrazit nebo pracovat s informací, které EF má o vlastnosti. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  

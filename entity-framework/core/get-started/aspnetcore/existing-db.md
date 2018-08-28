@@ -1,17 +1,15 @@
 ---
 title: Začínáme v ASP.NET Core – existující databáze – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
-ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: c231a456abd4c110aba0326821799d6e9d567b3c
-ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
+ms.openlocfilehash: 79a73e38fdc9c4268c21de66571d6272f33e9457
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/07/2018
-ms.locfileid: "39614318"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997033"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Začínáme s EF Core v ASP.NET Core s existující databáze
 

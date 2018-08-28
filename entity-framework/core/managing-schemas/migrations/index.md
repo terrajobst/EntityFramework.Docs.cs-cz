@@ -1,25 +1,24 @@
 ---
-title: Migrace - EF jádra
+title: Migrace – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
-ms.technology: entity-framework-core
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: dd164125c053497af94773011127853ad10d27a6
-ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
+ms.openlocfilehash: 4a5d6f3798c7af7597f95cebea1aeb9e5e58d277
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34754506"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996519"
 ---
 <a name="migrations"></a>Migrace
 ==========
-Migrace poskytují způsob, jak přírůstkově použít změny schématu k databázi a udržovat synchronizované se svým modelem EF základní současně v něm zachovat stávající data v databázi.
+Migrace poskytují způsob, jak postupně provést změny schématu databáze, kterou chcete udržovat synchronizované s EF Core model při zachování stávajících dat v databázi.
 
 <a name="creating-the-database"></a>Vytvoření databáze
 ---------------------
-Poté, co jste [definované počáteční modelu][1], je čas vytvořit databázi. Chcete-li to provést, přidejte počáteční migrace.
-Nainstalujte [EF základní nástroje] [ 2] a spusťte příslušný příkaz.
+Po [definované počáteční modelu][1], je čas vytvořit databázi. Chcete-li to provést, přidejte počáteční migraci.
+Nainstalujte [EF Core Tools] [ 2] a spusťte příslušný příkaz.
 
 ``` powershell
 Add-Migration InitialCreate
@@ -28,18 +27,18 @@ Add-Migration InitialCreate
 dotnet ef migrations add InitialCreate
 ```
 
-Tři soubory budou přidány do projektu v části **migrace** directory:
+Tři soubory jsou přidány do projektu v rámci **migrace** adresáře:
 
-* **00000000000000_InitialCreate.cs**– soubor hlavní migrace. Obsahuje nezbytné uplatňovat migrace operace (v `Up()`) a vraťte se zpátky (v `Down()`).
-* **00000000000000_InitialCreate.Designer.cs**– soubor metadat migrace. Obsahuje informace o používané EF.
-* **MyContextModelSnapshot.cs**– snímek aktuální model. Použít k určení, co se změnilo při přidávání pro další migraci.
+* **00000000000000_InitialCreate.cs**– migrace hlavní soubor. Obsahuje operace, která je nutné použít migraci (v `Up()`) a vrátit ji (v `Down()`).
+* **00000000000000_InitialCreate.Designer.cs**– soubor metadat migrace. Obsahuje informace, které EF používá.
+* **MyContextModelSnapshot.cs**– snímek aktuální model. Umožňuje určit, co se změnilo, při přidávání další migraci.
 
-Časové razítko v názvu souboru pomáhá udržovat seřadit časovém pořadí, abyste viděli průběh změny.
+Časové razítko v názvu souboru udržet chronologicky seřadit, abyste viděli průběh změny.
 
 > [!TIP]
-> Jste volné k přesunutí souborů migrace a změnit jejich obor názvů. Nové migrace jsou vytvořené jako poslední migrace na stejné úrovni.
+> Můžete libovolně přesouvat soubory migrace a měnit jejich oboru názvů. Nová migrace jsou vytvořeny jako poslední migrace objektů stejné úrovně.
 
-Dále platí migrace pro databázi vytvořit schéma.
+V dalším kroku použití migrace k databázi a vytvoření schématu.
 
 ``` powershell
 Update-Database
@@ -50,7 +49,7 @@ dotnet ef database update
 
 <a name="adding-another-migration"></a>Přidání další migraci
 ------------------------
-Po provedení změn pro svůj model EF jádra, bude synchronizován schématu databáze. A převeďte ho do aktuální, přidejte další migraci. Název migrace slouží jako potvrzení zprávy v systému správy verzí. Například pokud byly provedeny změny uložte zákazníka recenzemi produktů, I může zvolit něco podobného jako *AddProductReviews*.
+Po provedení změn do modelu EF Core, bude synchronizován schéma databáze. Abyste je připojili k aktuálním stavu, přidejte další migraci. Název migrace můžete použít jako zprávu potvrzení v systému správy verzí. Například, pokud byly provedeny změny uložte zapracováním připomínek zákazníků produktů, můžu rozhodnout něco jako *AddProductReviews*.
 
 ``` powershell
 Add-Migration AddProductReviews
@@ -59,7 +58,7 @@ Add-Migration AddProductReviews
 dotnet ef migrations add AddProductReviews
 ```
 
-Po migraci je generované uživatelské rozhraní, zkontrolujte přesnost a přidejte jakékoli další operace vyžaduje správně používat. Migrace může například obsahovat následující operace:
+Po migraci je automaticky, zkontrolujte přesnost a přidejte jakékoli další operace nutné k použití správně. Migrace může například obsahovat následující operace:
 
 ``` csharp
 migrationBuilder.DropColumn(
@@ -76,7 +75,7 @@ migrationBuilder.AddColumn<string>(
     nullable: true);
 ```
 
-Při těchto operací upravit schéma databáze kompatibilní, neuchovají se stávajícími názvy zákazníka. Chcete-li lépe, přepište ho následujícím způsobem.
+Přestože tyto operace provést schéma databáze kompatibilní, neuchovají se stávajícími názvy zákazníka. Chcete-li lépe, přepište ho následujícím způsobem.
 
 ``` csharp
 migrationBuilder.AddColumn<string>(
@@ -100,9 +99,9 @@ migrationBuilder.DropColumn(
 ```
 
 > [!TIP]
-> Přidání nové migrace upozorní, když je vygeneroval operace, které může způsobit ztrátu dat (např. vyřazení sloupce). Ujistěte se, že zejména Zkontrolujte tyto migrace přesnost.
+> Přidání nové migrace upozorní, když automaticky operace, která může způsobit ztrátu dat (např. vyřazení sloupce). Nezapomeňte si zejména Zkontrolujte tyto migrace přesnost.
 
-Migrace se vztahují na databázi pomocí příslušný příkaz.
+Použití migrace k databázi pomocí příslušný příkaz.
 
 ``` powershell
 Update-Database
@@ -111,10 +110,10 @@ Update-Database
 dotnet ef database update
 ```
 
-<a name="removing-a-migration"></a>Odebrání migrace
+<a name="removing-a-migration"></a>Odebírá se migrace
 --------------------
-Někdy přidejte migrace a Uvědomte si, že budete muset udělat další změny modelu EF základní před každým jejím použitím.
-Chcete-li odebrat poslední migrace, použijte tento příkaz.
+Někdy přidejte migraci a Uvědomte si, že budete muset udělat dodatečné změny do modelu EF Core před každým jejím použitím.
+Pokud chcete odebrat posledního migrace, použijte tento příkaz.
 
 ``` powershell
 Remove-Migration
@@ -123,11 +122,11 @@ Remove-Migration
 dotnet ef migrations remove
 ```
 
-Po odebrání, můžete změnit další modelu a ji znovu přidejte.
+Po odebrání, můžete provést další změny a potom ho znovu přidejte.
 
-<a name="reverting-a-migration"></a>Vrácení migrace
+<a name="reverting-a-migration"></a>Vrácení migrace zpět
 ---------------------
-Pokud jste již nainstalovali migrace (nebo několik migrace) do databáze, ale potřeba vraťte se zpátky, můžete stejný příkaz použijte migrace, ale zadejte název migrace, které chcete vrátit zpět.
+Pokud jste již nainstalovali migrace (nebo několik migrací) do databáze, ale potřeba ji vzít zpět, slouží k použití migrace, ale zadejte název, který chcete vrátit zpět k migraci stejný příkaz.
 
 ``` powershell
 Update-Database LastGoodMigration
@@ -138,19 +137,19 @@ dotnet ef database update LastGoodMigration
 
 <a name="empty-migrations"></a>Prázdný migrace
 ----------------
-Někdy je užitečné pro přidání migrace bez jakýchkoli změn modelu. V takovém případě přidávání nové migrace vytvoří některého prázdný. Tato migrace k provádění operací, které přímo nesouvisejí model EF základní můžete přizpůsobit.
+Někdy je užitečné, chcete-li přidat migrace bez jakýchkoli změn modelu. Přidání nové migrace vytvoří v tomto případě některý z prázdné. Můžete přizpůsobit, tato migrace provádět operace, které přímo nesouvisejí modelu EF Core.
 Některé věci, které můžete chtít spravovat tímto způsobem jsou:
 
 * Fulltextové vyhledávání
 * Funkce
 * Uložené procedury
 * Aktivační procedury
-* zobrazení
+* Zobrazení
 * Atd.
 
 <a name="generating-a-sql-script"></a>Generování skriptu SQL
 -----------------------
-Při ladění vaše migrace nebo jejich nasazení do provozní databáze, je užitečné pro generování skriptu SQL. Skript můžete mít další zkontrolovat přesnost a přizpůsobená podle potřeb z provozní databáze. Skript lze také použít ve spojení s technologií nasazení. Příkaz základní je následující.
+Při ladění vaše migrace nebo jejich nasazení do produkční databáze, je užitečné se vygenerovat skript SQL. Skript můžete být dále kontroluje přesnost a vyladění podle potřeb provozní databáze. Skript je také možné ve spojení s technologií nasazení. Základní příkaz vypadá takto.
 
 ``` powershell
 Script-Migration
@@ -161,27 +160,27 @@ dotnet ef migrations script
 
 Existuje několik možností pro tento příkaz.
 
-**z** migrace by měl být poslední migrace do databáze použít před spuštěním skriptu. Pokud se neaplikovaly žádné migrace, zadejte `0` (Toto je výchozí hodnota).
+**z** migrace by měla být použita pro databázi před spuštěním skriptu poslední migrace. Pokud byly použity žádné migrace, zadejte `0` (Toto je výchozí hodnota).
 
-**k** migrace je poslední migrace, která bude použita k databázi, po spuštění skriptu. Toto výchozí nastavení na poslední migrace ve vašem projektu.
+**k** migrace je poslední migrace, která bude použita pro databázi po spuštění skriptu. Výchozí hodnota poslední migrace ve vašem projektu.
 
-**Idempotent** skript může volitelně generovat. Tento skript migrací platí pouze, pokud již nebyla použita k databázi. To je užitečné, pokud neznáte přesně co do databáze použít poslední migrace byla nebo Pokud nasazujete více databází, které může být v různých migrace.
+**Idempotentní** skriptu můžete volitelně vygenerovat. Tento skript migrace platí pouze, pokud ještě nebyla použita k databázi. To je užitečné, pokud zatím nevíte přesně poslední migrace použita pro databázi byla nebo pokud provádíte nasazení do více databází, které lze jednotlivě za různé migrace.
 
 <a name="applying-migrations-at-runtime"></a>Použití migrace za běhu
 ------------------------------
-Některé aplikace může chtít použít migrace za běhu při spuštění nebo prvním spuštění. To provést pomocí `Migrate()` metoda.
+Některé aplikace může být vhodné pro použití migrace za běhu při spuštění nebo při prvním spuštění. K tomu `Migrate()` metody.
 
-Upozornění: Tento přístup není pro všechny uživatele. I když je skvělá pro aplikace s místní databází, bude vyžadovat většinu aplikací robustnější strategii nasazení, jako je generování skriptů SQL.
+Upozornění: Tento přístup se nehodí pro každého. I když je skvělé pro aplikace s místní databází, většina aplikací bude vyžadovat více robustní strategii nasazení, jako je generování skriptů SQL.
 
 ``` csharp
 myDbContext.Database.Migrate();
 ```
 
 > [!WARNING]
-> Nemůžete volat `EnsureCreated()` před `Migrate()`. `EnsureCreated()` obchází migrace vytvořit schéma, což způsobí, že `Migrate()` selhání.
+> Nevolejte `EnsureCreated()` před `Migrate()`. `EnsureCreated()` obchází migrace k vytvoření schématu, což způsobí, že `Migrate()` selhání.
 
 > [!NOTE]
-> Tato metoda vytvoří na `IMigrator` služby, která lze použít pro pokročilejší scénáře. Použití `DbContext.GetService<IMigrator>()` k přístupu.
+> Tato metoda vytvoří nahoře `IMigrator` služby, které lze použít pro pokročilejší scénáře. Použití `DbContext.GetService<IMigrator>()` k němu přistupovat.
 
 
   [1]: ../../modeling/index.md

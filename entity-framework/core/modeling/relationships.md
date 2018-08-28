@@ -1,17 +1,15 @@
 ---
 title: Relace – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
-ms.technology: entity-framework-core
 uid: core/modeling/relationships
-ms.openlocfilehash: 0e60ade605ffb73b02934ea32f1c757affce970d
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: a53a862cc2443a1c4461aa287def100284635f26
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949215"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994939"
 ---
 # <a name="relationships"></a>Relace
 

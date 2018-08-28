@@ -1,54 +1,53 @@
 ---
-title: Portování ze EF6 na jádro EF – portování Model na základě EDMX
+title: Přenesení z EF6 do EF Core – přenesení modelu na bázi EDMX
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 63003709-f1ec-4bdc-8083-65a60c4826d2
 uid: efcore-and-ef6/porting/port-edmx
-ms.openlocfilehash: c999d2114c76ee3a7615ae897b42ee3376cff14e
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 2c3336ac675a830566001a0ddb3777839f52db18
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812687"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997408"
 ---
-# <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>Portování Model na základě EDMX EF6 na jádro EF
+# <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>Přenesení modelu na bázi EDMX EF6 do EF Core
 
-Základní EF nepodporuje formát souboru EDMX pro modely. Nejlepší možnost k portu tyto modely je chcete generovat nový model založené na kódu z databáze pro vaši aplikaci.
+EF Core nepodporuje formát souboru EDMX pro modely. Nejlepší možností k portu tyto modely, je nový model založený na kódu Generovat z databáze pro vaši aplikaci.
 
-## <a name="install-ef-core-nuget-packages"></a>Instalace balíčků NuGet EF jádra
+## <a name="install-ef-core-nuget-packages"></a>Instalace balíčků EF Core NuGet
 
 Nainstalujte `Microsoft.EntityFrameworkCore.Tools` balíček NuGet.
 
-## <a name="regenerate-the-model"></a>Znovu vygenerovat modelu
+## <a name="regenerate-the-model"></a>Znovu generovat model
 
-Nyní můžete funkci zpětné analýzy pro vytvoření modelu na základě existující databáze.
+Funkce zpětné analýzy nyní můžete vytvořit model založený na existující databázi.
 
-Spusťte následující příkaz v konzole Správce balíčků (Nástroje –> Správce balíčků NuGet –> Konzola správce balíčků). V tématu [Konzola správce balíčků (Visual Studio)](../../core/miscellaneous/cli/powershell.md) možnosti příkazu k automatickému vygenerování podmnožinu tabulek atd.
+Spuštěním následujícího příkazu v konzole Správce balíčků (Nástroje –> Správce balíčků NuGet –> Konzola správce balíčků). Zobrazit [Konzola správce balíčků (Visual Studio)](../../core/miscellaneous/cli/powershell.md) pro parametry příkazu generovat uživatelské rozhraní pro podmnožinu tabulek atd.
 
 ``` powershell
 Scaffold-DbContext "<connection string>" <database provider name>
 ```
 
-Zde je třeba příkaz chcete vygenerovat model z databáze blogu ve vaší instanci SQL Server LocalDB.
+Například tady je příkaz scaffold modelu z blogovací databáze na instanci serveru SQL Server LocalDB.
 
 ``` powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-## <a name="remove-ef6-model"></a>Odebrat EF6 modelu
+## <a name="remove-ef6-model"></a>Odebrat EF6 model
 
-EF6 model by nyní odebrat z vaší aplikace.
+EF6 model by teď odebrat z vaší aplikace.
 
-Je v pořádku nechte balíček EF6 NuGet (EntityFramework) nainstalované, tak, jak EF jádra a EF6 můžou být použité-souběžného ve stejné aplikaci. Ale pokud nejsou hodláte použít EF6 v všech oblastech vaší aplikace, pak odinstalování balíčku vám pomůže poskytnout chyby při kompilaci na části kódu, které vyžadují pozornost.
+Je v pořádku nechte instalaci balíčku EF6 NuGet (EntityFramework), jak EF Core a EF6 můžou být použité vedle sebe ve stejné aplikaci. Ale pokud nejsou máte v úmyslu použít EF6 v všech oblastech vaší aplikace, pak odinstalování balíčku vám pomůže dojít k chybám kompilace na části kódu, který je potřeba věnovat pozornost.
 
 ## <a name="update-your-code"></a>Aktualizace kódu
 
-V tomto okamžiku bude stačit adresování chyby při kompilaci a prostudovali kód pro případ, že změny chování mezi EF6 a EF základní ovlivní.
+V tomto okamžiku je otázkou adresování chyby při kompilaci a revize kódu a zjistěte, jestli změny chování mezi EF6 a EF Core ovlivní.
 
-## <a name="test-the-port"></a>Testování port
+## <a name="test-the-port"></a>Port testu
 
-Právě, protože aplikace zkompiluje, neznamená, že je úspěšně přesně do EF jádra. Musíte se k testování všech oblastí aplikace k zajištění, že žádná ze změn chování negativní dopad vaší aplikace.
+To, že vaše aplikace zkompiluje, neznamená, že je úspěšně přenést do EF Core. Je potřeba otestovat všechny oblasti vaší aplikace k zajištění, že žádné změny chování mít nepříznivý vliv na aplikace.
 
 > [!TIP]
-> V tématu [Začínáme s EF základní na ASP.NET Core s existující databázi](xref:core/get-started/aspnetcore/existing-db) Další informace o tom, jak pracovat s existující databázi, 
+> Zobrazit [Začínáme s EF Core v ASP.NET Core s existující databázi](xref:core/get-started/aspnetcore/existing-db) Další informace o tom, jak pracovat s existující databázi, 

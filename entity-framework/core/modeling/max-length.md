@@ -1,32 +1,30 @@
 ---
-title: Maximální délka - EF jádra
+title: Maximální délka – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c39c5d43-018d-48b8-94f2-b8bc7c686c69
-ms.technology: entity-framework-core
 uid: core/modeling/max-length
-ms.openlocfilehash: 7325c0c3328477473392bf9e7c82f1696bb4f424
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: e54d3671f378b96a49eaf4cb312e72072813fc6d
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054163"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996188"
 ---
 # <a name="maximum-length"></a>Maximální délka
 
-Konfigurace maximální délku poskytuje nápovědu k úložišti dat o příslušný datový typ chcete použít pro danou vlastnost. Maximální délka se vztahuje pouze na pole datové typy, jako například `string` a `byte[]`.
+Konfigurace maximální délku poskytuje nápovědu pro úložiště dat o správný typ dat chcete použít pro danou vlastnost. Maximální délka platí jenom pro pole datové typy, jako například `string` a `byte[]`.
 
 > [!NOTE]  
-> Rozhraní Entity Framework neprovádí žádné ověření maximální délku před předávání dat zprostředkovatele. Je zprostředkovatele nebo datového úložiště, ověřte, jestli je to vhodné. Například pokud cílení na SQL Server, přesahuje maximální délku bude mít za následek výjimku jako datový typ sloupce základní neumožní nadbytečná data k uložení.
+> Entity Framework neprovádí žádné ověření s maximální délkou před předáním dat do zprostředkovatele. Záleží poskytovatele nebo úložišti dat pro ověření v případě potřeby. Například při cílení na SQL serveru, překračuje maximální délku způsobí výjimku jako datový typ základního sloupce neumožní nadbytečná data k uložení.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence je ponechán až zprostředkovatel databáze k výběru typu příslušná data pro vlastnosti. Pro vlastnosti, které mají délku zprostředkovatel databáze obvykle vyberte datový typ, který umožňuje nejdelší dobu data. Například Microsoft SQL Server použije `nvarchar(max)` pro `string` vlastnosti (nebo `nvarchar(450)` Pokud sloupec slouží jako klíč).
+Podle konvence je ponecháno až poskytovatel databáze vybrat příslušný datový typ pro vlastnosti. Pro vlastnosti, které mají délku poskytovatel databáze obecně zvolte datový typ, který umožňuje nejdelší dobu data. Například se bude používat Microsoft SQL Server `nvarchar(max)` pro `string` vlastnosti (nebo `nvarchar(450)` Pokud sloupec se používá jako klíč).
 
-## <a name="data-annotations"></a>Datových poznámek
+## <a name="data-annotations"></a>Datové poznámky
 
-Můžete nakonfigurovat maximální délku pro vlastnost datových poznámek. V tomto příkladu cílení na SQL Server, které jsou výsledkem by `nvarchar(500)` datový typ používaný.
+Anotacemi dat můžete použít ke konfiguraci maximální délka pro vlastnost. V tomto příkladu cílení na systém SQL Server, výsledkem by `nvarchar(500)` datový typ používá.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/MaxLength.cs?highlight=4)] -->
 ``` csharp
@@ -40,7 +38,7 @@ public class Blog
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít ke konfiguraci maximální délka pro vlastnost. V tomto příkladu cílení na SQL Server, které jsou výsledkem by `nvarchar(500)` datový typ používaný.
+Rozhraní Fluent API můžete použít ke konfiguraci maximální délka pro vlastnost. V tomto příkladu cílení na systém SQL Server, výsledkem by `nvarchar(500)` datový typ používá.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/MaxLength.cs?highlight=7,8,9)] -->
 ``` csharp

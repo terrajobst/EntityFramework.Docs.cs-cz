@@ -1,23 +1,21 @@
 ---
-title: Vlastnosti stínové – EF jádra
+title: Stínové vlastnosti – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 75369266-d2b9-4416-b118-ed238f81f599
-ms.technology: entity-framework-core
 uid: core/modeling/shadow-properties
-ms.openlocfilehash: 8c7f70789ddc6ebd24f9bfae931069834db593c2
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: b7b7b10642564dfa3dbc05755188b5b5c63e0d03
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2017
-ms.locfileid: "26054562"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993799"
 ---
 # <a name="shadow-properties"></a>Stínové vlastnosti
 
-Vlastnosti stínové jsou vlastnosti, které nejsou definovány v třídě .NET entity, ale jsou definovány pro tento typ entity v modelu EF jádra. Hodnota a stav těchto vlastností se udržuje výhradně v modulu Sledování změn.
+Stínové vlastnosti jsou vlastnosti, které nejsou definovány ve třídě .NET entity, ale jsou definovány pro daný typ entity v modelu EF Core. Hodnota a stav těchto vlastností je udržován čistě v nástroji Sledování změn.
 
-Vlastnosti stínové jsou užitečné, když je dat v databázi, která by neměl být odhalen na typy namapované entit. Nejčastěji se používají pro vlastnosti cizího klíče, kde je vztah mezi dvěma entitami reprezentována hodnotou cizí klíče v databázi, ale relace je spravován na typy entit pomocí vlastnosti navigace mezi typy entit.
+Stínové vlastnosti jsou užitečné, když data v databázi, kterou by neměly být vystaveny pro typy entity pro mapovanou. Nejčastěji se používají pro vlastnosti cizího klíče, kde je vztah mezi dvěma entitami reprezentována hodnoty cizího klíče v databázi, ale vztah je spravovat na typy entit pomocí vlastnosti navigace mezi typy entit.
 
 Hodnoty vlastností stínové můžete získat a změnit prostřednictvím `ChangeTracker` rozhraní API.
 
@@ -25,7 +23,7 @@ Hodnoty vlastností stínové můžete získat a změnit prostřednictvím `Chan
    context.Entry(myBlog).Property("LastUpdated").CurrentValue = DateTime.Now;
 ```
 
-Vlastnosti stínové může být odkazováno v dotazech LINQ prostřednictvím `EF.Property` statickou metodu.
+Stínové vlastnosti lze odkazovat v dotazech LINQ prostřednictvím `EF.Property` statické metody.
 
 ``` csharp
 var blogs = context.Blogs
@@ -34,9 +32,9 @@ var blogs = context.Blogs
 
 ## <a name="conventions"></a>Konvence
 
-Vlastnosti stínové lze vytvořit pomocí konvence při zjištění vztahu však nalezen žádný vlastností cizího klíče ve třídě závislé entity. V takovém případě bude potřeba zavést stínové vlastností cizího klíče. Vlastnost cizího klíče stínové budou pojmenované `<navigation property name><principal key property name>` (navigaci na závislé entity, která odkazuje na objektu entity, se používá pro pojmenování). Pokud název hlavního klíče vlastnosti obsahuje název navigační vlastnosti, pak se chovat název `<principal key property name>`. Pokud není žádná vlastnost navigace na závislé entity, se používá název typ objektu zabezpečení na příslušné místo.
+Stínové vlastnosti lze vytvořit podle konvence při zjištění relace, ale nebyla nalezena žádná vlastnost cizího klíče ve třídě závislé entity. V takovém případě se bude zavádět stínové vlastnost cizího klíče. Bude mít vlastnost cizího klíče stínové `<navigation property name><principal key property name>` (navigaci na závislé entity, která odkazuje na základní entitu, se používá pro pojmenování). Pokud název navigační vlastnosti obsahuje název instančního objektu klíčová vlastnost a potom název bude právě `<principal key property name>`. Pokud není žádná vlastnost navigace u entity závislé, se používá název instančního objektu typu na jeho místo.
 
-Například následující výpis kódu způsobí `BlogId` stínové vlastnost uvedena na `Post` entity.
+Například, bude výsledkem následující výpis kódu `BlogId` stínové vlastnosti se seznámili s `Post` entity.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/ShadowForeignKey.cs)] -->
 ``` csharp
@@ -64,15 +62,15 @@ public class Post
 }
 ```
 
-## <a name="data-annotations"></a>Datových poznámek
+## <a name="data-annotations"></a>Datové poznámky
 
-Vlastnosti stínové nelze vytvořit pomocí datových poznámek.
+Stínové vlastnosti nelze vytvořit s anotacemi dat.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Můžete konfigurovat vlastnosti stínové rozhraní Fluent API. Po volání přetížení řetězec `Property` můžete některé z konfigurace volání by pro ostatní vlastnosti řetězu.
+Rozhraní Fluent API můžete použít ke konfiguraci stínové vlastnosti. Po volání přetížení řetězce `Property` můžete zřetězit některý z konfigurace volání byste to udělali pro jiné vlastnosti.
 
-Pokud je název zadaný pro `Property` metoda odpovídá názvu existující vlastnost (vlastnost stínové nebo definovaná na třídy entita) a potom kód bude nakonfigurujte tuto existující vlastnost nemuseli zavádět nové vlastnosti stínové.
+Pokud název `Property` metody odpovídá názvu existující vlastnosti (vlastnosti stínové nebo definovaná ve třídě entity) a pak kód nakonfiguruje existující vlastnosti a nemuseli zavádět nové stínové vlastnosti.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/ShadowProperty.cs?highlight=7,8)] -->
 ``` csharp

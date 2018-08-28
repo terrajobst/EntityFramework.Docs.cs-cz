@@ -2,19 +2,13 @@
 title: Práce s odpojené entity - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-caps.latest.revision: 3
-ms.openlocfilehash: 5419215a77b57ab3c92fb88a512510070ea23bd6
-ms.sourcegitcommit: 45494121254ad4fdcec613d1dd22d850068d6f39
+ms.openlocfilehash: b496a9cba48946974844725c5df5e7df7351cf23
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37913440"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998223"
 ---
 # <a name="working-with-disconnected-entities"></a>Práce s odpojené entity
 V aplikaci založené na rozhraní Entity Framework je zodpovědná za vyhledávání podpory změny se použily sledované entity třídy kontextu. Volá metodu SaveChanges nevyřeší změny sledované podle kontextu do databáze. Při práci s n vrstvé aplikace, objekty entity jsou obvykle upraveny odpojené od kontextu, a musíte rozhodnout, jak sledovat změny a sestavy tyto změny zpět do kontextu. Toto téma popisuje různé možnosti, které jsou k dispozici, pokud používá nástroj Entity Framework s entitami.   

@@ -2,19 +2,13 @@
 title: Nezpracované dotazy SQL - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
-caps.latest.revision: 3
-ms.openlocfilehash: 1d968604cfa500784c4699b0923512572a06d773
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 99893ca1c634ce6f2e4cf9dcb70b1a1e43532c60
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912736"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995731"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 Entity Framework umožňuje dotazování pomocí jazyka LINQ pomocí tříd entit. Mohou však nastat situace, které chcete spouštět dotazy s využitím nezpracovaná SQL přímo na databázi. To zahrnuje volání uložené procedury, které mohou být užitečné pro Code First modely, které se aktuálně nepodporují mapování na uložené procedury. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  

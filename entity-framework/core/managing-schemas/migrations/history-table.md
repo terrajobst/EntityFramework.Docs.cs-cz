@@ -1,26 +1,25 @@
 ---
-title: Tabulky historie migrací vlastní - EF základní
+title: Tabulky historie vlastní migrace – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/7/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: cb9892241f3d7f1fae6293bd60a8a5c3e7120969
-ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
+ms.openlocfilehash: 7ee76cadd6fac4ec403918e88460e43067ae5815
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2017
-ms.locfileid: "26054727"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995693"
 ---
-<a name="custom-migrations-history-table"></a>Tabulky historie migrací vlastní
+<a name="custom-migrations-history-table"></a>Tabulky historie vlastní migrace
 ===============================
-Ve výchozím nastavení, uchovává informace o základní EF, které migrace se aplikovaly k databázi je zaznamenáním v tabulce s názvem `__EFMigrationsHistory`. Z různých důvodů můžete přizpůsobit tak, aby lépe vyhovoval vašim potřebám.
+Ve výchozím nastavení, EF Core uchovává informace o migrace, které se použily k databázi pomocí záznamu v tabulce s názvem `__EFMigrationsHistory`. Z různých důvodů můžete chtít přizpůsobit v této tabulce, aby lépe vyhovovala vašim potřebám.
 
 > [!IMPORTANT]
-> Pokud upravíte tabulky historie migrací *po* použití migrace, je zodpovědná za aktualizaci existující tabulky v databázi.
+> Pokud upravíte v tabulce historie migrace *po* použití migrace, budete muset aktualizaci existující tabulky v databázi.
 
-<a name="schema-and-table-name"></a>Schéma a tabulku název
+<a name="schema-and-table-name"></a>Schéma a platný název tabulky
 ----------------------
-Můžete změnit pomocí názvu tabulky a schématu `MigrationsHistoryTable()` metoda v `OnConfiguring()` (nebo `ConfigureServices()` na ASP.NET Core). Tady je příklad pomocí zprostředkovatele jádra EF SQL serveru.
+Schéma a tabulku s využitím název můžete změnit `MigrationsHistoryTable()` metoda `OnConfiguring()` (nebo `ConfigureServices()` v ASP.NET Core). Tady je příklad použití zprostředkovatele SQL Server EF Core.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -31,7 +30,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder options)
 
 <a name="other-changes"></a>Další změny
 -------------
-Pokud chcete nakonfigurovat další aspekty tabulky, přepsání a nahraďte specifický pro zprostředkovatele `IHistoryRepository` služby. Tady je příklad změny názvu sloupce MigrationId k *Id* na serveru SQL Server.
+Ke konfiguraci dalších aspektů v tabulce, přepište a nahraďte specifickým pro zprostředkovatele `IHistoryRepository` služby. Tady je příklad změny názvu sloupce MigrationId *Id* na SQL serveru.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -41,7 +40,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder options)
 ```
 
 > [!WARNING]
-> `SqlServerHistoryRepository`je uvnitř vnitřní obor názvů a může v budoucích verzích změnit.
+> `SqlServerHistoryRepository` je uvnitř vnitřní obor názvů a mohou v budoucích verzích změnit.
 
 ``` csharp
 class MyHistoryRepository : SqlServerHistoryRepository

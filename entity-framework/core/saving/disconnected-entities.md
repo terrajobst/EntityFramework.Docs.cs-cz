@@ -4,14 +4,13 @@ author: ajcvickers
 ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
-ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: a81b0a26fe98dcc1ddedc11aba2673338c8991e8
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 51367d2619b1943c300f8954123f70b909ad96e7
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37948981"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994396"
 ---
 # <a name="disconnected-entities"></a>Odpojené entity
 

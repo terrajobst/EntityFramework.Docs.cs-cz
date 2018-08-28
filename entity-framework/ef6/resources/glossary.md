@@ -2,19 +2,13 @@
 title: Entity Framework glosář - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-caps.latest.revision: 3
-ms.openlocfilehash: cbd61838afc23dfb37cee7c624c65476c5270099
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 4ad56c4d655e004d97c3537707fa6b13c7acf88e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949099"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997716"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework – glosář
 ## <a name="code-first"></a>Kód nejprve
@@ -41,7 +35,7 @@ Třída nebo objekt, který představuje data aplikací, jako jsou zákazníci, 
 ## <a name="entity-data-model"></a>Entity Data Model
 Model, který popisuje entit a vztahů mezi nimi. EF používá k popisu konceptuální model, proti kterému EDM vývojářské programy. EDM je založena na modelu relace Entity zavedené zotavení po havárii. Petr Svoboda. EDM byla původně vyvinuta primárním cílem stávají common data model napříč sada pro vývojáře a server technologií od Microsoftu. EDM slouží také jako součást protokolu OData.
 
-## <a name="explicit-loading"></a>Explicitní načtení
+## <a name="explicit-loading"></a>explicitní načtení
 Vzor načítání souvisejících dat, kde jsou načteny související objekty voláním rozhraní API.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API

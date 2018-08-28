@@ -1,17 +1,15 @@
 ---
 title: Odstranění – EF Core v kaskádě
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
-ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 7e1c87ae3a955c22b267a108ea7c2bb504e9acc3
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: afe00ddb1b487c6b1b2ea42708c9967a57cea04b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949287"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995239"
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -42,7 +40,7 @@ Pro volitelné relace (s možnou hodnotou Null cizí klíč) ji _je_ možné ulo
 | **Kaskádové**                 | Odstranění entit                   | Odstranění entit                   |
 | **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Žádné                                   |
 | **SetNull**                 | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Vlastnosti cizího klíče jsou nastaveny na hodnotu null |
-| **Omezení**                | Žádné                                   | Žádné                                   |
+| **omezení**                | Žádné                                   | Žádné                                   |
 
 ### <a name="required-relationships"></a>Požadovaná relace
 Požadovaná relace (neumožňující cizí klíč) je _není_ možné uložit cizího klíče hodnotu null, což vede k následujících efektů:
@@ -52,7 +50,7 @@ Požadovaná relace (neumožňující cizí klíč) je _není_ možné uložit c
 | **Kaskádové** (výchozí) | Odstranění entit                | Odstranění entit                  |
 | **ClientSetNull**     | Vyvolá SaveChanges                  | Žádné                                  |
 | **SetNull**           | Vyvolá SaveChanges                  | Vyvolá SaveChanges                    |
-| **Omezení**          | Žádné                                | Žádné                                  |
+| **omezení**          | Žádné                                | Žádné                                  |
 
 V tabulkách výše *žádný* může vést k narušení omezení. Například pokud se entita hlavní/podřízený se odstraní, ale chcete-li změnit cizí klíč závislé/podřízený nebyla provedena žádná akce, poté databázi pravděpodobně vyvolá na SaveChanges z důvodu narušení omezení pro cizí.
 

@@ -1,36 +1,34 @@
 ---
-title: Počítané sloupce - EF jádra
+title: Vypočítané sloupce – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e9d81f06-805d-45c9-97c2-3546df654829
-ms.technology: entity-framework-core
 uid: core/modeling/relational/computed-columns
-ms.openlocfilehash: 95312504286bd34cc666b5a21273835c4b35d379
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b88efdf69e5100e4eff55f3a41925d2d8e7c3178
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054070"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993950"
 ---
-# <a name="computed-columns"></a>Počítané sloupce
+# <a name="computed-columns"></a>Vypočítané sloupce
 
 > [!NOTE]  
-> Obecně se vztahuje na relační databáze konfigurace v této části. Rozšiřující metody zobrazeny zde bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíčku).
+> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
 
-Počítaný sloupec je sloupec, jehož hodnota je vypočítána v databázi. Počítaný sloupec můžete použít jiné sloupce v tabulce pro výpočet jeho hodnoty.
+Počítaný sloupec je sloupec, jehož hodnota je vypočítána v databázi. Počítaný sloupec můžete použít jiné sloupce v tabulce k výpočtu jeho hodnotu.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence počítané sloupce nejsou vytvořené v modelu.
+Podle konvence nejsou počítané sloupce vytvořené v modelu.
 
-## <a name="data-annotations"></a>Datových poznámek
+## <a name="data-annotations"></a>Datové poznámky
 
-Počítané sloupce nelze konfigurovat pomocí datových poznámek.
+S anotacemi dat nelze konfigurovat vypočítané sloupce.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít k určení, že vlastnost by měla být mapována na počítaný sloupec.
+Rozhraní Fluent API můžete použít k určení, že vlastnost by měla být mapována k počítanému sloupci.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/ComputedColumn.cs?highlight=9)] -->
 ``` csharp

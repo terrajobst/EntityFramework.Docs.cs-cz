@@ -1,32 +1,30 @@
 ---
-title: Požadované a volitelné vlastnosti - EF jádra
+title: Požadované a volitelné vlastnosti – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: ddaa0a54-9f43-4c34-aae3-f95c96c69842
-ms.technology: entity-framework-core
 uid: core/modeling/required-optional
-ms.openlocfilehash: 2af1d49e12ef980f81cb9c00556dee471673ccae
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b6716a5b03e1afc2933e317d606ef50f986c22c7
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054250"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995494"
 ---
 # <a name="required-and-optional-properties"></a>Požadované a volitelné vlastnosti
 
-Vlastnost považovat za volitelné, pokud je platná mohla obsahovat `null`. Pokud `null` není platná hodnota pro přiřazení vlastnosti a považuje se vyžaduje vlastnost.
+Vlastnost se považuje za nepovinné, pokud je platný pro něj tak, aby obsahovala `null`. Pokud `null` není platná hodnota pro přiřazení vlastnosti a má se za to se vyžaduje vlastnost.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence vlastnost s typem CLR může obsahovat hodnotu null bude nakonfigurován jako volitelná (`string`, `int?`, `byte[]`atd.). Nakonfiguruje s typem CLR nesmí obsahovat hodnotu null vlastnosti podle potřeby (`int`, `decimal`, `bool`atd.).
+Podle konvence, vlastnost, jejíž typ CLR může obsahovat hodnotu null se nakonfigurují jako volitelné (`string`, `int?`, `byte[]`atd.). Vlastnosti, jejíž typ CLR nesmí obsahovat hodnotu null se nakonfigurují podle potřeby (`int`, `decimal`, `bool`atd.).
 
 > [!NOTE]  
-> Vlastnost s typem CLR nesmí obsahovat hodnotu null nelze konfigurovat jako volitelná. Vlastnost bude vždy považovat za vyžaduje Entity Framework.
+> Vlastnost, jejíž typ CLR nemůže obsahovat hodnotu null nejde nakonfigurovat jako volitelné. Vlastnost budou vždy považovat za vyžadovány rozhraním Entity Framework.
 
-## <a name="data-annotations"></a>Datových poznámek
+## <a name="data-annotations"></a>Datové poznámky
 
-Poznámky dat můžete použít k označení, že je vyžadována určitá vlastnost.
+Anotací dat můžete použít k označení, že je vyžadována určitá vlastnost.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/Required.cs?highlight=4)] -->
 ``` csharp

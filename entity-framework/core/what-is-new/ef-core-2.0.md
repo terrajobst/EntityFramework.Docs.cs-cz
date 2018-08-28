@@ -1,17 +1,15 @@
 ---
 title: Novinky v EF Core 2.0 – EF Core
 author: divega
-ms.author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
-ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 538458cf49ee86b9a5cba2f606adc04e583605e2
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: b52b1fe6b2d5a585f4d55b0299891f61cbc968a3
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949124"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997567"
 ---
 # <a name="new-features-in-ef-core-20"></a>Novinky v EF Core 2.0
 

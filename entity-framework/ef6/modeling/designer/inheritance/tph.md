@@ -2,19 +2,13 @@
 title: Dědičnost návrháře TPH - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
-caps.latest.revision: 3
-ms.openlocfilehash: 0a017d3b97808cede3134119940b2e5839d0f282
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 9a546f6450b5aa3b03c062d1ab2c6f9257ba8292
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912718"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995001"
 ---
 # <a name="designer-tph-inheritance"></a>Návrháře TPH dědičnosti
 Tento podrobný návod ukazuje, jak implementovat dědičnosti na hierarchii tabulky (TPH) v konceptuálním modelu se Návrhář Entity Framework (EF designeru). Dědičnost TPH pomocí jedné tabulky databáze zachovat data pro všechny typy entit v hierarchii dědičnosti.

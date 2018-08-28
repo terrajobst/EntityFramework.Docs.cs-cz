@@ -1,32 +1,30 @@
 ---
-title: Primární klíče - EF jádra
+title: Primární klíče – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c78f8f42-564a-45a4-aca7-3ede9f7ed2bc
-ms.technology: entity-framework-core
 uid: core/modeling/relational/primary-keys
-ms.openlocfilehash: fcb1871149c0f20a2576864028b4171904de1982
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 916f3adbcd08cb1037c7fbf68e99630feb321a61
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054178"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998065"
 ---
 # <a name="primary-keys"></a>Primární klíče
 
 > [!NOTE]  
-> Obecně se vztahuje na relační databáze konfigurace v této části. Rozšiřující metody zobrazeny zde bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíčku).
+> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
 
-Omezení primárního klíče se zavedl pro klíč každému typu entity.
+Omezení primárního klíče se používá pro klíč každého typu entity.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence, bude mít název primární klíč v databázi `PK_<type name>`.
+Podle konvence, bude mít primární klíč v databázi `PK_<type name>`.
 
-## <a name="data-annotations"></a>Datových poznámek
+## <a name="data-annotations"></a>Datové poznámky
 
-Žádné specifické aspekty relační databáze primární klíč můžete konfigurovat pomocí datových poznámek.
+Žádné konkrétní aspekty relační databáze primární klíč lze konfigurovat pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 

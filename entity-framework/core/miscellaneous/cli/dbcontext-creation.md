@@ -3,14 +3,13 @@ title: Vytváření DbContext v době návrhu – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/27/2017
-ms.technology: entity-framework-core
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: 648ca990252fb32d8cf181a7ae672d07a81f56bb
-ms.sourcegitcommit: 0935ff275ae739243297f5b97eb21414398125c6
+ms.openlocfilehash: 66fec7605b6ac2da0af1e801f8a1dca0789aea35
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/23/2018
-ms.locfileid: "39201916"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993715"
 ---
 <a name="design-time-dbcontext-creation"></a>Vytváření DbContext v době návrhu
 ==============================
@@ -22,7 +21,7 @@ Existují různé způsoby nástroje pokusu o vytvoření `DbContext`:
 -------------------------
 Pokud je váš projekt po spuštění aplikace ASP.NET Core, nástroje, pokuste se získat objekt DbContext z vaší aplikace poskytovatele služeb.
 
-Nástroj se nejprve pokusí získat poskytovatele služeb vyvoláním `Program.BuildWebHost()` a přístup k `IWebHost.Services` vlastnost.
+Nástroje se nejprve pokusí získat poskytovatele služeb vyvoláním `Program.BuildWebHost()` a přístup k `IWebHost.Services` vlastnost.
 
 > [!NOTE]
 > Když vytvoříte novou aplikaci ASP.NET Core 2.0, je standardní součástí tohoto připojení. V předchozích verzích EF Core a ASP.NET Core, nástroje zkusit vyvolat `Startup.ConfigureServices` přímo, aby bylo možné získat aplikace poskytovatele služeb, ale tento model už fungování aplikace ASP.NET Core 2.0. Pokud provádíte upgrade aplikace ASP.NET Core 1.x do 2.0, můžete si [upravit vaše `Program` třídy mají nový tvar][3].

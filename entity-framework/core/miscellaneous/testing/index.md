@@ -1,22 +1,20 @@
 ---
-title: Test komponent pomocí rozhraní Entity Framework - EF jádra
+title: Testovat komponenty pomocí Entity Frameworku – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 1603be0c-69bc-4dd9-9a08-3d0129cdc6c1
-ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/index
-ms.openlocfilehash: c82c25da393c39cf5e2deb46c7322e7395051937
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: fc751b9053c337e4911f4016b65b370d1276046b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054205"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997834"
 ---
 # <a name="testing"></a>Testování
 
-Můžete otestovat komponent pomocí něco, co blíží připojení k databázi skutečné bez režie skutečné databáze vstupně-výstupních operací.
+Můžete testovat komponenty pomocí nějakého nástroje, které se blíží připojení k databázi skutečné bez režie skutečné databáze vstupně-výstupních operací.
 
-Existují dvě hlavní možnosti tohoto postupu:
- * [Režim v paměti SQLite](sqlite.md) umožňuje psát efektivní testů proti zprostředkovatele, který se chová jako relační databáze.
- * [Zprostředkovatel InMemory](in-memory.md) je lightweight zprostředkovatele, který má minimální závislosti, ale není vždy chovat jako relační databáze.
+Jak to udělat dvěma způsoby:
+ * [Režimu in-memory SQLite](sqlite.md) díky kterému lze vytvářet efektivní testování poskytovatele, který se chová jako relační databáze.
+ * [Zprostředkovatel InMemory](in-memory.md) je jednoduchý zprostředkovatel, který má minimální závislosti, ale vždy se nechová stejně jako relační databáze.

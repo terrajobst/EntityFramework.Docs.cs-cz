@@ -2,19 +2,13 @@
 title: Podpora zprostředkovatele pro typy prostorových – EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-caps.latest.revision: 3
-ms.openlocfilehash: 76020e2a3127b1026a5cb8f032686cc8ce9c0c5f
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 07eeecb5f5e3e3eab8548c4c7c0ed55c5ffb4f31
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912085"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998284"
 ---
 # <a name="provider-support-for-spatial-types"></a>Podpora zprostředkovatele pro prostorové typy
 Entity Framework podporuje práci s prostorovými daty formátu prostřednictvím DbGeography nebo DbGeometry tříd. Tyto třídy závisí na konkrétních databází funkce nabízené poskytovateli rozhraní Entity Framework. Ne všichni poskytovatelé podporu prostorových dat a ty, které se mají další požadavky, jako je například instalace sestavení prostorových typů. Další informace o podporu zprostředkovatele pro prostorové typy jsou uvedeny níže.  

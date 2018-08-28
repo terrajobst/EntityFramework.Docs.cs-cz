@@ -2,19 +2,13 @@
 title: Entity Framework blogy - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: f8fcfb34-35de-4e82-b419-8f99fd2eb92a
-caps.latest.revision: 4
-ms.openlocfilehash: b90a42f2ecc47d41577691d969d3173945b4afef
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 1df8818cad315f87c1c303dbed11435e03555ebe
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914230"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996724"
 ---
 # <a name="entity-framework-blogs"></a>Blogy Entity Framework
 Kromě v dokumentaci k produktu může být tyto blogy zdroj užitečné informace o rozhraní Entity Framework:

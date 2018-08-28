@@ -1,33 +1,31 @@
 ---
-title: Indexy – EF jádra
+title: Indexy – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 85b92003-b692-417d-ac1d-76d40dce664b
-ms.technology: entity-framework-core
 uid: core/modeling/indexes
-ms.openlocfilehash: f57b545d53613cec6887734bf434958ee8fff4d8
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 87fe893243377e3ab83d419ae9bedf813ca50c3f
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054076"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995477"
 ---
 # <a name="indexes"></a>Indexy
 
-Indexy jsou běžným pojmem mezi mnoha datová úložiště. Implementace v úložišti dat se může lišit, se používají aby vyhledávání na základě sloupec (nebo sadu sloupců) více efektivní.
+Indexy jsou běžným pojmem mezi mnoha úložišť dat. Při jejich implementace v úložišti dat může lišit, slouží k širší možnosti vyhledávání na základě sloupec (nebo sadu sloupců) efektivní.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence index se vytvoří v každé vlastnosti (nebo sadu vlastností) používané jako cizí klíč.
+Podle konvence index se vytvoří v každé vlastnosti (nebo sadu vlastností), které se používají jako cizí klíč.
 
-## <a name="data-annotations"></a>Datových poznámek
+## <a name="data-annotations"></a>Datové poznámky
 
 Indexy nelze vytvořit pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít k určení indexu na jedinou vlastnost. Indexy jsou ve výchozím nastavení není jedinečný.
+Rozhraní Fluent API můžete použít k určení indexu podle jedné vlastnosti. Indexy jsou ve výchozím nastavení, není jedinečný.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Index.cs?highlight=7,8)] -->
 ``` csharp
@@ -49,7 +47,7 @@ public class Blog
 }
 ```
 
-Můžete také zadat, index musí být jedinečné, což znamená, že žádné dvě entity, může mít stejné hodnoty pro danou vlastností.
+Můžete také zadat, že index musí být jedinečný, to znamená, že žádné dvě entity, které mají stejné hodnoty pro dané vlastnosti.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IndexUnique.cs?highlight=3)] -->
 ``` csharp
@@ -82,4 +80,4 @@ public class Person
 ```
 
 > [!TIP]  
-> Není k dispozici pouze jeden index za odlišnou sadu vlastností. Pokud používáte rozhraní Fluent API ke konfiguraci indexu na sadu vlastností, které už má index definované, buď convention nebo předchozí konfiguraci, pak budete moci změnit definici tohoto indexu. To je užitečné, pokud chcete nakonfigurovat další index, který byl vytvořen pomocí konvence.
+> Existuje pouze jeden index na různé sady vlastností. Pokud používáte rozhraní Fluent API nakonfigurovat indexu na sadu vlastností, které už má definované, index, buď pomocí konvence nebo předchozí konfiguraci, pak budete moci změnit definici indexu. To je užitečné, pokud chcete provést další konfiguraci index, který byl vytvořen konvencí.

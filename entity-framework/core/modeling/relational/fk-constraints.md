@@ -1,36 +1,34 @@
 ---
-title: Omezení cizího klíče - EF jádra
+title: Omezení cizího klíče – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
-ms.technology: entity-framework-core
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: 726f03e2ee4cd3ec851c9a861b75dd12f9203e9c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: a83f72b5d832e349fb4a5fb3b2de0b82bd79ef2a
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26054184"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993985"
 ---
 # <a name="foreign-key-constraints"></a>Omezení cizího klíče
 
 > [!NOTE]  
-> Obecně se vztahuje na relační databáze konfigurace v této části. Rozšiřující metody zobrazeny zde bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíčku).
+> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
 
-U každého vztahu v modelu je zavedeno omezení cizího klíče.
+Omezení cizího klíče se používá pro každou relaci v modelu.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence, jsou pojmenované omezení cizích klíčů `FK_<dependent type name>_<principal type name>_<foreign key property name>`. Pro složeného cizího klíče `<foreign key property name>` stane podtržítka oddělený seznam názvů vlastností cizího klíče.
+Podle konvence jsou pojmenovány omezení cizího klíče `FK_<dependent type name>_<principal type name>_<foreign key property name>`. Pro složené cizího klíče `<foreign key property name>` stane podtržítka oddělený seznam názvů vlastností cizího klíče.
 
-## <a name="data-annotations"></a>Datových poznámek
+## <a name="data-annotations"></a>Datové poznámky
 
 Názvy omezení cizího klíče nelze konfigurovat pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete nakonfigurovat položku Název omezení cizího klíče pro relaci.
+Rozhraní Fluent API můžete použít ke konfiguraci název omezení pro cizí klíč relace.
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/RelationshipConstraintName.cs?highlight=12)] -->
 ``` csharp

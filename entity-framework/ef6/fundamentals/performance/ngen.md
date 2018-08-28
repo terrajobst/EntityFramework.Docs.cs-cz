@@ -2,19 +2,13 @@
 title: Zlepšuje výkon při spouštění pomocí technologie NGen – EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: dc6110a0-80a0-4370-8190-cea942841cee
-caps.latest.revision: 4
-ms.openlocfilehash: cffd2deea3148a16ed704d1e5e7b365eda06f72b
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 324769ca6ee95e1576cf03d20e569f8b24778119
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949048"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998332"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>Zlepšuje výkon při spouštění pomocí technologie NGen
 > [!NOTE]

@@ -2,19 +2,13 @@
 title: Návrat k objektu ObjectContext v Entity Framework Designer - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 36550569-a1de-47cb-ba6d-544794ffd500
-caps.latest.revision: 3
-ms.openlocfilehash: 17fa6538cf5e92f59ab72376af96ad65c640a085
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: b52bfc36c97e1a3c7cd2d3716feb1ae48c68a56e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912787"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997309"
 ---
 # <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Návrat k objektu ObjectContext v Návrháři Entity Framework
 V předchozí verzi rozhraní Entity Framework model vytvářené pomocí návrháře EF vygenerují kontextu, který je odvozen od objektu ObjectContext a tříd entit, které jsou odvozeny z EntityObject.

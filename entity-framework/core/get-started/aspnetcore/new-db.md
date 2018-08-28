@@ -2,18 +2,15 @@
 title: Začínáme v ASP.NET Core – nová databáze – EF Core
 author: rick-anderson
 ms.author: riande
-ms.author2: tdykstra
 ms.date: 08/03/2018
-ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
-ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 9e86bc9cff028ad9791f23cbb45f0a93110c0064
-ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
+ms.openlocfilehash: c6a86dd943dc7fe6f600455fe6743ea01a062aab
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/07/2018
-ms.locfileid: "39614347"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996061"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF Core v ASP.NET Core s novou databázi
 

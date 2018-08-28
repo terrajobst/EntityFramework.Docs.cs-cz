@@ -2,19 +2,13 @@
 title: Specifikace MSL - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 13ae7bc1-74b4-4ee4-8d73-c337be841467
-caps.latest.revision: 4
-ms.openlocfilehash: 7448efc99f9fd9c6cdf930256a26347376fb354c
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 77dc7072c70b104188cd23974f32308960daebb6
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912784"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996028"
 ---
 # <a name="msl-specification"></a>Specifikace MSL
 Mapování specifikačnímu jazyku (MSL) je jazyk založený na formátu XML, který popisuje mapování mezi koncepčního modelu i modelu úložiště aplikace Entity Framework.
@@ -446,7 +440,7 @@ Následující tabulka popisuje atributy, které mohou být použity **DeleteFun
 
 | Název atributu            | Vyžaduje se | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Ano         | Název uložené procedury, ke které je mapován funkci Odstranit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
+| **functionName**          | Ano         | Název uložené procedury, ke které je mapován funkci Odstranit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupní parametr, který vrací počet ovlivněných řádků.                                                                               |
 
 #### <a name="example"></a>Příklad
@@ -510,7 +504,7 @@ Následující tabulka popisuje atributy, které mohou být použity **DeleteFun
 
 | Název atributu            | Vyžaduje se | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Ano         | Název uložené procedury, ke které je mapován funkci Odstranit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
+| **functionName**          | Ano         | Název uložené procedury, ke které je mapován funkci Odstranit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupní parametr, který vrací počet ovlivněných řádků.                                                                               |
 
 #### <a name="example"></a>Příklad
@@ -838,7 +832,7 @@ Následující tabulka popisuje atributy, které se vztahují na **FunctionImpor
 | Název atributu         | Vyžaduje se | Hodnota                                                                                   |
 |:-----------------------|:------------|:----------------------------------------------------------------------------------------|
 | **FunctionImportName** | Ano         | Název funkce importu v konceptuálním modelu, který je mapován.           |
-| **FunctionName**       | Ano         | Název funkce v rámci modelu úložiště, které je mapován kvalifikovaný v oboru názvů. |
+| **functionName**       | Ano         | Název funkce v rámci modelu úložiště, které je mapován kvalifikovaný v oboru názvů. |
 
 ### <a name="example"></a>Příklad
 
@@ -895,7 +889,7 @@ Následující tabulka popisuje atributy, které mohou být použity **InsertFun
 
 | Název atributu            | Vyžaduje se | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Ano         | Název uložené procedury, ke které je mapován funkce Vložit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
+| **functionName**          | Ano         | Název uložené procedury, ke které je mapován funkce Vložit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupní parametr, který vrací počet ovlivněných řádků.                                                                               |
 
 #### <a name="example"></a>Příklad
@@ -946,7 +940,7 @@ Následující tabulka popisuje atributy, které mohou být použity **InsertFun
 
 | Název atributu            | Vyžaduje se | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Ano         | Název uložené procedury, ke které je mapován funkce Vložit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
+| **functionName**          | Ano         | Název uložené procedury, ke které je mapován funkce Vložit kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupní parametr, který vrací počet ovlivněných řádků.                                                                               |
 
 #### <a name="example"></a>Příklad
@@ -1003,7 +997,7 @@ Následující tabulka popisuje atributy, které mohou být použity **mapován�
 
 | Název atributu | Vyžaduje se | Hodnota                                                 |
 |:---------------|:------------|:------------------------------------------------------|
-| **Místo**      | Ano         | **C S**. To je pevná a nedá se změnit. |
+| **místo**      | Ano         | **C S**. To je pevná a nedá se změnit. |
 
 ### <a name="example"></a>Příklad
 
@@ -1603,7 +1597,7 @@ Následující tabulka popisuje atributy, které mohou být použity **UpdateFun
 
 | Název atributu            | Vyžaduje se | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **FunctionName**          | Ano         | Název uložené procedury, ke které je mapován funkce update kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
+| **functionName**          | Ano         | Název uložené procedury, ke které je mapován funkce update kvalifikovaný v oboru názvů. Uložená procedura musí být deklarována v rámci modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupní parametr, který vrací počet ovlivněných řádků.                                                                               |
 
 ### <a name="example"></a>Příklad

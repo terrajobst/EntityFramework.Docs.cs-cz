@@ -1,33 +1,31 @@
 ---
-title: Synchronizace replik indexů data - EF jádra
+title: Předvyplnění dat – EF Core
 author: AndriySvyryd
-ms.author: divega
 ms.date: 02/23/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
-ms.technology: entity-framework-core
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 7028e1923152b27f56721dab75aae8b9c2f5ad75
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: 48ba2389de4b57dbe4c2b2124911c71440d45556
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2018
-ms.locfileid: "34163197"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994476"
 ---
-# <a name="data-seeding"></a>Data synchronizace replik indexů
+# <a name="data-seeding"></a>Předvyplnění dat
 
 > [!NOTE]  
-> Tato funkce je nového v EF základní 2.1.
+> Tato funkce je nového v EF Core 2.1.
 
-Synchronizace replik indexů dat umožňuje poskytovat počáteční data k naplnění databáze. Na rozdíl od v EF6 v EF základní synchronizace replik indexů dat je přidružen typ entity jako součást konfigurace modelu. Potom základní EF [migrace](xref:core/managing-schemas/migrations/index) můžete automaticky vypočítat co vložit, aktualizovat nebo odstranit potřeba operations použijí při upgradu databáze na novou verzi modelu.
+Předvyplnění dat umožňuje poskytovat počáteční data k naplnění databáze. Na rozdíl od v EF6 do EF Core předvyplnění dat souvisí s typem entity jako součást konfigurace modelu. Potom EF Core [migrace](xref:core/managing-schemas/migrations/index) dokáže automaticky výpočetní co vložit, aktualizovat nebo odstranit operací nutné použít při upgradu databáze na novou verzi modelu.
 
-Jako příklad, můžete to konfigurovat počáteční data pro `Blog` v `OnModelCreating`:
+Jako příklad, můžete nakonfigurovat počáteční data `Blog` v `OnModelCreating`:
 
 [!code-csharp[Main](../../../samples/core/DataSeeding/DataSeedingContext.cs?name=BlogSeed)]
 
-Chcete-li přidat entit, které mají relaci cizího klíče hodnoty je potřeba zadat. Často jsou vlastnosti cizího klíče v stínové stavu, proto být schopni nastavit hodnoty anonymní třída by měl použít:
+Přidání entity, které mají hodnoty cizího klíče relace musí být zadána. Často jsou vlastnosti cizího klíče v stínové stavu, tak abyste mohli nastavit hodnoty anonymní třída by měla sloužit:
 
 [!code-csharp[Main](../../../samples/core/DataSeeding/DataSeedingContext.cs?name=PostSeed)]
 
-Po přidání entity, se doporučuje použít [migrace](xref:core/managing-schemas/migrations/index) chcete změny použít. 
+Po přidání entity, doporučuje se použít [migrace](xref:core/managing-schemas/migrations/index) změny projeví. 
 
-Alternativně můžete použít `context.Database.EnsureCreated()` k vytvoření nové databáze obsahující počáteční hodnoty data, například pro testovací databáze nebo při použití zprostředkovatele v paměti. Všimněte si, že pokud databáze již existuje, `EnsureCreated()` bude ani aktualizovat schéma ani počáteční hodnoty data v databázi.
+Alternativně můžete použít `context.Database.EnsureCreated()` k vytvoření nové databáze obsahující počáteční hodnoty dat, jako je například testovací databázi nebo při použití zprostředkovatele v paměti. Všimněte si, že pokud databáze již existuje, `EnsureCreated()` ani aktualizuje schéma ani počáteční hodnoty data v databázi.

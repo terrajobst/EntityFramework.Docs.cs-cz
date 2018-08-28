@@ -1,17 +1,15 @@
 ---
 title: Novinky v EF Core 2.1 – EF Core
 author: divega
-ms.author: divega
 ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
-ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: 660e2a9787b0a6d2544da785827caa20d51626c1
-ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
+ms.openlocfilehash: ac39d3b7bc001231c5d76f489931b86c108adde2
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/16/2018
-ms.locfileid: "39067557"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995866"
 ---
 # <a name="new-features-in-ef-core-21"></a>Novinky v EF Core 2.1
 

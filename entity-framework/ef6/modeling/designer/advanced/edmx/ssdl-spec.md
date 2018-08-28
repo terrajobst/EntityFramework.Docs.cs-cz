@@ -2,19 +2,13 @@
 title: Specifikace SSDL - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
-caps.latest.revision: 3
-ms.openlocfilehash: a9977c80d9a9401afdcad2284a705bcb28790fb8
-ms.sourcegitcommit: 9ae4473425c5e76337c9d032b0e5dbfedf1fcf57
+ms.openlocfilehash: 35c560d88e5078a7fc4c07b76020f3ad7d0735e1
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914474"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995276"
 ---
 # <a name="ssdl-specification"></a>Specifikace SSDL
 Store schema definition language (SSDL) je jazyk založený na formátu XML, který popisuje model úložiště aplikace Entity Framework.
@@ -419,7 +413,7 @@ Následující tabulka popisuje atributy, které mohou být použity **objektu E
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
 | **Jméno**       | Ano         | Název sady entit.                                                              |
 | **Typ entity** | Ano         | Plně kvalifikovaný název typu entity, pro kterou sada entit obsahuje instance. |
-| **Schéma**     | Ne          | Schéma databáze.                                                                     |
+| **schéma**     | Ne          | Schéma databáze.                                                                     |
 | **Tabulka**      | Ne          | Databázové tabulky.                                                                      |
 
 > [!NOTE]
@@ -517,7 +511,7 @@ Následující tabulka popisuje atributy, které mohou být použity **funkce** 
 | **NiladicFunction**        | Ne          | **Hodnota TRUE** Pokud je funkce bez vstupních parametrů<sup>2</sup> funkce; **False** jinak.                                                                                                                                   |
 | **IsComposable**           | Ne          | **Hodnota TRUE** Pokud je funkce možností složení<sup>3</sup> funkce; **False** jinak.                                                                                                                                |
 | **ParameterTypeSemantics** | Ne          | Výčet, který definuje typ sémantice použité vyřešit přetížení funkce. Výčet je definovaný v manifestu zprostředkovatele za definici funkce. Výchozí hodnota je **AllowImplicitConversion**. |
-| **Schéma**                 | Ne          | Název schématu, ve kterém je definována uloženou proceduru.                                                                                                                                                   |
+| **schéma**                 | Ne          | Název schématu, ve kterém je definována uloženou proceduru.                                                                                                                                                   |
 
 <sup>1</sup> integrované funkce je funkce, která je definována v databázi. Informace o funkcích, které jsou definovány v modelu úložiště najdete v tématu Element CommandText (SSDL).
 
@@ -635,7 +629,7 @@ Následující tabulka popisuje atributy, které mohou být použity **parametr*
 | **Jméno**       | Ano         | Název parametru                                                                                                                                                                                                      |
 | **Typ**       | Ano         | Typ parametru.                                                                                                                                                                                                             |
 | **Režim**       | Ne          | **V**, **si**, nebo **InOut** v závislosti na tom, zda je parametr vstup, výstup nebo vstupně výstupní parametr.                                                                                                                |
-| **MaxLength**  | Ne          | Maximální délka parametru.                                                                                                                                                                                            |
+| **maxLength**  | Ne          | Maximální délka parametru.                                                                                                                                                                                            |
 | **Přesnost**  | Ne          | Přesnost parametru.                                                                                                                                                                                                 |
 | **Škálování**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
 | **SRID**       | Ne          | Odkaz na identifikátor spatial systému. Platí jenom pro parametry prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
@@ -719,7 +713,7 @@ Následující tabulka popisuje atributy, které mohou být použity **vlastnost
 | **Typ**                  | Ano         | Typ odpovídající sloupec.                                                                                                                                                                                           |
 | **S povolenou hodnotou Null**              | Ne          | **Hodnota TRUE** (výchozí hodnota) nebo **False** v závislosti na tom, zda odpovídající sloupec může mít hodnotu null.                                                                                                                  |
 | **Výchozí hodnota**          | Ne          | Výchozí hodnota odpovídající sloupec.                                                                                                                                                                                  |
-| **MaxLength**             | Ne          | Maximální délka odpovídající sloupec.                                                                                                                                                                                 |
+| **maxLength**             | Ne          | Maximální délka odpovídající sloupec.                                                                                                                                                                                 |
 | **Hodnoty**           | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, zda se uloží odpovídající hodnotu sloupce jako řetězce pevné délky.                                                                                                              |
 | **Přesnost**             | Ne          | Přesnost odpovídající sloupec.                                                                                                                                                                                      |
 | **Škálování**                 | Ne          | Škálování odpovídající sloupec.                                                                                                                                                                                          |
@@ -1074,11 +1068,11 @@ Omezující vlastnosti v store schema definition language (SSDL) představují o
 
 Následující tabulka popisuje, které jsou podporovány v SSDL omezující vlastnosti:
 
-| Omezující vlastnost           | Popis                                                                                                                                                                                                                                                 |
+| omezující vlastnost           | Popis                                                                                                                                                                                                                                                 |
 |:----------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Kolace**   | Určuje pořadí řazení (nebo pořadí řazení) pro použití při provádění porovnání a řazení operací na hodnotách vlastnosti.                                                                                                             |
 | **Hodnoty** | Určuje, zda se může lišit délka hodnoty sloupce.                                                                                                                                                                                                  |
-| **MaxLength**   | Určuje maximální délku hodnoty sloupce.                                                                                                                                                                                                           |
+| **maxLength**   | Určuje maximální délku hodnoty sloupce.                                                                                                                                                                                                           |
 | **Přesnost**   | Pro vlastnosti typu **desítkové**, určuje počet číslic, může mít hodnotu vlastnosti. Pro vlastnosti typu **čas**, **data a času**, a **DateTimeOffset**, určuje počet číslic za desetinnou čárkou sady sekund hodnotu ve sloupci. |
 | **Škálování**       | Určuje počet číslic vpravo od desetinné čárky pro hodnotu sloupce.                                                                                                                                                                      |
 | **Unicode**     | Určuje, zda hodnota sloupce ukládá jako kódování Unicode.                                                                                                                                                                                                    |

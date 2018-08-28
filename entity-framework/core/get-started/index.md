@@ -1,29 +1,27 @@
 ---
-title: Získávání spuštěno – EF jádra
+title: Získávání spuštění – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
-ms.technology: entity-framework-core
 uid: core/get-started/index
-ms.openlocfilehash: 6bd9d9cc7dfc08261df2e066071632d9ecdfb548
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 144cc8c8c9979e4ce24260c2975e6b10d4fdbb84
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2018
-ms.locfileid: "29152400"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994920"
 ---
 # <a name="getting-started-with-entity-framework-core"></a>Začínáme s Entity Framework Core
 
 ## <a name="installing-ef-coreinstallindexmd"></a>[Instalace EF Core](install/index.md)
 
-Přehled kroky potřebné k přidání EF základní do vaší aplikace v různých platformách a oblíbených integrovaného vývojového prostředí.
+Souhrn kroky potřebné k přidání EF Core do vaší aplikace v různých platformách a oblíbená prostředí IDE.
 
 ## <a name="step-by-step-tutorials"></a>Podrobné kurzy
 
-Tyto kurzy úvodní vyžadují žádné předchozí informace o základní Entity Framework nebo konkrétní IDE. Se přesměruje vás provede procesem vytvoření jednoduché aplikace, která provádí dotazy a uloží data z databáze. Uvádíme kurzy, které vám pomůžou začít na různých operačních systémů a typy aplikací.
+Tyto úvodní kurzy vyžadují žádné předchozí zkušenosti Entity Framework Core nebo konkrétní integrovaného vývojového prostředí. Se vydáte provede vytvoření jednoduché aplikace, která provádí dotazy a uloží data z databáze. Uvádíme kurzy, které vám pomůžou začít s různými operačními systémy a typy aplikací.
 
-Entity Framework Core můžete vytvořit model založený na existující databázi nebo vytvořte databázi založené na modelu. Existují návodů, které ukazují oba tyto přístupy.
+Entity Framework Core můžete vytvořit model založený na existující databázi nebo vytvoření databáze založené na modelu. Existují návody, které ilustrují oba tyto přístupy.
 
 > [!NOTE]  
-> Tyto kurzy a doprovodné ukázky byly aktualizovány na používání EF základní 2.0 (s výjimkou kurzu UPW, kterém se ještě používá EF základní 1.1). Ale ve většině případů to musí být možné vytvořit aplikace, které používají předchozích verzích s minimální změny podle pokynů. 
+> Tyto kurzy a ukázky související se aktualizovaly používat EF Core 2.0 (s výjimkou kurz UPW, která stále používá EF Core 1.1). Ale ve většině případů je třeba možné vytvořit aplikace, které používají předchozích verzích se vyžaduje minimální úpravy na pokyny k. 

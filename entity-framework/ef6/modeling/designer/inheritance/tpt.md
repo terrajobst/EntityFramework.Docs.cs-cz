@@ -2,19 +2,13 @@
 title: Návrháře TPT dědičnosti - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: efc78c31-b4ea-4ea3-a0cd-c69eb507020e
-caps.latest.revision: 3
-ms.openlocfilehash: c3ccb44f931b830a96a553d5af1e722a9ca4bbf0
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 68980fa89446940b8b7f5f73c519d38e727a9039
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912829"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996345"
 ---
 # <a name="designer-tpt-inheritance"></a>Návrháře TPT dědičnosti
 Tento podrobný návod ukazuje, jak implementovat za typ tabulky (TPT) dědičnosti ve vašem modelu pomocí návrháře Entity Framework (EF designeru). Dědičnost na typ tabulka používá do samostatné tabulky v databázi zachovat data pro-zděděné vlastnosti a vlastnosti klíče pro každý typ v hierarchii dědičnosti.

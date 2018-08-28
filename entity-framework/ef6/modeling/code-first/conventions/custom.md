@@ -2,19 +2,13 @@
 title: Vlastní kód první konvence - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
-caps.latest.revision: 3
-ms.openlocfilehash: 24d6f1bd5eb2ff8be59b9eedd1c4156709fa42fb
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: 79450790c6d3c8ce7fad209e3946e81d3fad4b75
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914251"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995825"
 ---
 # <a name="custom-code-first-conventions"></a>První vytváření vlastního kódu
 > [!NOTE]
@@ -206,7 +200,7 @@ V tomto příkladu budeme aktualizovat naše atribut a změňte ji na atribut Is
     }
 ```
 
-Jakmile budeme mít, jsme nastavili bool na naše atribut říct úmluvy Určuje, jestli vlastnost by měla být v kódování Unicode. Pomocí konvencí tímto způsobem znamená, že můžete zadat obecné konvence pro typy nebo vlastnosti v modelu a poté toto pro podmnožiny, které se liší.
+Jakmile budeme mít, jsme nastavili bool na naše atribut říct úmluvy Určuje, jestli vlastnost by měla být v kódování Unicode. Můžeme to udělat v konvenci, která jsme již díky přístupu do ClrProperty třídu konfigurace takto:
 
 ``` csharp
     modelBuilder.Properties()
@@ -214,7 +208,7 @@ Jakmile budeme mít, jsme nastavili bool na naše atribut říct úmluvy Určuje
                 .Configure(c => c.IsUnicode(c.ClrPropertyInfo.GetCustomAttribute<IsUnicode>().Unicode));
 ```
 
-Rozhraní Fluent API a anotacemi dat lze použít také k přepsání konvence ve zvláštních případech. V našem příkladu rozhraní Fluent API měli použili k nastavení maximální délka vlastnosti pak jsme může mít ji umístit před nebo po konvence, protože konkrétnější rozhraní Fluent API vyhraje přes obecnější konvence konfigurace. Integrované konvence Protože konvence vlastní mohou být ovlivněny výchozích konvencí Code First, může být užitečné pro přidání konvence pro spuštění před nebo po jiném konvence.
+Toto je docela jednoduché, ale není tak stručnější hodí pomocí Having metodu vytváření rozhraní API. S metoda má parametr typu Func&lt;PropertyInfo, T&gt; která přijímá PropertyInfo stejný jako Where metody, ale očekává se vrátit objekt. Pokud vrácený objekt má hodnotu null, pak vlastnost nenakonfigurují, což znamená, že můžete filtrovat vlastnosti s ní stejně jako Where, ale se liší, bude také zaznamenání vráceného objektu a předejte metodě konfigurace. Tento postup funguje takto:
 
 ``` csharp
     modelBuilder.Properties()
@@ -222,15 +216,15 @@ Rozhraní Fluent API a anotacemi dat lze použít také k přepsání konvence v
                 .Configure((config, att) => config.IsUnicode(att.Unicode));
 ```
 
-K tomu můžete použít metody AddBefore a AddAfter konvence kolekce na odvozené DbContext.
+Vlastní atributy nejsou pouze z důvodu použití Having metoda, je užitečné kdekoli, budete muset o něco, co se na filtrování při konfiguraci typy nebo vlastnosti.
 
  
 
-## <a name="configuring-types"></a>Následující kód přidejte třídu konvence jsme vytvořili dříve, tak, aby se spustí před integrovaná v klíčových zjišťování konvence.
+## <a name="configuring-types"></a>Konfigurace typů
 
-To bude nejvíc použití při přidávání vytváření názvů, které je potřeba spustit před nebo po integrované konvence, seznam integrované vytváření najdete tady: System.Data.Entity.ModelConfiguration.Conventions Namespace . Můžete také odebrat vytváření názvů, které nechcete použít pro váš model.
+Zatím byly všechny naše konvence pro vlastnosti, ale existuje jiné oblasti vytváření rozhraní API pro konfiguraci typy ve vašem modelu. Možnosti jsou podobné zásady, které jsme zatím viděli, ale možnosti konfigurace uvnitř bude na entitu namísto vlastnosti úrovně.
 
-K odebrání konvence, použijte metodu odebrat. Tady je příklad odebrání PluralizingTableNameConvention.
+Jednou z věcí, které mohou být velmi užitečné pro typ úrovně konvence je změna zásady vytváření tabulky mapování na stávajícím schématu, která se liší od výchozí EF nebo vytvořit novou databázi pomocí jiné zásady vytváření názvů. K tomu potřeba nejdřív metodu, která může přijmout TypeInfo pro typ v náš model a vrátit, co by měl být název tabulky pro daný typ:
 
 ``` csharp
     private string GetTableName(Type type)

@@ -1,16 +1,15 @@
 ---
 title: EF Core a EF6 – které jedna je pro vás nejvhodnější
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 288f825b-b3e6-4096-971b-d0a1cb96770e
 uid: efcore-and-ef6/choosing
-ms.openlocfilehash: 17c81e0d6c384c06e45f0cf4f338d4ba402788e1
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 83ae754f899b624d322c48e8de8432b65519546e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949137"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993830"
 ---
 # <a name="ef-core-and-ef6-which-one-is-right-for-you"></a>EF Core a EF6: který z nich je pro vás nejvhodnější
 

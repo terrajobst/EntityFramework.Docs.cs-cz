@@ -1,32 +1,30 @@
 ---
-title: Vytvoření modelu - EF jádra
+title: Vytvoření modelu – EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
-ms.technology: entity-framework-core
 uid: core/modeling/index
-ms.openlocfilehash: 1ad0f6891fbc8ba2e4d102cc9997f053a9dddb66
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 9f702d5833b88e6eb77c0afefdae0ed3bc162ec8
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812434"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993930"
 ---
 # <a name="creating-a-model"></a>Vytvoření modelu
 
-Rozhraní Entity Framework vytvoří pomocí sadu pravidel pro model založený na obrazec třídy entity. Můžete zadat další konfiguraci doplnit nebo přepsat, co byla zjištěna podle konvence.
+Entity Framework používá sadu konvence sestavit model založený na obrazec tříd entit. Můžete zadat další konfiguraci k doplnění a/nebo přepsat, co bylo zjištěno konvencí.
 
-Tento článek se týká konfigurace, který lze použít k modelu cílené na jakékoli úložiště dat a které lze použít, pokud je cílem žádné relační databáze. Zprostředkovatelé může také povolit konfiguraci, která je specifická pro konkrétní datové úložiště. Dokumentaci ke konkrétní konfiguraci poskytovatele najdete v článku [zprostředkovatelů databáze](../providers/index.md) části.
+Tento článek se týká konfigurace, který lze použít k modelu, který cílí na jakékoli úložiště dat a který, který je možné použít při cílení na jakoukoli relační databázi. Poskytovatelé může také umožnit konfiguraci, která je specifická pro konkrétní datové úložiště. Dokumentace ke službě na konkrétní konfiguraci poskytovatele najdete v článku [poskytovatelé databází](../providers/index.md) oddílu.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) na Githubu.
 
-## <a name="methods-of-configuration"></a>Metody konfigurace
+## <a name="methods-of-configuration"></a>Metodě konfigurace
 
 ### <a name="fluent-api"></a>Rozhraní Fluent API
 
-Je možné přepsat `OnModelCreating` metoda v odvozené kontextu a použití `ModelBuilder API` ke konfiguraci modelu. Toto je nejúčinnějších metoda konfigurace a umožňuje konfigurace zadat beze změny třídy entity. Konfigurace Fluent API má nejvyšší prioritu a přepíše poznámky konvence a data.
+Je možné přepsat `OnModelCreating` metoda v odvozené kontextu a použití `ModelBuilder API` ke konfiguraci modelu. Toto je nejvýkonnější metody konfigurace a umožňuje konfiguraci zadat bez změny vašich tříd entit. Konfigurace Fluent API má nejvyšší prioritu a přepíše poznámky konvence a data.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Required.cs?range=5-15&highlight=5-10)] -->
 
@@ -44,9 +42,9 @@ Je možné přepsat `OnModelCreating` metoda v odvozené kontextu a použití `M
     }
 ```
 
-### <a name="data-annotations"></a>Datových poznámek
+### <a name="data-annotations"></a>Datové poznámky
 
-Atributy (označované jako datových poznámek) může platit taky pro třídy a vlastnosti. Poznámky dat se přepíše konvence, ale budou přepsány konfigurace rozhraní Fluent API.
+Můžete také použít atributy (označuje se jako datové poznámky) do vaší třídy a vlastnosti. Datové poznámky přepíše konvence, ale rozhraní Fluent API konfigurace se přepíše.
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/Required.cs?range=11-16&highlight=4)] -->
 ``` csharp

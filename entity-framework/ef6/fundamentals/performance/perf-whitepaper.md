@@ -2,19 +2,13 @@
 title: Faktory ovlivňující výkon u EF4 EF5 a EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-caps.latest.revision: 4
-ms.openlocfilehash: c01cf2b28e56fb73783bd9ed0d133bffa0a7dbe7
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: f71a13ec06ad46259b3f33216367723b53314a5c
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949335"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996745"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Faktory ovlivňující výkon u EF 6, 4 a 5
 David Obando, Eric Dettinger a další
@@ -843,45 +837,45 @@ Porovnat výkon skutečné možností jiný dotaz, vytvořili jsme 5 variace sam
 |:----|:--------------------------------------------|:----------|:---------|
 | EF5 | Příkaz ObjectContext Entity                | 621       | 39350272 |
 | EF5 | Kontext databáze. dotaz Sql na databázi             | 825       | 37519360 |
-| EF5 | Jako příklad toho, co se děje pod pokličkou Předpokládejme, že chcete zadat dotaz pro zákazníky, kteří žijí v Spojeném království a počtu jejich pořadí.                   | Pomocí předběžné načítání       | Pomocí opožděné načtení |
-| EF5 | Objekt ObjectContext Linq dotaz bez sledování        | Pokud používáte předběžné načítání, budete vydávat jeden dotaz, který vrátí všechny zákazníky a všechny objednávky.       | Příkaz úložiště vypadá takto: |
-| EF5 | Při použití opožděné načtení, budete nejdřív vydejte následující dotaz: | A pokaždé, když přistupujete navigační vlastnost objednávky zákazníka úložišti uživatelů, kteří je vydán jiný dotaz podobný tomuto:      | Další informace najdete v tématu načítání související objekty. |
-| EF5 | 8.2.1 opožděné načtení a nemůžou dočkat, až načítání tahák                | Není žádná taková věc, kterou jako univerzální výběrem předběžné načítání a opožděné načtení.      | Zkuste nejdřív znát rozdíly mezi obě strategie tedy můžete také přijímat podložená rozhodnutí; Zvažte také, pokud váš kód odpovídá podmínkám ke kterékoli z následujících scénářů: |
-| EF5 | Dotaz Linq ObjectContext                    | Náš návrh      | Je potřeba pro přístup k mnoha navigační vlastnosti z načtených entity? |
-| EF5 | Žádné sledování dotazu DbContext Linq            | 1208      | Ne -pravděpodobné bude, že obě možnosti. |
-| EF5 | Nicméně pokud datová část, kterou přináší váš dotaz není příliš velký, že může docházet přinese zlepšení výkonu pomocí předběžné načítání, jak tomu budete potřebovat méně síti, zpomalí sloučit objekty.                | Ano – Pokud je potřeba přístup k mnoha navigační vlastnosti z entity, provedli byste, že pomocí několika #include v dotazu se nemůžou dočkat, až načítání.      | Zahrnout další entity, že čím větší datovou část dotaz vrátí. |
-| EF5 | Dotaz Linq DbContext                        | Jakmile zahrnete tři nebo více entit do vašeho dotazu, zvažte možnost opožděné načtení.      | Víte, jaká data přesně bude potřeba v době běhu? |
+| EF5 | Query Store ObjectContext                   | 878       | 39460864 |
+| EF5 | Objekt ObjectContext Linq dotaz bez sledování        | 969       | 38293504 |
+| EF5 | Pomocí dotazu objektu ObjectContext Entity Sql | 1089      | 38981632 |
+| EF5 | Zkompilovaný dotaz ObjectContext                | 1099      | 38682624 |
+| EF5 | Dotaz Linq ObjectContext                    | 1152      | 38178816 |
+| EF5 | Žádné sledování dotazu DbContext Linq            | 1208      | 41803776 |
+| EF5 | Kontext databáze. dotaz Sql na DbSet                | 1414      | 37982208 |
+| EF5 | Dotaz Linq DbContext                        | 1574      | 41738240 |
 |     |                                             |           |          |
-| EF6 | Příkaz ObjectContext Entity                | 480       | Ne – opožděné načtení bude lepší za vás. |
-| EF6 | Jako příklad toho, co se děje pod pokličkou Předpokládejme, že chcete zadat dotaz pro zákazníky, kteří žijí v Spojeném království a počtu jejich pořadí.                   | Jinak můžete skončit dotazování na data, že nebudete potřebovat.       | Ano – nemůžou dočkat, až načítání je pravděpodobně nejlepším řešením; pomůže to zrychlení načítání celé sady. |
-| EF6 | Kontext databáze. dotaz Sql na databázi             | 614       | Pokud váš dotaz vyžaduje načítají velké množství dat a toto řešení je příliš pomalé, zkuste opožděné načtení místo. |
-| EF6 | Objekt ObjectContext Linq dotaz bez sledování        | Váš kód spouští daleko od databáze?       | (latence sítě) |
-| EF6 | Při použití opožděné načtení, budete nejdřív vydejte následující dotaz: | Ne – Pokud latence sítě není problém, pomocí opožděné načtení může zjednodušit kód.       | Mějte na paměti, že topologii vaší aplikace se může změnit postupně nevyřídí databáze blízkosti samozřejmost tedy. |
-| EF6 | 8.2.1 opožděné načtení a nemůžou dočkat, až načítání tahák                | Ano – Pokud síť není problém, pouze se můžete rozhodnout, co lépe vyhovuje vašemu scénáři.       | Předběžné načítání obvykle bude lepší, protože vyžaduje menší počet zpátečních cest. |
-| EF6 | Žádné sledování dotazu DbContext Linq            | Pomocí předběžné načítání       | 8.2.2 aspekty výkonu s více zahrnuje |
-| EF6 | Dotaz Linq ObjectContext                    | Slyšeli jsme, že otázky výkonu, které zahrnují problémech čas odpovědi serveru, příčinu problému při často dotazy s více příkazy Include.       | Zatímco včetně souvisejících entit v dotazu je efektivní, je důležité pochopit, co se děje na pozadí. |
-| EF6 | Nicméně pokud datová část, kterou přináší váš dotaz není příliš velký, že může docházet přinese zlepšení výkonu pomocí předběžné načítání, jak tomu budete potřebovat méně síti, zpomalí sloučit objekty.                | 1023      | Trvá poměrně dlouho pro dotaz s více příkazy Include tak, projděte si naše interní plán kompilátor vytvoří příkaz úložiště. |
-| EF6 | Dotaz Linq DbContext                        | Většina této doby se věnovalo snaze optimalizovat výsledný dotaz.      | Příkaz generované úložiště bude obsahovat Outer Join nebo sjednocení pro každé zahrnutí, v závislosti na vaší mapování. |
+| EF6 | Příkaz ObjectContext Entity                | 480       | 47247360 |
+| EF6 | Query Store ObjectContext                   | 493       | 46739456 |
+| EF6 | Kontext databáze. dotaz Sql na databázi             | 614       | 41607168 |
+| EF6 | Objekt ObjectContext Linq dotaz bez sledování        | 684       | 46333952 |
+| EF6 | Pomocí dotazu objektu ObjectContext Entity Sql | 767       | 48865280 |
+| EF6 | Zkompilovaný dotaz ObjectContext                | 788       | 48467968 |
+| EF6 | Žádné sledování dotazu DbContext Linq            | 878       | 47554560 |
+| EF6 | Dotaz Linq ObjectContext                    | 953       | 47632384 |
+| EF6 | Kontext databáze. dotaz Sql na DbSet                | 1023      | 41992192 |
+| EF6 | Dotaz Linq DbContext                        | . 1290      | 47529984 |
 
 
-![Dotazy, jako je následně v připojených velkých grafů z databáze v jedné datové části, která bude acerbate jakékoli potíže se šířkou pásma, zejména v případě, že dochází k mnoha redundance v datové části (tj. s více úrovní zahrnout k procházení přidružení v Směr 1 n).](~/ef6/media/ef5warmquery1000.png)
+![EF5WarmQuery1000](~/ef6/media/ef5warmquery1000.png)
 
-![Můžete zkontrolovat pro případy, kde dotazů jako nadměrně velké datové části vrací tak přístup k podkladové TSQL pro dotaz s použitím ToTraceString a spouští se příkaz úložiště v SQL Server Management Studio zobrazíte velikost datové části.](~/ef6/media/ef6warmquery1000.png)
+![EF6WarmQuery1000](~/ef6/media/ef6warmquery1000.png)
 
 > [!NOTE]
-> V takovém případě můžete zkusit snížit počet vložených příkazů v dotazu jenom umožňuje přinést si data, která potřebujete. Nebo je možné rozdělit svůj dotaz na menší posloupnost poddotazy, například: Před dopadem na dřívější kód dotazu:
+> Pro úplnost jsme zahrnuli variace, kde jsme na EntityCommand spuštění dotazu Entity SQL. Ale protože výsledky nejsou vyhodnocena pro takové dotazy, porovnání, není nutně jablka jablka. Test zahrnuje aproximace pro materializaci vyzkoušet srovnávání spravedlivější.
 
-Po rozdělení dotazu:
+V tomto případě začátku do konce, Entity Framework 6 lepší výkon než Entity Framework 5 z důvodu vylepšení výkonu na několik částí zásobníku, včetně mnohem míň DbContext inicializace a rychlejší MetadataCollection&lt;T&gt; vyhledávání.
 
-## <a name="7-design-time-performance-considerations"></a>Bude to fungovat jenom u sledovaných dotazy, jak provádíme použijte možnost kontextu má provádět překlad IP adres a přidružení oprava identity.
+## <a name="7-design-time-performance-considerations"></a>Faktory ovlivňující výkon čas návrh 7
 
-### <a name="71-------inheritance-strategies"></a>Stejně jako u opožděné načtení, bude kompromis více dotazů pro menší datové části.
+### <a name="71-------inheritance-strategies"></a>7.1 strategie dědičnosti
 
-Projekce jednotlivé vlastnosti můžete použít také explicitně vybrat pouze potřebná data z jednotlivých entit, ale můžete nesmí být načítání entit v tomto případě a aktualizace nebudou podporovány. 8.2.3 alternativní řešení Chcete-li získat opožděné načtení vlastností
+Dalším aspektem výkon při použití rozhraní Entity Framework je strategie dědičnosti, které používáte. Entity Framework podporuje 3 základní typy dědičnosti a jejich kombinace:
 
--   Entity Framework v současné době nepodporuje opožděné načtení skalární nebo komplexní vlastností.
--   Ale v případech, kdy máte tabulku, která zahrnuje velkých objektů, jako je například objekt BLOB, můžete rozdělení tabulky rozčlenit velké vlastnosti do samostatné entity.
--   Předpokládejme například, že máte tabulku produktů, která zahrnuje sloupce varbinary fotografii.
+-   V řádku je reprezentované tabulky na hierarchii (TPH) – kde každý dědičnosti nastavit mapování na tabulku s sloupec diskriminátoru, který označuje, který konkrétní typ v hierarchii.
+-   Tabulky podle typu (TPT) – kam každý typ má své vlastní tabulky v databázi. podřízené tabulky definovat pouze sloupce, které neobsahuje nadřazené tabulky.
+-   Tabulky podle třídy (TPC) – kam každý typ má své vlastní celou tabulku v databázi. podřízené tabulky definovat všechny jejich polí, včetně těch, které definovaný v nadřazené typy.
 
 Používá-li model dědičnosti TPT, dotazy, které se generují bude složitější než ty, které jsou generovány s dalšími strategiemi dědičnosti, což může způsobit na delší dobu provádění ve storu.  Obecně bude trvat déle, vygenerujte dotazy TPT modelu a materializovat výsledných objektech.
 
