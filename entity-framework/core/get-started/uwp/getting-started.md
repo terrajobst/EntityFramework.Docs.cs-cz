@@ -1,157 +1,166 @@
 ---
-title: Začínáme na základní EF UWP - novou databázi –
+title: Začínáme na UPW – nová databáze – EF Core
 author: rowanmiller
-ms.author: divega
-ms.date: 10/27/2016
-ms.topic: get-started-article
+ms.date: 08/08/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
-ms.technology: entity-framework-core
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: f743ff5392d1f30283a13d2e7fb8029be88387aa
-ms.sourcegitcommit: 96324e58c02b97277395ed43173bf13ac80d2012
+ms.openlocfilehash: c243ef2a1940af9bf4f4b32f17acfcce7f972862
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/01/2017
-ms.locfileid: "26054814"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996907"
 ---
-# <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a><span data-ttu-id="dd893-102">Začínáme s EF základní na univerzální platformu Windows (UWP) s novou databázi</span><span class="sxs-lookup"><span data-stu-id="dd893-102">Getting Started with EF Core on Universal Windows Platform (UWP) with a New Database</span></span>
+# <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a><span data-ttu-id="9e087-102">Začínáme s EF Core na Universal Windows Platform (UWP) s novou databázi</span><span class="sxs-lookup"><span data-stu-id="9e087-102">Getting Started with EF Core on Universal Windows Platform (UWP) with a New Database</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="dd893-103">Tento kurz používá základní EF 2.0.1 (vydané spolu s ASP.NET Core a .NET Core SDK 2.0.3).</span><span class="sxs-lookup"><span data-stu-id="dd893-103">This tutorial uses EF Core 2.0.1 (released alongside ASP.NET Core and .NET Core SDK 2.0.3).</span></span> <span data-ttu-id="dd893-104">Základní EF 2.0.0 chybí některé zásadní opravy chyb, které jsou potřebné pro dobrý UWP prostředí.</span><span class="sxs-lookup"><span data-stu-id="dd893-104">EF Core 2.0.0 lacks some crucial bug fixes required for a good UWP experience.</span></span>
+<span data-ttu-id="9e087-103">V tomto kurzu vytvoříte aplikaci univerzální platformy Windows (UPW), který provádí základní přístup k datům s použitím Entity Framework Core místní databázi SQLite.</span><span class="sxs-lookup"><span data-stu-id="9e087-103">In this tutorial, you build a Universal Windows Platform (UWP) application that performs basic data access against a local SQLite database using Entity Framework Core.</span></span>
 
-<span data-ttu-id="dd893-105">V tomto návodu vytvoříte univerzální platformu Windows (UWP) aplikace, která provádí základní data přístup k místní databázi SQLite používající rozhraní Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="dd893-105">In this walkthrough, you will build a Universal Windows Platform (UWP) application that performs basic data access against a local SQLite database using Entity Framework.</span></span>
+<span data-ttu-id="9e087-104">[Zobrazit ukázky v tomto článku na Githubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP).</span><span class="sxs-lookup"><span data-stu-id="9e087-104">[View this article's sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP).</span></span>
+
+## <a name="prerequisites"></a><span data-ttu-id="9e087-105">Požadavky</span><span class="sxs-lookup"><span data-stu-id="9e087-105">Prerequisites</span></span>
+
+* <span data-ttu-id="9e087-106">[Windows 10 Fall Creators Update (10.0; Sestavení 16299) nebo novější](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10).</span><span class="sxs-lookup"><span data-stu-id="9e087-106">[Windows 10 Fall Creators Update (10.0; Build 16299) or later](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10).</span></span>
+
+* <span data-ttu-id="9e087-107">[Visual Studio 2017 verze 15.7 nebo novější](https://www.visualstudio.com/downloads/) s **vývoj pro univerzální platformu Windows** pracovního vytížení.</span><span class="sxs-lookup"><span data-stu-id="9e087-107">[Visual Studio 2017 version 15.7 or later](https://www.visualstudio.com/downloads/) with the **Universal Windows Platform Development** workload.</span></span>
+
+* <span data-ttu-id="9e087-108">[Sady SDK .NET core 2.1 nebo novější](https://www.microsoft.com/net/core) nebo novější.</span><span class="sxs-lookup"><span data-stu-id="9e087-108">[.NET Core 2.1 SDK or later](https://www.microsoft.com/net/core) or later.</span></span>
+
+## <a name="create-a-model-project"></a><span data-ttu-id="9e087-109">Vytvoření projektu s modelem</span><span class="sxs-lookup"><span data-stu-id="9e087-109">Create a model project</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="dd893-106">**Zvažte vyloučení anonymní typy v dotazech LINQ na UWP**.</span><span class="sxs-lookup"><span data-stu-id="dd893-106">**Consider avoiding anonymous types in LINQ queries on UWP**.</span></span> <span data-ttu-id="dd893-107">Nasazení aplikace UWP k obchodu s aplikacemi vyžaduje vaše aplikace a má kompilovat s .NET Native.</span><span class="sxs-lookup"><span data-stu-id="dd893-107">Deploying a UWP application to the app store requires your application to be compiled with .NET Native.</span></span> <span data-ttu-id="dd893-108">Dotazy s anonymní typy mít zhoršení výkonu .NET Native.</span><span class="sxs-lookup"><span data-stu-id="dd893-108">Queries with anonymous types have worse performance on .NET Native.</span></span>
+> <span data-ttu-id="9e087-110">Vzhledem k omezením způsobem nástroje .NET Core pracovat s projekty UWP v modelu musí být umístěny v projektu bez UPW budete moci spouštět příkazy migrace **Konzola správce balíčků** (PMC)</span><span class="sxs-lookup"><span data-stu-id="9e087-110">Due to limitations in the way .NET Core tools interact with UWP projects the model needs to be placed in a non-UWP project to be able to run migrations commands in the **Package Manager Console** (PMC)</span></span>
 
-> [!TIP]
-> <span data-ttu-id="dd893-109">Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP/UWP.SQLite) na Githubu.</span><span class="sxs-lookup"><span data-stu-id="dd893-109">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/UWP/UWP.SQLite) on GitHub.</span></span>
+* <span data-ttu-id="9e087-111">Otevřít Visual Studio</span><span class="sxs-lookup"><span data-stu-id="9e087-111">Open Visual Studio</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="dd893-110">Požadavky</span><span class="sxs-lookup"><span data-stu-id="dd893-110">Prerequisites</span></span>
+* <span data-ttu-id="9e087-112">**Soubor > Nový > Projekt**</span><span class="sxs-lookup"><span data-stu-id="9e087-112">**File > New > Project**</span></span>
 
-<span data-ttu-id="dd893-111">Následující položky jsou nutné k dokončení tohoto návodu:</span><span class="sxs-lookup"><span data-stu-id="dd893-111">The following items are required to complete this walkthrough:</span></span>
+* <span data-ttu-id="9e087-113">V levé nabídce vyberte **nainstalováno > Visual C# > .NET Standard**.</span><span class="sxs-lookup"><span data-stu-id="9e087-113">From the left menu select **Installed > Visual C# > .NET Standard**.</span></span>
 
-* <span data-ttu-id="dd893-112">[Aktualizace Windows 10 patří Creators](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10) (10.0.16299.0)</span><span class="sxs-lookup"><span data-stu-id="dd893-112">[Windows 10 Fall Creators Update](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10) (10.0.16299.0)</span></span>
+* <span data-ttu-id="9e087-114">Vyberte **knihovna tříd (.NET Standard)** šablony.</span><span class="sxs-lookup"><span data-stu-id="9e087-114">Select the **Class Library (.NET Standard)** template.</span></span>
 
-* <span data-ttu-id="dd893-113">[.NET core 2.0.0 SDK](https://www.microsoft.com/net/core) nebo novější.</span><span class="sxs-lookup"><span data-stu-id="dd893-113">[.NET Core 2.0.0 SDK](https://www.microsoft.com/net/core) or later.</span></span>
+* <span data-ttu-id="9e087-115">Pojmenujte projekt *Blogging.Model*.</span><span class="sxs-lookup"><span data-stu-id="9e087-115">Name the project *Blogging.Model*.</span></span>
 
-* <span data-ttu-id="dd893-114">[Visual Studio 2017](https://www.visualstudio.com/downloads/) verze 15,4 nebo novější s **Universal Windows Platform Development** zatížení.</span><span class="sxs-lookup"><span data-stu-id="dd893-114">[Visual Studio 2017](https://www.visualstudio.com/downloads/) version 15.4 or later with the **Universal Windows Platform Development** workload.</span></span>
+* <span data-ttu-id="9e087-116">Pojmenujte řešení *blogovací*.</span><span class="sxs-lookup"><span data-stu-id="9e087-116">Name the solution *Blogging*.</span></span>
 
-## <a name="create-a-new-model-project"></a><span data-ttu-id="dd893-115">Vytvoření nového projektu modelu</span><span class="sxs-lookup"><span data-stu-id="dd893-115">Create a new model project</span></span>
+* <span data-ttu-id="9e087-117">Klikněte na tlačítko **OK**.</span><span class="sxs-lookup"><span data-stu-id="9e087-117">Click **OK**.</span></span>
 
-> [!WARNING]
-> <span data-ttu-id="dd893-116">Z důvodu omezení v nástrojích pro .NET Core způsob, jak pracovat s projekty UWP, které model musí být umístěny v jiných UWP projektu mohli ke spuštění příkazů migrace v konzole Správce balíčků</span><span class="sxs-lookup"><span data-stu-id="dd893-116">Due to limitations in the way .NET Core tools interact with UWP projects the model needs to be placed in a non-UWP project to be able to run migrations commands in the Package Manager Console</span></span>
+## <a name="install-entity-framework-core"></a><span data-ttu-id="9e087-118">Nainstalujte Entity Framework Core</span><span class="sxs-lookup"><span data-stu-id="9e087-118">Install Entity Framework Core</span></span>
 
-* <span data-ttu-id="dd893-117">Otevřete Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd893-117">Open Visual Studio</span></span>
+<span data-ttu-id="9e087-119">Použití EF Core, nainstalujte balíček pro poskytovatelů databáze, kterou chcete cílit.</span><span class="sxs-lookup"><span data-stu-id="9e087-119">To use EF Core, install the package for the database provider(s) you want to target.</span></span> <span data-ttu-id="9e087-120">Tento kurz používá SQLite.</span><span class="sxs-lookup"><span data-stu-id="9e087-120">This tutorial uses SQLite.</span></span> <span data-ttu-id="9e087-121">Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="9e087-121">For a list of available providers see [Database Providers](../../providers/index.md).</span></span>
 
-* <span data-ttu-id="dd893-118">Soubor > Nový > projekt...</span><span class="sxs-lookup"><span data-stu-id="dd893-118">File > New > Project...</span></span>
+* <span data-ttu-id="9e087-122">**Nástroje > Správce balíčků NuGet > Konzola správce balíčků**.</span><span class="sxs-lookup"><span data-stu-id="9e087-122">**Tools > NuGet Package Manager > Package Manager Console**.</span></span>
 
-* <span data-ttu-id="dd893-119">V levé nabídce vyberte šablony > Visual C#</span><span class="sxs-lookup"><span data-stu-id="dd893-119">From the left menu select Templates > Visual C#</span></span>
+* <span data-ttu-id="9e087-123">Spustit `Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span><span class="sxs-lookup"><span data-stu-id="9e087-123">Run `Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span></span>
 
-* <span data-ttu-id="dd893-120">Vyberte **knihovny tříd (.NET Standard)** šablona projektu</span><span class="sxs-lookup"><span data-stu-id="dd893-120">Select the **Class Library (.NET Standard)** project template</span></span>
+<span data-ttu-id="9e087-124">Později v tomto kurzu budete používat některé nástroje Entity Framework Core pro správnou údržbu databáze.</span><span class="sxs-lookup"><span data-stu-id="9e087-124">Later in this tutorial you will be using some Entity Framework Core tools to maintain the database.</span></span> <span data-ttu-id="9e087-125">Balíček nástroje tak instalaci.</span><span class="sxs-lookup"><span data-stu-id="9e087-125">So install the tools package as well.</span></span>
 
-* <span data-ttu-id="dd893-121">Pojmenujte projekt a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="dd893-121">Give the project a name and click **OK**</span></span>
+* <span data-ttu-id="9e087-126">Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`</span><span class="sxs-lookup"><span data-stu-id="9e087-126">Run `Install-Package Microsoft.EntityFrameworkCore.Tools`</span></span>
 
-## <a name="install-entity-framework"></a><span data-ttu-id="dd893-122">Nainstalujte rozhraní Entity Framework</span><span class="sxs-lookup"><span data-stu-id="dd893-122">Install Entity Framework</span></span>
+## <a name="create-the-model"></a><span data-ttu-id="9e087-127">Vytvoření modelu</span><span class="sxs-lookup"><span data-stu-id="9e087-127">Create the model</span></span>
 
-<span data-ttu-id="dd893-123">Abyste mohli používat EF jádra, nainstalujte balíček pro následující zprostředkovatele databáze, kterou chcete zacílit.</span><span class="sxs-lookup"><span data-stu-id="dd893-123">To use EF Core, install the package for the database provider(s) you want to target.</span></span> <span data-ttu-id="dd893-124">Tento návod používá SQLite.</span><span class="sxs-lookup"><span data-stu-id="dd893-124">This walkthrough uses SQLite.</span></span> <span data-ttu-id="dd893-125">Seznam dostupných zprostředkovatelů naleznete v části [zprostředkovatelů databáze](../../providers/index.md).</span><span class="sxs-lookup"><span data-stu-id="dd893-125">For a list of available providers see [Database Providers](../../providers/index.md).</span></span>
+<span data-ttu-id="9e087-128">Nyní je možné definovat kontext a entity třídy, které tvoří modelu.</span><span class="sxs-lookup"><span data-stu-id="9e087-128">Now it's time to define a context and entity classes that make up the model.</span></span>
 
-* <span data-ttu-id="dd893-126">Nástroje > Správce balíčků NuGet > Konzola správce balíčků</span><span class="sxs-lookup"><span data-stu-id="dd893-126">Tools > NuGet Package Manager > Package Manager Console</span></span>
+* <span data-ttu-id="9e087-129">Odstranit *Class1.cs*.</span><span class="sxs-lookup"><span data-stu-id="9e087-129">Delete *Class1.cs*.</span></span>
 
-* <span data-ttu-id="dd893-127">Spustit`Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span><span class="sxs-lookup"><span data-stu-id="dd893-127">Run `Install-Package Microsoft.EntityFrameworkCore.Sqlite`</span></span>
+* <span data-ttu-id="9e087-130">Vytvoření *Model.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="9e087-130">Create *Model.cs* with the following code:</span></span>
 
-<span data-ttu-id="dd893-128">Dále v tomto návodu také použijeme některé nástroje Entity Framework pro správnou údržbu databáze.</span><span class="sxs-lookup"><span data-stu-id="dd893-128">Later in this walkthrough we will also be using some Entity Framework Tools to maintain the database.</span></span> <span data-ttu-id="dd893-129">Proto se nainstaluje balíček nástroje.</span><span class="sxs-lookup"><span data-stu-id="dd893-129">So we will install the tools package as well.</span></span>
+  [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.Model/Model.cs)]
 
-* <span data-ttu-id="dd893-130">Spustit`Install-Package Microsoft.EntityFrameworkCore.Tools`</span><span class="sxs-lookup"><span data-stu-id="dd893-130">Run `Install-Package Microsoft.EntityFrameworkCore.Tools`</span></span>
+## <a name="create-a-new-uwp-project"></a><span data-ttu-id="9e087-131">Vytvoření nového projektu pro UPW</span><span class="sxs-lookup"><span data-stu-id="9e087-131">Create a new UWP project</span></span>
 
-* <span data-ttu-id="dd893-131">Upravte soubor .csproj a nahraďte `<TargetFramework>netstandard2.0</TargetFramework>` s`<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>`</span><span class="sxs-lookup"><span data-stu-id="dd893-131">Edit the .csproj file and replace `<TargetFramework>netstandard2.0</TargetFramework>` with `<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>`</span></span>
+* <span data-ttu-id="9e087-132">V **Průzkumníka řešení**, klikněte pravým tlačítkem na řešení a klikněte na tlačítko **Přidat > Nový projekt**.</span><span class="sxs-lookup"><span data-stu-id="9e087-132">In **Solution Explorer**, right-click the solution, and then choose **Add > New Project**.</span></span>
 
-## <a name="create-your-model"></a><span data-ttu-id="dd893-132">Vytvoření modelu</span><span class="sxs-lookup"><span data-stu-id="dd893-132">Create your model</span></span>
+* <span data-ttu-id="9e087-133">V levé nabídce vyberte **nainstalováno > Visual C# > Windows Universal**.</span><span class="sxs-lookup"><span data-stu-id="9e087-133">From the left menu select **Installed > Visual C# > Windows Universal**.</span></span>
 
-<span data-ttu-id="dd893-133">Nyní je čas k definování kontextu a entity tříd, které tvoří modelu.</span><span class="sxs-lookup"><span data-stu-id="dd893-133">Now it's time to define a context and entity classes that make up your model.</span></span>
+* <span data-ttu-id="9e087-134">Vyberte **prázdná aplikace (Universal Windows)** šablony projektu.</span><span class="sxs-lookup"><span data-stu-id="9e087-134">Select the **Blank App (Universal Windows)** project template.</span></span>
 
-* <span data-ttu-id="dd893-134">Projekt > přidejte třídu...</span><span class="sxs-lookup"><span data-stu-id="dd893-134">Project > Add Class...</span></span>
+* <span data-ttu-id="9e087-135">Pojmenujte projekt *Blogging.UWP*a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="9e087-135">Name the project *Blogging.UWP*, and click **OK**</span></span>
 
-* <span data-ttu-id="dd893-135">Zadejte *Model.cs* jako název a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="dd893-135">Enter *Model.cs* as the name and click **OK**</span></span>
+* <span data-ttu-id="9e087-136">Nastavte cílovou a minimální verze na alespoň **Windows 10 Fall Creators Update (10.0; sestavení 16299.0)**.</span><span class="sxs-lookup"><span data-stu-id="9e087-136">Set the target and minimum versions to at least **Windows 10 Fall Creators Update (10.0; build 16299.0)**.</span></span>
 
-* <span data-ttu-id="dd893-136">Obsah souboru nahraďte následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="dd893-136">Replace the contents of the file with the following code</span></span>
+## <a name="create-the-initial-migration"></a><span data-ttu-id="9e087-137">Vytvoření počáteční migraci</span><span class="sxs-lookup"><span data-stu-id="9e087-137">Create the initial migration</span></span>
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.Model/Model.cs)]
+<span data-ttu-id="9e087-138">Teď, když máte model, nastavte pro vytvoření databáze při prvním spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="9e087-138">Now that you have a model, set up the app to create a database the first time it runs.</span></span> <span data-ttu-id="9e087-139">V této části vytvoříte počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="9e087-139">In this section, you create the initial migration.</span></span> <span data-ttu-id="9e087-140">V následující části přidáte kód, který použije tuto migraci při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="9e087-140">In the following section, you add code that applies this migration when the app starts.</span></span>
 
-## <a name="create-a-new-uwp-project"></a><span data-ttu-id="dd893-137">Vytvoření nového projektu UPW</span><span class="sxs-lookup"><span data-stu-id="dd893-137">Create a new UWP project</span></span>
+<span data-ttu-id="9e087-141">Nástroje pro migraci vyžadovat při spuštění projektu bez UPW, takže nyní vytvořte.</span><span class="sxs-lookup"><span data-stu-id="9e087-141">Migrations tools require a non-UWP startup project, so create that first.</span></span>
 
-* <span data-ttu-id="dd893-138">Otevřete Visual Studio</span><span class="sxs-lookup"><span data-stu-id="dd893-138">Open Visual Studio</span></span>
+* <span data-ttu-id="9e087-142">V **Průzkumníka řešení**, klikněte pravým tlačítkem na řešení a klikněte na tlačítko **Přidat > Nový projekt**.</span><span class="sxs-lookup"><span data-stu-id="9e087-142">In **Solution Explorer**, right-click the solution, and then choose **Add > New Project**.</span></span>
 
-* <span data-ttu-id="dd893-139">Soubor > Nový > projekt...</span><span class="sxs-lookup"><span data-stu-id="dd893-139">File > New > Project...</span></span>
+* <span data-ttu-id="9e087-143">V levé nabídce vyberte **nainstalováno > Visual C# > .NET Core**.</span><span class="sxs-lookup"><span data-stu-id="9e087-143">From the left menu select **Installed > Visual C# > .NET Core**.</span></span>
 
-* <span data-ttu-id="dd893-140">V levé nabídce vyberte šablony > Visual C# > univerzální pro Windows</span><span class="sxs-lookup"><span data-stu-id="dd893-140">From the left menu select Templates > Visual C# > Windows Universal</span></span>
+* <span data-ttu-id="9e087-144">Vyberte **Konzolová aplikace (.NET Core)** šablony projektu.</span><span class="sxs-lookup"><span data-stu-id="9e087-144">Select the **Console App (.NET Core)** project template.</span></span>
 
-* <span data-ttu-id="dd893-141">Vyberte **prázdná aplikace (univerzální pro Windows)** šablona projektu</span><span class="sxs-lookup"><span data-stu-id="dd893-141">Select the **Blank App (Universal Windows)** project template</span></span>
+* <span data-ttu-id="9e087-145">Pojmenujte projekt *Blogging.Migrations.Startup*a klikněte na tlačítko **OK**.</span><span class="sxs-lookup"><span data-stu-id="9e087-145">Name the project *Blogging.Migrations.Startup*, and click **OK**.</span></span>
 
-* <span data-ttu-id="dd893-142">Pojmenujte projekt a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="dd893-142">Give the project a name and click **OK**</span></span>
+* <span data-ttu-id="9e087-146">Přidat odkaz na projekt z *Blogging.Migrations.Startup* projektu *Blogging.Model* projektu.</span><span class="sxs-lookup"><span data-stu-id="9e087-146">Add a project reference from the *Blogging.Migrations.Startup* project to the *Blogging.Model* project.</span></span>
 
-* <span data-ttu-id="dd893-143">Nastavte alespoň cíl a minimální verze`Windows 10 Fall Creators Update (10.0; build 16299.0)`</span><span class="sxs-lookup"><span data-stu-id="dd893-143">Set the target and minimum versions to at least `Windows 10 Fall Creators Update (10.0; build 16299.0)`</span></span>
+<span data-ttu-id="9e087-147">Nyní můžete vytvořit počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="9e087-147">Now you can create your initial migration.</span></span>
 
-## <a name="create-your-database"></a><span data-ttu-id="dd893-144">Vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="dd893-144">Create your database</span></span>
+* <span data-ttu-id="9e087-148">**Nástroje > Správce balíčků NuGet > Konzola správce balíčků**</span><span class="sxs-lookup"><span data-stu-id="9e087-148">**Tools > NuGet Package Manager > Package Manager Console**</span></span>
 
-<span data-ttu-id="dd893-145">Teď, když máte model, můžete k vytvoření databáze pro vás migrace.</span><span class="sxs-lookup"><span data-stu-id="dd893-145">Now that you have a model, you can use migrations to create a database for you.</span></span>
+* <span data-ttu-id="9e087-149">Vyberte *Blogging.Model* projektu jako **výchozí projekt**.</span><span class="sxs-lookup"><span data-stu-id="9e087-149">Select the *Blogging.Model* project as the **Default project**.</span></span>
 
-* <span data-ttu-id="dd893-146">Nástroje pro –> balíček NuGet Manager –> Konzola správce balíčků</span><span class="sxs-lookup"><span data-stu-id="dd893-146">Tools –> NuGet Package Manager –> Package Manager Console</span></span>
+* <span data-ttu-id="9e087-150">V **Průzkumníka řešení**, nastavte *Blogging.Migrations.Startup* projekt jako spouštěný projekt.</span><span class="sxs-lookup"><span data-stu-id="9e087-150">In **Solution Explorer**, set the *Blogging.Migrations.Startup* project as the startup project.</span></span>
 
-* <span data-ttu-id="dd893-147">Vyberte model projekt jako výchozí projekt a nastavte jej jako projekt po spuštění</span><span class="sxs-lookup"><span data-stu-id="dd893-147">Select the model project as the Default project and set it as the startup project</span></span>
+* <span data-ttu-id="9e087-151">Spustit `Add-Migration InitialCreate`.</span><span class="sxs-lookup"><span data-stu-id="9e087-151">Run `Add-Migration InitialCreate`.</span></span>
 
-* <span data-ttu-id="dd893-148">Spustit `Add-Migration MyFirstMigration` chcete vygenerovat migraci k vytvoření počáteční sadu tabulek pro váš model.</span><span class="sxs-lookup"><span data-stu-id="dd893-148">Run `Add-Migration MyFirstMigration` to scaffold a migration to create the initial set of tables for your model.</span></span>
+  <span data-ttu-id="9e087-152">Tento příkaz vygeneruje uživatelské rozhraní, které vytvoří počáteční sadu tabulek pro váš model migrace.</span><span class="sxs-lookup"><span data-stu-id="9e087-152">This command scaffolds a migration that creates the initial set of tables for your model.</span></span>
 
-<span data-ttu-id="dd893-149">Vzhledem k tomu, že chceme databáze má být vytvořena na zařízení, které aplikace běží na, přidáme některé kódu pro použití žádné čekající migrace do místní databáze při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="dd893-149">Since we want the database to be created on the device that the app runs on, we will add some code to apply any pending migrations to the local database on application startup.</span></span> <span data-ttu-id="dd893-150">Při prvním spuštění aplikace, to se postará o vytvoření místní databázi pro nás.</span><span class="sxs-lookup"><span data-stu-id="dd893-150">The first time that the app runs, this will take care of creating the local database for us.</span></span>
+## <a name="create-the-database-on-app-startup"></a><span data-ttu-id="9e087-153">Vytvoření databáze při spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="9e087-153">Create the database on app startup</span></span>
 
-* <span data-ttu-id="dd893-151">Klikněte pravým tlačítkem na **App.xaml** v **Průzkumníku řešení** a vyberte **zobrazení kódu**</span><span class="sxs-lookup"><span data-stu-id="dd893-151">Right-click on **App.xaml** in **Solution Explorer** and select **View Code**</span></span>
+<span data-ttu-id="9e087-154">Protože chcete, aby databáze, kterou chcete vytvořit pro zařízení, na které aplikace poběží, přidejte kód pro použití žádné čekající migrace do místní databáze při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="9e087-154">Since you want the database to be created on the device that the app runs on, add code to apply any pending migrations to the local database on application startup.</span></span> <span data-ttu-id="9e087-155">Při prvním spuštění aplikace, postará se vytvoří místní databázi.</span><span class="sxs-lookup"><span data-stu-id="9e087-155">The first time that the app runs, this will take care of creating the local database.</span></span>
 
-* <span data-ttu-id="dd893-152">Na začátek souboru přidejte zvýrazněná using</span><span class="sxs-lookup"><span data-stu-id="dd893-152">Add the highlighted using to the start of the file</span></span>
+* <span data-ttu-id="9e087-156">Přidat odkaz na projekt z *Blogging.UWP* projektu *Blogging.Model* projektu.</span><span class="sxs-lookup"><span data-stu-id="9e087-156">Add a project reference from the *Blogging.UWP* project to the *Blogging.Model* project.</span></span>
 
-* <span data-ttu-id="dd893-153">Přidejte zvýrazněný kód použít všechny čekající migrace</span><span class="sxs-lookup"><span data-stu-id="dd893-153">Add the highlighted code to apply any pending migrations</span></span>
+* <span data-ttu-id="9e087-157">Otevřít *App.xaml.cs*.</span><span class="sxs-lookup"><span data-stu-id="9e087-157">Open *App.xaml.cs*.</span></span>
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/App.xaml.cs?highlight=1,25-28)]
+* <span data-ttu-id="9e087-158">Přidejte zvýrazněný kód chcete použít všechny probíhající migrace.</span><span class="sxs-lookup"><span data-stu-id="9e087-158">Add the highlighted code to apply any pending migrations.</span></span>
+
+  [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/App.xaml.cs?highlight=1-2,26-29)]
 
 > [!TIP]  
-> <span data-ttu-id="dd893-154">Pokud provedete budoucí změny modelu, můžete použít `Add-Migration` příkaz chcete vygenerovat nový migraci použít k odpovídající položce změn v databázi.</span><span class="sxs-lookup"><span data-stu-id="dd893-154">If you make future changes to your model, you can use the `Add-Migration` command to scaffold a new migration to apply the corresponding changes to the database.</span></span> <span data-ttu-id="dd893-155">Žádné čekající migrace se použijí k místní databázi na každé zařízení při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="dd893-155">Any pending migrations will be applied to the local database on each device when the application starts.</span></span>
+> <span data-ttu-id="9e087-159">Pokud změníte model, použijte `Add-Migration` příkaz scaffold novou migraci použít odpovídající změn v databázi.</span><span class="sxs-lookup"><span data-stu-id="9e087-159">If you change your model, use the `Add-Migration` command to scaffold a new migration to apply the corresponding changes to the database.</span></span> <span data-ttu-id="9e087-160">Všechny probíhající migrace se použijí k místní databázi na každé zařízení při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="9e087-160">Any pending migrations will be applied to the local database on each device when the application starts.</span></span>
 >
-><span data-ttu-id="dd893-156">Používá EF `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, která již byla do databáze použít.</span><span class="sxs-lookup"><span data-stu-id="dd893-156">EF uses a `__EFMigrationsHistory` table in the database to keep track of which migrations have already been applied to the database.</span></span>
+><span data-ttu-id="9e087-161">Používá EF `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, které již byly implementovány do databáze.</span><span class="sxs-lookup"><span data-stu-id="9e087-161">EF uses a `__EFMigrationsHistory` table in the database to keep track of which migrations have already been applied to the database.</span></span>
 
-## <a name="use-your-model"></a><span data-ttu-id="dd893-157">Použití modelu</span><span class="sxs-lookup"><span data-stu-id="dd893-157">Use your model</span></span>
+## <a name="use-the-model"></a><span data-ttu-id="9e087-162">Použití modelu</span><span class="sxs-lookup"><span data-stu-id="9e087-162">Use the model</span></span>
 
-<span data-ttu-id="dd893-158">Nyní můžete modelu provádí přístup k datům.</span><span class="sxs-lookup"><span data-stu-id="dd893-158">You can now use your model to perform data access.</span></span>
+<span data-ttu-id="9e087-163">Nyní můžete model přístup k datům.</span><span class="sxs-lookup"><span data-stu-id="9e087-163">You can now use the model to perform data access.</span></span>
 
-* <span data-ttu-id="dd893-159">Otevřete *MainPage.xaml*</span><span class="sxs-lookup"><span data-stu-id="dd893-159">Open *MainPage.xaml*</span></span>
+* <span data-ttu-id="9e087-164">Otevřít *MainPage.xaml*.</span><span class="sxs-lookup"><span data-stu-id="9e087-164">Open *MainPage.xaml*.</span></span>
 
-* <span data-ttu-id="dd893-160">Přidejte obslužné rutiny zatížení stránky a uživatelského rozhraní obsahu zvýrazněná níže</span><span class="sxs-lookup"><span data-stu-id="dd893-160">Add the page load handler and UI content highlighted below</span></span>
+* <span data-ttu-id="9e087-165">Přidat obslužnou rutinu načtení stránky a uživatelské rozhraní obsah jejichž přehled najdete níže</span><span class="sxs-lookup"><span data-stu-id="9e087-165">Add the page load handler and UI content highlighted below</span></span>
 
-[!code-xml[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/MainPage.xaml?highlight=9,11-23)]
+[!code-xml[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/MainPage.xaml?highlight=9,11-23)]
 
-<span data-ttu-id="dd893-161">Teď přidáme kód pro propojit vytvořit uživatelské rozhraní s databází</span><span class="sxs-lookup"><span data-stu-id="dd893-161">Now we'll add code to wire up the UI with the database</span></span>
+<span data-ttu-id="9e087-166">Teď přidejte kód, který propojí uživatelského rozhraní pomocí databáze</span><span class="sxs-lookup"><span data-stu-id="9e087-166">Now add code to wire up the UI with the database</span></span>
 
-* <span data-ttu-id="dd893-162">Klikněte pravým tlačítkem na **MainPage.xaml** v **Průzkumníku řešení** a vyberte **zobrazení kódu**</span><span class="sxs-lookup"><span data-stu-id="dd893-162">Right-click **MainPage.xaml** in **Solution Explorer** and select **View Code**</span></span>
+* <span data-ttu-id="9e087-167">Otevřít *MainPage.xaml.cs*.</span><span class="sxs-lookup"><span data-stu-id="9e087-167">Open *MainPage.xaml.cs*.</span></span>
 
-* <span data-ttu-id="dd893-163">Přidejte zvýrazněný kód z následujícího seznamu</span><span class="sxs-lookup"><span data-stu-id="dd893-163">Add the highlighted code from the following listing</span></span>
+* <span data-ttu-id="9e087-168">V následujícím seznamu přidejte zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="9e087-168">Add the highlighted code from the following listing:</span></span>
 
-[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/UWP.SQLite/MainPage.xaml.cs?highlight=30-48)]
+[!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.UWP/MainPage.xaml.cs?highlight=1,31-49)]
 
-<span data-ttu-id="dd893-164">Nyní můžete spustit aplikaci najdete v části v akci.</span><span class="sxs-lookup"><span data-stu-id="dd893-164">You can now run the application to see it in action.</span></span>
+<span data-ttu-id="9e087-169">Nyní můžete spustit aplikaci sledujte v akci.</span><span class="sxs-lookup"><span data-stu-id="9e087-169">You can now run the application to see it in action.</span></span>
 
-* <span data-ttu-id="dd893-165">Ladění > Spustit bez ladění</span><span class="sxs-lookup"><span data-stu-id="dd893-165">Debug > Start Without Debugging</span></span>
+* <span data-ttu-id="9e087-170">V **Průzkumníku řešení**, klikněte pravým tlačítkem myši *Blogging.UWP* projektu a pak vyberte **nasadit**.</span><span class="sxs-lookup"><span data-stu-id="9e087-170">In **Solution Explorer**, right-click the *Blogging.UWP* project and then select **Deploy**.</span></span>
 
-* <span data-ttu-id="dd893-166">Aplikace bude sestavovat a spouštět</span><span class="sxs-lookup"><span data-stu-id="dd893-166">The application will build and launch</span></span>
+* <span data-ttu-id="9e087-171">Nastavte *Blogging.UWP* jako spouštěný projekt.</span><span class="sxs-lookup"><span data-stu-id="9e087-171">Set *Blogging.UWP* as the startup project.</span></span>
 
-* <span data-ttu-id="dd893-167">Zadejte adresu URL a klikněte na **přidat** tlačítko</span><span class="sxs-lookup"><span data-stu-id="dd893-167">Enter a URL and click the **Add** button</span></span>
+* <span data-ttu-id="9e087-172">**Ladit > Spustit bez ladění**</span><span class="sxs-lookup"><span data-stu-id="9e087-172">**Debug > Start Without Debugging**</span></span>
 
-![obrázek](_static/create.png)
+  <span data-ttu-id="9e087-173">Aplikace vytvoří a spustí.</span><span class="sxs-lookup"><span data-stu-id="9e087-173">The app builds and runs.</span></span>
 
-![obrázek](_static/list.png)
+* <span data-ttu-id="9e087-174">Zadejte adresu URL a klikněte na tlačítko **přidat** tlačítko</span><span class="sxs-lookup"><span data-stu-id="9e087-174">Enter a URL and click the **Add** button</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="dd893-170">Další kroky</span><span class="sxs-lookup"><span data-stu-id="dd893-170">Next steps</span></span>
+  ![obrázek](_static/create.png)
 
-> [!TIP]
-> <span data-ttu-id="dd893-171">`SaveChanges()`výkon lze zvýšit implementací [ `INotifyPropertyChanged` ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [ `INotifyPropertyChanging` ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), [ `INotifyCollectionChanged` ](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) ve vašem typy entit a pomocí `ChangeTrackingStrategy.ChangingAndChangedNotifications`.</span><span class="sxs-lookup"><span data-stu-id="dd893-171">`SaveChanges()` performance can be improved by implementing [`INotifyPropertyChanged`](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [`INotifyPropertyChanging`](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), [`INotifyCollectionChanged`](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) in your entity types and using `ChangeTrackingStrategy.ChangingAndChangedNotifications`.</span></span>
+  ![obrázek](_static/list.png)
 
-<span data-ttu-id="dd893-172">Tada!</span><span class="sxs-lookup"><span data-stu-id="dd893-172">Tada!</span></span> <span data-ttu-id="dd893-173">Nyní máte jednoduchou aplikaci UWP systémem Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="dd893-173">You now have a simple UWP app running Entity Framework.</span></span>
+  <span data-ttu-id="9e087-177">Tada!</span><span class="sxs-lookup"><span data-stu-id="9e087-177">Tada!</span></span> <span data-ttu-id="9e087-178">Teď máte jednoduché aplikace pro UPW s Entity Framework Core.</span><span class="sxs-lookup"><span data-stu-id="9e087-178">You now have a simple UWP app running Entity Framework Core.</span></span>
 
-<span data-ttu-id="dd893-174">Podívejte se na další články v této dokumentaci další informace o funkcích rozhraní Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="dd893-174">Check out other articles in this documentation to learn more about Entity Framework's features.</span></span>
+## <a name="next-steps"></a><span data-ttu-id="9e087-179">Další kroky</span><span class="sxs-lookup"><span data-stu-id="9e087-179">Next steps</span></span>
+
+<span data-ttu-id="9e087-180">Kompatibilitu a výkon informace, které byste měli znát při používání EF Core s UWP, naleznete v tématu [implementacím rozhraní .NET, které EF Core](../../platforms/index.md#universal-windows-platform).</span><span class="sxs-lookup"><span data-stu-id="9e087-180">For compatibility and performance information that you should know when using EF Core with UWP, see [.NET implementations supported by EF Core](../../platforms/index.md#universal-windows-platform).</span></span>
+
+<span data-ttu-id="9e087-181">Přečtěte si další články v této dokumentaci se dozvíte další informace o funkcích Entity Framework Core.</span><span class="sxs-lookup"><span data-stu-id="9e087-181">Check out other articles in this documentation to learn more about Entity Framework Core features.</span></span>

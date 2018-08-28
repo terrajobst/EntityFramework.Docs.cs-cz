@@ -1,20 +1,18 @@
 ---
-title: "\U0001F527 Zpětná analýza - EF jádra"
+title: "\U0001F527 Zpětná analýza – EF Core"
 author: smitpatel
-ms.author: divega
 ms.date: 10/30/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: 6bec5185714211a93afe012a296112337a563b04
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 3b5ccb7fd4a944f8179b4c1c445fd897cef29e1b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812661"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993577"
 ---
-# <a name="-reverse-engineering"></a><span data-ttu-id="f7255-102">🔧 Zpětná analýza</span><span class="sxs-lookup"><span data-stu-id="f7255-102">🔧 Reverse Engineering</span></span>
+# <a name="-reverse-engineering"></a><span data-ttu-id="5499b-102">🔧 Zpětná analýza</span><span class="sxs-lookup"><span data-stu-id="5499b-102">🔧 Reverse Engineering</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f7255-103">Toto téma ještě nebyla zapsána ještě!</span><span class="sxs-lookup"><span data-stu-id="f7255-103">This topic hasn't been written yet!</span></span> <span data-ttu-id="f7255-104">Můžete sledovat stav tohoto [problém] [ 1] prostřednictvím našeho veřejného sledovací modul Githubu problém.</span><span class="sxs-lookup"><span data-stu-id="f7255-104">You can track the status of this [issue][1] through our public GitHub issue tracker.</span></span> <span data-ttu-id="f7255-105">Přečtěte si, jak [přispívat] [ 2] na Githubu.</span><span class="sxs-lookup"><span data-stu-id="f7255-105">Learn how you can [contribute][2] on GitHub.</span></span>
+> <span data-ttu-id="5499b-103">Toto téma nebylo dosud napsáno!</span><span class="sxs-lookup"><span data-stu-id="5499b-103">This topic hasn't been written yet!</span></span> <span data-ttu-id="5499b-104">Stav tohoto objektu můžete sledovat [problém] [ 1] prostřednictvím našich veřejných sledování problémů Githubu.</span><span class="sxs-lookup"><span data-stu-id="5499b-104">You can track the status of this [issue][1] through our public GitHub issue tracker.</span></span> <span data-ttu-id="5499b-105">Přečtěte si, jak [přispívat] [ 2] na Githubu.</span><span class="sxs-lookup"><span data-stu-id="5499b-105">Learn how you can [contribute][2] on GitHub.</span></span>
 
 
   [1]: https://github.com/aspnet/EntityFramework.Docs/issues/508
