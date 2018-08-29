@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 7/3/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: e9f9a6cbbceeb0379ddb5588b564b0d2a962795f
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e88bd01f79e05a9a3b0c0bbeecca89df178098a6
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995510"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152449"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core nástroje a rozšíření
 
@@ -37,6 +37,12 @@ Pro vývojáře entity je výkonný Návrhář ORM pro ADO.NET Entity Framework,
 Visual Studio 2017 + rozšíření. Můžete provést zpětnou analýzu třídy DbContext a POCO z existující databáze nebo databázový projekt SQL Server a vizualizovat a kontrolovat vaše DbContext různými způsoby.
 
 [Wiki úložiště GitHub](https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools)
+
+### <a name="entity-framework-visual-editor"></a>Editor sady Visual Entity Framework
+
+Rozšíření sady Visual Studio 2017, které přidá návrhář ORM pro vizuální návrh Entity Framework 6, Core 2.0 a 2.1 základní třídy. Kód je generována pomocí šablony T4, takže lze kompletně upravit podle potřeby. Dědičnost, jednosměrnou a obousměrnou přidružení jsou všechny podporované, jak jsou, výčty a schopnost barevné označení tříd a přidejte textové bloky vysvětlit potenciálně složité součástí návrhu.
+
+[Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ## <a name="extensions"></a>Rozšíření
 

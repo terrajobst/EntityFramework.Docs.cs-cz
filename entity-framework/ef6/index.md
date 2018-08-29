@@ -4,12 +4,12 @@ author: divega
 ms.date: 2016-10-23
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
-ms.openlocfilehash: 00e5f36788be599ea2e2b44480107f14e2f026c3
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 5218f3f8149b15cb5ad3a14779dfa9c23eb71a0e
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998026"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152491"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) je vyzkoušená a otestovaná objektově relační Mapovač (O/RM) pro .NET s mnoha letech řídit vývoj funkcí a stabilizaci.
@@ -29,7 +29,7 @@ EF6 implementuje mnoho oblíbených funkcí O/RM:
   - Uložené procedury
 - Vizuálního návrháře pro vytváření modelů entity.
 - "Code First" prostředí pro vytváření modelů entity napsáním kódu.
-- Modely můžou být existující databáze generovaném formuláři a potom ručně upravit, nebo mohou být vytvořené z nuly a pak použije k vygenerování nových databází.
+- Modely může být vygenerované z existující databáze a potom ručně upravit, nebo mohou být vytvořené z nuly a pak použije k vygenerování nových databází.
 - Integrace s modely aplikace rozhraní .NET Framework, včetně ASP.NET a pomocí vazby dat s WPF a WinForms.
 - Připojení k databázi na základě technologie ADO.NET a řada poskytovatelů k dispozici pro připojení k serveru SQL Server, Oracle, MySQL, SQLite, PostgreSQL, DB2, atd.
 

@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 81427b010f63bdd591ffb9117c1556722313c3fa
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c70003fc7e2c5381a22d26baacd3d76f32489328
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995294"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152411"
 ---
 <a name="ef-core-net-command-line-tools"></a>Nástroje příkazového řádku .NET EF Core
 ===============================
@@ -66,9 +66,9 @@ dotnet ef
 ---------------
 Při každém vyvolání příkazu, existují dva projekty zahrnuté:
 
-Cílový projekt je tam, kde se přidají všechny soubory (nebo v některých případech odebrána). Výchozí hodnota je projekt v aktuálním adresáři na cílový projekt, ale můžete změnit pomocí <nobr> **– projekt** </nobr> možnost.
+Cílový projekt je tam, kde se přidají všechny soubory (nebo v některých případech odebrána). Výchozí hodnota je projekt v aktuálním adresáři na cílový projekt, ale můžete změnit pomocí <nobr> **`--project`** </nobr> možnost.
 
-Projekt po spuštění je emulován nástroji při spuštění kódu projektu. Je také ve výchozím nastavení do aktuálního adresáře projektu, ale lze změnit pomocí **– projekt po spuštění** možnost.
+Projekt po spuštění je emulován nástroji při spuštění kódu projektu. Je také ve výchozím nastavení do aktuálního adresáře projektu, ale lze změnit pomocí **`--startup-project`** možnost.
 
 > [!NOTE]
 > Aktualizuje se databáze webové aplikace, který má nainstalovaný v jiném projektu EF Core, by vypadalo takto: `dotnet ef database update --project {project-path}` (v adresáři webové aplikace)
@@ -77,17 +77,17 @@ Běžné možnosti:
 
 |    |                                  |                             |
 |:---|:---------------------------------|:----------------------------|
-|    | --json                           | Zobrazit výstup ve formátu JSON.           |
-| -c | --kontextu \<DBCONTEXT >           | Chcete-li použít uvolněn objekt DbContext.       |
-| -p | --projektu \<Projekt >             | Projekt pro použití.         |
-| -s | --projekt po spuštění \<Projekt >     | Použít spouštěný projekt. |
-|    | --framework \<rámec >         | Cílová architektura.       |
-|    | --konfigurace \<CONFIGURATION > | Konfigurace pro použití.   |
-|    | modulu runtime-- \<IDENTIFIKÁTOR >          | Modul runtime pro použití.         |
-| -h | – Nápověda                           | Zobrazit informace nápovědy.      |
-| -v | -verbose                        | Zobrazit podrobný výstup.        |
-|    | --no-color                       | Není barevně zvýrazňovat výstup.      |
-|    | --předponu výstupu                  | Předpona výstup s úrovní.   |
+|    | `--json`                           | Zobrazit výstup ve formátu JSON.           |
+| -c | `--context <DBCONTEXT>`           | Chcete-li použít uvolněn objekt DbContext.       |
+| -p | `--project <PROJECT>`             | Projekt pro použití.         |
+| -s | `--startup-project <PROJECT>`     | Použít spouštěný projekt. |
+|    | `--framework <FRAMEWORK>`         | Cílová architektura.       |
+|    | `--configuration <CONFIGURATION>` | Konfigurace pro použití.   |
+|    | `--runtime <IDENTIFIER>`          | Modul runtime pro použití.         |
+| -h | `--help`                           | Zobrazit informace nápovědy.      |
+| -v | `--verbose`                        | Zobrazit podrobný výstup.        |
+|    | `--no-color`                       | Není barevně zvýrazňovat výstup.      |
+|    | `--prefix-output`                  | Předpona výstup s úrovní.   |
 
 
 > [!TIP]
@@ -104,8 +104,8 @@ Možnosti:
 
 |    |           |                                                          |
 |:---|:----------|:---------------------------------------------------------|
-| -f | --force   | Není potvrzení.                                           |
-|    | --Test | Zobrazit, které databáze bude vyřazena, ale ji. |
+| -f | `--force`   | Není potvrzení.                                           |
+|    | `--dry-run` | Zobrazit, které databáze bude vyřazena, ale ji. |
 
 ### <a name="dotnet-ef-database-update"></a>aktualizace databáze ef DotNet
 
@@ -115,7 +115,7 @@ Argumenty:
 
 |              |                                                                                              |
 |:-------------|:---------------------------------------------------------------------------------------------|
-| \<MIGRACE &GT; | Cíl migrace. Pokud je 0, se vrátí zpět všechny migrace. Výchozí hodnota je poslední migrace. |
+| `<MIGRATION>` | Cíl migrace. Pokud je 0, se vrátí zpět všechny migrace. Výchozí hodnota je poslední migrace. |
 
 ### <a name="dotnet-ef-dbcontext-info"></a>informace o DotNet ef dbcontext
 
@@ -133,21 +133,21 @@ Argumenty:
 
 |               |                                                                             |
 |:--------------|:----------------------------------------------------------------------------|
-| \<PŘIPOJENÍ &GT; | Připojovací řetězec k databázi.                                      |
-| \<ZPROSTŘEDKOVATEL &GT;   | Zprostředkovatel k použití. (například Microsoft.EntityFrameworkCore.SqlServer) |
+| `<CONNECTION>` | Připojovací řetězec k databázi.                                      |
+| `<PROVIDER>`   | Zprostředkovatel k použití. (například Microsoft.EntityFrameworkCore.SqlServer) |
 
 Možnosti:
 
 |                 |                                         |                                                                                                  |
 |:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr> | --datovými poznámkami                      | Atributy lze použijte ke konfiguraci modelu (Pokud je to možné). Pokud tento parametr vynechán, použije se pouze rozhraní fluent API. |
-| -c              | --kontextu \<NAME >                       | Název uvolněn objekt DbContext.                                                                       |
-|                 | -dir kontextu \<cesta >                   | Adresář, který se má vložit DbContext. Cesty jsou relativní vzhledem k adresáři projektu.             |
-| -f              | --force                                 | Přepište existující soubory.                                                                        |
-| -o              | -dir výstup \<cesta >                    | Adresář, který se má vložit soubory. Cesty jsou relativní vzhledem k adresáři projektu.                      |
-|                 | <nobr>--schema \<SCHEMA_NAME>...</nobr> | Schémata tabulek ke generování typů entit pro.                                              |
-| -t              | --tabulky \<TABLE_NAME >...                | Tabulky pro typy entit pro generování.                                                         |
-|                 | --use-database-names                    | Použijte názvy tabulek a sloupců přímo z databáze.                                           |
+| <nobr>-d</nobr> | `--data-annotations`                      | Atributy lze použijte ke konfiguraci modelu (Pokud je to možné). Pokud tento parametr vynechán, použije se pouze rozhraní fluent API. |
+| -c              | `--context <NAME>`                       | Název uvolněn objekt DbContext.                                                                       |
+|                 | `--context-dir <PATH>`                   | Adresář, který se má vložit DbContext. Cesty jsou relativní vzhledem k adresáři projektu.             |
+| -f              | `--force`                                 | Přepište existující soubory.                                                                        |
+| -o              | `--output-dir <PATH>`                    | Adresář, který se má vložit soubory. Cesty jsou relativní vzhledem k adresáři projektu.                      |
+|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Schémata tabulek ke generování typů entit pro.                                              |
+| -t              | `--table <TABLE_NAME>`...                | Tabulky pro typy entit pro generování.                                                         |
+|                 | `--use-database-names`                    | Použijte názvy tabulek a sloupců přímo z databáze.                                           |
 
 ### <a name="dotnet-ef-migrations-add"></a>Přidejte migraci ef DotNet
 
@@ -157,13 +157,13 @@ Argumenty:
 
 |         |                            |
 |:--------|:---------------------------|
-| \<NÁZEV &GT; | Název migrace. |
+| `<NAME>` | Název migrace. |
 
 Možnosti:
 
 |                 |                                   |                                                                                                                  |
 |:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <nobr>-o</nobr> | <nobr>-dir výstup \<cesta ></nobr> | Adresáři (a v podřízeném oboru názvů) používat. Cesty jsou relativní vzhledem k adresáři projektu. Výchozí hodnota je "Migrace". |
+| <nobr>-o</nobr> | <nobr> `--output-dir <PATH>` </nobr> | Adresáři (a v podřízeném oboru názvů) používat. Cesty jsou relativní vzhledem k adresáři projektu. Výchozí hodnota je "Migrace". |
 
 ### <a name="dotnet-ef-migrations-list"></a>Přehled migrace ef DotNet
 
@@ -177,7 +177,7 @@ Možnosti:
 
 |    |         |                                                                       |
 |:---|:--------|:----------------------------------------------------------------------|
-| -f | --force | Vrácení migrace, pokud byl použit k databázi. |
+| -f | `--force` | Vrácení migrace, pokud byl použit k databázi. |
 
 ### <a name="dotnet-ef-migrations-script"></a>skript migrace ef DotNet
 
@@ -187,15 +187,15 @@ Argumenty:
 
 |         |                                                               |
 |:--------|:--------------------------------------------------------------|
-| \<Z &GT; | Počáteční migraci. Výchozí hodnota je 0 (výchozí databáze). |
-| \<TO>   | Dokončení migrace. Výchozí hodnota je poslední migrace.         |
+| `<FROM>` | Počáteční migraci. Výchozí hodnota je 0 (výchozí databáze). |
+| `<TO>`   | Dokončení migrace. Výchozí hodnota je poslední migrace.         |
 
 Možnosti:
 
 |    |                  |                                                                    |
 |:---|:-----------------|:-------------------------------------------------------------------|
-| -o | --výstup \<souboru > | Soubor pro zápis výsledek.                                   |
-| -i | --idempotentní     | Generovat skript, který jde použít na databáze v libovolné migrace. |
+| -o | `--output <FILE>` | Soubor pro zápis výsledek.                                   |
+| -i | `--idempotent`     | Generovat skript, který jde použít na databáze v libovolné migrace. |
 
 
   [1]: powershell.md

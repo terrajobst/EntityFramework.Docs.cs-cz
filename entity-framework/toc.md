@@ -106,6 +106,7 @@
 ##### [Omezení SQLite](core/providers/sqlite/limitations.md)
 #### [InMemory (pro testování)](core/providers/in-memory/index.md)
 #### [Vytvoření poskytovatele databáze](core/providers/writing-a-provider.md)
+#### [Změny s dopadem na poskytovatele](core/providers/provider-log.md)
 
 ### [Nástroje a rozšíření](core/extensions/index.md)
 

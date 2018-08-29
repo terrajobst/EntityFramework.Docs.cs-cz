@@ -3,12 +3,12 @@ title: Asynchronní dotazy a save - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 758f8bc3d14fc1f60f14ff14f4251aeed057c518
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 64051dea740b2183cb904d7fb4293d7048c218ca
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994460"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152434"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazy a uložit
 > [!NOTE]
@@ -137,7 +137,7 @@ Když teď máme modelu EF, napište kód, který používá některá přístup
 
 Tento kód volá **PerformDatabaseOperations** metodu, která uloží nový **blogu** do databáze a pak načte všechny **blogy** z databáze a vytiskne jim **Konzoly**. Po této, program zapíše nabídky dne **konzoly**.
 
-Protože je kód syncronous, můžete podle našich zkušeností následující postup provádění když spustíme program:
+Protože kód je synchronní, můžete podle našich zkušeností následující postup provádění když spustíme program:
 
 1.  **SaveChanges** začíná tak, aby nabízel nové **blogu** do databáze
 2.  **SaveChanges** dokončení

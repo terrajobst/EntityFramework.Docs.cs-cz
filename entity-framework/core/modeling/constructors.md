@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: 0536393d074d82583f47faae13cc22498193cb7e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1b36197465fb9a6571a306d36eb1e9d885a5399e
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994890"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152462"
 ---
 # <a name="entity-types-with-constructors"></a>Typy entit s konstruktory
 
@@ -25,7 +25,7 @@ Od verze EF Core 2.1, je teď možné definovat konstruktor s parametry a EF Cor
 
 Zvažte typické modelu/blogu:
 
-```Csharp
+``` csharp
 public class Blog
 {
     public int Id { get; set; }
@@ -50,7 +50,7 @@ public class Post
 
 Když EF Core vytváří instance typů, například pro výsledky dotazu, bude nejprve volat výchozí konstruktor a nastavte jednotlivé vlastnosti na hodnotu z databáze. Ale pokud najde konstruktorem s EF Core mapovat názvy parametrů a typy, které odpovídají vlastnosti a pak bude místo toho volat Parametrizovaný konstruktor s hodnotami pro tyto vlastnosti a není explicitně nastavena každou vlastnost. Příklad:
 
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -99,7 +99,7 @@ Jakmile se nastavují vlastnosti prostřednictvím konstruktoru může být vhod
 * Použití hodnoty automaticky generovaného klíče vyžaduje klíčová vlastnost, která je pro čtení i zápis, protože hodnota klíče, která se musí nastavit generátorem klíče při vložení nových entit.
 
 Snadný způsob, jak se vyhnout tyto věci se má používat soukromé funkce setter. Příklad:
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -139,7 +139,7 @@ EF Core považuje čtení i zápis, což znamená, že všechny vlastnosti jsou 
 
 Alternativou k používání soukromý setter je nastavení vlastnosti skutečně jen pro čtení a přidat více explicitního mapování v OnModelCreating. Některé vlastnosti, můžete k úplnému odebrání a nahradí pouze pole. Představte si třeba tyto typy entit:
 
-```Csharp
+``` csharp
 public class Blog
 {
     private int _id;
@@ -174,7 +174,7 @@ public class Post
 }
 ```
 A tato konfigurace v OnModelCreating:
-```Csharp
+``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Blog>(
@@ -215,7 +215,7 @@ EF Core můžete také vložit "služby" do konstruktoru typu entity. Napříkla
 
 Například je možné selektivní přístup k databázi k získání informací o související entity bez načtení všechny vloženého DbContext. V následujícím příkladu se používá získat počet příspěvků v blogu bez načtení příspěvky:
 
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog()
