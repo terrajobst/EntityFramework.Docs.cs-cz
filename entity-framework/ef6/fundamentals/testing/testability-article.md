@@ -2,19 +2,13 @@
 title: Testovatelnost a Entity Framework 4.0
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-caps.latest.revision: 3
-ms.openlocfilehash: 61773f8a23ff54ddb78aeeb5656c669b12f91478
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 17a9f09022531a81042979464de05fbbd2570759
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37912823"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995226"
 ---
 # <a name="testability-and-entity-framework-40"></a>Testovatelnost a Entity Framework 4.0
 Scott Allen
@@ -979,8 +973,8 @@ V tomto dokumentu jsme jste jsme vám ukázali několik způsobů vytváření t
 -   Martina Fowlera " [Mocks nejsou zástupné procedury](http://martinfowler.com/articles/mocksArentStubs.html)"
 -   Martina Fowlera " [testování Double](http://martinfowler.com/bliki/TestDouble.html)"
 -   Jeremy Miller " [stavu a interakce testování](http://codebetter.com/blogs/jeremy.miller/articles/129544.aspx)"
--   Moq, \<http://code.google.com/p/moq/>
+-   [Moq](http://code.google.com/p/moq/)
 
 ### <a name="biography"></a>Životopis
 
-Scott Allen je členem technický pracovník na Pluralsightu a Zakladatel OdeToCode.com. Během 15 let vývoje softwaru komerční Scott pracoval na řešení zahrnující všechno od zařízení se systémem embedded 8 bitů na vysoce škálovatelné webové aplikace ASP.NET. Scott můžete oslovit na svém blogu na OdeToCode nebo na Twitteru pod \< http://twitter.com/OdeToCode>.
+Scott Allen je členem technický pracovník na Pluralsightu a Zakladatel OdeToCode.com. Během 15 let vývoje softwaru komerční Scott pracoval na řešení zahrnující všechno od zařízení se systémem embedded 8 bitů na vysoce škálovatelné webové aplikace ASP.NET. Scott můžete oslovit na svém blogu na OdeToCode nebo na Twitteru pod [ http://twitter.com/OdeToCode ](http://twitter.com/OdeToCode).
