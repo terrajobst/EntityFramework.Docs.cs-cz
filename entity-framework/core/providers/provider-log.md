@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: ee73940e3c0030b76e73438b1852cc29ebeadb45
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 44b200223153fca44cb2cfa3e78b3bedc7b4a552
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998363"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821332"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -46,3 +46,8 @@ Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `pro
   * Změny v 2.1, aby RelationalTypeMapping povolené pro zjednodušení v odvozených třídách. Nevěříme to byla rozbíjející poskytovatelů, ale zprostředkovatelé můžete využít výhod této změny v jejich odvozený typ mapování třídy.
 * https://github.com/aspnet/EntityFrameworkCore/pull/12069 -Označených nebo pojmenovaných dotazů
   * Přidá infrastruktury pro označování dotazů LINQ a mají tyto visačky se zobrazují jako komentáře v SQL. To může vyžadovat poskytovatelé reagovat v generování SQL.
+* https://github.com/aspnet/EntityFrameworkCore/pull/13115 -Podpora prostorových dat prostřednictvím chny Zarážky
+  * Umožňuje mapování typů a členů překladatele k registraci mimo zprostředkovatele
+    * Poskytovatelé musí volat základní. FindMapping() v jejich provádění ITypeMappingSource, aby to fungovalo
+  * Postupovat podle tohoto vzoru přidává prostorových na svého poskytovatele, který je konzistentní napříč poskytovatelů.
+

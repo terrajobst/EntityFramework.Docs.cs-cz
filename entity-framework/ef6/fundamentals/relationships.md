@@ -3,12 +3,12 @@ title: Relace, navigačních vlastností a cizí klíče - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: c1d48f18a7dd25a6a48537f0de5379f861bf447a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997998"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821397"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigačních vlastností a cizí klíče
 Toto téma obsahuje základní informace o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje pokyny o tom, jak mapovat a manipulaci s relací.
@@ -71,59 +71,60 @@ Zbytek této stránce se zaměřuje na přístup k a manipulaci s daty pomocí r
 
 ## <a name="creating-and-modifying-relationships"></a>Vytvoření a úprava relací
 
-V *přidružení cizího klíče*, když změníte relace stavu pomocí EntityState.Unchanged stav se změní na EntityState.Modified závislý objekt. Ve vztahu k nezávislé změny vztahů neaktualizuje stav objektu závislý.
+V *přidružení cizího klíče*, když změníte vztah stavu závislý objekt s `EntityState.Unchanged` stav se změní na `EntityState.Modified`. Ve vztahu k nezávislé změny vztahů neaktualizuje stav objektu závislý.
 
 Následující příklady ukazují, jak pomocí vlastnosti cizího klíče a navigačních vlastností můžete přidružit souvisejících objektů. Přidružení cizího klíče můžete pomocí některé z metod můžete změnit, vytvořit nebo upravit relace. S nezávislé přidružení nelze použít vlastnost cizího klíče.
 
--   Přiřazením novou hodnotu pro vlastnost cizího klíče, jako v následujícím příkladu.  
-    ``` csharp
-    course.DepartmentID = newCourse.DepartmentID;
-    ```
+- Přiřazením novou hodnotu pro vlastnost cizího klíče, jako v následujícím příkladu.  
+  ``` csharp
+  course.DepartmentID = newCourse.DepartmentID;
+  ```
 
--   Následující kód odebere relace nastavením cizího klíče na **null**. Všimněte si, že vlastnost cizího klíče musí být s možnou hodnotou Null.  
-    ``` csharp
-    course.DepartmentID = null;
-    ```  
-    >[!NOTE]
-    > Pokud odkaz je ve stavu přidáno (v tomto příkladu kurzu objektu), odkaz na vlastnost navigace se nebudou synchronizovat s klíčovými hodnotami nový objekt dokud je volána metoda SaveChanges. Synchronizace nebude fungovat, protože kontext objektu neobsahuje trvalé klíče pro přidání objektů, dokud se uloží. Pokud potřebujete nové objekty, které jsou plně synchronizována v co nejdříve nastavit relace, použijte jednu z následujících methods.*
+- Následující kód odebere relace nastavením cizího klíče na **null**. Všimněte si, že vlastnost cizího klíče musí být s možnou hodnotou Null.  
+  ``` csharp
+  course.DepartmentID = null;
+  ```
 
--   Po přiřazení nového objektu pro navigační vlastnost. Následující kód vytvoří vztah mezi kurz a `department`. Pokud objekty jsou připojené ke kontextu, `course` je taky přidaný ke `department.Courses` kolekce a odpovídající cizího klíče na vlastnost `course` objektu je nastavena na hodnotu klíče oddělení.  
-    ``` csharp
-    course.Department = department;
-    ```
+  >[!NOTE]
+  > Pokud odkaz je ve stavu přidáno (v tomto příkladu kurzu objektu), odkaz na vlastnost navigace se nebudou synchronizovat s klíčovými hodnotami nový objekt dokud je volána metoda SaveChanges. Synchronizace nebude fungovat, protože kontext objektu neobsahuje trvalé klíče pro přidání objektů, dokud se uloží. Pokud potřebujete nové objekty, které jsou plně synchronizována v co nejdříve nastavit relace, použijte jednu z následujících methods.*
 
- -   Pokud chcete odstranit vztah, nastavte vlastnost navigace na `null`. Pokud pracujete se sadou Entity Framework, která je založena na rozhraní .NET 4.0, element end musí být načteny, než se nastaví na hodnotu null. Příklad:  
-    ``` chsarp
-    context.Entry(course).Reference(c => c.Department).Load();  
-    course.Department = null;
-    ```  
-    Od verze Entity Framework 5.0, založené na rozhraní .NET 4.5, můžete nastavit vztah na hodnotu null bez načtení element end. Můžete také nastavit aktuální hodnotu na hodnotu null, následujícím způsobem.  
-    ``` csharp
-    context.Entry(course).Reference(c => c.Department).CurrentValue = null;
-    ```
+- Po přiřazení nového objektu pro navigační vlastnost. Následující kód vytvoří vztah mezi kurz a `department`. Pokud objekty jsou připojené ke kontextu, `course` je taky přidaný ke `department.Courses` kolekce a odpovídající cizího klíče na vlastnost `course` objektu je nastavena na hodnotu klíče oddělení.  
+  ``` csharp
+  course.Department = department;
+  ```
 
--   Odstraněním nebo přidávání objektů v kolekci entit. Například můžete přidat objekt typu `Course` k `department.Courses` kolekce. Tato operace vytvoří vztah mezi konkrétní **kurzu** a konkrétní `department`. Pokud objekty jsou připojené ke kontextu, odkaz na oddělení a vlastnost cizího klíče na **kurzu** objektu se nastaví na příslušné `department`.  
-    ``` csharp
-    department.Courses.Add(newCourse);
-    ```
+- Pokud chcete odstranit vztah, nastavte vlastnost navigace na `null`. Pokud pracujete se sadou Entity Framework, která je založena na rozhraní .NET 4.0, element end musí být načteny, než se nastaví na hodnotu null. Příklad:   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).Load();
+  course.Department = null;
+  ```
+
+  Od verze Entity Framework 5.0, založené na rozhraní .NET 4.5, můžete nastavit vztah na hodnotu null bez načtení element end. Můžete také nastavit aktuální hodnotu na hodnotu null, následujícím způsobem.   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).CurrentValue = null;
+  ```
+
+- Odstraněním nebo přidávání objektů v kolekci entit. Například můžete přidat objekt typu `Course` k `department.Courses` kolekce. Tato operace vytvoří vztah mezi konkrétní **kurzu** a konkrétní `department`. Pokud objekty jsou připojené ke kontextu, odkaz na oddělení a vlastnost cizího klíče na **kurzu** objektu se nastaví na příslušné `department`.  
+  ``` csharp
+  department.Courses.Add(newCourse);
+  ```
 
 - S použitím `ChangeRelationshipState` metodu, která změní stav zadaného vztah mezi dva objekty entity. Tato metoda se nejčastěji používá při práci s N-vrstvé aplikace a *nezávislé přidružení* (jej nelze použít s přidružení cizího klíče). Také, aby používali tuto metodu je třeba vyřadit dolů na `ObjectContext`, jak je znázorněno v následujícím příkladu.  
 V následujícím příkladu je many-to-many vztah mezi Instruktoři a kurzy. Volání `ChangeRelationshipState` metoda a předávání `EntityState.Added` parametr, umožňuje `SchoolContext` vědět, že byla přidána vztahu mezi dvěma objekty:
+  ``` csharp
 
-``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
+  ```
 
-       ((IObjectContextAdapter)context).ObjectContext.
-                 ObjectStateManager.
-                  ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
-```
+  Všimněte si, že pokud aktualizujete (nikoli pouze přidáním) vztahu, musíte odstranit staré relace po přidání nové:
 
-    Note that if you are updating (not just adding) a relationship, you must delete the old relationship after adding the new one:
-
-``` csharp
-       ((IObjectContextAdapter)context).ObjectContext.
-                  ObjectStateManager.
-                  ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
-```
+  ``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
+  ```
 
 ## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>Synchronizace změn mezi cizí klíče a vlastnosti navigace
 

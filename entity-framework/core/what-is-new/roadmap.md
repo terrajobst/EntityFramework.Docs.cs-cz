@@ -4,21 +4,33 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: cd4b7ddaafe9501c4bb9f2496e87f619d239ab62
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fd9086c9911cdb0890117d44c2787780aad9a7cb
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995257"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821358"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core – plán
 
 > [!IMPORTANT]
 > Mějte prosím na paměti, že sady funkcí a plány budoucích verzí se vždy mohou změnit a přestože se snažíme se zachovat aktuální, nemusí odrážet naše nejnovější plány vůbec na této stránce vyprší.
 
+## <a name="last-release-ef-core-21"></a>Poslední verze: EF Core 2.1
+
 Stabilní verze EF Core 2.1 vydané 30. května 2018. Můžete najít další informace o této verzi v [Novinky v EF Core 2.1](xref:core/what-is-new/ef-core-2.1).
 
-Jsme dosud provedli [vydání proces plánování](#release-planning-process) pro další verzi po 2.1.
+## <a name="future-releases"></a>Budoucí verze
+
+### <a name="ef-core-22"></a>EF Core 2.2
+
+Tato verze bude zahrnovat řadu oprav chyb a relativně malý počet nových funkcí. Podrobnosti o této verzi jsou součástí [EF Core 2.2 plán oznámení](https://github.com/aspnet/Announcements/issues/308). 
+
+### <a name="ef-core-30"></a>EF Core 3.0
+
+I když jsme dokončili [vydání proces plánování](#release-planning-process) pro další verzi po 2.2, aktuálně plánujeme mít hlavní verze algined .NET Core 3.0 a ASP.NET 3.0. 
+
+Můžete použít [tento dotaz v našich sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc) zobrazíte pracovní položky přiřazené tenatively této budoucí verzi.
 
 ## <a name="schedule"></a>Plán
 
