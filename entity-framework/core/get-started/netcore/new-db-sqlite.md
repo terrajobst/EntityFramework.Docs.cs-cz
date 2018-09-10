@@ -6,12 +6,12 @@ description: Začínáme s .NET Core pomocí Entity Framework Core
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 51f5752eebce5603c663072f7b36dfecd4ddf227
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 69f7160cd82f2ec58e436a85369b52fe7c31040c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993689"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250306"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Začínáme s EF Core na aplikace konzoly .NET Core s novou databázi
 
@@ -29,9 +29,16 @@ Zobrazit ukázky v tomto článku na Githubu] (https://github.com/aspnet/EntityF
 
   ``` Console
   dotnet new console -o ConsoleApp.SQLite
+  ```
+## <a name="change-the-current-directory"></a>Změňte aktuální adresář 
+
+V dalších krocích, potřebujeme k vydávání `dotnet` příkazy vzhledem k aplikaci. 
+
+* Můžeme změnit aktuální adresář do adresáře aplikace následujícím způsobem:
+
+  ``` Console
   cd ConsoleApp.SQLite/
   ```
-
 ## <a name="install-entity-framework-core"></a>Nainstalujte Entity Framework Core
 
 Použití EF Core, nainstalujte balíček pro poskytovatelů databáze, kterou chcete cílit. Tento návod používá SQLite. Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md).

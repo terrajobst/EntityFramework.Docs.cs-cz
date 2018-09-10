@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 78f8d9576748a725634665f915def80b5a13820c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 47e22be274d02b5221c638d07151d9607aa7e24f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997874"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250800"
 ---
 # <a name="client-vs-server-evaluation"></a>Vyhodnocení klienta vs. Zkušební verze serveru
 
@@ -49,7 +49,7 @@ public static string StandardizeUrl(string url)
 }
 ```
 
-## <a name="disabling-client-evaluation"></a>Zakázání hodnocení klientů
+## <a name="client-evaluation-performance-issues"></a>Problémy s výkonem vyhodnocení klienta
 
 Hodnocení klientů mohou být velmi užitečné v některých případech může vést ke špatnému výkonu. Vezměte v úvahu následující dotaz, kde se teď používá pomocnou metodu ve filtru. Protože toto nelze provést v databázi, vše, co data se načítají do paměti a potom filtr platí na straně klienta. V závislosti na množství dat a jak velká část těchto dat je odfiltrována to mohlo způsobit snížení výkonu.
 
@@ -60,7 +60,13 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Ve výchozím nastavení bude EF Core zaprotokolovat upozornění při vyhodnocení klienta se provádí. Zobrazit [protokolování](../miscellaneous/logging.md) pro další informace o prohlížení uložit výstup protokolování. Můžete změnit chování, když dojde k hodnocení klientů provést operaci throw nebo Neprovádět žádnou akci. To se provádí při nastavování možnosti pro váš kontext – obvykle v `DbContext.OnConfiguring`, nebo v `Startup.cs` Pokud používáte ASP.NET Core.
+## <a name="client-evaluation-logging"></a>Protokolování vyhodnocení klienta
+
+Ve výchozím nastavení bude EF Core zaprotokolovat upozornění při vyhodnocení klienta se provádí. Zobrazit [protokolování](../miscellaneous/logging.md) pro další informace o prohlížení uložit výstup protokolování. 
+
+## <a name="optional-behavior-throw-an-exception-for-client-evaluation"></a>Volitelné chování: vyvolat výjimku pro hodnocení klientů
+
+Můžete změnit chování, když dojde k hodnocení klientů provést operaci throw nebo Neprovádět žádnou akci. To se provádí při nastavování možnosti pro váš kontext – obvykle v `DbContext.OnConfiguring`, nebo v `Startup.cs` Pokud používáte ASP.NET Core.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
 ``` csharp

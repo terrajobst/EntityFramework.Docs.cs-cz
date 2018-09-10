@@ -3,12 +3,12 @@ title: Vazby dat s WinForms - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: 7ceb8e85fe3d8f5ab9a5e58ef9c84599585d8f77
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 071172810f7dac45f42aca0efa7f329bac31e9cd
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994526"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251190"
 ---
 # <a name="databinding-with-winforms"></a>Vazby dat s WinForms
 Tento podrobný návod ukazuje, jak svázat ovládací prvky formuláře Windows (WinForms) ve formě "hlavní podrobnosti" typy POCO. Aplikace používá Entity Framework pro naplnění objekty s daty z databáze, sledování změn a uložení dat do databáze.
@@ -179,17 +179,17 @@ Pojďme tedy vygenerovala databáze.
 -   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
 -   Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat jako zdroj dat Microsoft SQL Server
 
-    ![ChangeDataSource](~/ef6/media/changedatasource.png)
+    ![Změnit zdroj dat](~/ef6/media/changedatasource.png)
 
 -   Připojení k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali a zadejte **produkty** jako název databáze
 
-    ![AddConnectionLocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![Přidat připojení LocalDB](~/ef6/media/addconnectionlocaldb.png)
 
-    ![AddConnectionExpress](~/ef6/media/addconnectionexpress.png)
+    ![Přidat připojení Express](~/ef6/media/addconnectionexpress.png)
 
 -   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
 
-    ![CreateDatabase](~/ef6/media/createdatabase.png)
+    ![Vytvoření databáze](~/ef6/media/createdatabase.png)
 
 -   Nové databáze se teď budou zobrazovat v Průzkumníku serveru, klikněte pravým tlačítkem myši na něj a vyberte **nový dotaz**
 -   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
@@ -227,11 +227,11 @@ My budeme používat Entity Framework Designer, která je součástí sady Visua
 
 -   Vyberte připojení k databázi vytvořené v první části, zadejte **ProductContext** jako název připojovacího řetězce a klikněte na tlačítko **další**
 
-    ![ChooseYourConnection](~/ef6/media/chooseyourconnection.png)
+    ![Zvolte připojení](~/ef6/media/chooseyourconnection.png)
 
 -   Klikněte na zaškrtávací políčko vedle "Tables" k importu všech tabulek a klikněte na tlačítko 'Dokončit'
 
-    ![ChooseYourObjects](~/ef6/media/chooseyourobjects.png)
+    ![Vyberte objekty](~/ef6/media/chooseyourobjects.png)
 
 Po dokončení procesu zpětné analýzy nový model je přidána do projektu a zpřístupnili k zobrazení v Návrháři Entity Framework. Soubor App.config má také byla přidána do projektu s podrobnostmi o připojení pro databázi.
 
@@ -250,7 +250,7 @@ EF generuje kód z modelu pomocí šablon T4. Šablony součástí sady Visual S
 -   Otevřít **Průzkumníka řešení** a najít **ProductModel.edmx** souboru
 -   Najít **ProductModel.tt** souboru, který se vnoří pod ProductModel.edmx souboru
 
-    ![ProductModelTemplate](~/ef6/media/productmodeltemplate.png)
+    ![Šablona modelu produktu](~/ef6/media/productmodeltemplate.png)
 
 -   Poklikejte na soubor ProductModel.tt ho otevřete v editoru sady Visual Studio
 -   Najít a nahradit dva výskyty "**rozhraní ICollection**"s"**ObservableListSource**". Tyto jsou umístěny na přibližně řádky 296 a 484.
@@ -278,13 +278,13 @@ Přidání třídy, které jsou definovány v modelu jako zdroj dat pro tuto apl
 -   V okně zvolte typ zdroje dat, vyberte **objekt** a klikněte na tlačítko **další**
 -   Vyberte datové objekty dialogu nejextrémnějších **WinFormswithEFSample** dvěma časy a vyberte **kategorie** není nutné vybrat zdroj dat produktu, protože se dostaneme k němu prostřednictvím produktu Vlastnost ve zdroji dat kategorie.
 
-    ![DataSource](~/ef6/media/datasource.png)
+    ![Zdroj dat](~/ef6/media/datasource.png)
 
 -   Klikněte na tlačítko **dokončit.** 
      *Pokud okna zdroje dat se nezobrazuje, vyberte *** zobrazení –&gt; ostatní Windows -&gt; zdroje dat**
 -   Stiskněte ikonu připínáčku tak okna zdroje dat není automaticky skrýt. Budete muset stiskněte tlačítko Aktualizovat, pokud už je okno viditelné.
 
-    ![Zdrojem DataSource2](~/ef6/media/datasource2.png)
+    ![Zdroj dat 2](~/ef6/media/datasource2.png)
 
 -   V Průzkumníku řešení poklikejte **Form1.cs** soubor otevřete hlavní formulář v návrháři.
 -   Vyberte **kategorie** zdroje dat a přetáhněte ji na formuláři. Ve výchozím nastavení nového ovládacího prvku DataGridView (**categoryDataGridView**) a nástrojů navigační ovládací prvky jsou přidány do návrháře. Tyto ovládací prvky, které jsou vázány na objekt BindingSource (**categoryBindingSource**) a Navigátor vazby (**categoryBindingNavigator**) komponent, které jsou vytvořeny také.
@@ -302,7 +302,7 @@ Přidání třídy, které jsou definovány v modelu jako zdroj dat pro tuto apl
     Zatím jsme naše ovládacích prvků DataGridView spojené s BindingSource součásti v návrháři. V další části přidáme kód do kódu nastavit categoryBindingSource.DataSource ke kolekci entit, které jsou aktuálně sledovány objektem DbContext. Když jsme kvůli usnadnění použití vypsány a vyřadit produkty z kategorie WinForms trvalo stará o nastavení vlastnost productsBindingSource.DataSource categoryBindingSource a productsBindingSource.DataMember vlastnosti k produktům. Z důvodu této vazby v productDataGridView zobrazí pouze produkty, které patří do vybrané kategorie.
 -   Povolit **Uložit** tlačítko na navigačním panelu kliknete pravým tlačítkem myši a výběrem **povoleno**.
 
-    ![Form1 návrháře](~/ef6/media/form1-designer.png)
+    ![Návrhář formulářů 1](~/ef6/media/form1-designer.png)
 
 -   Přidat obslužnou rutinu události pro uložení tlačítko dvojitým kliknutím na tlačítko. Tím přidáte obslužné rutiny události a můžete přenést do kódu pro formulář. Kód **categoryBindingNavigatorSaveItem\_klikněte na tlačítko** obslužné rutiny události bude přidána v další části.
 
@@ -401,12 +401,12 @@ Kód deklaruje instanci dlouhotrvající ProductContext. Objekt ProductContext s
 
 -   Kompilace a spuštění, které můžete otestovat aplikaci a budete si moct funkce.
 
-    ![Form1BeforeSave](~/ef6/media/form1beforesave.png)
+    ![Formulář 1 před uložit](~/ef6/media/form1beforesave.png)
 
 -   Po uložení klíče úložiště, vygeneruje se zobrazí na obrazovce.
 
-    ![Form1AfterSave](~/ef6/media/form1aftersave.png)
+    ![Formuláře 1 po uložení](~/ef6/media/form1aftersave.png)
 
 -   Pokud jste použili Code First, pak bude také uvidíte, že **WinFormswithEFSample.ProductContext** databáze se vytvoří za vás.
 
-    ![ServerObjExplorer](~/ef6/media/serverobjexplorer.png)
+    ![Průzkumník objektů serveru](~/ef6/media/serverobjexplorer.png)

@@ -3,12 +3,12 @@ title: Zprostředkovatel modelu Entity Framework 6 - EF6
 author: divega
 ms.date: 2018-06-27
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: e8b0552ec083d8ab276aa9de109650f423160269
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 7d9e2f49b9ef59fb63b024646911ec0d8dfcfc60
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821384"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251099"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Zprostředkovatel modelu Entity Framework 6
 
@@ -24,13 +24,13 @@ S EF6 základní kód, který byl dřív součástí rozhraní .NET Framework se
 
 Poskytovatele EF je ve skutečnosti kolekce specifickým pro zprostředkovatele služeb definované typy CLR, které tyto služby rozšířit z (pro základní třídu) nebo implementovat (pro rozhraní). Dva z těchto služeb jsou základní a nezbytné pro EF vůbec fungovat. Jiné jsou volitelné a pouze potřeba je implementovat, pokud konkrétní funkce jsou nezbytné a/nebo výchozí implementace těchto služeb nefunguje pro konkrétní databázový server, který se cílí.
 
-### <a name="fundamental-provider-types"></a>Základní poskytovatel typů
+## <a name="fundamental-provider-types"></a>Základní poskytovatel typů
 
-#### <a name="dbproviderfactory"></a>DbProviderFactory
+### <a name="dbproviderfactory"></a>DbProviderFactory
 
 EF závisí na typu odvozeného z [System.Data.Common.DbProviderFactory](http://msdn.microsoft.com/en-us/library/system.data.common.dbproviderfactory.aspx) pro provádění veškerý přístup nízké úrovně databáze. DbProviderFactory není ve skutečnosti součástí EF, ale místo toho je třída v rozhraní .NET Framework, která slouží jako vstupní bod pro poskytovatele ADO.NET, který je možné pomocí EF, jiné vstupně/RMS. Přitom nezáleží, nebo přímo prostřednictvím aplikace k získání instance připojení, příkazy, parametry a jiné technologie ADO.NET abstrakcí ve zprostředkovateli způsobem, který nezohledňuje. Další informace o DbProviderFactory najdete v [dokumentaci MSDN pro technologii ADO.NET](http://msdn.microsoft.com/en-us/library/a6cd7c08.aspx).
 
-#### <a name="dbproviderservices"></a>DbProviderServices
+### <a name="dbproviderservices"></a>DbProviderServices
 
 EF závisí na typu odvozeného z DbProviderServices pro zajištění další funkce vyžadované EF nad funkce už poskytované zprostředkovateli ADO.NET. Ve starších verzích EF třída DbProviderServices byla součástí rozhraní .NET Framework a byla nalezena v oboru názvů System.Data.Common. Počínaje EF6 Tato třída je nyní součástí EntityFramework.dll a je v oboru názvů System.Data.Entity.Core.Common.
 
@@ -38,33 +38,33 @@ Další informace o základních funkcích DbProviderServices implementace najde
 
 Ve starších verzích EF byl získán implementace DbProviderServices k použití přímo z poskytovatele ADO.NET. To bylo provedeno přetypování DbProviderFactory na IServiceProvider a voláním metody GetService. Tento zprostředkovatel EF těsně spjat s DbProviderFactory. Toto párování blokovat EF přesouvaných mimo rozhraní .NET Framework a proto pro EF6 tento určitou úzkou svázanost byla odebrána a implementace DbProviderServices je teď zaregistrovaný přímo v konfiguračním souboru aplikace nebo na úrovni kódu konfigurace, jak je popsáno podrobněji _registrace DbProviderServices_ níže v části.
 
-### <a name="additional-services"></a>Další služby
+## <a name="additional-services"></a>Další služby
 
 Kromě základních služeb popsaných výše existují také mnoho dalších služeb používaných v EF které jsou vždy nebo někdy specifickým pro zprostředkovatele. Implementací DbProviderServices lze je zadat výchozí implementace specifickým pro zprostředkovatele z těchto služeb. Aplikace můžete také přepsat implementace těchto služeb nebo poskytnout implementace, pokud typ DbProviderServices neposkytuje výchozí. To je popsáno podrobněji _řešení dalšími službami_ níže v části.
 
 Typy další služby, které mohou být zprostředkovatele, abyste zprostředkovatele jsou uvedeny níže. Další podrobnosti o každém z těchto typů služeb najdete v dokumentaci k rozhraní API.
 
-#### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
+### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
 
 Toto je volitelnou službu, která umožňuje poskytovateli implementovat opakování nebo jiné chování při spuštění dotazů a příkazů na databázi. Pokud je k dispozici žádná implementace, pak EF jednoduše spustí příkazy a šířit všechny výjimky vyvolané. Tato služba se pro SQL Server používá k poskytování zásady opakování, který je obzvláště užitečná při spouštění cloudové databázové servery, jako je například SQL Azure.
 
-#### <a name="idbconnectionfactory"></a>IDbConnectionFactory
+### <a name="idbconnectionfactory"></a>IDbConnectionFactory
 
 Toto je volitelnou službu, která umožňuje poskytovateli k vytváření objektů DbConnection podle konvence při pouze název databáze. Pamatujte, že zatímco tato služba dá vyřešit implementací DbProviderServices byla k dispozici od verze EF 4.1 a můžete také explicitně nastavit v konfiguračním souboru nebo v kódu. Zprostředkovatel se zobrazí pouze příležitost dobře se vyřešit tuto službu, pokud je registrován jako výchozího zprostředkovatele (naleznete v tématu _výchozího zprostředkovatele_ níže) a pokud nebyl nastaven výchozí objekt factory připojení, jinde.
 
-#### <a name="dbspatialservices"></a>DbSpatialServices
+### <a name="dbspatialservices"></a>DbSpatialServices
 
 Toto je volitelné služby, které umožňuje poskytovateli a přidat podporu pro typy prostorových zeměpisné oblasti a geometry. Implementace této služby je nutné zadat v pořadí pro aplikace pomocí EF prostorové typy. DbSptialServices se zobrazí výzva pro dvěma způsoby. První, specifickým pro zprostředkovatele prostorových služeb jsou požadovány pomocí objektu DbProviderInfo (obsahující invariantní vzhledem k názvu a manifestu token) jako klíč. Za druhé DbSpatialServices můžete požádat bez klíče. To se používá k překladu "globální prostorových poskytovatele", který se používá při vytváření samostatných DbGeography nebo DbGeometry typů.
 
-#### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
+### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
 
 Toto je volitelnou službu, která umožňuje migraci EF, který bude používán pro generování SQL použít při vytváření a úpravy databázových schématech Code First. Implementace je nutné pro podporu migrace. Pokud je k dispozici implementace pak také použije při vytváření databáze pomocí databáze inicializátory nebo Database.Create metody.
 
-#### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection, řetězec, HistoryContextFactory >
+### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection, řetězec, HistoryContextFactory >
 
 Toto je volitelnou službu, která umožňuje poskytovateli ke konfiguraci mapování HistoryContext k `__MigrationHistory` tabulky používané migrace EF. HistoryContext je první DbContext kódu a lze nakonfigurovat pomocí rozhraní fluent API pro běžné věci, jako je název tabulky a specifikace mapování sloupce změnit. Výchozí implementace této služby vrátil EF pro všemi zprostředkovateli může fungovat pro danou databázi serveru, pokud všechny výchozí sloupce a tabulky mapování podporovaných tímto poskytovatelem. V takovém případě zprostředkovatele není nutné poskytnout implementaci této služby.
 
-#### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
+### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
 
 Toto je volitelnou službu pro získání správné DbProviderFactory ze zadaný objekt DbConnection. Výchozí implementace této služby vrátil EF pro všech zprostředkovatelů by měla fungovat pro všechny poskytovatele. Ale při spuštění v rozhraní .NET 4, DbProviderFactory není veřejně přístupná z jednoho pokud jeho DbConnections. Proto EF používá některé z heuristických metod k hledání registrovaných zprostředkovatelů pro vyhledání shody. Je možné, že pro někteří poskytovatelé tyto heuristiky selže a v takových situacích by mělo nabízet poskytovateli novou implementaci.
 

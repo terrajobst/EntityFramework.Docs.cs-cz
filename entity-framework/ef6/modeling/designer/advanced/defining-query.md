@@ -3,12 +3,12 @@ title: Definování dotazu – EF designeru - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 60d5310589bb9bc3fdb971673422e80537357e55
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996304"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250969"
 ---
 # <a name="defining-query---ef-designer"></a>Definování dotazu – EF designeru
 Tento návod ukazuje, jak přidat, definování dotazů a odpovídající entita typ modelu pomocí EF designeru. Definování dotazu se běžně používá k zajištění funkce podobné, která poskytuje zobrazení databáze, ale zobrazení je definováno v modelu, ne databáze. Definování dotazu umožňuje provedení příkazu SQL, který je zadán v **DefiningQuery** prvek souboru .edmx. Další informace najdete v tématu **DefiningQuery** v [specifikace SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
@@ -54,11 +54,11 @@ Tento názorný postup je pomocí sady Visual Studio 2012 nebo novější.
 -   V Průzkumníku řešení klikněte pravým tlačítkem myši **DefiningQueryModel.edmx** a vyberte možnost **otevřít v programu...** .
 -   Vyberte **Editor (textový) XML**.
 
-    ![XMLEditor](~/ef6/media/xmleditor.png)
+    ![Editor XML](~/ef6/media/xmleditor.png)
 
 -   Klikněte na tlačítko **Ano** Pokud se zobrazí výzva s následující zprávou:
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![Upozornění 2](~/ef6/media/warning2.png)
 
  
 
@@ -136,7 +136,7 @@ Otevřete model v EF designeru.
 -   Dvakrát klikněte DefiningQueryModel.edmx.
 -   Řekněme, že **Ano** následující zprávu:
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![Upozornění 2](~/ef6/media/warning2.png)
 
  
 
@@ -172,7 +172,7 @@ V tomto kroku použijeme okno Podrobnosti o mapování pro mapování koncepčn�
     **Podrobnosti mapování** se zobrazí okno.
 -   Vyberte **GradeReport** z **&lt;přidat tabulku nebo zobrazení&gt;** rozevíracího seznamu (umístěný ve skupinovém rámečku **tabulky**s).  
     Výchozí mapování mezi koncepční a úložiště **GradeReport** zobrazí typ entity.  
-    ![MappingDetails3](~/ef6/media/mappingdetails.png)
+    ![Mapování Details3](~/ef6/media/mappingdetails.png)
 
 V důsledku toho **elementu EntitySetMapping** prvek se přidá do části mapování souboru .edmx. 
 

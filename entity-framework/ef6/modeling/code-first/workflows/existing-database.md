@@ -3,12 +3,12 @@ title: Kód nejprve k existující databázi - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: 29f959265e0fd0d5e14c156519e6931fd8da0677
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fedfb921919582e2cdb5f3bc497f11889b972ad6
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995087"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251073"
 ---
 # <a name="code-first-to-an-existing-database"></a>Kód nejprve ke stávající databázi
 Tato videa a podrobný návod poskytuje úvod k vývoji Code First cílení na existující databázi. Kód nejprve umožňuje definovat model pomocí jazyka C\# nebo VB.Net třídy. Volitelně další konfigurace je možné provádět pomocí atributů ve třídách a vlastnostech nebo s použitím rozhraní API fluent.
@@ -33,15 +33,15 @@ Pojďme tedy vygenerovala databáze.
 -   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
 -   Pokud nejsou připojeni k databázi z **Průzkumníka serveru** předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![Vyberte zdroj dat](~/ef6/media/selectdatasource.png)
 
 -   Připojte se k instanci LocalDB a zadejte **blogovací** jako název databáze
 
-    ![LocalDBConnection](~/ef6/media/localdbconnection.png)
+    ![LocalDB připojení](~/ef6/media/localdbconnection.png)
 
 -   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
 
-    ![CreateDatabaseDialog](~/ef6/media/createdatabasedialog.png)
+    ![Vytvoření dialogového okna databáze](~/ef6/media/createdatabasedialog.png)
 
 -   Nové databáze se teď budou zobrazovat v Průzkumníku serveru, klikněte pravým tlačítkem myši na něj a vyberte **nový dotaz**
 -   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
@@ -92,15 +92,15 @@ My budeme používat Entity Framework Tools for Visual Studio nám generování 
 -   Tím se spustí **Průvodce datovým modelem Entity**
 -   Vyberte **Code First z databáze** a klikněte na tlačítko **další**
 
-    ![WizardOneCFE](~/ef6/media/wizardonecfe.png)
+    ![Průvodce jeden CFE](~/ef6/media/wizardonecfe.png)
 
 -   Vyberte připojení k databázi vytvořené v první části a klikněte na tlačítko **další**
 
-    ![WizardTwoCFE](~/ef6/media/wizardtwocfe.png)
+    ![Průvodce dvě CFE](~/ef6/media/wizardtwocfe.png)
 
 -   Klikněte na zaškrtávací políčko vedle položky **tabulky** importovat všechny tabulky a klikněte na tlačítko **dokončit**
 
-    ![WizardThreeCFE](~/ef6/media/wizardthreecfe.png)
+    ![Průvodce tři CFE](~/ef6/media/wizardthreecfe.png)
 
 Po dokončení procesu zpětné analýzy, počet položek, které se byly přidány do projektu, můžeme podívejte se na co je přidán.
 

@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 44b200223153fca44cb2cfa3e78b3bedc7b4a552
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821332"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250813"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -19,9 +19,9 @@ Tato stránka obsahuje odkazy na EF Core úložiště, které můžou vyžadovat
 
 Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) a [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) popisky na naše problémy a žádosti o přijetí změn.
 
-### <a name="21-----22"></a>2.1---> 2.2
+## <a name="21-----22"></a>2.1---> 2.2
 
-#### <a name="test-only-changes"></a>Změny jen pro test
+### <a name="test-only-changes"></a>Změny jen pro test
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12057 – Povolte přizpůsobitelné dají SQL v testech
   * Otestovat změny, které umožňují nepřísném plovoucího bodu porovnání v BuiltInDataTypesTestBase
@@ -40,7 +40,7 @@ Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `pro
   * Tato změna zahrnuje některé refaktoring testů, může být nutné poskytovatelé react
 
 
-#### <a name="test-and-product-code-changes"></a>Změny kódu testu a produktu
+### <a name="test-and-product-code-changes"></a>Změny kódu testu a produktu
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12109 -Konsolidovat RelationalTypeMapping.Clone metody
   * Změny v 2.1, aby RelationalTypeMapping povolené pro zjednodušení v odvozených třídách. Nevěříme to byla rozbíjející poskytovatelů, ale zprostředkovatelé můžete využít výhod této změny v jejich odvozený typ mapování třídy.
@@ -50,4 +50,5 @@ Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `pro
   * Umožňuje mapování typů a členů překladatele k registraci mimo zprostředkovatele
     * Poskytovatelé musí volat základní. FindMapping() v jejich provádění ITypeMappingSource, aby to fungovalo
   * Postupovat podle tohoto vzoru přidává prostorových na svého poskytovatele, který je konzistentní napříč poskytovatelů.
-
+* https://github.com/aspnet/EntityFrameworkCore/pull/13199 -Přidat vylepšené ladění pro vytvoření poskytovatele služby
+  * Umožňuje DbContextOptionsExtensions implementovat nové rozhraní, která pomáhá uživatelům pochopit, proč se opětovně sestaven vnitřní chybě služby zprostředkovatele

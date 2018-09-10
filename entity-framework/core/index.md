@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: d9fcafb35248b1af54e1ac707e2ff7d4e80e4aa2
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: ee3fac9e9103749195886a632fbeac3163a46689
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995648"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250538"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
@@ -18,31 +18,6 @@ Entity Framework (EF) Core je odlehčený, rozšiřitelné, a multiplatformní v
 EF Core může sloužit jako objektově relační Mapovač (O/RM), umožňuje vývojářům .NET pracovat s databází s použitím objektů .NET a eliminují pro většinu kódu přístupu k datům je obvykle potřeba psát.
 
 EF Core podporuje mnoho databázových strojů, naleznete v tématu [poskytovatelé databází](providers/index.md) podrobnosti.
-
-Pokud chcete další informace o psaní kódu, doporučujeme jednu z našich [Začínáme](get-started/index.md) vodítka, které vám pomůžou začít s EF Core.
-
-## <a name="what-is-new-in-ef-core"></a>Novinky v EF Core
-
-Pokud jste obeznámeni s EF Core a chcete přejít přímo do podrobností o nejnovější vydané verzi:
-
-- **[Novinky v EF Core 2.1](xref:core/what-is-new/ef-core-2.1)**
-- **[Upgrade stávající aplikace na EF Core 2.x](xref:core/miscellaneous/1x-2x-upgrade)**
-
-
-## <a name="get-entity-framework-core"></a>Získat Entity Framework Core
-
-[Nainstalujte balíček NuGet](https://docs.nuget.org/ndocs/quickstart/use-a-package) k poskytovateli databáze, kterou chcete použít. Například chcete nainstalovat zprostředkovatele SQL Server ve vývoji multiplatformních aplikací pomocí `dotnet` nástroj na příkazovém řádku:
-
-``` Console
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-```
-
-Nebo v sadě Visual Studio pomocí konzole Správce balíčků:
-
-``` PowerShell
-Install-Package Microsoft.EntityFrameworkCore.SqlServer
-```
-Zobrazit [poskytovatelé databází](providers/index.md) informace o dostupných zprostředkovatelů a [instalace EF Core](get-started/install/index.md) podrobný postup instalace.
 
 ## <a name="the-model"></a>Model
 
@@ -113,3 +88,8 @@ using (var db = new BloggingContext())
     db.SaveChanges();
 }
 ```
+
+## <a name="next-steps"></a>Další kroky
+
+Úvodní kurzy najdete na stránce [Začínáme s Entity Framework Core](get-started/index.md).
+

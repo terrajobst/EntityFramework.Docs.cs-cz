@@ -3,12 +3,12 @@ title: Návrháře CUD uložených procedur komponentami TableAdapter-EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 7a3176e1057816dd11ced5fc545aa3baa672bd03
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 36c9b97b77fec30136cba1d850a0259c689e69ae
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993886"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250917"
 ---
 # <a name="designer-cud-stored-procedures"></a>Návrháře CUD uložené procedury
 Tento podrobný návod ukazují, jak vytvořit mapování\\vložení, aktualizace a odstranění (vytvoření) operace typu entity na uložené procedury pomocí návrháře Entity Framework (EF designeru).  Ve výchozím nastavení Entity Framework automaticky generuje příkazů SQL pro operace vytvoření, ale můžete také namapovat uložených procedur na těchto operací.  
@@ -54,7 +54,7 @@ K dokončení toho návodu budete potřebovat:
 -   Také vybrat následující uložené procedury v části **uložené procedury a funkce** uzlu: **DeletePerson**, **InsertPerson**, a **UpdatePerson** . 
 -   Od verze Visual Studio 2012 EF designeru podporuje hromadný import uložených procedur. **Importovat vybrané uložených procedur a funkcí do entity model** je ve výchozím nastavení zaškrtnuto. Protože v tomto příkladu budeme mít uložené procedury, které vložit, aktualizovat a odstranit typy entit, nechcete, aby importovat jsme se zrušit zaškrtnutí tohoto políčka. 
 
-    ![ImportSProcs](~/ef6/media/importsprocs.jpg)
+    ![Importovat S Procs](~/ef6/media/importsprocs.jpg)
 
 -   Klikněte na tlačítko **Dokončit**.
     EF designeru, která poskytuje návrhové ploše pro úpravy váš model, se zobrazí.
@@ -72,7 +72,7 @@ K dokončení toho návodu budete potřebovat:
 -   Stisknutím klávesy **zadejte**.
 -   Ve výchozím nastavení **NewPersonID** je namapována na klíč entity **PersonID**. Všimněte si, že šipka označuje směr mapování: pro vlastnost není zadána hodnota ve sloupci výsledků.
 
-    ![MappingDetails](~/ef6/media/mappingdetails.png)
+    ![Podrobnosti mapování](~/ef6/media/mappingdetails.png)
 
 -   Klikněte na tlačítko **&lt;vyberte funkce aktualizace&gt;** a vyberte **UpdatePerson** v rozevíracím seznamu rozevíracího seznamu.
 -   Zobrazí se výchozí mapování mezi parametry uložené procedury a vlastností entity.

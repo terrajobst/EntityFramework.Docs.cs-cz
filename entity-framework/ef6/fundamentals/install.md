@@ -3,12 +3,12 @@ title: Získat Entity Framework - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
-ms.openlocfilehash: 91b78e56f60edf7ebc8769b1c385f8547f63cd3d
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 601f8d123d5494be6a658da1c4ad3743ed50385c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152385"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250878"
 ---
 # <a name="get-entity-framework"></a>Získat Entity Framework
 Entity Framework se skládá z EF nástrojů pro Visual Studio a modul Runtime EF.
@@ -27,7 +27,7 @@ Nejnovější verzi rozhraní Entity Framework je k dispozici jako [balíček En
 
 Můžete nainstalovat balíček EntityFramework kliknutím pravým tlačítkem na **odkazy** složky vašeho projektu a výběrem **spravovat balíčky NuGet...**
 
-![ManageNuGetPackages](~/ef6/media/managenugetpackages.png)
+![Spravovat balíčky NuGet](~/ef6/media/managenugetpackages.png)
 
 ### <a name="installing-from-package-manager-console"></a>Instalace z konzoly Správce balíčků
 
@@ -55,7 +55,7 @@ Výše uvedené metody získáte nejnovější plně podporované verze rozhran�
 
 Chcete-li nainstalovat nejnovější verzi preview objektu EntityFramework, můžete vybrat **zahrnout předprodejní verze** v okně Správa balíčků NuGet. Pokud jsou k dispozici žádné předběžné verze se automaticky zobrazí nejnovější plně podporovanou verzi rozhraní Entity Framework.
 
-![IncludePreRelease](~/ef6/media/includeprerelease.png)
+![Zahrnout předběžné verze](~/ef6/media/includeprerelease.png)
 
 Alternativně můžete spustit následující příkaz [Konzola správce balíčků](http://docs.nuget.org/docs/start-here/using-the-package-manager-console).
 

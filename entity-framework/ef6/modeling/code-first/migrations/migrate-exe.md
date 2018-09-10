@@ -3,12 +3,12 @@ title: Pomocí migrate.exe - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
-ms.openlocfilehash: 39740578e4a8c2d5400bcabbcb107baf0648fba5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8f0ff6d472c39eaf000c31783fe7a769c8746fec
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993496"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251112"
 ---
 # <a name="using-migrateexe"></a>Pomocí migrate.exe
 Migrace Code First lze použít k aktualizaci databáze ze sady visual Studio, ale mohou být provedeny také prostřednictvím migrate.exe nástroj příkazového řádku. Tato stránka vám poskytne rychlý přehled o tom, jak používat migrate.exe k provedení migrace ve srovnání s databází.
@@ -26,16 +26,14 @@ Pokud vaše aplikace cílí na rozhraní .NET 4, a ne 4.5, pak budete muset zkop
 
 | .NET 4.5                                   | ROZHRANÍ .NET 4.0                                   |
 |:-------------------------------------------|:-------------------------------------------|
-| ![Net45Files](~/ef6/media/net45files.png)  | ![Net40Files](~/ef6/media/net40files.png)  |
+| ![Soubory rozhraní .NET 4.5](~/ef6/media/net45files.png)  | ![Soubory rozhraní .NET 4.0](~/ef6/media/net40files.png)  |
 
 > [!NOTE]
 > Migrate.exe nepodporuje x64 sestavení.
 
-## <a name="using-migrateexe"></a>Pomocí Migrate.exe
-
 Po přesunutí migrate.exe do správné složky, pak byste měli použít k provedení migrace na databázi. Všechno, co je navrženy nástroj je provedení migrace. Nelze generovat migrace nebo vytvořit skript SQL.
 
-### <a name="see-options"></a>Zobrazit možnosti
+## <a name="see-options"></a>Zobrazit možnosti
 
 ``` console
 Migrate.exe /?
@@ -43,7 +41,7 @@ Migrate.exe /?
 
 Výše se zobrazí na stránce nápovědy přidružené k tento nástroj, Všimněte si, že je potřeba mít EntityFramework.dll ve stejném umístění, které běží migrate.exe v pořadí, aby to fungovalo.
 
-### <a name="migrate-to-the-latest-migration"></a>Migrace na nejnovější migrace
+## <a name="migrate-to-the-latest-migration"></a>Migrace na nejnovější migrace
 
 ``` console
 Migrate.exe MyMvcApplication.dll /startupConfigurationFile=”..\\web.config”
@@ -51,7 +49,7 @@ Migrate.exe MyMvcApplication.dll /startupConfigurationFile=”..\\web.config”
 
 Při spouštění migrate.exe pouze povinný parametr je sestavení, což je sestavení obsahující migrace, které se pokoušíte spustit, ale použije všechny konvence na základě nastavení, pokud nezadáte konfigurační soubor.
 
-### <a name="migrate-to-a-specific-migration"></a>Migrace na konkrétní migrace
+## <a name="migrate-to-a-specific-migration"></a>Migrace na konkrétní migrace
 
 ``` console
 Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /targetMigration=”AddTitle”
@@ -59,7 +57,7 @@ Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /targetMi
 
 Pokud chcete spustit migrace až po konkrétní migrace, můžete zadat název migrace. Tento kód spustí všechny předchozí migrace podle potřeby až na migraci zadán.
 
-### <a name="specify-working-directory"></a>Zadejte pracovní adresář
+## <a name="specify-working-directory"></a>Zadejte pracovní adresář
 
 ``` console
 Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /startupDirectory=”c:\\MyApp”
@@ -67,7 +65,7 @@ Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /startupD
 
 Pokud je sestavení má závislosti nebo načte soubory vzhledem k pracovní adresář je potřeba nastavit startupDirectory.
 
-### <a name="specify-migration-configuration-to-use"></a>Zadejte konfiguraci migrace použít
+## <a name="specify-migration-configuration-to-use"></a>Zadejte konfiguraci migrace použít
 
 ``` console
 Migrate.exe MyAssembly CustomConfig /startupConfigurationFile=”..\\web.config”
@@ -75,7 +73,7 @@ Migrate.exe MyAssembly CustomConfig /startupConfigurationFile=”..\\web.config�
 
 Pokud máte více tříd konfigurace migrace, třídy, které dědí z DbMigrationConfiguration, musíte určit, který se má použít pro toto spuštění. Tento parametr je zadán tím, že poskytuje volitelný druhý parametr bez přepínače jako výše.
 
-### <a name="provide-connection-string"></a>Zadejte připojovací řetězec
+## <a name="provide-connection-string"></a>Zadejte připojovací řetězec
 
 ``` console
 Migrate.exe BlogDemo.dll /connectionString=”Data Source=localhost;Initial Catalog=BlogDemo;Integrated Security=SSPI” /connectionProviderName=”System.Data.SqlClient”

@@ -3,12 +3,12 @@ title: Database First – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: c60108c09fcbaaa1f86e77fa52cb13fe018975e1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 93ae5729e487ed9be3972ac78d599dbea19ed458
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995907"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251086"
 ---
 # <a name="database-first"></a>První databáze
 Tato videa a podrobný návod poskytuje úvod do databáze první vývoj pomocí rozhraní Entity Framework. Nejprve lze provést zpětnou analýzu modelu z existující databáze. Modelu je uložen v souboru EDMX (s příponou edmx) a může se zobrazit a upravit v Návrháři Entity Framework. Třídy, které budete moct používat ve vaší aplikaci se automaticky vygenerují ze souboru EDMX.
@@ -46,17 +46,17 @@ Pojďme tedy vygenerovala databáze.
 -   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
 -   Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat jako zdroj dat Microsoft SQL Server
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![Vyberte zdroj dat](~/ef6/media/selectdatasource.png)
 
 -   Připojení k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali a zadejte **DatabaseFirst.Blogging** jako název databáze
 
-    ![SqlExpressConnectionDF](~/ef6/media/sqlexpressconnectiondf.png)
+    ![Připojení SQL Express DF](~/ef6/media/sqlexpressconnectiondf.png)
 
-    ![LocalDBConnectionDF](~/ef6/media/localdbconnectiondf.png)
+    ![Připojení LocalDB DF](~/ef6/media/localdbconnectiondf.png)
 
 -   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
 
-    ![CreateDatabaseDialog](~/ef6/media/createdatabasedialog.png)
+    ![Vytvoření dialogového okna databáze](~/ef6/media/createdatabasedialog.png)
 
 -   Nové databáze se teď budou zobrazovat v Průzkumníku serveru, klikněte pravým tlačítkem myši na něj a vyberte **nový dotaz**
 -   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
@@ -101,21 +101,21 @@ My budeme používat Entity Framework Designer, která je součástí sady Visua
 -   Tím se spustí **Průvodce datovým modelem Entity**
 -   Vyberte **Generovat z databáze** a klikněte na tlačítko **další**
 
-    ![WizardStep1](~/ef6/media/wizardstep1.png)
+    ![Krok 1 Průvodce](~/ef6/media/wizardstep1.png)
 
 -   Vyberte připojení k databázi vytvořené v první části, zadejte **BloggingContext** jako název připojovacího řetězce a klikněte na tlačítko **další**
 
-    ![WizardStep2](~/ef6/media/wizardstep2.png)
+    ![Krok 2 Průvodce](~/ef6/media/wizardstep2.png)
 
 -   Klikněte na zaškrtávací políčko vedle "Tables" k importu všech tabulek a klikněte na tlačítko 'Dokončit'
 
-    ![WizardStep3](~/ef6/media/wizardstep3.png)
+    ![Krok 3 Průvodce](~/ef6/media/wizardstep3.png)
 
  
 
 Po dokončení procesu zpětné analýzy nový model je přidána do projektu a zpřístupnili k zobrazení v Návrháři Entity Framework. Soubor App.config má také byla přidána do projektu s podrobnostmi o připojení pro databázi.
 
-![ModelInitial](~/ef6/media/modelinitial.png)
+![Počáteční modelu](~/ef6/media/modelinitial.png)
 
 ### <a name="additional-steps-in-visual-studio-2010"></a>Další kroky v sadě Visual Studio 2010
 
@@ -135,7 +135,7 @@ Dále musíme Prohodit náš model se vygenerovat kód, který využívá rozhra
 -   Vyberte **Online šablon** v levé nabídce a vyhledejte **DbContext**
 -   Vyberte EF **5.x DbContext generátor pro jazyk C\#**, zadejte **BloggingModel** jako název a klikněte na **přidat**
 
-    ![DbContextTemplate](~/ef6/media/dbcontexttemplate.png)
+    ![Šablona DbContext](~/ef6/media/dbcontexttemplate.png)
 
  
 
@@ -145,7 +145,7 @@ Když teď máme modelu je čas ho používat pro přístup k nějaká data. Tř
 
 *Tento snímek obrazovky je z Visual Studio 2012, pokud používáte Visual Studio 2010 BloggingModel.tt a BloggingModel.Context.tt soubory přímo v rámci projektu budou místo vnořen v souladu s souboru EDMX.*
 
-![GeneratedClassesDF](~/ef6/media/generatedclassesdf.png)
+![Generované třídy DF](~/ef6/media/generatedclassesdf.png)
 
  
 
@@ -217,7 +217,7 @@ Teď, když se aktualizuje schéma, je čas k aktualizaci modelu s těmito změn
 -   Na kartě přidat Průvodce aktualizací zaškrtávací políčko vedle tabulky to znamená, že chceme přidat žádné nové tabulky ze schématu.
     *Na kartě aktualizace se zobrazí veškeré stávající tabulky v modelu, který bude sloužit k změny během aktualizace. Odstranit záložky zobrazit žádné tabulky, které byly odebrány ze schématu a také se odebere z modelu jako součást aktualizace. Informace o těchto dvou karet je automaticky rozpoznán a je k dispozici, pouze k informačním účelům jakékoli nastavení nejde změnit.*
 
-    ![RefreshWizard](~/ef6/media/refreshwizard.png)
+    ![Aktualizovat Průvodce](~/ef6/media/refreshwizard.png)
 
 -   Klikněte na tlačítko Dokončit v Průvodci aktualizacemi
 
@@ -225,7 +225,7 @@ Teď, když se aktualizuje schéma, je čas k aktualizaci modelu s těmito změn
 
 Model je teď aktualizovaný zahrnout nové entity uživatele, který se mapuje na tabulku uživatelů, kterou jsme přidali do databáze.
 
-![ModelUpdated](~/ef6/media/modelupdated.png)
+![Aktualizace modelu](~/ef6/media/modelupdated.png)
 
 ## <a name="summary"></a>Souhrn
 

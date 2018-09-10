@@ -3,12 +3,12 @@ title: Vlastní sledování entity - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 8b555d211facd737aedf120a1ecfdc88d3903107
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: bd22df9e14fe71ae065baf1d747b1642dd7bafce
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998013"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250858"
 ---
 # <a name="self-tracking-entities"></a>Vlastní sledování entit
 
@@ -28,7 +28,7 @@ Tato položka šablony vytvoří dva soubory .tt (textové šablony):
 
 Abyste mohli začít, navštivte [Self-Tracking entity návod](walkthrough.md) stránky.  
 
-## <a name="considerations-when-working-with-self-tracking-entities"></a>Důležité informace při práci se svým sledováním entity  
+## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>Funkční aspekty při práci se svým sledováním entity  
 > [!IMPORTANT]
 > Už doporučujeme použít šablonu samoobslužného tracking entity. Pouze bude nadále být k dispozici pro podporu stávající aplikace. Pokud aplikace potřebuje pracovat s grafy odpojených entit, zvažte další možnosti, jako [organizovaným entity](http://trackableentities.github.io/), což je technologie, podobně jako u samoobslužného-Tracking-entit, které je více aktivně vyvíjen Komunita, nebo psaní vlastního kódu pomocí nízké úrovně rozhraní API pro sledování změn.
 
@@ -46,7 +46,7 @@ Při práci se službou samoobslužné sledování entit, zvažte následující
 - K provádění opožděné načtení nejsou povolené samoobslužné sledování entity.  
 - Binární serializace a serializace za účelem objekty stavu správy technologie ASP.NET není podporován místním sledování entity. Můžete však přizpůsobit šablonu k přidání podpory pro binární serializace. Další informace najdete v tématu [pomocí binární serializace a stav zobrazení s entitami Self-Tracking](http://go.microsoft.com/fwlink/?LinkId=199208).  
 
-### <a name="security-considerations"></a>Důležité informace o zabezpečení  
+## <a name="security-considerations"></a>Důležité informace o zabezpečení  
 
 Při práci se službou samoobslužné sledování entity musí vzít v úvahu následující aspekty zabezpečení:  
 

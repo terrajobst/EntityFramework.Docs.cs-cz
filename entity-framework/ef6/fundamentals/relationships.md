@@ -3,12 +3,12 @@ title: Relace, navigačních vlastností a cizí klíče - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 53f428360be4ea2e11a42676d22e584633ceedbc
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821397"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251216"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigačních vlastností a cizí klíče
 Toto téma obsahuje základní informace o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje pokyny o tom, jak mapovat a manipulaci s relací.
@@ -19,7 +19,7 @@ V relačních databázích jsou definovány relace (také nazývané přidružen
 
 Následující obrázek ukazuje dvě tabulky, které se účastní v vztah jeden mnoho. **Kurzu** tabulky je závislé tabulky, protože obsahuje **DepartmentID** sloupec, který odkazuje na **oddělení** tabulky.
 
-![Databáze 2](~/ef6/media/database2.png)
+![Oddělení a kurzu tabulky](~/ef6/media/database2.png)
 
 V Entity Framework entity souviset s jinými entitami, prostřednictvím přidružení nebo vztah. Každý vztah obsahuje dva elementy, které popisují typ entity a násobnosti typu (jedna, nula nebo jedna nebo řada) pro dvě entity, které v této relaci. Relace můžou řídit referenční omezení, která popisuje, jaké end v relaci je hlavní role a který je závislé role.
 
@@ -33,7 +33,7 @@ Můžete použít jeden nebo oba typy přidružení v modelu. Ale pokud budete m
 
 Následující obrázek ukazuje koncepční model, který byl vytvořen s Entity Framework Designer. Model obsahuje dvě entity, které jsou součástí vztah jeden mnoho. Oba entity mají navigační vlastnosti. **Kurz** depend entitou a má **DepartmentID** cizí definovanou klíčovou vlastnost.
 
-![RelationshipEFDesigner](~/ef6/media/relationshipefdesigner.png)
+![Oddělení a kurzu tabulky s navigační vlastnosti](~/ef6/media/relationshipefdesigner.png)
 
 Následující fragment kódu ukazuje stejný model, který byl vytvořen s Code First.
 

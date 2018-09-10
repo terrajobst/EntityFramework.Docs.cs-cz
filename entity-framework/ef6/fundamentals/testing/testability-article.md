@@ -3,12 +3,12 @@ title: Testovatelnost a Entity Framework 4.0
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-ms.openlocfilehash: 17a9f09022531a81042979464de05fbbd2570759
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a2384c7868ae3cf6af4f915c06ae9fdb622634c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995226"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251320"
 ---
 # <a name="testability-and-entity-framework-40"></a>Testovatelnost a Entity Framework 4.0
 Scott Allen
@@ -194,13 +194,13 @@ Tyto definice třídy mírně změní jako podíváme na různé přístupy a fu
 
 S POCOs na místě můžeme vytvořit Entity Data Model (EDM) v sadě Visual Studio (viz obrázek 1). EDM Nebudeme je používat ke generování kódu pro naše entity. Místo toho chcete používat entity, které jsme lovingly vytvořit ručně. Budeme používat jenom EDM pro generování naše schéma databáze a poskytněte metadata, která EF4 potřebuje k mapování objektů do databáze.
 
-![eftest_01](~/ef6/media/eftest-01.jpg)
+![EF test_01](~/ef6/media/eftest-01.jpg)
 
 **Obrázek 1**
 
 Poznámka: Pokud chcete vyvíjet první EDM model, je možné generovat čištění, POCO kód z modelu EDM. Můžete to provést pomocí rozšíření sady Visual Studio 2010 poskytované týmem programovatelnosti Data. Stáhnout rozšíření, spusťte Správce rozšíření v nabídce Nástroje v sadě Visual Studio, vyhledejte "POCO" (viz obrázek 2) online galerie šablon. Nejsou k dispozici pro EF několik šablon POCO. Další informace o použití šablony naleznete v části " [názorný postup: šablony objektů POCO pro Entity Framework](http://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)".
 
-![eftest_02](~/ef6/media/eftest-02.png)
+![EF test_02](~/ef6/media/eftest-02.png)
 
 **Obrázek 2**
 
@@ -415,13 +415,13 @@ Je běžné nastavení kódu, kterou potřebujeme pro tyto podrobné testovací 
 
 Můžeme použít EmployeeControllerTestBase jako základní třída pro řadu zařízení test (viz obrázek 3). Každý testovací přípravek testovat konkrétní kontroler akce. Například jeden testovací přípravek se zaměří na testování akce vytvoření využitých požadavek HTTP GET (Chcete-li zobrazit zobrazení pro vytváření zaměstnanci) a jiné testovacího přípravku se zaměřuje na akce vytvoření použít v požadavku HTTP POST (abyste mohli informace získané při uživatel muset vytvořit zaměstnanci). Jednotlivé odvozené třídy je pouze za instalaci potřebných v jeho konkrétním kontextu a k poskytování kontrolních výrazů, třeba ověřit výsledky jeho kontextu konkrétní testovací.
 
-![eftest_03](~/ef6/media/eftest-03.png)
+![EF test_03](~/ef6/media/eftest-03.png)
 
 **Obrázek 3**
 
 Zásady vytváření a testování styl okomentovat není vyžadováno pro testovatelného kód – je jenom jedním z přístupů. Obrázek 4 ukazuje, že testy běžící v Resharper mozky Jet test runner modulu plug-in pro Visual Studio 2010.
 
-![eftest_04](~/ef6/media/eftest-04.png)
+![EF test_04](~/ef6/media/eftest-04.png)
 
 **Obrázek 4**
 

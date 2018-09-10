@@ -3,19 +3,19 @@ title: Rozdělení návrháře entit - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: aa2dd48a-1f0e-49dd-863d-d6b4f5834832
-ms.openlocfilehash: 214561f0a0381bced3ceae0b6acfcd45f5dd65c5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 06199be977276cd3656e2550df79bac24276ec51
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995616"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250593"
 ---
 # <a name="designer-entity-splitting"></a>Rozdělení návrháře entit
 Tento návod ukazuje, jak pro mapování typu entity na dvě tabulky tak, že upravíte model se Návrhář Entity Framework (EF designeru). Entitu můžete namapovat na několik tabulek při tabulky sdílet společný klíč. Koncepty, které platí pro mapování typu entity na dvě tabulky jsou snadno rozšířit mapování typu entity k více než dvě tabulky.
 
 Následující obrázek znázorňuje hlavní windows, které se používají při práci s EF designeru.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF designeru](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -93,7 +93,7 @@ V tomto kroku budeme aktualizovat **osoba** typ entity kombinovat data z **osoba
 -   Na návrhové ploše, vyberte **PersonInfo** entity a stiskněte klávesu **odstranit** tlačítko na klávesnici.
 -   Klikněte na tlačítko **ne** když se zobrazí výzva, pokud chcete odebrat **PersonInfo** tabulky z modelu, jsme ji namapovat na **osoba** entity.
 
-    ![DeleteTables](~/ef6/media/deletetables.png)
+    ![Odstranit tabulky](~/ef6/media/deletetables.png)
 
 Vyžadovat další kroky **podrobnosti mapování** okna. Pokud toto okno nelze zobrazit, klikněte pravým tlačítkem na návrhové ploše a vyberte **podrobnosti mapování**.
 
@@ -103,7 +103,7 @@ Vyžadovat další kroky **podrobnosti mapování** okna. Pokud toto okno nelze 
 
 **Osoba** typ entity je nyní namapována na **osoba** a **PersonInfo** tabulky.
 
-![Mapping2](~/ef6/media/mapping2.png)
+![Mapování 2](~/ef6/media/mapping2.png)
 
 ## <a name="use-the-model"></a>Použití modelu
 
@@ -136,9 +136,9 @@ Následující příkazy T-SQL byly provedeny na databázi v důsledku spuštěn
 
 -   Následující dva **vložit** příkazy byly spuštěny v důsledku spuštění kontextu. SaveChanges(). Přijímají data z **osoba** entity a rozdělit ho mezi **osoba** a **PersonInfo** tabulky.
 
-    ![Insert1](~/ef6/media/insert1.png)
+    ![Vložit 1](~/ef6/media/insert1.png)
 
-    ![Insert2](~/ef6/media/insert2.png)
+    ![Vložit 2](~/ef6/media/insert2.png)
 -   Následující **vyberte** se spustil v důsledku výčet uživatelů v databázi. Kombinuje data z **osoba** a **PersonInfo** tabulky.
 
     ![Vyberte](~/ef6/media/select.png)

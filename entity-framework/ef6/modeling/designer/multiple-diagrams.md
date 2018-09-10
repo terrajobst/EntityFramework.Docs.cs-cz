@@ -3,12 +3,12 @@ title: Více diagramů za Model - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b95db5c8-de8d-43bd-9ccc-5df6a5e25e1b
-ms.openlocfilehash: f27afbd3b44ff3eb8044ab960f10b2856a603ee3
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e23bf92ce3199b2162ca9a42bd0f797375179d77
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993775"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250956"
 ---
 # <a name="multiple-diagrams-per-model"></a>Více diagramů podle modelu
 > [!NOTE]
@@ -39,7 +39,7 @@ Po dokončení Průvodce datovým modelem Entity automaticky otevření okna ná
 
 Následující snímek obrazovky ukazuje soubor .edmx otevřen v EF designeru. Snímek obrazovky ukazuje vizuální návrhová plocha (nalevo) a **prohlížeč modelu** okno (napravo).
 
-![EFDesigner2](~/ef6/media/efdesigner2.png)
+![EF designeru 2](~/ef6/media/efdesigner2.png)
 
 Chcete-li v EF designeru operaci vrátit zpět, klikněte na tlačítko Ctrl-Z.
 

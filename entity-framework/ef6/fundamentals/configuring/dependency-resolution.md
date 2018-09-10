@@ -3,12 +3,12 @@ title: Řešení závislostí - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
-ms.openlocfilehash: 45681bb0cedecd502b1968b90b7f682d3257dd23
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c6c56c3048e17a5c888ffe564e7606abf8b0c4ed
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998159"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251242"
 ---
 # <a name="dependency-resolution"></a>Řešení závislostí
 > [!NOTE]
@@ -25,13 +25,11 @@ public interface IDbDependencyResolver
 
 Metoda GetService je obvykle volána EF a zařizuje služba implementace IDbDependencyResolver EF nebo aplikace k dispozici. Při volání, typ argumentu je typ rozhraní nebo základní třídy požadované služby a klíče objektu je buď null, nebo objekt, který poskytuje kontextové informace o požadovanou službu.  
 
-Tento článek neobsahuje všechny podrobnosti o tom, jak implementovat IDbDependencyResolver, ale místo toho funguje jako reference pro pro které EF volá GetService a sémantika klíčový objekt pro každou z těchto typů služeb (to znamená, typy rozhraní a základní třídy) volání. Tento dokument se zachová aktuální při přidání dalších služeb.  
+Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro vlákno, protože může sloužit jako singleton. V mnoha případech objekt se vrátil v takovém případě je objekt pro vytváření samotný objekt factory musí být bezpečná pro vlákno, ale objekt vrácený objekt pro vytváření nemusí být bezpečné pro vlákna, protože je požadována novou instanci z objekt factory pro každé použití.
 
-## <a name="services-resolved"></a>Služby Vyřešeno  
+Tento článek neobsahuje všechny podrobnosti o tom, jak implementovat IDbDependencyResolver, ale místo toho funguje jako reference pro pro které EF volá GetService a sémantika klíčový objekt pro každou z těchto typů služeb (to znamená, typy rozhraní a základní třídy) volání.
 
-Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro vlákno, protože může sloužit jako singleton. V mnoha případech objekt se vrátil v takovém případě je objekt pro vytváření samotný objekt factory musí být bezpečná pro vlákno, ale objekt vrácený objekt pro vytváření nemusí být bezpečné pro vlákna, protože je požadována novou instanci z objekt factory pro každé použití.  
-
-### <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
+## <a name="systemdataentityidatabaseinitializertcontext"></a>System.Data.Entity.IDatabaseInitializer < TContext\>  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -39,7 +37,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null  
 
-### <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
+## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func < System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\>  
 
 **Verze zavedené**: EF6.0.0
 
@@ -50,7 +48,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
+## <a name="systemdataentitycorecommondbproviderservices"></a>System.Data.Entity.Core.Common.DbProviderServices  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -61,7 +59,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
+## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>System.Data.Entity.Infrastructure.IDbConnectionFactory  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -72,7 +70,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
+## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>System.Data.Entity.Infrastructure.IManifestTokenService  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -82,7 +80,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null  
 
-### <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
+## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a>System.Data.Entity.Infrastructure.IDbProviderFactoryService  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -90,7 +88,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null  
 
-### <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
+## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\>  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -98,7 +96,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null  
 
-### <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
+## <a name="systemdataentityspatialdbspatialservices"></a>System.Data.Entity.Spatial.DbSpatialServices  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -109,7 +107,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
+## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func < System.Data.Entity.Infrastructure.IDbExecutionStrategy\>  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -120,7 +118,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < DbConnection, řetězec, System.Data.Entity.Migrations.History.HistoryContext\>  
+## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < DbConnection, řetězec, System.Data.Entity.Migrations.History.HistoryContext\>  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -131,7 +129,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
+## <a name="systemdatacommondbproviderfactory"></a>System.Data.Common.DbProviderFactory  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -142,7 +140,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Tato služba není obvykle přímo od změnila výchozí implementace používá normální registrace zprostředkovatele ADO.NET. Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
+## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>System.Data.Entity.Infrastructure.IProviderInvariantName  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -153,7 +151,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 >[!NOTE]
 > Další podrobnosti týkající se poskytovatele služeb v EF6 najdete [modelu EF6 poskytovatele](~/ef6/fundamentals/providers/provider-model.md) části.  
 
-### <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
+## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -161,7 +159,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null  
 
-### <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
+## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a>System.Data.Entity.Infrastructure.Pluralization.IPluralizationService
 
 **Verze zavedené**: EF6.0.0  
 
@@ -169,7 +167,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null  
 
-### <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
+## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a>System.Data.Entity.Infrastructure.Interception.IDbInterceptor  
 
 **Verze zavedené**: EF6.0.0
 
@@ -177,7 +175,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null.  
 
-### <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < System.Data.Entity.DbContext, akce < řetězec\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
+## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < System.Data.Entity.DbContext, akce < řetězec\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\>  
 
 **Verze zavedené**: EF6.0.0  
 
@@ -185,7 +183,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: není používána a bude mít hodnotu null.  
 
-### <a name="funcsystemdataentitydbcontext"></a>Func < System.Data.Entity.DbContext\>  
+## <a name="funcsystemdataentitydbcontext"></a>Func < System.Data.Entity.DbContext\>  
 
 **Verze zavedené**: EF6.1.0  
 
@@ -193,7 +191,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: typ objektu typu odvozené uvolněn objekt DbContext, pro kterou je potřeba objekt pro vytváření.  
 
-### <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
+## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func < System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\>  
 
 **Verze zavedené**: EF6.1.0  
 
@@ -201,7 +199,7 @@ Pokud není uvedeno jinak, žádné objekt vrácený musí být bezpečná pro v
 
 **Klíč**: název poznámky, je serializován nebo deserializován.  
 
-### <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < System.Data.Entity.Infrastructure.TransactionHandler\>  
+## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < System.Data.Entity.Infrastructure.TransactionHandler\>  
 
 **Verze zavedené**: EF6.1.0  
 

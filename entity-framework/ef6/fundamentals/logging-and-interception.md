@@ -3,12 +3,12 @@ title: Protokolování a zachycení databázových operací - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: 2e16502abf54be3f3b2f63fe69d2605ef13dea27
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 9a8be81af45d9f27caa8c26f66d219dc568b6604
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994632"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251268"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>Protokolování a zachycení databázové operace
 > [!NOTE]
@@ -36,8 +36,6 @@ using (var context = new BlogContext())
 ```  
 
 Všimněte si, že tento kontext. Database.Log nastavená na Console.Write. To je vše, co je potřeba pro SQL přihlášení ke konzole.  
-
-### <a name="example-output"></a>Příklad výstupu  
 
 Přidejme jednoduchého kódu query/insert nebo update, jsme viděli některé výstup:  
 
@@ -98,7 +96,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 (Všimněte si, že se jedná o výstup, za předpokladu, že již došlo k inicializaci žádné databáze. Pokud inicializaci databáze nebyly již došlo k pak bude mnohem více výstup zobrazuje všechnu práci migrace provede na pozadí vyhledat nebo vytvořit novou databázi.)  
 
-### <a name="what-gets-logged"></a>Co získá přihlášení?  
+## <a name="what-gets-logged"></a>Co získá přihlášení?  
 
 Když je vlastnost protokolu nastavena všechny tyto se protokolovat:  
 
@@ -124,7 +122,7 @@ Hledání na výše uvedeném příkladu výstupu, každý ze čtyř příkazů 
     - Všimněte si, že parametr podrobné vlastnosti cizího klíče a funkce  
     - Všimněte si, že tyto příkazy se spouštějí asynchronně  
 
-### <a name="logging-to-different-places"></a>Protokolování na různých místech  
+## <a name="logging-to-different-places"></a>Protokolování na různých místech  
 
 Jak je znázorněno výše protokolování do konzoly máte velmi snadný. Se dá taky snadno protokolovat do paměti, souborů, atd. pomocí různých typů z [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx).  
 
@@ -147,7 +145,7 @@ var logger = new MyLogger();
 context.Database.Log = s => logger.Log("EFApp", s);
 ```  
 
-### <a name="result-logging"></a>Výsledek protokolování  
+## <a name="result-logging"></a>Výsledek protokolování  
 
 Protokolovací nástroj výchozí text příkazu (SQL), parametry a protokoly "Zpracování" řádku s časovým razítkem před odesláním příkazu do databáze. "Dokončených" řádek obsahující uplynulý čas je zaznamenané následující provedení příkazu.  
 
@@ -155,11 +153,11 @@ Všimněte si, že pro asynchronní příkazy "dokončených" řádku není při
 
 "Dokončených" řádek obsahuje různé informace v závislosti na typu příkazu a určuje, jestli spuštění proběhlo úspěšně.  
 
-#### <a name="successful-execution"></a>Úspěšná spuštění  
+### <a name="successful-execution"></a>Úspěšná spuštění  
 
 Příkazy, které úspěšně dokončit výstup je "dokončeno v x ms s výsledkem:" následované některé indikace toho, co bylo výsledek. Pro příkazy, které vracejí výsledek čtecí modul dat je označení typu [DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx) vrátila. Pro příkazy, které vrátí celočíselnou hodnotu, jako je například aktualizace je uvedenému výše ukazuje výsledek tohoto celé číslo.  
 
-#### <a name="failed-execution"></a>Neúspěšné provedení  
+### <a name="failed-execution"></a>Neúspěšné provedení  
 
 Výstup obsahuje příkazy, které selhání vyvoláním výjimky, zprávu výjimky. Například pomocí dotazu na tabulku, která neexistuje SqlQuery se v protokolu výstupu výsledků vypadat přibližně takto:  
 
@@ -169,7 +167,7 @@ SELECT * from ThisTableIsMissing
 -- Failed in 1 ms with error: Invalid object name 'ThisTableIsMissing'.
 ```  
 
-#### <a name="canceled-execution"></a>Zrušená spuštění  
+### <a name="canceled-execution"></a>Zrušená spuštění  
 
 Pro asynchronní příkazy, kde je tato úloha nezruší výsledek může být chyba s výjimkou, protože se jedná podkladového zprostředkovatele ADO.NET často význam při pokusu o zrušení. Pokud rovnosti a úloha se zruší čistě pak výstup bude vypadat přibližně takto:  
 
@@ -180,8 +178,6 @@ update Blogs set Title = 'No' where Id = -1
 ```  
 
 ## <a name="changing-log-content-and-formatting"></a>Změna obsah protokolu a formátování  
-
-### <a name="databaselogformatter"></a>DatabaseLogFormatter  
 
 Pod pokličkou Database.Log vlastnost díky využívání DatabaseLogFormatter objektu. Tento objekt efektivně váže IDbCommandInterceptor implementaci (viz níže) na delegáta, který přijímá řetězce a DbContext. To znamená, že v DatabaseLogFormatter metody jsou volány před a po spuštění příkazů EF. Tyto metody DatabaseLogFormatter shromažďovat a formátování výstupu protokolu a odeslat do delegáta.  
 

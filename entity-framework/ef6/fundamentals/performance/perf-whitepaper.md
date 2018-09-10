@@ -3,12 +3,12 @@ title: Faktory ovlivňující výkon u EF4 EF5 a EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: f71a13ec06ad46259b3f33216367723b53314a5c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 3ec061559f6ad7cbdce59118c13543d9993ec5a5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996745"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251307"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Faktory ovlivňující výkon u EF 6, 4 a 5
 David Obando, Eric Dettinger a další
@@ -181,7 +181,7 @@ Hledání používá hodnotu primárního klíče pokusí se najít entitu sledo
 
 Existuje posouzení výkonu, jež mají být provedeny při hledání. Volání této metody ve výchozím nastavení spustí ověření mezipaměti objektů zjišťovat změny, které jsou stále čeká na potvrzení změn do databáze. Tento proces může být velmi náročná, pokud existuje velký počet objektů v mezipaměti objektů nebo velkého objektu grafu se přidávají do mezipaměti objektů, ale můžete také zakázat. V některých případech může přes řád velké rozdíly v volání najít metodu, pokud zakážete automatické zjišťování vnímat změny. Ještě druhý řádově bude považován, když ve skutečnosti je objekt v mezipaměti a když má objekt, který se má načíst z databáze. Tady je ukázka grafu s měření pomocí některé z našich microbenchmarks vyjádřené v milisekundách, s načtením 5000 entit:
 
-![Net45LogScale](~/ef6/media/net45logscale.png ".NET 4.5 – logaritmické měřítko")
+![Hodnota na logaritmické stupnici .NET 4.5](~/ef6/media/net45logscale.png ".NET 4.5 – logaritmické měřítko")
 
 Příklad najít změnami auto-detect zakázané:
 
@@ -825,9 +825,9 @@ Byly jednoduché microbenchmarks, kde se vytvoření kontextu vypršel časový 
 | EF6 | Dotaz Linq DbContext                 | 3420      | 47652864 |
 | EF6 | Objekt ObjectContext Linq dotaz bez sledování | 3593      | 45260800 |
 
-![EF5Micro5000Warm](~/ef6/media/ef5micro5000warm.png)
+![EF5 micro srovnávací testy, 5000 teplé iterací](~/ef6/media/ef5micro5000warm.png)
 
-![EF6Micro5000Warm](~/ef6/media/ef6micro5000warm.png)
+![EF6 micro srovnávací testy, 5000 teplé iterací](~/ef6/media/ef6micro5000warm.png)
 
 Microbenchmarks jsou velmi citlivé na malých změn v kódu. V tomto případě rozdíl mezi náklady na Entity Framework 5 a Entity Framework 6 jsou z důvodu přidání [zachycení](~/ef6/fundamentals/logging-and-interception.md) a [transakční vylepšení](~/ef6/saving/transactions.md). Tato čísla microbenchmarks jsou však zesilovací vizi do velmi malý fragment toho, co dělá rozhraní Entity Framework. Reálné scénáře teplé dotazů by se neměly zobrazovat regrese výkonu při upgradu z Entity Framework 5 na Entity Framework 6.
 
@@ -858,9 +858,9 @@ Porovnat výkon skutečné možností jiný dotaz, vytvořili jsme 5 variace sam
 | EF6 | Dotaz Linq DbContext                        | . 1290      | 47529984 |
 
 
-![EF5WarmQuery1000](~/ef6/media/ef5warmquery1000.png)
+![EF5 teplé dotazu 1000 iterací](~/ef6/media/ef5warmquery1000.png)
 
-![EF6WarmQuery1000](~/ef6/media/ef6warmquery1000.png)
+![EF6 teplé dotazu 1000 iterací](~/ef6/media/ef6warmquery1000.png)
 
 > [!NOTE]
 > Pro úplnost jsme zahrnuli variace, kde jsme na EntityCommand spuštění dotazu Entity SQL. Ale protože výsledky nejsou vyhodnocena pro takové dotazy, porovnání, není nutně jablka jablka. Test zahrnuje aproximace pro materializaci vyzkoušet srovnávání spravedlivější.

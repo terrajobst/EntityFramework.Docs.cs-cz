@@ -3,12 +3,12 @@ title: Uložené procedury s více sad výsledků dotazu - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1b3797f9-cd3d-4752-a55e-47b84b399dc1
-ms.openlocfilehash: bb104ac5f584d26d279259a173de9afe3f018968
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 56c28f05bd7efe1b54d6cadd32afe0e9c6cf38b5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996172"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251008"
 ---
 # <a name="stored-procedures-with-multiple-result-sets"></a>Uložené procedury s více sad výsledků dotazu
 Někdy při použití uložených procedur, je potřeba vrátit více než jeden výsledek nastavit. Tento scénář se často používá ke snížení počtu databáze má zpáteční převod vyžaduje k vytváření na jedné obrazovce. Před EF5 Entity Framework by umožnilo uloženou proceduru, která se má volat, ale pouze vrátí první sadu výsledků do volajícího kódu.
@@ -104,7 +104,7 @@ Pokud používáte EF designeru, můžete také změnit váš model, tak, aby v�
 -   Pokud to chcete udělat, budete muset přidat uložené procedury do modelu, stejně jako jeden výsledek dotazu sady.
 -   Jakmile budete mít, to je nutné klikněte pravým tlačítkem na model a vyberte **otevřít v programu...** potom **Xml**
 
-    ![OpenAs](~/ef6/media/openas.png)
+    ![Otevřít jako](~/ef6/media/openas.png)
 
 Jakmile budete mít modelu otevřít ve formátu XML, je nutné provést následující kroky:
 

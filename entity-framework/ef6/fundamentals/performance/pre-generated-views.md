@@ -3,12 +3,12 @@ title: Zobrazení mapování předem generovaného - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-ms.openlocfilehash: 397569ef374cb44d4938f9e201b588a26c408f6e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c2ad7125122c04af238e8fdd07da2c6c308a2756
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996469"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250761"
 ---
 # <a name="pre-generated-mapping-views"></a>Zobrazení předem generovaného mapování
 Entity Framework mohli spustit dotaz nebo uložit změny do zdroje dat, musíte vygenerovat sadu zobrazení mapování pro přístup k databázi. Tato mapování zobrazení jsou sady Entity SQL příkazu, který abstraktní jak reprezentaci databáze a část metadata, která se uloží do mezipaměti pro doménu aplikace. Pokud vytvoříte více instancí stejného kontextu ve stejné doméně aplikace, bude znovu použít zobrazení mapování ze metadata uložená v mezipaměti místo jejich obnovení. Protože generování zobrazení mapování je podstatnou část celkové náklady na provedení první dotaz, Entity Framework umožňuje předběžně generovat zobrazení mapování a zahrnout je do kompilované projektu. Další informace najdete v tématu [důležité informace o výkonu (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
@@ -20,11 +20,11 @@ Nejjednodušší způsob, jak předem vygenerovat zobrazení je použít [EF Pow
 -   Pro **Code First** modelů klikněte pravým tlačítkem na soubor kódu, který obsahuje vaše třídy DbContext.
 -   Pro **EF designeru** modelů klikněte pravým tlačítkem na soubor EDMX.
 
-![generateViews](~/ef6/media/generateviews.png)
+![Generování zobrazení](~/ef6/media/generateviews.png)
 
 Po dokončení procesu budete mít podobný následujícímu generované třídy
 
-![generatedViews](~/ef6/media/generatedviews.png)
+![vygenerovaných zobrazení](~/ef6/media/generatedviews.png)
 
 Nyní při spuštění aplikace EF bude tato třída slouží k načtení zobrazení podle potřeby. Pokud se změny modelu a nejsou znovu generovány Tato třída EF vyvolá výjimku.
 

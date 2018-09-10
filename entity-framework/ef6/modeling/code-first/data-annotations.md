@@ -3,29 +3,29 @@ title: Kód anotací dat při prvním - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 0ab66afa3babafe657b3ddb32c02c3fba0ae310e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 57e2b988f81d9c82e10a07a5cd4f3a1decfd838a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994583"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251203"
 ---
 # <a name="code-first-data-annotations"></a>Kód první datové poznámky
 > [!NOTE]
-> **EF4.1 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 4.1. Pokud používáte starší verzi, některé nebo všechny informace neplatí.
+> **EF4.1 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 4.1. Pokud používáte starší verzi, některé nebo všechny tyto informace se nevztahují.
 
-Obsah na této stránce jsou upraveny z a článek původně vydané společností Julie Lerman (\<http://thedatafarm.com>).
+Obsah na této stránce jsou upraveny z článku původně vytvořeny pomocí Julie Lerman (\<http://thedatafarm.com>).
 
-Entity Framework Code First umožňuje používat vaše vlastní třídy domény k vyjádření modelu, které EF spoléhá na k provedení dotazu, změňte sledování a aktualizuje se funkce. Kód nejprve využívá programovací model označovány jako konvence nad konfigurací. To znamená, že kód nejprve bude předpokládat, že třídy dodržují konvence, které EF používá. V takovém případě EF budou moct pracovat podrobnosti ji potřebuje pro výkon své práce. Ale pokud tříd nepostupujte podle těchto konvence, máte možnost přidání konfigurace do vaší třídy, které poskytují EF s informacemi, které potřebuje.
+Entity Framework Code First umožňuje používat vaše vlastní třídy domény k vyjádření modelu EF využívá k provedení dotazu, změňte sledování a aktualizuje se funkce. Kód nejprve využívá programovací model označovány jako "úmluva nad konfigurací." Kód nejprve převezme, Entity Framework pro vytváření tříd a v takovém případě budou automaticky fungovat možnostmi, jak provést její úlohy. Ale pokud tříd nepostupujte podle těchto konvence, máte možnost přidání konfigurace do vaší třídy, které poskytují EF s požadovanými informacemi.
 
-Kód nejprve poskytuje dva způsoby, jak tyto konfigurace přidat do vaší třídy. Jeden používá jednoduché atributy, které volá DataAnnotations a druhý je použití kódu nejprve je rozhraní Fluent API, která vám poskytuje způsob, jak popisují konfiguraci toho, v kódu.
+Kód nejprve poskytuje dva způsoby, jak tyto konfigurace přidat do vaší třídy. Jeden používá jednoduché atributy, které volá DataAnnotations a druhý je použití Code First Fluent API, která vám poskytuje způsob, jak popisují konfiguraci toho, v kódu.
 
 Tento článek se zaměří na používání DataAnnotations (v oboru názvů System.ComponentModel.DataAnnotations) ke konfiguraci třídy – zvýraznění nejčastěji potřebných konfigurací. DataAnnotations také rozumí počet aplikací .NET, jako je například technologie ASP.NET MVC, která umožňuje tyto aplikace využívat stejné poznámky k ověření na straně klienta.
 
 
 ## <a name="the-model"></a>Model
 
-Vám předvedu kódu první DataAnnotations pomocí jednoduchého páru tříd: Blog a příspěvku.
+Vám předvedu první DataAnnotations kódu pomocí jednoduchého páru tříd: Blog a příspěvku.
 
 ``` csharp
     public class Blog
@@ -47,15 +47,15 @@ Vám předvedu kódu první DataAnnotations pomocí jednoduchého páru tříd: 
     }
 ```
 
-Jsou, blogu a příspěvku třídy pohodlně postupujte podle úmluvy první kódu a vyžaduje žádné vylepšení usnadňují práci s nimi EF. Ale můžete také použít poznámky vám poskytneme Další informace o třídách a databáze, které jsou mapovány na EF.
+Jsou, blogu a příspěvku třídy pohodlně postupujte podle úmluvy první kód a vyžadují žádné vylepšení umožňující EF kompatibilitou. Ale můžete také použít poznámky vám poskytneme Další informace o třídách a databáze, ke které jsou mapovány na EF.
 
  
 
 ## <a name="key"></a>Key
 
-Entity Framework spoléhá na každé entitě s hodnotou klíče, který se používá ke sledování entity. Jednu z konvencí kód nejprve, na kterých závisí je, jak vyplývá vlastností, které se klíč v každém z první třídy kódu. Úmluvy je pro vlastnost s názvem "Id" nebo disk, který kombinuje název třídy a "Id", jako je například "BlogId". Vlastnost bude mapovat na sloupec primárního klíče v databázi.
+Entity Framework spoléhá na každé entitě s hodnotou klíče, který se používá pro entitu pro sledování. Jeden konvence Code First je implicitní klíčové vlastnosti; Kód nejprve bude hledat vlastnost s názvem "Id" nebo kombinace názvu třídy a "Id", jako je například "BlogId". Tato vlastnost bude mapovat na sloupec primárního klíče v databázi.
 
-Třídy blogu a účtovat podle Tato konvence. Ale co když se nepovedlo? Co když blogu použít název *PrimaryTrackingKey* místo nebo dokonce *foo*? Pokud kód nejprve nenajde vlastnost, která odpovídá tato konvence vyvolá výjimku z důvodu požadavku Entity Framework, že musí mít vlastnost klíče. Poznámka klíče můžete použít k určení vlastností, které se má použít jako EntityKey.
+Třídy blogu a účtovat podle Tato konvence. Co když se nepovedlo? Co když blogu použít název *PrimaryTrackingKey* místo, nebo dokonce *foo*? Pokud kód nejprve nenajde vlastnost, která odpovídá tato konvence vyvolá výjimku z důvodu požadavku Entity Framework, že musí mít vlastnost klíče. Poznámka klíče můžete použít k určení vlastností, které se má použít jako EntityKey.
 
 ``` csharp
     public class Blog
@@ -70,11 +70,11 @@ Třídy blogu a účtovat podle Tato konvence. Ale co když se nepovedlo? Co kdy
 
 Pokud jste nejdřív pomocí kódu je funkce generování databáze, blogu tabulka bude obsahovat sloupec primárního klíče s názvem PrimaryTrackingKey, který je definovaný i jako identitu ve výchozím nastavení.
 
-![jj591583_figure01](~/ef6/media/jj591583-figure01.png)
+![Blog tabulky s primárním klíčem](~/ef6/media/jj591583-figure01.png)
 
 ### <a name="composite-keys"></a>Složené klíče
 
-Entity Framework podporuje složené klíče – primární klíče, které se skládají z více než jednu vlastnost. Například vašeho účtu služby Passport třídy, jejichž primární klíč je kombinací PassportNumber a IssuingCountry může mít.
+Entity Framework podporuje složené klíče – primární klíče, které se skládají z více než jednu vlastnost. Například můžete mít Passport třídy, jejichž primární klíč je kombinací PassportNumber a IssuingCountry.
 
 ``` csharp
     public class Passport
@@ -88,11 +88,11 @@ Entity Framework podporuje složené klíče – primární klíče, které se s
     }
 ```
 
-Pokud byste chtěli akci a použijte výše uvedené třídu ve vašem modelu EF, které by zobrazí zpráva InvalidOperationExceptions;
+Pokus o použití ve vašem modelu EF třídu výše by výsledkem `InvalidOperationException`:
 
 *Nepovedlo se určit složený primární klíče řazení pro typ "Passport". Použijte ColumnAttribute nebo metodu HasKey k určení pořadí pro složený primární klíče.*
 
-Až budete mít složených klíčů, Entity Framework vyžaduje definování objednávku klíčové vlastnosti. Můžete udělat pomocí sloupce Poznámka k určení pořadí.
+Chcete-li použít složené klíče, Entity Framework vyžaduje, abyste k definování objednávku ke klíčové vlastnosti. Můžete to provést s použitím sloupce Poznámka k určení pořadí.
 
 >[!NOTE]
 > Hodnota pořadí je relativní (a ne na základě indexu), můžete použít všechny hodnoty. Například 100 až 200 bude přijatelné namísto 1 a 2.
@@ -111,7 +111,7 @@ Až budete mít složených klíčů, Entity Framework vyžaduje definování ob
     }
 ```
 
-Pokud máte složené cizího klíče entity, které musíte zadat stejný sloupec řazení, který jste použili pro odpovídající vlastnosti primárního klíče.
+Pokud máte entity složené cizí klíče, musíte zadat stejný sloupec řazení, který jste použili pro odpovídající vlastnosti primárního klíče.
 
 Pouze relativní řazení v rámci vlastnosti cizího klíče musí být stejný přesné hodnoty přiřazené k **pořadí** nemusí odpovídat. Například ve třídě následující 3 a 4 by mohla být zastoupen 1 a 2.
 
@@ -148,7 +148,7 @@ Přidání vyžaduje vlastnost názvu vynutí EF (a MVC) ujistěte se, že vlast
 
 Žádné další bez změny kódu nebo značek v aplikaci, aplikace MVC provede ověřování na straně klienta, dokonce i dynamické vytvoření zprávu pomocí názvy vlastností a poznámek.
 
-![jj591583_figure02](~/ef6/media/jj591583-figure02.png)
+![Vytvoření stránky s názvem je povinné chyba](~/ef6/media/jj591583-figure02.png)
 
 Požadovaný atribut ovlivní také generován databázový tím, že namapovanou vlastnost Null. Všimněte si, že pole název se změnil na "not null".
 
@@ -157,7 +157,7 @@ Požadovaný atribut ovlivní také generován databázový tím, že namapovano
 
  
 
-![jj591583_figure03](~/ef6/media/jj591583-figure03.png)
+![Blogy tabulky](~/ef6/media/jj591583-figure03.png)
 
  
 
@@ -174,7 +174,7 @@ Tady je BloggerName s požadavky na délku. Tento příklad také ukazuje, jak k
 
 Poznámka MaxLength ovlivní databázi nastavením vlastnosti length na 10.
 
-![jj591583_figure04](~/ef6/media/jj591583-figure04.png)
+![Blogy tabulka zobrazující maximální délka pro sloupec BloggerName](~/ef6/media/jj591583-figure04.png)
 
 MVC na straně klienta poznámky a anotace EF 4.1 na straně serveru i dodrží toto ověření znovu dynamické vytvoření chybová zpráva: "pole BloggerName musí být typu řetězce nebo pole s maximální délkou"10"." Tato zpráva je trochu dlouhý. Mnoho anotace umožňují zadat chybovou zprávu s atributem chybová zpráva.
 
@@ -185,7 +185,7 @@ MVC na straně klienta poznámky a anotace EF 4.1 na straně serveru i dodrží 
 
 Můžete také zadat chybová zpráva v poznámce požadované.
 
-![jj591583_figure05](~/ef6/media/jj591583-figure05.png)
+![Vytvoření stránky se vlastní chybová zpráva](~/ef6/media/jj591583-figure05.png)
 
  
 
@@ -243,7 +243,7 @@ Nyní můžete přidat vlastnost ve třídě blogu k reprezentaci BlogDetails pr
 
 V databázi v blogu tabulce bude obsahovat všechny vlastnosti včetně vlastnosti obsažené v jeho vlastnost BlogDetail blogu. Ve výchozím nastavení každý z nich je před názvem komplexní typ, BlogDetail.
 
-![jj591583_figure06](~/ef6/media/jj591583-figure06.png)
+![Blog tabulku s komplexní typ](~/ef6/media/jj591583-figure06.png)
 
 Další zajímavé Poznámka je sice DateCreated vlastnost byla definována jako neumožňující hodnotu data a času ve třídě, pole příslušnou databázi s povolenou hodnotou Null. Pokud chcete mít vliv na schéma databáze, je nutné použít požadované poznámky.
 
@@ -284,7 +284,7 @@ Přidávání do třídy blogu následující vlastnost:
 
 výsledky v kódu nejprve vytvořit sloupec časového razítka Null v tabulce databáze.
 
-![jj591583_figure07](~/ef6/media/jj591583-figure07.png)
+![Blogy tabulku se sloupci razítko času](~/ef6/media/jj591583-figure07.png)
 
  
 
@@ -310,7 +310,7 @@ Nepleťte si Atribut TypeName sloupce s DataAnnotation datového typu. Datový t
 
 Tady je tabulka po je byly znovu vygenerovány. InternalBlogs změnil název tabulky a sloupce s popisem od komplexní typ je nyní BlogDescription. Protože v poznámce byl zadán název, kód nejprve nebudeme používat konvenci od názvu sloupce s názvem komplexního typu.
 
-![jj591583_figure08](~/ef6/media/jj591583-figure08.png)
+![Blogy tabulku a sloupec přejmenovat](~/ef6/media/jj591583-figure08.png)
 
  
 
@@ -418,7 +418,7 @@ Při generování databáze, kód nejprve uvidí BlogId vlastnost ve třídě Po
 
 Omezení v databázi znázorňuje relaci mezi InternalBlogs.PrimaryTrackingKey a Posts.BlogId. 
 
-![jj591583_figure09](~/ef6/media/jj591583-figure09.png)
+![vztah mezi InternalBlogs.PrimaryTrackingKey a Posts.BlogId](~/ef6/media/jj591583-figure09.png)
 
 InverseProperty se používá v případě, že máte více vztahů mezi třídami.
 
@@ -443,7 +443,7 @@ Také budete muset přidat v třídě osoba odkazuje tyto vlastnosti. Třída os
 
 Kód nejprve není schopen odpovídat vlastnosti ve dvou tříd sama o sobě. Databázové tabulky pro příspěvky by měl mít jeden cizí klíč pro osobu, CreatedBy a jeden pro osoby UpdatedBy ale kód nejprve vytvoří čtyři se vlastnosti cizího klíče: osoba\_Id, osoba\_Id1, CreatedBy\_Id a UpdatedBy\_ID.
 
-![jj591583_figure10](~/ef6/media/jj591583-figure10.png)
+![Příspěvky tabulku s velmi cizí klíče](~/ef6/media/jj591583-figure10.png)
 
 Chcete-li vyřešit tyto problémy, můžete použít poznámku InverseProperty k určení zarovnání vlastnosti.
 
@@ -457,7 +457,7 @@ Chcete-li vyřešit tyto problémy, můžete použít poznámku InverseProperty 
 
 Protože vlastnost PostsWritten osobně ví, že to se vztahuje na typu příspěvku, vytvoří vztah Post.CreatedBy. PostsUpdated podobně připojí Post.UpdatedBy. A kód nejprve nevytvoří velmi cizí klíče.
 
-![jj591583_figure11](~/ef6/media/jj591583-figure11.png)
+![Tabulka příspěvky bez dalších cizí klíče](~/ef6/media/jj591583-figure11.png)
 
  
 

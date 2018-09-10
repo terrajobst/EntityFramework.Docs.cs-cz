@@ -3,12 +3,12 @@ title: Migrace Code First v prostředích Team - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: 42f52e63fd6cfc1f02d6a721594f4a161eea9a7b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 31f8476c64d36d4d1cf3d18deb59ebc482dcc975
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997296"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251229"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Migrace Code First v prostředích Team
 > [!NOTE]
@@ -54,7 +54,7 @@ Klíčem k úspěšné použití migrace v prostředí team je základní princi
 
 Při první migraci přidáte do projektu, spustíte něco jako **migrace přidat první** v konzole Správce balíčků. Kroky na nejvyšší úrovni, které provádí tento příkaz jsou na obrázku níže.
 
-![FirstMigration](~/ef6/media/firstmigration.png)
+![První migrace](~/ef6/media/firstmigration.png)
 
 Aktuální model se počítá z uživatelského kódu (1). Požadované databázové objekty jsou pak vypočítá podle modelu se liší (2) – protože se jedná o první migraci modelu se liší jenom používá prázdný model pro porovnání. Požadované změny se předají generátor kódu sestavení kódu vyžaduje migraci (3), která se pak přidá do řešení sady Visual Studio (4).
 
@@ -66,7 +66,7 @@ V tomto okamžiku by pravděpodobně spuštění **aktualizace databáze** použ
 
 Později vrátit a provést nějaké změny do modelu – v našem příkladu přidáme **Url** vlastnost **blogu**. By potom vydat příkaz například **přidat migrace AddUrl** scaffold migrace použít odpovídající databáze změní. Kroky na nejvyšší úrovni, které provádí tento příkaz jsou na obrázku níže.
 
-![SecondMigration](~/ef6/media/secondmigration.png)
+![Druhý migrace](~/ef6/media/secondmigration.png)
 
 Stejně jako předtím se vypočítá aktuální model z kódu (1). Nyní existují však existující migrace tak předchozí model se načte z nejnovější migrace (2). Tyto dva modely jsou diffed vyhledat změny databáze (3) a potom dokončí proces stejně jako předtím.
 
@@ -96,14 +96,14 @@ První Podívejme se na konkrétní příkladem konfliktu sloučení. Na budeme 
 
 Sledujeme budete modelu EF a migrace do řadu změn. Pro výchozí bod jak vývojáři synchronizaci do úložiště správy zdrojového kódu, jak je znázorněno na následujícím obrázku.
 
-![StartingPoint](~/ef6/media/startingpoint.png)
+![Počáteční bod](~/ef6/media/startingpoint.png)
 
 Pro vývojáře \#1 a pro vývojáře \#2 teď provádí některé změny v modelu EF v jejich místní kódu základní. Pro vývojáře \#1 přidá **hodnocení** vlastnost **blogu** – a generuje **AddRating** migrace změny se projeví do databáze. Pro vývojáře \#2 přidá **čtenáři** vlastnost **blogu** – a vygeneruje odpovídající **AddReaders** migrace. Spustit i vývojáře **aktualizace databáze**, abyste mohli aplikovat změny na svých místních databází a potom pokračovat ve vývoji aplikace.
 
 > [!NOTE]
 > Migrace mají předponu časové razítko, aby naše obrázek, který představuje AddReaders migrace z Developer \#2, po migraci AddRating pochází Developer \#1. Ať už pro vývojáře \#1 nebo \#2 vygenerovat první provede migraci žádný rozdíl na problémy, o práci v týmu nebo procesu pro sloučení jim, najdete v další části.
 
-![LocalChanges](~/ef6/media/localchanges.png)
+![Místní změny](~/ef6/media/localchanges.png)
 
 Je štěstí den pro vývojáře \#1 při jejich provádění předkládat své změny. Protože nikdo jiný se přihlásila vzhledem k tomu, že se synchronizují své úložiště, jsou pouze odesílat své změny bez provedení jakékoli sloučení.
 
@@ -147,7 +147,7 @@ Následující postup je možné pro tento přístup, od doby, je dobré si uvě
 
 Tady je stav pro vývojáře \#2 je místní kódové základny po použití tohoto přístupu.
 
-![MergeMigration](~/ef6/media/mergemigration.png)
+![Sloučit migrace](~/ef6/media/mergemigration.png)
 
 ### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>Možnost 2: Aktualizace modelu snímku v posledních migrace
 
@@ -176,7 +176,7 @@ Následující postup je možné pro tento přístup, od doby, je dobré si uvě
 
 Tady je stav pro vývojáře \#2 je místní kódové základny po použití tohoto přístupu.
 
-![UpdatedMetadata](~/ef6/media/updatedmetadata.png)
+![Aktualizovaná Metadata](~/ef6/media/updatedmetadata.png)
 
 ## <a name="summary"></a>Souhrn
 

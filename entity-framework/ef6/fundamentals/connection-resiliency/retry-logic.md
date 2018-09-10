@@ -3,12 +3,12 @@ title: Odolnost proti chybám a zkuste to znovu připojení logic - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 47181292873009c7bce2047787503258ffa35d9d
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d7e58abfa17c5537cdc9b0068e7c2a3c2e390038
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997482"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250514"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Připojení logic odolnost proti chybám a zkuste to znovu
 > [!NOTE]
@@ -68,11 +68,9 @@ SqlAzureExecutionStrategy bude opakovat okamžitě překročil poprvé, dojde k 
 
 Strategie provádění bude opakovat jenom omezený počet výjimek, které jsou obvykle tansient, bude i nadále potřebujete zpracovávat jiné chyby, jakož i RetryLimitExceeded výjimku pro případ, kdy chyba není přechodná nebo trvá příliš dlouho řešení samotný.  
 
-## <a name="limitations"></a>Omezení  
-
 Existují některé známé omezení při použití strategie opakování spuštění:  
 
-### <a name="streaming-queries-are-not-supported"></a>Streamování dotazů se nepodporují.  
+## <a name="streaming-queries-are-not-supported"></a>Streamování dotazů se nepodporují.  
 
 Ve výchozím nastavení EF6 a novější verze bude ve vyrovnávací paměti výsledky dotazu a nikoli jejich streamování. Pokud chcete mít výsledky streamování můžete použít metodu AsStreaming změnit LINQ dotaz entity pro streamování.  
 
@@ -88,11 +86,9 @@ using (var db = new BloggingContext())
 
 Streamování se nepodporuje při registraci opakuje strategie provádění. Toto omezení existuje, protože připojení může vyřadit rozúčtují přes výsledky se vrací. V tomto případě je potřeba znovu spustit celý dotaz EF, ale nemá žádné spolehlivě zjistit, jaké výsledky již byly vráceny (dat mohl být změněn počáteční dotaz byla odeslána, výsledky mohou vrátit v jiném pořadí, výsledky nemusí být jedinečný identifikátor atd.).  
 
-### <a name="user-initiated-transactions-not-supported"></a>Transakce není podporován, kterou inicioval uživatel  
+## <a name="user-initiated-transactions-are-not-supported"></a>Uživatelem iniciované transakce nejsou podporovány.  
 
 Pokud jste nakonfigurovali strategie provádění, jehož výsledkem opakovaných pokusů, narazíte na určitá omezení týkající použití transakcí.  
-
-#### <a name="whats-supported-efs-default-transaction-behavior"></a>Co je podporováno: EF jeho výchozí chování při transakci  
 
 Ve výchozím nastavení provede EF žádné aktualizace databáze v rámci transakce. Nemusíte dělat nic, aby tuto možnost povolte, EF vždy to dělá automaticky.  
 
@@ -106,8 +102,6 @@ using (var db = new BloggingContext())
     db.SaveChanges();
 }
 ```  
-
-#### <a name="whats-not-supported-user-initiated-transactions"></a>Co není podporováno: transakce, kterou inicioval uživatel  
 
 Pokud nepoužíváte opakuje strategie provádění v rámci jedné transakce můžete zalomit více operací. Následující kód například zabalí dvě SaveChanges volání v rámci jedné transakce. Pokud se nezdaří libovolné části buď operaci pak žádná ze změn, jsou použity.  
 
@@ -130,9 +124,7 @@ using (var db = new BloggingContext())
 
 To není podporováno při použití opakuje strategie provádění, protože není si vědom jakékoli předchozí operace a způsob opakování je EF. Například pokud se druhý SaveChanges nezdařilo pak EF už má požadované informace pro první volání SaveChanges zopakovat.  
 
-#### <a name="possible-workarounds"></a>Možná řešení  
-
-##### <a name="suspend-execution-strategy"></a>Pozastavení strategie provádění  
+### <a name="workaround-suspend-execution-strategy"></a>Alternativní řešení: Pozastavení strategie provádění  
 
 Jedním z možných řešení je dočasně pozastavit opakuje strategie provádění pro část kódu, který potřebuje uživatel inicioval transakce. Nejjednodušší způsob, jak to provést, je přidání SuspendExecutionStrategy příznak, který do vašeho kódu na základě konfigurace třídy a změňte lambda strategie provádění pro vrácení výchozí strategie provádění (bez retying), když je příznak nastaven.  
 
@@ -193,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-##### <a name="manually-call-execution-strategy"></a>Ručně volat strategie provádění  
+### <a name="workaround-manually-call-execution-strategy"></a>Alternativní řešení: Volání ručně strategie provádění  
 
 Další možností je ručně pomocí strategie provádění a přiřaďte mu celá sada logiky pro spuštění, tak, že je všechno, co opakujte Pokud jedna operace selže. Stále potřebujeme k pozastavení strategie provádění - technikou uvedeno výše - tak, aby všechny kontexty použít uvnitř blok opakovatelného kódu nebude pokoušet o opakování.  
 

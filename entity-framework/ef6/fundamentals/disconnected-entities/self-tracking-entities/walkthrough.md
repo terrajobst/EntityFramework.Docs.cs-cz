@@ -3,12 +3,12 @@ title: Vlastní sledování entity návod – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: 64ca9ae42df1a1c740131e254b8f80f67b2f9f97
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1c450bbb20c246d9b9d58707ac03eb48eadfa970
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995418"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251281"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>Vlastní sledování návod entity
 > [!IMPORTANT]
@@ -142,7 +142,7 @@ V dalším kroku budeme přidat nový projekt a v něm generování tříd entit
 -   Vyberte **STETemplate.tt** souboru
 -   Klikněte na šipku rozevíracího seznamu vedle **přidat** tlačítko a vyberte **přidat jako odkaz**
 
-    ![AddLinkedTemplate](~/ef6/media/addlinkedtemplate.png)
+    ![Přidat propojené šablony](~/ef6/media/addlinkedtemplate.png)
 
 My budeme také zajistit, aby že vygeneruje tříd entit ve stejném oboru názvů jako kontext. Právě to snižuje počet pomocí příkazů, které je potřeba přidat v celé aplikaci.
 
@@ -552,4 +552,4 @@ Nyní můžete spustit aplikaci sledujte v akci.
 -   Klikněte pravým tlačítkem **STESample.WPFTest** projekt **Průzkumníku řešení** a vyberte **ladění -&gt; zahájit novou instanci**
 -   Můžete pracovat s daty na obrazovce a uložte ho prostřednictvím používání služby **Uložit** tlačítko
 
-![WPF](~/ef6/media/wpf.png)
+![WPF hlavní okno](~/ef6/media/wpf.png)

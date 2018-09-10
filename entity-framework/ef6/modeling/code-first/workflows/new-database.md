@@ -3,12 +3,12 @@ title: Kód nejprve do nové databáze - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 50c6a4710bc50879304f64e781a46c4836f86882
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 8ed1bfbc3536acc0d83b9c8ecdd180aeb44eff83
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152475"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251047"
 ---
 # <a name="code-first-to-a-new-database"></a>Kód nejprve do nové databáze
 Tato videa a podrobný návod poskytuje úvod k vývoji Code First cílení na novou databázi. Tento scénář obsahuje cílení na databázi, která neexistuje a vytvoří Code First nebo prázdnou databázi této Code First přidá nové tabulky. Kód nejprve umožňuje definovat model pomocí jazyka C\# nebo VB.Net třídy. Další konfigurace můžete volitelně provést pomocí atributů ve třídách a vlastnostech nebo s použitím rozhraní API fluent.
@@ -199,13 +199,13 @@ Můžete připojit k této databázi pomocí Průzkumníku serveru v sadě Visua
 -   Klikněte pravým tlačítkem na **datová připojení** a vyberte **přidat připojení...**
 -   Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat jako zdroj dat Microsoft SQL Server
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![Vyberte zdroj dat](~/ef6/media/selectdatasource.png)
 
 -   Připojte se k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali
 
 Nyní jsme mohli prohlédnout schématu, které Code First vytvořili.
 
-![SchemaInitial](~/ef6/media/schemainitial.png)
+![Výchozí schéma](~/ef6/media/schemainitial.png)
 
 DbContext dobře fungoval jaké třídy, které zahrnují zobrazením vlastnosti DbSet, které jsme definovali v modelu. Potom použije výchozí sadu Code First konvence k určení názvy tabulek a sloupců, určit datové typy, najít primární klíče, atd. Později v tomto názorném postupu podíváme na potlačení Tato konvence.
 
@@ -266,7 +266,7 @@ namespace CodeFirstNewDatabaseSample.Migrations
 
 Blogy tabulky v databázi je nyní přidán nový sloupec adresy Url:
 
-![SchemaWithUrl](~/ef6/media/schemawithurl.png)
+![Schéma URL](~/ef6/media/schemawithurl.png)
 
 ## <a name="6-data-annotations"></a>6. Datové poznámky
 
@@ -316,7 +316,7 @@ public class User
 
 Nová tabulka se teď přidá do databáze:
 
-![SchemaWithUsers](~/ef6/media/schemawithusers.png)
+![Schéma s uživateli](~/ef6/media/schemawithusers.png)
 
 Úplný seznam podporovaných EF poznámky je:
 
@@ -365,7 +365,7 @@ public class BloggingContext : DbContext
 
 Sloupec DisplayName přejmenovává na zobrazení\_název:
 
-![SchemaWithDisplayNameRenamed](~/ef6/media/schemawithdisplaynamerenamed.png)
+![Schéma se zobrazovaným názvem přejmenovat](~/ef6/media/schemawithdisplaynamerenamed.png)
 
 ## <a name="summary"></a>Souhrn
 

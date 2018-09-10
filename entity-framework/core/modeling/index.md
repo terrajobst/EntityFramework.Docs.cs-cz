@@ -4,14 +4,14 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
 uid: core/modeling/index
-ms.openlocfilehash: 9f702d5833b88e6eb77c0afefdae0ed3bc162ec8
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e4eed480178ce43cbc5ece8db8e584032da7b2b9
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993930"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250345"
 ---
-# <a name="creating-a-model"></a>Vytvoření modelu
+# <a name="creating-and-configuring-a-model"></a>Vytváření a konfiguraci modelu
 
 Entity Framework používá sadu konvence sestavit model založený na obrazec tříd entit. Můžete zadat další konfiguraci k doplnění a/nebo přepsat, co bylo zjištěno konvencí.
 
@@ -20,9 +20,7 @@ Tento článek se týká konfigurace, který lze použít k modelu, který cíl�
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) na Githubu.
 
-## <a name="methods-of-configuration"></a>Metodě konfigurace
-
-### <a name="fluent-api"></a>Rozhraní Fluent API
+## <a name="use-fluent-api-to-configure-a-model"></a>Použití rozhraní fluent API pro konfiguraci modelu
 
 Je možné přepsat `OnModelCreating` metoda v odvozené kontextu a použití `ModelBuilder API` ke konfiguraci modelu. Toto je nejvýkonnější metody konfigurace a umožňuje konfiguraci zadat bez změny vašich tříd entit. Konfigurace Fluent API má nejvyšší prioritu a přepíše poznámky konvence a data.
 
@@ -42,7 +40,7 @@ Je možné přepsat `OnModelCreating` metoda v odvozené kontextu a použití `M
     }
 ```
 
-### <a name="data-annotations"></a>Datové poznámky
+## <a name="use-data-annotations-to-configure-a-model"></a>Použití anotací dat při konfiguraci modelu
 
 Můžete také použít atributy (označuje se jako datové poznámky) do vaší třídy a vlastnosti. Datové poznámky přepíše konvence, ale rozhraní Fluent API konfigurace se přepíše.
 

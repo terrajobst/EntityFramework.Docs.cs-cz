@@ -3,12 +3,12 @@ title: Dědičnost návrháře TPH - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
-ms.openlocfilehash: 9a546f6450b5aa3b03c062d1ab2c6f9257ba8292
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1eb935414b20d6e93e9d470ccc845bc13626ed3a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995001"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250839"
 ---
 # <a name="designer-tph-inheritance"></a>Návrháře TPH dědičnosti
 Tento podrobný návod ukazuje, jak implementovat dědičnosti na hierarchii tabulky (TPH) v konceptuálním modelu se Návrhář Entity Framework (EF designeru). Dědičnost TPH pomocí jedné tabulky databáze zachovat data pro všechny typy entit v hierarchii dědičnosti.
@@ -54,7 +54,7 @@ V návrháři entit, které poskytuje návrhové ploše pro úpravy váš model,
 
 To znamená jak **osoba** vypadá tabulka v databázi.
 
-![PersonTable](~/ef6/media/persontable.png) 
+![Tabulka osoby](~/ef6/media/persontable.png) 
 
 ## <a name="implement-table-per-hierarchy-inheritance"></a>Implementace tabulky za hierarchie dědičnosti
 
@@ -94,14 +94,14 @@ Na návrhovou plochu byly přidány dva nové typy entit. Šipka ukazuje z nové
 -   V **operátor** sloupec **podrobnosti mapování** okně = z rozevíracího seznamu.
 -   V **/vlastnost Value** sloupců, typ **kurzů vedených**. Konečný výsledek by měl vypadat nějak takto:
 
-    ![MappingDetails2](~/ef6/media/mappingdetails2.png)
+    ![Podrobnosti mapování](~/ef6/media/mappingdetails2.png)
 
 -   Opakujte tyto kroky pro **Student** typ entity, ale vytvořit podmínku, která je rovna **Student** hodnotu.  
     *Z důvodu jsme chtěli odebrat **diskriminátoru** je vlastnost, protože sloupec tabulky nelze mapovat více než jednou. V tomto sloupci se použije pro podmíněné mapování, proto jej nelze použít pro vlastnost mapování také. Jediným způsobem, který může sloužit pro obě, pokud používá podmínku **Is Null** nebo **Is Not Null** porovnání.*
 
 Tabulky na hierarchii dědičnosti je nyní implementována.
 
-![FinalTPH](~/ef6/media/finaltph.png)
+![Poslední TPH](~/ef6/media/finaltph.png)
 
 ## <a name="use-the-model"></a>Použití modelu
 

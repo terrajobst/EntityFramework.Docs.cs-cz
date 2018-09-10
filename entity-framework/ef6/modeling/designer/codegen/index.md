@@ -3,12 +3,12 @@ title: Šablony generování kódu návrháře - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
-ms.openlocfilehash: 29e28dd4ebe0e5e6e3cddacb1d34202c2010f389
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e4d4aaa647baca9f85b85db1aadaade37abd6ff2
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994868"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251164"
 ---
 # <a name="designer-code-generation-templates"></a>Šablony generování kódu návrháře
 Když vytvoříte model využívající Entity Framework Designer třídy a odvozené kontextu jsou automaticky generovány za vás. Kromě generování kódu výchozí poskytujeme také několik šablon, které můžete použít k přizpůsobení kód, který získá vygenerována. Tyto šablony jsou k dispozici jako textové šablony T4, což vám umožní přizpůsobit šablony v případě potřeby.
@@ -151,7 +151,7 @@ Bude nutné vybrat **Online** kartě při přidávání šablonu, aby si ho stá
 
 Pokud chcete začít používat šablony generování kódu, klikněte pravým tlačítkem na prázdné místo na návrhové ploše v EF designeru a vyberte **přidat položku generování kódu...** .
 
-![Add_Code_Gen_Item](~/ef6/media/add-code-gen-item.png)
+![Přidat položku Obecné kódu](~/ef6/media/add-code-gen-item.png)
 
 Pokud jste již nainstalovali šablonu chcete použít (nebo je zahrnutý v sadě Visual Studio), pak bude k dispozici v části **kód** nebo **Data** části v levé nabídce.
 
@@ -166,8 +166,8 @@ Pokud používáte sadu Visual Studio 2012, se nové soubory .tt vnoří pod fil
 > [!NOTE]
 > U modelů vytvořených v sadě Visual Studio 2012 je potřeba odstranit šablon použitých pro generování kódu výchozí v opačném případě budete mít duplicitní třídy a kontextu vygenerována. Výchozí soubory jsou  **&lt;název modelu&gt;.tt** a  **&lt;název modelu&gt;. context.tt**. 
 
-![VS2012_Templates](~/ef6/media/vs2012-templates.png)
+![VS2012 šablony](~/ef6/media/vs2012-templates.png)
 
 Pokud používáte Visual Studio 2010, se přidají soubory tt přímo do vašeho projektu.  
 
-![VS2010_Templates](~/ef6/media/vs2010-templates.png)
+![VS2010 šablony](~/ef6/media/vs2010-templates.png)

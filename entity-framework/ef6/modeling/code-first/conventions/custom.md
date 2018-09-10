@@ -3,12 +3,12 @@ title: Vlastní kód první konvence - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
-ms.openlocfilehash: 79450790c6d3c8ce7fad209e3946e81d3fad4b75
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a0e8080037cf86640275f498ed159c847ff5c057
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995825"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251060"
 ---
 # <a name="custom-code-first-conventions"></a>První vytváření vlastního kódu
 > [!NOTE]
@@ -115,7 +115,7 @@ Zajímavé funkce IsKey metody je, že je sčítání. To znamená, že pokud za
 
 Tento kód se nakonfiguruje typy v náš model má složený klíč skládající se z klíčový sloupec int a ve sloupci Název řetězce. Pokud jsme v Návrháři zobrazení modelu by vypadalo takto:
 
-![compositeKey](~/ef6/media/compositekey.png)
+![složený klíč](~/ef6/media/compositekey.png)
 
 Další příklad konvence vlastnost je konfigurace všechny vlastnosti data a času v mé modelu mapovat na typ datetime2 v systému SQL Server namísto data a času. Toho můžete dosáhnout s následujícími možnostmi:
 
@@ -292,7 +292,7 @@ Ve výchozím nastavení zaměstnance a správce jsou namapovány na stejnou tab
 
 Výše uvedený kód se namapuje do struktury tabulky, který vypadá takto:
 
-![tptExample](~/ef6/media/tptexample.jpg)
+![Tpt příklad](~/ef6/media/tptexample.jpg)
 
 Můžete-li tomu zabránit a udržovat TPH výchozí mapování několika způsoby:
 

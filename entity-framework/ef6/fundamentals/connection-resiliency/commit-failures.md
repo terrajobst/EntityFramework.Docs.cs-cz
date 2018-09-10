@@ -3,12 +3,12 @@ title: Zpracování selhání potvrzení transakce - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
-ms.openlocfilehash: a22a651851bc46e2bf1fe652b3b9a921ec22b70b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f912777104c2e925122c05046d4d65660de8b8a8
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996834"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250853"
 ---
 # <a name="handling-transaction-commit-failures"></a>Zpracování selhání potvrzení transakce
 > [!NOTE]
@@ -50,23 +50,23 @@ I když EF provede nezaručené vyřadit řádky z tabulky, když už nejsou pot
 
 Před EF 6.1 není mechanismem pro zpracování selhání potvrzení do EF produktu. K práci s touto situací, který lze použít k předchozím verzím EF6 několika způsoby:  
 
-### <a name="option-1---do-nothing"></a>Možnost 1 - nedělat nic  
+* Možnost 1 - nedělat nic  
 
-Pravděpodobnost selhání připojení během zápisu transakce tak může být přijatelný pro vaše aplikace právě selhat, pokud dojde k tomuto stavu dochází.  
+  Pravděpodobnost selhání připojení během zápisu transakce tak může být přijatelný pro vaše aplikace právě selhat, pokud dojde k tomuto stavu dochází.  
 
-## <a name="option-2---use-the-database-to-reset-state"></a>Možnost 2 – databázi můžete obnovit stav  
+* Možnost 2 – databázi můžete obnovit stav  
 
-1. Zrušit aktuální kontext databáze.  
-2. Vytvořit nový kontext databáze a obnovení stavu aplikace z databáze  
-3. Informujte uživatele, že poslední operaci možná nebyly úspěšně dokončeny  
+  1. Zrušit aktuální kontext databáze.  
+  2. Vytvořit nový kontext databáze a obnovení stavu aplikace z databáze  
+  3. Informujte uživatele, že poslední operaci možná nebyly úspěšně dokončeny  
 
-## <a name="option-3---manually-track-the-transaction"></a>Možnost 3 - manuálně sledovat transakce  
+* Možnost 3 - manuálně sledovat transakce  
 
-1. Přidáte tabulku – sledovat na databáze, která slouží ke sledování stavu transakce.  
-2. Vložte řádek do tabulky na začátku každé transakci.  
-3. Pokud se nepovede při potvrzení změn, zkontrolujte přítomnost odpovídající řádek v databázi.  
-    - Pokud se nachází na řádku, bude normálně pokračujte, protože transakce byla úspěšně zapsána  
-    - Pokud chybí na řádku, použijte strategie provádění aktuální operaci zopakovat.  
-4. Pokud je potvrzení úspěšné, odstraňte odpovídající řádek, aby se zabránilo růst v tabulce.  
+  1. Přidáte tabulku – sledovat na databáze, která slouží ke sledování stavu transakce.  
+  2. Vložte řádek do tabulky na začátku každé transakci.  
+  3. Pokud se nepovede při potvrzení změn, zkontrolujte přítomnost odpovídající řádek v databázi.  
+     - Pokud se nachází na řádku, bude normálně pokračujte, protože transakce byla úspěšně zapsána  
+     - Pokud chybí na řádku, použijte strategie provádění aktuální operaci zopakovat.  
+  4. Pokud je potvrzení úspěšné, odstraňte odpovídající řádek, aby se zabránilo růst v tabulce.  
 
 [Tento příspěvek na blogu](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) obsahuje ukázkový kód pro provedení to v SQL Azure.  

@@ -3,12 +3,12 @@ title: Ověřování - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: eec834888e2e3efaadc8acf9d4f64307f394ea4a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 65639b0f91f54ee2cd1336f6b6cd4caf45ede680
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994442"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251021"
 ---
 # <a name="data-validation"></a>Ověřování dat
 > [!NOTE]
@@ -54,7 +54,7 @@ Poznámky ze sestavení System.ComponentModel.DataAnnotations kód nejprve použ
 
 Žádný další kód nebo změny kódu v aplikaci existující aplikaci MVC provede ověřování na straně klienta, dokonce i dynamické vytvoření zprávu pomocí názvy vlastností a poznámek.
 
-![figure01](~/ef6/media/figure01.png)
+![Obrázek 1](~/ef6/media/figure01.png)
 
 V příspěvku back – metoda tohoto vytvořit zobrazení, Entity Framework se používá pro uložení nového blogu k databázi, ale ověřování na straně klienta MVC se aktivuje před aplikace dosáhne tento kód.
 
@@ -153,7 +153,7 @@ Konstruktor ValidationResult přebírá řetězec představující chybovou zpr�
 
 Na rozdíl od ověřování poskytované rozhraní Fluent API tento výsledek ověření bude rozpoznán zobrazením a jsem použili dříve k přidání do ModelState chyba obslužné rutiny výjimky je zbytečné. Protože jsem nastavil ValidationResult oba názvy vlastností, MVC HtmlHelpers zobrazí chybová zpráva pro obě tyto vlastnosti.
 
-![figure02](~/ef6/media/figure02.png)
+![Obrázek 2](~/ef6/media/figure02.png)
 
 ## <a name="dbcontextvalidateentity"></a>DbContext.ValidateEntity
 

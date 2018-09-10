@@ -3,12 +3,12 @@ title: Asynchronní dotazy a save - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 64051dea740b2183cb904d7fb4293d7048c218ca
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 35604fc16ea37415d39801831aa162d0d42c2a2f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152434"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250748"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazy a uložit
 > [!NOTE]
@@ -145,7 +145,7 @@ Protože kód je synchronní, můžete podle našich zkušeností následující
 4.  Dotaz vrátí a výsledky se zapisují do **konzoly**
 5.  Nabídka dne je zapsán do **konzoly**
 
-![SyncOutput](~/ef6/media/syncoutput.png) 
+![Výstup synchronizace](~/ef6/media/syncoutput.png) 
 
  
 
@@ -227,7 +227,7 @@ Teď, když je asynchronní kód, můžete podle našich zkušeností různých 
 4.  Dotaz na všechny **blogy** je odeslán do databáze *spravované vlákno je opět, můžete provádět další operace, zatímco zpracování dotazu se v databázi. Protože všechny další spuštění bylo dokončeno, vlákno právě zastaví při volání čekání ale.*
 5.  Dotaz vrátí a výsledky se zapisují do **konzoly**
 
-![AsyncOutput](~/ef6/media/asyncoutput.png) 
+![Asynchronní výstupu](~/ef6/media/asyncoutput.png) 
 
  
 

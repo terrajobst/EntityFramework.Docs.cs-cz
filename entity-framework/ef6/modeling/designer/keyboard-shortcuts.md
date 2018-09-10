@@ -3,12 +3,12 @@ title: Entity Framework Designer klávesové zkratky – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 3c76cdd5-17c5-4c54-a6a5-cf21b974636b
-ms.openlocfilehash: 70c9705956b58f4d00908dd9cca6ad0e0a078fc6
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e3a9d968c26841c143b1b7b0ba9a168ecd13f469
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997760"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251125"
 ---
 # <a name="entity-framework-designer-keyboard-shortcuts"></a>Entity Framework Designer klávesové zkratky
 Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostupné na různých obrazovkách Entity Framework Tools for Visual Studio.
@@ -17,7 +17,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 
 ### <a name="step-one-choose-model-contents"></a>Jeden krok: Výběr obsahu modelu
 
-![WizardOne](~/ef6/media/wizardone.png)
+![Průvodce jeden](~/ef6/media/wizardone.png)
 
 | Zástupce  | Akce                                                     | Poznámky                                               |
 |:----------|:-----------------------------------------------------------|:----------------------------------------------------|
@@ -27,7 +27,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 
 ### <a name="step-two-choose-your-connection"></a>Krok 2: Zvolte připojení
 
-![WizardTwo](~/ef6/media/wizardtwo.png)
+![Průvodce dvě](~/ef6/media/wizardtwo.png)
 
 | Zástupce  | Akce                                                     | Poznámky                                                   |
 |:----------|:-----------------------------------------------------------|:--------------------------------------------------------|
@@ -41,7 +41,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 
 ### <a name="step-three-choose-your-version"></a>Krok 3: Zvolte vaši verzi
 
-![WizardThree](~/ef6/media/wizardthree.png)
+![Průvodce tři](~/ef6/media/wizardthree.png)
 
 | Zástupce  | Akce                                             | Poznámky                                                                                 |
 |:----------|:---------------------------------------------------|:--------------------------------------------------------------------------------------|
@@ -51,7 +51,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 
 ### <a name="step-four-choose-your-database-objects-and-settings"></a>Krok 4: Zvolte vaše databázové objekty a nastavení
 
-![WizardFour](~/ef6/media/wizardfour.png)
+![Průvodce čtyři](~/ef6/media/wizardfour.png)
 
 | Zástupce  | Akce                                                                                    | Poznámky                                                               |
 |:----------|:------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
@@ -70,7 +70,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 
 ## <a name="ef-designer-surface"></a>EF návrhové ploše
 
-![DesignerSurface](~/ef6/media/designersurface.png)
+![Návrhové ploše](~/ef6/media/designersurface.png)
 
 | Zástupce                                                                                | Akce                      | Poznámky                                                                                                                                                                                                                               |
 |:----------------------------------------------------------------------------------------|:----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,7 +113,7 @@ Tato stránka obsahuje seznam zástupců klávesnice aplikace, které jsou dostu
 
 ## <a name="mapping-details-window"></a>Okno Podrobnosti o mapování
 
-![MappingDetailsShortcuts](~/ef6/media/mappingdetailsshortcuts.png)
+![Mapování podrobně popisuje klávesové zkratky](~/ef6/media/mappingdetailsshortcuts.png)
 
 | Zástupce                  | Akce         | Poznámky                                                                                                                                 |
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|

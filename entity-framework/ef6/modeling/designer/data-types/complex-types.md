@@ -3,19 +3,19 @@ title: Komplexní typy – EF designeru - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9a8228ef-acfd-4575-860d-769d2c0e18a1
-ms.openlocfilehash: d35504cbe60823249d54385962568802b3e41308
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a516bd14131fd035a4d005e0fdf140f7ff4d65f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994850"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250826"
 ---
 # <a name="complex-types---ef-designer"></a>Komplexní typy – EF designeru
 Toto téma ukazuje, jak namapovat komplexní typy se Návrhář Entity Framework (EF designeru) a zadávat dotazy na entity, které obsahují vlastností komplexního typu.
 
 Následující obrázek znázorňuje hlavní windows, které se používají při práci s EF designeru.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF designeru](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > Při vytváření konceptuální model, upozornění na nenamapované entit a přidružení může zobrazit v seznamu chyb. Tato upozornění můžete ignorovat, protože až zvolíte, aby se vygenerovala databáze z modelu, chyby zmizí.
@@ -45,7 +45,7 @@ Nový komplexní typ s vybranou vlastností se přidá do **prohlížeč modelu*
 
 Komplexní vlastnosti nově vytvořeného typu nahradí vybraných vlastností. Jsou zachovány všechny mapování vlastností.
 
-![Refactor2](~/ef6/media/refactor2.png)
+![Refaktorovat 2](~/ef6/media/refactor2.png)
 
 ## <a name="create-a-new-complex-type"></a>Vytvořte nový komplexní typ
 
@@ -53,7 +53,7 @@ Můžete také vytvořit nový komplexní typ, který obsahuje vlastnosti existu
 
 Klikněte pravým tlačítkem na **komplexní typy** složky přejděte v prohlížeči modelů **komplexní typ funkce operací AddNew...** . Alternativně můžete vybrat **komplexní typy** složky a stiskněte klávesu **vložit** kláves na klávesnici.
 
-![AddNewComplextype](~/ef6/media/addnewcomplextype.png)
+![Přidat nový komplexní typ](~/ef6/media/addnewcomplextype.png)
 
 Nový komplexní typ se přidá do složky s výchozím názvem. Nyní můžete přidat vlastnosti typu.
 
@@ -65,7 +65,7 @@ Přidat vlastnost na komplexní typ v některém z níže uvedených způsobů.
 
 -   Klikněte pravým tlačítkem na komplexní typ v modelu prohlížeč, přejděte na **přidat**, přejděte na **skalární vlastnost** nebo **komplexní vlastnost**, pak vyberte typ požadované vlastnosti. Alternativně můžete vybrat komplexní typ a potom stiskněte klávesu **vložit** kláves na klávesnici.  
 
-    ![AddPropertiestoComplexType](~/ef6/media/addpropertiestocomplextype.png)
+    ![Přidání vlastností komplexního typu](~/ef6/media/addpropertiestocomplextype.png)
 
     Komplexní typ s výchozím názvem je přidána nová vlastnost.
 
@@ -108,7 +108,7 @@ Při přejmenování komplexní typ, se aktualizují všechny odkazy na typ v ce
     Zobrazí se rozevírací seznam Skalární vlastnosti.
 7.  Vyberte příslušnou vlastnost.
 
-    ![MapComplexType](~/ef6/media/mapcomplextype.png)
+    ![Komplexní typ mapy](~/ef6/media/mapcomplextype.png)
 
 8.  Opakujte kroky 6 a 7 pro každý sloupec tabulky.
 
@@ -121,14 +121,14 @@ Funkce jsou založeny na uložené procedury. Mapování importované funkce na 
 
 -   Dvakrát klikněte na importované funkce, která chcete namapovat komplexního typu.
 
-    ![FunctionImports](~/ef6/media/functionimports.png)
+    ![Imports – funkce](~/ef6/media/functionimports.png)
 
 -   Zadejte nastavení pro nové importované funkce takto:
     -   Zadejte uloženou proceduru, pro kterou vytváříte importované funkce v **název uložené procedury** pole. Toto pole je rozevírací seznam, který zobrazuje všechny uložené procedury v modelu úložiště.
     -   Zadejte název v importované funkce **importovat název funkce** pole.
     -   Vyberte **komplexní** jako návratový typ a pak zadejte konkrétní komplexní návratový typ zvolením příslušného typu z rozevíracího seznamu.
 
-        ![EditFunctionImport](~/ef6/media/editfunctionimport.png)
+        ![Upravit importované funkce](~/ef6/media/editfunctionimport.png)
 
 -   Klikněte na tlačítko **OK**.
     Položka import funkce je vytvořena v konceptuálním modelu.

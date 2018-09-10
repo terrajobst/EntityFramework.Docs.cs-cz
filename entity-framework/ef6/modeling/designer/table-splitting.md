@@ -3,12 +3,12 @@ title: Tabulka návrháře rozdělení - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-ms.openlocfilehash: 87b6e1bd0374f77dfffab342c659cf4e16c8a337
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f07aeb0aa679f6fa8131c667ac808f17c3f03f20
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994500"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250982"
 ---
 # <a name="designer-table-splitting"></a>Tabulka návrháře rozdělení
 Tento návod ukazuje, jak mapovat více typů entit na jedné tabulky tak, že upravíte model se Návrhář Entity Framework (EF designeru).
@@ -17,7 +17,7 @@ Jeden z důvodů, proč můžete chtít použít tabulku rozdělení je zpoždě
 
 Následující obrázek znázorňuje hlavní windows, které se používají při práci s EF designeru.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF designeru](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -130,8 +130,8 @@ Následující příkazy T-SQL, které byly spuštěny před **School** databáz
 
 -   Následující **vyberte** se spustil v důsledku spuštění kontextu. People.FirstOrDefault() a vybere pouze sloupce mapovat na **osoby**
 
-    ![Select1](~/ef6/media/select1.png)
+    ![Vyberte možnost 1](~/ef6/media/select1.png)
 
 -   Následující **vyberte** byl proveden v důsledku přístup k existingPerson.Instructor vlastnost navigace a vybere pouze sloupce, které jsou namapované na **HireInfo**
 
-    ![Select2](~/ef6/media/select2.png)
+    ![Vyberte 2](~/ef6/media/select2.png)

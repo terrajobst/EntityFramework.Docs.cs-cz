@@ -3,12 +3,12 @@ title: Relace – EF designeru - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 402fe960-754b-470f-976b-e5de3e9986b5
-ms.openlocfilehash: 72efe76956c930a787449e6cce453ab0317adc7c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e1912a5e00e51b4f07b1ac83848fdbe0aa4755aa
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994645"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250709"
 ---
 # <a name="relationships---ef-designer"></a>Relace – EF designeru
 > [!NOTE]
@@ -16,7 +16,7 @@ ms.locfileid: "42994645"
 
 Přidružení definovat vztahy mezi typy entit v modelu. Toto téma ukazuje, jak mapovat přidružení se Návrhář Entity Framework (EF designeru). Následující obrázek znázorňuje hlavní windows, které se používají při práci s EF designeru.
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF designeru](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > Při vytváření konceptuální model, upozornění na nenamapované entit a přidružení může zobrazit v seznamu chyb. Tato upozornění můžete ignorovat, protože až zvolíte, aby se vygenerovala databáze z modelu, chyby zmizí.
@@ -44,7 +44,7 @@ Vytváření přidružení k EF designeru aktualizace modelu obsahu souboru .edm
 1.  Klikněte pravým tlačítkem na prázdnou oblast návrhové plochy, přejděte na **přidat nový**a vyberte **přidružení...** .
 2.  Zadejte nastavení pro přidružení v **Přidat přidružení** dialogového okna.
 
-    ![AddAssociation](~/ef6/media/addassociation.png)
+    ![Přidat přidružení](~/ef6/media/addassociation.png)
 
     > [!NOTE]
     > Můžete také bez přidání navigační vlastnosti nebo vlastnosti cizího klíče k entitám stranách asociace zrušením ** navigační vlastnost ** a ** přidat vlastnosti cizího klíče &lt;názvu typu entity&gt; Entity ** Zaškrtávací políčka. Pokud chcete přidat pouze jednu vlastnost navigace, přidružení bude pouze v jednom směru umožňujících přechody. Pokud chcete přidat žádné navigační vlastnosti, musíte zvolit přidání vlastnosti cizího klíče pro přístup k entitám stranách asociace.
@@ -76,7 +76,7 @@ Použijete-li přidat nebo upravit referenční omezení EF designeru, EF design
 -   Z **závislé** rozevíracího seznamu vyberte závislé entity v referenčním omezení.
 -   Pro každý klíč instančního objektu, který má závislé klíč, vyberte z rozevíracích seznamů v odpovídajícím klíčem závislé **závislé klíč** sloupce.
 
-    ![RefConstraint](~/ef6/media/refconstraint.png)
+    ![Omezení REF](~/ef6/media/refconstraint.png)
 
 -   Klikněte na tlačítko **OK**.
 
@@ -97,7 +97,7 @@ Můžete určit, jak mapuje přidružení k databázi **podrobnosti mapování**
     **Podrobnosti mapování** okně se zobrazí oba konce přidružení a klíčové vlastnosti pro typ entity v každé **End**.
 -   Pro každou vlastnost klíče, klikněte na tlačítko **sloupec** pole a vyberte sloupec, do kterého se namapuje vlastnost.
 
-    ![MappingDetails4](~/ef6/media/mappingdetails4.png)
+    ![Podrobnosti mapování 4](~/ef6/media/mappingdetails4.png)
 
 ### <a name="edit-an-association-mapping"></a>Upravit mapování přidružení
 

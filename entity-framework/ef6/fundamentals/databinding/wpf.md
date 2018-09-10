@@ -3,12 +3,12 @@ title: Vazby dat s WPF – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: 0b1f4d5ea204cd80acf42caa499732610daa0e31
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e6df90db17d39d3aa91275800a6414fed40fb5db
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994820"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251151"
 ---
 # <a name="databinding-with-wpf"></a>Vazby dat s WPF
 Tento podrobný návod ukazuje, jak svázat ovládací prvky WPF ve formě "hlavní podrobnosti" typy POCO. Aplikace používá rozhraní API Entity Framework pro naplnění objekty s daty z databáze, sledování změn a uložení dat do databáze.
@@ -142,17 +142,17 @@ Pojďme tedy vygenerovala databáze.
 -   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
 -   Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat jako zdroj dat Microsoft SQL Server
 
-    ![ChangeDataSource](~/ef6/media/changedatasource.png)
+    ![Změnit zdroj dat](~/ef6/media/changedatasource.png)
 
 -   Připojení k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali a zadejte **produkty** jako název databáze
 
-    ![AddConnectionLocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![Přidat připojení LocalDB](~/ef6/media/addconnectionlocaldb.png)
 
-    ![AddConnectionExpress](~/ef6/media/addconnectionexpress.png)
+    ![Přidat připojení Express](~/ef6/media/addconnectionexpress.png)
 
 -   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
 
-    ![CreateDatabase](~/ef6/media/createdatabase.png)
+    ![Vytvoření databáze](~/ef6/media/createdatabase.png)
 
 -   Nové databáze se teď budou zobrazovat v Průzkumníku serveru, klikněte pravým tlačítkem myši na něj a vyberte **nový dotaz**
 -   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
@@ -186,15 +186,15 @@ My budeme používat Entity Framework Designer, která je součástí sady Visua
 -   Tím se spustí **Průvodce datovým modelem Entity**
 -   Vyberte **Generovat z databáze** a klikněte na tlačítko **další**
 
-    ![ChooseModelContents](~/ef6/media/choosemodelcontents.png)
+    ![Zvolte Model obsahu](~/ef6/media/choosemodelcontents.png)
 
 -   Vyberte připojení k databázi vytvořené v první části, zadejte **ProductContext** jako název připojovacího řetězce a klikněte na tlačítko **další**
 
-    ![ChooseYourConnection](~/ef6/media/chooseyourconnection.png)
+    ![Zvolte připojení](~/ef6/media/chooseyourconnection.png)
 
 -   Klikněte na zaškrtávací políčko vedle "Tables" k importu všech tabulek a klikněte na tlačítko 'Dokončit'
 
-    ![ChooseYourObjects](~/ef6/media/chooseyourobjects.png)
+    ![Vyberte objekty](~/ef6/media/chooseyourobjects.png)
 
 Po dokončení procesu zpětné analýzy nový model je přidána do projektu a zpřístupnili k zobrazení v Návrháři Entity Framework. Soubor App.config má také byla přidána do projektu s podrobnostmi o připojení pro databázi.
 
@@ -213,7 +213,7 @@ EF generuje kód z modelu pomocí šablon T4. Šablony součástí sady Visual S
 -   Otevřít **Průzkumníka řešení** a najít **ProductModel.edmx** souboru
 -   Najít **ProductModel.tt** souboru, který se vnoří pod ProductModel.edmx souboru
 
-    ![WpfProductModelTemplate](~/ef6/media/wpfproductmodeltemplate.png)
+    ![Šablona Model WPF produktu](~/ef6/media/wpfproductmodeltemplate.png)
 
 -   Poklikejte na soubor ProductModel.tt ho otevřete v editoru sady Visual Studio
 -   Najít a nahradit dva výskyty "**rozhraní ICollection**"s"**kolekci ObservableCollection**". Toto jsou přibližně v řádcích 296 a 484.
@@ -244,7 +244,7 @@ Přidání třídy, které jsou definovány v modelu jako zdroj dat pro tuto apl
 -   Vyberte datové objekty dialogu nejextrémnějších **WPFwithEFSample** dvěma časy a vyberte **kategorie**  
     *Není nutné vybrat **produktu** zdroje dat, protože jsme se na portálu **produktu**vlastnost **kategorie** zdroj dat*  
 
-    ![SelectDataObjects](~/ef6/media/selectdataobjects.png)
+    ![Vyberte datové objekty](~/ef6/media/selectdataobjects.png)
 
 -   Klikněte na tlačítko **dokončit.**
 -   Otevření okna zdrojů dat vedle okna souboru MainWindow.xaml *Pokud okna zdroje dat se nezobrazuje, vyberte **zobrazení –&gt; ostatní Windows -&gt; zdroje dat***
@@ -299,7 +299,7 @@ Je čas přidat několik obslužných rutin událostí do hlavního okna.
 -   V okně, XAML, klikněte na  **&lt;okno** elementu, tato možnost vybere hlavní okno
 -   V **vlastnosti** okna zvolte **události** v pravém horním rohu, pak poklikejte na textové pole na pravé straně **Loaded** popisek
 
-    ![MainWindowProperties](~/ef6/media/mainwindowproperties.png)
+    ![Hlavní okno Vlastnosti](~/ef6/media/mainwindowproperties.png)
 
 -   Také přidat **klikněte na tlačítko** události **Uložit** tlačítko dvojitým kliknutím na tlačítko Uložit v návrháři. 
 
@@ -385,10 +385,10 @@ Kód deklaruje instanci dlouhotrvající **ProductContext**. **ProductContext** 
 -   Kompilace a spuštění aplikace. Pokud jste použili Code First, pak uvidíte, že **WPFwithEFSample.ProductContext** databáze se vytvoří za vás.
 -   Zadejte název kategorie v mřížce a produktu důležití v mřížce dolů *nezadávejte nic v ID sloupce, protože primární klíč je generován databází*
 
-    ![Screen1](~/ef6/media/screen1.png)
+    ![Hlavní okno se nové kategorie a produkty](~/ef6/media/screen1.png)
 
 -   Stisknutím klávesy **Uložit** tlačítko pro uložení dat do databáze
 
 Po volání na DbContext **SaveChanges**(), ID jsou vyplněna podle hodnot v databázi vygeneruje. Protože jsme volat **aktualizovat**() po **SaveChanges**() **DataGrid** ovládací prvky jsou aktualizovány s novými hodnotami.
 
-![Screen2](~/ef6/media/screen2.png)
+![Hlavní okno s ID vyplní](~/ef6/media/screen2.png)

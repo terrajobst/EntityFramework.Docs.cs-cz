@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 79a73e38fdc9c4268c21de66571d6272f33e9457
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a77cab1544f18050edf7c8b01f1b4a72eed05b64
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997033"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250943"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Začínáme s EF Core v ASP.NET Core s existující databáze
 
@@ -171,6 +171,6 @@ Nyní můžete spustit aplikaci sledujte v akci.
 * Klikněte na tlačítko **vytvořit nový**
 * Zadejte **Url** nového blogu a klikněte na **Create**
 
-![obrázek](_static/create.png)
+  ![Vytvoření stránky](_static/create.png)
 
-![obrázek](_static/index-existing-db.png)
+  ![Indexová stránka](_static/index-existing-db.png)

@@ -3,12 +3,12 @@ title: Model First – EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
-ms.openlocfilehash: c21592b27fa752532f5ede5923d0bd751f0bf372
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 3dd0eba29619f09995d7009dd29462c14bde98c4
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998112"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251138"
 ---
 # <a name="model-first"></a>První model
 Tato videa a podrobný návod poskytuje úvod do modelu první vývoj pomocí rozhraní Entity Framework. Model nejprve umožňuje vytvořit nový model využívající Entity Framework Designer a pak vygenerovat schéma databáze z modelu. Modelu je uložen v souboru EDMX (s příponou edmx) a může se zobrazit a upravit v Návrháři Entity Framework. Třídy, které budete moct používat ve vaší aplikaci se automaticky vygenerují ze souboru EDMX.
@@ -45,7 +45,7 @@ My budeme používat Entity Framework Designer, která je součástí sady Visua
 -   Zadejte **BloggingModel** jako název a klikněte na **OK**, spustí se Průvodce datovým modelem Entity
 -   Vyberte **prázdný Model** a klikněte na tlačítko **dokončit**
 
-    ![CreateEmptyModel](~/ef6/media/createemptymodel.png)
+    ![Vytvořit prázdný Model](~/ef6/media/createemptymodel.png)
 
 Entity Framework Designer se otevře s prázdnou modelu. Nyní můžeme začít přidání entity, vlastnosti a asociace do modelu.
 
@@ -55,7 +55,7 @@ Entity Framework Designer se otevře s prázdnou modelu. Nyní můžeme začít 
 -   Klikněte pravým tlačítkem na návrhové ploše a vyberte **přidat nový -&gt; Entity...**
 -   Zadejte **blogu** jako název entity a **BlogId** název klíče a klikněte na **OK**
 
-    ![AddBlogEntity](~/ef6/media/addblogentity.png)
+    ![Přidání Entity blogu](~/ef6/media/addblogentity.png)
 
 -   Klikněte pravým tlačítkem na nové entity na návrhové ploše a vyberte **přidat nový -&gt; skalární vlastnost**, zadejte **název** jako název vlastnosti.
 -   Opakujte tento postup pro přidání **Url** vlastnost.
@@ -71,11 +71,11 @@ Když teď máme několik entit, je čas Přidat přidružení (nebo vztah) mezi
      *To znamená, že má mnoho příspěvky blogu a příspěvek patří do jedné blogu*
 -   Zkontrolujte **přidat vlastnosti cizího klíče na "Post" entitu** políčko je zaškrtnuté políčko a klikněte na tlačítko **OK**
 
-    ![AddAssociationMF](~/ef6/media/addassociationmf.png)
+    ![Přidat přidružení MF](~/ef6/media/addassociationmf.png)
 
 Nyní je k dispozici jednoduchý model, který jsme Generovat z databáze a umožňuje číst a zapisovat data.
 
-![ModelInitial](~/ef6/media/modelinitial.png)
+![Počáteční modelu](~/ef6/media/modelinitial.png)
 
 ### <a name="additional-steps-in-visual-studio-2010"></a>Další kroky v sadě Visual Studio 2010
 
@@ -95,7 +95,7 @@ Dále musíme Prohodit náš model se vygenerovat kód, který využívá rozhra
 -   Vyberte **Online šablon** v levé nabídce a vyhledejte **DbContext**
 -   Vyberte EF **5.x DbContext generátor pro jazyk C\#**, zadejte **BloggingModel** jako název a klikněte na **přidat**
 
-    ![DbContextTemplate](~/ef6/media/dbcontexttemplate.png)
+    ![Šablona DbContext](~/ef6/media/dbcontexttemplate.png)
 
 ## <a name="3-generating-the-database"></a>3. Generování databáze
 
@@ -111,9 +111,9 @@ Pojďme tedy vygenerovala databáze.
 -   Klikněte pravým tlačítkem na návrhové ploše a vyberte **generovat databáze z modelu...**
 -   Klikněte na tlačítko **nové připojení...** a určete LocalDB nebo SQL Express, v závislosti na tom, kterou verzi sady Visual Studio používáte, zadejte **ModelFirst.Blogging** jako název databáze.
 
-    ![LocalDBConnectionMF](~/ef6/media/localdbconnectionmf.png)
+    ![Připojení LocalDB MF](~/ef6/media/localdbconnectionmf.png)
 
-    ![SqlExpressConnectionMF](~/ef6/media/sqlexpressconnectionmf.png)
+    ![Připojení SQL Express MF](~/ef6/media/sqlexpressconnectionmf.png)
 
 -   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
 -   Vyberte **Další** a Entity Framework Designer vypočítá skript k vytvoření schématu databáze
@@ -126,7 +126,7 @@ Když teď máme modelu je čas ho používat pro přístup k nějaká data. Tř
 
 *Tento snímek obrazovky je z Visual Studio 2012, pokud používáte Visual Studio 2010 BloggingModel.tt a BloggingModel.Context.tt soubory přímo v rámci projektu budou místo vnořen v souladu s souboru EDMX.*
 
-![GeneratedClasses](~/ef6/media/generatedclasses.png)
+![Generované třídy](~/ef6/media/generatedclasses.png)
 
 V souboru Program.cs implementujte metodu Main, jak je znázorněno níže. Tento kód vytvoří novou instanci třídy náš kontext a použije ho k vložení nového blogu. Pak používá dotaz LINQ k načtení všech blogy z databáze abecedně podle názvu.
 
@@ -180,7 +180,7 @@ Začneme tak, že přidáte nové entity uživatele pro náš model.
 
 -   Přidat nový **uživatele** název entity s **uživatelské jméno** jako název klíče a **řetězec** jako typ vlastnosti klíče
 
-    ![AddUserEntity](~/ef6/media/adduserentity.png)
+    ![Přidat entitu uživatele](~/ef6/media/adduserentity.png)
 
 -   Klikněte pravým tlačítkem na **uživatelské jméno** vlastnost na návrhové ploše a vyberte **vlastnosti**, změnit ve vlastnostech okna **MaxLength** nastavení **50 ** 
      *To omezuje data ukládaná ve službě uživatelské jméno do 50 znaků.*
