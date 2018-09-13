@@ -1,14 +1,14 @@
 ---
 title: Database First – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: 93ae5729e487ed9be3972ac78d599dbea19ed458
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: b499dea02cbeaa64f6ef87bf89cc739110c8b560
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251086"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490919"
 ---
 # <a name="database-first"></a>První databáze
 Tato videa a podrobný návod poskytuje úvod do databáze první vývoj pomocí rozhraní Entity Framework. Nejprve lze provést zpětnou analýzu modelu z existující databáze. Modelu je uložen v souboru EDMX (s příponou edmx) a může se zobrazit a upravit v Návrháři Entity Framework. Třídy, které budete moct používat ve vaší aplikaci se automaticky vygenerují ze souboru EDMX.

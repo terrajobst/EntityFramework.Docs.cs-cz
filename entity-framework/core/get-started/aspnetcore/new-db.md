@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 5f69be179eb19c2b7e5743698876de441f1ccb91
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 803b0b71b2a2093432d76bc159875d65ab379b9a
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250930"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489287"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF Core v ASP.NET Core s novou databázi
 
@@ -20,7 +20,7 @@ Tento kurz provedením pomocí sady Visual Studio 2017 na Windows nebo pomocí r
 
 Zobrazte ukázky v tomto článku na Githubu:
 * [Visual Studio 2017 s SQL serverem](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb)
-* [.NET core CLI s SQLite](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCoreNewDb.Sqlite/EFGetStarted.AspNetCore.NewDb).
+* [.NET core CLI s SQLite](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite).
 
 ## <a name="prerequisites"></a>Požadavky
 
