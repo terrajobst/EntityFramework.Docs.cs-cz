@@ -1,14 +1,14 @@
 ---
 title: Šablony generování kódu návrháře - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
-ms.openlocfilehash: e4d4aaa647baca9f85b85db1aadaade37abd6ff2
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 8479d4e76e6db43072c382792c69250ae032af62
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251164"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490174"
 ---
 # <a name="designer-code-generation-templates"></a>Šablony generování kódu návrháře
 Když vytvoříte model využívající Entity Framework Designer třídy a odvozené kontextu jsou automaticky generovány za vás. Kromě generování kódu výchozí poskytujeme také několik šablon, které můžete použít k přizpůsobení kód, který získá vygenerována. Tyto šablony jsou k dispozici jako textové šablony T4, což vám umožní přizpůsobit šablony v případě potřeby.

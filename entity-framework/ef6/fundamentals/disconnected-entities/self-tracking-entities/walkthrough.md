@@ -1,14 +1,14 @@
 ---
 title: Vlastní sledování entity návod – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: 1c450bbb20c246d9b9d58707ac03eb48eadfa970
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: d89c452410d34bea71e8220aae141c3bfca3e1ce
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251281"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490269"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>Vlastní sledování návod entity
 > [!IMPORTANT]

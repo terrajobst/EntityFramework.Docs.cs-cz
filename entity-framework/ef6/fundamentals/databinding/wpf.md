@@ -1,14 +1,14 @@
 ---
 title: Vazby dat s WPF – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: e6df90db17d39d3aa91275800a6414fed40fb5db
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 5bd4a9b98a12de41e4ec37c2cc7dbdc537210893
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251151"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490224"
 ---
 # <a name="databinding-with-wpf"></a>Vazby dat s WPF
 Tento podrobný návod ukazuje, jak svázat ovládací prvky WPF ve formě "hlavní podrobnosti" typy POCO. Aplikace používá rozhraní API Entity Framework pro naplnění objekty s daty z databáze, sledování změn a uložení dat do databáze.

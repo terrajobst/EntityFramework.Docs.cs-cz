@@ -1,14 +1,14 @@
 ---
 title: Začínáme s Entity Framework 6 - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
-ms.openlocfilehash: 568531e75e7b241a56db4cb04676102f976969f8
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: c25bf16bd2c39530d54b286b7743ceb83c941e4d
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250774"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489283"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Začínáme s Entity Framework 6
 

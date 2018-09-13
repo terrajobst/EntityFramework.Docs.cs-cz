@@ -1,14 +1,14 @@
 ---
 title: Definování dotazu – EF designeru - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: b1589dc12ccb50754c2e950932a2d82bc4869f6b
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250969"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489469"
 ---
 # <a name="defining-query---ef-designer"></a>Definování dotazu – EF designeru
 Tento návod ukazuje, jak přidat, definování dotazů a odpovídající entita typ modelu pomocí EF designeru. Definování dotazu se běžně používá k zajištění funkce podobné, která poskytuje zobrazení databáze, ale zobrazení je definováno v modelu, ne databáze. Definování dotazu umožňuje provedení příkazu SQL, který je zadán v **DefiningQuery** prvek souboru .edmx. Další informace najdete v tématu **DefiningQuery** v [specifikace SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).

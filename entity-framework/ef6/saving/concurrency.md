@@ -1,14 +1,14 @@
 ---
 title: Zpracování konfliktů souběžnosti - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
-ms.openlocfilehash: f233af217287dd6bf35e5b7fea8e44974168b312
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 81ae186201fdfac331b1d4e7836b222545fe78b5
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997807"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489151"
 ---
 # <a name="handling-concurrency-conflicts"></a>Zpracování konfliktů souběžnosti
 Optimistická souběžnost zahrnuje optimisticky pokusu o uložení vaší entity k databázi v naději, že nedošlo ke změně tamní data od entita byla načtena. Ukázalo se, která byla data změněna, je vyvolána výjimka, a musíte vyřešit konflikt, než se pokusíte uložit znovu. Toto téma popisuje způsob zpracování těchto výjimek v rozhraní Entity Framework. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  

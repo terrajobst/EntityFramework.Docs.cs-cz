@@ -1,14 +1,14 @@
 ---
 title: Práce s proxy - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 869ee4dc-06f1-471d-8e0e-0a1a2bc59c30
-ms.openlocfilehash: 7b82dd370e67d1622fc00ff5e5275721d0fc4fe1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8f7d2e8b41ece28efe8d1df3b0679e6e4510d64a
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997200"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489814"
 ---
 # <a name="working-with-proxies"></a>Práce s proxy servery
 Při vytváření instancí typů entit POCO, Entity Framework často vytváří instance dynamicky generované odvozeného typu, který funguje jako proxy pro entitu. Tento proxy server přepíše některé virtuální vlastnosti entity, chcete-li vložit háky pro provádění akcí automaticky při přístupu k vlastnosti. Tento mechanismus je například použít pro podporu opožděné načtení vztahů. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  

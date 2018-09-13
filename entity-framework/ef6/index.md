@@ -1,15 +1,15 @@
 ---
 title: Přehled – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
-ms.openlocfilehash: 5218f3f8149b15cb5ad3a14779dfa9c23eb71a0e
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 35292d2a724d02ecdc96b53550858eb0b6dd79d1
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152491"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489229"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) je vyzkoušená a otestovaná objektově relační Mapovač (O/RM) pro .NET s mnoha letech řídit vývoj funkcí a stabilizaci.

@@ -1,73 +1,77 @@
+items:
 - name: Docs
   tocHref: /
   topicHref: /
   items:
-    - name: Entity Framework
-      tocHref: /ef/
-      topicHref: /ef/index
+  - name: Entity Framework
+    tocHref: /ef/
+    topicHref: /ef/index
+    items:
+    - name: Porovnání EF Core a EF6
+      tocHref: /ef/efcore-and-ef6/
+      topicHref: /ef/efcore-and-ef6/index
+    - name: Entity Framework Core
+      tocHref: /ef/core/
+      topicHref: /ef/core/index
       items:
-        - name: Porovnání EF Core a EF6
-          tocHref: /ef/efcore-and-ef6/
-          topicHref: /ef/efcore-and-ef6/index
-        - name: Entity Framework Core
-          tocHref: /ef/core/
-          topicHref: /ef/core/index
-          items:
-            - name: Co je nového
-              tocHref: /ef/core/what-is-new/
-              topicHref: /ef/core/what-is-new/index
-            - name: Začínáme
-              tocHref: /ef/core/get-started/
-              topicHref: /ef/core/get-started/index
-            - name: Vytvoření modelu
-              tocHref: /ef/core/modeling/
-              topicHref: /ef/core/modeling/index
-            - name: Dotazování na data
-              tocHref: /ef/core/querying/
-              topicHref: /ef/core/querying/index
-            - name: Ukládání dat
-              tocHref: /ef/core/saving/
-              topicHref: /ef/core/saving/index
-            - name: Podporovaná implementace .NET
-              tocHref: /ef/core/platforms/
-              topicHref: /ef/core/platofms/index
-            - name: Poskytovatelé databází
-              tocHref: /ef/core/providers/
-              topicHref: /ef/core/providers/index
-            - name: Správa schémat databází
-              tocHref: /ef/core/managing-schemas/
-              topicHref: /ef/core/managing-schemas/index
-            - name: "Referenční dokumentace k\_příkazovému řádku"
-              tocHref: /ef/core/miscellaneous/cli/
-              topicHref: /ef/core/miscellaneous/cli/index
-            - name: Nástroje a rozšíření
-              tocHref: /ef/core/extensions/
-              topicHref: /ef/core/extensions/index
-            - name: Různé
-              tocHref: /ef/core/miscellaneous/
-              topicHref: /ef/core/miscellaneous/index
-        - name: Entity Framework 6
-          tocHref: /ef/ef6/
-          topicHref: /ef/ef6/index
-          items:
-            - name: Co je nového
-              tocHref: /ef/ef6/what-is-new/
-              topicHref: /ef/ef6/what-is-new/index
-            - name: Začínáme
-              tocHref: /ef/ef6/get-started
-              topicHref: /ef/ef6/get-started
-            - name: Základy
-              tocHref: /ef/ef6/fundamentals/
-              topicHref: /ef/ef6/fundamentals/index
-            - name: Vytvoření modelu
-              tocHref: /ef/ef6/modeling/
-              topicHref: /ef/ef6/modeling/index
-            - name: Dotazování na data
-              tocHref: /ef/ef6/querying/
-              topicHref: /ef/ef6/querying/index
-            - name: Ukládání dat
-              tocHref: /ef/ef6/saving/
-              topicHref: /ef/ef6/saving/index
-            - name: Další prostředky
-              tocHref: /ef/ef6/resources/
-              topicHref: /ef/ef6/resources/index
+      - name: Co je nového
+        tocHref: /ef/core/what-is-new/
+        topicHref: /ef/core/what-is-new/index
+      - name: Začínáme
+        tocHref: /ef/core/get-started/
+        topicHref: /ef/core/get-started/index
+      - name: Vytvoření modelu
+        tocHref: /ef/core/modeling/
+        topicHref: /ef/core/modeling/index
+      - name: Dotazování na data
+        tocHref: /ef/core/querying/
+        topicHref: /ef/core/querying/index
+      - name: Ukládání dat
+        tocHref: /ef/core/saving/
+        topicHref: /ef/core/saving/index
+      - name: Podporovaná implementace .NET
+        tocHref: /ef/core/platforms/
+        topicHref: /ef/core/platofms/index
+      - name: Poskytovatelé databází
+        tocHref: /ef/core/providers/
+        topicHref: /ef/core/providers/index
+      - name: Správa schémat databází
+        tocHref: /ef/core/managing-schemas/
+        topicHref: /ef/core/managing-schemas/index
+      - name: Referenční dokumentace k příkazovému řádku
+        tocHref: /ef/core/miscellaneous/cli/
+        topicHref: /ef/core/miscellaneous/cli/index
+      - name: Nástroje a rozšíření
+        tocHref: /ef/core/extensions/
+        topicHref: /ef/core/extensions/index
+    - name: Entity Framework 6
+      tocHref: /ef/ef6/
+      topicHref: /ef/ef6/index
+      items:
+      - name: Co je nového
+        tocHref: /ef/ef6/what-is-new/
+        topicHref: /ef/ef6/what-is-new/index
+      - name: Začínáme
+        tocHref: /ef/ef6/get-started
+        topicHref: /ef/ef6/get-started
+      - name: Základy
+        tocHref: /ef/ef6/fundamentals/
+        topicHref: /ef/ef6/fundamentals/index
+      - name: Vytvoření modelu
+        tocHref: /ef/ef6/modeling/
+        topicHref: /ef/ef6/modeling/index
+      - name: Dotazování na data
+        tocHref: /ef/ef6/querying/
+        topicHref: /ef/ef6/querying/index
+      - name: Ukládání dat
+        tocHref: /ef/ef6/saving/
+        topicHref: /ef/ef6/saving/index
+      - name: Další prostředky
+        tocHref: /ef/ef6/resources/
+        topicHref: /ef/ef6/resources/index
+ms.openlocfilehash: f89ba463cbd7fff0ffaefe3ef325e382618d5400
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.translationtype: HT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490769"

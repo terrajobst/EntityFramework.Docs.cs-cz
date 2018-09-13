@@ -1,14 +1,14 @@
 ---
 title: Model First – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
-ms.openlocfilehash: 3dd0eba29619f09995d7009dd29462c14bde98c4
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 8e010f95db40261073b4af80a3c0e3225a2cd1cf
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251138"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490477"
 ---
 # <a name="model-first"></a>První model
 Tato videa a podrobný návod poskytuje úvod do modelu první vývoj pomocí rozhraní Entity Framework. Model nejprve umožňuje vytvořit nový model využívající Entity Framework Designer a pak vygenerovat schéma databáze z modelu. Modelu je uložen v souboru EDMX (s příponou edmx) a může se zobrazit a upravit v Návrháři Entity Framework. Třídy, které budete moct používat ve vaší aplikaci se automaticky vygenerují ze souboru EDMX.

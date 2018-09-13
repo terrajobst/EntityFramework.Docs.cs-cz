@@ -1,15 +1,15 @@
 ---
 title: Nástroje a rozšíření – EF Core
 author: ErikEJ
-ms.date: 7/3/2018
+ms.date: 07/03/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: e88bd01f79e05a9a3b0c0bbeecca89df178098a6
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 1edc7a20f54b2d26f899c93e98dfaf6d62c29f86
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152449"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490724"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core nástroje a rozšíření
 

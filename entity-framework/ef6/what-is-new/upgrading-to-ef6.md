@@ -1,14 +1,14 @@
 ---
 title: Upgrade na rozhraní Entity Framework 6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
-ms.openlocfilehash: 8317fc0dcd5a7b176f3100e449bc6ff708bd310f
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2e2dacfe67238bdb7fd1f31f784319049f0f2cb0
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997368"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490945"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Upgrade na rozhraní Entity Framework 6
 

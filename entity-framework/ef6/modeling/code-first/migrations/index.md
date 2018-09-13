@@ -1,14 +1,14 @@
 ---
 title: Migrace Code First - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 6c530545968a26d13051d1e682557092bde13bb0
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 0e2f33d3402929c93a339ea26dcade875da52a61
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251034"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490281"
 ---
 # <a name="code-first-migrations"></a>Migrace Code First
 Migrace Code First je doporučeným způsobem, jak vyvíjet schéma databáze vaší aplikace používáte Code First pracovního postupu. Migrace poskytují sadu nástrojů, které umožňují:

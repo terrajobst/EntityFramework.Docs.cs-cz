@@ -1,14 +1,14 @@
 ---
 title: Získat Entity Framework - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
-ms.openlocfilehash: 601f8d123d5494be6a658da1c4ad3743ed50385c
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 7f840a4f9e437ec12f699184339e386976e1528b
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250878"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490636"
 ---
 # <a name="get-entity-framework"></a>Získat Entity Framework
 Entity Framework se skládá z EF nástrojů pro Visual Studio a modul Runtime EF.

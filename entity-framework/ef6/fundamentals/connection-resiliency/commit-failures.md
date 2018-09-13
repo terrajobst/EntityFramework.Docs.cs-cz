@@ -1,14 +1,14 @@
 ---
 title: Zpracování selhání potvrzení transakce - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
-ms.openlocfilehash: f912777104c2e925122c05046d4d65660de8b8a8
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 71d5649dd993bb95e24165a55d812c71a37f03f3
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250853"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489385"
 ---
 # <a name="handling-transaction-commit-failures"></a>Zpracování selhání potvrzení transakce
 > [!NOTE]

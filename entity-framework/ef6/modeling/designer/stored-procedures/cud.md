@@ -1,14 +1,14 @@
 ---
 title: Návrháře CUD uložených procedur komponentami TableAdapter-EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 36c9b97b77fec30136cba1d850a0259c689e69ae
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 35a00aa817c8643352c517c233977efd49e3baac
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250917"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489554"
 ---
 # <a name="designer-cud-stored-procedures"></a>Návrháře CUD uložené procedury
 Tento podrobný návod ukazují, jak vytvořit mapování\\vložení, aktualizace a odstranění (vytvoření) operace typu entity na uložené procedury pomocí návrháře Entity Framework (EF designeru).  Ve výchozím nastavení Entity Framework automaticky generuje příkazů SQL pro operace vytvoření, ale můžete také namapovat uložených procedur na těchto operací.  

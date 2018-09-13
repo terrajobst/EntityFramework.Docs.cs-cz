@@ -1,14 +1,14 @@
 ---
 title: Kód nejprve k existující databázi - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: fedfb921919582e2cdb5f3bc497f11889b972ad6
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: f05420beb3dff2d632151fcbf48986b0d9cd18ff
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251073"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490607"
 ---
 # <a name="code-first-to-an-existing-database"></a>Kód nejprve ke stávající databázi
 Tato videa a podrobný návod poskytuje úvod k vývoji Code First cílení na existující databázi. Kód nejprve umožňuje definovat model pomocí jazyka C\# nebo VB.Net třídy. Volitelně další konfigurace je možné provádět pomocí atributů ve třídách a vlastnostech nebo s použitím rozhraní API fluent.

@@ -1,14 +1,14 @@
 ---
 title: První vytváření – EF6 kódu
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: bc644573-c2b2-4ed7-8745-3c37c41058ad
-ms.openlocfilehash: c5fa580879a4b53fed34d94b737988875f38c62c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4d03a32db5d84eb37c22617a95005b272172a65d
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995523"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490997"
 ---
 # <a name="code-first-conventions"></a>První konvence kódu
 Code First umožňuje popisuje model s použitím tříd jazyka C# nebo Visual Basic .NET. Základní obrazec modelu je zjišťován pomocí konvencí. Konvence jsou sady pravidel, která se používají pro automatickou konfiguraci konceptuálního modelu podle definice tříd při práci se službou Code First. Konvence jsou definovány v oboru názvů System.Data.Entity.ModelConfiguration.Conventions.  

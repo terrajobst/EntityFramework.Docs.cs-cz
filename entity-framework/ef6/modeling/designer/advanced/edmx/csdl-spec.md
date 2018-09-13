@@ -1,14 +1,14 @@
 ---
 title: Specifikace CSDL - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: c54255f4-253f-49eb-bec8-ad7927ac2fa3
-ms.openlocfilehash: 88669cf80f9a792fda7d191d9f6be2b1734691df
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f5bf0dc75a8195e9af979c9e044f36171f46c9b7
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994726"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490516"
 ---
 # <a name="csdl-specification"></a>Specifikace CSDL
 Konceptuální schéma definici jazyka (CSDL) je jazyk založený na formátu XML, který popisuje entity, vztahy a funkce, které tvoří konceptuálního modelu aplikace řízené daty. Entity Framework nebo WCF Data Services je možné tento koncepčního modelu. Metadata, která je popsána pomocí CSDL používá Entity Framework pro mapování entit a vztahů, které jsou definované v konceptuálním modelu na zdroji dat. Další informace najdete v tématu [specifikace SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md) a [specifikace MSL](~/ef6/modeling/designer/advanced/edmx/msl-spec.md).

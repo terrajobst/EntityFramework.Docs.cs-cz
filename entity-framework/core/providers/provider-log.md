@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: a637e5e2f75e16bc7b11b1a51abcbe16274a1c75
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250813"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490765"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -52,3 +52,7 @@ Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `pro
   * Postupovat podle tohoto vzoru přidává prostorových na svého poskytovatele, který je konzistentní napříč poskytovatelů.
 * https://github.com/aspnet/EntityFrameworkCore/pull/13199 -Přidat vylepšené ladění pro vytvoření poskytovatele služby
   * Umožňuje DbContextOptionsExtensions implementovat nové rozhraní, která pomáhá uživatelům pochopit, proč se opětovně sestaven vnitřní chybě služby zprostředkovatele
+* https://github.com/aspnet/EntityFrameworkCore/pull/13289 -Přidá CanConnect rozhraní API pro použití kontroly stavu
+  * Tato žádost o přijetí změn přidá konceptu `CanConnect` který budou používat ASP.NET Core stavu kontroly k určení, jestli je databáze k dispozici. Ve výchozím nastavení, relační implementace jen volá `Exist`, ale zprostředkovatelé můžete implementovat něco jiného v případě potřeby. Nerelační poskytovatelé muset implementovat nové rozhraní API v pořadí pro kontrolu stavu, který má být použitelná.
+* https://github.com/aspnet/EntityFrameworkCore/pull/13306 -Aktualizace základní RelationalTypeMapping nenastavovat DbParameter velikost
+  * Zastavte, protože to může způsobit zkrácení nastavení velikosti ve výchozím nastavení. Poskytovatelé pravděpodobně nutné přidat své vlastní logiky, pokud velikost musí být nastavena.

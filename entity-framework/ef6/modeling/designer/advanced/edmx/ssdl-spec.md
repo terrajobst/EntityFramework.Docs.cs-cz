@@ -1,14 +1,14 @@
 ---
 title: Specifikace SSDL - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
-ms.openlocfilehash: 35c560d88e5078a7fc4c07b76020f3ad7d0735e1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a8b1f844a34c44d283982a52cef3bf80afd7e679
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995276"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490347"
 ---
 # <a name="ssdl-specification"></a>Specifikace SSDL
 Store schema definition language (SSDL) je jazyk založený na formátu XML, který popisuje model úložiště aplikace Entity Framework.
