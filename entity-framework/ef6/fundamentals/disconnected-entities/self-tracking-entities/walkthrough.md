@@ -1,63 +1,63 @@
 ---
 title: Vlastní sledování entity návod – EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: 1c450bbb20c246d9b9d58707ac03eb48eadfa970
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: d89c452410d34bea71e8220aae141c3bfca3e1ce
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251281"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490269"
 ---
-# <a name="self-tracking-entities-walkthrough"></a><span data-ttu-id="8611d-102">Vlastní sledování návod entity</span><span class="sxs-lookup"><span data-stu-id="8611d-102">Self-Tracking Entities Walkthrough</span></span>
+# <a name="self-tracking-entities-walkthrough"></a><span data-ttu-id="f9489-102">Vlastní sledování návod entity</span><span class="sxs-lookup"><span data-stu-id="f9489-102">Self-Tracking Entities Walkthrough</span></span>
 > [!IMPORTANT]
-> <span data-ttu-id="8611d-103">Už doporučujeme použít šablonu samoobslužného tracking entity.</span><span class="sxs-lookup"><span data-stu-id="8611d-103">We no longer recommend using the self-tracking-entities template.</span></span> <span data-ttu-id="8611d-104">Pouze bude nadále být k dispozici pro podporu stávající aplikace.</span><span class="sxs-lookup"><span data-stu-id="8611d-104">It will only continue to be available to support existing applications.</span></span> <span data-ttu-id="8611d-105">Pokud aplikace potřebuje pracovat s grafy odpojených entit, zvažte další možnosti, jako [organizovaným entity](http://trackableentities.github.io/), což je technologie, podobně jako u samoobslužného-Tracking-entit, které je více aktivně vyvíjen Komunita, nebo psaní vlastního kódu pomocí nízké úrovně rozhraní API pro sledování změn.</span><span class="sxs-lookup"><span data-stu-id="8611d-105">If your application requires working with disconnected graphs of entities, consider other alternatives such as [Trackable Entities](http://trackableentities.github.io/), which is a technology similar to Self-Tracking-Entities that is more actively developed by the community, or writing custom code using the low-level change tracking APIs.</span></span>
+> <span data-ttu-id="f9489-103">Už doporučujeme použít šablonu samoobslužného tracking entity.</span><span class="sxs-lookup"><span data-stu-id="f9489-103">We no longer recommend using the self-tracking-entities template.</span></span> <span data-ttu-id="f9489-104">Pouze bude nadále být k dispozici pro podporu stávající aplikace.</span><span class="sxs-lookup"><span data-stu-id="f9489-104">It will only continue to be available to support existing applications.</span></span> <span data-ttu-id="f9489-105">Pokud aplikace potřebuje pracovat s grafy odpojených entit, zvažte další možnosti, jako [organizovaným entity](http://trackableentities.github.io/), což je technologie, podobně jako u samoobslužného-Tracking-entit, které je více aktivně vyvíjen Komunita, nebo psaní vlastního kódu pomocí nízké úrovně rozhraní API pro sledování změn.</span><span class="sxs-lookup"><span data-stu-id="f9489-105">If your application requires working with disconnected graphs of entities, consider other alternatives such as [Trackable Entities](http://trackableentities.github.io/), which is a technology similar to Self-Tracking-Entities that is more actively developed by the community, or writing custom code using the low-level change tracking APIs.</span></span>
 
-<span data-ttu-id="8611d-106">Tento návod ukazuje scénář, ve kterém služby Windows Communication Foundation (WCF) poskytuje operace, která se vrátí entit grafu.</span><span class="sxs-lookup"><span data-stu-id="8611d-106">This walkthrough demonstrates the scenario in which a Windows Communication Foundation (WCF) service exposes an operation that returns an entity graph.</span></span> <span data-ttu-id="8611d-107">V dalším kroku klientská aplikace provádí úpravy tohoto grafu a odešle změny operace služby, která ověřuje a uloží aktualizace k databázi pomocí Entity Frameworku.</span><span class="sxs-lookup"><span data-stu-id="8611d-107">Next, a client application manipulates that graph and submits the modifications to a service operation that validates and saves the updates to a database using Entity Framework.</span></span>
+<span data-ttu-id="f9489-106">Tento návod ukazuje scénář, ve kterém služby Windows Communication Foundation (WCF) poskytuje operace, která se vrátí entit grafu.</span><span class="sxs-lookup"><span data-stu-id="f9489-106">This walkthrough demonstrates the scenario in which a Windows Communication Foundation (WCF) service exposes an operation that returns an entity graph.</span></span> <span data-ttu-id="f9489-107">V dalším kroku klientská aplikace provádí úpravy tohoto grafu a odešle změny operace služby, která ověřuje a uloží aktualizace k databázi pomocí Entity Frameworku.</span><span class="sxs-lookup"><span data-stu-id="f9489-107">Next, a client application manipulates that graph and submits the modifications to a service operation that validates and saves the updates to a database using Entity Framework.</span></span>
 
-<span data-ttu-id="8611d-108">Před dokončením tohoto návodu Ujistěte se, že čtete [Self-Tracking entity](index.md) stránky.</span><span class="sxs-lookup"><span data-stu-id="8611d-108">Before completing this walkthrough make sure you read the [Self-Tracking Entities](index.md) page.</span></span>
+<span data-ttu-id="f9489-108">Před dokončením tohoto návodu Ujistěte se, že čtete [Self-Tracking entity](index.md) stránky.</span><span class="sxs-lookup"><span data-stu-id="f9489-108">Before completing this walkthrough make sure you read the [Self-Tracking Entities](index.md) page.</span></span>
 
-<span data-ttu-id="8611d-109">Tento návod provede následující akce:</span><span class="sxs-lookup"><span data-stu-id="8611d-109">This walkthrough completes the following actions:</span></span>
+<span data-ttu-id="f9489-109">Tento návod provede následující akce:</span><span class="sxs-lookup"><span data-stu-id="f9489-109">This walkthrough completes the following actions:</span></span>
 
--   <span data-ttu-id="8611d-110">Vytvoří databázi přístup.</span><span class="sxs-lookup"><span data-stu-id="8611d-110">Creates a database to access.</span></span>
--   <span data-ttu-id="8611d-111">Vytvoří knihovnu tříd, která obsahuje model.</span><span class="sxs-lookup"><span data-stu-id="8611d-111">Creates a class library that contains the model.</span></span>
--   <span data-ttu-id="8611d-112">Záměna Self-Tracking Entity generátor šablony.</span><span class="sxs-lookup"><span data-stu-id="8611d-112">Swaps to the Self-Tracking Entity Generator template.</span></span>
--   <span data-ttu-id="8611d-113">Přesune tříd entit do samostatného projektu.</span><span class="sxs-lookup"><span data-stu-id="8611d-113">Moves the entity classes to a separate project.</span></span>
--   <span data-ttu-id="8611d-114">Vytvoří službu WCF, která poskytuje operace pro dotazování a uložení entity.</span><span class="sxs-lookup"><span data-stu-id="8611d-114">Creates a WCF service that exposes operations to query and save entities.</span></span>
--   <span data-ttu-id="8611d-115">Vytvoří klienta aplikace (konzoly a WPF), které využívají službu.</span><span class="sxs-lookup"><span data-stu-id="8611d-115">Creates client applications (Console and WPF) that consume the service.</span></span>
+-   <span data-ttu-id="f9489-110">Vytvoří databázi přístup.</span><span class="sxs-lookup"><span data-stu-id="f9489-110">Creates a database to access.</span></span>
+-   <span data-ttu-id="f9489-111">Vytvoří knihovnu tříd, která obsahuje model.</span><span class="sxs-lookup"><span data-stu-id="f9489-111">Creates a class library that contains the model.</span></span>
+-   <span data-ttu-id="f9489-112">Záměna Self-Tracking Entity generátor šablony.</span><span class="sxs-lookup"><span data-stu-id="f9489-112">Swaps to the Self-Tracking Entity Generator template.</span></span>
+-   <span data-ttu-id="f9489-113">Přesune tříd entit do samostatného projektu.</span><span class="sxs-lookup"><span data-stu-id="f9489-113">Moves the entity classes to a separate project.</span></span>
+-   <span data-ttu-id="f9489-114">Vytvoří službu WCF, která poskytuje operace pro dotazování a uložení entity.</span><span class="sxs-lookup"><span data-stu-id="f9489-114">Creates a WCF service that exposes operations to query and save entities.</span></span>
+-   <span data-ttu-id="f9489-115">Vytvoří klienta aplikace (konzoly a WPF), které využívají službu.</span><span class="sxs-lookup"><span data-stu-id="f9489-115">Creates client applications (Console and WPF) that consume the service.</span></span>
 
-<span data-ttu-id="8611d-116">Použijeme první databáze v tomto podrobném návodu, ale stejné techniky stejnou měrou vztahují na první Model.</span><span class="sxs-lookup"><span data-stu-id="8611d-116">We'll use Database First in this walkthrough but the same techniques apply equally to Model First.</span></span>
+<span data-ttu-id="f9489-116">Použijeme první databáze v tomto podrobném návodu, ale stejné techniky stejnou měrou vztahují na první Model.</span><span class="sxs-lookup"><span data-stu-id="f9489-116">We'll use Database First in this walkthrough but the same techniques apply equally to Model First.</span></span>
 
-## <a name="pre-requisites"></a><span data-ttu-id="8611d-117">Předpoklady</span><span class="sxs-lookup"><span data-stu-id="8611d-117">Pre-Requisites</span></span>
+## <a name="pre-requisites"></a><span data-ttu-id="f9489-117">Předpoklady</span><span class="sxs-lookup"><span data-stu-id="f9489-117">Pre-Requisites</span></span>
 
-<span data-ttu-id="8611d-118">K dokončení tohoto návodu potřebujete novější verzi sady Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="8611d-118">To complete this walkthrough you will need a recent version of Visual Studio.</span></span>
+<span data-ttu-id="f9489-118">K dokončení tohoto návodu potřebujete novější verzi sady Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="f9489-118">To complete this walkthrough you will need a recent version of Visual Studio.</span></span>
 
-## <a name="create-a-database"></a><span data-ttu-id="8611d-119">Vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="8611d-119">Create a Database</span></span>
+## <a name="create-a-database"></a><span data-ttu-id="f9489-119">Vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="f9489-119">Create a Database</span></span>
 
-<span data-ttu-id="8611d-120">Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio, které jste nainstalovali:</span><span class="sxs-lookup"><span data-stu-id="8611d-120">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you have installed:</span></span>
+<span data-ttu-id="f9489-120">Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio, které jste nainstalovali:</span><span class="sxs-lookup"><span data-stu-id="f9489-120">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you have installed:</span></span>
 
--   <span data-ttu-id="8611d-121">Pokud používáte sadu Visual Studio 2012 pak vytvoříte databázi LocalDB.</span><span class="sxs-lookup"><span data-stu-id="8611d-121">If you are using Visual Studio 2012 then you'll be creating a LocalDB database.</span></span>
--   <span data-ttu-id="8611d-122">Pokud používáte Visual Studio 2010 vytvoříte databázi SQL Express.</span><span class="sxs-lookup"><span data-stu-id="8611d-122">If you are using Visual Studio 2010 you'll be creating a SQL Express database.</span></span>
+-   <span data-ttu-id="f9489-121">Pokud používáte sadu Visual Studio 2012 pak vytvoříte databázi LocalDB.</span><span class="sxs-lookup"><span data-stu-id="f9489-121">If you are using Visual Studio 2012 then you'll be creating a LocalDB database.</span></span>
+-   <span data-ttu-id="f9489-122">Pokud používáte Visual Studio 2010 vytvoříte databázi SQL Express.</span><span class="sxs-lookup"><span data-stu-id="f9489-122">If you are using Visual Studio 2010 you'll be creating a SQL Express database.</span></span>
 
-<span data-ttu-id="8611d-123">Pojďme tedy vygenerovala databáze.</span><span class="sxs-lookup"><span data-stu-id="8611d-123">Let's go ahead and generate the database.</span></span>
+<span data-ttu-id="f9489-123">Pojďme tedy vygenerovala databáze.</span><span class="sxs-lookup"><span data-stu-id="f9489-123">Let's go ahead and generate the database.</span></span>
 
--   <span data-ttu-id="8611d-124">Otevřít Visual Studio</span><span class="sxs-lookup"><span data-stu-id="8611d-124">Open Visual Studio</span></span>
--   <span data-ttu-id="8611d-125">**Zobrazení –&gt; Průzkumníka serveru**</span><span class="sxs-lookup"><span data-stu-id="8611d-125">**View -&gt; Server Explorer**</span></span>
--   <span data-ttu-id="8611d-126">Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**</span><span class="sxs-lookup"><span data-stu-id="8611d-126">Right click on **Data Connections -&gt; Add Connection…**</span></span>
--   <span data-ttu-id="8611d-127">Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat</span><span class="sxs-lookup"><span data-stu-id="8611d-127">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>
--   <span data-ttu-id="8611d-128">Připojte se k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali</span><span class="sxs-lookup"><span data-stu-id="8611d-128">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>
--   <span data-ttu-id="8611d-129">Zadejte **STESample** jako název databáze</span><span class="sxs-lookup"><span data-stu-id="8611d-129">Enter **STESample** as the database name</span></span>
--   <span data-ttu-id="8611d-130">Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**</span><span class="sxs-lookup"><span data-stu-id="8611d-130">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
--   <span data-ttu-id="8611d-131">Nová databáze se teď budou zobrazovat v Průzkumníku serveru</span><span class="sxs-lookup"><span data-stu-id="8611d-131">The new database will now appear in Server Explorer</span></span>
--   <span data-ttu-id="8611d-132">Pokud používáte sadu Visual Studio 2012</span><span class="sxs-lookup"><span data-stu-id="8611d-132">If you are using Visual Studio 2012</span></span>
-    -   <span data-ttu-id="8611d-133">Klikněte pravým tlačítkem na databázi v Průzkumníku serveru a vyberte **nový dotaz**</span><span class="sxs-lookup"><span data-stu-id="8611d-133">Right-click on the database in Server Explorer and select **New Query**</span></span>
-    -   <span data-ttu-id="8611d-134">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**</span><span class="sxs-lookup"><span data-stu-id="8611d-134">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
--   <span data-ttu-id="8611d-135">Pokud používáte Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="8611d-135">If you are using Visual Studio 2010</span></span>
-    -   <span data-ttu-id="8611d-136">Vyberte **dat –&gt; jazyka Transact SQL Editor –&gt; nové připojení dotazu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-136">Select **Data -&gt; Transact SQL Editor -&gt; New Query Connection...**</span></span>
-    -   <span data-ttu-id="8611d-137">Zadejte **.\\ SQLEXPRESS** jako název serveru a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-137">Enter **.\\SQLEXPRESS** as the server name and click **OK**</span></span>
-    -   <span data-ttu-id="8611d-138">Vyberte **STESample** databázi z rozevíracího seznamu v horní části editoru dotazů</span><span class="sxs-lookup"><span data-stu-id="8611d-138">Select the **STESample** database from the drop down at the top of the query editor</span></span>
-    -   <span data-ttu-id="8611d-139">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **provést SQL**</span><span class="sxs-lookup"><span data-stu-id="8611d-139">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>
+-   <span data-ttu-id="f9489-124">Otevřít Visual Studio</span><span class="sxs-lookup"><span data-stu-id="f9489-124">Open Visual Studio</span></span>
+-   <span data-ttu-id="f9489-125">**Zobrazení –&gt; Průzkumníka serveru**</span><span class="sxs-lookup"><span data-stu-id="f9489-125">**View -&gt; Server Explorer**</span></span>
+-   <span data-ttu-id="f9489-126">Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**</span><span class="sxs-lookup"><span data-stu-id="f9489-126">Right click on **Data Connections -&gt; Add Connection…**</span></span>
+-   <span data-ttu-id="f9489-127">Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat</span><span class="sxs-lookup"><span data-stu-id="f9489-127">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>
+-   <span data-ttu-id="f9489-128">Připojte se k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali</span><span class="sxs-lookup"><span data-stu-id="f9489-128">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>
+-   <span data-ttu-id="f9489-129">Zadejte **STESample** jako název databáze</span><span class="sxs-lookup"><span data-stu-id="f9489-129">Enter **STESample** as the database name</span></span>
+-   <span data-ttu-id="f9489-130">Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**</span><span class="sxs-lookup"><span data-stu-id="f9489-130">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
+-   <span data-ttu-id="f9489-131">Nová databáze se teď budou zobrazovat v Průzkumníku serveru</span><span class="sxs-lookup"><span data-stu-id="f9489-131">The new database will now appear in Server Explorer</span></span>
+-   <span data-ttu-id="f9489-132">Pokud používáte sadu Visual Studio 2012</span><span class="sxs-lookup"><span data-stu-id="f9489-132">If you are using Visual Studio 2012</span></span>
+    -   <span data-ttu-id="f9489-133">Klikněte pravým tlačítkem na databázi v Průzkumníku serveru a vyberte **nový dotaz**</span><span class="sxs-lookup"><span data-stu-id="f9489-133">Right-click on the database in Server Explorer and select **New Query**</span></span>
+    -   <span data-ttu-id="f9489-134">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**</span><span class="sxs-lookup"><span data-stu-id="f9489-134">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
+-   <span data-ttu-id="f9489-135">Pokud používáte Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="f9489-135">If you are using Visual Studio 2010</span></span>
+    -   <span data-ttu-id="f9489-136">Vyberte **dat –&gt; jazyka Transact SQL Editor –&gt; nové připojení dotazu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-136">Select **Data -&gt; Transact SQL Editor -&gt; New Query Connection...**</span></span>
+    -   <span data-ttu-id="f9489-137">Zadejte **.\\ SQLEXPRESS** jako název serveru a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-137">Enter **.\\SQLEXPRESS** as the server name and click **OK**</span></span>
+    -   <span data-ttu-id="f9489-138">Vyberte **STESample** databázi z rozevíracího seznamu v horní části editoru dotazů</span><span class="sxs-lookup"><span data-stu-id="f9489-138">Select the **STESample** database from the drop down at the top of the query editor</span></span>
+    -   <span data-ttu-id="f9489-139">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **provést SQL**</span><span class="sxs-lookup"><span data-stu-id="f9489-139">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>
 
 ``` SQL
     CREATE TABLE [dbo].[Blogs] (
@@ -83,106 +83,106 @@ ms.locfileid: "44251281"
     INSERT INTO [dbo].[Posts] ([Title], [Content], [BlogId]) VALUES (N'What is New', N'More interesting stuff...', 1)
 ```
 
-## <a name="create-the-model"></a><span data-ttu-id="8611d-140">Vytvoření modelu</span><span class="sxs-lookup"><span data-stu-id="8611d-140">Create the Model</span></span>
+## <a name="create-the-model"></a><span data-ttu-id="f9489-140">Vytvoření modelu</span><span class="sxs-lookup"><span data-stu-id="f9489-140">Create the Model</span></span>
 
-<span data-ttu-id="8611d-141">Až, nejprve je třeba projekt se umístí modelu.</span><span class="sxs-lookup"><span data-stu-id="8611d-141">First up, we need a project to put the model in.</span></span>
+<span data-ttu-id="f9489-141">Až, nejprve je třeba projekt se umístí modelu.</span><span class="sxs-lookup"><span data-stu-id="f9489-141">First up, we need a project to put the model in.</span></span>
 
--   <span data-ttu-id="8611d-142">**Soubor –&gt; nové –&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-142">**File -&gt; New -&gt; Project...**</span></span>
--   <span data-ttu-id="8611d-143">Vyberte **Visual C\#**  v levém podokně a pak **knihovny tříd**</span><span class="sxs-lookup"><span data-stu-id="8611d-143">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
--   <span data-ttu-id="8611d-144">Zadejte **STESample** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-144">Enter **STESample** as the name and click **OK**</span></span>
+-   <span data-ttu-id="f9489-142">**Soubor –&gt; nové –&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-142">**File -&gt; New -&gt; Project...**</span></span>
+-   <span data-ttu-id="f9489-143">Vyberte **Visual C\#**  v levém podokně a pak **knihovny tříd**</span><span class="sxs-lookup"><span data-stu-id="f9489-143">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
+-   <span data-ttu-id="f9489-144">Zadejte **STESample** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-144">Enter **STESample** as the name and click **OK**</span></span>
 
-<span data-ttu-id="8611d-145">Teď vytvoříme jednoduchý model v EF designeru pro přístup k naší databázi:</span><span class="sxs-lookup"><span data-stu-id="8611d-145">Now we'll create a simple model in the EF Designer to access our database:</span></span>
+<span data-ttu-id="f9489-145">Teď vytvoříme jednoduchý model v EF designeru pro přístup k naší databázi:</span><span class="sxs-lookup"><span data-stu-id="f9489-145">Now we'll create a simple model in the EF Designer to access our database:</span></span>
 
--   <span data-ttu-id="8611d-146">**Projekt –&gt; přidat novou položku...**</span><span class="sxs-lookup"><span data-stu-id="8611d-146">**Project -&gt; Add New Item...**</span></span>
--   <span data-ttu-id="8611d-147">Vyberte **Data** v levém podokně a pak **datový Model Entity ADO.NET**</span><span class="sxs-lookup"><span data-stu-id="8611d-147">Select **Data** from the left pane and then **ADO.NET Entity Data Model**</span></span>
--   <span data-ttu-id="8611d-148">Zadejte **BloggingModel** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-148">Enter **BloggingModel** as the name and click **OK**</span></span>
--   <span data-ttu-id="8611d-149">Vyberte **Generovat z databáze** a klikněte na tlačítko **další**</span><span class="sxs-lookup"><span data-stu-id="8611d-149">Select **Generate from database** and click **Next**</span></span>
--   <span data-ttu-id="8611d-150">Zadejte informace o připojení pro databázi, kterou jste vytvořili v předchozí části</span><span class="sxs-lookup"><span data-stu-id="8611d-150">Enter the connection information for the database that you created in the previous section</span></span>
--   <span data-ttu-id="8611d-151">Zadejte **BloggingContext** jako název připojovacího řetězce a klikněte na **další**</span><span class="sxs-lookup"><span data-stu-id="8611d-151">Enter **BloggingContext** as the name for the connection string and click **Next**</span></span>
--   <span data-ttu-id="8611d-152">Zaškrtněte políčko vedle položky **tabulky** a klikněte na tlačítko **dokončit**</span><span class="sxs-lookup"><span data-stu-id="8611d-152">Check the box next to **Tables** and click **Finish**</span></span>
+-   <span data-ttu-id="f9489-146">**Projekt –&gt; přidat novou položku...**</span><span class="sxs-lookup"><span data-stu-id="f9489-146">**Project -&gt; Add New Item...**</span></span>
+-   <span data-ttu-id="f9489-147">Vyberte **Data** v levém podokně a pak **datový Model Entity ADO.NET**</span><span class="sxs-lookup"><span data-stu-id="f9489-147">Select **Data** from the left pane and then **ADO.NET Entity Data Model**</span></span>
+-   <span data-ttu-id="f9489-148">Zadejte **BloggingModel** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-148">Enter **BloggingModel** as the name and click **OK**</span></span>
+-   <span data-ttu-id="f9489-149">Vyberte **Generovat z databáze** a klikněte na tlačítko **další**</span><span class="sxs-lookup"><span data-stu-id="f9489-149">Select **Generate from database** and click **Next**</span></span>
+-   <span data-ttu-id="f9489-150">Zadejte informace o připojení pro databázi, kterou jste vytvořili v předchozí části</span><span class="sxs-lookup"><span data-stu-id="f9489-150">Enter the connection information for the database that you created in the previous section</span></span>
+-   <span data-ttu-id="f9489-151">Zadejte **BloggingContext** jako název připojovacího řetězce a klikněte na **další**</span><span class="sxs-lookup"><span data-stu-id="f9489-151">Enter **BloggingContext** as the name for the connection string and click **Next**</span></span>
+-   <span data-ttu-id="f9489-152">Zaškrtněte políčko vedle položky **tabulky** a klikněte na tlačítko **dokončit**</span><span class="sxs-lookup"><span data-stu-id="f9489-152">Check the box next to **Tables** and click **Finish**</span></span>
 
-## <a name="swap-to-ste-code-generation"></a><span data-ttu-id="8611d-153">Zaměnit STE generování kódu</span><span class="sxs-lookup"><span data-stu-id="8611d-153">Swap to STE Code Generation</span></span>
+## <a name="swap-to-ste-code-generation"></a><span data-ttu-id="f9489-153">Zaměnit STE generování kódu</span><span class="sxs-lookup"><span data-stu-id="f9489-153">Swap to STE Code Generation</span></span>
 
-<span data-ttu-id="8611d-154">Nyní potřebujeme zakázat výchozí generování kódu a přepnutí na Self-Tracking entity.</span><span class="sxs-lookup"><span data-stu-id="8611d-154">Now we need to disable the default code generation and swap to Self-Tracking Entities.</span></span>
+<span data-ttu-id="f9489-154">Nyní potřebujeme zakázat výchozí generování kódu a přepnutí na Self-Tracking entity.</span><span class="sxs-lookup"><span data-stu-id="f9489-154">Now we need to disable the default code generation and swap to Self-Tracking Entities.</span></span>
 
-### <a name="if-you-are-using-visual-studio-2012"></a><span data-ttu-id="8611d-155">Pokud používáte sadu Visual Studio 2012</span><span class="sxs-lookup"><span data-stu-id="8611d-155">If you are using Visual Studio 2012</span></span>
+### <a name="if-you-are-using-visual-studio-2012"></a><span data-ttu-id="f9489-155">Pokud používáte sadu Visual Studio 2012</span><span class="sxs-lookup"><span data-stu-id="f9489-155">If you are using Visual Studio 2012</span></span>
 
--   <span data-ttu-id="8611d-156">Rozbalte **BloggingModel.edmx** v **Průzkumníka řešení** a odstranit **BloggingModel.tt** a **BloggingModel.Context.tt** 
-     *Tato akce zakáže výchozí generování kódu*</span><span class="sxs-lookup"><span data-stu-id="8611d-156">Expand **BloggingModel.edmx** in **Solution Explorer** and delete the **BloggingModel.tt** and **BloggingModel.Context.tt**
+-   <span data-ttu-id="f9489-156">Rozbalte **BloggingModel.edmx** v **Průzkumníka řešení** a odstranit **BloggingModel.tt** a **BloggingModel.Context.tt** 
+     *Tato akce zakáže výchozí generování kódu*</span><span class="sxs-lookup"><span data-stu-id="f9489-156">Expand **BloggingModel.edmx** in **Solution Explorer** and delete the **BloggingModel.tt** and **BloggingModel.Context.tt**
 *This will disable the default code generation*</span></span>
--   <span data-ttu-id="8611d-157">Klikněte pravým tlačítkem na prázdnou oblast na EF designeru ploše a vyberte možnost **přidat položku generování kódu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-157">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
--   <span data-ttu-id="8611d-158">Vyberte **Online** v levém podokně a vyhledejte **generátor STE**</span><span class="sxs-lookup"><span data-stu-id="8611d-158">Select **Online** from the left pane and search for **STE Generator**</span></span>
--   <span data-ttu-id="8611d-159">Vyberte **STE generátor pro jazyk C\#**  šablony, zadejte **STETemplate** jako název a klikněte na **přidat**</span><span class="sxs-lookup"><span data-stu-id="8611d-159">Select the **STE Generator for C\#** template, enter **STETemplate** as the name and click **Add**</span></span>
--   <span data-ttu-id="8611d-160">**STETemplate.tt** a **STETemplate.Context.tt** soubory budou přidány pod BloggingModel.edmx souboru</span><span class="sxs-lookup"><span data-stu-id="8611d-160">The **STETemplate.tt** and **STETemplate.Context.tt** files are added nested under the BloggingModel.edmx file</span></span>
+-   <span data-ttu-id="f9489-157">Klikněte pravým tlačítkem na prázdnou oblast na EF designeru ploše a vyberte možnost **přidat položku generování kódu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-157">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
+-   <span data-ttu-id="f9489-158">Vyberte **Online** v levém podokně a vyhledejte **generátor STE**</span><span class="sxs-lookup"><span data-stu-id="f9489-158">Select **Online** from the left pane and search for **STE Generator**</span></span>
+-   <span data-ttu-id="f9489-159">Vyberte **STE generátor pro jazyk C\#**  šablony, zadejte **STETemplate** jako název a klikněte na **přidat**</span><span class="sxs-lookup"><span data-stu-id="f9489-159">Select the **STE Generator for C\#** template, enter **STETemplate** as the name and click **Add**</span></span>
+-   <span data-ttu-id="f9489-160">**STETemplate.tt** a **STETemplate.Context.tt** soubory budou přidány pod BloggingModel.edmx souboru</span><span class="sxs-lookup"><span data-stu-id="f9489-160">The **STETemplate.tt** and **STETemplate.Context.tt** files are added nested under the BloggingModel.edmx file</span></span>
 
-### <a name="if-you-are-using-visual-studio-2010"></a><span data-ttu-id="8611d-161">Pokud používáte Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="8611d-161">If you are using Visual Studio 2010</span></span>
+### <a name="if-you-are-using-visual-studio-2010"></a><span data-ttu-id="f9489-161">Pokud používáte Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="f9489-161">If you are using Visual Studio 2010</span></span>
 
--   <span data-ttu-id="8611d-162">Klikněte pravým tlačítkem na prázdnou oblast na EF designeru ploše a vyberte možnost **přidat položku generování kódu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-162">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
--   <span data-ttu-id="8611d-163">Vyberte **kód** v levém podokně a pak **generátor Entity Self-Tracking ADO.NET**</span><span class="sxs-lookup"><span data-stu-id="8611d-163">Select **Code** from the left pane and then **ADO.NET Self-Tracking Entity Generator**</span></span>
--   <span data-ttu-id="8611d-164">Zadejte **STETemplate** jako název a klikněte na **přidat**</span><span class="sxs-lookup"><span data-stu-id="8611d-164">Enter **STETemplate** as the name and click **Add**</span></span>
--   <span data-ttu-id="8611d-165">**STETemplate.tt** a **STETemplate.Context.tt** se přidají soubory přímo do vašeho projektu</span><span class="sxs-lookup"><span data-stu-id="8611d-165">The **STETemplate.tt** and **STETemplate.Context.tt** files are added directly to your project</span></span>
+-   <span data-ttu-id="f9489-162">Klikněte pravým tlačítkem na prázdnou oblast na EF designeru ploše a vyberte možnost **přidat položku generování kódu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-162">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
+-   <span data-ttu-id="f9489-163">Vyberte **kód** v levém podokně a pak **generátor Entity Self-Tracking ADO.NET**</span><span class="sxs-lookup"><span data-stu-id="f9489-163">Select **Code** from the left pane and then **ADO.NET Self-Tracking Entity Generator**</span></span>
+-   <span data-ttu-id="f9489-164">Zadejte **STETemplate** jako název a klikněte na **přidat**</span><span class="sxs-lookup"><span data-stu-id="f9489-164">Enter **STETemplate** as the name and click **Add**</span></span>
+-   <span data-ttu-id="f9489-165">**STETemplate.tt** a **STETemplate.Context.tt** se přidají soubory přímo do vašeho projektu</span><span class="sxs-lookup"><span data-stu-id="f9489-165">The **STETemplate.tt** and **STETemplate.Context.tt** files are added directly to your project</span></span>
 
-## <a name="move-entity-types-into-separate-project"></a><span data-ttu-id="8611d-166">Přesuňte typy entit do samostatného projektu</span><span class="sxs-lookup"><span data-stu-id="8611d-166">Move Entity Types into Separate Project</span></span>
+## <a name="move-entity-types-into-separate-project"></a><span data-ttu-id="f9489-166">Přesuňte typy entit do samostatného projektu</span><span class="sxs-lookup"><span data-stu-id="f9489-166">Move Entity Types into Separate Project</span></span>
 
-<span data-ttu-id="8611d-167">Použití Self-Tracking entity naše klientská aplikace potřebuje přístup k entity prostor tříd vygenerovaných z našeho modelu.</span><span class="sxs-lookup"><span data-stu-id="8611d-167">To use Self-Tracking Entities our client application needs access to the entity classes generated from our model.</span></span> <span data-ttu-id="8611d-168">Protože nechceme zpřístupnit celý model do klientské aplikace teď ještě chvíli Zůstaneme k přesunutí tříd entit do samostatného projektu.</span><span class="sxs-lookup"><span data-stu-id="8611d-168">Because we don't want to expose the whole model to the client application we're going to move the entity classes into a separate project.</span></span>
+<span data-ttu-id="f9489-167">Použití Self-Tracking entity naše klientská aplikace potřebuje přístup k entity prostor tříd vygenerovaných z našeho modelu.</span><span class="sxs-lookup"><span data-stu-id="f9489-167">To use Self-Tracking Entities our client application needs access to the entity classes generated from our model.</span></span> <span data-ttu-id="f9489-168">Protože nechceme zpřístupnit celý model do klientské aplikace teď ještě chvíli Zůstaneme k přesunutí tříd entit do samostatného projektu.</span><span class="sxs-lookup"><span data-stu-id="f9489-168">Because we don't want to expose the whole model to the client application we're going to move the entity classes into a separate project.</span></span>
 
-<span data-ttu-id="8611d-169">Prvním krokem je se přestávají generovat tříd entit v existující projekt:</span><span class="sxs-lookup"><span data-stu-id="8611d-169">The first step is to stop generating entity classes in the existing project:</span></span>
+<span data-ttu-id="f9489-169">Prvním krokem je se přestávají generovat tříd entit v existující projekt:</span><span class="sxs-lookup"><span data-stu-id="f9489-169">The first step is to stop generating entity classes in the existing project:</span></span>
 
--   <span data-ttu-id="8611d-170">Klikněte pravým tlačítkem na **STETemplate.tt** v **Průzkumníka řešení** a vyberte **vlastnosti**</span><span class="sxs-lookup"><span data-stu-id="8611d-170">Right-click on **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
--   <span data-ttu-id="8611d-171">V **vlastnosti** okno vymazat **TextTemplatingFileGenerator** z **CustomTool** vlastnost</span><span class="sxs-lookup"><span data-stu-id="8611d-171">In the **Properties** window clear **TextTemplatingFileGenerator** from the **CustomTool** property</span></span>
--   <span data-ttu-id="8611d-172">Rozbalte **STETemplate.tt** v **Průzkumníka řešení** a odstraňte všechny soubory vnořená dole</span><span class="sxs-lookup"><span data-stu-id="8611d-172">Expand **STETemplate.tt** in **Solution Explorer** and delete all files nested under it</span></span>
+-   <span data-ttu-id="f9489-170">Klikněte pravým tlačítkem na **STETemplate.tt** v **Průzkumníka řešení** a vyberte **vlastnosti**</span><span class="sxs-lookup"><span data-stu-id="f9489-170">Right-click on **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
+-   <span data-ttu-id="f9489-171">V **vlastnosti** okno vymazat **TextTemplatingFileGenerator** z **CustomTool** vlastnost</span><span class="sxs-lookup"><span data-stu-id="f9489-171">In the **Properties** window clear **TextTemplatingFileGenerator** from the **CustomTool** property</span></span>
+-   <span data-ttu-id="f9489-172">Rozbalte **STETemplate.tt** v **Průzkumníka řešení** a odstraňte všechny soubory vnořená dole</span><span class="sxs-lookup"><span data-stu-id="f9489-172">Expand **STETemplate.tt** in **Solution Explorer** and delete all files nested under it</span></span>
 
-<span data-ttu-id="8611d-173">V dalším kroku budeme přidat nový projekt a v něm generování tříd entit</span><span class="sxs-lookup"><span data-stu-id="8611d-173">Next, we are going to add a new project and generate the entity classes in it</span></span>
+<span data-ttu-id="f9489-173">V dalším kroku budeme přidat nový projekt a v něm generování tříd entit</span><span class="sxs-lookup"><span data-stu-id="f9489-173">Next, we are going to add a new project and generate the entity classes in it</span></span>
 
--   <span data-ttu-id="8611d-174">**Soubor –&gt; Add -&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-174">**File -&gt; Add -&gt; Project...**</span></span>
--   <span data-ttu-id="8611d-175">Vyberte **Visual C\#**  v levém podokně a pak **knihovny tříd**</span><span class="sxs-lookup"><span data-stu-id="8611d-175">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
--   <span data-ttu-id="8611d-176">Zadejte **STESample.Entities** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-176">Enter **STESample.Entities** as the name and click **OK**</span></span>
--   <span data-ttu-id="8611d-177">**Projekt –&gt; přidat existující položku...**</span><span class="sxs-lookup"><span data-stu-id="8611d-177">**Project -&gt; Add Existing Item...**</span></span>
--   <span data-ttu-id="8611d-178">Přejděte **STESample** složky projektu</span><span class="sxs-lookup"><span data-stu-id="8611d-178">Navigate to the **STESample** project folder</span></span>
--   <span data-ttu-id="8611d-179">Vyberte, chcete-li zobrazit **všechny soubory (\*.\*)**</span><span class="sxs-lookup"><span data-stu-id="8611d-179">Select to view **All Files (\*.\*)**</span></span>
--   <span data-ttu-id="8611d-180">Vyberte **STETemplate.tt** souboru</span><span class="sxs-lookup"><span data-stu-id="8611d-180">Select the **STETemplate.tt** file</span></span>
--   <span data-ttu-id="8611d-181">Klikněte na šipku rozevíracího seznamu vedle **přidat** tlačítko a vyberte **přidat jako odkaz**</span><span class="sxs-lookup"><span data-stu-id="8611d-181">Click on the drop down arrow next to the **Add** button and select **Add As Link**</span></span>
+-   <span data-ttu-id="f9489-174">**Soubor –&gt; Add -&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-174">**File -&gt; Add -&gt; Project...**</span></span>
+-   <span data-ttu-id="f9489-175">Vyberte **Visual C\#**  v levém podokně a pak **knihovny tříd**</span><span class="sxs-lookup"><span data-stu-id="f9489-175">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
+-   <span data-ttu-id="f9489-176">Zadejte **STESample.Entities** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-176">Enter **STESample.Entities** as the name and click **OK**</span></span>
+-   <span data-ttu-id="f9489-177">**Projekt –&gt; přidat existující položku...**</span><span class="sxs-lookup"><span data-stu-id="f9489-177">**Project -&gt; Add Existing Item...**</span></span>
+-   <span data-ttu-id="f9489-178">Přejděte **STESample** složky projektu</span><span class="sxs-lookup"><span data-stu-id="f9489-178">Navigate to the **STESample** project folder</span></span>
+-   <span data-ttu-id="f9489-179">Vyberte, chcete-li zobrazit **všechny soubory (\*.\*)**</span><span class="sxs-lookup"><span data-stu-id="f9489-179">Select to view **All Files (\*.\*)**</span></span>
+-   <span data-ttu-id="f9489-180">Vyberte **STETemplate.tt** souboru</span><span class="sxs-lookup"><span data-stu-id="f9489-180">Select the **STETemplate.tt** file</span></span>
+-   <span data-ttu-id="f9489-181">Klikněte na šipku rozevíracího seznamu vedle **přidat** tlačítko a vyberte **přidat jako odkaz**</span><span class="sxs-lookup"><span data-stu-id="f9489-181">Click on the drop down arrow next to the **Add** button and select **Add As Link**</span></span>
 
     ![Přidat propojené šablony](~/ef6/media/addlinkedtemplate.png)
 
-<span data-ttu-id="8611d-183">My budeme také zajistit, aby že vygeneruje tříd entit ve stejném oboru názvů jako kontext.</span><span class="sxs-lookup"><span data-stu-id="8611d-183">We're also going to make sure the entity classes get generated in the same namespace as the context.</span></span> <span data-ttu-id="8611d-184">Právě to snižuje počet pomocí příkazů, které je potřeba přidat v celé aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8611d-184">This just reduces the number of using statements we need to add throughout our application.</span></span>
+<span data-ttu-id="f9489-183">My budeme také zajistit, aby že vygeneruje tříd entit ve stejném oboru názvů jako kontext.</span><span class="sxs-lookup"><span data-stu-id="f9489-183">We're also going to make sure the entity classes get generated in the same namespace as the context.</span></span> <span data-ttu-id="f9489-184">Právě to snižuje počet pomocí příkazů, které je potřeba přidat v celé aplikaci.</span><span class="sxs-lookup"><span data-stu-id="f9489-184">This just reduces the number of using statements we need to add throughout our application.</span></span>
 
--   <span data-ttu-id="8611d-185">Klikněte pravým tlačítkem na propojený **STETemplate.tt** v **Průzkumníka řešení** a vyberte **vlastnosti**</span><span class="sxs-lookup"><span data-stu-id="8611d-185">Right-click on the linked **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
--   <span data-ttu-id="8611d-186">V **vlastnosti** okno sady **Custom Tool Namespace** k **STESample**</span><span class="sxs-lookup"><span data-stu-id="8611d-186">In the **Properties** window set **Custom Tool Namespace** to **STESample**</span></span>
+-   <span data-ttu-id="f9489-185">Klikněte pravým tlačítkem na propojený **STETemplate.tt** v **Průzkumníka řešení** a vyberte **vlastnosti**</span><span class="sxs-lookup"><span data-stu-id="f9489-185">Right-click on the linked **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
+-   <span data-ttu-id="f9489-186">V **vlastnosti** okno sady **Custom Tool Namespace** k **STESample**</span><span class="sxs-lookup"><span data-stu-id="f9489-186">In the **Properties** window set **Custom Tool Namespace** to **STESample**</span></span>
 
-<span data-ttu-id="8611d-187">Kód vygenerovaný šablony STE potřebovat odkaz na **System.Runtime.Serialization** kompilaci.</span><span class="sxs-lookup"><span data-stu-id="8611d-187">The code generated by the STE template will need a reference to **System.Runtime.Serialization** in order to compile.</span></span> <span data-ttu-id="8611d-188">Tato knihovna je potřeba pro WCF **kontraktu dat DataContract** a **DataMember** atributy, které se používají na typy serializovatelné entit.</span><span class="sxs-lookup"><span data-stu-id="8611d-188">This library is needed for the WCF **DataContract** and **DataMember** attributes that are used on the serializable entity types.</span></span>
+<span data-ttu-id="f9489-187">Kód vygenerovaný šablony STE potřebovat odkaz na **System.Runtime.Serialization** kompilaci.</span><span class="sxs-lookup"><span data-stu-id="f9489-187">The code generated by the STE template will need a reference to **System.Runtime.Serialization** in order to compile.</span></span> <span data-ttu-id="f9489-188">Tato knihovna je potřeba pro WCF **kontraktu dat DataContract** a **DataMember** atributy, které se používají na typy serializovatelné entit.</span><span class="sxs-lookup"><span data-stu-id="f9489-188">This library is needed for the WCF **DataContract** and **DataMember** attributes that are used on the serializable entity types.</span></span>
 
--   <span data-ttu-id="8611d-189">Klikněte pravým tlačítkem na **STESample.Entities** projekt **Průzkumníka řešení** a vyberte **přidat odkaz...**</span><span class="sxs-lookup"><span data-stu-id="8611d-189">Right click on the **STESample.Entities** project in **Solution Explorer** and select **Add Reference...**</span></span>
-    -   <span data-ttu-id="8611d-190">V sadě Visual Studio 2012 – zaškrtněte políčko vedle položky **System.Runtime.Serialization** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-190">In Visual Studio 2012 - check the box next to **System.Runtime.Serialization** and click **OK**</span></span>
-    -   <span data-ttu-id="8611d-191">V sadě Visual Studio 2010 – vyberte **System.Runtime.Serialization** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-191">In Visual Studio 2010 - select **System.Runtime.Serialization** and click **OK**</span></span>
+-   <span data-ttu-id="f9489-189">Klikněte pravým tlačítkem na **STESample.Entities** projekt **Průzkumníka řešení** a vyberte **přidat odkaz...**</span><span class="sxs-lookup"><span data-stu-id="f9489-189">Right click on the **STESample.Entities** project in **Solution Explorer** and select **Add Reference...**</span></span>
+    -   <span data-ttu-id="f9489-190">V sadě Visual Studio 2012 – zaškrtněte políčko vedle položky **System.Runtime.Serialization** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-190">In Visual Studio 2012 - check the box next to **System.Runtime.Serialization** and click **OK**</span></span>
+    -   <span data-ttu-id="f9489-191">V sadě Visual Studio 2010 – vyberte **System.Runtime.Serialization** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-191">In Visual Studio 2010 - select **System.Runtime.Serialization** and click **OK**</span></span>
 
-<span data-ttu-id="8611d-192">A konečně projekt se náš kontext v něm potřebovat odkaz na typy entit.</span><span class="sxs-lookup"><span data-stu-id="8611d-192">Finally, the project with our context in it will need a reference to the entity types.</span></span>
+<span data-ttu-id="f9489-192">A konečně projekt se náš kontext v něm potřebovat odkaz na typy entit.</span><span class="sxs-lookup"><span data-stu-id="f9489-192">Finally, the project with our context in it will need a reference to the entity types.</span></span>
 
--   <span data-ttu-id="8611d-193">Klikněte pravým tlačítkem na **STESample** projekt **Průzkumníka řešení** a vyberte **přidat odkaz...**</span><span class="sxs-lookup"><span data-stu-id="8611d-193">Right click on the **STESample** project in **Solution Explorer** and select **Add Reference...**</span></span>
-    -   <span data-ttu-id="8611d-194">V sadě Visual Studio 2012 – vyberte **řešení** v levém podokně zaškrtněte políčko vedle položky **STESample.Entities** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-194">In Visual Studio 2012 - select **Solution** from the left pane, check the box next to **STESample.Entities** and click **OK**</span></span>
-    -   <span data-ttu-id="8611d-195">V sadě Visual Studio 2010 – vyberte **projekty** kartu, vyberte možnost **STESample.Entities** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-195">In Visual Studio 2010 - select the **Projects** tab, select **STESample.Entities** and click **OK**</span></span>
+-   <span data-ttu-id="f9489-193">Klikněte pravým tlačítkem na **STESample** projekt **Průzkumníka řešení** a vyberte **přidat odkaz...**</span><span class="sxs-lookup"><span data-stu-id="f9489-193">Right click on the **STESample** project in **Solution Explorer** and select **Add Reference...**</span></span>
+    -   <span data-ttu-id="f9489-194">V sadě Visual Studio 2012 – vyberte **řešení** v levém podokně zaškrtněte políčko vedle položky **STESample.Entities** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-194">In Visual Studio 2012 - select **Solution** from the left pane, check the box next to **STESample.Entities** and click **OK**</span></span>
+    -   <span data-ttu-id="f9489-195">V sadě Visual Studio 2010 – vyberte **projekty** kartu, vyberte možnost **STESample.Entities** a klikněte na tlačítko **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-195">In Visual Studio 2010 - select the **Projects** tab, select **STESample.Entities** and click **OK**</span></span>
 
 >[!NOTE]
-> <span data-ttu-id="8611d-196">Další možností pro typy entit Přesun do samostatného projektu je přesunout soubor šablony, nikoli propojení z výchozího umístění.</span><span class="sxs-lookup"><span data-stu-id="8611d-196">Another option for moving the entity types to a separate project is to move the template file, rather than linking it from its default location.</span></span> <span data-ttu-id="8611d-197">Pokud to uděláte, budete muset aktualizovat **inputFile** proměnné v šabloně zadat relativní cestu k souboru edmx (v tomto příkladu, která by byla **... \\BloggingModel.edmx**).</span><span class="sxs-lookup"><span data-stu-id="8611d-197">If you do this, you will need to update the **inputFile** variable in the template to provide the relative path to the edmx file (in this example that would be **..\\BloggingModel.edmx**).</span></span>
+> <span data-ttu-id="f9489-196">Další možností pro typy entit Přesun do samostatného projektu je přesunout soubor šablony, nikoli propojení z výchozího umístění.</span><span class="sxs-lookup"><span data-stu-id="f9489-196">Another option for moving the entity types to a separate project is to move the template file, rather than linking it from its default location.</span></span> <span data-ttu-id="f9489-197">Pokud to uděláte, budete muset aktualizovat **inputFile** proměnné v šabloně zadat relativní cestu k souboru edmx (v tomto příkladu, která by byla **... \\BloggingModel.edmx**).</span><span class="sxs-lookup"><span data-stu-id="f9489-197">If you do this, you will need to update the **inputFile** variable in the template to provide the relative path to the edmx file (in this example that would be **..\\BloggingModel.edmx**).</span></span>
 
-## <a name="create-a-wcf-service"></a><span data-ttu-id="8611d-198">Vytvoření služby WCF</span><span class="sxs-lookup"><span data-stu-id="8611d-198">Create a WCF Service</span></span>
+## <a name="create-a-wcf-service"></a><span data-ttu-id="f9489-198">Vytvoření služby WCF</span><span class="sxs-lookup"><span data-stu-id="f9489-198">Create a WCF Service</span></span>
 
-<span data-ttu-id="8611d-199">Teď je čas na přidání zpřístupnit naše data ve službě WCF, začneme vytvořením projektu.</span><span class="sxs-lookup"><span data-stu-id="8611d-199">Now it's time to add a WCF Service to expose our data, we'll start by creating the project.</span></span>
+<span data-ttu-id="f9489-199">Teď je čas na přidání zpřístupnit naše data ve službě WCF, začneme vytvořením projektu.</span><span class="sxs-lookup"><span data-stu-id="f9489-199">Now it's time to add a WCF Service to expose our data, we'll start by creating the project.</span></span>
 
--   <span data-ttu-id="8611d-200">**Soubor –&gt; Add -&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-200">**File -&gt; Add -&gt; Project...**</span></span>
--   <span data-ttu-id="8611d-201">Vyberte **Visual C\#**  v levém podokně a pak **aplikace služby WCF**</span><span class="sxs-lookup"><span data-stu-id="8611d-201">Select **Visual C\#** from the left pane and then **WCF Service Application**</span></span>
--   <span data-ttu-id="8611d-202">Zadejte **STESample.Service** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-202">Enter **STESample.Service** as the name and click **OK**</span></span>
--   <span data-ttu-id="8611d-203">Přidejte odkaz na **System.Data.Entity** sestavení</span><span class="sxs-lookup"><span data-stu-id="8611d-203">Add a reference to the **System.Data.Entity** assembly</span></span>
--   <span data-ttu-id="8611d-204">Přidejte odkaz na **STESample** a **STESample.Entities** projekty</span><span class="sxs-lookup"><span data-stu-id="8611d-204">Add a reference to the **STESample** and **STESample.Entities** projects</span></span>
+-   <span data-ttu-id="f9489-200">**Soubor –&gt; Add -&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-200">**File -&gt; Add -&gt; Project...**</span></span>
+-   <span data-ttu-id="f9489-201">Vyberte **Visual C\#**  v levém podokně a pak **aplikace služby WCF**</span><span class="sxs-lookup"><span data-stu-id="f9489-201">Select **Visual C\#** from the left pane and then **WCF Service Application**</span></span>
+-   <span data-ttu-id="f9489-202">Zadejte **STESample.Service** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-202">Enter **STESample.Service** as the name and click **OK**</span></span>
+-   <span data-ttu-id="f9489-203">Přidejte odkaz na **System.Data.Entity** sestavení</span><span class="sxs-lookup"><span data-stu-id="f9489-203">Add a reference to the **System.Data.Entity** assembly</span></span>
+-   <span data-ttu-id="f9489-204">Přidejte odkaz na **STESample** a **STESample.Entities** projekty</span><span class="sxs-lookup"><span data-stu-id="f9489-204">Add a reference to the **STESample** and **STESample.Entities** projects</span></span>
 
-<span data-ttu-id="8611d-205">Potřebujeme zkopírujte připojovací řetězec EF do tohoto projektu tak, aby se nachází za běhu.</span><span class="sxs-lookup"><span data-stu-id="8611d-205">We need to copy the EF connection string to this project so that it is found at runtime.</span></span>
+<span data-ttu-id="f9489-205">Potřebujeme zkopírujte připojovací řetězec EF do tohoto projektu tak, aby se nachází za běhu.</span><span class="sxs-lookup"><span data-stu-id="f9489-205">We need to copy the EF connection string to this project so that it is found at runtime.</span></span>
 
--   <span data-ttu-id="8611d-206">Otevřít **App.Config** souboru \*\* STESample \*\* projektu a zkopírujte **connectionStrings** – element</span><span class="sxs-lookup"><span data-stu-id="8611d-206">Open the **App.Config** file for the \*\*STESample \*\*project and copy the **connectionStrings** element</span></span>
--   <span data-ttu-id="8611d-207">Vložit **connectionStrings** prvek jako podřízený prvek **konfigurace** elementu **Web.Config** soubor **STESample.Service** projektu</span><span class="sxs-lookup"><span data-stu-id="8611d-207">Paste the **connectionStrings** element as a child element of the **configuration** element of the **Web.Config** file in the **STESample.Service** project</span></span>
+-   <span data-ttu-id="f9489-206">Otevřít **App.Config** souboru \*\* STESample \*\* projektu a zkopírujte **connectionStrings** – element</span><span class="sxs-lookup"><span data-stu-id="f9489-206">Open the **App.Config** file for the \*\*STESample \*\*project and copy the **connectionStrings** element</span></span>
+-   <span data-ttu-id="f9489-207">Vložit **connectionStrings** prvek jako podřízený prvek **konfigurace** elementu **Web.Config** soubor **STESample.Service** projektu</span><span class="sxs-lookup"><span data-stu-id="f9489-207">Paste the **connectionStrings** element as a child element of the **configuration** element of the **Web.Config** file in the **STESample.Service** project</span></span>
 
-<span data-ttu-id="8611d-208">Nyní je čas k implementaci aktuální služby.</span><span class="sxs-lookup"><span data-stu-id="8611d-208">Now it's time to implement the actual service.</span></span>
+<span data-ttu-id="f9489-208">Nyní je čas k implementaci aktuální služby.</span><span class="sxs-lookup"><span data-stu-id="f9489-208">Now it's time to implement the actual service.</span></span>
 
--   <span data-ttu-id="8611d-209">Otevřít **IService1.cs** a nahraďte jeho obsah následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="8611d-209">Open **IService1.cs** and replace the contents with the following code</span></span>
+-   <span data-ttu-id="f9489-209">Otevřít **IService1.cs** a nahraďte jeho obsah následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="f9489-209">Open **IService1.cs** and replace the contents with the following code</span></span>
 
 ``` csharp
     using System.Collections.Generic;
@@ -202,7 +202,7 @@ ms.locfileid: "44251281"
     }
 ```
 
--   <span data-ttu-id="8611d-210">Otevřít **Service1.svc** a nahraďte jeho obsah následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="8611d-210">Open **Service1.svc** and replace the contents with the following code</span></span>
+-   <span data-ttu-id="f9489-210">Otevřít **Service1.svc** a nahraďte jeho obsah následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="f9489-210">Open **Service1.svc** and replace the contents with the following code</span></span>
 
 ``` csharp
     using System;
@@ -255,24 +255,24 @@ ms.locfileid: "44251281"
     }
 ```
 
-## <a name="consume-the-service-from-a-console-application"></a><span data-ttu-id="8611d-211">Používání této služby z konzolové aplikace</span><span class="sxs-lookup"><span data-stu-id="8611d-211">Consume the Service from a Console Application</span></span>
+## <a name="consume-the-service-from-a-console-application"></a><span data-ttu-id="f9489-211">Používání této služby z konzolové aplikace</span><span class="sxs-lookup"><span data-stu-id="f9489-211">Consume the Service from a Console Application</span></span>
 
-<span data-ttu-id="8611d-212">Pojďme vytvořit konzolovou aplikaci, která využívá naši službu.</span><span class="sxs-lookup"><span data-stu-id="8611d-212">Let's create a console application that uses our service.</span></span>
+<span data-ttu-id="f9489-212">Pojďme vytvořit konzolovou aplikaci, která využívá naši službu.</span><span class="sxs-lookup"><span data-stu-id="f9489-212">Let's create a console application that uses our service.</span></span>
 
--   <span data-ttu-id="8611d-213">**Soubor –&gt; nové –&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-213">**File -&gt; New -&gt; Project...**</span></span>
--   <span data-ttu-id="8611d-214">Vyberte **Visual C\#**  v levém podokně a pak **konzolové aplikace**</span><span class="sxs-lookup"><span data-stu-id="8611d-214">Select **Visual C\#** from the left pane and then **Console Application**</span></span>
--   <span data-ttu-id="8611d-215">Zadejte **STESample.ConsoleTest** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-215">Enter **STESample.ConsoleTest** as the name and click **OK**</span></span>
--   <span data-ttu-id="8611d-216">Přidejte odkaz na **STESample.Entities** projektu</span><span class="sxs-lookup"><span data-stu-id="8611d-216">Add a reference to the **STESample.Entities** project</span></span>
+-   <span data-ttu-id="f9489-213">**Soubor –&gt; nové –&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-213">**File -&gt; New -&gt; Project...**</span></span>
+-   <span data-ttu-id="f9489-214">Vyberte **Visual C\#**  v levém podokně a pak **konzolové aplikace**</span><span class="sxs-lookup"><span data-stu-id="f9489-214">Select **Visual C\#** from the left pane and then **Console Application**</span></span>
+-   <span data-ttu-id="f9489-215">Zadejte **STESample.ConsoleTest** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-215">Enter **STESample.ConsoleTest** as the name and click **OK**</span></span>
+-   <span data-ttu-id="f9489-216">Přidejte odkaz na **STESample.Entities** projektu</span><span class="sxs-lookup"><span data-stu-id="f9489-216">Add a reference to the **STESample.Entities** project</span></span>
 
-<span data-ttu-id="8611d-217">Potřebujeme odkazu na službu do naší službě WCF</span><span class="sxs-lookup"><span data-stu-id="8611d-217">We need a service reference to our WCF service</span></span>
+<span data-ttu-id="f9489-217">Potřebujeme odkazu na službu do naší službě WCF</span><span class="sxs-lookup"><span data-stu-id="f9489-217">We need a service reference to our WCF service</span></span>
 
--   <span data-ttu-id="8611d-218">Klikněte pravým tlačítkem myši **STESample.ConsoleTest** projekt **Průzkumníka řešení** a vyberte **přidat odkaz na službu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-218">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
--   <span data-ttu-id="8611d-219">Klikněte na tlačítko **zjišťování**</span><span class="sxs-lookup"><span data-stu-id="8611d-219">Click **Discover**</span></span>
--   <span data-ttu-id="8611d-220">Zadejte **BloggingService** jako obor názvů a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-220">Enter **BloggingService** as the namespace and click **OK**</span></span>
+-   <span data-ttu-id="f9489-218">Klikněte pravým tlačítkem myši **STESample.ConsoleTest** projekt **Průzkumníka řešení** a vyberte **přidat odkaz na službu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-218">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
+-   <span data-ttu-id="f9489-219">Klikněte na tlačítko **zjišťování**</span><span class="sxs-lookup"><span data-stu-id="f9489-219">Click **Discover**</span></span>
+-   <span data-ttu-id="f9489-220">Zadejte **BloggingService** jako obor názvů a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-220">Enter **BloggingService** as the namespace and click **OK**</span></span>
 
-<span data-ttu-id="8611d-221">Nyní jsme můžete napsat kód k používání této služby.</span><span class="sxs-lookup"><span data-stu-id="8611d-221">Now we can write some code to consume the service.</span></span>
+<span data-ttu-id="f9489-221">Nyní jsme můžete napsat kód k používání této služby.</span><span class="sxs-lookup"><span data-stu-id="f9489-221">Now we can write some code to consume the service.</span></span>
 
--   <span data-ttu-id="8611d-222">Otevřít **Program.cs** a nahraďte jeho obsah následujícím kódem.</span><span class="sxs-lookup"><span data-stu-id="8611d-222">Open **Program.cs** and replace the contents with the following code.</span></span>
+-   <span data-ttu-id="f9489-222">Otevřít **Program.cs** a nahraďte jeho obsah následujícím kódem.</span><span class="sxs-lookup"><span data-stu-id="f9489-222">Open **Program.cs** and replace the contents with the following code.</span></span>
 
 ``` csharp
     using STESample.ConsoleTest.BloggingService;
@@ -399,11 +399,11 @@ ms.locfileid: "44251281"
     }
 ```
 
-<span data-ttu-id="8611d-223">Nyní můžete spustit aplikaci sledujte v akci.</span><span class="sxs-lookup"><span data-stu-id="8611d-223">You can now run the application to see it in action.</span></span>
+<span data-ttu-id="f9489-223">Nyní můžete spustit aplikaci sledujte v akci.</span><span class="sxs-lookup"><span data-stu-id="f9489-223">You can now run the application to see it in action.</span></span>
 
--   <span data-ttu-id="8611d-224">Klikněte pravým tlačítkem **STESample.ConsoleTest** projekt **Průzkumníku řešení** a vyberte **ladění -&gt; zahájit novou instanci**</span><span class="sxs-lookup"><span data-stu-id="8611d-224">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
+-   <span data-ttu-id="f9489-224">Klikněte pravým tlačítkem **STESample.ConsoleTest** projekt **Průzkumníku řešení** a vyberte **ladění -&gt; zahájit novou instanci**</span><span class="sxs-lookup"><span data-stu-id="f9489-224">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
 
-<span data-ttu-id="8611d-225">Pokud aplikace provádí, zobrazí se následující výstup.</span><span class="sxs-lookup"><span data-stu-id="8611d-225">You'll see the following output when the application executes.</span></span>
+<span data-ttu-id="f9489-225">Pokud aplikace provádí, zobrazí se následující výstup.</span><span class="sxs-lookup"><span data-stu-id="f9489-225">You'll see the following output when the application executes.</span></span>
 
 ```
 Initial Data:
@@ -435,24 +435,24 @@ ADO.NET Blog
 Press any key to exit...
 ```
 
-## <a name="consume-the-service-from-a-wpf-application"></a><span data-ttu-id="8611d-226">Využívat služby z aplikace WPF</span><span class="sxs-lookup"><span data-stu-id="8611d-226">Consume the Service from a WPF Application</span></span>
+## <a name="consume-the-service-from-a-wpf-application"></a><span data-ttu-id="f9489-226">Využívat služby z aplikace WPF</span><span class="sxs-lookup"><span data-stu-id="f9489-226">Consume the Service from a WPF Application</span></span>
 
-<span data-ttu-id="8611d-227">Vytvoříme aplikaci WPF, která využívá naši službu.</span><span class="sxs-lookup"><span data-stu-id="8611d-227">Let's create a WPF application that uses our service.</span></span>
+<span data-ttu-id="f9489-227">Vytvoříme aplikaci WPF, která využívá naši službu.</span><span class="sxs-lookup"><span data-stu-id="f9489-227">Let's create a WPF application that uses our service.</span></span>
 
--   <span data-ttu-id="8611d-228">**Soubor –&gt; nové –&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-228">**File -&gt; New -&gt; Project...**</span></span>
--   <span data-ttu-id="8611d-229">Vyberte **Visual C\#**  v levém podokně a pak **aplikace WPF**</span><span class="sxs-lookup"><span data-stu-id="8611d-229">Select **Visual C\#** from the left pane and then **WPF Application**</span></span>
--   <span data-ttu-id="8611d-230">Zadejte **STESample.WPFTest** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-230">Enter **STESample.WPFTest** as the name and click **OK**</span></span>
--   <span data-ttu-id="8611d-231">Přidejte odkaz na **STESample.Entities** projektu</span><span class="sxs-lookup"><span data-stu-id="8611d-231">Add a reference to the **STESample.Entities** project</span></span>
+-   <span data-ttu-id="f9489-228">**Soubor –&gt; nové –&gt; projektu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-228">**File -&gt; New -&gt; Project...**</span></span>
+-   <span data-ttu-id="f9489-229">Vyberte **Visual C\#**  v levém podokně a pak **aplikace WPF**</span><span class="sxs-lookup"><span data-stu-id="f9489-229">Select **Visual C\#** from the left pane and then **WPF Application**</span></span>
+-   <span data-ttu-id="f9489-230">Zadejte **STESample.WPFTest** jako název a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-230">Enter **STESample.WPFTest** as the name and click **OK**</span></span>
+-   <span data-ttu-id="f9489-231">Přidejte odkaz na **STESample.Entities** projektu</span><span class="sxs-lookup"><span data-stu-id="f9489-231">Add a reference to the **STESample.Entities** project</span></span>
 
-<span data-ttu-id="8611d-232">Potřebujeme odkazu na službu do naší službě WCF</span><span class="sxs-lookup"><span data-stu-id="8611d-232">We need a service reference to our WCF service</span></span>
+<span data-ttu-id="f9489-232">Potřebujeme odkazu na službu do naší službě WCF</span><span class="sxs-lookup"><span data-stu-id="f9489-232">We need a service reference to our WCF service</span></span>
 
--   <span data-ttu-id="8611d-233">Klikněte pravým tlačítkem myši **STESample.WPFTest** projekt **Průzkumníka řešení** a vyberte **přidat odkaz na službu...**</span><span class="sxs-lookup"><span data-stu-id="8611d-233">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
--   <span data-ttu-id="8611d-234">Klikněte na tlačítko **zjišťování**</span><span class="sxs-lookup"><span data-stu-id="8611d-234">Click **Discover**</span></span>
--   <span data-ttu-id="8611d-235">Zadejte **BloggingService** jako obor názvů a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="8611d-235">Enter **BloggingService** as the namespace and click **OK**</span></span>
+-   <span data-ttu-id="f9489-233">Klikněte pravým tlačítkem myši **STESample.WPFTest** projekt **Průzkumníka řešení** a vyberte **přidat odkaz na službu...**</span><span class="sxs-lookup"><span data-stu-id="f9489-233">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
+-   <span data-ttu-id="f9489-234">Klikněte na tlačítko **zjišťování**</span><span class="sxs-lookup"><span data-stu-id="f9489-234">Click **Discover**</span></span>
+-   <span data-ttu-id="f9489-235">Zadejte **BloggingService** jako obor názvů a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="f9489-235">Enter **BloggingService** as the namespace and click **OK**</span></span>
 
-<span data-ttu-id="8611d-236">Nyní jsme můžete napsat kód k používání této služby.</span><span class="sxs-lookup"><span data-stu-id="8611d-236">Now we can write some code to consume the service.</span></span>
+<span data-ttu-id="f9489-236">Nyní jsme můžete napsat kód k používání této služby.</span><span class="sxs-lookup"><span data-stu-id="f9489-236">Now we can write some code to consume the service.</span></span>
 
--   <span data-ttu-id="8611d-237">Otevřít **souboru MainWindow.xaml** a nahraďte jeho obsah následujícím kódem.</span><span class="sxs-lookup"><span data-stu-id="8611d-237">Open **MainWindow.xaml** and replace the contents with the following code.</span></span>
+-   <span data-ttu-id="f9489-237">Otevřít **souboru MainWindow.xaml** a nahraďte jeho obsah následujícím kódem.</span><span class="sxs-lookup"><span data-stu-id="f9489-237">Open **MainWindow.xaml** and replace the contents with the following code.</span></span>
 
 ``` xaml
     <Window
@@ -496,7 +496,7 @@ Press any key to exit...
     </Window>
 ```
 
--   <span data-ttu-id="8611d-238">Otevřete kódu pro hlavní okno MainWindow (**MainWindow.xaml.cs**) a nahraďte jeho obsah následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="8611d-238">Open the code behind for MainWindow (**MainWindow.xaml.cs**) and replace the contents with the following code</span></span>
+-   <span data-ttu-id="f9489-238">Otevřete kódu pro hlavní okno MainWindow (**MainWindow.xaml.cs**) a nahraďte jeho obsah následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="f9489-238">Open the code behind for MainWindow (**MainWindow.xaml.cs**) and replace the contents with the following code</span></span>
 
 ``` csharp
     using STESample.WPFTest.BloggingService;
@@ -548,9 +548,9 @@ Press any key to exit...
     }
 ```
 
-<span data-ttu-id="8611d-239">Nyní můžete spustit aplikaci sledujte v akci.</span><span class="sxs-lookup"><span data-stu-id="8611d-239">You can now run the application to see it in action.</span></span>
+<span data-ttu-id="f9489-239">Nyní můžete spustit aplikaci sledujte v akci.</span><span class="sxs-lookup"><span data-stu-id="f9489-239">You can now run the application to see it in action.</span></span>
 
--   <span data-ttu-id="8611d-240">Klikněte pravým tlačítkem **STESample.WPFTest** projekt **Průzkumníku řešení** a vyberte **ladění -&gt; zahájit novou instanci**</span><span class="sxs-lookup"><span data-stu-id="8611d-240">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
--   <span data-ttu-id="8611d-241">Můžete pracovat s daty na obrazovce a uložte ho prostřednictvím používání služby **Uložit** tlačítko</span><span class="sxs-lookup"><span data-stu-id="8611d-241">You can manipulate the data using the screen and save it via the service using the **Save** button</span></span>
+-   <span data-ttu-id="f9489-240">Klikněte pravým tlačítkem **STESample.WPFTest** projekt **Průzkumníku řešení** a vyberte **ladění -&gt; zahájit novou instanci**</span><span class="sxs-lookup"><span data-stu-id="f9489-240">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
+-   <span data-ttu-id="f9489-241">Můžete pracovat s daty na obrazovce a uložte ho prostřednictvím používání služby **Uložit** tlačítko</span><span class="sxs-lookup"><span data-stu-id="f9489-241">You can manipulate the data using the screen and save it via the service using the **Save** button</span></span>
 
 ![WPF hlavní okno](~/ef6/media/wpf.png)

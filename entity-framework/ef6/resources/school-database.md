@@ -1,39 +1,39 @@
 ---
 title: Ukázkové databáze školy - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: e83a6a06-e63b-4530-8656-614bf609b12b
-ms.openlocfilehash: 4d113a7a3159edfa3d586e571c69b05b35434edf
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1e9dc98edb8590021bbf3393e9edda1929d505e0
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997747"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490711"
 ---
-# <a name="school-sample-database"></a><span data-ttu-id="21e7b-102">Ukázkové databáze školy</span><span class="sxs-lookup"><span data-stu-id="21e7b-102">School Sample Database</span></span>
-<span data-ttu-id="21e7b-103">Toto téma obsahuje schéma a data pro databázi School.</span><span class="sxs-lookup"><span data-stu-id="21e7b-103">This topic contains the schema and data for the School database.</span></span> <span data-ttu-id="21e7b-104">Ukázkovou školní databázi se používá na různých místech v dokumentaci rozhraní Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="21e7b-104">The sample School database is used in various places throughout the Entity Framework documentation.</span></span>  
+# <a name="school-sample-database"></a><span data-ttu-id="eab1c-102">Ukázkové databáze školy</span><span class="sxs-lookup"><span data-stu-id="eab1c-102">School Sample Database</span></span>
+<span data-ttu-id="eab1c-103">Toto téma obsahuje schéma a data pro databázi School.</span><span class="sxs-lookup"><span data-stu-id="eab1c-103">This topic contains the schema and data for the School database.</span></span> <span data-ttu-id="eab1c-104">Ukázkovou školní databázi se používá na různých místech v dokumentaci rozhraní Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="eab1c-104">The sample School database is used in various places throughout the Entity Framework documentation.</span></span>  
 
 > [!NOTE]
-> <span data-ttu-id="21e7b-105">Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio používáte.</span><span class="sxs-lookup"><span data-stu-id="21e7b-105">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you use.</span></span> <span data-ttu-id="21e7b-106">Zobrazit [verze Visual Studio](~/ef6/what-is-new/visual-studio.md) podrobnosti o tom, jak používat.</span><span class="sxs-lookup"><span data-stu-id="21e7b-106">See [Visual Studio Releases](~/ef6/what-is-new/visual-studio.md) for details on what to use.</span></span>  
+> <span data-ttu-id="eab1c-105">Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio používáte.</span><span class="sxs-lookup"><span data-stu-id="eab1c-105">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you use.</span></span> <span data-ttu-id="eab1c-106">Zobrazit [verze Visual Studio](~/ef6/what-is-new/visual-studio.md) podrobnosti o tom, jak používat.</span><span class="sxs-lookup"><span data-stu-id="eab1c-106">See [Visual Studio Releases](~/ef6/what-is-new/visual-studio.md) for details on what to use.</span></span>  
 
-<span data-ttu-id="21e7b-107">Tady jsou kroky k vytvoření databáze:</span><span class="sxs-lookup"><span data-stu-id="21e7b-107">Here are the steps to create the database:</span></span>
+<span data-ttu-id="eab1c-107">Tady jsou kroky k vytvoření databáze:</span><span class="sxs-lookup"><span data-stu-id="eab1c-107">Here are the steps to create the database:</span></span>
 
-- <span data-ttu-id="21e7b-108">Otevřít Visual Studio</span><span class="sxs-lookup"><span data-stu-id="21e7b-108">Open Visual Studio</span></span>  
-- <span data-ttu-id="21e7b-109">**Zobrazení** -> **Průzkumníka serveru**</span><span class="sxs-lookup"><span data-stu-id="21e7b-109">**View** -> **Server Explorer**</span></span>  
-- <span data-ttu-id="21e7b-110">Klikněte pravým tlačítkem na **datová připojení** -> **přidat připojení...**</span><span class="sxs-lookup"><span data-stu-id="21e7b-110">Right click on **Data Connections** -> **Add Connection…**</span></span>  
-- <span data-ttu-id="21e7b-111">Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat</span><span class="sxs-lookup"><span data-stu-id="21e7b-111">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>  
-- <span data-ttu-id="21e7b-112">Připojte se k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali</span><span class="sxs-lookup"><span data-stu-id="21e7b-112">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>  
-- <span data-ttu-id="21e7b-113">Zadejte **School** jako název databáze</span><span class="sxs-lookup"><span data-stu-id="21e7b-113">Enter **School** as the database name</span></span>  
-- <span data-ttu-id="21e7b-114">Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**</span><span class="sxs-lookup"><span data-stu-id="21e7b-114">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>  
-- <span data-ttu-id="21e7b-115">Nová databáze se teď budou zobrazovat v Průzkumníku serveru</span><span class="sxs-lookup"><span data-stu-id="21e7b-115">The new database will now appear in Server Explorer</span></span>  
-- <span data-ttu-id="21e7b-116">Pokud používáte Visual Studio 2012 nebo novější</span><span class="sxs-lookup"><span data-stu-id="21e7b-116">If you are using Visual Studio 2012 or newer</span></span>
-    - <span data-ttu-id="21e7b-117">Klikněte pravým tlačítkem na databázi v Průzkumníku serveru a vyberte **nový dotaz**</span><span class="sxs-lookup"><span data-stu-id="21e7b-117">Right-click on the database in Server Explorer and select **New Query**</span></span>  
-    - <span data-ttu-id="21e7b-118">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**</span><span class="sxs-lookup"><span data-stu-id="21e7b-118">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>  
-- <span data-ttu-id="21e7b-119">Pokud používáte Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="21e7b-119">If you are using Visual Studio 2010</span></span>  
-    - <span data-ttu-id="21e7b-120">Vyberte **Data** -> **jazyka Transact SQL Editor** -> **nové připojení dotazu...**</span><span class="sxs-lookup"><span data-stu-id="21e7b-120">Select **Data** -> **Transact SQL Editor** -> **New Query Connection...**</span></span>  
-    - <span data-ttu-id="21e7b-121">Zadejte **. \SQLEXPRESS** jako název serveru a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="21e7b-121">Enter **.\SQLEXPRESS** as the server name and click **OK**</span></span>  
-    - <span data-ttu-id="21e7b-122">Vyberte **STESample** databázi z rozevíracího seznamu v horní části editoru dotazů</span><span class="sxs-lookup"><span data-stu-id="21e7b-122">Select the **STESample** database from the drop down at the top of the query editor</span></span>  
-    - <span data-ttu-id="21e7b-123">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **provést SQL**</span><span class="sxs-lookup"><span data-stu-id="21e7b-123">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>  
+- <span data-ttu-id="eab1c-108">Otevřít Visual Studio</span><span class="sxs-lookup"><span data-stu-id="eab1c-108">Open Visual Studio</span></span>  
+- <span data-ttu-id="eab1c-109">**Zobrazení** -> **Průzkumníka serveru**</span><span class="sxs-lookup"><span data-stu-id="eab1c-109">**View** -> **Server Explorer**</span></span>  
+- <span data-ttu-id="eab1c-110">Klikněte pravým tlačítkem na **datová připojení** -> **přidat připojení...**</span><span class="sxs-lookup"><span data-stu-id="eab1c-110">Right click on **Data Connections** -> **Add Connection…**</span></span>  
+- <span data-ttu-id="eab1c-111">Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat</span><span class="sxs-lookup"><span data-stu-id="eab1c-111">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>  
+- <span data-ttu-id="eab1c-112">Připojte se k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali</span><span class="sxs-lookup"><span data-stu-id="eab1c-112">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>  
+- <span data-ttu-id="eab1c-113">Zadejte **School** jako název databáze</span><span class="sxs-lookup"><span data-stu-id="eab1c-113">Enter **School** as the database name</span></span>  
+- <span data-ttu-id="eab1c-114">Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**</span><span class="sxs-lookup"><span data-stu-id="eab1c-114">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>  
+- <span data-ttu-id="eab1c-115">Nová databáze se teď budou zobrazovat v Průzkumníku serveru</span><span class="sxs-lookup"><span data-stu-id="eab1c-115">The new database will now appear in Server Explorer</span></span>  
+- <span data-ttu-id="eab1c-116">Pokud používáte Visual Studio 2012 nebo novější</span><span class="sxs-lookup"><span data-stu-id="eab1c-116">If you are using Visual Studio 2012 or newer</span></span>
+    - <span data-ttu-id="eab1c-117">Klikněte pravým tlačítkem na databázi v Průzkumníku serveru a vyberte **nový dotaz**</span><span class="sxs-lookup"><span data-stu-id="eab1c-117">Right-click on the database in Server Explorer and select **New Query**</span></span>  
+    - <span data-ttu-id="eab1c-118">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**</span><span class="sxs-lookup"><span data-stu-id="eab1c-118">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>  
+- <span data-ttu-id="eab1c-119">Pokud používáte Visual Studio 2010</span><span class="sxs-lookup"><span data-stu-id="eab1c-119">If you are using Visual Studio 2010</span></span>  
+    - <span data-ttu-id="eab1c-120">Vyberte **Data** -> **jazyka Transact SQL Editor** -> **nové připojení dotazu...**</span><span class="sxs-lookup"><span data-stu-id="eab1c-120">Select **Data** -> **Transact SQL Editor** -> **New Query Connection...**</span></span>  
+    - <span data-ttu-id="eab1c-121">Zadejte **. \SQLEXPRESS** jako název serveru a klikněte na **OK**</span><span class="sxs-lookup"><span data-stu-id="eab1c-121">Enter **.\SQLEXPRESS** as the server name and click **OK**</span></span>  
+    - <span data-ttu-id="eab1c-122">Vyberte **STESample** databázi z rozevíracího seznamu v horní části editoru dotazů</span><span class="sxs-lookup"><span data-stu-id="eab1c-122">Select the **STESample** database from the drop down at the top of the query editor</span></span>  
+    - <span data-ttu-id="eab1c-123">Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **provést SQL**</span><span class="sxs-lookup"><span data-stu-id="eab1c-123">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>  
 
 ``` SQL  
 SET ANSI_NULLS ON
