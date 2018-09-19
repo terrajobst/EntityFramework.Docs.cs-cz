@@ -3,12 +3,12 @@ title: Vlastní sledování entity - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 3575977ceabe7d93ac48d5fac253eac1341e2353
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: b098736ef47e79c916f4bf054716022d5032eee5
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489697"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283807"
 ---
 # <a name="self-tracking-entities"></a>Vlastní sledování entit
 
@@ -39,12 +39,12 @@ Při práci se službou samoobslužné sledování entit, zvažte následující
 - Při odesílání grafu, který byl upraven na straně klienta ke službě a potom v úmyslu pokračovat v práci s do stejného grafu na straně klienta, budete muset ručně iteraci v rámci grafu a volání **metoda AcceptChanges** metodu pro každý objekt Resetujte sledování změn.  
 
     > Pokud objekty v grafu obsahují vlastnosti databáze vygenerovala hodnotami (například identity nebo souběžnosti hodnot), Entity Framework nahradí hodnoty těchto vlastností s hodnotami databáze vygenerovala po **SaveChanges** metoda je volána. Můžete implementovat vaše operace služby vrátit uložené objekty nebo seznam hodnot vygenerované vlastnosti objektů zpět do klienta. Klient potom by bylo potřeba nahradit instancí objektů nebo hodnot vlastností objektu objekty nebo hodnoty vlastností vrácená z operace služby.  
-- Sloučení grafů z více žádostí o službu může představovat objektů s duplicitními hodnotami klíče ve výsledném grafu. Entity Framework neodebere objekty s duplicitní klíče, při volání **applychanges –** metody, ale místo toho dojde k výjimce. Abyste se vyhnuli nutnosti grafy s duplicitní hodnoty klíče odpovídat jednomu ze vzorů je popsáno v následujícím blogu: [Self-Tracking entity: applychanges – a duplicitní entity](http://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
+- Sloučení grafů z více žádostí o službu může představovat objektů s duplicitními hodnotami klíče ve výsledném grafu. Entity Framework neodebere objekty s duplicitní klíče, při volání **applychanges –** metody, ale místo toho dojde k výjimce. Abyste se vyhnuli nutnosti grafy s duplicitní hodnoty klíče odpovídat jednomu ze vzorů je popsáno v následujícím blogu: [Self-Tracking entity: applychanges – a duplicitní entity](https://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
 - Při změně vztahů mezi objekty tak, že nastavíte vlastnost cizího klíče je odkaz navigační vlastnost nastavena na hodnotu null a není synchronizovaná na příslušnou entitu instančního objektu na straně klienta. Po grafu je připojit ke kontextu objektu (například po volání **applychanges –** metoda), vlastnosti cizího klíče a vlastnosti navigace se synchronizují.  
 
     > Nemá odkaz na vlastnost navigace synchronizované s odpovídající objekt zabezpečení můžou být problémy, pokud jste zadali kaskádové odstranění na relace cizího klíče. Při odstranění objektu zabezpečení, odstranění se nerozšíří do závislé objekty. Pokud máte kaskádové odstranění zadané pomocí navigačních vlastností můžete změnit vztahy namísto nastavování vlastností cizího klíče.  
 - K provádění opožděné načtení nejsou povolené samoobslužné sledování entity.  
-- Binární serializace a serializace za účelem objekty stavu správy technologie ASP.NET není podporován místním sledování entity. Můžete však přizpůsobit šablonu k přidání podpory pro binární serializace. Další informace najdete v tématu [pomocí binární serializace a stav zobrazení s entitami Self-Tracking](http://go.microsoft.com/fwlink/?LinkId=199208).  
+- Binární serializace a serializace za účelem objekty stavu správy technologie ASP.NET není podporován místním sledování entity. Můžete však přizpůsobit šablonu k přidání podpory pro binární serializace. Další informace najdete v tématu [pomocí binární serializace a stav zobrazení s entitami Self-Tracking](https://go.microsoft.com/fwlink/?LinkId=199208).  
 
 ## <a name="security-considerations"></a>Důležité informace o zabezpečení  
 

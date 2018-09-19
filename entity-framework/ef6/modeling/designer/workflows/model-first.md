@@ -3,12 +3,12 @@ title: Model First – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
-ms.openlocfilehash: 8e010f95db40261073b4af80a3c0e3225a2cd1cf
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: d429d5ea590b22c77f3f7f0bcfbd5dfc0a3e0049
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490477"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283872"
 ---
 # <a name="model-first"></a>První model
 Tato videa a podrobný návod poskytuje úvod do modelu první vývoj pomocí rozhraní Entity Framework. Model nejprve umožňuje vytvořit nový model využívající Entity Framework Designer a pak vygenerovat schéma databáze z modelu. Modelu je uložen v souboru EDMX (s příponou edmx) a může se zobrazit a upravit v Návrháři Entity Framework. Třídy, které budete moct používat ve vaší aplikaci se automaticky vygenerují ze souboru EDMX.
@@ -18,13 +18,13 @@ Tato videa a podrobný návod poskytuje úvod do modelu první vývoj pomocí ro
 
 **Přednášející:**: [Rowan Miller](http://romiller.com/)
 
-**Video**: [WMV](http://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](http://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
+**Video**: [WMV](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
 Musíte mít Visual Studio 2010 nebo Visual Studio 2012 nainstalovat k dokončení tohoto návodu.
 
-Pokud používáte Visual Studio 2010, musíte také mít [NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalované.
+Pokud používáte Visual Studio 2010, musíte také mít [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalované.
 
 ## <a name="1-create-the-application"></a>1. Vytvoření aplikace
 
@@ -84,7 +84,7 @@ Pokud pracujete v sadě Visual Studio 2010 existují některé další kroky, kt
 Nejprve, potřebujeme načíst nejnovější verzi rozhraní Entity Framework z NuGet.
 
 -   **Project –&gt; spravovat balíčky NuGet... ** 
-     *Pokud nemáte k dispozici **spravovat balíčky NuGet... ** možnost byste měli nainstalovat [nejnovější verze Nugetu](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
+     *Pokud nemáte k dispozici **spravovat balíčky NuGet... ** možnost byste měli nainstalovat [nejnovější verze Nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
 -   Vyberte **Online** kartu
 -   Vyberte **EntityFramework** balíčku
 -   Klikněte na tlačítko **instalace**

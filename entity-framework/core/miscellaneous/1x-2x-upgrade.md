@@ -4,39 +4,32 @@ author: divega
 ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: f0d85b3ba22c09d2bd48e8b34ed628a7474322d3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 5371c8f3b7c6102c621296bbae145d13779e0c6e
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490490"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283768"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Upgrade aplikací z předchozí verze na EF Core 2.0
 
 Přesměrovali jsme možnost výrazně vylepšit naše stávající rozhraní API a chování ve verzi 2.0. Existuje několik vylepšení, které může vyžadovat úprava existující kód aplikace, i když se budeme domnívat, že pro většinu aplikací dopad bude nízká, ve většině případů vyžaduje právě rekompilace a minimální změny s průvodcem k nahrazení zastaralé rozhraní API.
 
-## <a name="procedures-common-to-all-applications"></a>Běžné postupy pro všechny aplikace
-
 Aktualizuje existující aplikaci na EF Core 2.0 může vyžadovat:
 
-1. Inovace platformy .NET aplikace, který podporuje .NET Standard 2.0. Zobrazit [podporované platformy](../platforms/index.md) další podrobnosti.
+1. Upgrade .NET cíl provádění aplikace, který podporuje .NET Standard 2.0. Zobrazit [implementace .NET nepodporuje](../platforms/index.md) další podrobnosti.
 
 2. Identifikujte zprostředkovatele pro cílovou databázi, která je kompatibilní s EF Core 2.0. Zobrazit [EF Core 2.0 vyžaduje poskytovatele 2.0 databáze](#ef-core-20-requires-a-20-database-provider) níže.
 
 3. Upgrade všech balíčků EF Core (runtime a nástroje) 2.0. Odkazovat na [instalace EF Core](../get-started/install/index.md) další podrobnosti.
 
-4. Proveďte změny nezbytného kódu jako kompenzaci za rozbíjející změny. Zobrazit [Breaking Changes](#breaking-changes) níže v části Další podrobnosti.
+4. Proveďte změny nezbytného kódu jako kompenzaci za rozbíjející změny popsaných ve zbývající části tohoto dokumentu.
 
-## <a name="aspnet-core-applications"></a>Aplikace ASP.NET Core
+## <a name="aspnet-core-now-includes-ef-core"></a>ASP.NET Core teď zahrnuje EF Core
 
-1. Viz zejména [nový vzor pro inicializaci aplikace poskytovatele služeb](#new-way-of-getting-application-services) je popsáno níže.
+Aplikace pro ASP.NET Core 2.0, můžete použít EF Core 2.0 bez další závislosti kromě poskytovatelé databází výrobců. Aplikace cílené na předchozích verzích technologie ASP.NET Core je však nutné upgradovat na ASP.NET Core 2.0, aby bylo možné používat EF Core 2.0. Další podrobnosti o upgradu aplikace ASP.NET Core 2.0 najdete v tématu [dokumentace k ASP.NET Core v předmětu](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/).
 
-> [!TIP]  
-> Přijetí tohoto nového modelu při aktualizaci aplikace na 2.0 se důrazně doporučuje a je nutná pro funkce produktu, jako je migrace Entity Framework Core pracovat. Běžnou alternativou je [implementovat *IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory).
-
-2. Aplikace pro ASP.NET Core 2.0, můžete použít EF Core 2.0 bez další závislosti kromě poskytovatelé databází výrobců. Aplikace cílené na předchozích verzích technologie ASP.NET Core je však nutné upgradovat na ASP.NET Core 2.0, aby bylo možné používat EF Core 2.0. Další podrobnosti o upgradu aplikace ASP.NET Core 2.0 najdete v tématu [dokumentace k ASP.NET Core v předmětu](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/).
-
-## <a name="new-way-of-getting-application-services"></a>Nový způsob získávání aplikační služby
+## <a name="new-way-of-getting-application-services-in-aspnet-core"></a>Nový způsob získávání aplikační služby v ASP.NET Core
 
 Doporučený model pro webové aplikace ASP.NET Core se aktualizovala tak, aby se podařilo přerušit návrhu logiky, použita v 1.x EF Core 2.0. Dříve v době návrhu, EF Core se pokusit o vyvolání `Startup.ConfigureServices` přímo, aby bylo možné získat přístup k poskytovateli služby vaší aplikace. V technologii ASP.NET Core 2.0, je konfigurace inicializována mimo `Startup` třídy. Aplikace obvykle pomocí EF Core k jejich připojovací řetězec z konfigurace, takže `Startup` sám o sobě už nestačí. Pokud upgradujete aplikaci ASP.NET Core 1.x, může zobrazit následující chyba, při používání nástrojů EF Core.
 
@@ -64,6 +57,8 @@ namespace AspNetCoreDotNetCore2._0App
     }
 }
 ```
+
+Přijetí tohoto nového modelu při aktualizaci aplikace na 2.0 se důrazně doporučuje a je nutná pro funkce produktu, jako je migrace Entity Framework Core pracovat. Běžnou alternativou je [implementovat *IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory).
 
 ## <a name="idbcontextfactory-renamed"></a>IDbContextFactory přejmenovat
 

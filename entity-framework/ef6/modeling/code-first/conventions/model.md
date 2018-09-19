@@ -3,12 +3,12 @@ title: Založené na modelu konvencí - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
-ms.openlocfilehash: fb79164f71cb3afff705a83f5078a13d043abca8
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 80b722730b4ca6c9d00a8611b6c9027e8bc9fe61
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490932"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283704"
 ---
 # <a name="model-based-conventions"></a>Vytváření názvů založených na modelu
 > [!NOTE]
@@ -146,7 +146,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
 ## <a name="extending-existing-conventions"></a>Rozšíření stávající konvence   
 
-Pokud potřebujete napsat konvence, která se podobá konvence Entity Framework již platí pro váš model je vždy rozšířit této konvenci, abyste ho nemuseli znovu od začátku jeho přepsání.  Příkladem je nahraďte stávající Id odpovídající konvenci s vlastní.   Dodatečná výhoda pro přepsání klíče konvence je, že bude zavolána přepsané metody pouze v případě, že neexistuje žádný klíč nerozpoznal nebo explicitně nakonfigurovat. Seznam konvence, která používá Entity Framework je k dispozici tady: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
+Pokud potřebujete napsat konvence, která se podobá konvence Entity Framework již platí pro váš model je vždy rozšířit této konvenci, abyste ho nemuseli znovu od začátku jeho přepsání.  Příkladem je nahraďte stávající Id odpovídající konvenci s vlastní.   Dodatečná výhoda pro přepsání klíče konvence je, že bude zavolána přepsané metody pouze v případě, že neexistuje žádný klíč nerozpoznal nebo explicitně nakonfigurovat. Seznam konvence, která používá Entity Framework je k dispozici tady: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
 
 ``` csharp
 using System.Data.Entity;
@@ -209,4 +209,4 @@ public class BlogContext : DbContext
 
 ## <a name="notes"></a>Poznámky  
 
-Seznam smluv, které jsou aktuálně použité rozhraním Entity Framework je k dispozici v dokumentaci MSDN zde: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Tento seznam se načítají přímo z našeho zdrojového kódu.  Zdrojový kód pro Entity Framework 6 je k dispozici na [Githubu](https://github.com/aspnet/entityframework6/) a řadu konvencemi použitými rozhraním Entity Framework jsou dobré počáteční body pro vlastního modelu na základě konvence.  
+Seznam smluv, které jsou aktuálně použité rozhraním Entity Framework je k dispozici v dokumentaci MSDN zde: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Tento seznam se načítají přímo z našeho zdrojového kódu.  Zdrojový kód pro Entity Framework 6 je k dispozici na [Githubu](https://github.com/aspnet/entityframework6/) a řadu konvencemi použitými rozhraním Entity Framework jsou dobré počáteční body pro vlastního modelu na základě konvence.  

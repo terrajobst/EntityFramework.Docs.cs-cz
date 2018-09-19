@@ -3,12 +3,12 @@ title: Předchozími verzemi nástroje Entity Framework - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 4c711bb48938e5c0432881c61766b0bff66498f2
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 4fa27f8259ecc011d9d30080aee3c44353ef533d
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490139"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283989"
 ---
 # <a name="past-releases-of-entity-framework"></a>Předchozími verzemi nástroje Entity Framework
 
@@ -127,7 +127,7 @@ Entity Framework Designer v sadě Visual Studio 2012 také zavádí podporu pro 
 
 Tady je seznam obsahu, který jsme připravili speciálně pro verze EF 5.
 
--   [EF 5 Release příspěvku](http://blogs.msdn.com/b/adonet/archive/2012/08/15/ef5-released.aspx)
+-   [EF 5 Release příspěvku](https://blogs.msdn.com/b/adonet/archive/2012/08/15/ef5-released.aspx)
 -   Nové funkce v EF5
     -   [Výčet podporují v kódu nejprve](~/ef6/modeling/code-first/data-types/enums.md)
     -   [Podpora výčtu v EF designeru](~/ef6/modeling/designer/data-types/enums.md)
@@ -194,16 +194,16 @@ Tato verze opravy zahrnuté opravám některých chyb na verzi EF 4.3 a zavést 
 
 Tady je seznam obsahu, který jsme připravili speciálně pro verzi EF 4.3.1, většina obsahu k dispozici pro EF 4.1 stále platí pro EF 4.3 také.
 
--   [EF 4.3.1 Release Blogový příspěvek](http://blogs.msdn.com/b/adonet/archive/2012/02/29/ef4-3-1-and-ef5-beta-1-available-on-nuget.aspx)
+-   [EF 4.3.1 Release Blogový příspěvek](https://blogs.msdn.com/b/adonet/archive/2012/02/29/ef4-3-1-and-ef5-beta-1-available-on-nuget.aspx)
 
 ## <a name="ef-43"></a>EF 4.3
 EF 4.3.0 runtime byla vydána NuGet v únoru 2012.
 Tato verze součástí nové funkce migrace Code First, který umožňuje databáze vytvoří ji Code First postupně změnit, protože váš model Code First vyvíjí.
 
 Tady je seznam obsahu, který jsme připravili speciálně pro verze EF 4.3, většina obsahu k dispozici pro EF 4.1 stále platí pro EF 4.3 také:
--   [EF verze 4.3 příspěvku](http://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-released.aspx)
--   [Návod EF 4.3 založený na kódu migrace](http://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-code-based-migrations-walkthrough.aspx)
--   [Návod 4.3 Automatické migrace EF](http://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-automatic-migrations-walkthrough.aspx)
+-   [EF verze 4.3 příspěvku](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-released.aspx)
+-   [Návod EF 4.3 založený na kódu migrace](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-code-based-migrations-walkthrough.aspx)
+-   [Návod 4.3 Automatické migrace EF](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-automatic-migrations-walkthrough.aspx)
 
 ## <a name="ef-42"></a>EF 4.2
 EF 4.2.0 runtime byla vydána NuGet v Listopad 2011.
@@ -212,9 +212,9 @@ Vzhledem k tomu, že tato verze zahrnuty pouze oprava to mohlo být EF 4.1.2 opr
 
 Tady je seznam obsahu, který jsme připravili speciálně pro verze EF 4.2, obsah zadaný u EF 4.1 stále platí pro EF 4.2 také.
 
--   [EF verze 4.2 příspěvku](http://blogs.msdn.com/b/adonet/archive/2011/11/01/ef-4-2-released.aspx)
--   [První původce kódem](http://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-code-first-walkthrough.aspx)
--   [Návod první model & databáze](http://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-model-amp-database-first-walkthrough.aspx)
+-   [EF verze 4.2 příspěvku](https://blogs.msdn.com/b/adonet/archive/2011/11/01/ef-4-2-released.aspx)
+-   [První původce kódem](https://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-code-first-walkthrough.aspx)
+-   [Návod první model & databáze](https://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-model-amp-database-first-walkthrough.aspx)
 
 ## <a name="ef-411"></a>EF 4.1.1
 EF 4.1.10715 runtime byla vydána NuGet v z července 2011.
@@ -227,7 +227,7 @@ Představte si tuto verzi jako oprava EF 4.1 1 (nebo EF 4.1.1).
 
 Tady je seznam obsahu, sestavili jsme pro 4.1.1 verze:
 
--   [EF 4.1.1 Release příspěvku](http://blogs.msdn.com/b/adonet/archive/2011/07/25/ef-4-1-update-1-released.aspx)
+-   [EF 4.1.1 Release příspěvku](https://blogs.msdn.com/b/adonet/archive/2011/07/25/ef-4-1-update-1-released.aspx)
 
 ## <a name="ef-41"></a>EF 4.1
 EF 4.1.10331 runtime byl první k publikování na webu NuGet, dubna 2011.
@@ -238,10 +238,10 @@ Použili jsme používat data na základě opravy verze předtím, než jsme se 
 
 Tady je seznam obsahu, který jsme připravili pro verze 4.1. Většina článku stále platí pro novější verze rozhraní Entity Framework:
 
--   [EF verze 4.1 příspěvku](http://blogs.msdn.com/b/adonet/archive/2011/04/11/ef-4-1-released.aspx)
--   [První původce kódem](http://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-code-first-walkthrough.aspx)
--   [Návod první model & databáze](http://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-model-amp-database-first-walkthrough.aspx)
--   [SQL Azure federace a Entity Framework](http://blogs.msdn.com/b/adonet/archive/2012/01/10/sql-azure-federations-and-the-entity-framework.aspx)
+-   [EF verze 4.1 příspěvku](https://blogs.msdn.com/b/adonet/archive/2011/04/11/ef-4-1-released.aspx)
+-   [První původce kódem](https://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-code-first-walkthrough.aspx)
+-   [Návod první model & databáze](https://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-model-amp-database-first-walkthrough.aspx)
+-   [SQL Azure federace a Entity Framework](https://blogs.msdn.com/b/adonet/archive/2012/01/10/sql-azure-federations-and-the-entity-framework.aspx)
 
 ## <a name="ef-40"></a>EF 4.0
 Tato verze byla zahrnuta v rozhraní .NET Framework 4 a Visual Studio 2010, v dubnu 2010.

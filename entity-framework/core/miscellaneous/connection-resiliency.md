@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: d6e31cf2b9b783ea503703536d159b34bf2e18c0
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d5101d0622ddc2c90ddded16b9ec6cc4eb814c36
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997187"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283833"
 ---
 # <a name="connection-resiliency"></a>Odolnost připojení
 
@@ -49,7 +49,7 @@ Nicméně pokud váš kód zahájí transakci pomocí `BeginTransaction()` defin
 
 ## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>Chyba při potvrzení transakce a problém idempotence
 
-Obecně platí Pokud dojde k selhání připojení aktuální transakce je vrácena zpět. Nicméně pokud připojení se ukončí, když je transakce vrácení potvrzené výsledný stav transakce není znám. Najdete v tomto [blogový příspěvek](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) další podrobnosti.
+Obecně platí Pokud dojde k selhání připojení aktuální transakce je vrácena zpět. Nicméně pokud připojení se ukončí, když je transakce vrácení potvrzené výsledný stav transakce není znám. Najdete v tomto [blogový příspěvek](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) další podrobnosti.
 
 Ve výchozím nastavení, strategie provádění opakování operace, jako když transakce byla vrácena zpět, ale pokud se nejedná o případ výsledkem bude výjimky Pokud nový stav databáze není kompatibilní nebo může vést k **poškození dat** Pokud operace není závislý na konkrétní stav, například při vkládání nový řádek s automaticky generované hodnoty klíče.
 

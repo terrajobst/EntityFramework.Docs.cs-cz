@@ -3,12 +3,12 @@ title: Přizpůsobení tabulky historie migrace - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ed5518f0-a9a6-454e-9e98-a4fa7748c8d0
-ms.openlocfilehash: 6644bf2b0ac703a9f3a779b17b31d79d40cc5b69
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: e3faefc4b812ec4bc440ed2bb48747053d8cb1b3
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489205"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283690"
 ---
 # <a name="customizing-the-migrations-history-table"></a>Přizpůsobení tabulky historie migrace
 > [!NOTE]
@@ -69,7 +69,7 @@ Nejprve musíte vytvořit třídu odvozenou z třídy System.Data.Entity.Migrati
     }
 ```
 
-Jakmile vlastní HistoryContext připravený budete muset udělat EF upozornit když si zaregistrujete ho přes [konfigurace založená na kódu](http://msdn.com/data/jj680699):
+Jakmile vlastní HistoryContext připravený budete muset udělat EF upozornit když si zaregistrujete ho přes [konfigurace založená na kódu](https://msdn.com/data/jj680699):
 
 ``` csharp
     using System.Data.Entity;

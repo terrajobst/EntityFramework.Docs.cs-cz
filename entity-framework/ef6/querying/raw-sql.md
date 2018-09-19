@@ -3,12 +3,12 @@ title: Nezpracované dotazy SQL - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
-ms.openlocfilehash: 6b00648939ccedffeed09b4e1d6e8d70fa262a36
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 168aee67186535bf2a50705e86bfc5a88147e369
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490581"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283781"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 Entity Framework umožňuje dotazování pomocí jazyka LINQ pomocí tříd entit. Mohou však nastat situace, které chcete spouštět dotazy s využitím nezpracovaná SQL přímo na databázi. To zahrnuje volání uložené procedury, které mohou být užitečné pro Code First modely, které se aktuálně nepodporují mapování na uložené procedury. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
@@ -82,4 +82,4 @@ Všimněte si, že jsou všechny změny dat v databázi pomocí ExecuteSqlComman
 
 ### <a name="output-parameters"></a>Výstupní parametry  
 
-Pokud se používají výstupních parametrů, jejich hodnoty nebudou dostupné, dokud nebude mít zcela načíst výsledky. Je to z důvodu základní chování DbDataReader naleznete v tématu [načítání dat pomocí čtečky dat](http://go.microsoft.com/fwlink/?LinkID=398589) další podrobnosti.  
+Pokud se používají výstupních parametrů, jejich hodnoty nebudou dostupné, dokud nebude mít zcela načíst výsledky. Je to z důvodu základní chování DbDataReader naleznete v tématu [načítání dat pomocí čtečky dat](https://go.microsoft.com/fwlink/?LinkID=398589) další podrobnosti.  

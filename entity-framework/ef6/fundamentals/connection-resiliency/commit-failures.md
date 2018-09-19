@@ -3,18 +3,18 @@ title: Zpracování selhání potvrzení transakce - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
-ms.openlocfilehash: 71d5649dd993bb95e24165a55d812c71a37f03f3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 27e75e6a1919ee2300fe76cfcdf67cceaad887b3
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489385"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283651"
 ---
 # <a name="handling-transaction-commit-failures"></a>Zpracování selhání potvrzení transakce
 > [!NOTE]
 > **EF6.1 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6.1. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
 
-Jako součást 6.1 Představujeme novou funkci odolnosti proti chybám připojení pro EF: schopnost detekovat a automatického obnovení po selhání přechodné připojení ovlivnit potvrzení potvrzení transakcí. Všechny podrobnosti scénáře jsou nejlépe popisuje tento blogový příspěvek [připojení k databázi SQL a problém idempotence](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Stručně řečeno tento scénář je, že když je výjimka vyvolána během zápisu transakce, existují dva možné příčiny:  
+Jako součást 6.1 Představujeme novou funkci odolnosti proti chybám připojení pro EF: schopnost detekovat a automatického obnovení po selhání přechodné připojení ovlivnit potvrzení potvrzení transakcí. Všechny podrobnosti scénáře jsou nejlépe popisuje tento blogový příspěvek [připojení k databázi SQL a problém idempotence](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Stručně řečeno tento scénář je, že když je výjimka vyvolána během zápisu transakce, existují dva možné příčiny:  
 
 1. Potvrzení transakce nejde na serveru
 2. Potvrzení transakce byla úspěšně dokončena na serveru, ale problém s připojením zabránila oznámením o úspěšné dosažení klienta  
@@ -69,4 +69,4 @@ Před EF 6.1 není mechanismem pro zpracování selhání potvrzení do EF produ
      - Pokud chybí na řádku, použijte strategie provádění aktuální operaci zopakovat.  
   4. Pokud je potvrzení úspěšné, odstraňte odpovídající řádek, aby se zabránilo růst v tabulce.  
 
-[Tento příspěvek na blogu](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) obsahuje ukázkový kód pro provedení to v SQL Azure.  
+[Tento příspěvek na blogu](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) obsahuje ukázkový kód pro provedení to v SQL Azure.  

@@ -3,12 +3,12 @@ title: Testovatelnost a Entity Framework 4.0
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-ms.openlocfilehash: 0ddf72ab46e2d67dc8a9cf75cbd40430352c5210
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: aec177438004fd255bef85a5e5047cf6b5a6f782
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490529"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284041"
 ---
 # <a name="testability-and-entity-framework-40"></a>Testovatelnost a Entity Framework 4.0
 Scott Allen
@@ -198,7 +198,7 @@ S POCOs na místě můžeme vytvořit Entity Data Model (EDM) v sadě Visual Stu
 
 **Obrázek 1**
 
-Poznámka: Pokud chcete vyvíjet první EDM model, je možné generovat čištění, POCO kód z modelu EDM. Můžete to provést pomocí rozšíření sady Visual Studio 2010 poskytované týmem programovatelnosti Data. Stáhnout rozšíření, spusťte Správce rozšíření v nabídce Nástroje v sadě Visual Studio, vyhledejte "POCO" (viz obrázek 2) online galerie šablon. Nejsou k dispozici pro EF několik šablon POCO. Další informace o použití šablony naleznete v části " [názorný postup: šablony objektů POCO pro Entity Framework](http://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)".
+Poznámka: Pokud chcete vyvíjet první EDM model, je možné generovat čištění, POCO kód z modelu EDM. Můžete to provést pomocí rozšíření sady Visual Studio 2010 poskytované týmem programovatelnosti Data. Stáhnout rozšíření, spusťte Správce rozšíření v nabídce Nástroje v sadě Visual Studio, vyhledejte "POCO" (viz obrázek 2) online galerie šablon. Nejsou k dispozici pro EF několik šablon POCO. Další informace o použití šablony naleznete v části " [názorný postup: šablony objektů POCO pro Entity Framework](https://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)".
 
 ![EF test_02](~/ef6/media/eftest-02.png)
 
@@ -964,11 +964,11 @@ V tomto dokumentu jsme jste jsme vám ukázali několik způsobů vytváření t
 -   Robert C. Martin, " [principu jednotnou zodpovědnost](http://www.objectmentor.com/resources/articles/srp.pdf)"
 -   Martina Fowlera [katalog způsobů](http://www.martinfowler.com/eaaCatalog/index.html) z *vzory Enterprise Application Architecture*
 -   Griffin Caprio " [injektáž závislostí](https://msdn.microsoft.com/magazine/cc163739.aspx)"
--   Blog programovatelnosti data, " [názorný postup: testu řízeného rozvoje s rozhraním Entity Framework 4.0](http://blogs.msdn.com/adonet/pages/walkthrough-test-driven-development-with-the-entity-framework-4-0.aspx)".
--   Blog programovatelnosti data, " [pomocí úložiště a jednotky pracovních vzorů s Entity Framework 4.0](http://blogs.msdn.com/adonet/archive/2009/06/16/using-repository-and-unit-of-work-patterns-with-entity-framework-4-0.aspx)"
+-   Blog programovatelnosti data, " [názorný postup: testu řízeného rozvoje s rozhraním Entity Framework 4.0](https://blogs.msdn.com/adonet/pages/walkthrough-test-driven-development-with-the-entity-framework-4-0.aspx)".
+-   Blog programovatelnosti data, " [pomocí úložiště a jednotky pracovních vzorů s Entity Framework 4.0](https://blogs.msdn.com/adonet/archive/2009/06/16/using-repository-and-unit-of-work-patterns-with-entity-framework-4-0.aspx)"
 -   Dave Astels " [BDD ÚVOD](http://blog.daveastels.com/files/BDD_Intro.pdf)"
 -   Aaron Lázecký " [Představujeme počítač specifikace](http://codebetter.com/blogs/aaron.jensen/archive/2008/05/08/introducing-machine-specifications-or-mspec-for-short.aspx)"
--   Eric Lee " [BDD s použitím MSTest](http://blogs.msdn.com/elee/archive/2009/01/20/bdd-with-mstest.aspx)"
+-   Eric Lee " [BDD s použitím MSTest](https://blogs.msdn.com/elee/archive/2009/01/20/bdd-with-mstest.aspx)"
 -   Eric Evans " [návrhu na základě domény](http://books.google.com/books?id=7dlaMs0SECsC&printsec=frontcover&dq=evans%20domain%20driven%20design&hl=en&ei=cHztS6C8KIaglAfA_dS1CA&sa=X&oi=book_result&ct=result&resnum=1&ved=0CCoQ6AEwAA)"
 -   Martina Fowlera " [Mocks nejsou zástupné procedury](http://martinfowler.com/articles/mocksArentStubs.html)"
 -   Martina Fowlera " [testování Double](http://martinfowler.com/bliki/TestDouble.html)"

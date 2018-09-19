@@ -3,12 +3,12 @@ title: Návrhář dotazu uložených procedur komponentami TableAdapter-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-ms.openlocfilehash: 6284b10261e6f3b9bf69d1c15e121988e4976d48
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 04478ea1c8cd43a7ba4ee788e464992af3de7f64
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489944"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283898"
 ---
 # <a name="designer-query-stored-procedures"></a>Návrhář dotazu uložené procedury
 Tento podrobný návod ukazují, jak použít Návrhář Entity Framework (EF designeru) k importu uložené procedury do modelu a poté zavolejte importované uložené procedury k načtení výsledků. 
@@ -100,4 +100,4 @@ The department name is Engineering
 <a name="output-parameters"></a>Výstupní parametry
 -----------------
 
-Pokud se používají výstupních parametrů, jejich hodnoty nebudou dostupné, dokud nebude mít zcela načíst výsledky. Je to z důvodu základní chování DbDataReader naleznete v tématu [načítání dat pomocí čtečky dat](http://go.microsoft.com/fwlink/?LinkID=398589) další podrobnosti.
+Pokud se používají výstupních parametrů, jejich hodnoty nebudou dostupné, dokud nebude mít zcela načíst výsledky. Je to z důvodu základní chování DbDataReader naleznete v tématu [načítání dat pomocí čtečky dat](https://go.microsoft.com/fwlink/?LinkID=398589) další podrobnosti.

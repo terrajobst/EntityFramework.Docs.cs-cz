@@ -3,12 +3,12 @@ title: Rozhraní Fluent API s VB.NET – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: cbdd32696fb88d3de6cf1966040e5dda49fe19cd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 6aa74fa72296f66f0b069b9b5ee7e2e016570525
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489464"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283742"
 ---
 # <a name="fluent-api-with-vbnet"></a>Rozhraní Fluent API s VB.NET
 Kód nejprve umožňuje definovat model pomocí jazyka C\# nebo VB.NET třídy. Další konfigurace můžete volitelně provést pomocí atributů ve třídách a vlastnostech nebo s použitím rozhraní API fluent. Tento návod ukazuje, jak provádět fluent konfigurace rozhraní API pomocí VB.NET.
@@ -22,7 +22,7 @@ Tato stránka se předpokládá, že máte základní znalosti o Code First. Př
 
 Budete muset mít alespoň Visual Studio 2010 nebo Visual Studio 2012 nainstalovat k dokončení tohoto návodu.
 
-Pokud používáte Visual Studio 2010, musíte také mít [NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalovaná
+Pokud používáte Visual Studio 2010, musíte také mít [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalovaná
 
 ## <a name="create-the-application"></a>Vytvoření aplikace
 
@@ -139,7 +139,7 @@ Můžeme se chystáte začít pomocí typů z Entity Framework, takže je potře
 
 -   ** Projektu –&gt; **spravovat balíčky NuGet...**
 > [!NOTE]
-> Pokud nemáte k dispozici **spravovat balíčky NuGet...** možnost byste měli nainstalovat [nejnovější verze Nugetu](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
+> Pokud nemáte k dispozici **spravovat balíčky NuGet...** možnost byste měli nainstalovat [nejnovější verze Nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
 -   Vyberte **Online** kartu
 -   Vyberte **EntityFramework** balíčku
 -   Klikněte na tlačítko **instalace**

@@ -3,12 +3,12 @@ title: Kód nejprve do nové databáze - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 6572574ad36094ac0960c429cfa8606b6aebb492
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: a19db575b685cde98509fff4a0efaf26106b26bc
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490741"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284119"
 ---
 # <a name="code-first-to-a-new-database"></a>Kód nejprve do nové databáze
 Tato videa a podrobný návod poskytuje úvod k vývoji Code First cílení na novou databázi. Tento scénář obsahuje cílení na databázi, která neexistuje a vytvoří Code First nebo prázdnou databázi této Code First přidá nové tabulky. Kód nejprve umožňuje definovat model pomocí jazyka C\# nebo VB.Net třídy. Další konfigurace můžete volitelně provést pomocí atributů ve třídách a vlastnostech nebo s použitím rozhraní API fluent.
@@ -18,13 +18,13 @@ Toto video obsahuje úvod k vývoji Code First cílení na novou databázi. Tent
 
 **Přednášející:**: [Rowan Miller](http://romiller.com/)
 
-**Video**: [WMV](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
+**Video**: [WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
 Budete muset mít alespoň Visual Studio 2010 nebo Visual Studio 2012 nainstalovat k dokončení tohoto návodu.
 
-Pokud používáte Visual Studio 2010, musíte také mít [NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalované.
+Pokud používáte Visual Studio 2010, musíte také mít [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalované.
 
 ## <a name="1-create-the-application"></a>1. Vytvoření aplikace
 
@@ -71,7 +71,7 @@ Nyní je možné definovat odvozené kontext, který reprezentuje relaci s datab
 Nyní zapínáme využíval typy z Entity Framework, takže je potřeba přidat balíček NuGet objektu EntityFramework.
 
 -   **Project –&gt; spravovat balíčky NuGet...**
-    Poznámka: Pokud nemáte k dispozici **spravovat balíčky NuGet...** možnost byste měli nainstalovat [nejnovější verze Nugetu](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
+    Poznámka: Pokud nemáte k dispozici **spravovat balíčky NuGet...** možnost byste měli nainstalovat [nejnovější verze Nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
 -   Vyberte **Online** kartu
 -   Vyberte **EntityFramework** balíčku
 -   Klikněte na tlačítko **instalace**

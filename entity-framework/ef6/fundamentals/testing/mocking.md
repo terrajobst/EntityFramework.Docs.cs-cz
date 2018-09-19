@@ -3,12 +3,12 @@ title: Ve Visual Basicu s napodobování framework – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bd66a638-d245-44d4-8e71-b9c6cb335cc7
-ms.openlocfilehash: b50d0afb52ae1c496f2734ecc015cdaaa060aff7
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 20799b55b2dffe27637c4fb84df06cee174e6dd9
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489970"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284093"
 ---
 # <a name="testing-with-a-mocking-framework"></a>Testování s napodobování framework
 > [!NOTE]
@@ -235,7 +235,7 @@ Entity Framework 6 zavedl sadu rozšiřujících metod, které slouží k asynch
 
 Protože Entity Framework dotazy využívají LINQ, rozšiřující metody jsou definovány na IQueryable a IEnumerable. Ale protože jsou určeny pouze pro použití s Entity Framework můžete obdržet následující chybu při pokusu o jejich použití v dotazu LINQ, který není dotaz rozhraní Entity Framework:
 
-> Zdroj IQueryable neimplementuje IDbAsyncEnumerable{0}. Pouze zdroje, které implementují IDbAsyncEnumerable lze použít pro asynchronní operace Entity Framework. Další podrobnosti najdete v tématu [ http://go.microsoft.com/fwlink/?LinkId=287068 ](http://go.microsoft.com/fwlink/?LinkId=287068).  
+> Zdroj IQueryable neimplementuje IDbAsyncEnumerable{0}. Pouze zdroje, které implementují IDbAsyncEnumerable lze použít pro asynchronní operace Entity Framework. Další podrobnosti najdete v tématu [ http://go.microsoft.com/fwlink/?LinkId=287068 ](https://go.microsoft.com/fwlink/?LinkId=287068).  
 
 Zatímco asynchronní metody se podporují jenom při spouštění dotazu EF, můžete chtít použít při spuštění proti v paměti testování double DbSet v testu jednotek.  
 

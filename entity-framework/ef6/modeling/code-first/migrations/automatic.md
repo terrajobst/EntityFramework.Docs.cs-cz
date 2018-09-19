@@ -3,12 +3,12 @@ title: Automatické migrace Code First - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
-ms.openlocfilehash: 21f77ef49db2485047292b3928b4f63d49dbb180
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 2713afaf09707b7696e90464aac9945c2d82d274
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489983"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283911"
 ---
 # <a name="automatic-code-first-migrations"></a>Migrace automatické Code First
 Automatické migrace můžete pomocí migrace Code First bez nutnosti soubor kódu ve vašem projektu u každé změny, které provedete. Ne všechny změny mohou být automaticky použity – například přejmenování sloupců vyžadují použití migrace založené na kódu.
@@ -97,7 +97,7 @@ Je čas provést některé další změny našeho modelu.
     public string Url { get; set; }
 ```
 
-Pokud chcete aplikaci spustit znovu získali byste s oznámením InvalidOperationException *model zálohování kontextu 'BlogContext' byl změněn, protože byla vytvořena databáze. Zvažte použití migrace Code First k aktualizaci databáze (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](http://go.microsoft.com/fwlink/?LinkId=238269) *).*
+Pokud chcete aplikaci spustit znovu získali byste s oznámením InvalidOperationException *model zálohování kontextu 'BlogContext' byl změněn, protože byla vytvořena databáze. Zvažte použití migrace Code First k aktualizaci databáze (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *).*
 
 Jak výjimku naznačuje, je čas začít pomocí migrace Code First. Protože chceme použít automatické migrace teď ještě chvíli Zůstaneme k určení **– EnableAutomaticMigrations** přepnout.
 
