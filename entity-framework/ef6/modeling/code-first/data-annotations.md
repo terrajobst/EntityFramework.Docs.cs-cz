@@ -3,12 +3,12 @@ title: Kód anotací dat při prvním - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 38ae52543ed99e5a1c1da7d19a2e15d168e3a1bd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 54e27f1b866da14d68db66ca5eca5a6dde819e26
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490103"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415806"
 ---
 # <a name="code-first-data-annotations"></a>Kód první datové poznámky
 > [!NOTE]
@@ -319,13 +319,13 @@ Tady je tabulka po je byly znovu vygenerovány. InternalBlogs změnil název tab
 Důležité databázové funkce je schopnost mít vypočítané vlastnosti. Pokud máte mapování Code First tříd do tabulek, které obsahují vypočítané sloupce, nechcete, aby rozhraní Entity Framework a pokuste se aktualizovat tyto sloupce. Ale být vhodné EF vracet tyto hodnoty z databáze po vložení nebo aktualizovaná data. Poznámka DatabaseGenerated můžete označit, že tyto vlastnosti ve třídě spolu s vypočítané výčtu. Jiných výčtech k žádným nedošlo a Identity.
 
 ``` csharp
-    [DatabaseGenerated(DatabaseGenerationOption.Computed)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated { get; set; }
 ```
 
 Můžete použít databáze, které jsou generovány pro sloupce bajtů nebo jako časové razítko, pokud kód je nejprve generování databáze, v opačném případě byste měli používat jenom to při odkazující na stávající databáze, protože kód nejprve nebude schopna určit vzorec pro počítaný sloupec.
 
-Řekli, která ve výchozím nastavení, klíčová vlastnost, která je celé číslo se stanou klíč identity v databázi. Která budou stejné jako nastavení DatabaseGenerated DatabaseGenerationOption.Identity. Pokud nechcete, aby to přijde klíč identity, můžete nastavit hodnotu na DatabaseGenerationOption.None.
+Řekli, která ve výchozím nastavení, klíčová vlastnost, která je celé číslo se stanou klíč identity v databázi. Která budou stejné jako nastavení DatabaseGenerated DatabaseGeneratedOption.Identity. Pokud nechcete, aby to přijde klíč identity, můžete nastavit hodnotu na DatabaseGeneratedOption.None.
 
  
 

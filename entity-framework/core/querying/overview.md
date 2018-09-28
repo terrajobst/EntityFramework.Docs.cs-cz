@@ -1,15 +1,15 @@
 ---
 title: Jak dotazuje Work – EF Core
 author: rowanmiller
-ms.date: 10/27/2016
+ms.date: 09/26/2018
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/overview
-ms.openlocfilehash: f1c23471bfbc998b2d4f9dc579d1404d6202e109
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 23d26f9c0ac17fc0df744f5339946947ea366911
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993200"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415728"
 ---
 # <a name="how-queries-work"></a>Jak fungují dotazy
 
@@ -45,4 +45,4 @@ Nejběžnější operace, jejichž výsledkem dotazů odesílaných do databáze
 * Vázání dat výsledků dotazu do uživatelského rozhraní
 
 > [!WARNING]  
-> **Vždy ověření vstupu uživatele:** při EF zajišťuje ochranu před útoky prostřednictvím injektáže SQL, není nutné žádné obecné ověření vstupu. Proto pokud hodnoty předávaný do rozhraní API, používat v dotazech LINQ, přiřazeno k vlastnosti entity, atd., pocházejí z nedůvěryhodných pak odpovídající ověření podle požadavků vaší aplikace, je třeba provést. To zahrnuje vstupu uživatele použít k vytvoření dotazů. I když se používá LINQ, pokud je přijímáte, že k sestavení výrazy, které potřebujete k Ujistěte se, že než pouze odpovídající výrazy lze sestavit vstup uživatele.
+> **Vždy ověření vstupu uživatele:** při EF Core chrání před útoky prostřednictvím injektáže SQL s použitím parametrů a uvození literály v dotazech, neověřuje při vstupy. Odpovídající ověření podle požadavků vaší aplikace, je třeba provést před použít v dotazech LINQ, přiřazená vlastností entity nebo předán pro jiná rozhraní API EF Core hodnoty z nedůvěryhodných zdrojů. To zahrnuje vstupu uživatele použít k vytvoření dotazů. I když se používá LINQ, pokud jsou přijímat uživatelský vstup k sestavení výrazy, budete muset Ujistěte se, že lze sestavit pouze odpovídající výrazy.

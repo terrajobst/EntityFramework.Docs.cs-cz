@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: a637e5e2f75e16bc7b11b1a51abcbe16274a1c75
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: fa1362c84cb1954360d337670fb5fef21e5cf165
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490765"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415741"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -56,3 +56,6 @@ Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `pro
   * Tato žádost o přijetí změn přidá konceptu `CanConnect` který budou používat ASP.NET Core stavu kontroly k určení, jestli je databáze k dispozici. Ve výchozím nastavení, relační implementace jen volá `Exist`, ale zprostředkovatelé můžete implementovat něco jiného v případě potřeby. Nerelační poskytovatelé muset implementovat nové rozhraní API v pořadí pro kontrolu stavu, který má být použitelná.
 * https://github.com/aspnet/EntityFrameworkCore/pull/13306 -Aktualizace základní RelationalTypeMapping nenastavovat DbParameter velikost
   * Zastavte, protože to může způsobit zkrácení nastavení velikosti ve výchozím nastavení. Poskytovatelé pravděpodobně nutné přidat své vlastní logiky, pokud velikost musí být nastavena.
+* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng: Vždy určete typ sloupce pro desítkové sloupce
+  * Vždy Konfigurujte typ sloupce pro desítkové sloupce automaticky generovaný kód, místo konfigurace podle konvence.
+  * Poskytovatelé, neměli byste potřebovat všechny změny na své straně.

@@ -3,12 +3,12 @@ title: Nastavení konfiguračního souboru - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
-ms.openlocfilehash: 949ad4f030205753c5fbf9b95f4d183d8c0d1fe7
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: faba4e406b9f26f5bed6149f75c59da362d84692
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490869"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415780"
 ---
 # <a name="configuration-file-settings"></a>Nastavení konfiguračního souboru
 Entity Framework umožňuje celou řadu nastavení zadané v konfiguračním souboru. Obecně EF následuje pravidlo "úmluva nad konfigurací": všechna nastavení popisovaná v tomto příspěvku upravit výchozí chování, stačí si dělat starosti se nastavení změní, když výchozí již splňuje vaše požadavky.  
@@ -153,7 +153,7 @@ Konfigurační oddíl umožňuje určit výchozí objekt factory připojení, Co
 
 Pokud jste nainstalovali balíček EF NuGet byl zaregistrován výchozí objekt factory připojení, která odkazuje na SQL Express nebo LocalDB, podle toho, která jste nainstalovali.  
 
-Pokud chcete nastavit objekt pro vytváření připojení, zadáte názvem typu kvalifikovaného sestavení v **deafultConnectionFactory** elementu.  
+Pokud chcete nastavit objekt pro vytváření připojení, zadáte názvem typu kvalifikovaného sestavení v **defaultConnectionFactory** elementu.  
 
 > [!NOTE]
 > Kvalifikovaný název sestavení je název kvalifikovaný obor názvů, za nímž následuje čárka, pak sestavení, který se typ nachází v. Volitelně můžete také určit sestavení verze, jazykovou verzi a token veřejného klíče.  

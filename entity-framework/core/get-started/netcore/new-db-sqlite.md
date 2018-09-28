@@ -6,12 +6,12 @@ description: Začínáme s .NET Core pomocí Entity Framework Core
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 69f7160cd82f2ec58e436a85369b52fe7c31040c
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: b30800afb63a51ab14aecb559dcc83fd89f71a71
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250306"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415767"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Začínáme s EF Core na aplikace konzoly .NET Core s novou databázi
 
@@ -77,7 +77,7 @@ Jakmile budete mít modelu, použijete [migrace](https://docs.microsoft.com/aspn
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Program.cs)]
 
-* Testování aplikace:
+* Testování aplikace z konzoly. Zobrazit [Poznámka: Visual Studio](#vs) ke spuštění aplikace ze sady Visual Studio.
 
   `dotnet run`
 
@@ -96,6 +96,20 @@ Jakmile budete mít modelu, použijete [migrace](https://docs.microsoft.com/aspn
 - Pokud provedete změny modelu, můžete použít `dotnet ef migrations add` příkaz scaffold nový [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations). Po zaškrtnutí automaticky generovaný kód (a všechny požadované změny), můžete použít `dotnet ef database update` příkaz pro použití schématu změn v databázi.
 - Používá EF Core `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, které již byly implementovány do databáze.
 - Databázový stroj SQLite nepodporuje některé změny schématu, které podporuje většina jiných relačních databází. Například `DropColumn` operace není podporována. Migrace EF Core dojde k vygenerování kódu pro tyto operace. Ale pokud se pokusíte použít na databázi nebo vygenerovat skript, EF Core vyvolá výjimky. Zobrazit [omezení SQLite](../../providers/sqlite/limitations.md). Pro nový vývoj zvažte vyřazení databáze a vytvořením nového spíš než migrace při změně modelu.
+- 
+
+<a name="vs"></a>
+
+### <a name="run-from-visual-studio"></a>Spustit ze sady Visual Studio
+
+Tuto ukázku spustit ze sady Visual Studio, musíte nastavit pracovní adresář ručně, aby se použije kořen projektu. Pokud nenastavíte pracovního adresáře a následující `Microsoft.Data.Sqlite.SqliteException` je vyvolána výjimka: `SQLite Error 1: 'no such table: Blogs'`.
+
+Chcete-li nastavit pracovní adresář:
+
+* V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a pak vyberte **vlastnosti**.
+* Vyberte **ladění** kartu v levém podokně.
+* Nastavte **pracovní adresář** k adresáři projektu.
+* Uložte změny.
 
 ## <a name="additional-resources"></a>Další prostředky
 
