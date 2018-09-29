@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: a77cab1544f18050edf7c8b01f1b4a72eed05b64
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 84e2e4bc1bdc774fa059fa893e0f8ac128931feb
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250943"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447180"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Začínáme s EF Core v ASP.NET Core s existující databáze
 
@@ -174,3 +174,9 @@ Nyní můžete spustit aplikaci sledujte v akci.
   ![Vytvoření stránky](_static/create.png)
 
   ![Indexová stránka](_static/index-existing-db.png)
+
+## <a name="next-steps"></a>Další kroky
+
+Další informace o tom, jak generování uživatelského rozhraní třídy kontextu a entity najdete v následujících článcích:
+* [Reference – rozhraní příkazového řádku .NET nástroje Entity Framework Core](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
+* [Referenční dokumentace nástrojů v Entity Framework Core - Konzola správce balíčků](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)
