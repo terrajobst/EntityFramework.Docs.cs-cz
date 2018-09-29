@@ -1,154 +1,259 @@
 ---
-title: Konzola správce balíčků (Visual Studio) – EF Core
+title: EF Core tools odkaz (konzola Správce balíčků) – EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/06/2017
-ms.openlocfilehash: 3d57a1665da2c94c55981d17e041b0ef74282496
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.date: 09/18/2018
+uid: core/miscellaneous/cli/powershell
+ms.openlocfilehash: cde3c1f75d33808259654dfd9e1de51e662e8092
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490847"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447193"
 ---
-<a name="ef-core-package-manager-console-tools"></a><span data-ttu-id="67db4-102">EF Core Package Manageru konzoly nástroje</span><span class="sxs-lookup"><span data-stu-id="67db4-102">EF Core Package Manager Console Tools</span></span>
-=====================================
-<span data-ttu-id="67db4-103">Nástroje EF Core Package Manageru konzoly (PMC) spuštění v aplikaci Visual Studio pomocí Nugetu [Konzola správce balíčků][2].</span><span class="sxs-lookup"><span data-stu-id="67db4-103">The EF Core Package Manager Console (PMC) Tools run inside of Visual Studio using NuGet's [Package Manager Console][2].</span></span>
-<span data-ttu-id="67db4-104">Tyto nástroje pracují s projekty rozhraní .NET Framework a .NET Core.</span><span class="sxs-lookup"><span data-stu-id="67db4-104">These tools work with both .NET Framework and .NET Core projects.</span></span>
+# <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a><span data-ttu-id="97123-102">Entity Framework Core tools reference - Konzola správce balíčků v sadě Visual Studio</span><span class="sxs-lookup"><span data-stu-id="97123-102">Entity Framework Core tools reference - Package Manager Console in Visual Studio</span></span>
 
-> [!TIP]
-> <span data-ttu-id="67db4-105">Bez použití sady Visual Studio?</span><span class="sxs-lookup"><span data-stu-id="67db4-105">Not using Visual Studio?</span></span> <span data-ttu-id="67db4-106">[Nástroje příkazového řádku EF Core] [ 1] jsou různé platformy a spusťte v příkazovém řádku.</span><span class="sxs-lookup"><span data-stu-id="67db4-106">The [EF Core Command-line Tools][1] are cross-platform and run inside a command prompt.</span></span>
+<span data-ttu-id="97123-103">Konzola správce balíčků (PMC) nástroje pro Entity Framework Core provádět úlohy vývojem během návrhu.</span><span class="sxs-lookup"><span data-stu-id="97123-103">The Package Manager Console (PMC) tools for Entity Framework Core perform design-time development tasks.</span></span> <span data-ttu-id="97123-104">Například vytvořit [migrace](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations)použít migrace a generovat kód pro model založený na existující databázi.</span><span class="sxs-lookup"><span data-stu-id="97123-104">For example, they create [migrations](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), apply migrations, and generate code for a model based on an existing database.</span></span> <span data-ttu-id="97123-105">Příkazy se spouští v rámci služby Visual Studio pomocí [Konzola správce balíčků](/nuget/tools/package-manager-console).</span><span class="sxs-lookup"><span data-stu-id="97123-105">The commands run inside of Visual Studio using the [Package Manager Console](/nuget/tools/package-manager-console).</span></span> <span data-ttu-id="97123-106">Tyto nástroje pracují s projekty rozhraní .NET Framework a .NET Core.</span><span class="sxs-lookup"><span data-stu-id="97123-106">These tools work with both .NET Framework and .NET Core projects.</span></span>
 
-<a name="installing-the-tools"></a><span data-ttu-id="67db4-107">Instalace nástrojů</span><span class="sxs-lookup"><span data-stu-id="67db4-107">Installing the tools</span></span>
---------------------
-<span data-ttu-id="67db4-108">Instaluje se balíček Microsoft.EntityFrameworkCore.Tools NuGet nainstalujte nástroje konzoly Správce balíčků EF Core.</span><span class="sxs-lookup"><span data-stu-id="67db4-108">Install the EF Core Package Manager Console Tools by installing the Microsoft.EntityFrameworkCore.Tools NuGet package.</span></span>
-<span data-ttu-id="67db4-109">Můžete jej nainstalovat spuštěním následujícího příkazu v [Konzola správce balíčků][2].</span><span class="sxs-lookup"><span data-stu-id="67db4-109">You can install it by executing the following command inside [Package Manager Console][2].</span></span>
+<span data-ttu-id="97123-107">Pokud nepoužíváte Visual Studio, doporučujeme [nástroje příkazového řádku EF Core](dotnet.md) místo.</span><span class="sxs-lookup"><span data-stu-id="97123-107">If you aren't using Visual Studio, we recommend the [EF Core Command-line Tools](dotnet.md) instead.</span></span> <span data-ttu-id="97123-108">Nástroje rozhraní příkazového řádku jsou různé platformy a spusťte v příkazovém řádku.</span><span class="sxs-lookup"><span data-stu-id="97123-108">The CLI tools are cross-platform and run inside a command prompt.</span></span>
+
+## <a name="installing-the-tools"></a><span data-ttu-id="97123-109">Instalace nástrojů</span><span class="sxs-lookup"><span data-stu-id="97123-109">Installing the tools</span></span>
+
+<span data-ttu-id="97123-110">Postupy pro instalaci a aktualizaci nástroje se liší mezi ASP.NET Core 2.1 + a starší verze nebo jiné typy projektů.</span><span class="sxs-lookup"><span data-stu-id="97123-110">The procedures for installing and updating the tools differ between ASP.NET Core 2.1+ and earlier versions or other project types.</span></span>
+
+### <a name="aspnet-core-version-21-and-later"></a><span data-ttu-id="97123-111">ASP.NET Core 2.1 nebo novější verze</span><span class="sxs-lookup"><span data-stu-id="97123-111">ASP.NET Core version 2.1 and later</span></span>
+
+<span data-ttu-id="97123-112">Nástroje jsou automaticky obsažené v projektu aplikace ASP.NET Core 2.1 +, protože `Microsoft.EntityFrameworkCore.Tools` je součástí balíčku [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](/aspnet/core/fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="97123-112">The tools are automatically included in an ASP.NET Core 2.1+ project because the `Microsoft.EntityFrameworkCore.Tools` package is included in the [Microsoft.AspNetCore.App metapackage](/aspnet/core/fundamentals/metapackage-app).</span></span>
+
+<span data-ttu-id="97123-113">Proto nemusíte dělat nic. instalace nástrojů, ale budete muset:</span><span class="sxs-lookup"><span data-stu-id="97123-113">Therefore, you don't have to do anything to install the tools, but you do have to:</span></span>
+* <span data-ttu-id="97123-114">Obnovení balíčků před použitím nástroje v novém projektu.</span><span class="sxs-lookup"><span data-stu-id="97123-114">Restore packages before using the tools in a new project.</span></span>
+* <span data-ttu-id="97123-115">Instalovat balíček aktualizace na novější verzi nástrojů.</span><span class="sxs-lookup"><span data-stu-id="97123-115">Install a package to update the tools to a newer version.</span></span>
+
+<span data-ttu-id="97123-116">Pokud chcete mít jistotu, že se zobrazuje nejnovější verzi nástrojů, doporučujeme také provést následující kroky:</span><span class="sxs-lookup"><span data-stu-id="97123-116">To make sure that you're getting the latest version of the tools, we recommend that you also do the following step:</span></span>
+
+* <span data-ttu-id="97123-117">Upravit vaše *.csproj* a přidejte řádek určující nejnovější verzi [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/) balíčku.</span><span class="sxs-lookup"><span data-stu-id="97123-117">Edit your *.csproj* file and add a line specifying the latest version of the [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/) package.</span></span> <span data-ttu-id="97123-118">Například *.csproj* může obsahovat soubor `ItemGroup` , která vypadá takto:</span><span class="sxs-lookup"><span data-stu-id="97123-118">For example, the *.csproj* file might include an `ItemGroup` that looks like this:</span></span>
+
+  ```xml
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+  </ItemGroup>
+  ```
+
+<span data-ttu-id="97123-119">Aktualizace nástrojů, když se zobrazí zpráva jako v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="97123-119">Update the tools when you get a message like the following example:</span></span>
+
+> <span data-ttu-id="97123-120">Verze nástrojů EF Core "2.1.1-rtm-30846" je starší než modul runtime "2.1.3-rtm-32065".</span><span class="sxs-lookup"><span data-stu-id="97123-120">The EF Core tools version '2.1.1-rtm-30846' is older than that of the runtime '2.1.3-rtm-32065'.</span></span> <span data-ttu-id="97123-121">Aktualizace nástrojů pro nejnovější funkce a opravy chyb.</span><span class="sxs-lookup"><span data-stu-id="97123-121">Update the tools for the latest features and bug fixes.</span></span>
+
+<span data-ttu-id="97123-122">Aktualizace nástrojů:</span><span class="sxs-lookup"><span data-stu-id="97123-122">To update the tools:</span></span>
+* <span data-ttu-id="97123-123">Instalace nejnovější .NET Core SDK.</span><span class="sxs-lookup"><span data-stu-id="97123-123">Install the latest .NET Core SDK.</span></span>
+* <span data-ttu-id="97123-124">Aktualizace na nejnovější verzi sady Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="97123-124">Update Visual Studio to the latest version.</span></span>
+* <span data-ttu-id="97123-125">Upravit *.csproj* souboru tak, že obsahují odkaz na balíček na nejnovější nástroje pro balíček, jak je uvedeno výše.</span><span class="sxs-lookup"><span data-stu-id="97123-125">Edit the *.csproj* file so that it includes a package reference to the latest tools package, as shown earlier.</span></span>
+
+### <a name="other-versions-and-project-types"></a><span data-ttu-id="97123-126">Jiné verze a typy projektů</span><span class="sxs-lookup"><span data-stu-id="97123-126">Other versions and project types</span></span>
+
+<span data-ttu-id="97123-127">Nainstalujte nástroje konzoly Správce balíčků spuštěním následujícího příkazu v **Konzola správce balíčků**:</span><span class="sxs-lookup"><span data-stu-id="97123-127">Install the Package Manager Console tools by running the following command in **Package Manager Console**:</span></span>
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
-<span data-ttu-id="67db4-110">Pokud vše funguje správně, je třeba spustit tento příkaz:</span><span class="sxs-lookup"><span data-stu-id="67db4-110">If everything worked correctly, you should be able to run this command:</span></span>
+<span data-ttu-id="97123-128">Aktualizace nástrojů spuštěním následujícího příkazu v **Konzola správce balíčků**.</span><span class="sxs-lookup"><span data-stu-id="97123-128">Update the tools by running the following command in **Package Manager Console**.</span></span>
+
+``` powershell
+Update-Package Microsoft.EntityFrameworkCore.Tools
+```
+
+### <a name="verify-the-installation"></a><span data-ttu-id="97123-129">Ověření instalace</span><span class="sxs-lookup"><span data-stu-id="97123-129">Verify the installation</span></span>
+
+<span data-ttu-id="97123-130">Ověřte, zda jsou nástroje nainstalovány spuštěním tohoto příkazu:</span><span class="sxs-lookup"><span data-stu-id="97123-130">Verify that the tools are installed by running this command:</span></span>
 
 ``` powershell
 Get-Help about_EntityFrameworkCore
 ```
-> [!TIP]
-> <span data-ttu-id="67db4-111">Pokud váš spouštěný projekt cílí na .NET Standard [zacílení podporované architektury] [ 3] před použitím nástroje.</span><span class="sxs-lookup"><span data-stu-id="67db4-111">If your startup project targets .NET Standard, [cross-target a supported framework][3] before using the tools.</span></span>
 
-> [!IMPORTANT]
-> <span data-ttu-id="67db4-112">Pokud používáte **Universal Windows** nebo **Xamarin**, přesuňte váš kód EF do knihovny tříd .NET Standard a [zacílení podporované architektury] [ 3] před použitím nástroje.</span><span class="sxs-lookup"><span data-stu-id="67db4-112">If you're using **Universal Windows** or **Xamarin**, move your EF code to a .NET Standard class library and [cross-target a supported framework][3] before using the tools.</span></span> <span data-ttu-id="67db4-113">Zadejte jako spouštěný projekt knihovny tříd.</span><span class="sxs-lookup"><span data-stu-id="67db4-113">Specify the class library as your startup project.</span></span>
+<span data-ttu-id="97123-131">Výstup vypadá takto (neříká je verze nástrojů, které používáte):</span><span class="sxs-lookup"><span data-stu-id="97123-131">The output looks like this (it doesn't tell you which version of the tools you're using):</span></span>
 
-<a name="using-the-tools"></a><span data-ttu-id="67db4-114">Pomocí nástrojů</span><span class="sxs-lookup"><span data-stu-id="67db4-114">Using the tools</span></span>
----------------
-<span data-ttu-id="67db4-115">Při každém vyvolání příkazu, existují dva projekty zahrnuté:</span><span class="sxs-lookup"><span data-stu-id="67db4-115">Whenever you invoke a command, there are two projects involved:</span></span>
+```console
 
-<span data-ttu-id="67db4-116">Cílový projekt je tam, kde se přidají všechny soubory (nebo v některých případech odebrána).</span><span class="sxs-lookup"><span data-stu-id="67db4-116">The target project is where any files are added (or in some cases removed).</span></span> <span data-ttu-id="67db4-117">Výchozí nastavení na cílový projekt **výchozí projekt** vybraný v konzole Správce balíčků, ale můžete také zadat pomocí parametru - projektu.</span><span class="sxs-lookup"><span data-stu-id="67db4-117">The target project defaults to the **Default project** selected in Package Manager Console, but can also be specified using the -Project parameter.</span></span>
+                     _/\__
+               ---==/    \\
+         ___  ___   |.    \|\
+        | __|| __|  |  )   \\\
+        | _| | _|   \_/ |  //|\\
+        |___||_|       /   \\\/\\
 
-<span data-ttu-id="67db4-118">Projekt po spuštění je emulován nástroji při spuštění kódu projektu.</span><span class="sxs-lookup"><span data-stu-id="67db4-118">The startup project is the one emulated by the tools when executing your project's code.</span></span> <span data-ttu-id="67db4-119">Použije se výchozí jeden **nastavit jako spouštěný projekt** v Průzkumníku řešení.</span><span class="sxs-lookup"><span data-stu-id="67db4-119">It defaults to one **Set as StartUp Project** in Solution Explorer.</span></span> <span data-ttu-id="67db4-120">Lze také určit pomocí parametru - výchozí projekt.</span><span class="sxs-lookup"><span data-stu-id="67db4-120">It can also be specified using the -StartupProject parameter.</span></span>
+TOPIC
+    about_EntityFrameworkCore
 
-<span data-ttu-id="67db4-121">Společné parametry:</span><span class="sxs-lookup"><span data-stu-id="67db4-121">Common parameters:</span></span>
+SHORT DESCRIPTION
+    Provides information about the Entity Framework Core Package Manager Console Tools.
 
-|                           |                             |
-|:--------------------------|:----------------------------|
-| <span data-ttu-id="67db4-122">-Kontextu \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-122">-Context \<String></span></span>        | <span data-ttu-id="67db4-123">Chcete-li použít uvolněn objekt DbContext.</span><span class="sxs-lookup"><span data-stu-id="67db4-123">The DbContext to use.</span></span>       |
-| <span data-ttu-id="67db4-124">-Projektu \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-124">-Project \<String></span></span>        | <span data-ttu-id="67db4-125">Projekt pro použití.</span><span class="sxs-lookup"><span data-stu-id="67db4-125">The project to use.</span></span>         |
-| <span data-ttu-id="67db4-126">– Výchozí projekt \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-126">-StartupProject \<String></span></span> | <span data-ttu-id="67db4-127">Použít spouštěný projekt.</span><span class="sxs-lookup"><span data-stu-id="67db4-127">The startup project to use.</span></span> |
-| <span data-ttu-id="67db4-128">-Verbose</span><span class="sxs-lookup"><span data-stu-id="67db4-128">-Verbose</span></span>                  | <span data-ttu-id="67db4-129">Zobrazit podrobný výstup.</span><span class="sxs-lookup"><span data-stu-id="67db4-129">Show verbose output.</span></span>        |
+<A list of available commands follows, omitted here.>
+```
 
-<span data-ttu-id="67db4-130">Chcete-li zobrazit nápovědu informace o příkazu, pomocí Powershellu `Get-Help` příkazu.</span><span class="sxs-lookup"><span data-stu-id="67db4-130">To show help information about a command, use PowerShell's `Get-Help` command.</span></span>
+## <a name="using-the-tools"></a><span data-ttu-id="97123-132">Pomocí nástrojů</span><span class="sxs-lookup"><span data-stu-id="97123-132">Using the tools</span></span>
 
-> [!TIP]
-> <span data-ttu-id="67db4-131">Parametry kontextu, projektu a výchozí projekt podporují rozšíření tab.</span><span class="sxs-lookup"><span data-stu-id="67db4-131">The Context, Project, and StartupProject parameters support tab-expansion.</span></span>
+<span data-ttu-id="97123-133">Před použitím nástroje:</span><span class="sxs-lookup"><span data-stu-id="97123-133">Before using the tools:</span></span>
+* <span data-ttu-id="97123-134">Pochopili rozdíl mezi cíl a spuštění projektu.</span><span class="sxs-lookup"><span data-stu-id="97123-134">Understand the difference between target and startup project.</span></span>
+* <span data-ttu-id="97123-135">Zjistěte, jak pomocí nástrojů pomocí knihovny tříd .NET Standard.</span><span class="sxs-lookup"><span data-stu-id="97123-135">Learn how to use the tools with .NET Standard class libraries.</span></span>
+* <span data-ttu-id="97123-136">Pro projekty ASP.NET Core nastavte prostředí.</span><span class="sxs-lookup"><span data-stu-id="97123-136">For ASP.NET Core projects, set the environment.</span></span>
 
-> [!TIP]
-> <span data-ttu-id="67db4-132">Nastavte **env:ASPNETCORE_ENVIRONMENT** před spuštěním zadat prostředí ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="67db4-132">Set **env:ASPNETCORE_ENVIRONMENT** before running to specify the ASP.NET Core environment.</span></span>
+### <a name="target-and-startup-project"></a><span data-ttu-id="97123-137">Cíl a spuštění projektu</span><span class="sxs-lookup"><span data-stu-id="97123-137">Target and startup project</span></span>
 
-<a name="commands"></a><span data-ttu-id="67db4-133">Příkazy</span><span class="sxs-lookup"><span data-stu-id="67db4-133">Commands</span></span>
---------
+<span data-ttu-id="97123-138">Příkazy odkazovat *projektu* a *spouštěný projekt*.</span><span class="sxs-lookup"><span data-stu-id="97123-138">The commands refer to a *project* and a *startup project*.</span></span>
 
-### <a name="add-migration"></a><span data-ttu-id="67db4-134">Přidat migrace</span><span class="sxs-lookup"><span data-stu-id="67db4-134">Add-Migration</span></span>
+* <span data-ttu-id="97123-139">*Projektu* se také označuje jako *cílový projekt* protože se jedná, kde příkazy přidávání nebo odebírání souborů.</span><span class="sxs-lookup"><span data-stu-id="97123-139">The *project* is also known as the *target project* because it's where the commands add or remove files.</span></span> <span data-ttu-id="97123-140">Ve výchozím nastavení **výchozí projekt** vybrané v **Konzola správce balíčků** je na cílový projekt.</span><span class="sxs-lookup"><span data-stu-id="97123-140">By default, the **Default project** selected in **Package Manager Console** is the target project.</span></span> <span data-ttu-id="97123-141">Můžete zadat jiný projekt jako cílový projekt pomocí <nobr> `--project` </nobr> možnost.</span><span class="sxs-lookup"><span data-stu-id="97123-141">You can specify a different project as target project by using the <nobr>`--project`</nobr> option.</span></span>
 
-<span data-ttu-id="67db4-135">Přidá novou migraci.</span><span class="sxs-lookup"><span data-stu-id="67db4-135">Adds a new migration.</span></span>
+* <span data-ttu-id="97123-142">*Spouštěný projekt* je ta, kterou nástroje pro sestavení a spuštění.</span><span class="sxs-lookup"><span data-stu-id="97123-142">The *startup project* is the one that the tools build and run.</span></span> <span data-ttu-id="97123-143">Nástroje třeba spustit kód aplikace v době návrhu a získat informace o projektu, jako je například připojovací řetězec databáze a konfigurace modelu.</span><span class="sxs-lookup"><span data-stu-id="97123-143">The tools have to execute application code at design time to get information about the project, such as the database connection string and the configuration of the model.</span></span> <span data-ttu-id="97123-144">Ve výchozím nastavení **spouštěný projekt** v **Průzkumníku řešení** je projekt po spuštění.</span><span class="sxs-lookup"><span data-stu-id="97123-144">By default, the **Startup Project** in **Solution Explorer** is the startup project.</span></span> <span data-ttu-id="97123-145">Můžete určit jiný projekt jako spouštěný projekt pomocí <nobr> `--startup-project` </nobr> možnost.</span><span class="sxs-lookup"><span data-stu-id="97123-145">You can specify a different project as startup project by using the <nobr>`--startup-project`</nobr> option.</span></span>
 
-<span data-ttu-id="67db4-136">Parametry:</span><span class="sxs-lookup"><span data-stu-id="67db4-136">Parameters:</span></span>
+<span data-ttu-id="97123-146">Projekt po spuštění a cílový projekt se často stejného projektu.</span><span class="sxs-lookup"><span data-stu-id="97123-146">The startup project and target project are often the same project.</span></span> <span data-ttu-id="97123-147">Typický scénář, kde jsou samostatné projekty je těchto případech:</span><span class="sxs-lookup"><span data-stu-id="97123-147">A typical scenario where they are separate projects is when:</span></span>
 
-|                                   |                                                                                                                  |
-|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <span data-ttu-id="67db4-137">***-Název*** \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-137">***-Name*** \<String></span></span>             | <span data-ttu-id="67db4-138">Název migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-138">The name of the migration.</span></span>                                                                                       |
-| <span data-ttu-id="67db4-139"><nobr>-OutputDir \<řetězec ></nobr></span><span class="sxs-lookup"><span data-stu-id="67db4-139"><nobr>-OutputDir \<String></nobr></span></span> | <span data-ttu-id="67db4-140">Adresáři (a v podřízeném oboru názvů) používat.</span><span class="sxs-lookup"><span data-stu-id="67db4-140">The directory (and sub-namespace) to use.</span></span> <span data-ttu-id="67db4-141">Cesty jsou relativní vzhledem k adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="67db4-141">Paths are relative to the project directory.</span></span> <span data-ttu-id="67db4-142">Výchozí hodnota je "Migrace".</span><span class="sxs-lookup"><span data-stu-id="67db4-142">Defaults to "Migrations".</span></span> |
+* <span data-ttu-id="97123-148">EF Core třídy kontextu a entity jsou v knihovně tříd .NET Core.</span><span class="sxs-lookup"><span data-stu-id="97123-148">The EF Core context and entity classes are in a .NET Core class library.</span></span>
+* <span data-ttu-id="97123-149">Aplikace konzoly .NET Core nebo webové aplikace odkazuje na knihovnu tříd.</span><span class="sxs-lookup"><span data-stu-id="97123-149">A .NET Core console app or web app references the class library.</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="67db4-143">Parametry v **tučné** jsou povinné a těch, které jsou v *Kurzíva* jsou poziční.</span><span class="sxs-lookup"><span data-stu-id="67db4-143">Parameters in **bold** are required, and ones in *italics* are positional.</span></span>
+<span data-ttu-id="97123-150">Je také možné [migrace kódu do knihovny tříd nezávisle na EF Core kontextu](xref:core/managing-schemas/migrations/projects).</span><span class="sxs-lookup"><span data-stu-id="97123-150">It's also possible to [put migrations code in a class library separate from the EF Core context](xref:core/managing-schemas/migrations/projects).</span></span>
 
-### <a name="drop-database"></a><span data-ttu-id="67db4-144">Odstranění databáze</span><span class="sxs-lookup"><span data-stu-id="67db4-144">Drop-Database</span></span>
+### <a name="other-target-frameworks"></a><span data-ttu-id="97123-151">Ostatní cílové platformy</span><span class="sxs-lookup"><span data-stu-id="97123-151">Other target frameworks</span></span>
 
-<span data-ttu-id="67db4-145">Zahodí databáze.</span><span class="sxs-lookup"><span data-stu-id="67db4-145">Drops the database.</span></span>
+<span data-ttu-id="97123-152">Konzola správce balíčků nástroje pracovat s projekty .NET Core nebo .NET Framework.</span><span class="sxs-lookup"><span data-stu-id="97123-152">The Package Manager Console tools work with .NET Core or .NET Framework projects.</span></span> <span data-ttu-id="97123-153">Nemusí mít aplikace, které mají modelu EF Core v knihovně tříd .NET Standard, .NET Core nebo .NET Framework projektu.</span><span class="sxs-lookup"><span data-stu-id="97123-153">Apps that have the EF Core model in a .NET Standard class library might not have a .NET Core or .NET Framework project.</span></span> <span data-ttu-id="97123-154">Například to platí pro aplikace Xamarin a univerzální platformu Windows.</span><span class="sxs-lookup"><span data-stu-id="97123-154">For example, this is true of Xamarin and Universal Windows Platform apps.</span></span> <span data-ttu-id="97123-155">V takovém případě můžete vytvořit .NET Core nebo .NET Framework projektu aplikace konzoly jehož jediným účelem je tak, aby fungoval jako projekt po spuštění pro nástroje.</span><span class="sxs-lookup"><span data-stu-id="97123-155">In such cases, you can create a .NET Core or .NET Framework console app project whose only purpose is to act as startup project for the tools.</span></span> <span data-ttu-id="97123-156">Projekt může být fiktivní projekt bez skutečné kódu &mdash; je pouze potřebných k poskytování cíl pro nástroje.</span><span class="sxs-lookup"><span data-stu-id="97123-156">The project can be a dummy project with no real code &mdash; it is only needed to provide a target for the tooling.</span></span>
 
-<span data-ttu-id="67db4-146">Parametry:</span><span class="sxs-lookup"><span data-stu-id="67db4-146">Parameters:</span></span>
+<span data-ttu-id="97123-157">Proč je fiktivní projektu vyžaduje?</span><span class="sxs-lookup"><span data-stu-id="97123-157">Why is a dummy project required?</span></span> <span data-ttu-id="97123-158">Jak už bylo zmíněno dříve, mají nástroje k provádění kódu aplikace v době návrhu.</span><span class="sxs-lookup"><span data-stu-id="97123-158">As mentioned earlier, the tools have to execute application code at design time.</span></span> <span data-ttu-id="97123-159">K tomu, které potřebují na využití modulu runtime .NET Core nebo .NET Framework.</span><span class="sxs-lookup"><span data-stu-id="97123-159">To do that, they need to use the .NET Core or .NET Framework runtime.</span></span> <span data-ttu-id="97123-160">Když v projektu, který cílí na .NET Core nebo .NET Framework je model EF Core, si půjčte nástroje EF Core runtime z projektu.</span><span class="sxs-lookup"><span data-stu-id="97123-160">When the EF Core model is in a project that targets .NET Core or .NET Framework, the EF Core tools borrow the runtime from the project.</span></span> <span data-ttu-id="97123-161">Nelze provést, pokud je model EF Core v knihovně tříd .NET Standard.</span><span class="sxs-lookup"><span data-stu-id="97123-161">They can't do that if the EF Core model is in a .NET Standard class library.</span></span> <span data-ttu-id="97123-162">.NET Standard není Skutečná implementace .NET; je specifikace sady rozhraní API, která musí podporovat implementace .NET.</span><span class="sxs-lookup"><span data-stu-id="97123-162">The .NET Standard is not an actual .NET implementation; it's a specification of a set of APIs that .NET implementations must support.</span></span> <span data-ttu-id="97123-163">Proto .NET Standard není dostatečná pro EF Core nástroje k provádění kódu aplikace.</span><span class="sxs-lookup"><span data-stu-id="97123-163">Therefore .NET Standard is not sufficient for the EF Core tools to execute application code.</span></span> <span data-ttu-id="97123-164">Fiktivní projekt, který vytvoříte pro použití jako spouštěný projekt obsahuje konkrétní cílovou platformu, do kterého nástroje můžete načíst knihovně tříd rozhraní .NET Standard.</span><span class="sxs-lookup"><span data-stu-id="97123-164">The dummy project you create to use as startup project provides a concrete target platform into which the tools can load the .NET Standard class library.</span></span> 
 
-|         |                                                          |
-|:--------|:---------------------------------------------------------|
-| <span data-ttu-id="67db4-147">-WhatIf</span><span class="sxs-lookup"><span data-stu-id="67db4-147">-WhatIf</span></span> | <span data-ttu-id="67db4-148">Zobrazit, které databáze bude vyřazena, ale ji.</span><span class="sxs-lookup"><span data-stu-id="67db4-148">Show which database would be dropped, but don't drop it.</span></span> |
+### <a name="aspnet-core-environment"></a><span data-ttu-id="97123-165">Prostředí ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="97123-165">ASP.NET Core environment</span></span>
 
-### <a name="get-dbcontext"></a><span data-ttu-id="67db4-149">Get-DbContext</span><span class="sxs-lookup"><span data-stu-id="67db4-149">Get-DbContext</span></span>
+<span data-ttu-id="97123-166">Chcete-li určit prostředí pro projekty ASP.NET Core, nastavte **env:ASPNETCORE_ENVIRONMENT** před spuštěním příkazů.</span><span class="sxs-lookup"><span data-stu-id="97123-166">To specify the environment for ASP.NET Core projects, set **env:ASPNETCORE_ENVIRONMENT** before running commands.</span></span>
 
-<span data-ttu-id="67db4-150">Získá informace o typu DbContext.</span><span class="sxs-lookup"><span data-stu-id="67db4-150">Gets information about a DbContext type.</span></span>
+## <a name="common-parameters"></a><span data-ttu-id="97123-167">Společné parametry</span><span class="sxs-lookup"><span data-stu-id="97123-167">Common parameters</span></span>
 
-### <a name="remove-migration"></a><span data-ttu-id="67db4-151">Remove migrace</span><span class="sxs-lookup"><span data-stu-id="67db4-151">Remove-Migration</span></span>
+<span data-ttu-id="97123-168">V následující tabulce jsou uvedeny parametry, které jsou společné pro všechny příkazy EF Core:</span><span class="sxs-lookup"><span data-stu-id="97123-168">The following table shows parameters that are common to all of the EF Core commands:</span></span>
 
-<span data-ttu-id="67db4-152">Odebere poslední migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-152">Removes the last migration.</span></span>
+| <span data-ttu-id="97123-169">Parametr</span><span class="sxs-lookup"><span data-stu-id="97123-169">Parameter</span></span>                 | <span data-ttu-id="97123-170">Popis</span><span class="sxs-lookup"><span data-stu-id="97123-170">Description</span></span>                                                                                                                                                                                                          |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span data-ttu-id="97123-171">-Kontextu \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-171">-Context \<String></span></span>        | <span data-ttu-id="97123-172">`DbContext` Třídu použít.</span><span class="sxs-lookup"><span data-stu-id="97123-172">The `DbContext` class to use.</span></span> <span data-ttu-id="97123-173">Název třídy pouze nebo plně kvalifikovaný s obory názvů.</span><span class="sxs-lookup"><span data-stu-id="97123-173">Class name only or fully qualified with namespaces.</span></span>  <span data-ttu-id="97123-174">Pokud je tento parametr vynechán, vyhledá EF Core třídy kontextu.</span><span class="sxs-lookup"><span data-stu-id="97123-174">If this parameter is omitted, EF Core finds the context class.</span></span> <span data-ttu-id="97123-175">Pokud existuje více tříd kontextu, tento parametr je povinný.</span><span class="sxs-lookup"><span data-stu-id="97123-175">If there are multiple context classes, this parameter is required.</span></span> |
+| <span data-ttu-id="97123-176">-Projektu \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-176">-Project \<String></span></span>        | <span data-ttu-id="97123-177">Cílový projekt.</span><span class="sxs-lookup"><span data-stu-id="97123-177">The target project.</span></span> <span data-ttu-id="97123-178">Pokud je tento parametr vynechán, **výchozí projekt** pro **Konzola správce balíčků** se používá jako cílový projekt.</span><span class="sxs-lookup"><span data-stu-id="97123-178">If this parameter is omitted, the **Default project** for **Package Manager Console** is used as the target project.</span></span>                                                                             |
+| <span data-ttu-id="97123-179">– Výchozí projekt \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-179">-StartupProject \<String></span></span> | <span data-ttu-id="97123-180">Spouštěný projekt.</span><span class="sxs-lookup"><span data-stu-id="97123-180">The startup project.</span></span> <span data-ttu-id="97123-181">Pokud je tento parametr vynechán, **spouštěný projekt** v **vlastnosti řešení** se používá jako cílový projekt.</span><span class="sxs-lookup"><span data-stu-id="97123-181">If this parameter is omitted, the **Startup project** in **Solution properties** is used as the target project.</span></span>                                                                                 |
+| <span data-ttu-id="97123-182">-Verbose</span><span class="sxs-lookup"><span data-stu-id="97123-182">-Verbose</span></span>                  | <span data-ttu-id="97123-183">Zobrazit podrobný výstup.</span><span class="sxs-lookup"><span data-stu-id="97123-183">Show verbose output.</span></span>                                                                                                                                                                                                 |
 
-<span data-ttu-id="67db4-153">Parametry:</span><span class="sxs-lookup"><span data-stu-id="67db4-153">Parameters:</span></span>
-
-|        |                                                              |
-|:-------|:-------------------------------------------------------------|
-| <span data-ttu-id="67db4-154">-Force</span><span class="sxs-lookup"><span data-stu-id="67db4-154">-Force</span></span> | <span data-ttu-id="67db4-155">Vrácení migrace, pokud byl použit k databázi.</span><span class="sxs-lookup"><span data-stu-id="67db4-155">Revert the migration if it has been applied to the database.</span></span> |
-
-### <a name="scaffold-dbcontext"></a><span data-ttu-id="67db4-156">Vygenerované uživatelské rozhraní DbContext</span><span class="sxs-lookup"><span data-stu-id="67db4-156">Scaffold-DbContext</span></span>
-
-<span data-ttu-id="67db4-157">Nástroj scaffold kontext databáze a entity typy pro databázi.</span><span class="sxs-lookup"><span data-stu-id="67db4-157">Scaffolds a DbContext and entity types for a database.</span></span>
-
-<span data-ttu-id="67db4-158">Parametry:</span><span class="sxs-lookup"><span data-stu-id="67db4-158">Parameters:</span></span>
-
-|                                          |                                                                                                  |
-|:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <span data-ttu-id="67db4-159"><nobr>***-Connection*** \<řetězec ></nobr></span><span class="sxs-lookup"><span data-stu-id="67db4-159"><nobr>***-Connection*** \<String></nobr></span></span> | <span data-ttu-id="67db4-160">Připojovací řetězec k databázi.</span><span class="sxs-lookup"><span data-stu-id="67db4-160">The connection string to the database.</span></span>                                                           |
-| <span data-ttu-id="67db4-161">***-Poskytovatel*** \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-161">***-Provider*** \<String></span></span>                | <span data-ttu-id="67db4-162">Zprostředkovatel k použití.</span><span class="sxs-lookup"><span data-stu-id="67db4-162">The provider to use.</span></span> <span data-ttu-id="67db4-163">(například Microsoft.EntityFrameworkCore.SqlServer)</span><span class="sxs-lookup"><span data-stu-id="67db4-163">(for example, Microsoft.EntityFrameworkCore.SqlServer)</span></span>                      |
-| <span data-ttu-id="67db4-164">-OutputDir \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-164">-OutputDir \<String></span></span>                     | <span data-ttu-id="67db4-165">Adresář, který se má vložit soubory.</span><span class="sxs-lookup"><span data-stu-id="67db4-165">The directory to put files in.</span></span> <span data-ttu-id="67db4-166">Cesty jsou relativní vzhledem k adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="67db4-166">Paths are relative to the project directory.</span></span>                      |
-| <span data-ttu-id="67db4-167">-ContextDir \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-167">-ContextDir \<String></span></span>                    | <span data-ttu-id="67db4-168">Adresář, který se má vložit DbContext.</span><span class="sxs-lookup"><span data-stu-id="67db4-168">The directory to put DbContext file in.</span></span> <span data-ttu-id="67db4-169">Cesty jsou relativní vzhledem k adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="67db4-169">Paths are relative to the project directory.</span></span>             |
-| <span data-ttu-id="67db4-170">-Kontextu \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-170">-Context \<String></span></span>                       | <span data-ttu-id="67db4-171">Název DbContext ke generování.</span><span class="sxs-lookup"><span data-stu-id="67db4-171">The name of the DbContext to generate.</span></span>                                                           |
-| <span data-ttu-id="67db4-172">-Schémata \<String [] ></span><span class="sxs-lookup"><span data-stu-id="67db4-172">-Schemas \<String[]></span></span>                     | <span data-ttu-id="67db4-173">Schémata tabulek ke generování typů entit pro.</span><span class="sxs-lookup"><span data-stu-id="67db4-173">The schemas of tables to generate entity types for.</span></span>                                              |
-| <span data-ttu-id="67db4-174">-Tabulky \<String [] ></span><span class="sxs-lookup"><span data-stu-id="67db4-174">-Tables \<String[]></span></span>                      | <span data-ttu-id="67db4-175">Tabulky pro typy entit pro generování.</span><span class="sxs-lookup"><span data-stu-id="67db4-175">The tables to generate entity types for.</span></span>                                                         |
-| <span data-ttu-id="67db4-176">-DataAnnotations</span><span class="sxs-lookup"><span data-stu-id="67db4-176">-DataAnnotations</span></span>                         | <span data-ttu-id="67db4-177">Atributy lze použijte ke konfiguraci modelu (Pokud je to možné).</span><span class="sxs-lookup"><span data-stu-id="67db4-177">Use attributes to configure the model (where possible).</span></span> <span data-ttu-id="67db4-178">Pokud tento parametr vynechán, použije se pouze rozhraní fluent API.</span><span class="sxs-lookup"><span data-stu-id="67db4-178">If omitted, only the fluent API is used.</span></span> |
-| <span data-ttu-id="67db4-179">-UseDatabaseNames</span><span class="sxs-lookup"><span data-stu-id="67db4-179">-UseDatabaseNames</span></span>                        | <span data-ttu-id="67db4-180">Použijte názvy tabulek a sloupců přímo z databáze.</span><span class="sxs-lookup"><span data-stu-id="67db4-180">Use table and column names directly from the database.</span></span>                                           |
-| <span data-ttu-id="67db4-181">-Force</span><span class="sxs-lookup"><span data-stu-id="67db4-181">-Force</span></span>                                   | <span data-ttu-id="67db4-182">Přepište existující soubory.</span><span class="sxs-lookup"><span data-stu-id="67db4-182">Overwrite existing files.</span></span>                                                                        |
-
-### <a name="script-migration"></a><span data-ttu-id="67db4-183">Skript migrace</span><span class="sxs-lookup"><span data-stu-id="67db4-183">Script-Migration</span></span>
-
-<span data-ttu-id="67db4-184">Vygeneruje skript SQL z migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-184">Generates a SQL script from migrations.</span></span>
-
-<span data-ttu-id="67db4-185">Parametry:</span><span class="sxs-lookup"><span data-stu-id="67db4-185">Parameters:</span></span>
-
-|                   |                                                                    |
-|:------------------|:-------------------------------------------------------------------|
-| <span data-ttu-id="67db4-186">*-Od* \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-186">*-From* \<String></span></span> | <span data-ttu-id="67db4-187">Počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="67db4-187">The starting migration.</span></span> <span data-ttu-id="67db4-188">Výchozí hodnota je 0 (výchozí databáze).</span><span class="sxs-lookup"><span data-stu-id="67db4-188">Defaults to 0 (the initial database).</span></span>      |
-| <span data-ttu-id="67db4-189">*-Na* \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-189">*-To* \<String></span></span>   | <span data-ttu-id="67db4-190">Dokončení migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-190">The ending migration.</span></span> <span data-ttu-id="67db4-191">Výchozí hodnota je poslední migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-191">Defaults to the last migration.</span></span>              |
-| <span data-ttu-id="67db4-192">-Idempotentní</span><span class="sxs-lookup"><span data-stu-id="67db4-192">-Idempotent</span></span>       | <span data-ttu-id="67db4-193">Generovat skript, který jde použít na databáze v libovolné migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-193">Generate a script that can be used on a database at any migration.</span></span> |
-| <span data-ttu-id="67db4-194">-Výstupní \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="67db4-194">-Output \<String></span></span> | <span data-ttu-id="67db4-195">Soubor pro zápis výsledek.</span><span class="sxs-lookup"><span data-stu-id="67db4-195">The file to write the result to.</span></span>                                   |
+<span data-ttu-id="97123-184">Chcete-li zobrazit nápovědu informace o příkazu, pomocí Powershellu `Get-Help` příkazu.</span><span class="sxs-lookup"><span data-stu-id="97123-184">To show help information about a command, use PowerShell's `Get-Help` command.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="67db4-196">Na, z, a podpora rozšíření tab výstupní parametry.</span><span class="sxs-lookup"><span data-stu-id="67db4-196">The To, From, and Output parameters support tab-expansion.</span></span>
+> <span data-ttu-id="97123-185">Parametry kontextu, projektu a výchozí projekt podporují rozšíření tab.</span><span class="sxs-lookup"><span data-stu-id="97123-185">The Context, Project, and StartupProject parameters support tab-expansion.</span></span>
 
-### <a name="update-database"></a><span data-ttu-id="67db4-197">Aktualizace databáze</span><span class="sxs-lookup"><span data-stu-id="67db4-197">Update-Database</span></span>
+## <a name="add-migration"></a><span data-ttu-id="97123-186">Přidat migrace</span><span class="sxs-lookup"><span data-stu-id="97123-186">Add-Migration</span></span>
 
-|                                     |                                                                                                |
-|:------------------------------------|:-----------------------------------------------------------------------------------------------|
-| <span data-ttu-id="67db4-198"><nobr>*– Migrace* \<řetězec ></nobr></span><span class="sxs-lookup"><span data-stu-id="67db4-198"><nobr>*-Migration* \<String></nobr></span></span> | <span data-ttu-id="67db4-199">Cíl migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-199">The target migration.</span></span> <span data-ttu-id="67db4-200">Pokud je "0", se vrátí zpět všechny migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-200">If '0', all migrations will be reverted.</span></span> <span data-ttu-id="67db4-201">Výchozí hodnota je poslední migrace.</span><span class="sxs-lookup"><span data-stu-id="67db4-201">Defaults to the last migration.</span></span> |
+<span data-ttu-id="97123-187">Přidá novou migraci.</span><span class="sxs-lookup"><span data-stu-id="97123-187">Adds a new migration.</span></span>
+
+<span data-ttu-id="97123-188">Parametry:</span><span class="sxs-lookup"><span data-stu-id="97123-188">Parameters:</span></span>
+
+| <span data-ttu-id="97123-189">Parametr</span><span class="sxs-lookup"><span data-stu-id="97123-189">Parameter</span></span>                         | <span data-ttu-id="97123-190">Popis</span><span class="sxs-lookup"><span data-stu-id="97123-190">Description</span></span>                                                                                                             |
+|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| <span data-ttu-id="97123-191"><nobr>-Název \<řetězec ><nobr></span><span class="sxs-lookup"><span data-stu-id="97123-191"><nobr>-Name \<String><nobr></span></span>       | <span data-ttu-id="97123-192">Název migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-192">The name of the migration.</span></span> <span data-ttu-id="97123-193">Toto je pozičních parametrů a je povinný.</span><span class="sxs-lookup"><span data-stu-id="97123-193">This is a positional parameter and is required.</span></span>                                              |
+| <span data-ttu-id="97123-194"><nobr>-OutputDir \<řetězec ></nobr></span><span class="sxs-lookup"><span data-stu-id="97123-194"><nobr>-OutputDir \<String></nobr></span></span> | <span data-ttu-id="97123-195">Adresáři (a v podřízeném oboru názvů) používat.</span><span class="sxs-lookup"><span data-stu-id="97123-195">The directory (and sub-namespace) to use.</span></span> <span data-ttu-id="97123-196">Cesty jsou relativní vzhledem k adresáři projektu cíl.</span><span class="sxs-lookup"><span data-stu-id="97123-196">Paths are relative to the target project directory.</span></span> <span data-ttu-id="97123-197">Výchozí hodnota je "Migrace".</span><span class="sxs-lookup"><span data-stu-id="97123-197">Defaults to "Migrations".</span></span> |
+
+## <a name="drop-database"></a><span data-ttu-id="97123-198">Odstranění databáze</span><span class="sxs-lookup"><span data-stu-id="97123-198">Drop-Database</span></span>
+
+<span data-ttu-id="97123-199">Zahodí databáze.</span><span class="sxs-lookup"><span data-stu-id="97123-199">Drops the database.</span></span>
+
+<span data-ttu-id="97123-200">Parametry:</span><span class="sxs-lookup"><span data-stu-id="97123-200">Parameters:</span></span>
+
+| <span data-ttu-id="97123-201">Parametr</span><span class="sxs-lookup"><span data-stu-id="97123-201">Parameter</span></span> | <span data-ttu-id="97123-202">Popis</span><span class="sxs-lookup"><span data-stu-id="97123-202">Description</span></span>                                                |
+|-----------|------------------------------------------------------------|
+| <span data-ttu-id="97123-203">-WhatIf</span><span class="sxs-lookup"><span data-stu-id="97123-203">-WhatIf</span></span>   | <span data-ttu-id="97123-204">Zobrazit, které databáze bude vyřazena, ale ji.</span><span class="sxs-lookup"><span data-stu-id="97123-204">Show which database would be dropped, but don't drop it.</span></span>   |
+
+## <a name="get-dbcontext"></a><span data-ttu-id="97123-205">Get-DbContext</span><span class="sxs-lookup"><span data-stu-id="97123-205">Get-DbContext</span></span>
+
+<span data-ttu-id="97123-206">Seznamy, které jsou k dispozici `DbContext` typy.</span><span class="sxs-lookup"><span data-stu-id="97123-206">Lists available `DbContext` types.</span></span>
+
+## <a name="remove-migration"></a><span data-ttu-id="97123-207">Remove migrace</span><span class="sxs-lookup"><span data-stu-id="97123-207">Remove-Migration</span></span>
+
+<span data-ttu-id="97123-208">Odebere poslední migrace (vrátí zpět změny kódu, které jste dokončili migraci).</span><span class="sxs-lookup"><span data-stu-id="97123-208">Removes the last migration (rolls back the code changes that were done for the migration).</span></span> 
+
+<span data-ttu-id="97123-209">Parametry:</span><span class="sxs-lookup"><span data-stu-id="97123-209">Parameters:</span></span>
+
+| <span data-ttu-id="97123-210">Parametr</span><span class="sxs-lookup"><span data-stu-id="97123-210">Parameter</span></span> | <span data-ttu-id="97123-211">Popis</span><span class="sxs-lookup"><span data-stu-id="97123-211">Description</span></span>                                                                     |
+|-----------|---------------------------------------------------------------------------------|
+| <span data-ttu-id="97123-212">-Force</span><span class="sxs-lookup"><span data-stu-id="97123-212">-Force</span></span>    | <span data-ttu-id="97123-213">Vrácení migrace (vrátit zpět změny, které byly použity k databázi).</span><span class="sxs-lookup"><span data-stu-id="97123-213">Revert the migration (roll back the changes that were applied to the database).</span></span> |
+
+## <a name="scaffold-dbcontext"></a><span data-ttu-id="97123-214">Vygenerované uživatelské rozhraní DbContext</span><span class="sxs-lookup"><span data-stu-id="97123-214">Scaffold-DbContext</span></span>
+
+<span data-ttu-id="97123-215">Generuje kód `DbContext` a typy entit pro databázi.</span><span class="sxs-lookup"><span data-stu-id="97123-215">Generates code for a `DbContext` and entity types for a database.</span></span>
+
+<span data-ttu-id="97123-216">Parametry:</span><span class="sxs-lookup"><span data-stu-id="97123-216">Parameters:</span></span>
+
+| <span data-ttu-id="97123-217">Parametr</span><span class="sxs-lookup"><span data-stu-id="97123-217">Parameter</span></span>                                  | <span data-ttu-id="97123-218">Popis</span><span class="sxs-lookup"><span data-stu-id="97123-218">Description</span></span>                                                                                                                                                                                                                                                             |
+|--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span data-ttu-id="97123-219"><nobr>-Connection \<řetězec ></nobr></span><span class="sxs-lookup"><span data-stu-id="97123-219"><nobr>-Connection \<String></nobr></span></span>         | <span data-ttu-id="97123-220">Připojovací řetězec k databázi.</span><span class="sxs-lookup"><span data-stu-id="97123-220">The connection string to the database.</span></span> <span data-ttu-id="97123-221">Pro projekty ASP.NET Core 2.x, může být hodnota *název =\<název připojovacího řetězce >*.</span><span class="sxs-lookup"><span data-stu-id="97123-221">For ASP.NET Core 2.x projects, the value can be *name=\<name of connection string>*.</span></span> <span data-ttu-id="97123-222">Název v tomto případě pochází ze zdroje konfigurace, které jsou nastavené pro projekt.</span><span class="sxs-lookup"><span data-stu-id="97123-222">In that case the name comes from the configuration sources that are set up for the project.</span></span> <span data-ttu-id="97123-223">Toto je pozičních parametrů a je povinný.</span><span class="sxs-lookup"><span data-stu-id="97123-223">This is a positional parameter and is required.</span></span> |
+| <span data-ttu-id="97123-224"><nobr>-Poskytovatel \<řetězec ></nobr></span><span class="sxs-lookup"><span data-stu-id="97123-224"><nobr>-Provider \<String></nobr></span></span>           | <span data-ttu-id="97123-225">Zprostředkovatel k použití.</span><span class="sxs-lookup"><span data-stu-id="97123-225">The provider to use.</span></span> <span data-ttu-id="97123-226">Obvykle jde o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`.</span><span class="sxs-lookup"><span data-stu-id="97123-226">Typically this is the name of the NuGet package, for example: `Microsoft.EntityFrameworkCore.SqlServer`.</span></span> <span data-ttu-id="97123-227">Toto je pozičních parametrů a je povinný.</span><span class="sxs-lookup"><span data-stu-id="97123-227">This is a positional parameter and is required.</span></span>                                                                                           |
+| <span data-ttu-id="97123-228">-OutputDir \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-228">-OutputDir \<String></span></span>                       | <span data-ttu-id="97123-229">Adresář, který se má vložit soubory.</span><span class="sxs-lookup"><span data-stu-id="97123-229">The directory to put files in.</span></span> <span data-ttu-id="97123-230">Cesty jsou relativní vzhledem k adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="97123-230">Paths are relative to the project directory.</span></span>                                                                                                                                                                                             |
+| <span data-ttu-id="97123-231">-ContextDir \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-231">-ContextDir \<String></span></span>                      | <span data-ttu-id="97123-232">Adresář, který chcete vložit `DbContext` v souboru.</span><span class="sxs-lookup"><span data-stu-id="97123-232">The directory to put the `DbContext` file in.</span></span> <span data-ttu-id="97123-233">Cesty jsou relativní vzhledem k adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="97123-233">Paths are relative to the project directory.</span></span>                                                                                                                                                                              |
+| <span data-ttu-id="97123-234">-Kontextu \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-234">-Context \<String></span></span>                         | <span data-ttu-id="97123-235">Název `DbContext` k vygenerování.</span><span class="sxs-lookup"><span data-stu-id="97123-235">The name of the `DbContext` class to generate.</span></span>                                                                                                                                                                                                                          |
+| <span data-ttu-id="97123-236">-Schémata \<String [] ></span><span class="sxs-lookup"><span data-stu-id="97123-236">-Schemas \<String[]></span></span>                       | <span data-ttu-id="97123-237">Schémata tabulek ke generování typů entit pro.</span><span class="sxs-lookup"><span data-stu-id="97123-237">The schemas of tables to generate entity types for.</span></span> <span data-ttu-id="97123-238">Pokud je tento parametr vynechán, jsou všechna schémata zahrnuty.</span><span class="sxs-lookup"><span data-stu-id="97123-238">If this parameter is omitted, all schemas are included.</span></span>                                                                                                                                                             |
+| <span data-ttu-id="97123-239">-Tabulky \<String [] ></span><span class="sxs-lookup"><span data-stu-id="97123-239">-Tables \<String[]></span></span>                        | <span data-ttu-id="97123-240">Tabulky pro typy entit pro generování.</span><span class="sxs-lookup"><span data-stu-id="97123-240">The tables to generate entity types for.</span></span> <span data-ttu-id="97123-241">Pokud je tento parametr vynechán, budou zahrnuty všechny tabulky.</span><span class="sxs-lookup"><span data-stu-id="97123-241">If this parameter is omitted, all tables are included.</span></span>                                                                                                                                                                         |
+| <span data-ttu-id="97123-242">-DataAnnotations</span><span class="sxs-lookup"><span data-stu-id="97123-242">-DataAnnotations</span></span>                           | <span data-ttu-id="97123-243">Atributy lze použijte ke konfiguraci modelu (Pokud je to možné).</span><span class="sxs-lookup"><span data-stu-id="97123-243">Use attributes to configure the model (where possible).</span></span> <span data-ttu-id="97123-244">Pokud je tento parametr vynechán, použije se pouze rozhraní fluent API.</span><span class="sxs-lookup"><span data-stu-id="97123-244">If this parameter is omitted, only the fluent API is used.</span></span>                                                                                                                                                      |
+| <span data-ttu-id="97123-245">-UseDatabaseNames</span><span class="sxs-lookup"><span data-stu-id="97123-245">-UseDatabaseNames</span></span>                          | <span data-ttu-id="97123-246">Použijte názvy tabulek a sloupců přesně tak, jak jsou uvedeny v databázi.</span><span class="sxs-lookup"><span data-stu-id="97123-246">Use table and column names exactly as they appear in the database.</span></span> <span data-ttu-id="97123-247">Pokud je tento parametr vynechán, aby lépe odpovídaly konvence stylu název jazyka C# změna názvů databáze.</span><span class="sxs-lookup"><span data-stu-id="97123-247">If this parameter is omitted, database names are changed to more closely conform to C# name style conventions.</span></span>                                                                                       |
+| <span data-ttu-id="97123-248">-Force</span><span class="sxs-lookup"><span data-stu-id="97123-248">-Force</span></span>                                     | <span data-ttu-id="97123-249">Přepište existující soubory.</span><span class="sxs-lookup"><span data-stu-id="97123-249">Overwrite existing files.</span></span>                                                                                                                                                                                                                                               |
+
+<span data-ttu-id="97123-250">Příklad:</span><span class="sxs-lookup"><span data-stu-id="97123-250">Example:</span></span>
+
+```powershell
+Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+```
+
+<span data-ttu-id="97123-251">Příklad, který se vygeneruje pouze uživatelské rozhraní vybraných tabulek a vytvoří kontext do samostatné složky se zadaným názvem:</span><span class="sxs-lookup"><span data-stu-id="97123-251">Example that scaffolds only selected tables and creates the context in a separate folder with a specified name:</span></span>
+
+```powershell
+Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext
+```
+
+## <a name="script-migration"></a><span data-ttu-id="97123-252">Skript migrace</span><span class="sxs-lookup"><span data-stu-id="97123-252">Script-Migration</span></span>
+
+<span data-ttu-id="97123-253">Vygeneruje skript SQL, která se použije všechny změny z jednoho vybraného migrace do jiného vybrané migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-253">Generates a SQL script that applies all of the changes from one selected migration to another selected migration.</span></span>
+
+<span data-ttu-id="97123-254">Parametry:</span><span class="sxs-lookup"><span data-stu-id="97123-254">Parameters:</span></span>
+
+| <span data-ttu-id="97123-255">Parametr</span><span class="sxs-lookup"><span data-stu-id="97123-255">Parameter</span></span>           | <span data-ttu-id="97123-256">Popis</span><span class="sxs-lookup"><span data-stu-id="97123-256">Description</span></span>                                                                                                                                                                                                                |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span data-ttu-id="97123-257">*-Od* \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-257">*-From* \<String></span></span>   | <span data-ttu-id="97123-258">Počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="97123-258">The starting migration.</span></span> <span data-ttu-id="97123-259">Migrace může identifikovat podle názvu nebo podle ID.</span><span class="sxs-lookup"><span data-stu-id="97123-259">Migrations may be identified by name or by ID.</span></span> <span data-ttu-id="97123-260">Zvláštní případ, který znamená, že je číslo 0 *před první migraci*.</span><span class="sxs-lookup"><span data-stu-id="97123-260">The number 0 is a special case that means *before the first migration*.</span></span> <span data-ttu-id="97123-261">Výchozí hodnota je 0.</span><span class="sxs-lookup"><span data-stu-id="97123-261">Defaults to 0.</span></span>                                                              |
+| <span data-ttu-id="97123-262">*-Na* \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-262">*-To* \<String></span></span>     | <span data-ttu-id="97123-263">Dokončení migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-263">The ending migration.</span></span> <span data-ttu-id="97123-264">Výchozí hodnota je poslední migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-264">Defaults to the last migration.</span></span>                                                                                                                                                                      |
+| <span data-ttu-id="97123-265"><nobr>-Idempotentní</nobr></span><span class="sxs-lookup"><span data-stu-id="97123-265"><nobr>-Idempotent</nobr></span></span>         | <span data-ttu-id="97123-266">Generovat skript, který jde použít na databáze v libovolné migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-266">Generate a script that can be used on a database at any migration.</span></span>                                                                                                                                                         |
+| <span data-ttu-id="97123-267">-Výstupní \<řetězec ></span><span class="sxs-lookup"><span data-stu-id="97123-267">-Output \<String></span></span>   | <span data-ttu-id="97123-268">Soubor pro zápis výsledek.</span><span class="sxs-lookup"><span data-stu-id="97123-268">The file to write the result to.</span></span> <span data-ttu-id="97123-269">Pokud je tento parametr vynechán, soubor je vytvořen s vygenerovaným názvem ve stejné složce jako soubory modulu runtime aplikace se vytvářejí, například: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*.</span><span class="sxs-lookup"><span data-stu-id="97123-269">IF this parameter is omitted, the file is created with a generated name in the same folder as the app's runtime files are created, for example: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*.</span></span> |
 
 > [!TIP]
-> <span data-ttu-id="67db4-202">Parametr migrace podporuje rozšíření tab.</span><span class="sxs-lookup"><span data-stu-id="67db4-202">The Migration parameter supports tab-expansion.</span></span>
+> <span data-ttu-id="97123-270">Na, z, a podpora rozšíření tab výstupní parametry.</span><span class="sxs-lookup"><span data-stu-id="97123-270">The To, From, and Output parameters support tab-expansion.</span></span>
 
+<span data-ttu-id="97123-271">Následující příklad vytvoří skript pro migraci InitialCreate, pomocí názvu migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-271">The following example creates a script for the InitialCreate migration, using the migration name.</span></span>
 
-  [1]: dotnet.md
-  [2]: https://docs.microsoft.com/nuget/tools/package-manager-console
-  [3]: index.md#frameworks
+```powershell
+Script-Migration -To InitialCreate
+```
+
+<span data-ttu-id="97123-272">Následující příklad vytvoří skript pro všechny migrace po dokončení migrace InitialCreate pomocí ID migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-272">The following example creates a script for all migrations after the InitialCreate migration, using the migration ID.</span></span>
+
+```powershell
+Script-Migration -From 20180904195021_InitialCreate
+```
+
+## <a name="update-database"></a><span data-ttu-id="97123-273">Aktualizace databáze</span><span class="sxs-lookup"><span data-stu-id="97123-273">Update-Database</span></span>
+
+<span data-ttu-id="97123-274">Aktualizace databáze na poslední migraci nebo zadaný migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-274">Updates the database to the last migration or to a specified migration.</span></span>
+
+| <span data-ttu-id="97123-275">Parametr</span><span class="sxs-lookup"><span data-stu-id="97123-275">Parameter</span></span>                             | <span data-ttu-id="97123-276">Popis</span><span class="sxs-lookup"><span data-stu-id="97123-276">Description</span></span>                                                                                                                                                                                                                                                     |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span data-ttu-id="97123-277"><nobr>*– Migrace* \<řetězec ></nobr></span><span class="sxs-lookup"><span data-stu-id="97123-277"><nobr>*-Migration* \<String></nobr></span></span>   | <span data-ttu-id="97123-278">Cíl migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-278">The target migration.</span></span> <span data-ttu-id="97123-279">Migrace může identifikovat podle názvu nebo podle ID.</span><span class="sxs-lookup"><span data-stu-id="97123-279">Migrations may be identified by name or by ID.</span></span> <span data-ttu-id="97123-280">Zvláštní případ, který znamená, že je číslo 0 *před první migraci* a způsobí, že všechny migrace se vrátí zpátky.</span><span class="sxs-lookup"><span data-stu-id="97123-280">The number 0 is a special case that means *before the first migration* and causes all migrations to be reverted.</span></span> <span data-ttu-id="97123-281">Pokud není zadána žádná migrace, výchozí příkaz na poslední migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-281">If no migration is specified, the command defaults to the last migration.</span></span> |
+
+> [!TIP]
+> <span data-ttu-id="97123-282">Parametr migrace podporuje rozšíření tab.</span><span class="sxs-lookup"><span data-stu-id="97123-282">The Migration parameter supports tab-expansion.</span></span>
+
+<span data-ttu-id="97123-283">Následující příklad vrátí všechny migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-283">The following example reverts all migrations.</span></span>
+
+```powershell
+Update-Database -Migration 0
+```
+
+<span data-ttu-id="97123-284">Následující příklady aktualizujte databázi na zadané migrace.</span><span class="sxs-lookup"><span data-stu-id="97123-284">The following examples update the database to a specified migration.</span></span> <span data-ttu-id="97123-285">Název migrace používá první a druhé používá ID migrace:</span><span class="sxs-lookup"><span data-stu-id="97123-285">The first uses the migration name and the second uses the migration ID:</span></span>
+
+```powershell
+Update-Database -Migration InitialCreate
+Update-Database -Migration 20180904195021_InitialCreate
+```
