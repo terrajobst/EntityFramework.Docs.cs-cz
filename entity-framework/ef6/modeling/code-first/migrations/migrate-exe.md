@@ -3,12 +3,12 @@ title: Pomocí migrate.exe - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
-ms.openlocfilehash: 6e9880523bbcf2fe55390a447241e59723a0967f
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: cf6c3a0a256730b24addf1012d6ff53b17035cd4
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490212"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459536"
 ---
 # <a name="using-migrateexe"></a>Pomocí migrate.exe
 Migrace Code First lze použít k aktualizaci databáze ze sady visual Studio, ale mohou být provedeny také prostřednictvím migrate.exe nástroj příkazového řádku. Tato stránka vám poskytne rychlý přehled o tom, jak používat migrate.exe k provedení migrace ve srovnání s databází.
@@ -24,9 +24,9 @@ Jakmile budete mít migrate.exe musíte zkopírovat do umístění sestavení, k
 
 Pokud vaše aplikace cílí na rozhraní .NET 4, a ne 4.5, pak budete muset zkopírovat **Redirect.config** na místo jako kontejneru a přejmenujte jej **migrate.exe.config**. Je to tak, aby migrate.exe získá správnou vazbu přesměrování být schopna najít sestavení rozhraní Entity Framework.
 
-| .NET 4.5                                   | ROZHRANÍ .NET 4.0                                   |
-|:-------------------------------------------|:-------------------------------------------|
-| ![Soubory rozhraní .NET 4.5](~/ef6/media/net45files.png)  | ![Soubory rozhraní .NET 4.0](~/ef6/media/net40files.png)  |
+| .NET 4.5                                      | ROZHRANÍ .NET 4.0                                      |
+|:----------------------------------------------|:----------------------------------------------|
+| ![Soubory rozhraní .NET 4.5](~/ef6/media/net45files.png) | ![Soubory rozhraní .NET 4.0](~/ef6/media/net40files.png) |
 
 > [!NOTE]
 > Migrate.exe nepodporuje x64 sestavení.

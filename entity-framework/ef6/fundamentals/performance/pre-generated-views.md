@@ -3,19 +3,19 @@ title: Zobrazení mapování předem generovaného - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-ms.openlocfilehash: da5d59ba5a899a0ee3a1eec3db0da1b4ece871d8
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 1fda9fe9638adce9b24a6b81aa081effeb0def81
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284106"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459523"
 ---
 # <a name="pre-generated-mapping-views"></a>Zobrazení předem generovaného mapování
 Entity Framework mohli spustit dotaz nebo uložit změny do zdroje dat, musíte vygenerovat sadu zobrazení mapování pro přístup k databázi. Tato mapování zobrazení jsou sady Entity SQL příkazu, který abstraktní jak reprezentaci databáze a část metadata, která se uloží do mezipaměti pro doménu aplikace. Pokud vytvoříte více instancí stejného kontextu ve stejné doméně aplikace, bude znovu použít zobrazení mapování ze metadata uložená v mezipaměti místo jejich obnovení. Protože generování zobrazení mapování je podstatnou část celkové náklady na provedení první dotaz, Entity Framework umožňuje předběžně generovat zobrazení mapování a zahrnout je do kompilované projektu. Další informace najdete v tématu [důležité informace o výkonu (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md).
 
-## <a name="generating-mapping-views-with-the-ef-power-tools"></a>Generuje se mapování zobrazení s EF Power Tools
+## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>Generuje se mapování zobrazení s EF Power Tools Community Edition
 
-Nejjednodušší způsob, jak předem vygenerovat zobrazení je použít [EF Power Tools](https://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d). Jakmile budete mít nainstalované nástroje Power budete mít možnost nabídky generovat zobrazení, jak je uvedeno níže.
+Nejjednodušší způsob, jak předem vygenerovat zobrazení je použít [EF Power Tools Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition). Jakmile budete mít nainstalované nástroje Power budete mít možnost nabídky generovat zobrazení, jak je uvedeno níže.
 
 -   Pro **Code First** modelů klikněte pravým tlačítkem na soubor kódu, který obsahuje vaše třídy DbContext.
 -   Pro **EF designeru** modelů klikněte pravým tlačítkem na soubor EDMX.

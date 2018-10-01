@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/20/2018
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: a280aad0344a89c41c30be27a249df3c28c44c70
-ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
+ms.openlocfilehash: fad64c692273f58580c4b986e10f481402a222d8
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/28/2018
-ms.locfileid: "47447167"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459552"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Reference – rozhraní příkazového řádku .NET nástroje Entity Framework Core
 
@@ -39,17 +39,17 @@ Postup instalace závisí na typu projektu a verzi:
 
 * Nainstalujte aktuální [.NET Core SDK](https://www.microsoft.com/net/download/core). Sada SDK musí být nainstalovaný, i v případě, že máte nejnovější verzi sady Visual Studio 2017.
 
-* Nainstalujte nejnovější stabilní verze `Microsoft.EntityFrameworkCore.Design` balíčku. 
+* Nainstalujte nejnovější stabilní verze `Microsoft.EntityFrameworkCore.Design` balíčku.
 
-  ``` Console   
-  dotnet add package Microsoft.EntityFrameworkCore.Design   
+  ``` Console
+  dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
 ### <a name="ef-core-1x"></a>EF Core 1.x
 
 * Instalace .NET Core SDK verze 2.1.200. Novější verze nejsou kompatibilní s nástrojů rozhraní příkazového řádku pro EF Core 1.0 a 1.1.
 
-* Konfigurace aplikace pro použití 2.1.200 verze sady SDK tak, že upravíte jeho [global.json](/dotnet/core/tools/global-json) souboru. Tento soubor je obvykle součástí adresář řešení (jedna nad projektu). 
+* Konfigurace aplikace pro použití 2.1.200 verze sady SDK tak, že upravíte jeho [global.json](/dotnet/core/tools/global-json) souboru. Tento soubor je obvykle součástí adresář řešení (jedna nad projektu).
 
 * Upravte soubor projektu a přidejte `Microsoft.EntityFrameworkCore.Tools.DotNet` jako `DotNetCliToolReference` položky. Nejnovější verzi 1.x, zadejte například: 1.1.6. Podívejte se na příklad souboru projektu na konci této části.
 
@@ -129,7 +129,7 @@ Je také možné [migrace kódu do knihovny tříd nezávisle na EF Core kontext
 
 Nástroje rozhraní příkazového řádku pracovat s projekty .NET Core a projekty rozhraní .NET Framework. Nemusí mít aplikace, které mají modelu EF Core v knihovně tříd .NET Standard, .NET Core nebo .NET Framework projektu. Například to platí pro aplikace Xamarin a univerzální platformu Windows. V takovém případě můžete vytvořit projekt konzolové aplikace .NET Core, jehož jediným účelem je tak, aby fungoval jako projekt po spuštění pro nástroje. Projekt může být fiktivní projekt bez skutečné kódu &mdash; je pouze potřebných k poskytování cíl pro nástroje.
 
-Proč je fiktivní projektu vyžaduje? Jak už bylo zmíněno dříve, mají nástroje k provádění kódu aplikace v době návrhu. K tomu, které potřebují na využití modulu runtime .NET Core. Když v projektu, který cílí na .NET Core nebo .NET Framework je model EF Core, si půjčte nástroje EF Core runtime z projektu. Nelze provést, pokud je model EF Core v knihovně tříd .NET Standard. .NET Standard není Skutečná implementace .NET; je specifikace sady rozhraní API, která musí podporovat implementace .NET. Proto .NET Standard není dostatečná pro EF Core nástroje k provádění kódu aplikace. Fiktivní projekt, který vytvoříte pro použití jako spouštěný projekt obsahuje konkrétní cílovou platformu, do kterého nástroje můžete načíst knihovně tříd rozhraní .NET Standard. 
+Proč je fiktivní projektu vyžaduje? Jak už bylo zmíněno dříve, mají nástroje k provádění kódu aplikace v době návrhu. K tomu, které potřebují na využití modulu runtime .NET Core. Když v projektu, který cílí na .NET Core nebo .NET Framework je model EF Core, si půjčte nástroje EF Core runtime z projektu. Nelze provést, pokud je model EF Core v knihovně tříd .NET Standard. .NET Standard není Skutečná implementace .NET; je specifikace sady rozhraní API, která musí podporovat implementace .NET. Proto .NET Standard není dostatečná pro EF Core nástroje k provádění kódu aplikace. Fiktivní projekt, který vytvoříte pro použití jako spouštěný projekt obsahuje konkrétní cílovou platformu, do kterého nástroje můžete načíst knihovně tříd rozhraní .NET Standard.
 
 ### <a name="aspnet-core-environment"></a>Prostředí ASP.NET Core
 
@@ -137,19 +137,19 @@ Chcete-li určit prostředí pro projekty ASP.NET Core, nastavte **ASPNETCORE_EN
 
 ## <a name="common-options"></a>Společné možnosti
 
-|                   | Možnost                             | Popis                                                                                                                                                                                                                                                   |
-|-------------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|                   | `--json`                           | Zobrazit výstup ve formátu JSON.                                                                                                                                                                                                                                             |
-| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`            | `DbContext` Třídu použít. Název třídy pouze nebo plně kvalifikovaný s obory názvů.  Pokud je tento parametr vynechán, EF Core najdete třídy kontextu. Pokud existuje více tříd kontextu, tato možnost je vyžadována.                                            |
-| `-p`              | `--project <PROJECT>`              | Relativní cesta ke složce projektu na cílový projekt.  Výchozí hodnota je do aktuální složky.                                                                                                                                                              |
-| `-s`              | `--startup-project <PROJECT>`      | Relativní cesta ke složce projektu po spuštění projektu. Výchozí hodnota je do aktuální složky.                                                                                                                                                              |
-|                   | `--framework <FRAMEWORK>`          | [Moniker cílového rozhraní](/dotnet/standard/frameworks#supported-target-framework-versions) pro [Cílová architektura](/dotnet/standard/frameworks).  Použijte, pokud soubor projektu určuje více cílových platforem, a chcete vybrat jeden z nich. |
-|                   | `--configuration <CONFIGURATION>`  | Konfigurace sestavení, například: `Debug` nebo `Release`.                                                                                                                                                                                                   |
-|                   | `--runtime <IDENTIFIER>`           | Identifikátor cílový modul runtime pro obnovování balíčků pro. Seznam identifikátorů modulů Runtime (RID), najdete v článku [katalog identifikátorů RID](/dotnet/core/rid-catalog).                                                                                                      |
-| `-h`              | `--help`                           | Zobrazit informace nápovědy.                                                                                                                                                                                                                                        |
-| `-v`              | `--verbose`                        | Zobrazit podrobný výstup.                                                                                                                                                                                                                                          |
-|                   | `--no-color`                       | Není barevně zvýrazňovat výstup.                                                                                                                                                                                                                                        |
-|                   | `--prefix-output`                  | Předpona výstup s úrovní.                                                                                                                                                                                                                                     |
+|                   | Možnost                            | Popis                                                                                                                                                                                                                                                   |
+|:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                   | `--json`                          | Zobrazit výstup ve formátu JSON.                                                                                                                                                                                                                                             |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | `DbContext` Třídu použít. Název třídy pouze nebo plně kvalifikovaný s obory názvů.  Pokud je tento parametr vynechán, EF Core najdete třídy kontextu. Pokud existuje více tříd kontextu, tato možnost je vyžadována.                                            |
+| `-p`              | `--project <PROJECT>`             | Relativní cesta ke složce projektu na cílový projekt.  Výchozí hodnota je do aktuální složky.                                                                                                                                                              |
+| `-s`              | `--startup-project <PROJECT>`     | Relativní cesta ke složce projektu po spuštění projektu. Výchozí hodnota je do aktuální složky.                                                                                                                                                              |
+|                   | `--framework <FRAMEWORK>`         | [Moniker cílového rozhraní](/dotnet/standard/frameworks#supported-target-framework-versions) pro [Cílová architektura](/dotnet/standard/frameworks).  Použijte, pokud soubor projektu určuje více cílových platforem, a chcete vybrat jeden z nich. |
+|                   | `--configuration <CONFIGURATION>` | Konfigurace sestavení, například: `Debug` nebo `Release`.                                                                                                                                                                                                   |
+|                   | `--runtime <IDENTIFIER>`          | Identifikátor cílový modul runtime pro obnovování balíčků pro. Seznam identifikátorů modulů Runtime (RID), najdete v článku [katalog identifikátorů RID](/dotnet/core/rid-catalog).                                                                                                      |
+| `-h`              | `--help`                          | Zobrazit informace nápovědy.                                                                                                                                                                                                                                        |
+| `-v`              | `--verbose`                       | Zobrazit podrobný výstup.                                                                                                                                                                                                                                          |
+|                   | `--no-color`                      | Není barevně zvýrazňovat výstup.                                                                                                                                                                                                                                        |
+|                   | `--prefix-output`                 | Předpona výstup s úrovní.                                                                                                                                                                                                                                     |
 
 ## <a name="dotnet-ef-database-drop"></a>DotNet ef database přetažení
 
@@ -157,10 +157,10 @@ Zahodí databáze.
 
 Možnosti:
 
-|                   | Možnost                   | Popis                                                |
-|-------------------|--------------------------|------------------------------------------------------------|
-| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Není potvrzení.                                             |
-|                   | <nobr>`--dry-run`</nobr> | Zobrazit, které databáze bude vyřazena, ale ji.   |
+|                   | Možnost                   | Popis                                              |
+|:------------------|:-------------------------|:---------------------------------------------------------|
+| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | Není potvrzení.                                           |
+|                   | <nobr>`--dry-run`</nobr> | Zobrazit, které databáze bude vyřazena, ale ji. |
 
 ## <a name="dotnet-ef-database-update"></a>aktualizace databáze ef DotNet
 
@@ -168,9 +168,9 @@ Aktualizace databáze na poslední migraci nebo zadaný migrace.
 
 Argumenty:
 
-| Argument       | Popis                                                                                                                                                                                                                                                     |
-|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<MIGRATION>`  | Cíl migrace. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci* a způsobí, že všechny migrace se vrátí zpátky. Pokud není zadána žádná migrace, výchozí příkaz na poslední migrace. |
+| Argument      | Popis                                                                                                                                                                                                                                                     |
+|:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<MIGRATION>` | Cíl migrace. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci* a způsobí, že všechny migrace se vrátí zpátky. Pokud není zadána žádná migrace, výchozí příkaz na poslední migrace. |
 
 Následující příklady aktualizujte databázi na zadané migrace. Název migrace používá první a druhé používá ID migrace:
 
@@ -193,23 +193,23 @@ Generuje kód `DbContext` a typy entit pro databázi.
 
 Argumenty:
 
-| Argument        | Popis                                                                                                                                                                                                             |
-|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>`  | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2.x, může být hodnota *název =\<název připojovacího řetězce >*. Název v tomto případě pochází ze zdroje konfigurace, které jsou nastavené pro projekt. |
-| `<PROVIDER>`    | Zprostředkovatel k použití. Obvykle jde o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
+| Argument       | Popis                                                                                                                                                                                                             |
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<CONNECTION>` | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2.x, může být hodnota *název =\<název připojovacího řetězce >*. Název v tomto případě pochází ze zdroje konfigurace, které jsou nastavené pro projekt. |
+| `<PROVIDER>`   | Zprostředkovatel k použití. Obvykle jde o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Možnosti:
 
-|                   | Možnost                                    | Popis                                                                                                                                                                    |
-|-------------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr>   | `--data-annotations`                      | Atributy lze použijte ke konfiguraci modelu (Pokud je to možné). Pokud je tento parametr vynechán, použije se pouze rozhraní fluent API.                                                                |
-| `-c`              | `--context <NAME>`                        | Název `DbContext` k vygenerování.                                                                                                                                 |
-|                   | `--context-dir <PATH>`                    | Adresář, který chcete vložit `DbContext` soubor třídy v. Cesty jsou relativní vzhledem k adresáři projektu. Obory názvů jsou odvozeny z názvy složek.                                 |
-| `-f`              | `--force`                                 | Přepište existující soubory.                                                                                                                                                      |
-| `-o`              | `--output-dir <PATH>`                     | Adresář, který se má vložit soubory tříd entit. Cesty jsou relativní vzhledem k adresáři projektu.                                                                                       |
-|                   | <nobr>`--schema <SCHEMA_NAME>...`</nobr>  | Schémata tabulek ke generování typů entit pro. Chcete-li zadat více schémat, opakujte `--schema` pro každé z nich. Pokud je tento parametr vynechán, budou zahrnuty všem schématům.          |
-| `-t`              | `--table <TABLE_NAME>`...                 | Tabulky pro typy entit pro generování. Chcete-li zadat více tabulek, opakujte `-t` nebo `--table` pro každé z nich. Pokud je tento parametr vynechán, budou zahrnuty všechny tabulky.                |
-|                   | `--use-database-names`                    | Použijte názvy tabulek a sloupců přesně tak, jak jsou uvedeny v databázi. Pokud je tento parametr vynechán, aby lépe odpovídaly konvence stylu název jazyka C# změna názvů databáze. |
+|                 | Možnost                                   | Popis                                                                                                                                                                    |
+|:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <nobr>-d</nobr> | `--data-annotations`                     | Atributy lze použijte ke konfiguraci modelu (Pokud je to možné). Pokud je tento parametr vynechán, použije se pouze rozhraní fluent API.                                                                |
+| `-c`            | `--context <NAME>`                       | Název `DbContext` k vygenerování.                                                                                                                                 |
+|                 | `--context-dir <PATH>`                   | Adresář, který chcete vložit `DbContext` soubor třídy v. Cesty jsou relativní vzhledem k adresáři projektu. Obory názvů jsou odvozeny z názvy složek.                                 |
+| `-f`            | `--force`                                | Přepište existující soubory.                                                                                                                                                      |
+| `-o`            | `--output-dir <PATH>`                    | Adresář, který se má vložit soubory tříd entit. Cesty jsou relativní vzhledem k adresáři projektu.                                                                                       |
+|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Schémata tabulek ke generování typů entit pro. Chcete-li zadat více schémat, opakujte `--schema` pro každé z nich. Pokud je tento parametr vynechán, budou zahrnuty všem schématům.          |
+| `-t`            | `--table <TABLE_NAME>`...                | Tabulky pro typy entit pro generování. Chcete-li zadat více tabulek, opakujte `-t` nebo `--table` pro každé z nich. Pokud je tento parametr vynechán, budou zahrnuty všechny tabulky.                |
+|                 | `--use-database-names`                   | Použijte názvy tabulek a sloupců přesně tak, jak jsou uvedeny v databázi. Pokud je tento parametr vynechán, aby lépe odpovídaly konvence stylu název jazyka C# změna názvů databáze. |
 
 Následující příklad vygeneruje uživatelské rozhraní všechny schémat a tabulek a umístí nové soubory *modely* složky.
 
@@ -229,15 +229,15 @@ Přidá novou migraci.
 
 Argumenty:
 
-| Argument  | Popis                  |
-|-----------|------------------------------|
-| `<NAME>`  | Název migrace.   |
+| Argument | Popis                |
+|:---------|:---------------------------|
+| `<NAME>` | Název migrace. |
 
 Možnosti:
 
-|                   | Možnost                              | Popis                                                                                                        |
-|-------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr>  | Adresáři (a v podřízeném oboru názvů) používat. Cesty jsou relativní vzhledem k adresáři projektu. Výchozí hodnota je "Migrace".   |
+|                   | Možnost                             | Popis                                                                                                      |
+|:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | Adresáři (a v podřízeném oboru názvů) používat. Cesty jsou relativní vzhledem k adresáři projektu. Výchozí hodnota je "Migrace". |
 
 ## <a name="dotnet-ef-migrations-list"></a>Přehled migrace ef DotNet
 
@@ -245,13 +245,13 @@ Zobrazí seznam dostupných migrace.
 
 ## <a name="dotnet-ef-migrations-remove"></a>odebrat migrace ef DotNet
 
-Odebere poslední migrace (vrátí zpět změny kódu, které jste dokončili migraci). 
+Odebere poslední migrace (vrátí zpět změny kódu, které jste dokončili migraci).
 
 Možnosti:
 
-|                   | Možnost    | Popis                                                                        |
-|-------------------|-----------|------------------------------------------------------------------------------------|
-| <nobr>`-f`</nobr> | `--force` | Vrácení migrace (vrátit zpět změny, které byly použity k databázi).    |
+|                   | Možnost    | Popis                                                                     |
+|:------------------|:----------|:--------------------------------------------------------------------------------|
+| <nobr>`-f`</nobr> | `--force` | Vrácení migrace (vrátit zpět změny, které byly použity k databázi). |
 
 ## <a name="dotnet-ef-migrations-script"></a>skript migrace ef DotNet
 
@@ -259,17 +259,17 @@ Vygeneruje skript SQL z migrace.
 
 Argumenty:
 
-| Argument  | Popis                                                                                                                                                   |
-|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<FROM>`  | Počáteční migraci. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci*. Výchozí hodnota je 0. |
-| `<TO>`    | Dokončení migrace. Výchozí hodnota je poslední migrace.                                                                                                         |
+| Argument | Popis                                                                                                                                                   |
+|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<FROM>` | Počáteční migraci. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci*. Výchozí hodnota je 0. |
+| `<TO>`   | Dokončení migrace. Výchozí hodnota je poslední migrace.                                                                                                         |
 
 Možnosti:
 
-|                   | Možnost             | Popis                                                          |
-|-------------------|--------------------|----------------------------------------------------------------------|
-| <nobr>`-o`</nobr> | `--output <FILE>`  | Soubor pro zápis skript, který chcete.                                     |
-| `-i`              | `--idempotent`     | Generovat skript, který jde použít na databáze v libovolné migrace.   |
+|                   | Možnost            | Popis                                                        |
+|:------------------|:------------------|:-------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | `--output <FILE>` | Soubor pro zápis skript, který chcete.                                   |
+| `-i`              | `--idempotent`    | Generovat skript, který jde použít na databáze v libovolné migrace. |
 
 Následující příklad vytvoří skript pro migraci InitialCreate:
 

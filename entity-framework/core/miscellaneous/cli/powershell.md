@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: cde3c1f75d33808259654dfd9e1de51e662e8092
-ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
+ms.openlocfilehash: db4d89b6a0babe01bccbeadc51381a309ad8ca0f
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/28/2018
-ms.locfileid: "47447193"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459553"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core tools reference - Konzola správce balíčků v sadě Visual Studio
 
@@ -118,7 +118,7 @@ Je také možné [migrace kódu do knihovny tříd nezávisle na EF Core kontext
 
 Konzola správce balíčků nástroje pracovat s projekty .NET Core nebo .NET Framework. Nemusí mít aplikace, které mají modelu EF Core v knihovně tříd .NET Standard, .NET Core nebo .NET Framework projektu. Například to platí pro aplikace Xamarin a univerzální platformu Windows. V takovém případě můžete vytvořit .NET Core nebo .NET Framework projektu aplikace konzoly jehož jediným účelem je tak, aby fungoval jako projekt po spuštění pro nástroje. Projekt může být fiktivní projekt bez skutečné kódu &mdash; je pouze potřebných k poskytování cíl pro nástroje.
 
-Proč je fiktivní projektu vyžaduje? Jak už bylo zmíněno dříve, mají nástroje k provádění kódu aplikace v době návrhu. K tomu, které potřebují na využití modulu runtime .NET Core nebo .NET Framework. Když v projektu, který cílí na .NET Core nebo .NET Framework je model EF Core, si půjčte nástroje EF Core runtime z projektu. Nelze provést, pokud je model EF Core v knihovně tříd .NET Standard. .NET Standard není Skutečná implementace .NET; je specifikace sady rozhraní API, která musí podporovat implementace .NET. Proto .NET Standard není dostatečná pro EF Core nástroje k provádění kódu aplikace. Fiktivní projekt, který vytvoříte pro použití jako spouštěný projekt obsahuje konkrétní cílovou platformu, do kterého nástroje můžete načíst knihovně tříd rozhraní .NET Standard. 
+Proč je fiktivní projektu vyžaduje? Jak už bylo zmíněno dříve, mají nástroje k provádění kódu aplikace v době návrhu. K tomu, které potřebují na využití modulu runtime .NET Core nebo .NET Framework. Když v projektu, který cílí na .NET Core nebo .NET Framework je model EF Core, si půjčte nástroje EF Core runtime z projektu. Nelze provést, pokud je model EF Core v knihovně tříd .NET Standard. .NET Standard není Skutečná implementace .NET; je specifikace sady rozhraní API, která musí podporovat implementace .NET. Proto .NET Standard není dostatečná pro EF Core nástroje k provádění kódu aplikace. Fiktivní projekt, který vytvoříte pro použití jako spouštěný projekt obsahuje konkrétní cílovou platformu, do kterého nástroje můžete načíst knihovně tříd rozhraní .NET Standard.
 
 ### <a name="aspnet-core-environment"></a>Prostředí ASP.NET Core
 
@@ -129,7 +129,7 @@ Chcete-li určit prostředí pro projekty ASP.NET Core, nastavte **env:ASPNETCOR
 V následující tabulce jsou uvedeny parametry, které jsou společné pro všechny příkazy EF Core:
 
 | Parametr                 | Popis                                                                                                                                                                                                          |
-|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | -Kontextu \<řetězec >        | `DbContext` Třídu použít. Název třídy pouze nebo plně kvalifikovaný s obory názvů.  Pokud je tento parametr vynechán, vyhledá EF Core třídy kontextu. Pokud existuje více tříd kontextu, tento parametr je povinný. |
 | -Projektu \<řetězec >        | Cílový projekt. Pokud je tento parametr vynechán, **výchozí projekt** pro **Konzola správce balíčků** se používá jako cílový projekt.                                                                             |
 | – Výchozí projekt \<řetězec > | Spouštěný projekt. Pokud je tento parametr vynechán, **spouštěný projekt** v **vlastnosti řešení** se používá jako cílový projekt.                                                                                 |
@@ -147,7 +147,7 @@ Přidá novou migraci.
 Parametry:
 
 | Parametr                         | Popis                                                                                                             |
-|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------|
 | <nobr>-Název \<řetězec ><nobr>       | Název migrace. Toto je pozičních parametrů a je povinný.                                              |
 | <nobr>-OutputDir \<řetězec ></nobr> | Adresáři (a v podřízeném oboru názvů) používat. Cesty jsou relativní vzhledem k adresáři projektu cíl. Výchozí hodnota je "Migrace". |
 
@@ -157,9 +157,9 @@ Zahodí databáze.
 
 Parametry:
 
-| Parametr | Popis                                                |
-|-----------|------------------------------------------------------------|
-| -WhatIf   | Zobrazit, které databáze bude vyřazena, ale ji.   |
+| Parametr | Popis                                              |
+|:----------|:---------------------------------------------------------|
+| -WhatIf   | Zobrazit, které databáze bude vyřazena, ale ji. |
 
 ## <a name="get-dbcontext"></a>Get-DbContext
 
@@ -167,12 +167,12 @@ Seznamy, které jsou k dispozici `DbContext` typy.
 
 ## <a name="remove-migration"></a>Remove migrace
 
-Odebere poslední migrace (vrátí zpět změny kódu, které jste dokončili migraci). 
+Odebere poslední migrace (vrátí zpět změny kódu, které jste dokončili migraci).
 
 Parametry:
 
 | Parametr | Popis                                                                     |
-|-----------|---------------------------------------------------------------------------------|
+|:----------|:--------------------------------------------------------------------------------|
 | -Force    | Vrácení migrace (vrátit zpět změny, které byly použity k databázi). |
 
 ## <a name="scaffold-dbcontext"></a>Vygenerované uživatelské rozhraní DbContext
@@ -181,18 +181,18 @@ Generuje kód `DbContext` a typy entit pro databázi.
 
 Parametry:
 
-| Parametr                                  | Popis                                                                                                                                                                                                                                                             |
-|--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-Connection \<řetězec ></nobr>         | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2.x, může být hodnota *název =\<název připojovacího řetězce >*. Název v tomto případě pochází ze zdroje konfigurace, které jsou nastavené pro projekt. Toto je pozičních parametrů a je povinný. |
-| <nobr>-Poskytovatel \<řetězec ></nobr>           | Zprostředkovatel k použití. Obvykle jde o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`. Toto je pozičních parametrů a je povinný.                                                                                           |
-| -OutputDir \<řetězec >                       | Adresář, který se má vložit soubory. Cesty jsou relativní vzhledem k adresáři projektu.                                                                                                                                                                                             |
-| -ContextDir \<řetězec >                      | Adresář, který chcete vložit `DbContext` v souboru. Cesty jsou relativní vzhledem k adresáři projektu.                                                                                                                                                                              |
-| -Kontextu \<řetězec >                         | Název `DbContext` k vygenerování.                                                                                                                                                                                                                          |
-| -Schémata \<String [] >                       | Schémata tabulek ke generování typů entit pro. Pokud je tento parametr vynechán, jsou všechna schémata zahrnuty.                                                                                                                                                             |
-| -Tabulky \<String [] >                        | Tabulky pro typy entit pro generování. Pokud je tento parametr vynechán, budou zahrnuty všechny tabulky.                                                                                                                                                                         |
-| -DataAnnotations                           | Atributy lze použijte ke konfiguraci modelu (Pokud je to možné). Pokud je tento parametr vynechán, použije se pouze rozhraní fluent API.                                                                                                                                                      |
-| -UseDatabaseNames                          | Použijte názvy tabulek a sloupců přesně tak, jak jsou uvedeny v databázi. Pokud je tento parametr vynechán, aby lépe odpovídaly konvence stylu název jazyka C# změna názvů databáze.                                                                                       |
-| -Force                                     | Přepište existující soubory.                                                                                                                                                                                                                                               |
+| Parametr                          | Popis                                                                                                                                                                                                                                                             |
+|:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <nobr>-Connection \<řetězec ></nobr> | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2.x, může být hodnota *název =\<název připojovacího řetězce >*. Název v tomto případě pochází ze zdroje konfigurace, které jsou nastavené pro projekt. Toto je pozičních parametrů a je povinný. |
+| <nobr>-Poskytovatel \<řetězec ></nobr>   | Zprostředkovatel k použití. Obvykle jde o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`. Toto je pozičních parametrů a je povinný.                                                                                           |
+| -OutputDir \<řetězec >               | Adresář, který se má vložit soubory. Cesty jsou relativní vzhledem k adresáři projektu.                                                                                                                                                                                             |
+| -ContextDir \<řetězec >              | Adresář, který chcete vložit `DbContext` v souboru. Cesty jsou relativní vzhledem k adresáři projektu.                                                                                                                                                                              |
+| -Kontextu \<řetězec >                 | Název `DbContext` k vygenerování.                                                                                                                                                                                                                          |
+| -Schémata \<String [] >               | Schémata tabulek ke generování typů entit pro. Pokud je tento parametr vynechán, jsou všechna schémata zahrnuty.                                                                                                                                                             |
+| -Tabulky \<String [] >                | Tabulky pro typy entit pro generování. Pokud je tento parametr vynechán, budou zahrnuty všechny tabulky.                                                                                                                                                                         |
+| -DataAnnotations                   | Atributy lze použijte ke konfiguraci modelu (Pokud je to možné). Pokud je tento parametr vynechán, použije se pouze rozhraní fluent API.                                                                                                                                                      |
+| -UseDatabaseNames                  | Použijte názvy tabulek a sloupců přesně tak, jak jsou uvedeny v databázi. Pokud je tento parametr vynechán, aby lépe odpovídaly konvence stylu název jazyka C# změna názvů databáze.                                                                                       |
+| -Force                             | Přepište existující soubory.                                                                                                                                                                                                                                               |
 
 Příklad:
 
@@ -212,12 +212,12 @@ Vygeneruje skript SQL, která se použije všechny změny z jednoho vybraného m
 
 Parametry:
 
-| Parametr           | Popis                                                                                                                                                                                                                |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| *-Od* \<řetězec >   | Počáteční migraci. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci*. Výchozí hodnota je 0.                                                              |
-| *-Na* \<řetězec >     | Dokončení migrace. Výchozí hodnota je poslední migrace.                                                                                                                                                                      |
-| <nobr>-Idempotentní</nobr>         | Generovat skript, který jde použít na databáze v libovolné migrace.                                                                                                                                                         |
-| -Výstupní \<řetězec >   | Soubor pro zápis výsledek. Pokud je tento parametr vynechán, soubor je vytvořen s vygenerovaným názvem ve stejné složce jako soubory modulu runtime aplikace se vytvářejí, například: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*. |
+| Parametr                | Popis                                                                                                                                                                                                                |
+|:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *-Od* \<řetězec >        | Počáteční migraci. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci*. Výchozí hodnota je 0.                                                              |
+| *-Na* \<řetězec >          | Dokončení migrace. Výchozí hodnota je poslední migrace.                                                                                                                                                                      |
+| <nobr>-Idempotentní</nobr> | Generovat skript, který jde použít na databáze v libovolné migrace.                                                                                                                                                         |
+| -Výstupní \<řetězec >        | Soubor pro zápis výsledek. Pokud je tento parametr vynechán, soubor je vytvořen s vygenerovaným názvem ve stejné složce jako soubory modulu runtime aplikace se vytvářejí, například: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*. |
 
 > [!TIP]
 > Na, z, a podpora rozšíření tab výstupní parametry.
@@ -238,9 +238,9 @@ Script-Migration -From 20180904195021_InitialCreate
 
 Aktualizace databáze na poslední migraci nebo zadaný migrace.
 
-| Parametr                             | Popis                                                                                                                                                                                                                                                     |
-|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>*– Migrace* \<řetězec ></nobr>   | Cíl migrace. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci* a způsobí, že všechny migrace se vrátí zpátky. Pokud není zadána žádná migrace, výchozí příkaz na poslední migrace. |
+| Parametr                           | Popis                                                                                                                                                                                                                                                     |
+|:------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <nobr>*– Migrace* \<řetězec ></nobr> | Cíl migrace. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci* a způsobí, že všechny migrace se vrátí zpátky. Pokud není zadána žádná migrace, výchozí příkaz na poslední migrace. |
 
 > [!TIP]
 > Parametr migrace podporuje rozšíření tab.
