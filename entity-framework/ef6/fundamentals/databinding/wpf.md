@@ -3,12 +3,12 @@ title: Vazby dat s WPF – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: 5bd4a9b98a12de41e4ec37c2cc7dbdc537210893
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 1933988277d3be8fecc02fced3293f2b7f80c901
+ms.sourcegitcommit: ae399f9f3d1bae2c446b552247bd3af3ca5a2cf9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490224"
+ms.lasthandoff: 10/04/2018
+ms.locfileid: "48575662"
 ---
 # <a name="databinding-with-wpf"></a>Vazby dat s WPF
 Tento podrobný návod ukazuje, jak svázat ovládací prvky WPF ve formě "hlavní podrobnosti" typy POCO. Aplikace používá rozhraní API Entity Framework pro naplnění objekty s daty z databáze, sledování změn a uložení dat do databáze.
@@ -31,7 +31,7 @@ V případě potřeby můžete [vrátit k generování kódu na základě Object
 
 Musíte mít Visual Studio 2013, Visual Studio 2012 nebo Visual Studio 2010 nainstalovaný k dokončení tohoto návodu.
 
-Pokud používáte Visual Studio 2010, musíte také nainstalovat NuGet. Další informace najdete v tématu [instalace balíčků NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).  
+Pokud používáte Visual Studio 2010, musíte také nainstalovat NuGet. Další informace najdete v tématu [instalace balíčků NuGet](https://docs.microsoft.com/nuget/install-nuget-client-tools).  
 
 ## <a name="create-the-application"></a>Vytvoření aplikace
 
@@ -252,12 +252,12 @@ Přidání třídy, které jsou definovány v modelu jako zdroj dat pro tuto apl
 
     ![Zdroje dat](~/ef6/media/datasources.png)
 
--   Vyberte ** kategorii ** zdroje dat a přetáhněte ji na formuláři.
+-   Vyberte **kategorie** zdroje dat a přetáhněte ji na formuláři.
 
 Tímto se stalo při přetažení jsme tento zdroj:
 
--   **CategoryViewSource** prostředků a ** categoryDataGrid ** ovládací prvek byl přidán do XAML. Další informace o DataViewSources najdete v tématu http://bea.stollnitz.com/blog/?p=387.
--   Vlastnost DataContext v elementu nadřazené mřížky byla nastavená na "{StaticResource **categoryViewSource** }".  **CategoryViewSource** prostředků slouží jako zdroj vazby pro vnější\\nadřazeného elementu mřížky. Hodnota kontextu DataContext vnitřní elementy mřížky pak dědí z nadřazené mřížky (vlastnost ItemsSource categoryDataGrid je nastavená na "{vazba}"). 
+-   **CategoryViewSource** prostředků a **categoryDataGrid** ovládací prvek byl přidán do XAML 
+-   Vlastnost DataContext v elementu nadřazené mřížky byla nastavená na "{StaticResource **categoryViewSource** }". **CategoryViewSource** prostředků slouží jako zdroj vazby pro vnější\\nadřazeného elementu mřížky. Hodnota kontextu DataContext vnitřní elementy mřížky pak dědit z nadřazené mřížky (vlastnost ItemsSource categoryDataGrid je nastavená na "{vazba}")
 
 ``` xml
     <Window.Resources>
@@ -282,7 +282,7 @@ Tímto se stalo při přetažení jsme tento zdroj:
 
 Když teď máme mřížky zobrazíte kategorie Pojďme přidáte podrobnosti mřížce se zobrazí související produkty.
 
--   Vyberte ** produkty ** vlastnosti v rámci ** kategorii ** zdroje dat a přetáhněte ji na formuláři.
+-   Vyberte **produkty** vlastnosti v rámci **kategorie** zdroje dat a přetáhněte ji na formuláři.
     -   **CategoryProductsViewSource** prostředků a **productDataGrid** mřížky jsou přidány do XAML
     -   Cesta vazby pro tento prostředek nastavená na produkty
     -   Rozhraní datové vazby WPF zajistí, že pouze produkty, které souvisejí se do vybrané kategorie se zobrazí v **productDataGrid**
@@ -305,7 +305,7 @@ Je čas přidat několik obslužných rutin událostí do hlavního okna.
 
 To přináší do kódu pro formulář, budeme vám teď upravovat kód, který použije ProductContext přístup k datům. Aktualizujte kód pro hlavního okna MainWindow, jak je znázorněno níže.
 
-Kód deklaruje instanci dlouhotrvající **ProductContext**. **ProductContext** objekt se používá k dotazování a ukládání dat do databáze. **Dispose**() na **ProductContext** instance se nazývá pak z přepsané **OnClosing** metody. V komentářích ke kódu obsahují podrobné informace o co kód dělá.
+Kód deklaruje instanci dlouhotrvající **ProductContext**. **ProductContext** objekt se používá k dotazování a ukládání dat do databáze. **Dispose()** na **ProductContext** instance se nazývá pak z přepsané **OnClosing** metody. V komentářích ke kódu obsahují podrobné informace o co kód dělá.
 
 ``` csharp
     using System.Data.Entity;
@@ -389,6 +389,10 @@ Kód deklaruje instanci dlouhotrvající **ProductContext**. **ProductContext** 
 
 -   Stisknutím klávesy **Uložit** tlačítko pro uložení dat do databáze
 
-Po volání na DbContext **SaveChanges**(), ID jsou vyplněna podle hodnot v databázi vygeneruje. Protože jsme volat **aktualizovat**() po **SaveChanges**() **DataGrid** ovládací prvky jsou aktualizovány s novými hodnotami.
+Po volání na DbContext **SaveChanges()**, ID jsou vyplněna podle hodnot v databázi vygeneruje. Protože jsme volat **Refresh()** po **SaveChanges()** **DataGrid** ovládací prvky jsou aktualizovány s novými hodnotami.
 
 ![Hlavní okno s ID vyplní](~/ef6/media/screen2.png)
+
+## <a name="additional-resources"></a>Další prostředky
+
+Další informace o vytváření datových vazeb do kolekce pomocí grafického subsystému WPF, naleznete v tématu [v tomto tématu](https://docs.microsoft.com/dotnet/framework/wpf/data/data-binding-overview#binding-to-collections) v dokumentaci k WPF.  
