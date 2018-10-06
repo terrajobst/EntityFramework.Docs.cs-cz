@@ -6,12 +6,12 @@ description: Začínáme s .NET Core pomocí Entity Framework Core
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: b30800afb63a51ab14aecb559dcc83fd89f71a71
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: ec20040917a2bca8177924b6905b1cd79e5cd9da
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415767"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834731"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Začínáme s EF Core na aplikace konzoly .NET Core s novou databázi
 
@@ -30,9 +30,9 @@ Zobrazit ukázky v tomto článku na Githubu] (https://github.com/aspnet/EntityF
   ``` Console
   dotnet new console -o ConsoleApp.SQLite
   ```
-## <a name="change-the-current-directory"></a>Změňte aktuální adresář 
+## <a name="change-the-current-directory"></a>Změňte aktuální adresář
 
-V dalších krocích, potřebujeme k vydávání `dotnet` příkazy vzhledem k aplikaci. 
+V dalších krocích, potřebujeme k vydávání `dotnet` příkazy vzhledem k aplikaci.
 
 * Můžeme změnit aktuální adresář do adresáře aplikace následujícím způsobem:
 
@@ -64,7 +64,7 @@ Tip: V reálné aplikaci, můžete vložit každá třída v samostatném soubor
 
 ## <a name="create-the-database"></a>Vytvoření databáze
 
-Jakmile budete mít modelu, použijete [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) k vytvoření databáze.
+Jakmile budete mít modelu, použijete [migrace](xref:core/managing-schemas/migrations/index) k vytvoření databáze.
 
 * Spustit `dotnet ef migrations add InitialCreate` generování uživatelského rozhraní migrace a vytvářet počáteční sadu tabulek pro model.
 * Spustit `dotnet ef database update` použít novou migraci databáze. Tento příkaz vytvoří databázi před použitím migrace.
@@ -93,13 +93,11 @@ Jakmile budete mít modelu, použijete [migrace](https://docs.microsoft.com/aspn
 
 ### <a name="changing-the-model"></a>Změna modelu:
 
-- Pokud provedete změny modelu, můžete použít `dotnet ef migrations add` příkaz scaffold nový [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations). Po zaškrtnutí automaticky generovaný kód (a všechny požadované změny), můžete použít `dotnet ef database update` příkaz pro použití schématu změn v databázi.
+- Pokud provedete změny modelu, můžete použít `dotnet ef migrations add` příkaz scaffold nový [migrace](xref:core/managing-schemas/migrations/index). Po zaškrtnutí automaticky generovaný kód (a všechny požadované změny), můžete použít `dotnet ef database update` příkaz pro použití schématu změn v databázi.
 - Používá EF Core `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, které již byly implementovány do databáze.
 - Databázový stroj SQLite nepodporuje některé změny schématu, které podporuje většina jiných relačních databází. Například `DropColumn` operace není podporována. Migrace EF Core dojde k vygenerování kódu pro tyto operace. Ale pokud se pokusíte použít na databázi nebo vygenerovat skript, EF Core vyvolá výjimky. Zobrazit [omezení SQLite](../../providers/sqlite/limitations.md). Pro nový vývoj zvažte vyřazení databáze a vytvořením nového spíš než migrace při změně modelu.
-- 
 
 <a name="vs"></a>
-
 ### <a name="run-from-visual-studio"></a>Spustit ze sady Visual Studio
 
 Tuto ukázku spustit ze sady Visual Studio, musíte nastavit pracovní adresář ručně, aby se použije kořen projektu. Pokud nenastavíte pracovního adresáře a následující `Microsoft.Data.Sqlite.SqliteException` je vyvolána výjimka: `SQLite Error 1: 'no such table: Blogs'`.
@@ -113,6 +111,6 @@ Chcete-li nastavit pracovní adresář:
 
 ## <a name="additional-resources"></a>Další prostředky
 
-* [Úvod do ASP.NET Core MVC v systému Mac nebo Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
-* [Úvod do ASP.NET Core MVC se sadou Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [Začínáme s technologiemi ASP.NET Core a Entity Framework Core pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* [Kurz: Začínáme s EF Core v ASP.NET Core s novou databázi pomocí SQLite](xref:core/get-started/aspnetcore/new-db)
+* [Kurz: Začínáme se stránkami Razor v ASP.NET Core](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
+* [Kurz: Stránky Razor pomocí Entity Framework Core v ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)

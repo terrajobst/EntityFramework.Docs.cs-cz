@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: db4d89b6a0babe01bccbeadc51381a309ad8ca0f
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.openlocfilehash: 9a57b58f8569ee1241e40c3809b03487d1d88e02
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459553"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834757"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core tools reference - Konzola správce balíčků v sadě Visual Studio
 
@@ -177,7 +177,7 @@ Parametry:
 
 ## <a name="scaffold-dbcontext"></a>Vygenerované uživatelské rozhraní DbContext
 
-Generuje kód `DbContext` a typy entit pro databázi.
+Generuje kód `DbContext` a typy entit pro databázi. Aby `Scaffold-DbContext` generovat typ entity, databázové tabulky musí mít primární klíč.
 
 Parametry:
 

@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 803b0b71b2a2093432d76bc159875d65ab379b9a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 878478099878e4a0bc65c44fef0609d28f39f2b8
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489287"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834770"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF Core v ASP.NET Core s novou databázi
 
@@ -72,7 +72,7 @@ Upozornění: Pokud používáte **jednotlivé uživatelské účty** místo **�
 
 ## <a name="install-entity-framework-core"></a>Nainstalujte Entity Framework Core
 
-Instalace EF Core, nainstalujte balíček vytvořeno EF Core databáze, kterou chcete cílit na pro. Seznam dostupných zprostředkovatelů najdete v tématu [poskytovatelé databází](../../providers/index.md). 
+Instalace EF Core, nainstalujte balíček vytvořeno EF Core databáze, kterou chcete cílit na pro. Seznam dostupných zprostředkovatelů najdete v tématu [poskytovatelé databází](../../providers/index.md).
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -144,7 +144,7 @@ Produkční aplikace obvykle vložili připojovací řetězec v konfigurační s
 
 ## <a name="create-the-database"></a>Vytvoření databáze
 
-Následující kroky použijte [migrace](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations) k vytvoření databáze.
+Následující kroky použijte [migrace](xref:core/managing-schemas/migrations/index) k vytvoření databáze.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -192,7 +192,7 @@ Kontroler a zobrazení pro generování uživatelského rozhraní `Blog` entity.
   dotnet tool install -g dotnet-aspnet-codegenerator
   dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
   dotnet restore
-  dotnet aspnet-codegenerator controller -name BlogsController -m Blog -dc BloggingContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries 
+  dotnet aspnet-codegenerator controller -name BlogsController -m Blog -dc BloggingContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
   `tool install` a `add package` příkazy instalace nástrojů, můžete vygenerovat kontrolerů a zobrazení. `restore` Příkaz zajistí, že se stáhnou všechny balíčky v projektu a `aspnet-codegenerator` příkaz dělá základní kostry aplikace.
@@ -228,7 +228,6 @@ dotnet run
 
 ## <a name="additional-resources"></a>Další prostředky
 
-* [EF - novou databázi pomocí SQLite](xref:core/get-started/netcore/new-db-sqlite) – kurz EF konzole pro různé platformy.
-* [Úvod do ASP.NET Core MVC v systému Mac nebo Linux](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
-* [Úvod do ASP.NET Core MVC se sadou Visual Studio](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [Začínáme s technologiemi ASP.NET Core a Entity Framework Core pomocí sady Visual Studio](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* [Kurz: Začínáme s EF Core na .NET Core s novou databázi pomocí SQLite](xref:core/get-started/netcore/new-db-sqlite)
+* [Kurz: Začínáme se stránkami Razor v ASP.NET Core](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
+* [Kurz: Stránky Razor pomocí Entity Framework Core v ASP.NET Core](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
