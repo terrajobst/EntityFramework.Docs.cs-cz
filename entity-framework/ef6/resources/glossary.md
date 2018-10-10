@@ -3,12 +3,12 @@ title: Entity Framework glosář - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 298913891fb372bf57d7504c5a54f1dc83ea1a80
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9ed7a2d841c625de35de57edb4e57e69b89a3db9
+ms.sourcegitcommit: 5d74ac575f813110db6d870720f50dd7606446bc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490680"
+ms.lasthandoff: 10/09/2018
+ms.locfileid: "48881264"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework – glosář
 ## <a name="code-first"></a>Kód nejprve
@@ -60,7 +60,7 @@ Vytvoření modelu Entity Framework, pomocí EF designeru, který potom slouží
 Vlastnosti entity, která odkazuje na jinou entitou. Například produkt obsahuje vlastnost navigace kategorie a kategorie obsahuje produkty navigační vlastnost.
 
 ## <a name="poco"></a>OBJEKTŮ POCO
-Zkratka pro objekt CLR prostý staré. Jednoduché uživatelské třídu, která nemá žádné závislosti pomocí libovolné architektury. V souvislosti s EF třídu entity, která není odvozena od EntityObject, implementuje všechna rozhraní, nebo představuje libovolné atributy definované v EF. Takové entity třídy, které jsou oddělené od rozhraní trvalost se také označují jako "trvalost ignorant".  
+Zkratka pro objekt CLR prostý staré. Jednoduché uživatelské třídu, která nemá žádné závislosti pomocí libovolné architektury. V rámci EF, třídu entity, která není odvozena od EntityObject, implementuje všechna rozhraní nebo představuje libovolné atributy definované v EF. Takové entity třídy, které jsou oddělené od rozhraní trvalost se také označují jako "trvalost ignorant".  
 
 ## <a name="relationship-inverse"></a>Inverzní relace
 V opačném směru relace, například produktu. Kategorie a kategorie. Produkt.
