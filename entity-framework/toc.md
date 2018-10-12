@@ -29,7 +29,7 @@
 #### [ASP.NET Core](core/get-started/aspnetcore/index.md)
 ##### [ASP.NET Core – nová databáze](core/get-started/aspnetcore/new-db.md)
 ##### [ASP.NET Core – existující databáze](core/get-started/aspnetcore/existing-db.md)
-##### [EF Core a Razor Pages](/aspnet/core/data/ef-rp/intro)
+##### [⤤ EF Core a Razor Pages](/aspnet/core/data/ef-rp/intro)
 #### [Univerzální platforma Windows (UPW)](core/get-started/uwp/index.md)
 ##### [UPW – nová databáze](core/get-started/uwp/getting-started.md)
 
