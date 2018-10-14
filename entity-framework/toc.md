@@ -2,8 +2,6 @@
 
 ## [Porovnání EF Core a EF6](efcore-and-ef6/index.md)
 
-### [Která verze je pro vás vhodnější](efcore-and-ef6/choosing.md)
-### [Porovnání funkcí](efcore-and-ef6/features.md)
 ### [EF6 a EF Core ve stejné aplikaci](efcore-and-ef6/side-by-side.md)
 ### [Přenesení z EF6 do EF Core](efcore-and-ef6/porting/index.md)
 #### [Ověření požadavků](efcore-and-ef6/porting/ensure-requirements.md)
