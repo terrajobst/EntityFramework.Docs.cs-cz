@@ -3,12 +3,12 @@ title: Relace, navigačních vlastností a cizí klíče - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: a98c1bf798a8a6d2c748408d7363d5f884e7e6e9
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 46c2d11b5704ec7ae82a423ae042b87f5efe436f
+ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490542"
+ms.lasthandoff: 10/14/2018
+ms.locfileid: "49315656"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigačních vlastností a cizí klíče
 Toto téma obsahuje základní informace o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje pokyny o tom, jak mapovat a manipulaci s relací.
@@ -153,7 +153,7 @@ V Entity Framework, které nejčastěji používáte pro načtení entity, kter�
 > V přidružení cizího klíče při načtení související konec závislý objekt objekt v relaci se načtou podle hodnoty cizího klíče, který je aktuálně v paměti závislé:
 
 ``` csharp
-    // Get the course where currently DepartmentID = 1.
+    // Get the course where currently DepartmentID = 2.
     Course course2 = context.Courses.First(c=>c.DepartmentID == 2);
 
     // Use DepartmentID foreign key property

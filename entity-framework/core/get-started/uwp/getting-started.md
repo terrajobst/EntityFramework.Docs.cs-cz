@@ -1,15 +1,15 @@
 ---
 title: Začínáme na UPW – nová databáze – EF Core
 author: rowanmiller
-ms.date: 08/08/2018
+ms.date: 10/13/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: c243ef2a1940af9bf4f4b32f17acfcce7f972862
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 48d26adbe17e4734753a7ada547b9c13317bef0d
+ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996907"
+ms.lasthandoff: 10/14/2018
+ms.locfileid: "49315617"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>Začínáme s EF Core na Universal Windows Platform (UWP) s novou databázi
 
@@ -25,10 +25,12 @@ V tomto kurzu vytvoříte aplikaci univerzální platformy Windows (UPW), který
 
 * [Sady SDK .NET core 2.1 nebo novější](https://www.microsoft.com/net/core) nebo novější.
 
-## <a name="create-a-model-project"></a>Vytvoření projektu s modelem
-
 > [!IMPORTANT]
-> Vzhledem k omezením způsobem nástroje .NET Core pracovat s projekty UWP v modelu musí být umístěny v projektu bez UPW budete moci spouštět příkazy migrace **Konzola správce balíčků** (PMC)
+> Tento kurz používá Entity Framework Core [migrace](xref:core/managing-schemas/migrations/index) příkazy k vytvoření a aktualizaci schématu databáze.
+> Tyto příkazy nechcete pracovat přímo s projekty UWP.
+> Z tohoto důvodu aplikace datový model je umístěn ve sdílené knihovně projektu a samostatné konzolovou aplikaci .NET Core se používá ke spuštění příkazů.
+
+## <a name="create-a-library-project-to-hold-the-data-model"></a>Vytvořte projekt knihovny pro uchování datového modelu
 
 * Otevřít Visual Studio
 
@@ -44,21 +46,19 @@ V tomto kurzu vytvoříte aplikaci univerzální platformy Windows (UPW), který
 
 * Klikněte na tlačítko **OK**.
 
-## <a name="install-entity-framework-core"></a>Nainstalujte Entity Framework Core
+## <a name="install-entity-framework-core-runtime-in-the-data-model-project"></a>Nainstalovat modul runtime Entity Framework Core v datovém modelu projektu
 
 Použití EF Core, nainstalujte balíček pro poskytovatelů databáze, kterou chcete cílit. Tento kurz používá SQLite. Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md).
 
 * **Nástroje > Správce balíčků NuGet > Konzola správce balíčků**.
 
+* Ujistěte se, že projekt knihovny *Blogging.Model* je zvolen jako **výchozí projekt** v konzole Správce balíčků.
+
 * Spustit `Install-Package Microsoft.EntityFrameworkCore.Sqlite`
 
-Později v tomto kurzu budete používat některé nástroje Entity Framework Core pro správnou údržbu databáze. Balíček nástroje tak instalaci.
+## <a name="create-the-data-model"></a>Vytvoření datového modelu
 
-* Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools`
-
-## <a name="create-the-model"></a>Vytvoření modelu
-
-Nyní je možné definovat kontext a entity třídy, které tvoří modelu.
+Nyní je možné definovat *DbContext* a tříd entit, které tvoří modelu.
 
 * Odstranit *Class1.cs*.
 
@@ -66,23 +66,7 @@ Nyní je možné definovat kontext a entity třídy, které tvoří modelu.
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.Model/Model.cs)]
 
-## <a name="create-a-new-uwp-project"></a>Vytvoření nového projektu pro UPW
-
-* V **Průzkumníka řešení**, klikněte pravým tlačítkem na řešení a klikněte na tlačítko **Přidat > Nový projekt**.
-
-* V levé nabídce vyberte **nainstalováno > Visual C# > Windows Universal**.
-
-* Vyberte **prázdná aplikace (Universal Windows)** šablony projektu.
-
-* Pojmenujte projekt *Blogging.UWP*a klikněte na tlačítko **OK**
-
-* Nastavte cílovou a minimální verze na alespoň **Windows 10 Fall Creators Update (10.0; sestavení 16299.0)**.
-
-## <a name="create-the-initial-migration"></a>Vytvoření počáteční migraci
-
-Teď, když máte model, nastavte pro vytvoření databáze při prvním spuštění aplikace. V této části vytvoříte počáteční migraci. V následující části přidáte kód, který použije tuto migraci při spuštění aplikace.
-
-Nástroje pro migraci vyžadovat při spuštění projektu bez UPW, takže nyní vytvořte.
+## <a name="create-a-new-console-project-to-run-migrations-commands"></a>Vytvořte nový projekt konzoly pro spuštění příkazů migrace
 
 * V **Průzkumníka řešení**, klikněte pravým tlačítkem na řešení a klikněte na tlačítko **Přidat > Nový projekt**.
 
@@ -94,19 +78,37 @@ Nástroje pro migraci vyžadovat při spuštění projektu bez UPW, takže nyní
 
 * Přidat odkaz na projekt z *Blogging.Migrations.Startup* projektu *Blogging.Model* projektu.
 
-Nyní můžete vytvořit počáteční migraci.
+## <a name="install-entity-framework-core-tools-in-the-migrations-startup-project"></a>Instalace nástroje Entity Framework Core v projektu po spuštění migrace
+
+Povolit příkazy EF Core migrace v konzole Správce balíčků, nainstalujte balíček nástroje EF Core v konzolové aplikaci.
 
 * **Nástroje > Správce balíčků NuGet > Konzola správce balíčků**
 
-* Vyberte *Blogging.Model* projektu jako **výchozí projekt**.
+* Spustit `Install-Package Microsoft.EntityFrameworkCore.Tools -ProjectName Blogging.Migrations.Startup`
 
-* V **Průzkumníka řešení**, nastavte *Blogging.Migrations.Startup* projekt jako spouštěný projekt.
+## <a name="create-the-initial-migration"></a>Vytvoření počáteční migraci
 
-* Spustit `Add-Migration InitialCreate`.
+ Vytvořte počáteční migraci zadáte jako spouštěný projekt konzolové aplikace.
 
-  Tento příkaz vygeneruje uživatelské rozhraní, které vytvoří počáteční sadu tabulek pro váš model migrace.
+* Spustit `Add-Migration InitialCreate -StartupProject Blogging.Migrations.Startup`
 
-## <a name="create-the-database-on-app-startup"></a>Vytvoření databáze při spuštění aplikace
+Tento příkaz vygeneruje uživatelské rozhraní migrace, které vytvoří počáteční sada databázových tabulek datového modelu.
+
+## <a name="create-the-uwp-project"></a>Vytvoření projektu UPW
+
+* V **Průzkumníka řešení**, klikněte pravým tlačítkem na řešení a klikněte na tlačítko **Přidat > Nový projekt**.
+
+* V levé nabídce vyberte **nainstalováno > Visual C# > Windows Universal**.
+
+* Vyberte **prázdná aplikace (Universal Windows)** šablony projektu.
+
+* Pojmenujte projekt *Blogging.UWP*a klikněte na tlačítko **OK**
+
+> [!IMPORTANT]
+> Nastavte cílovou a minimální verze na alespoň **Windows 10 Fall Creators Update (10.0; sestavení 16299.0)**.
+> Předchozí verze Windows 10 nepodporuje .NET Standard 2.0, které je požadované Entity Framework Core.
+
+## <a name="add-code-to-create-the-database-on-application-startup"></a>Přidejte kód k vytvoření databáze při spuštění aplikace
 
 Protože chcete, aby databáze, kterou chcete vytvořit pro zařízení, na které aplikace poběží, přidejte kód pro použití žádné čekající migrace do místní databáze při spuštění aplikace. Při prvním spuštění aplikace, postará se vytvoří místní databázi.
 
@@ -121,11 +123,11 @@ Protože chcete, aby databáze, kterou chcete vytvořit pro zařízení, na kter
 > [!TIP]  
 > Pokud změníte model, použijte `Add-Migration` příkaz scaffold novou migraci použít odpovídající změn v databázi. Všechny probíhající migrace se použijí k místní databázi na každé zařízení při spuštění aplikace.
 >
->Používá EF `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, které již byly implementovány do databáze.
+>Používá EF Core `__EFMigrationsHistory` tabulky v databázi ke sledování migrace, které již byly implementovány do databáze.
 
-## <a name="use-the-model"></a>Použití modelu
+## <a name="use-the-data-model"></a>Datový model
 
-Nyní můžete model přístup k datům.
+EF Core můžete teď použít přístup k datům.
 
 * Otevřít *MainPage.xaml*.
 

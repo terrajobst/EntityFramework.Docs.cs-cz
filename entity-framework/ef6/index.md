@@ -4,12 +4,12 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
-ms.openlocfilehash: 35292d2a724d02ecdc96b53550858eb0b6dd79d1
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 1efadf4484a13d5df2a2f11aad3d0e8f9ceff543
+ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489229"
+ms.lasthandoff: 10/14/2018
+ms.locfileid: "49315630"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) je vyzkoušená a otestovaná objektově relační Mapovač (O/RM) pro .NET s mnoha letech řídit vývoj funkcí a stabilizaci.
@@ -37,7 +37,7 @@ EF6 implementuje mnoho oblíbených funkcí O/RM:
 
 EF Core je verzi Entity Frameworku, který má velmi podobné funkce a výhody, které EF6 Modernější, jednoduchý a rozšiřitelný.
 EF Core je kompletní revize a obsahuje mnoho nových funkcí nejsou k dispozici v EF6, i když pořád chybí některé z EF6 nejpokročilejší funkce mapování.
-Doporučujeme, abyste pomocí EF Core v nové aplikace, tak dlouho, dokud sada funkcí odpovídá vašim požadavkům.
+Zvažte použití EF Core v nové aplikace, pokud je sada funkcí odpovídá vašim požadavkům.
 [Porovnání EF Core a EF6](xref:efcore-and-ef6/index) zkontroluje tato volba podrobněji.
 
 ## <a name="get-startedef6get-startedmd"></a>[Začínáme](~/ef6/get-started.md)
