@@ -3,12 +3,12 @@ title: Podpora zprostředkovatele pro typy prostorových – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-ms.openlocfilehash: ffd22222f59a541d8135d3738d37a7e8f5dc5d7c
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9c00e82c663daec219fe649a8d889afcc81564f7
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489749"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022272"
 ---
 # <a name="provider-support-for-spatial-types"></a>Podpora zprostředkovatele pro prostorové typy
 Entity Framework podporuje práci s prostorovými daty formátu prostřednictvím DbGeography nebo DbGeometry tříd. Tyto třídy závisí na konkrétních databází funkce nabízené poskytovateli rozhraní Entity Framework. Ne všichni poskytovatelé podporu prostorových dat a ty, které se mají další požadavky, jako je například instalace sestavení prostorových typů. Další informace o podporu zprostředkovatele pro prostorové typy jsou uvedeny níže.  
@@ -56,4 +56,4 @@ Prostorové podpory systému SQL Server závisí na typech nízké úrovně, SQL
 
 Při instalaci sady Visual Studio často také nainstaluje verzi systému SQL Server a bude se jednat o instalaci Microsoft.SqlServer.Types.dll.  
 
-Pokud SQL Server není nainstalován na počítači, ve které chcete použít prostorové typy nebo typy prostorových byly vyloučeny z instalace systému SQL Server, je potřeba je nainstalovat ručně. Typy lze nainstalovat pomocí `SQLSysClrTypes.msi`, která je součástí sady Microsoft SQL Server Feature Pack. Prostorové typy jsou specifické pro verzi, SQL Server, takže doporučujeme [vyhledejte "SQL Server Feature Pack"](https://www.microsoft.com/en-us/search/result.aspx?q=sql+server+feature+pack) webu Microsoft Download Center, pak vyberte a stáhněte si možnost, která odpovídá verzi systému SQL Server budete používat.
+Pokud SQL Server není nainstalován na počítači, ve které chcete použít prostorové typy nebo typy prostorových byly vyloučeny z instalace systému SQL Server, je potřeba je nainstalovat ručně. Typy lze nainstalovat pomocí `SQLSysClrTypes.msi`, která je součástí sady Microsoft SQL Server Feature Pack. Prostorové typy jsou specifické pro verzi, SQL Server, takže doporučujeme [vyhledejte "SQL Server Feature Pack"](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack) webu Microsoft Download Center, pak vyberte a stáhněte si možnost, která odpovídá verzi systému SQL Server budete používat.

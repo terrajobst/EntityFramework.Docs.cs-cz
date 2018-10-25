@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/13/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: 48d26adbe17e4734753a7ada547b9c13317bef0d
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 456967a0dc981053919064a19cc9c98bf7309865
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315617"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022373"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>Začínáme s EF Core na Universal Windows Platform (UWP) s novou databázi
 
@@ -19,7 +19,7 @@ V tomto kurzu vytvoříte aplikaci univerzální platformy Windows (UPW), který
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Windows 10 Fall Creators Update (10.0; Sestavení 16299) nebo novější](https://support.microsoft.com/en-us/help/4027667/windows-update-windows-10).
+* [Windows 10 Fall Creators Update (10.0; Sestavení 16299) nebo novější](https://support.microsoft.com/help/4027667/windows-update-windows-10).
 
 * [Visual Studio 2017 verze 15.7 nebo novější](https://www.visualstudio.com/downloads/) s **vývoj pro univerzální platformu Windows** pracovního vytížení.
 

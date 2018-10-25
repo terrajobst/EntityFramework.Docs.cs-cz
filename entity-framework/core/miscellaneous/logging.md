@@ -4,21 +4,21 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: efc78fbada3c59bf9cf2c4cb694835bb5ad60e76
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 65501b5ac03ae544c51b7fc1a07fa9eea849f1e3
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997002"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022142"
 ---
-# <a name="logging"></a>protokolování
+# <a name="logging"></a>Protokolování
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging) na Githubu.
 
 ## <a name="aspnet-core-applications"></a>Aplikace ASP.NET Core
 
-EF Core mechanismy protokolování ASP.NET Core integruje automaticky pokaždé, když `AddDbContext` nebo `AddDbContextPool` se používá. Proto při použití technologie ASP.NET Core, protokolování by měla být nastavená způsobem popsaným v [dokumentace k ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).
+EF Core mechanismy protokolování ASP.NET Core integruje automaticky pokaždé, když `AddDbContext` nebo `AddDbContextPool` se používá. Proto při použití technologie ASP.NET Core, protokolování by měla být nastavená způsobem popsaným v [dokumentace k ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).
 
 ## <a name="other-applications"></a>Další aplikace
 
@@ -54,4 +54,4 @@ V tomto příkladu je filtrovaná vrátí pouze zprávy v protokolu:
 
 Pro jádro EF Core protokolovač kategorie jsou definovány v `DbLoggerCategory` třídy usnadňují vyhledání kategorie, ale tyto přeložit na jednoduché řetězce.
 
-Další informace o základní infrastruktuře protokolování najdete v [dokumentace k ASP.NET Core protokolování](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).
+Další informace o základní infrastruktuře protokolování najdete v [dokumentace k ASP.NET Core protokolování](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).

@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 8568f0a3c6c4585c4fe05508fd610614107c8f66
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 0f9f0d4708fa283855eddf2cfc231b37356e413e
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315643"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022347"
 ---
 # <a name="compare-ef-core--ef6"></a>Porovnání EF Core a EF6
 
@@ -73,7 +73,7 @@ EF Core sloupec označuje verzi produktu, ve kterém nejprve funkci objevily.
 
 ### <a name="querying-data"></a>Dotazy na data
 
-| ** Funkce                                             | **EF6**  | **EF Core**                           |
+| **Funkce**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | LINQ – dotazy                                          | Ano      | 1.0 (Probíhá pro složité dotazy) |
 | Parametr Readable generovaného SQL                                | Slabé     | 1.0                                   |
@@ -147,7 +147,7 @@ EF Core sloupec označuje verzi produktu, ve kterém nejprve funkci objevily.
 ## <a name="guidance-for-new-applications"></a>Doporučení pro nové aplikace
 
 Zvažte použití EF Core pro novou aplikaci, pokud jsou splněny obě následující podmínky:
-* Aplikace musí funkcí .NET Core. Další informace najdete v tématu [volba mezi .NET Core a .NET Framework pro serverové aplikace](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server).
+* Aplikace musí funkcí .NET Core. Další informace najdete v tématu [volba mezi .NET Core a .NET Framework pro serverové aplikace](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server).
 * EF Core podporuje všechny funkce, které aplikace vyžaduje. Pokud chybí požadované funkce, zkontrolujte, [EF Core – plán](xref:core/what-is-new/roadmap) a zjistěte, pokud jsou plány podpory v budoucnu. 
 
 Zvažte použití EF6, pokud jsou splněny obě následující podmínky:

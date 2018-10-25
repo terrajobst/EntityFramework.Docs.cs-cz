@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 84e2e4bc1bdc774fa059fa893e0f8ac128931feb
-ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
+ms.openlocfilehash: bba2742c3f3b6da93dd4b4f170a3878fc0473bc8
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/28/2018
-ms.locfileid: "47447180"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022194"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Začínáme s EF Core v ASP.NET Core s existující databáze
 
@@ -59,7 +59,7 @@ Tento kurz používá **blogovací** databáze na instanci LocalDb jako existuj�
 
 Instalace EF Core, nainstalujte balíček vytvořeno EF Core databáze, kterou chcete cílit na pro. Seznam dostupných zprostředkovatelů najdete v části [poskytovatelé databází](../../providers/index.md). 
 
-Pro účely tohoto kurzu není nutné instalovat balíček poskytovatele, protože v tomto kurzu použijete SQL Server. Je součástí balíčku zprostředkovatele SQL Server [Microsoft.AspnetCore.App Microsoft.aspnetcore.all](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).
+Pro účely tohoto kurzu není nutné instalovat balíček poskytovatele, protože v tomto kurzu použijete SQL Server. Je součástí balíčku zprostředkovatele SQL Server [Microsoft.AspnetCore.App Microsoft.aspnetcore.all](https://docs.microsoft.com/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).
 
 ## <a name="reverse-engineer-your-model"></a>Provést zpětnou analýzu modelu
 

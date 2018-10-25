@@ -3,12 +3,12 @@ title: Podporovaná implementace .NET – EF Core
 author: rowanmiller
 ms.date: 08/30/2017
 uid: core/platforms/index
-ms.openlocfilehash: 347965818f0eab9a86411f66eaaf10cb3aa8d652
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8fc25f4a35794162c92fd292990c24e977d1bf1b
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996435"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022259"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>Implementace .NET podporuje EF Core
 
@@ -41,7 +41,7 @@ Při používání EF Core na UPW:
 
 * K optimalizaci výkonu dotazů, vyhněte se anonymních typů v dotazech LINQ. Nasazení aplikace UPW do app storu vyžaduje, aby aplikace kompilované pomocí .NET Native. Dotazy s anonymními typy mají horší výkon v .NET Native.
 
-* K optimalizaci `SaveChanges()` výkonu, použijte [ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) a implementovat [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx), [INotifyPropertyChanging ](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx), a [INotifyCollectionChanged](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) ve vašem typy entit.
+* K optimalizaci `SaveChanges()` výkonu, použijte [ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) a implementovat [INotifyPropertyChanged](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanged.aspx), [INotifyPropertyChanging ](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanging.aspx), a [INotifyCollectionChanged](https://msdn.microsoft.com/library/system.collections.specialized.inotifycollectionchanged.aspx) ve vašem typy entit.
 
 ## <a name="report-issues"></a>Hlásit problémy
 

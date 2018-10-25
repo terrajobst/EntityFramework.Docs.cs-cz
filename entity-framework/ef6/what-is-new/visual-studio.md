@@ -3,12 +3,12 @@ title: Verze sady Visual Studio – EF6
 author: divega
 ms.date: 07/05/2018
 ms.assetid: 028FF890-4EDB-4F03-AE53-72F9C33EC92F
-ms.openlocfilehash: d104236ac5c8877da421ba10de9827f17937a9ec
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 16bcdc6d0e7c5632d4f4c06ba285a7a666f24204
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489918"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022246"
 ---
 # <a name="visual-studio-releases"></a>Verze sady Visual Studio
 
@@ -41,7 +41,7 @@ Nezapomeňte použít doslovný řetězec s předponou `@` nebo dvojité zpětn�
 
 ## <a name="visual-studio-2013"></a>Visual Studio 2013
 - Tato verze sady Visual Studio obsahuje a starší verzi nástroje Entity Framework a modulu runtime.
-Doporučuje se upgradovat na Entity Framework Tools 6.1.3, pomocí [instalační program](https://www.microsoft.com/en-us/download/details.aspx?id=40762) k dispozici na webu Microsoft Download Center.
+Doporučuje se upgradovat na Entity Framework Tools 6.1.3, pomocí [instalační program](https://www.microsoft.com/download/details.aspx?id=40762) k dispozici na webu Microsoft Download Center.
 Zobrazit [posledních verzí](~/ef6/what-is-new/past-releases.md#ef-613) podrobné informace o těchto verzích.
 - Přidání Entity Framework pro nové projekty pomocí nástrojů, upgradovaný EF automaticky přidá EF 6.1.3 balíček NuGet.
 Ručně můžete nainstalovat nebo upgradovat na libovolný balíček EF NuGet k dispozici online.
@@ -52,7 +52,7 @@ Nezapomeňte použít doslovný řetězec s předponou `@` nebo dvojité zpětn�
 ## <a name="visual-studio-2012"></a>Visual Studio 2012
 
 - Tato verze sady Visual Studio obsahuje a starší verzi nástroje Entity Framework a modulu runtime.
-Doporučuje se upgradovat na Entity Framework Tools 6.1.3, pomocí [instalační program](https://www.microsoft.com/en-us/download/details.aspx?id=40762) k dispozici na webu Microsoft Download Center.
+Doporučuje se upgradovat na Entity Framework Tools 6.1.3, pomocí [instalační program](https://www.microsoft.com/download/details.aspx?id=40762) k dispozici na webu Microsoft Download Center.
 Zobrazit [posledních verzí](~/ef6/what-is-new/past-releases.md#ef-613) podrobné informace o těchto verzích.
 - Přidání Entity Framework pro nové projekty pomocí nástrojů, upgradovaný EF automaticky přidá EF 6.1.3 balíček NuGet.
 Ručně můžete nainstalovat nebo upgradovat na libovolný balíček EF NuGet k dispozici online.

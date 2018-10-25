@@ -3,12 +3,12 @@ title: Entity Framework poskytovatelé - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: c9afb32caeeef5111b32251c62019460b62f48b3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 0cfe6c30d6533b0207f78a031d342847a7f68632
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489437"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022220"
 ---
 # <a name="entity-framework-6-providers"></a>Zprostředkovatelé Entity Framework 6
 > [!NOTE]
@@ -68,7 +68,7 @@ Všimněte si, že často poskytovateli EF při instalaci z NuGet, pak balíček
 
 ### <a name="code-based-registration"></a>Registrace na úrovni kódu
 
-Od verze Entity Framework 6 celou aplikaci konfigurace pro EF můžete zadat v kódu. Úplné podrobnosti najdete v tématu  _[Entity Framework Code-Based konfigurace](https://msdn.microsoft.com/en-us/data/jj680699)_. Obvyklým způsobem zaregistrovat poskytovatele EF pomocí konfigurace založená na kódu je vytvořte novou třídu, která je odvozena z System.Data.Entity.DbConfiguration a jeho následné uložení do stejného sestavení jako vaší třídy DbContext. Vaše třída DbConfiguration by pak zaregistrujte poskytovatele 've svém konstruktoru. Například k registraci SQL Compact poskytovatele DbConfiguration třídy vypadá takto:
+Od verze Entity Framework 6 celou aplikaci konfigurace pro EF můžete zadat v kódu. Úplné podrobnosti najdete v tématu  _[Entity Framework Code-Based konfigurace](https://msdn.microsoft.com/data/jj680699)_. Obvyklým způsobem zaregistrovat poskytovatele EF pomocí konfigurace založená na kódu je vytvořte novou třídu, která je odvozena z System.Data.Entity.DbConfiguration a jeho následné uložení do stejného sestavení jako vaší třídy DbContext. Vaše třída DbConfiguration by pak zaregistrujte poskytovatele 've svém konstruktoru. Například k registraci SQL Compact poskytovatele DbConfiguration třídy vypadá takto:
 
 ``` csharp
     public class MyConfiguration : DbConfiguration

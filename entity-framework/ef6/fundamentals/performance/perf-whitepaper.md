@@ -3,12 +3,12 @@ title: Faktory ovlivňující výkon u EF4 EF5 a EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: fb184fe8720b552a2050607bb17648f0413c31d1
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.openlocfilehash: c87c1412cb23abf232663d7e4f44eef5f7818ea2
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459588"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022386"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Faktory ovlivňující výkon u EF 6, 4 a 5
 David Obando, Eric Dettinger a další
@@ -33,7 +33,7 @@ Entity Framework 6 je out of band verze a nezávisí na komponenty Entity Framew
 
 ## <a name="2-cold-vs-warm-query-execution"></a>2. Studená vs. Provádění dotazu teplé
 
-Při prvním provedené jakéhokoli dotazu pro daný model Entity Framework nemá spoustu práce na pozadí k načtení a ověření modelu. Často označujeme tento první dotaz jako dotaz "studenými".  Další dotazy vůči už načtený modelu jsou označovány jako "teplé" dotazy a je mnohem rychlejší.
+Při prvním provedené jakéhokoli dotazu pro daný model Entity Framework nemá spoustu práce na pozadí k načtení a ověření modelu. Často označujeme tento první dotaz jako dotaz "studenými".  Další dotazy vůči už načtený modelu jsou označovány jako "teplé" dotazy a je mnohem rychlejší.
 
 Pojďme trvat souhrnný přehled trvají delší dobu při provádění dotazu používá nástroj Entity Framework a v tématu, kde se věci zlepšení v Entity Framework 6.
 
@@ -145,7 +145,7 @@ Pokud máte velké model Code First pomocí nezávislé přidružení bude mít 
 
 Když váš model je přímo součástí vaší aplikace a generovat zobrazení prostřednictvím události před sestavením nebo šablony T4, generování zobrazení a ověření proběhne pokaždé, když se je znovu sestavit projekt, i když je model nebyl změněn. Pokud přesunout do samostatných sestavení modelu a na něj odkazovat z vaší aplikace, lze provádět jiné změny do vaší aplikace bez nutnosti znovu sestavit projekt, který obsahuje model.
 
-*Poznámka:* při přesunu modelu do samostatných sestavení, nezapomeňte si zkopírovat připojovací řetězce pro model do konfiguračního souboru aplikace projektu klienta.
+*Poznámka:*  při přesunu modelu do samostatných sestavení, nezapomeňte si zkopírovat připojovací řetězce pro model do konfiguračního souboru aplikace projektu klienta.
 
 #### <a name="243-disable-validation-of-an-edmx-based-model"></a>2.4.3 zakážete ověřování modelu bázi edmx
 
@@ -180,10 +180,10 @@ Existuje posouzení výkonu, jež mají být provedeny při hledání. Volání 
 Příklad najít změnami auto-detect zakázané:
 
 ``` csharp
-    context.Configuration.AutoDetectChangesEnabled = false;
-    var product = context.Products.Find(productId);
-    context.Configuration.AutoDetectChangesEnabled = true;
-    ...
+    context.Configuration.AutoDetectChangesEnabled = false;
+    var product = context.Products.Find(productId);
+    context.Configuration.AutoDetectChangesEnabled = true;
+    ...
 ```
 
 Co je nutné zvážit při použití metody najít je:
@@ -201,7 +201,7 @@ Pokud používáte Entity Framework 6, jsou vývojáři schopni volání AddRang
 
 ### <a name="32-query-plan-caching"></a>3.2 dotazu do mezipaměti plánu
 
-Prvním je dotaz proveden, prochází přes vnitřní plán kompilátor převede koncepční dotaz na příkaz úložiště (třeba T-SQL, který se spustí při spuštění SQL serveru).  Pokud je povoleno ukládání do mezipaměti plánu dotazu, při příštím dotaz je proveden úložišti je příkaz načíst přímo z mezipaměti plánu dotazu pro provádění bez použití kompilátoru plánu.
+Prvním je dotaz proveden, prochází přes vnitřní plán kompilátor převede koncepční dotaz na příkaz úložiště (třeba T-SQL, který se spustí při spuštění SQL serveru).  Pokud je povoleno ukládání do mezipaměti plánu dotazu, při příštím dotaz je proveden úložišti je příkaz načíst přímo z mezipaměti plánu dotazu pro provádění bez použití kompilátoru plánu.
 
 Mezipaměti plánu dotazu je sdílen mezi instance ObjectContext v rámci téže třídy AppDomain. Není nutné pro udržení instance ObjectContext, abyste využili výhod ukládání do mezipaměti plánu dotazu.
 
@@ -211,22 +211,22 @@ Mezipaměti plánu dotazu je sdílen mezi instance ObjectContext v rámci téže
 -   Ve výchozím nastavení ukládání do mezipaměti plánu dotazu je povoleno pro Entity SQL dotazy, zda provést prostřednictvím EntityCommand nebo ObjectQuery. Je také ve výchozím nastavení zapnutá pro LINQ dotazy entity v Entity Framework v rozhraní .NET 4.5 a Entity Framework 6
     -   Ukládání do mezipaměti plánu dotazu je možné zakázat nastavením vlastnosti EnablePlanCaching (na EntityCommand nebo ObjectQuery) na hodnotu false. Příklad:
 ``` csharp
-                    var query = from customer in context.Customer
-                                where customer.CustomerId == id
-                                select new
-                                {
-                                    customer.CustomerId,
-                                    customer.Name
-                                };
-                    ObjectQuery oQuery = query as ObjectQuery;
-                    oQuery.EnablePlanCaching = false;
+                    var query = from customer in context.Customer
+                                where customer.CustomerId == id
+                                select new
+                                {
+                                    customer.CustomerId,
+                                    customer.Name
+                                };
+                    ObjectQuery oQuery = query as ObjectQuery;
+                    oQuery.EnablePlanCaching = false;
 ```
 -   Pro parametrizované dotazy se změna hodnoty parametru stále dostanou dotazu z mezipaměti. Ale změna omezujících vlastností parametrů (například velikost, přesnost nebo škálování) se dostanou jinou položku v mezipaměti.
 -   Pokud používáte Entity SQL, řetězec dotazu je součástí klíče. Změna dotazu vůbec způsobí jiný mezipaměť, i v případě, dotazy jsou funkčně ekvivalentní. To zahrnuje změny v malých a velkých písmen nebo prázdný znak.
 -   Při použití LINQ dotaz zpracování k vygenerování součástí klíče. Nahradit výraz LINQ proto vygeneruje za jiný klíč.
 -   Další technická omezení můžou vztahovat; Další podrobnosti najdete v Autocompiled dotazy.
 
-#### <a name="322------cache-eviction-algorithm"></a>3.2.2 mezipaměti vyřazení algoritmus
+#### <a name="322-cache-eviction-algorithm"></a>3.2.2 mezipaměti vyřazení algoritmus
 
 Ke zjištění, jak funguje interním algoritmu a vám pomůžou přijít na to, když chcete povolit nebo zakázat dotazu ukládání do mezipaměti plánu. Algoritmus vyčištění vypadá takto:
 
@@ -238,11 +238,11 @@ Všechny položky mezipaměti se zachází stejně při určení položek k vyř
 
 Všimněte si, že se spustí se časovač vyřazení mezipaměti v, když nejsou 800 entity v mezipaměti, ale mezipaměti je pouze, jež jsou 60 sekund, po spuštění tohoto časovače. To znamená, že až na 60 sekund mezipaměti může zvětšit poměrně velká.
 
-#### <a name="323-------test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 testování metriky demonstrace plán dotazu, ukládání do mezipaměti výkonu
+#### <a name="323-test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 testování metriky demonstrace plán dotazu, ukládání do mezipaměti výkonu
 
 Abychom si předvedli efekt plán dotazu do mezipaměti na výkon vaší aplikace, jsme provedli test kde jsme spouštěli počet dotazů Entity SQL proti Navision modelu. Viz dodatek popis modelu Navision a typy dotazů, které byly spuštěny. V tomto testu jsme první iteraci v rámci seznamu dotazů a po spuštění každé z nich přidat do mezipaměti (Pokud je povoleno ukládání do mezipaměti). Tento krok je untimed. V dalším kroku můžeme přejít do režimu spánku hlavního vlákna pro více než 60 sekund mezipaměti cílit na konkrétní uskutečnit; Nakonec jsme iterovat přes seznam 2. čas ke spuštění dotazy uložené v mezipaměti. Kromě toho má SQL Server mezipaměti plánu vyprázdní před provedením každého sadu dotazů tak, aby kolikrát získáme přesně odrážet výhodu Dal mezipaměti plánu dotazu.
 
-##### <a name="3231-------test-results"></a>3.2.3.1 výsledky testů
+##### <a name="3231-test-results"></a>3.2.3.1 výsledky testů
 
 | Test                                                                   | EF5 žádná mezipaměť | EF5 do mezipaměti | EF6 žádná mezipaměť | EF6 do mezipaměti |
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
@@ -266,7 +266,7 @@ Další informace o vytváření a vyvolávání CompiledQuery najdete v tématu
 
 Existují dvě okolnosti, které je třeba provést při použití CompiledQuery, a to nutnost používat statické instance a potíží, že budou mít s skládání. Následuje podrobné vysvětlení těchto dvou důležitých informací.
 
-#### <a name="331-------use-static-compiledquery-instances"></a>3.3.1 použít statické instance CompiledQuery
+#### <a name="331-use-static-compiledquery-instances"></a>3.3.1 použít statické instance CompiledQuery
 
 Protože je kompilování dotazu LINQ časově náročný proces, nechceme to pokaždé, když budeme potřebovat načíst data z databáze. Instance CompiledQuery umožňují jednou kompilace a spuštění více než jednou, ale musí být opatrní a nákupem znovu použít stejnou instanci CompiledQuery pokaždé, když místo kompilaci znovu a znovu. Použití statických členů k ukládání instancí CompiledQuery nezbytná.; jinak se nezobrazí žádnou výhodu.
 
@@ -292,7 +292,7 @@ Předpokládejme například, že vaše stránka obsahuje následující tělo m
 
 V tomto případě vytvoříte novou instanci CompiledQuery průběžně pokaždé, když je volána metoda. Místo toho přinese zlepšení výkonu načtením příkaz úložiště z mezipaměti plánu dotazu, abyste CompiledQuery projdou kompilátoru plán pokaždé, když je vytvořena nová instance. Ve skutečnosti je bude možné zahlcení vaší mezipaměti plánu dotazu s novým záznamem CompiledQuery pokaždé, když je volána metoda.
 
-Místo toho chcete vytvořit instanci statické v kompilovaném dotazu, takže pokaždé, když je volána metoda vyvoláváte stejný zkompilovaný dotaz. Jeden ze způsobů, jak to tedy přidáním CompiledQuery instance jako člen objektu kontextu.  Potom můžete provést akce trochu čistější díky přístupu CompiledQuery s využitím pomocnou metodu:
+Místo toho chcete vytvořit instanci statické v kompilovaném dotazu, takže pokaždé, když je volána metoda vyvoláváte stejný zkompilovaný dotaz. Jeden ze způsobů, jak to tedy přidáním CompiledQuery instance jako člen objektu kontextu.  Potom můžete provést akce trochu čistější díky přístupu CompiledQuery s využitím pomocnou metodu:
 
 ``` csharp
     public partial class NorthwindEntities : ObjectContext
@@ -311,10 +311,10 @@ Místo toho chcete vytvořit instanci statické v kompilovaném dotazu, takže p
 Tuto metodu helper by spustit následujícím způsobem:
 
 ``` csharp
-    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
+    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
 ```
 
-#### <a name="332-------composing-over-a-compiledquery"></a>3.3.2 sestavování přes CompiledQuery
+#### <a name="332-composing-over-a-compiledquery"></a>3.3.2 sestavování přes CompiledQuery
 
 Je velmi užitečné; možnost compose přes jakýkoli dotaz LINQ k tomuto účelu můžete jednoduše vyvolat metodu po položka IQueryable, jako *Skip()* nebo *Count()*. Však to tedy v podstatě vrátí nový objekt IQueryable. Není nutné nic zastavit technicky z sestavování přes CompiledQuery, díky tomu budou generování nového IQueryable objektu, který vyžaduje procházející kompilátoru plán znovu.
 
@@ -345,7 +345,7 @@ Jedno místo, kde můžete narazit to je při přidávání progresivní filtry 
     }
 ```
 
- Abyste předešli této opakované kompilace, je možné přepsat CompiledQuery možné filtry vzít v úvahu:
+ Abyste předešli této opakované kompilace, je možné přepsat CompiledQuery možné filtry vzít v úvahu:
 
 ``` csharp
     private static readonly Func<NorthwindEntities, int, int?, string, IQueryable<Customer>> customersForEmployeeWithFiltersCQ = CompiledQuery.Compile(
@@ -377,7 +377,7 @@ Který by vyvolání v uživatelském rozhraní, jako jsou:
     }
 ```
 
- Kompromis tady je příkaz generované úložiště bude mít vždy filtry se kontroly hodnoty null, ale tady by měly být pro server databáze pro optimalizaci poměrně jednoduchý:
+ Kompromis tady je příkaz generované úložiště bude mít vždy filtry se kontroly hodnoty null, ale tady by měly být pro server databáze pro optimalizaci poměrně jednoduchý:
 
 ``` SQL
 ...
@@ -572,7 +572,7 @@ V příkladu je obecný, ale ukazuje, jak je propojení firstQuery příčinou s
 
 ### <a name="51-disabling-change-tracking-to-reduce-state-management-overhead"></a>5.1 zakázání ke snížení režie na správu stavu sledování změn
 
-Pokud se v případě jen pro čtení a režie načítání objektů do objektu ObjectStateManager určitě nepřejete, můžete posílat dotazy "No sledování".  Sledování změn je možné zakázat na úrovni dotazů.
+Pokud se v případě jen pro čtení a režie načítání objektů do objektu ObjectStateManager určitě nepřejete, můžete posílat dotazy "No sledování".  Sledování změn je možné zakázat na úrovni dotazů.
 
 Nezapomeňte, že tím, že zakážete sledování vám změn jsou účinně vypnutí mezipaměti objektů. Když odešlete dotaz pro entitu, jsme nelze přeskočit materializace díky přebírání výsledky dříve materializovaného dotazu z objektu ObjectStateManager. Pokud jsou opakovaně dotazování na stejné entity ve stejném kontextu, může se ve skutečnosti zobrazit výkonu těžit z povolení řešení change tracking.
 
@@ -610,7 +610,7 @@ Přepnout režim dotazu na NoTracking pomocí zřetězení volání metody AsNoT
                                 select p;
 ```
 
-### <a name="52-test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 ukázka výhody výkonu dotazů NoTracking metriky testu
+### <a name="52test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 ukázka výhody výkonu dotazů NoTracking metriky testu
 
 V tomto testu podíváme za cenu porovnáním sledování NoTracking dotazy pro Navision model vyplnění objektu ObjectStateManager. Viz dodatek popis modelu Navision a typy dotazů, které byly spuštěny. V tomto testu jsme iteraci v rámci seznamu dotazů a každý z nich provedena pouze jednou. Spustili jsme dvě varianty testu, jednou s dotazy NoTracking a jednou s možností sloučení výchozí pouze "Přidat". Jsme spustili každou změnu 3krát a trvat střední hodnoty spuštění. Mezi testy jsme vymazat mezipaměť dotazu na SQL serveru a zmenšit databázi tempdb spuštěním následujících příkazů:
 
@@ -643,7 +643,7 @@ Entity Framework nabízí několik různých způsobů, jak dotaz. Použijeme po
 -   SqlQuery.
 -   CompiledQuery.
 
-### <a name="61-------linq-to-entities-queries"></a>6.1 dotazech LINQ to Entities
+### <a name="61-linq-to-entities-queries"></a>6.1 dotazech LINQ to Entities
 
 ``` csharp
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
@@ -662,7 +662,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
     -   Využitím DefaultIfEmpty OUTER JOIN dotazů za následek složitější dotazy než jednoduché příkazy OUTER JOIN v Entity SQL.
     -   Stále nelze použít s obecné porovnávání vzorů.
 
-### <a name="62-------no-tracking-linq-to-entities-queries"></a>6.2 žádné sledování LINQ dotazy na entity
+### <a name="62-no-tracking-linq-to-entities-queries"></a>6.2 žádné sledování LINQ dotazy na entity
 
 Když kontextu odvozuje ObjectContext:
 
@@ -699,7 +699,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages").Sele
 
 Tento konkrétní dotaz nemá určenou explicitně se NoTracking, ale vzhledem k tomu, že není materializaci typ, který je známo, že správce stavu objektu pak výsledku materializovaného není sledována.
 
-### <a name="63-------entity-sql-over-an-objectquery"></a>6.3 entity SQL přes ObjectQuery
+### <a name="63-entity-sql-over-an-objectquery"></a>6.3 entity SQL přes ObjectQuery
 
 ``` csharp
 ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName = 'Beverages'");
@@ -715,7 +715,7 @@ ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName
 
 -   Zahrnuje dotazu textové řetězce, které jsou více náchylná k chybám uživatelů než konstrukce dotazů integrované do jazyka.
 
-### <a name="64-------entity-sql-over-an-entity-command"></a>6.4 entity SQL přes příkaz Entity
+### <a name="64-entity-sql-over-an-entity-command"></a>6.4 entity SQL přes příkaz Entity
 
 ``` csharp
 EntityCommand cmd = eConn.CreateCommand();
@@ -740,7 +740,7 @@ using (EntityDataReader reader = cmd.ExecuteReader(CommandBehavior.SequentialAcc
 -   Není vhodný pro operace vytvoření.
 -   Výsledky nejsou automaticky vyhodnocena a musí být četlo čtecí modul dat.
 
-### <a name="65-------sqlquery-and-executestorequery"></a>6.5 SqlQuery a ExecuteStoreQuery
+### <a name="65-sqlquery-and-executestorequery"></a>6.5 SqlQuery a ExecuteStoreQuery
 
 SqlQuery v databázi:
 
@@ -778,7 +778,7 @@ var beverages = context.ExecuteStoreQuery<Product>(
 -   Dotaz se váže na konkrétní back-endu s využitím úložiště sémantikou místo koncepční sémantiku.
 -   Při dědičnost je k dispozici, je potřeba účet pro mapování podmínky pro požadovaný typ rukodìlných dotazu.
 
-### <a name="66-------compiledquery"></a>6.6 CompiledQuery
+### <a name="66-compiledquery"></a>6.6 CompiledQuery
 
 ``` csharp
 private static readonly Func<NorthwindEntities, string, IQueryable<Product>> productsForCategoryCQ = CompiledQuery.Compile(
@@ -801,7 +801,7 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 -   Zlepšení výkonu je ztracena při psaní nad kompilovaném dotazu.
 -   Některé dotazy LINQ nelze zapsat jako CompiledQuery – například projekcí anonymních typů.
 
-### <a name="67-------performance-comparison-of-different-query-options"></a>6.7 porovnání výkonu možností jiný dotaz
+### <a name="67-performance-comparison-of-different-query-options"></a>6.7 porovnání výkonu možností jiný dotaz
 
 Byly jednoduché microbenchmarks, kde se vytvoření kontextu vypršel časový limit zařazení do testu. Jsme měří dotazování 5000 časy pro sadu entit bez mezipaměti v řízeném prostředí. Tato čísla jsou mají být provedeny s upozorněním: neodrážejí aktuální počet vytvářených aplikace, ale místo toho jsou jak velká část rozdíly ve výkonnosti se, pokud jsou porovnány různé možnosti dotazování velmi přesné měření jablka na apples, s výjimkou náklady na vytvoření nový kontext.
 
@@ -863,7 +863,7 @@ V tomto případě začátku do konce, Entity Framework 6 lepší výkon než En
 
 ## <a name="7-design-time-performance-considerations"></a>Faktory ovlivňující výkon čas návrh 7
 
-### <a name="71-------inheritance-strategies"></a>7.1 strategie dědičnosti
+### <a name="71-inheritance-strategies"></a>7.1 strategie dědičnosti
 
 Dalším aspektem výkon při použití rozhraní Entity Framework je strategie dědičnosti, které používáte. Entity Framework podporuje 3 základní typy dědičnosti a jejich kombinace:
 
@@ -871,11 +871,11 @@ Dalším aspektem výkon při použití rozhraní Entity Framework je strategie 
 -   Tabulky podle typu (TPT) – kam každý typ má své vlastní tabulky v databázi. podřízené tabulky definovat pouze sloupce, které neobsahuje nadřazené tabulky.
 -   Tabulky podle třídy (TPC) – kam každý typ má své vlastní celou tabulku v databázi. podřízené tabulky definovat všechny jejich polí, včetně těch, které definovaný v nadřazené typy.
 
-Používá-li model dědičnosti TPT, dotazy, které se generují bude složitější než ty, které jsou generovány s dalšími strategiemi dědičnosti, což může způsobit na delší dobu provádění ve storu.  Obecně bude trvat déle, vygenerujte dotazy TPT modelu a materializovat výsledných objektech.
+Používá-li model dědičnosti TPT, dotazy, které se generují bude složitější než ty, které jsou generovány s dalšími strategiemi dědičnosti, což může způsobit na delší dobu provádění ve storu.  Obecně bude trvat déle, vygenerujte dotazy TPT modelu a materializovat výsledných objektech.
 
 "Důležité informace o výkonu při použití dědičnosti TPT (tabulka na jeden typ) v Entity Framework" najdete v příspěvku blogu MSDN: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>.
 
-#### <a name="711-------avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 vyhnout TPT v aplikacích první Model nebo Code First
+#### <a name="711-avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 vyhnout TPT v aplikacích první Model nebo Code First
 
 Při vytváření modelu přes existující databázi, která má schéma TPT nemáte celou řadu možností. Ale při vytváření aplikace pomocí modelu první nebo Code First, měli byste se vyhnout TPT dědičnost dopadům na výkon.
 
@@ -883,7 +883,7 @@ Při použití modelu první v Průvodci návrháře entit, zobrazí se TPT jak�
 
 Při použití Code First pro konfiguraci mapování modelu s dědičnosti, EF použije TPH ve výchozím nastavení, proto všechny entity v hierarchii dědičnosti budou zmapována do stejné tabulky. V části "Mapování s rozhraní Fluent API" z "Kód první v entitě Framework4.1" článek v časopise MSDN Magazine ( [http://msdn.microsoft.com/magazine/hh126815.aspx](https://msdn.microsoft.com/magazine/hh126815.aspx)) pro další podrobnosti.
 
-### <a name="72-------upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 upgrade z EF4 ke zlepšení generování modelu čas
+### <a name="72-upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 upgrade z EF4 ke zlepšení generování modelu čas
 
 SQL Server – konkrétní zlepšení algoritmu, který generuje vrstvy úložiště (SSDL) modelu je k dispozici v Entity Framework 5 a 6 a jako aktualizace Entity Framework 4, při instalaci sady Visual Studio 2010 SP1. Následující výsledky testů ukazují zlepšení při vytváření velmi velkých objemů modelu, v tomto případě Navision modelu. Další podrobnosti naleznete v tématu dodatku C.
 
@@ -899,13 +899,13 @@ Model obsahuje sady 1005 entit a sad 4227 přidružení.
 
 Je vhodné poznamenat, že při generování souborů SSDL, zatížení je téměř zcela strávená na serveru SQL Server čeká na klientském počítači. vývojové nečinnosti výsledků k téhle akci vrátit ze serveru. Specializující by měl ocení zejména toto vylepšení. Je také vhodné poznamenat, že v podstatě náklady na generování modelu probíhá generování zobrazení nyní.
 
-### <a name="73-------splitting-large-models-with-database-first-and-model-first"></a>7.3 nejprve rozdělení velkých modelů s databází a Model First
+### <a name="73-splitting-large-models-with-database-first-and-model-first"></a>7.3 nejprve rozdělení velkých modelů s databází a Model First
 
 Jak se zvyšuje velikost modelu, na plochu návrháře stane nevypadala a obtížně použitelný. Obvykle považujeme modelu s více než 300 entit příliš velkou efektivní použití návrháře. V následujícím příspěvku blogu popisuje několik možností pro rozdělení velkých modelů: \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>.
 
 Příspěvek byl zapsán pro první verzi Entity Frameworku, ale postup se vztahuje.
 
-### <a name="74-------performance-considerations-with-the-entity-data-source-control"></a>7.4 důležité informace o výkonu s Entity Data Source Control
+### <a name="74-performance-considerations-with-the-entity-data-source-control"></a>7.4 důležité informace o výkonu s Entity Data Source Control
 
 Zaznamenali jsme případy vícevláknové výkonnostních a zátěžových testů ve kterém výkon webové aplikace pomocí ovládacího prvku EntityDataSource deteriorates výrazně. Příčinou je, že třídu EntityDataSource platí MetadataWorkspace.LoadFromAssembly opakovaně volá na sestavení odkazuje webové aplikace ke zjištění typy použité jako entity.
 
@@ -913,7 +913,7 @@ Zaznamenali jsme případy vícevláknové výkonnostních a zátěžových test
 
 Nastavení pole ContextTypeName zabrání také o funkční problém, ve kterém třídu EntityDataSource platí v rozhraní .NET 4.0 výjimce ReflectionTypeLoadException byla vyvolána při provádění jej nelze načíst typ z sestavení prostřednictvím reflexe. Tento problém byl vyřešen v rozhraní .NET 4.5.
 
-### <a name="75-------poco-entities-and-change-tracking-proxies"></a>7.5 POCO entity a change tracking proxy servery
+### <a name="75-poco-entities-and-change-tracking-proxies"></a>7.5 POCO entity a change tracking proxy servery
 
 Entity Framework umožňuje používat vlastní datové třídy společně s datový model bez provedení změn na datové třídy sami. To znamená, že můžete použít "prostý staré" CLR objektů POCO, jako je například existujících objektů domény s datovým modelem. Tyto POCO datových tříd (označované také jako ignorujících objekty), které jsou mapovány na subjekty, které jsou definovány v datovém modelu, podporují většinu stejného dotazu, vložit, aktualizovat a odstranit chování jako typy entit, které jsou generovány pomocí nástroje modelu Entity Data Model.
 
@@ -1089,7 +1089,7 @@ Není žádná taková věc, kterou jako univerzální výběrem předběžné n
 | Váš kód spouští daleko od databáze? (latence sítě)  | **Ne** – Pokud latence sítě není problém, pomocí opožděné načtení může zjednodušit kód. Mějte na paměti, že topologii vaší aplikace se může změnit postupně nevyřídí databáze blízkosti samozřejmost tedy. <br/> <br/> **Ano** – Pokud síť není problém, pouze se můžete rozhodnout, co lépe vyhovuje vašemu scénáři. Předběžné načítání obvykle bude lepší, protože vyžaduje menší počet zpátečních cest.                                                                                                                                                                                                      |
 
 
-#### <a name="822-------performance-concerns-with-multiple-includes"></a>8.2.2 aspekty výkonu s více zahrnuje
+#### <a name="822-performance-concerns-with-multiple-includes"></a>8.2.2 aspekty výkonu s více zahrnuje
 
 Slyšeli jsme, že otázky výkonu, které zahrnují problémech čas odpovědi serveru, příčinu problému při často dotazy s více příkazy Include. Zatímco včetně souvisejících entit v dotazu je efektivní, je důležité pochopit, co se děje na pozadí.
 
@@ -1147,7 +1147,7 @@ Dobrý prostředek, který ukazuje, jak povolit rozdělení tabulky je Gil Fink 
 
 ## <a name="9-other-considerations"></a>9 další důležité informace
 
-### <a name="91------server-garbage-collection"></a>9.1 uvolnění paměti serveru
+### <a name="91-server-garbage-collection"></a>9.1 uvolnění paměti serveru
 
 Někteří uživatelé setkat sporu prostředků, která omezuje paralelismu, které jsou se očekává při uvolňování paměti není správně nakonfigurována. Pokaždé, když EF se používá ve scénáři s více vlákny, nebo v jakékoli aplikaci, která vypadá podobně jako na straně serveru systému, ujistěte se, že chcete povolit uvolnění paměti serveru. To se provádí prostřednictvím jednoduché nastavení v konfiguračním souboru aplikace:
 
@@ -1162,7 +1162,7 @@ Někteří uživatelé setkat sporu prostředků, která omezuje paralelismu, kt
 
 To by měla snížit vaše spor vlákna a zvýšit propustnost až o 30 % ve scénářích procesoru přeplněný. Obecně řečeno byste měli vždy otestovat chování aplikací pomocí klasické kolekce uvolnění paměti (která je vyladěná lépe pro scénáře na straně uživatelského rozhraní a klient) a také kolekce volnění paměti serveru.
 
-### <a name="92------autodetectchanges"></a>9.2 AutoDetectChanges
+### <a name="92-autodetectchanges"></a>9.2 AutoDetectChanges
 
 Jak už bylo zmíněno dříve, Entity Framework může zobrazit problémy s výkonem při mezipaměti objektů má mnoho entit. Některé operace, jako je například přidat, odebrat, hledání, vstupu a SaveChanges, aktivovat volání metoda DetectChanges, které může využívat velké procento využití procesoru podle jak velký stal mezipaměti objektů. Důvodem je, že mezipaměti objektů a zkuste správce stavu objekt zůstat jako synchronizují nejvíce na každou operace prováděné na kontext, tak, aby vyprodukované dat je záruku správnosti v rámci široké škály scénářů.
 
@@ -1183,11 +1183,11 @@ finally
 
 Před vypnutím AutoDetectChanges, je vhodné pochopit, že to může vést ke ztrátě schopnosti ke sledování určité informace o změnách, které budou probíhat na entity Entity Framework. Pokud nesprávně zpracována, tato akce může způsobit nekonzistenci dat ve vaší aplikaci. Další informace o vypnutí AutoDetectChanges najdete v článku \<http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>.
 
-### <a name="93------context-per-request"></a>9.3 kontext každý požadavek
+### <a name="93-context-per-request"></a>9.3 kontext každý požadavek
 
 Kontext Entity Framework jsou určené pro použití jako krátkodobé a jednorázové instance, aby bylo možné poskytovat optimální výkon prostředí. Kontexty očekává krátkodobé žít a zahodí a proto je implementovaná odlehčení a reutilize metadat, kdykoli je to možné. Ve web scénářích je potřeba to mějte na paměti a není nutné kontext pro více než jedné žádosti. Podobně v mimo web scénářích kontextu měly být zahozeny podle pochopíte různé úrovně ukládání do mezipaměti v Entity Framework. Obecně řečeno jeden by měl nepoužívejte instance kontextu po celou dobu životnosti aplikace, stejně jako kontexty na vlákno a statické kontexty.
 
-### <a name="94------database-null-semantics"></a>9.4 sémantika s hodnotou null databáze
+### <a name="94-database-null-semantics"></a>9.4 sémantika s hodnotou null databáze
 
 Entity Framework ve výchozím nastavení vygeneruje kód SQL, který má C\# sémantiku porovnání s hodnotou null. Vezměte v úvahu následující příklad dotazu:
 
@@ -1224,18 +1224,18 @@ Malé a střední velikosti dotazy nezobrazí zlepšení postřehnutelné výkon
 
 Ve výše uvedené vzorový dotaz byl rozdíly ve výkonnosti méně než 2 % microbenchmark spuštěné v řízeném prostředí.
 
-### <a name="95------async"></a>9.5 asynchronní
+### <a name="95-async"></a>9.5 asynchronní
 
 Entity Framework 6 zavedena podpora asynchronní operace při spuštění v rozhraní .NET 4.5 nebo novější. Ve většině případů aplikací, které obsahují vstupně-výstupní operace týkající se sporů využívat na maximum pomocí asynchronního dotazu, který se operace uložení. Pokud vaše aplikace nezpůsobuje žádné kolize vstupně-výstupní operace, použijte asynchronní, v nejlepší případech běžely synchronně a vrátí výsledek ve stejnou dobu jako synchronní volání nebo v nejhorším případě, jednoduše odložit provádění asynchronní úloha a přidat další tim elektronické pro dokončení vašeho scénáře.
 
 Informace o tom, jak asynchronní programovací práce, který vám pomůže rozhodování o tom, pokud asynchronní zlepší výkon vaší aplikace navštívíte [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Další informace týkající se použití asynchronních operací v Entity Framework naleznete v tématu [asynchronního dotazu a uložit](~/ef6/fundamentals/async.md
 ).
 
-### <a name="96------ngen"></a>9.6 NGEN
+### <a name="96-ngen"></a>9.6 NGEN
 
 Entity Framework 6 nepochází ve výchozí instalaci rozhraní .NET framework. V důsledku toho sestavení rozhraní Entity Framework nejsou že Ngen by ve výchozím nastavení, což znamená, že veškerý kód Entity Framework se řídí stejnou náklady JIT'ing jako jakékoli jiné sestavení jazyka MSIL. To může snížit F5 zkušenosti při vývoji a také úplné spuštění vaší aplikace v produkčním prostředí. Aby bylo možné snížit náklady na využití procesoru a paměti JIT'ing se doporučuje NGEN Entity Framework Image podle potřeby. Další informace o tom, jak zlepšit výkon při spuštění nástroje Entity Framework 6 pomocí technologie NGEN najdete v tématu [zlepšuje výkon při spouštění pomocí technologie NGen](~/ef6/fundamentals/performance/ngen.md).
 
-### <a name="97------code-first-versus-edmx"></a>9.7 kódu nejprve oproti EDMX
+### <a name="97-code-first-versus-edmx"></a>9.7 kódu nejprve oproti EDMX
 
 Entity Framework důvodů o problému vzniklé vzájemné napětí Neshoda mezi objektově orientované programování a relačními databázemi tím, že reprezentaci v paměti koncepčního modelu (objekty), schéma úložiště (databáze) a mapování mezi dvě. Tato metadata je volána modelu Entity Data Model nebo EDM pro krátké. Z tohoto modelu EDM Entity Framework bude odvozovat zobrazení umožňujícím zpětnou transformaci dat z objektů v paměti do databáze a zpět.
 
@@ -1251,11 +1251,11 @@ Pokud se rozhodnete použít EDMX a Code First, je důležité vědět, že pru�
 
 Pokud máte problémy s výkonem s použitím rozhraní Entity Framework, můžete zobrazit, kde aplikace spotřebuje své doby profiler stejný, jako je integrované do sady Visual Studio. Toto je nástroj, který jsme použili k vygenerování výsečové grafy v blogovém příspěvku "Zkoumání výkonu technologie ADO.NET Entity Framework – část 1" ( \<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) , které uvádí, kde Entity Framework stráví času během studené a horké dotazy.
 
-Blogový příspěvek "Profilace Entity Framework pomocí Visual Studio 2010 Profiler" napsal Data a modelování zákaznického poradního týmu ukazuje příklad reálného světa jak používají profiler k prozkoumat problémy s výkonem.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Tento příspěvek napsaný pro aplikace systému windows. Pokud chcete profilovat webové aplikace mohou nástroje požadavku webové Windows Performance Recorder (části) a Windows Performance Analyzer (WPA) fungují lépe než pracovní ze sady Visual Studio. Požadavku webové části a WPA jsou součástí Windows Performance Toolkit, který je součástí sady Windows Assessment and Deployment Kit ( [http://www.microsoft.com/en-US/download/details.aspx?id=39982](https://www.microsoft.com/en-US/download/details.aspx?id=39982)).
+Blogový příspěvek "Profilace Entity Framework pomocí Visual Studio 2010 Profiler" napsal Data a modelování zákaznického poradního týmu ukazuje příklad reálného světa jak používají profiler k prozkoumat problémy s výkonem.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Tento příspěvek napsaný pro aplikace systému windows. Pokud chcete profilovat webové aplikace mohou nástroje požadavku webové Windows Performance Recorder (části) a Windows Performance Analyzer (WPA) fungují lépe než pracovní ze sady Visual Studio. Požadavku webové části a WPA jsou součástí Windows Performance Toolkit, který je součástí sady Windows Assessment and Deployment Kit ( [http://www.microsoft.com/download/details.aspx?id=39982](https://www.microsoft.com/download/details.aspx?id=39982)).
 
 ### <a name="102-applicationdatabase-profiling"></a>10.2 profilace aplikace a databáze
 
-Nástroje, jako je integrované do sady Visual Studio profiler zjistit, kde aplikace spotřebuje čas.  Je k dispozici jiný typ profileru, který provádí dynamické analýze aplikace běžící v produkčním prostředí nebo předprodukčním prostředí, v závislosti na požadavcích a hledá běžné nástrahy a antimodely přístup k databázi.
+Nástroje, jako je integrované do sady Visual Studio profiler zjistit, kde aplikace spotřebuje čas.  Je k dispozici jiný typ profileru, který provádí dynamické analýze aplikace běžící v produkčním prostředí nebo předprodukčním prostředí, v závislosti na požadavcích a hledá běžné nástrahy a antimodely přístup k databázi.
 
 Jsou dva komerčně dostupný profilery Profiler Entity Framework ( \<http://efprof.com>) a ORMProfiler ( \<http://ormprofiler.com>).
 
@@ -1298,9 +1298,9 @@ Další informace o tom, jak přidat protokolování bez opětovné kompilace p�
 
 Toto prostředí používá počítač 2. nastavení se databáze na samostatném počítači z klientské aplikace. Počítače jsou ve stejné stojanu, tak je latence sítě, relativně nízký, ale než jeden počítač prostředí víc odpovídají realitě.
 
-#### <a name="1111-------app-server"></a>11.1.1 aplikačního serveru
+#### <a name="1111-app-server"></a>11.1.1 aplikačního serveru
 
-##### <a name="11111------software-environment"></a>11.1.1.1 softwarovém prostředí
+##### <a name="11111-software-environment"></a>11.1.1.1 softwarovém prostředí
 
 -   Entity Framework 4 softwarovém prostředí
     -   Název operačního systému: Windows Server 2008 R2 Enterprise SP1.
@@ -1310,26 +1310,26 @@ Toto prostředí používá počítač 2. nastavení se databáze na samostatné
     -   Název operačního systému: Windows 8.1 Enterprise
     -   Visual Studio 2013 – Ultimate.
 
-##### <a name="11112------hardware-environment"></a>11.1.1.2 hardwarového prostředí
+##### <a name="11112-hardware-environment"></a>11.1.1.2 hardwarového prostředí
 
 -   Dvoujádrový procesor: Intel(R) Xeon(R) CPU L5520 W3530 @ 2,27 GHz,. 2261 Mhz8 GHz, 4 jader, 84 logických procesorů.
 -   RamRAM 2412 GB.
 -   136 GB SCSI250GB SATA 7200 ot. / min / 3GB/s disku rozdělit do 4 oddíly.
 
-#### <a name="1112-------db-server"></a>11.1.2 Databázového serveru
+#### <a name="1112-db-server"></a>11.1.2 Databázového serveru
 
-##### <a name="11121------software-environment"></a>11.1.2.1 softwarovém prostředí
+##### <a name="11121-software-environment"></a>11.1.2.1 softwarovém prostředí
 
 -   Název operačního systému: Windows Server 2008 R28.1 Enterprise s aktualizací SP1.
 -   SQL Server 2008 R22012.
 
-##### <a name="11122------hardware-environment"></a>11.1.2.2 hardwarového prostředí
+##### <a name="11122-hardware-environment"></a>11.1.2.2 hardwarového prostředí
 
 -   Jeden procesor: Intel(R) Xeon(R) CPU L5520 @ 2,27 GHz,. 2261 MhzES-1620 0 @ 3.60 GHz, 4 jader, 8 logických procesorů.
 -   RamRAM 824 GB.
 -   465 GB ATA500GB SATA 7200 ot. / min 6GB/s disku rozdělit do 4 oddíly.
 
-### <a name="112------b-query-performance-comparison-tests"></a>11.2 testy porovnání výkonu dotazů B.
+### <a name="112-b-query-performance-comparison-tests"></a>11.2 testy porovnání výkonu dotazů B.
 
 Northwind model byl použit ke spuštění těchto testů. Byla vygenerována z databáze pomocí Entity Framework designer. Následující kód se použije k porovnání výkonu provádění dotazu:
 
@@ -1519,7 +1519,7 @@ Jednoduché vyhledávací dotaz s žádné agregace
   </Query>
 ```
 
-##### <a name="11312-singleaggregating"></a>11.3.1.2 SingleAggregating
+##### <a name="11312singleaggregating"></a>11.3.1.2 SingleAggregating
 
 Normální BI dotaz s více agregací, ale žádné mezisoučty (jeden dotaz)
 
@@ -1540,7 +1540,7 @@ Kde MDF\_SessionLogin\_čas\_Max() je definován v modelu jako:
   </Function>
 ```
 
-##### <a name="11313-aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
+##### <a name="11313aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
 
 Dotaz BI s agregace a souhrny (prostřednictvím sjednocení všechny)
 

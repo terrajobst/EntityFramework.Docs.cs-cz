@@ -3,21 +3,21 @@ title: Práce s odpojené entity - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: beb3847ce507a2112ac0d396a2023c7c4e2fca7d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 11ca2a9a4161e02d32d98bf03dd4cf28545334b7
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489931"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022168"
 ---
 # <a name="working-with-disconnected-entities"></a>Práce s odpojené entity
 V aplikaci založené na rozhraní Entity Framework je zodpovědná za vyhledávání podpory změny se použily sledované entity třídy kontextu. Volá metodu SaveChanges nevyřeší změny sledované podle kontextu do databáze. Při práci s n vrstvé aplikace, objekty entity jsou obvykle upraveny odpojené od kontextu, a musíte rozhodnout, jak sledovat změny a sestavy tyto změny zpět do kontextu. Toto téma popisuje různé možnosti, které jsou k dispozici, pokud používá nástroj Entity Framework s entitami.   
 
 ## <a name="web-service-frameworks"></a>Webové služby platformy
 
-Webové služby technologie obvykle podporují vzory, které lze použít k uchování změn na jednotlivých objektů odpojené. Například rozhraní ASP.NET Web API vám umožní na akce kontroleru kódu, které může zahrnovat volání do EF a zachová tak změny provedené na objekt v databázi. Ve skutečnosti webového rozhraní API nástroje v sadě Visual Studio usnadňuje generování uživatelského rozhraní kontroler Web API z vašeho modelu Entity Framework 6. Další informace najdete v tématu [pomocí rozhraní Web API s Entity Framework 6](https://docs.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
+Webové služby technologie obvykle podporují vzory, které lze použít k uchování změn na jednotlivých objektů odpojené. Například rozhraní ASP.NET Web API vám umožní na akce kontroleru kódu, které může zahrnovat volání do EF a zachová tak změny provedené na objekt v databázi. Ve skutečnosti webového rozhraní API nástroje v sadě Visual Studio usnadňuje generování uživatelského rozhraní kontroler Web API z vašeho modelu Entity Framework 6. Další informace najdete v tématu [pomocí rozhraní Web API s Entity Framework 6](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
 
-V minulosti byly několik dalších webových služeb technologií, která nabízí integraci s Entity Framework, jako je třeba [služeb WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) a [RIA Services](https://docs.microsoft.com/en-us/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
+V minulosti byly několik dalších webových služeb technologií, která nabízí integraci s Entity Framework, jako je třeba [služeb WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) a [RIA Services](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
 
 ## <a name="low-level-ef-apis"></a>Rozhraní API nízké úrovně EF
 
