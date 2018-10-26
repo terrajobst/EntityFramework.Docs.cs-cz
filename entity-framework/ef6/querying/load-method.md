@@ -3,12 +3,12 @@ title: Metoda Load - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 03c5a069-b7b4-455f-a16f-ee3b96cc4e28
-ms.openlocfilehash: 3a0d11552b6bfd8b83f15c58c6cb9f945d9d4536
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: bcea8ab2477f44281cd5de824457a72a84ccc766
+ms.sourcegitcommit: 4a795285004612ac03ab26532ac09ca333cb4c8f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490893"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50123814"
 ---
 # <a name="the-load-method"></a>Metoda Load
 Existuje několik scénářů, kde můžete chtít načtení entit z databáze do kontextu bez hned teď zrovna nic nedělá s těmito entitami. Dobrým příkladem je načítání entit pro datovou vazbu, jak je popsáno v [místních dat](~/ef6/querying/local-data.md). Jedním z běžných způsobů k tomu je psaní dotazu LINQ a pak zavolat ToList, pouze se okamžitě zahodit vytvořeného seznamu. Metoda rozšíření zatížení funguje stejně jako ToList s tím rozdílem, že vytvoření seznamu úplně vyhnete.  
@@ -40,7 +40,7 @@ using (var context = new BloggingContext())
     context.Entry(blog)
         .Collection(b => b.Posts)
         .Query()
-        .Where(p => p.Tags.Contains("entity-framework")
+        .Where(p => p.Tags.Contains("entity-framework"))
         .Load();
 }
 ```  
