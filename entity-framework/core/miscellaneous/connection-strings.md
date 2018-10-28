@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: 942865effba7b491dd950886ea30b69a86f1186c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 7bb39d260f700e5087673e92a50377dc68151710
+ms.sourcegitcommit: 85ccc9ed42d4aaf7525c6312058c5c9ebdaed3ae
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997668"
+ms.lasthandoff: 10/27/2018
+ms.locfileid: "50191339"
 ---
 # <a name="connection-strings"></a>Připojovací řetězce
 
@@ -77,7 +77,7 @@ V ASP.NET Core je velmi flexibilní systém konfigurace, a připojovací řetěz
 }
 ```
 
-Kontext je typicky nakonfigurován v `Startup.cs` připojovacím řetězcem, který je čten z konfigurace. Poznámka: `GetConnectionString()` metoda hledá hodnotu konfigurace, jehož klíč je `ConnectionStrings:<connection string name>`.
+Kontext je typicky nakonfigurován v `Startup.cs` připojovacím řetězcem, který je čten z konfigurace. Poznámka: `GetConnectionString()` metoda hledá hodnotu konfigurace, jehož klíč je `ConnectionStrings:<connection string name>`. Je potřeba importovat [Microsoft.Extensions.Configuration](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration) oboru názvů k použití této metody rozšíření.
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
