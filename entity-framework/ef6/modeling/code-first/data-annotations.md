@@ -3,12 +3,12 @@ title: Kód anotací dat při prvním - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 54e27f1b866da14d68db66ca5eca5a6dde819e26
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: 8d85ef85f56a23d9b3b526554417dc9dd360e139
+ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415806"
+ms.lasthandoff: 11/03/2018
+ms.locfileid: "50980038"
 ---
 # <a name="code-first-data-annotations"></a>Kód první datové poznámky
 > [!NOTE]
@@ -30,26 +30,26 @@ Vám předvedu první DataAnnotations kódu pomocí jednoduchého páru tříd: 
 ``` csharp
     public class Blog
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string BloggerName { get; set;}
-        public virtual ICollection<Post> Posts { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string BloggerName { get; set;}
+        public virtual ICollection<Post> Posts { get; set; }
     }
 
     public class Post
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public DateTime DateCreated { get; set; }
-        public string Content { get; set; }
-        public int BlogId { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Content { get; set; }
+        public int BlogId { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 ```
 
 Jsou, blogu a příspěvku třídy pohodlně postupujte podle úmluvy první kód a vyžadují žádné vylepšení umožňující EF kompatibilitou. Ale můžete také použít poznámky vám poskytneme Další informace o třídách a databáze, ke které jsou mapovány na EF.
 
- 
+ 
 
 ## <a name="key"></a>Key
 
@@ -60,11 +60,11 @@ Třídy blogu a účtovat podle Tato konvence. Co když se nepovedlo? Co když b
 ``` csharp
     public class Blog
     {
-        [Key]
-        public int PrimaryTrackingKey { get; set; }
-        public string Title { get; set; }
-        public string BloggerName { get; set;}
-        public virtual ICollection<Post> Posts { get; set; }
+        [Key]
+        public int PrimaryTrackingKey { get; set; }
+        public string Title { get; set; }
+        public string BloggerName { get; set;}
+        public virtual ICollection<Post> Posts { get; set; }
     }
 ```
 
@@ -155,11 +155,11 @@ Požadovaný atribut ovlivní také generován databázový tím, že namapovano
 >[!NOTE]
 > V některých případech nemusí být možné pro sloupec v databázi být null, i když tato vlastnost je vyžadovaná. Například při použití dat TPH dědičnosti strategie pro více typů je uložené v jediné tabulce. Pokud odvozený typ obsahuje požadovanou vlastnost sloupec nelze nastavit jako Null protože ne všechny typy v hierarchii, bude mít tato vlastnost.
 
- 
+ 
 
 ![Blogy tabulky](~/ef6/media/jj591583-figure03.png)
 
- 
+ 
 
 ## <a name="maxlength-and-minlength"></a>MaxLength a MinLength
 
@@ -187,7 +187,7 @@ Můžete také zadat chybová zpráva v poznámce požadované.
 
 ![Vytvoření stránky se vlastní chybová zpráva](~/ef6/media/jj591583-figure05.png)
 
- 
+ 
 
 ## <a name="notmapped"></a>NotMapped
 
@@ -204,7 +204,7 @@ První konvence kódu určí, že všech vlastností, které je podporované dat
     }
 ```
 
- 
+ 
 
 ## <a name="complextype"></a>Typ ComplexType
 
@@ -215,12 +215,12 @@ Není k popisu entity domény mezi sadu tříd a potom vrstvy těchto tříd k p
     {
         public DateTime? DateCreated { get; set; }
 
-        [MaxLength(250)]
-        public string Description { get; set; }
+        [MaxLength(250)]
+        public string Description { get; set; }
     }
 ```
 
-Všimněte si, že BlogDetails nemá libovolného typu klíčovou vlastnost. V návrhu na základě domény BlogDetails označuje jako objekt hodnoty. Entity Framework odkazují na objekty hodnotu jako komplexní typy.  Komplexní typy nelze sledovat na své vlastní.
+Všimněte si, že BlogDetails nemá libovolného typu klíčovou vlastnost. V návrhu na základě domény BlogDetails označuje jako objekt hodnoty. Entity Framework odkazují na objekty hodnotu jako komplexní typy.  Komplexní typy nelze sledovat na své vlastní.
 
 Nicméně jako vlastnost ve třídě blogu BlogDetails ho budou sledovány jako součást objektu blogu. Aby code first pro to rozpoznat je třeba označit třídu BlogDetails jako element ComplexType.
 
@@ -230,15 +230,15 @@ Nicméně jako vlastnost ve třídě blogu BlogDetails ho budou sledovány jako 
     {
         public DateTime? DateCreated { get; set; }
 
-        [MaxLength(250)]
-        public string Description { get; set; }
+        [MaxLength(250)]
+        public string Description { get; set; }
     }
 ```
 
 Nyní můžete přidat vlastnost ve třídě blogu k reprezentaci BlogDetails pro tento blog.
 
 ``` csharp
-        public BlogDetails BlogDetail { get; set; }
+        public BlogDetails BlogDetail { get; set; }
 ```
 
 V databázi v blogu tabulce bude obsahovat všechny vlastnosti včetně vlastnosti obsažené v jeho vlastnost BlogDetail blogu. Ve výchozím nastavení každý z nich je před názvem komplexní typ, BlogDetail.
@@ -247,7 +247,7 @@ V databázi v blogu tabulce bude obsahovat všechny vlastnosti včetně vlastnos
 
 Další zajímavé Poznámka je sice DateCreated vlastnost byla definována jako neumožňující hodnotu data a času ve třídě, pole příslušnou databázi s povolenou hodnotou Null. Pokud chcete mít vliv na schéma databáze, je nutné použít požadované poznámky.
 
- 
+ 
 
 ## <a name="concurrencycheck"></a>Atribut ConcurrencyCheck
 
@@ -256,11 +256,11 @@ Poznámka atribut ConcurrencyCheck umožňuje označit jednu nebo více vlastnos
 Podívejme se, jak atribut ConcurrencyCheck funguje tak, že přidáte BloggerName vlastnosti.
 
 ``` csharp
-    [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
+    [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Při volání SaveChanges, protože atribut ConcurrencyCheck Poznámka u pole BloggerName původní hodnota dané vlastnosti se použije v aktualizaci. Příkaz se pokusí najít správný řádek pomocí filtrování pouze na hodnotě klíče, ale také u původní hodnoty BloggerName.  Tady jsou důležité části příkazu UPDATE odeslán do databáze, ve kterém uvidíte příkaz aktualizuje řádek, který má PrimaryTrackingKey je 1 a BloggerName z "Julie", který byl původní hodnotu při tomto blogu byla načtena z databáze.
+Při volání SaveChanges, protože atribut ConcurrencyCheck Poznámka u pole BloggerName původní hodnota dané vlastnosti se použije v aktualizaci. Příkaz se pokusí najít správný řádek pomocí filtrování pouze na hodnotě klíče, ale také u původní hodnoty BloggerName.  Tady jsou důležité části příkazu UPDATE odeslán do databáze, ve kterém uvidíte příkaz aktualizuje řádek, který má PrimaryTrackingKey je 1 a BloggerName z "Julie", který byl původní hodnotu při tomto blogu byla načtena z databáze.
 
 ``` SQL
     where (([PrimaryTrackingKey] = @4) and ([BloggerName] = @5))
@@ -269,7 +269,7 @@ Při volání SaveChanges, protože atribut ConcurrencyCheck Poznámka u pole Bl
 
 Pokud do té doby někdo bloggeru název pro tento blog, tato aktualizace se nezdaří a získáte DbUpdateConcurrencyException, které budete potřebovat pro zpracování.
 
- 
+ 
 
 ## <a name="timestamp"></a>Časové razítko
 
@@ -286,7 +286,7 @@ výsledky v kódu nejprve vytvořit sloupec časového razítka Null v tabulce d
 
 ![Blogy tabulku se sloupci razítko času](~/ef6/media/jj591583-figure07.png)
 
- 
+ 
 
 ## <a name="table-and-column"></a>Tabulky a sloupce
 
@@ -302,7 +302,7 @@ Moje třída se nazývá blogu a podle konvence kódu nejprve předpokládá, ž
 Poznámka sloupec je další nimiž v určeném atributy pro mapovanou sloupec. Můžete stanovit, název, datový typ nebo dokonce pořadí, ve kterém se zobrazí sloupec v tabulce. Tady je příklad sloupce atributu.
 
 ``` csharp
-    [Column(“BlogDescription", TypeName="ntext")]
+    [Column("BlogDescription", TypeName="ntext")]
     public String Description {get;set;}
 ```
 
@@ -312,7 +312,7 @@ Tady je tabulka po je byly znovu vygenerovány. InternalBlogs změnil název tab
 
 ![Blogy tabulku a sloupec přejmenovat](~/ef6/media/jj591583-figure08.png)
 
- 
+ 
 
 ## <a name="databasegenerated"></a>DatabaseGenerated
 
@@ -327,7 +327,7 @@ Můžete použít databáze, které jsou generovány pro sloupce bajtů nebo jak
 
 Řekli, která ve výchozím nastavení, klíčová vlastnost, která je celé číslo se stanou klíč identity v databázi. Která budou stejné jako nastavení DatabaseGenerated DatabaseGeneratedOption.Identity. Pokud nechcete, aby to přijde klíč identity, můžete nastavit hodnotu na DatabaseGeneratedOption.None.
 
- 
+ 
 
 ## <a name="index"></a>Index
 
@@ -389,7 +389,7 @@ Indexy, které přesahují do více sloupců je určené vlastností se stejným
     }
 ```
 
- 
+ 
 
 ## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Relace atributů: InverseProperty a cizí klíč
 
@@ -398,25 +398,25 @@ Indexy, které přesahují do více sloupců je určené vlastností se stejným
 
 První konvence kódu se postará o nejběžnějších relace v modelu, ale existují případy, kdy je potřebuje pomoc.
 
-Změna názvu klíčová vlastnost ve třídě blogu vytvoří problém s jeho vztah k příspěvku. 
+Změna názvu klíčová vlastnost ve třídě blogu vytvoří problém s jeho vztah k příspěvku. 
 
 Při generování databáze, kód nejprve uvidí BlogId vlastnost ve třídě Post a rozpozná, podle konvence, že se shoduje názvem třídy plus "Id", jako cizí klíč třídy blogu. Ale neexistuje žádná vlastnost BlogId ve třídě blogu. Řešení pro tento je vytvořit vlastnost navigace v příspěvku a používat cizí DataAnnotation ke kódu nejprve porozumět postupu při vytvoření vztahu mezi dvěma třídami – pomocí vlastnosti Post.BlogId – jak se dá zadat omezení databáze.
 
 ``` csharp
     public class Post
     {
-            public int Id { get; set; }
-            public string Title { get; set; }
-            public DateTime DateCreated { get; set; }
-            public string Content { get; set; }
-            public int BlogId { get; set; }
-            [ForeignKey("BlogId")]
-            public Blog Blog { get; set; }
-            public ICollection<Comment> Comments { get; set; }
+            public int Id { get; set; }
+            public string Title { get; set; }
+            public DateTime DateCreated { get; set; }
+            public string Content { get; set; }
+            public int BlogId { get; set; }
+            [ForeignKey("BlogId")]
+            public Blog Blog { get; set; }
+            public ICollection<Comment> Comments { get; set; }
     }
 ```
 
-Omezení v databázi znázorňuje relaci mezi InternalBlogs.PrimaryTrackingKey a Posts.BlogId. 
+Omezení v databázi znázorňuje relaci mezi InternalBlogs.PrimaryTrackingKey a Posts.BlogId. 
 
 ![vztah mezi InternalBlogs.PrimaryTrackingKey a Posts.BlogId](~/ef6/media/jj591583-figure09.png)
 
@@ -434,10 +434,10 @@ Také budete muset přidat v třídě osoba odkazuje tyto vlastnosti. Třída os
 ``` csharp
     public class Person
     {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public List<Post> PostsWritten { get; set; }
-            public List<Post> PostsUpdated { get; set; }
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public List<Post> PostsWritten { get; set; }
+            public List<Post> PostsUpdated { get; set; }
     }
 ```
 
@@ -459,7 +459,7 @@ Protože vlastnost PostsWritten osobně ví, že to se vztahuje na typu přísp�
 
 ![Tabulka příspěvky bez dalších cizí klíče](~/ef6/media/jj591583-figure11.png)
 
- 
+ 
 
 ## <a name="summary"></a>Souhrn
 
