@@ -72,7 +72,7 @@
 ##### [Použití samostatného projektu](core/managing-schemas/migrations/projects.md)
 ##### [Více poskytovatelů](core/managing-schemas/migrations/providers.md)
 ##### [Vlastní tabulka historie](core/managing-schemas/migrations/history-table.md)
-#### [🔧 Vytvoření a přemístění rozhraní API](core/managing-schemas/ensure-created.md)
+#### [Vytvoření a přemístění rozhraní API](core/managing-schemas/ensure-created.md)
 #### [🔧 Zpětná analýza](core/managing-schemas/scaffolding.md)
 
 ### [Dotazy na data](core/querying/index.md)
