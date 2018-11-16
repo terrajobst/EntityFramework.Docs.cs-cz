@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 0f9f0d4708fa283855eddf2cfc231b37356e413e
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: d5fe9b388707f653fdeb2d6a5daa7215ced71c1d
+ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022347"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51688716"
 ---
 # <a name="compare-ef-core--ef6"></a>Porovnání EF Core a EF6
 
@@ -57,7 +57,7 @@ EF Core sloupec označuje verzi produktu, ve kterém nejprve funkci objevily.
 | Generování klíčů: databáze                              | Ano      | 1.0                                   |
 | Generování klíčů: klienta                                |          | 1.0                                   |
 | Vlastní/komplexní typy                                   | Ano      | 2.0                                   |
-| Prostorová data                                          | Ano      |                                       |
+| Prostorová data                                          | Ano      | 2.2                                   |
 | Grafická vizualizace modelu                      | Ano      |                                       |
 | Editor modelů grafické                                | Ano      |                                       |
 | Vzor formátu: kód                                    | Ano      | 1.0                                   |

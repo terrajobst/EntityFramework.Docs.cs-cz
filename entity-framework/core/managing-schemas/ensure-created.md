@@ -2,28 +2,28 @@
 title: Vytvoření a přemístění rozhraní API – EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/10/2017
-ms.openlocfilehash: 336f6fd655603a2474a58dfef377e121d9b04c3a
-ms.sourcegitcommit: a088421ecac4f5dc5213208170490181ae2f5f0f
+ms.date: 11/7/2018
+ms.openlocfilehash: 40d9e3aa0aba1bf2bc341f01dd815ed7cb7b48fa
+ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/08/2018
-ms.locfileid: "51285636"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51688626"
 ---
 # <a name="create-and-drop-apis"></a>Vytvoření a přemístění rozhraní API
 
-Metody EnsureCreated a EnsureDeleted poskytují jednoduchý alternativou k [migrace](migrations/index.md) pro správu schéma databáze. To je užitečné v situacích, když data je přechodná a můžete vyřadit, když se změní schéma. Například při vytváření prototypů, v testech, nebo pro místní mezipaměti.
+Metody EnsureCreated a EnsureDeleted poskytují jednoduchý alternativou k [migrace](migrations/index.md) pro správu schéma databáze. Tyto metody jsou užitečné v situacích, když je přechodná data a můžete vyřadit, když se změní schéma. Například při vytváření prototypů, v testech, nebo pro místní mezipaměti.
 
-Někteří poskytovatelé (zvlášť ty nerelačních) nepodporují migrace. Pro tyto EnsureCreated je často nejjednodušší způsob, jak inicializovat schéma databáze.
+Někteří poskytovatelé (zvlášť ty nerelačních) nepodporují migrace. U těchto poskytovatelů je EnsureCreated často nejjednodušší způsob, jak inicializovat schéma databáze.
 
 > [!WARNING]
 > Migrace a EnsureCreated nefungují dobře spolupracovaly. Pokud používáte migraci, nepoužívejte EnsureCreated inicializovat schématu.
 
-Přechod z EnsureCreated pro migrace není bezproblémové prostředí. Je simpelest způsob, jak toho dosáhnout, je vyřaďte databázi a znovu vytvořit pomocí migrace. Pokud očekáváte, že v budoucnu pomocí migrace, je vhodné pouze začít s migrací namísto použití EnsureCreated.
+Přechod z EnsureCreated pro migrace není bezproblémové prostředí. Nejjednodušší způsob, jak to udělat, je vyřaďte databázi a znovu vytvořit pomocí migrace. Pokud očekáváte, že v budoucnu pomocí migrace, je vhodné pouze začít s migrací namísto použití EnsureCreated.
 
 ## <a name="ensuredeleted"></a>EnsureDeleted
 
-Metoda EnsureDeleted bude vymazání databáze, pokud existuje. Pokud nemáte odpovídající oprávnění, je vyvolána výjimka.
+Metoda EnsureDeleted bude vymazání databáze, pokud existuje. Pokud nemáte příslušná oprávnění, je vyvolána výjimka.
 
 ``` csharp
 // Drop the database if it exists
