@@ -3,12 +3,12 @@ title: Rozhraní API Fluent – konfigurace a mapování vlastností a typy - EF
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
-ms.openlocfilehash: 031376d2fc4778e6f0fa2434ab7ccfd45d436c4a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
+ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490179"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52339800"
 ---
 # <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Rozhraní Fluent API – konfigurace a mapování vlastností a typy
 Při práci s Entity Framework Code First k mapování tříd POCO tabulky pomocí sady konvence vloženými do EF je výchozí chování. V některých případech však můžete nelze nebo nechcete, aby tyto zásady pro vytváření a potřebují mít možnost na mapování entit na něco jiného, než co konvencí diktování.  
@@ -24,7 +24,7 @@ První fluent API kód přistupuje nejčastěji tak, že přepíšete [OnModelCr
 Počínaje EF6 můžete použít metodu HasDefaultSchema na DbModelBuilder určit schématu databáze pro všechny tabulky, uložené procedury, atd. Toto výchozí nastavení, budou ignorovány pro všechny objekty, které explicitně nakonfigurovat jiné schéma pro.  
 
 ``` csharp
-modelBuilder.HasDefaultSchema(“sales”);
+modelBuilder.HasDefaultSchema("sales");
 ```  
 
 ### <a name="custom-conventions-ef6-onwards"></a>Vlastní konvence (ef6 nebo novější)  
