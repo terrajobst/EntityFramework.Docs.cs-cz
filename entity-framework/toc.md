@@ -285,4 +285,4 @@
 ###### [korejština](ef6/resources/licenses/ef6/kor.md)
 ###### [ruština](ef6/resources/licenses/ef6/rus.md)
 
-### [⤤ Referenční dokumentace k rozhraním API EF6](https://msdn.microsoft.com/library/dn223258.aspx)
+### [⤤ Referenční dokumentace k rozhraním API EF6](https://docs.microsoft.com/dotnet/api/?view=entity-framework-6.2.0)
