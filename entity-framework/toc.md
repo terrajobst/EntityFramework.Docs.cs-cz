@@ -12,8 +12,8 @@
 
 ### [Co je nového](core/what-is-new/index.md)
 #### [EF Core – plán](core/what-is-new/roadmap.md)
-#### [EF Core 2.2 (ve verzi Preview)](core/what-is-new/ef-core-2.2.md)
-#### [EF Core 2.1 (poslední stabilní verze)](core/what-is-new/ef-core-2.1.md)
+#### [EF Core 2.2 (poslední stabilní verze)](core/what-is-new/ef-core-2.2.md)
+#### [EF Core 2.1](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0](core/what-is-new/ef-core-2.0.md)
 #### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)
 #### [EF Core 1.0](core/what-is-new/ef-core-1.0.md)
