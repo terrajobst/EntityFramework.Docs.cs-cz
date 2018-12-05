@@ -3,12 +3,12 @@ title: Migrace Code First v prostředích Team - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: f5216a80928625040d6719f0e97ae786e5e33e05
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 53460b6cdd454099ccf93b4e2133e4ea21278a64
+ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490503"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52857465"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Migrace Code First v prostředích Team
 > [!NOTE]
@@ -82,7 +82,7 @@ Existuje mnoho důvodů, které EF udržuje snímku modelu kolem:
     -   Chcete přidat Inserted a aktualizované sloupce na jeden nebo více tabulek, ale nechcete zahrnout tyto sloupce do modelu EF. Pokud migrace podívali se na databázi průběžně, pokusí se odebrat tyto sloupce pokaždé, když se automaticky migrace. Pomocí modelu snímku, EF vždy jen rozpozná legitimní změny modelu.
     -   Chcete změnit text uložené procedury používané pro aktualizace zahrnout určité protokolování. Pokud migrace podívali se na tuto uloženou proceduru z databáze ji by průběžně zkuste a obnovit jej do definice, která očekává EF. Pomocí snímku modelu EF bude vždy jen generování uživatelského rozhraní kódu pro úpravu uložené procedury při změně tvaru podle postupu v modelu EF.
     -   Tyto stejné zásady platí i pro přidání dalších indexů, včetně další tabulky v databázi, mapování EF na zobrazení databáze, který je umístěný v tabulce, atd.
--   EF model obsahuje více než jen tvar databáze. Celý model umožňuje migrace podívat se na informace o vlastnostech a třídy v modelu a jak jsou mapovány pro tabulky a sloupce. Tyto informace umožňují migrace bude inteligentnější v kódu, který se vygeneruje uživatelské rozhraní. Například pokud změníte název sloupce, který se mapuje vlastnost migrace dokáže přejmenování tak zjistíte, že je stejná vlastnost – něco, co nelze provést, pokud máte pouze schéma databáze. 
+-   EF model obsahuje více než jen tvar databáze. Celý model umožňuje migrace podívat se na informace o vlastnostech a třídy v modelu a jak jsou mapovány pro tabulky a sloupce. Tyto informace umožňují migrace bude inteligentnější v kódu, který se vygeneruje uživatelské rozhraní. Například pokud změníte název sloupce, který se mapuje vlastnost migrace dokáže přejmenování tak zjistíte, že je stejná vlastnost – něco, co nelze provést, pokud máte pouze schéma databáze. 
 
 ## <a name="what-causes-issues-in-team-environments"></a>Co způsobuje problémy v prostředích team
 
@@ -109,7 +109,7 @@ Je štěstí den pro vývojáře \#1 při jejich provádění předkládat své 
 
 ![Odeslat](~/ef6/media/submit.png)
 
-Nyní je čas pro vývojáře \#2 k odeslání. Nejsou tedy měli. Protože změny někoho jiného má odeslat, protože jsou synchronizované, se musí stáhnout změny a sloučení. Systém správy zdrojového kódu pravděpodobně bude moci automaticky sloučit změny na úrovni kódu, protože jsou velmi jednoduché. Stav pro vývojáře \#2 na místní úložiště po synchronizaci je znázorněn na následujícím obrázku. 
+Nyní je čas pro vývojáře \#2 k odeslání. Nejsou tedy měli. Protože změny někoho jiného má odeslat, protože jsou synchronizované, se musí stáhnout změny a sloučení. Systém správy zdrojového kódu pravděpodobně bude moci automaticky sloučit změny na úrovni kódu, protože jsou velmi jednoduché. Stav pro vývojáře \#2 na místní úložiště po synchronizaci je znázorněn na následujícím obrázku. 
 
 ![O přijetí změn](~/ef6/media/pull.png)
 
@@ -140,8 +140,7 @@ Následující postup je možné pro tento přístup, od doby, je dobré si uvě
 1.  Zajistěte, aby že byla zapsána změny čekající na vyřízení modelu v vašeho základu kódu místní migrace. Tento krok zajistí, že pokud jde o generování prázdné migrace dobu Nenechte si ujít všechny oprávněné změny.
 2.  Synchronizace se správou zdrojového kódu.
 3.  Spustit **aktualizace databáze** provádět žádné nové migrace, které ostatní vývojáři se změnami.
-    **
-    *Poznámka: *** Pokud neobdržíte žádné upozornění z příkazu Update-databáze a nebyly žádné nové migrace od jiných vývojářů a není nutné provádět žádné další sloučení.*
+    **_Poznámka:_**  *Pokud neobdržíte žádné upozornění z příkazu Update-databáze a nebyly žádné nové migrace od jiných vývojářů a není nutné provádět žádné další sloučení.*
 4.  Spustit **přidat migrace &lt;vyberte\_\_název&gt; – IgnoreChanges** (například **sloučit přidat migrace – IgnoreChanges**). To generuje migrace s všechna metadata (včetně snímek aktuální model), ale bude ignorovat jakékoli změny zjistí při porovnání aktuálního modelu na snímek v posledních migrace (to znamená získání prázdnou hodnotu **nahoru** a **Dolů** metoda).
 5.  Pokračovat ve vývoji, nebo odešlete do správy zdrojového kódu (po spuštění jednotky samozřejmě testy).
 
@@ -162,14 +161,11 @@ Následující postup je možné pro tento přístup, od doby, je dobré si uvě
 1.  Zajistěte, aby že byla zapsána změny čekající na vyřízení modelu v vašeho základu kódu místní migrace. Tento krok zajistí, že pokud jde o generování prázdné migrace dobu Nenechte si ujít všechny oprávněné změny.
 2.  Synchronizace se správou zdrojového kódu.
 3.  Spustit **aktualizace databáze** provádět žádné nové migrace, které ostatní vývojáři se změnami.
-    **
-    *Poznámka: *** Pokud neobdržíte žádné upozornění z příkazu Update-databáze a nebyly žádné nové migrace od jiných vývojářů a není nutné provádět žádné další sloučení.*
+    **_Poznámka:_**  *Pokud neobdržíte žádné upozornění z příkazu Update-databáze a nebyly žádné nové migrace od jiných vývojářů a není nutné provádět žádné další sloučení.*
 4.  Spustit **aktualizace databáze – TargetMigration &lt;druhý\_poslední\_migrace&gt;**  (v tomto příkladu jsme jste postupovali podle by to byl **aktualizace databáze – TargetMigration AddRating**). Tato role databáze zpět do stavu druhého naposledy migrace – efektivně "bez použití" poslední migrace z databáze.
-    **
-    *Poznámka: *** Tento krok je nutný k němu můžete bezpečně upravovat metadata migrace, protože metadata svazku uloží taky \_ \_MigrationsHistoryTable databáze. To je důvod, proč byste měli používat jenom tato možnost při poslední migrace pouze ve vaší místní základu kódu. Pokud poslední migrace použít jiné databáze by také muset je vrátit zpět a znovu použít posledních migrací pro aktualizaci metadat.* 
+    **_Poznámka:_**  *tento krok je nutný k němu můžete bezpečně upravovat metadata migrace, protože metadata svazku uloží taky \_ \_MigrationsHistoryTable databáze. To je důvod, proč byste měli používat jenom tato možnost při poslední migrace pouze ve vaší místní základu kódu. Pokud poslední migrace použít jiné databáze by také muset je vrátit zpět a znovu použít posledních migrací pro aktualizaci metadat.* 
 5.  Spustit **přidat migrace &lt;úplné\_název\_včetně\_časové razítko\_z\_poslední\_migrace** &gt; (v příkladu jste postupovali podle jsme to by měl vypadat **přidat migrace 201311062215252\_AddReaders**).
-    **
-    *Poznámka: *** bude muset zahrnovat časové razítko, aby migrace věděla, které chcete upravit existující migrace namísto generování nové.*
+    **_Poznámka:_**  *bude muset zahrnovat časové razítko, aby migrace věděla, které chcete upravit existující migrace namísto generování nové.*
     Tím se aktualizují metadata pro poslední migraci tak, aby odpovídaly aktuálním modelu. Pokud se příkaz dokončí, ale to je přesně to co chcete, zobrazí se následující upozornění. "*Pouze návrháře kódu pro migraci" 201311062215252\_byla znovu vygenerované AddReaders'. Chcete-li znovu generování uživatelského rozhraní celé migrace, použijte parametr - Force. "*
 6.  Spustit **aktualizace databáze** znovu použít nejnovější migrace s aktualizovanými metadaty.
 7.  Pokračovat ve vývoji, nebo odešlete do správy zdrojového kódu (po spuštění jednotky samozřejmě testy).

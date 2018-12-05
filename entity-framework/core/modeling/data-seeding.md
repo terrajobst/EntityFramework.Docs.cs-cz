@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 791f7afff36aac52fe2ffdc16ab580db22011b99
-ms.sourcegitcommit: 082946dcaa1ee5174e692dbfe53adeed40609c6a
+ms.openlocfilehash: 8f28dfea12461572ade8fbf3910ebd216dafb389
+ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51028093"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52857426"
 ---
 # <a name="data-seeding"></a>Předvyplnění dat
 
@@ -54,7 +54,7 @@ Po přidání dat do modelu, [migrace](xref:core/managing-schemas/migrations/ind
 > [!TIP]
 > Pokud potřebujete provést migrace jako součást automatizované nasazení můžete [vytvořit skript SQL](xref:core/managing-schemas/migrations/index#generate-sql-scripts) , který lze zobrazit náhled před spuštěním.
 
-Alternativně můžete použít `context.Database.EnsureCreated()` k vytvoření nové databáze obsahující počáteční hodnoty dat, jako je například testovací databázi nebo při použití zprostředkovatele v paměti nebo jakékoli jiné relace databázi. Všimněte si, že pokud databáze již existuje, `EnsureCreated()` ani aktualizuje schéma ani počáteční hodnoty data v databázi. U relačních databází byste neměli volat `EnsureCreated()` Pokud budete chtít použít migrace.
+Alternativně můžete použít `context.Database.EnsureCreated()` k vytvoření nové databáze obsahující počáteční hodnoty dat, jako je například testovací databázi nebo při použití zprostředkovatele v paměti nebo jakékoli jiné relace databázi. Všimněte si, že pokud databáze již existuje, `EnsureCreated()` ani aktualizuje schéma ani počáteční hodnoty dat v databázi. U relačních databází byste neměli volat `EnsureCreated()` Pokud budete chtít použít migrace.
 
 Tento typ dat počáteční hodnoty spravuje migrace a skript, který chcete aktualizovat data, která je již v databázi je potřeba vygenerovat bez připojení k databázi. To má určitá omezení:
 * Hodnota primárního klíče musí být zadaná i v případě, že je obvykle generován databází. Se použije ke zjištění změny dat mezi migrace.
