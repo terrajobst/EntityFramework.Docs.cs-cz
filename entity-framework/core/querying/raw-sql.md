@@ -4,16 +4,16 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 21cb688d6775039def3b0be12768da71b5d96531
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0ad9731840c5f72064f2f66932b9867a0144f437
+ms.sourcegitcommit: 2da6f9b05e1ce3a46491e5cc68f17758bdeb6b02
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997141"
+ms.lasthandoff: 12/06/2018
+ms.locfileid: "53006866"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
-Entity Framework Core umožňuje rozevírací seznam pro nezpracované dotazy SQL při práci s relační databáze. To může být užitečné, pokud dotaz, který chcete provést nelze vyjádřen pomocí jazyka LINQ, nebo pomocí dotazu LINQ je výsledkem neefektivní SQL odesílané do databáze. Nezpracované dotazy SQL může vrátit typy entit nebo, počínaje EF Core 2.1 [typy dotazů](xref:core/modeling/query-types) , které jsou součástí modelu.
+Entity Framework Core umožňuje rozevírací seznam pro nezpracované dotazy SQL při práci s relační databáze. To může být užitečné, pokud dotaz, který chcete provést nelze vyjádřen pomocí jazyka LINQ, nebo pomocí dotazu LINQ je výsledkem neefektivní dotazy SQL. Nezpracované dotazy SQL může vrátit typy entit nebo, počínaje EF Core 2.1 [typy dotazů](xref:core/modeling/query-types) , které jsou součástí modelu.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
@@ -88,13 +88,13 @@ Můžete také sestavit DbParameter a zadat jako hodnotu parametru. Díky tomu m
 var user = new SqlParameter("user", "johndoe");
 
 var blogs = context.Blogs
-    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
+    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
     .ToList();
 ```
 
 ## <a name="composing-with-linq"></a>Sestavování s jazykem LINQ
 
-Pokud se dotaz SQL se může skládat na v databázi, potom můžete vytvářet nad rámec počáteční neupraveného dotazu SQL pomocí operátorů LINQ. Dotazy SQL, které mohou být složené na právě s `SELECT` – klíčové slovo.
+Pokud se dotaz SQL se může skládat na v databázi, potom můžete vytvářet nad rámec počáteční neupraveného dotazu SQL pomocí operátorů LINQ. Dotazy SQL, které mohou být složené na začínat `SELECT` – klíčové slovo.
 
 Následující příklad používá nezpracovaná dotaz SQL, který vybere z Table-Valued – funkce (TVF) a pak vytvoří v něm pomocí jazyka LINQ k provedení filtrování a řazení.
 
@@ -118,8 +118,8 @@ Sestavování s operátory LINQ, je možné zahrnout související data v dotazu
 var searchTerm = ".NET";
 
 var blogs = context.Blogs
-    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
-    .Include(b => b.Posts)
+    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .Include(b => b.Posts)
     .ToList();
 ```
 
