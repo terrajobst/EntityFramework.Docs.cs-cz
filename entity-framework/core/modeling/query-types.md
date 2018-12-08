@@ -4,12 +4,12 @@ author: anpete
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/query-types
-ms.openlocfilehash: 3328082dbc62aa80eb5fb29d2e57df1eef248d1f
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: cb391343e6f24092ae0874003c0ef2935dd4e03f
+ms.sourcegitcommit: 8dd71a57a01c439431164c163a0722877d0e5cd8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489489"
+ms.lasthandoff: 12/07/2018
+ms.locfileid: "53028177"
 ---
 # <a name="query-types"></a>Typy dotazů
 > [!NOTE]
@@ -56,28 +56,28 @@ Mapování typu dotazu k databázovému objektu je dosaženo pomocí `ToView` ro
 Následující příklad ukazuje, jak používat typ dotazu do databáze zobrazení dotazu.
 
 > [!TIP]
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryTypes) na Githubu.
+> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/QueryTypes) na Githubu.
 
 Nejprve definujte jsme jednoduchý model blogu a příspěvek:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Entities)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Entities)]
 
 Dále nadefinujeme zobrazení jednoduché databáze, které vám umožní nám zjistit počet příspěvků, které jsou spojené s každou blogu:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#View)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#View)]
 
 V dalším kroku budeme definovat třídu pro uchování výsledku ze zobrazení databáze:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#QueryType)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#QueryType)]
 
 V dalším kroku budeme nakonfigurujte typ dotazu v _OnModelCreating_ pomocí `modelBuilder.Query<T>` rozhraní API.
 Můžeme použít standardní konfigurace fluent API pro konfiguraci mapování pro typ dotazu:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Configuration)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Configuration)]
 
 Nakonec jsme zobrazení databáze můžete dotazovat na standardním způsobem:
 
-[!code-csharp[Main](../../../efcore-repo/samples/QueryTypes/Program.cs#Query)]
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Query)]
 
 > [!TIP]
 > Poznámka: také jsme definovali vlastnost úrovně dotazu (DbQuery) tak, aby fungoval jako kořenový adresář pro dotazy na tento typ kontextu.
