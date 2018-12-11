@@ -3,12 +3,12 @@ title: Upgrade na rozhraní Entity Framework 6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
-ms.openlocfilehash: 2e2dacfe67238bdb7fd1f31f784319049f0f2cb0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 711f1940080de27bd23cb8f641a5c7f2711dd65b
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490945"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53182004"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Upgrade na rozhraní Entity Framework 6
 
@@ -66,20 +66,20 @@ Typy jako objekt ObjectContext, které byly dříve v knihovně System.Data.Enti
 
 Obecným pravidlem pro obor názvů změny je, že jakýkoli typ v System.Data.* se přesune do System.Data.Entity.Core.*. Jinými slovy, stačí vložit **Entity.Core.** Po System.Data. Příklad:
 
-- System.Data.EntityException = > System.Data. **Entity.Core.** EntityException  
-- System.Data.Objects.ObjectContext = > System.Data. **Entity.Core.** Objects.ObjectContext  
-- System.Data.Objects.DataClasses.RelationshipManager = > System.Data. **Entity.Core.** Objects.DataClasses.RelationshipManager  
+- System.Data.EntityException = > System.Data. **Entity.Core**. EntityException  
+- System.Data.Objects.ObjectContext = > System.Data. **Entity.Core**. Objects.ObjectContext  
+- System.Data.Objects.DataClasses.RelationshipManager = > System.Data. **Entity.Core**. Objects.DataClasses.RelationshipManager  
 
 Tyto typy jsou *Core* obory názvů vzhledem k tomu, že nejsou použity přímo pro většinu aplikací na základě DbContext. Některé typy, které byly součástí knihovně System.Data.Entity.dll se stále používají často a přímo pro aplikace založené na kontext databáze a dosud byl přesunut do *Core* obory názvů. Toto jsou:
 
-- System.Data.EntityState = > System.Data. **Entity.** EntityState  
+- System.Data.EntityState = > System.Data. **Entity**. EntityState  
 - System.Data.Objects.DataClasses.EdmFunctionAttribute = > System.Data. **Entity.DbFunctionAttribute**  
   > [!NOTE]
   > Tato třída se přejmenoval; Třída s názvem starého stále existuje a funguje, ale je nyní označeny jako zastaralé.  
 - System.Data.Objects.EntityFunctions = > System.Data. **Entity.DbFunctions**  
   > [!NOTE]
   > Tato třída se přejmenoval; Třída s názvem starého stále existuje a funguje, ale nyní označeny jako zastaralé.)  
-- Prostorový třídy (například DbGeography, DbGeometry) byly přesunuty z System.Data.Spatial = > System.Data. **Entity.** Prostorových
+- Prostorový třídy (například DbGeography, DbGeometry) byly přesunuty z System.Data.Spatial = > System.Data. **Entity**. Prostorový
 
 > [!NOTE]
 > Některé typy v oboru názvů System.Data jsou System.Data.dll, který není EF sestavení. Tyto typy nepřesunuli a tak zůstanou beze změny jejich obory názvů.

@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 07/03/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 1edc7a20f54b2d26f899c93e98dfaf6d62c29f86
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 67eae6cb943b974cc9cd581b8054836d2e37b1e9
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490724"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53181991"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core nástroje a rozšíření
 
@@ -43,6 +43,19 @@ Visual Studio 2017 + rozšíření. Můžete provést zpětnou analýzu třídy 
 Rozšíření sady Visual Studio 2017, které přidá návrhář ORM pro vizuální návrh Entity Framework 6, Core 2.0 a 2.1 základní třídy. Kód je generována pomocí šablony T4, takže lze kompletně upravit podle potřeby. Dědičnost, jednosměrnou a obousměrnou přidružení jsou všechny podporované, jak jsou, výčty a schopnost barevné označení tříd a přidejte textové bloky vysvětlit potenciálně složité součástí návrhu.
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
+
+### <a name="catfactory"></a>CatFactory
+
+CatFactory je modul pro generování uživatelského rozhraní pro .NET Core a Entity Framework Core. Koncept za CatFactory je export některou existující databáze v instanci systému SQL Server, a s reprezentací v modelech pro databázi. entity vygenerované uživatelské rozhraní, konfigurace, úložiště a další.
+
+[Úložiště GitHub](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
+
+### <a name="loresofts-entity-framework-core-generator"></a>LoreSoft vaší Entity Framework Core generátor
+
+Entity Framework Core generátor (efg) je nástroj příkazového řádku .NET Core, který může vytvořit modely EF Core z existující databáze, podobně jako `dotnet ef dbcontext scaffold`. Ale to se liší v tom, že podporuje taky bezpečný kód [opětovné generování](https://efg.loresoft.com/en/latest/regeneration/). Opětovné generování se provádí prostřednictvím nahrazení oblasti nebo analýza mapování souborů. Nástroj také podporuje generování zobrazení modelů, ověření a mapování kódu objektu. Další informace najdete v kurzu a odkazy na dokumentaci produktu.
+
+[Kurz](http://www.loresoft.com/Generate-ASP-NET-Web-API)
+[dokumentace](https://efg.loresoft.com/en/latest/)
 
 ## <a name="extensions"></a>Rozšíření
 

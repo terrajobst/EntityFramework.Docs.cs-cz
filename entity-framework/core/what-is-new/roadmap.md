@@ -4,27 +4,53 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: a12d628a28515f0c6710bfa59bc6dcdf41fcb58b
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: f18de8e8cb4fbe81bb2f983a00c9dd2f46be6073
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688586"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53182017"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core – plán
 
 > [!IMPORTANT]
 > Mějte prosím na paměti, že sady funkcí a plány budoucích verzí se vždy mohou změnit a přestože se snažíme se zachovat aktuální, nemusí odrážet naše nejnovější plány vůbec na této stránce vyprší.
 
-### <a name="ef-core-22"></a>EF Core 2.2
-
-Tato verze bude zahrnovat řadu oprav chyb a relativně malý počet nových funkcí. Tuto verzi plánujeme přidat konec roku 2018. Podrobnosti o této verzi jsou součástí [Novinky v EF Core 2.2](xref:core/what-is-new/ef-core-2.2). 
-
 ### <a name="ef-core-30"></a>EF Core 3.0
 
-Hlavní verze EF Core v souladu s .NET Core 3.0 a ASP.NET 3.0 plánujeme ale jsme dosud provedli [vydání proces plánování](#release-planning-process) pro něj.
+EF Core 2.2 letos uvedli na trh našim hlavním hlavním cílem je nyní EF Core 3.0, které budou zarovnané s .NET Core 3.0 a uvolní 3.0 technologie ASP.NET.
 
-Použití [tento dotaz v našich sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc) zobrazíte pracovní položky přiřazené nezávazně 3.0.
+Jsme nebyly dokončeny žádné nové funkce ještě, proto [EF Core 3.0 ve verzi Preview 1 balíčky publikována do Galerie NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0-preview.18572.1) prosince 2018 pouze obsahovat [opravy chyb, menší vylepšení a změny, které jsme provedli v Příprava 3.0 pracovní](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed+label%3Aclosed-fixed).
+
+Ve skutečnosti ještě nutné upřesnit naše [release plánování](#release-planning-process) 3.0, ujistěte se, že jsme mají správnou sadu funkcí, které můžete dokončit v přiděleném čase.
+Jsme podělí o informace, jak jsme získali další jasné, ale tady jsou některá základní témata a funkce jsme itend pracovat na:
+
+- **Vylepšení LINQ ([#12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795))**: LINQ umožňuje psát dotazy databáze, aniž byste museli opustit váš jazyk podle vlastní volby, využití výhod bohaté zadejte informace, které pomůžou technologie IntelliSense a kontrola typu v době kompilace.
+  Ale LINQ také umožňuje psát neomezený počet složité dotazy a, který byl vždy velkým problémem pro zprostředkovatele LINQ.
+  V prvních několika verzích EF Core jsme vyřešit, v části tím, jaké části dotazu může být přeloženy na SQL a tím, že zbývající části dotazu ke spuštění v paměti na straně klienta.
+  Toto spuštění na straně klienta může být žádoucí v některých situacích ale v mnoha případech může způsobit neefektivní dotazy, které nebyly identifikovány, dokud je aplikace nasazená do produkčního prostředí.
+  V EF Core 3.0 plánujeme změnit velký fungování naše implementace LINQ, a jak můžeme otestovat.
+  Cíle jsou k němu robustnější (třeba, aby se zabránilo přerušení dotazů v aktualizací), bude moct přeložit dalších výrazů správně do databáze SQL, vygenerujte efektivní dotazy ve více případech a zabránit v přechodu nezjištěné neefektivní dotazy.
+
+- **Podpora služby cosmos DB ([#8443](https://github.com/aspnet/EntityFrameworkCore/issues/8443))**: Pracujeme na poskytovatele služby Cosmos DB pro jádro EF Core a umožňuje vývojářům znáte model programování na EF snadno cílit na jako databáze aplikace služby Azure Cosmos DB.
+  Cílem je, že některé z výhod Cosmos DB, jako jsou globální distribuce "always on" dostupnost, elastické škálovatelnosti a nízké latenci, ještě více přístupné pro vývojáře na platformě .NET.
+  Zprostředkovatel umožní většina EF Core funkcí, jako je sledování automatických změn, LINQ a převody hodnot, s využitím rozhraní SQL API ve službě Cosmos DB. Začali jsme snaha před EF Core 2.2 a [jsme se rozhodli některé verze zprostředkovatele k dispozici ve verzi preview](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
+  Nový plán má pokračovat ve vývoji poskytovatele spolu s EF Core 3.0.   
+
+- **C#Podpora 8.0 ([#12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047))**: Chceme našim zákazníkům umožní využít některé z [nové funkce v C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) , jako jsou asynchronní datové proudy (včetně await pro každou) a typy s možnou hodnotou Null odkazů pomocí EF Core.
+
+- **Reverse engineering zobrazení databáze do typy dotazů ([#1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679))**: V EF Core 2.1 přidali jsme podporu pro typy dotazů, které mohou představovat data, která mohou číst z databáze, ale nejde aktualizovat.
+  Typy dotazů jsou zobrazení skvěle hodí k mapování databáze, tak v EF Core 3.0, rádi bychom k automatizaci vytváření typů dotazu pro zobrazení databáze.
+
+- **Vlastnosti kontejneru objektů a dat entit ([#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) a [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914))**: Tato funkce je o povolení entity, které ukládají data v indexované vlastnosti namísto regulární vlastností a také o bude možné použít instance stejné třídy .NET (potenciálně něco jednoduchého jako `Dictionary<string, object>`) k reprezentaci entit různých typů ve stejném modelu EF Core.
+  Tato funkce je odrazový můstek k podpoře many-to-many relací bez připojení k entitě, což je jedna z nejžádanějších vylepšení pro jádro EF Core.
+
+- **EF 6.3 v rozhraní .NET Core ([EF6 #271](https://github.com/aspnet/EntityFramework6/issues/271))**: Chápeme, že mnoho existujících aplikací pomocí předchozí verze EF a že přenesení do EF Core jenom, abyste mohli využívat výhod .NET Core může někdy vyžadovat značné úsilí.
+  Z tohoto důvodu jsme se přizpůsobení další verze EF 6 a spustit na .NET Core 3.0.
+  To usnadňuje přenos stávající aplikace s minimálními změnami provádíme.
+  Existuje budou představovat určitá omezení (například bude vyžadovat nové zprostředkovatele, nepovolí prostorových podporu s SQL serverem) a neexistují žádné nové plánované funkce pro EF 6.
+
+Do té doby můžete použít [tento dotaz v našich sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc) zobrazíte pracovní položky přiřazené nezávazně 3.0.
 
 ## <a name="schedule"></a>Plán
 
