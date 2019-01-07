@@ -3,12 +3,12 @@ title: Asynchronní dotazy a save - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 4ed4f5c13341f33ccff8325a5ddacd8f7b195a76
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283820"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058757"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazy a uložit
 > [!NOTE]
@@ -76,7 +76,7 @@ Budeme používat [Code First pracovního postupu](~/ef6/modeling/code-first/wor
     }
 ```
 
- 
+ 
 
 ## <a name="create-a-synchronous-program"></a>Vytvoření synchronní aplikace
 
@@ -96,7 +96,6 @@ Když teď máme modelu EF, napište kód, který používá některá přístup
             {
                 PerformDatabaseOperations();
 
-                Console.WriteLine();
                 Console.WriteLine("Quote of the day");
                 Console.WriteLine(" Don't worry about the world coming to an end today... ");
                 Console.WriteLine(" It's already tomorrow in Australia.");
@@ -115,16 +114,18 @@ Když teď máme modelu EF, napište kód, který používá některá přístup
                     {
                         Name = "Test Blog #" + (db.Blogs.Count() + 1)
                     });
+                    Console.WriteLine("Calling SaveChanges.");
                     db.SaveChanges();
+                    Console.WriteLine("SaveChanges completed.");
 
                     // Query for all blogs ordered by name
+                    Console.WriteLine("Executing query.");
                     var blogs = (from b in db.Blogs
                                 orderby b.Name
                                 select b).ToList();
 
                     // Write all blogs out to Console
-                    Console.WriteLine();
-                    Console.WriteLine("All blogs:");
+                    Console.WriteLine("Query completed with following results:");
                     foreach (var blog in blogs)
                     {
                         Console.WriteLine(" " + blog.Name);
@@ -145,20 +146,20 @@ Protože kód je synchronní, můžete podle našich zkušeností následující
 4.  Dotaz vrátí a výsledky se zapisují do **konzoly**
 5.  Nabídka dne je zapsán do **konzoly**
 
-![Výstup synchronizace](~/ef6/media/syncoutput.png) 
+![Výstup synchronizace](~/ef6/media/syncoutput.png) 
 
- 
+ 
 
 ## <a name="making-it-asynchronous"></a>Díky tomu je asynchronní
 
 Když teď máme náš program rychle zprovoznit, můžeme začít vytváření využívání nových async a operátoru await klíčová slova. Provedli jsme následující změny do souboru Program.cs
 
-1.  Řádek 2: Nástroje pomocí příkazu pro **System.Data.Entity** obor názvů poskytuje nám přístup k EF asynchronní rozšiřující metody.
-2.  Řádek 4: Using příkazu pro **System.Threading.Tasks** obor názvů umožňuje, abyste mohli používat **úloh** typu.
-3.  Řádek 12 a 18: jsme zachycování jako úlohu, která monitoruje průběh **PerformSomeDatabaseOperations** (řádkem 12) a pak blokování provádění programu pro tento úkol kompletní jednou všechnu práci pro program provádí (řádek 18).
-4.  Řádek 25: Jsme aktualizace **PerformSomeDatabaseOperations** být označený jako **asynchronní** a vraťte se **úloh**.
-5.  Řádek 35: Jsme teď volá asynchronní verzi SaveChanges a čekáním na její dokončení.
-6.  Řádek 42: Jsme teď volá asynchronní verzi ToList – a očekává na výsledek.
+1.  Řádek 2: Použití příkazu pro **System.Data.Entity** obor názvů poskytuje nám přístup k EF asynchronní rozšiřující metody.
+2.  Řádek 4: Použití příkazu pro **System.Threading.Tasks** obor názvů umožňuje, abyste mohli používat **úloh** typu.
+3.  Řádek 12 a 18: Jsme zachycování jako úlohu, která monitoruje průběh **PerformSomeDatabaseOperations** (řádkem 12) a pak blokování provádění programu pro tento úkol kompletní jednou všechnu práci pro program provádí (řádek 18).
+4.  25. řádek: Jsme aktualizace **PerformSomeDatabaseOperations** být označený jako **asynchronní** a vraťte se **úloh**.
+5.  Řádek 35: Nyní jsme volání asynchronní verzi SaveChanges a čekáním na její dokončení.
+6.  Řádek 42: Voláme na asynchronní verzi ToList a čekání na výsledek.
 
 Úplný seznam dostupných rozšiřujících metod v oboru názvů System.Data.Entity odkazovat na třídu QueryableExtensions. *Bude také potřeba přidat "pomocí System.Data.Entity" k pomocí příkazů.*
 
@@ -227,9 +228,9 @@ Teď, když je asynchronní kód, můžete podle našich zkušeností různých 
 4.  Dotaz na všechny **blogy** je odeslán do databáze *spravované vlákno je opět, můžete provádět další operace, zatímco zpracování dotazu se v databázi. Protože všechny další spuštění bylo dokončeno, vlákno právě zastaví při volání čekání ale.*
 5.  Dotaz vrátí a výsledky se zapisují do **konzoly**
 
-![Asynchronní výstupu](~/ef6/media/asyncoutput.png) 
+![Asynchronní výstupu](~/ef6/media/asyncoutput.png) 
 
- 
+ 
 
 ## <a name="the-takeaway"></a>Hlavní, co vyplývá
 

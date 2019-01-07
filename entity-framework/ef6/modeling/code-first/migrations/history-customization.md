@@ -3,12 +3,12 @@ title: Přizpůsobení tabulky historie migrace - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ed5518f0-a9a6-454e-9e98-a4fa7748c8d0
-ms.openlocfilehash: e3faefc4b812ec4bc440ed2bb48747053d8cb1b3
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: eb19f367611a86f685557a6741a5f2f0bad6b718
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283690"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058744"
 ---
 # <a name="customizing-the-migrations-history-table"></a>Přizpůsobení tabulky historie migrace
 > [!NOTE]
@@ -19,7 +19,7 @@ ms.locfileid: "46283690"
 
 ## <a name="what-is-migrations-history-table"></a>Co je tabulka historie migrace?
 
-Migrace historie tabulka je tabulka používá k ukládání podrobností o migracích použita pro databázi pomocí migrace Code First. Ve výchozím nastavení je název tabulky v databázi \_ \_MigrationHistory a je vytvořen při použití první migrace databáze. V Entity Framework 5 Tato tabulka byla systémové tabulky, pokud aplikace používá databáze Microsoft Sql Server. To se změnilo v Entity Framework 6 ale a v tabulce historie migrace už není označený systémové tabulky.
+Migrace historie tabulka je tabulka používá k ukládání podrobností o migracích použita pro databázi pomocí migrace Code First. Ve výchozím nastavení je název tabulky v databázi \_ \_MigrationHistory a je vytvořen při použití první migrace do databáze. V Entity Framework 5 Tato tabulka byla systémové tabulky, pokud aplikace používá databáze Microsoft Sql Server. To se změnilo v Entity Framework 6 ale a v tabulce historie migrace už není označený systémové tabulky.
 
 ## <a name="why-customize-migrations-history-table"></a>Proč přizpůsobení tabulky historie migrace?
 
@@ -43,7 +43,7 @@ Nejprve musíte vytvořit třídu odvozenou z třídy System.Data.Entity.Migrati
 >[!NOTE]
 > Při konfiguraci EF modely není obvykle potřeba volat základní. OnModelCreating() z přepsané metody OnModelCreating vzhledem k tomu, DbContext.OnModelCreating() má prázdný text. Toto není tento případ, při konfiguraci migrace tabulky historie. V tomto případě první věc, kterou provedete v přepsání OnModelCreating() je ve skutečnosti volat základní. OnModelCreating(). Tím nakonfigurujete v tabulce historie migrace výchozí způsobem, který můžete upravit v přepsání metody.
 
-Řekněme, že chcete přejmenovat tabulku historie migrace a vložit ho do vlastního schématu nazývá "admin". Kromě toho vaše DBA byste o ni můžete přejmenovat sloupec MigrationId migrace\_ID.  Může dosáhnout vytvořením následující třídy odvozené od HistoryContext:
+Řekněme, že chcete přejmenovat tabulku historie migrace a vložit ho do vlastního schématu nazývá "admin". Kromě toho vaše DBA byste o ni můžete přejmenovat sloupec MigrationId migrace\_ID.  Může dosáhnout vytvořením následující třídy odvozené od HistoryContext:
 
 ``` csharp
     using System.Data.Common;

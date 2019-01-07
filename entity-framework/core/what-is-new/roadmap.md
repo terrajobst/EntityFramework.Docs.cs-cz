@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: f18de8e8cb4fbe81bb2f983a00c9dd2f46be6073
-ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
+ms.openlocfilehash: 7eba9e1a8e145ef407f844ff3a3ab3069495b7ae
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2018
-ms.locfileid: "53182017"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058731"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core – plán
 
@@ -28,7 +28,7 @@ Jsme podělí o informace, jak jsme získali další jasné, ale tady jsou někt
 - **Vylepšení LINQ ([#12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795))**: LINQ umožňuje psát dotazy databáze, aniž byste museli opustit váš jazyk podle vlastní volby, využití výhod bohaté zadejte informace, které pomůžou technologie IntelliSense a kontrola typu v době kompilace.
   Ale LINQ také umožňuje psát neomezený počet složité dotazy a, který byl vždy velkým problémem pro zprostředkovatele LINQ.
   V prvních několika verzích EF Core jsme vyřešit, v části tím, jaké části dotazu může být přeloženy na SQL a tím, že zbývající části dotazu ke spuštění v paměti na straně klienta.
-  Toto spuštění na straně klienta může být žádoucí v některých situacích ale v mnoha případech může způsobit neefektivní dotazy, které nebyly identifikovány, dokud je aplikace nasazená do produkčního prostředí.
+  Toto spuštění na straně klienta může být žádoucí v některých situacích ale v mnoha jiných případech může vést neefektivní dotazy, které nejsou označené, dokud je aplikace nasazená do produkčního prostředí.
   V EF Core 3.0 plánujeme změnit velký fungování naše implementace LINQ, a jak můžeme otestovat.
   Cíle jsou k němu robustnější (třeba, aby se zabránilo přerušení dotazů v aktualizací), bude moct přeložit dalších výrazů správně do databáze SQL, vygenerujte efektivní dotazy ve více případech a zabránit v přechodu nezjištěné neefektivní dotazy.
 
@@ -37,7 +37,7 @@ Jsme podělí o informace, jak jsme získali další jasné, ale tady jsou někt
   Zprostředkovatel umožní většina EF Core funkcí, jako je sledování automatických změn, LINQ a převody hodnot, s využitím rozhraní SQL API ve službě Cosmos DB. Začali jsme snaha před EF Core 2.2 a [jsme se rozhodli některé verze zprostředkovatele k dispozici ve verzi preview](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
   Nový plán má pokračovat ve vývoji poskytovatele spolu s EF Core 3.0.   
 
-- **C#Podpora 8.0 ([#12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047))**: Chceme našim zákazníkům umožní využít některé z [nové funkce v C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) , jako jsou asynchronní datové proudy (včetně await pro každou) a typy s možnou hodnotou Null odkazů pomocí EF Core.
+- **C#Podpora 8.0 ([#12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047))**: Chceme našim zákazníkům využívat některé části [nové funkce v C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) , jako jsou asynchronní datové proudy (včetně await pro každou) a typy s možnou hodnotou Null odkazů pomocí EF Core.
 
 - **Reverse engineering zobrazení databáze do typy dotazů ([#1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679))**: V EF Core 2.1 přidali jsme podporu pro typy dotazů, které mohou představovat data, která mohou číst z databáze, ale nejde aktualizovat.
   Typy dotazů jsou zobrazení skvěle hodí k mapování databáze, tak v EF Core 3.0, rádi bychom k automatizaci vytváření typů dotazu pro zobrazení databáze.

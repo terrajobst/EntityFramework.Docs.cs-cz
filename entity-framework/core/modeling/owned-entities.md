@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 58da3b6b951b3fa4aa04ec75f5759555c1f0cde5
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: fe7e07b8bd483fb3f9b672ee78ef7541f06a21a4
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980025"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058770"
 ---
 # <a name="owned-entity-types"></a>Vlastněné typy entit
 
@@ -126,4 +126,4 @@ Některé z těchto omezení jsou základem pro jak vlastněné pracovní typy e
 
 ### <a name="shortcomings-in-previous-versions"></a>Nedostatky v předchozích verzích
 - V EF Core 2.0 navigaci na, který vlastní typy entit se nedá deklarovat v typy odvozené entit, pokud vlastnictví entity jsou explicitně namapovány na samostatnou tabulku z hierarchie vlastníka. Toto omezení byl odebrán v EF Core 2.1
-- En EF Core 2.0 a 2.1 navigaci na jediný odkaz na vlastní typy byly podporovány. Toto omezení byl odebrán v EF Core 2.2
+- V EF Core 2.0 a 2.1 pouze referenční podporovaly navigaci na vlastní typy. Toto omezení byl odebrán v EF Core 2.2

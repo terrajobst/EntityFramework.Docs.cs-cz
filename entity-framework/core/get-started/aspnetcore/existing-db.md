@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 23cd53b0e162afc5db0243b7032bb9c5f18bfb35
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: c8acb95395968f710e6b896de6c3598cb7b23676
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688690"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058783"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Začínáme s EF Core v ASP.NET Core s existující databáze
 
@@ -24,7 +24,7 @@ Nainstalujte následující software:
 * [Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) se tyto úlohy:
   * **Vývoj pro ASP.NET a web** (v části **Web a Cloud**)
   * **Vývoj pro různé platformy .NET core** (v části **další sady nástrojů**)
-* [.NET core 2.1 SDK](https://www.microsoft.com/net/download/core).
+* [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).
 
 ## <a name="create-blogging-database"></a>Vytvoření databáze blogovací
 
@@ -48,7 +48,7 @@ Tento kurz používá **blogovací** databáze na instanci LocalDb jako existuj�
 * **Soubor > Nový > projekt...**
 * V levé nabídce vyberte **nainstalováno > Visual C# > Web**
 * Vyberte **webové aplikace ASP.NET Core** šablony projektu
-* Zadejte **EFGetStarted.AspNetCore.ExistingDb** jako název a klikněte na **OK**
+* Zadejte **EFGetStarted.AspNetCore.ExistingDb** název (musí odpovídat přesně oboru názvů, které se později používá v kódu) a klikněte na **OK** 
 * Počkejte **nová webová aplikace ASP.NET Core** zobrazit dialogové okno
 * Ujistěte se, že rozevírací seznam cílové rozhraní framework je nastaven na **.NET Core**, a rozevírací seznam verze je nastavena na **ASP.NET Core 2.1**
 * Vyberte **webové aplikace (Model-View-Controller)** šablony
@@ -75,7 +75,7 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 Pokud se zobrazí chyba `The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet`, zavřete a znovu otevřete Visual Studio.
 
 > [!TIP]  
-> Můžete určit, které tabulky, kterou chcete vygenerovat tak, že přidáte entity pro `-Tables` argument výše uvedeného příkazu. Například `-Tables Blog,Post`.
+> Můžete určit, které tabulky, kterou chcete vygenerovat tak, že přidáte entity pro `-Tables` argument výše uvedeného příkazu. Například, `-Tables Blog,Post`.
 
 Zpětná analýza procesu vytvoření tříd entit (`Blog.cs` & `Post.cs`) a odvozené kontextu (`BloggingContext.cs`) na základě schématu existující databázi.
 
