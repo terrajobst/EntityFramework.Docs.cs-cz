@@ -1,22 +1,22 @@
 ---
 title: Nástroje a rozšíření – EF Core
 author: ErikEJ
-ms.date: 07/03/2018
+ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 67eae6cb943b974cc9cd581b8054836d2e37b1e9
-ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
+ms.openlocfilehash: 414773284df7c208b9a2acf0536fda459bdf775b
+ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2018
-ms.locfileid: "53181991"
+ms.lasthandoff: 01/07/2019
+ms.locfileid: "54069227"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core nástroje a rozšíření
 
-Nástroje a rozšíření poskytují další funkce pro Entity Framework Core.
+Tyto nástroje a rozšíření poskytují další funkce pro Entity Framework Core 2.0 a novější.
 
 > [!IMPORTANT]  
-> Rozšíření jsou vytvořené pomocí široké škály zdrojů a není zachována jako součást projektu Entity Framework Core. Při zvažování rozšíření třetích stran, ujistěte se, k vyhodnocení kvality, licencování, kompatibility, podpora, atd. a ujistěte se, že splňují vaše požadavky.
+> Rozšíření jsou vytvořeny pomocí široké škály zdrojů a nejsou spravovány jako součást projektu Entity Framework Core. Při zvažování rozšíření třetích stran, nezapomeňte vyhodnotit její kvality, licencování, kompatibility, podpora, atd. a ujistěte se, že vyhovuje vašim požadavkům.
 
 ## <a name="tools"></a>Nástroje
 
@@ -28,31 +28,31 @@ LLBLGen Pro je entita modelování řešení s podporou pro Entity Framework a E
 
 ### <a name="devart-entity-developer"></a>Devart Entity pro vývojáře
 
-Pro vývojáře entity je výkonný Návrhář ORM pro ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access a LINQ to SQL. Můžete použít Model-First a Database-First přístupy k návrhu modelu ORM a generování kódu C# nebo Visual Basic .NET pro něj. Zavádí nové přístupy pro navrhování modelů ORM, zvyšuje produktivitu a usnadňuje vývoj aplikací databáze.
+Pro vývojáře entity je výkonný Návrhář ORM pro ADO.NET Entity Framework, NHibernate, LinqConnect, Telerik Data Access a LINQ to SQL. Jeho vizuální návrh modely EF Core podporuje, nejprve pomocí modelu nebo databáze nejprve přístupů, a C# nebo generování kódu jazyka Visual Basic. 
 
 [Web](https://www.devart.com/entitydeveloper/)
 
 ### <a name="ef-core-power-tools"></a>EF Core Power Tools
 
-Visual Studio 2017 + rozšíření. Můžete provést zpětnou analýzu třídy DbContext a POCO z existující databáze nebo databázový projekt SQL Server a vizualizovat a kontrolovat vaše DbContext různými způsoby.
+EF Core Power Tools je rozšíření sady Visual Studio 2017, která zveřejňuje různé úlohy návrhu EF Core v jednoduché uživatelské rozhraní. Zahrnuje zpětné analýze třídy DbContext a entitou ze stávajících databází a [SQL Server DACPACs](https://docs.microsoft.com/sql/relational-databases/data-tier-applications/data-tier-applications), správu migracemi databází a vizualizace modelu.
 
-[Wiki úložiště GitHub](https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools)
+[Wiki úložiště GitHub](https://github.com/ErikEJ/EFCorePowerTools/wiki)
 
 ### <a name="entity-framework-visual-editor"></a>Editor sady Visual Entity Framework
 
-Rozšíření sady Visual Studio 2017, které přidá návrhář ORM pro vizuální návrh Entity Framework 6, Core 2.0 a 2.1 základní třídy. Kód je generována pomocí šablony T4, takže lze kompletně upravit podle potřeby. Dědičnost, jednosměrnou a obousměrnou přidružení jsou všechny podporované, jak jsou, výčty a schopnost barevné označení tříd a přidejte textové bloky vysvětlit potenciálně složité součástí návrhu.
+Editor sady Visual Entity Framework je rozšíření sady Visual Studio 2017, které přidá návrhář ORM pro vizuální návrh EF 6 a EF Core tříd. Kód je generována pomocí šablony T4, takže je možné přizpůsobit podle potřeby. Podporuje dědičnosti, jednosměrný a přidružení obousměrný, výčty a schopnost barevné označení tříd a přidejte textové bloky vysvětlují potenciálně složité součástí návrhu.
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ### <a name="catfactory"></a>CatFactory
 
-CatFactory je modul pro generování uživatelského rozhraní pro .NET Core a Entity Framework Core. Koncept za CatFactory je export některou existující databáze v instanci systému SQL Server, a s reprezentací v modelech pro databázi. entity vygenerované uživatelské rozhraní, konfigurace, úložiště a další.
+CatFactory je modul pro generování uživatelského rozhraní pro .NET Core, který můžete automatizovat generování třídy DbContext, entity, mapování konfigurace a třídy úložiště z databáze SQL serveru.
 
 [Úložiště GitHub](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
 
 ### <a name="loresofts-entity-framework-core-generator"></a>LoreSoft vaší Entity Framework Core generátor
 
-Entity Framework Core generátor (efg) je nástroj příkazového řádku .NET Core, který může vytvořit modely EF Core z existující databáze, podobně jako `dotnet ef dbcontext scaffold`. Ale to se liší v tom, že podporuje taky bezpečný kód [opětovné generování](https://efg.loresoft.com/en/latest/regeneration/). Opětovné generování se provádí prostřednictvím nahrazení oblasti nebo analýza mapování souborů. Nástroj také podporuje generování zobrazení modelů, ověření a mapování kódu objektu. Další informace najdete v kurzu a odkazy na dokumentaci produktu.
+Entity Framework Core generátor (efg) je nástroj příkazového řádku .NET Core, který může vytvořit modely EF Core z existující databáze, podobně jako `dotnet ef dbcontext scaffold`, ale také podporuje bezpečné kód [opětovné generování](https://efg.loresoft.com/en/latest/regeneration/) přes oblast nahrazení nebo pomocí analýzy mapování souborů. Tento nástroj podporuje generování Zobrazit modely, ověření a mapování kódu objektu. 
 
 [Kurz](http://www.loresoft.com/Generate-ASP-NET-Web-API)
 [dokumentace](https://efg.loresoft.com/en/latest/)
@@ -61,91 +61,62 @@ Entity Framework Core generátor (efg) je nástroj příkazového řádku .NET C
 
 ### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft.EntityFrameworkCore.AutoHistory
 
-Modul plug-in pro Microsoft.EntityFrameworkCore podporují nahrávání dat automaticky změní historie.
+Modul plug-in knihovny, která umožňuje automaticky záznam změny prováděné EF Core do tabulky historie.
 
 [Úložiště GitHub](https://github.com/Arch/AutoHistory/)
 
 ### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft.EntityFrameworkCore.DynamicLinq
 
-Dynamické rozšíření Linq pro Microsoft.EntityFrameworkCore, který přidává podpory asynchronních operací
+.NET Core / .NET Standard port z System.Linq.Dynamic, která zahrnuje podpory asynchronních operací s EF Core.
+System.Linq.Dynamic pochází z ukázky Microsoft, která ukazuje, jak vytvářet dotazy LINQ dynamicky z řetězcové výrazy namísto kódu.
 
- [Úložiště GitHub](https://github.com/StefH/System.Linq.Dynamic.Core/)
-
-### <a name="efcorepractices"></a>EFCore.Practices
-
-Pokus o zaznamenat některé dobré nebo osvědčené postupy v rozhraní API, které podporuje testování – včetně malé architektura pro N + 1 dotazy vyhledávání.
-
-[Úložiště GitHub](https://github.com/riezebosch/efcore-practices/tree/master/src/EFCore.Practices/)
+[Úložiště GitHub](https://github.com/StefH/System.Linq.Dynamic.Core/)
 
 ### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache.Core
 
-Druhé úrovně, ukládání do mezipaměti knihovny. Druhé úrovně mezipaměti se mezipaměť dotazů. Výsledky příkazů EF se uloží do mezipaměti, takže stejné příkazy EF se data načítají z mezipaměti namísto jejich spuštění na databázi znovu.
+Rozšíření, která umožňuje ukládání do mezipaměti druhé úrovně, výsledky dotazů EF Core tak, aby další spuštění stejného dotazů můžete zabránit přístupu k databázi a načtou data přímo z mezipaměti.
 
 [Úložiště GitHub](https://github.com/VahidN/EFSecondLevelCache.Core/)
 
-### <a name="detachedentityframework"></a>Detached.EntityFramework
-
-Načte a uloží celý odpojené entity grafy (entita s jejich podřízené entity a seznamy). Inspirovat [GraphDiff](https://github.com/refactorthis/GraphDiff/). Cílem je také přidat simplificate některé moduly plug-in některých opakujících se úloh, jako je auditování a stránkování.
-
-[Úložiště GitHub](https://github.com/leonardoporro/Detached/)
-
 ### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore.PrimaryKey
 
-Načtěte primární klíč (včetně složených klíčů) z jakékoli entity jako slovník.
+Tato knihovna umožňuje načíst hodnoty primárního klíče (včetně složené klíče) v libovolné entitě jako slovník.
 
 [Úložiště GitHub](https://github.com/NickStrupat/EntityFramework.PrimaryKey/)
 
-### <a name="entityframeworkcorerx"></a>EntityFrameworkCore.Rx
-
-Reaktivní rozšíření obálky pro aktivní pozorovatelné objekty Entity Framework entit.
-
-[Úložiště GitHub](https://github.com/NickStrupat/EntityFramework.Rx/)
-
-### <a name="entityframeworkcoretriggers"></a>EntityFrameworkCore.Triggers
-
-Přidáte aktivační události pro entity s vložit, aktualizovat a odstraňovat události. Existují tři události pro každou: před, po a nebude úspěšná.
-
-[Úložiště GitHub](https://github.com/NickStrupat/EntityFramework.Triggers/)
-
 ### <a name="entityframeworkcoretypedoriginalvalues"></a>EntityFrameworkCore.TypedOriginalValues
 
-Zadaný přístup k původní hodnota vlastnosti vaší entity. Jednoduché a komplexní vlastnosti jsou podporovány, navigaci nebo kolekce nejsou.
+Tato knihovna umožňuje silného typu přístup k původní hodnoty vlastností entity. 
 
 [Úložiště GitHub](https://github.com/NickStrupat/EntityFramework.TypedOriginalValues/)
 
 ### <a name="geco"></a>Geco
 
-Geco poskytuje generátor Reverse modelu s podporou Pluralizace/Singularization a upravovat šablony založené na jazyce C# 6.0 interpolovaných řetězců a běží na.Net Core. Také poskytuje generátor skript počáteční hodnoty se skripty SQL sloučení a runner skriptu.
+Geco (generátor konzoly) je generátor kódu jednoduchý konzolový projekt, který běží na .NET Core a používá podle C# interpolovaných řetězců pro generování kódu. Geco zahrnuje generátor pro jádro EF Core s podporou pluralizace singularization a upravovat šablony. Také poskytuje počáteční hodnoty generátor dat skriptu, skript runner a databázi čisticí.
 
-[Úložiště Github](https://github.com/iQuarc/Geco)
+[Úložiště GitHub](https://github.com/iQuarc/Geco)
 
 ### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit.Microsoft.EntityFrameworkCore
 
-LinqKit.Microsoft.EntityFrameworkCore je bezplatná sada rozšíření pro LINQ na SQL a EntityFrameworkCore zkušeným uživatelům. S podporou Include(...) a IDbAsync.
+LinqKit.Microsoft.EntityFrameworkCore je EF Core – kompatibilní verzi knihovny LINQKit. LINQKit je bezplatná sada rozšíření pro LINQ na SQL a Entity Framework zkušeným uživatelům. To umožňuje pokročilé funkce, jako jsou dynamické vytváření predikátu výrazů a použití proměnných výrazu v poddotazy.  
 
 [Úložiště GitHub](https://github.com/scottksmith95/LINQKit/)
 
 ### <a name="neinlinqentityframeworkcore"></a>NeinLinq.EntityFrameworkCore
 
-NeinLinq.EntityFrameworkCore poskytuje užitečná rozšíření pro používání zprostředkovatelů LINQ jako je například rozhraní Entity Framework, které podporují pouze menší podmnožinu funkcí .NET opětovné použití funkce, přepisování dotazy, díky kterým i, hodnoty Null a sestavování dynamických dotazů pomocí Přeložitelné predikáty a selektory.
+NeinLinq rozšiřuje zprostředkovatelé dotazů LINQ jako je například rozhraní Entity Framework umožňující opětovné použití funkce přepisování dotazy a sestavování dynamických dotazů pomocí Přeložitelné predikáty a selektory.
 
 [Úložiště GitHub](https://github.com/axelheer/nein-linq/)
 
 ### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft.EntityFrameworkCore.UnitOfWork
 
-Modul plug-in pro Microsoft.EntityFrameworkCore zajistit podporu pro úložiště a jednotky pracovních vzorů a více databáze s distribuovanou transakci nepodporuje.
+Modul plug-in pro Microsoft.EntityFrameworkCore zajistit podporu více databází, úložiště a jednotky pracovních vzorů s distribuovanou transakci nepodporuje.
 
 [Úložiště GitHub](https://github.com/Arch/UnitOfWork/)
 
-### <a name="entityframeworklazyloading"></a>EntityFramework.LazyLoading
-
-Opožděné načtení pro jádro EF Core 1.1
-
-[Úložiště GitHub](https://github.com/darxis/EntityFramework.LazyLoading)
-
 ### <a name="efcorebulkextensions"></a>EFCore.BulkExtensions
 
-EntityFrameworkCore rozšíření pro hromadné operace (Insert, Update, Delete).
+EF Core rozšíření pro hromadné operace (Insert, Update, Delete).
 
 [Úložiště GitHub](https://github.com/borisdj/EFCore.BulkExtensions)
 
@@ -154,3 +125,33 @@ EntityFrameworkCore rozšíření pro hromadné operace (Insert, Update, Delete)
 Přidá pluralizace návrhu na EF Core.
 
 [Úložiště GitHub](https://github.com/bricelam/EFCore.Pluralizer)
+
+### <a name="pomelofoundationpomeloentityframeworkcoreextensionstosql"></a>PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql
+
+Pro daný dotaz LINQ v jednoduché scénáře vygeneruje metodu jednoduché rozšíření, která získá EF Core příkaz jazyka SQL. Metoda ToSql je omezené na jednoduché scénáře, protože EF Core můžete generovat více než jeden příkaz SQL pro jednoho dotazu LINQ a různé příkazy SQL v závislosti na hodnoty parametrů.
+
+[Úložiště GitHub](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql)
+
+### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt.EntityFrameworkCore.IndexAttribute
+
+Revival atribut [Index] pro jádro EF Core (s příponou pro vytváření modelů).
+
+[Úložiště GitHub](https://github.com/jsakamoto/EntityFrameworkCore.IndexAttribute)
+
+### <a name="efcoreinmemoryhelpers"></a>EfCore.InMemoryHelpers
+
+Poskytuje obálku kolem poskytovatele databáze EF Core v paměti. Umožňuje více fungují jako relační zprostředkovatele.
+
+[Úložiště GitHub](https://github.com/SimonCropp/EfCore.InMemoryHelpers)
+
+### <a name="efcoretemporalsupport"></a>EFCore.TemporalSupport
+
+Implementace dočasné podpory pro jádro EF Core.
+
+[Úložiště GitHub](https://github.com/cpoDesign/EFCore.TemporalSupport)
+
+### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore.Cacheable
+
+Vysoce výkonné druhé úrovně dotazu mezipaměť jádra EF Core.
+
+[Úložiště GitHub](https://github.com/SteffenMangold/EntityFrameworkCore.Cacheable)

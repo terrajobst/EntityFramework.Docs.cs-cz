@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: fe7e07b8bd483fb3f9b672ee78ef7541f06a21a4
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: b2d72b08de79939904bf4e726c695440c906a8aa
+ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058770"
+ms.lasthandoff: 01/07/2019
+ms.locfileid: "54069201"
 ---
 # <a name="owned-entity-types"></a>Vlastněné typy entit
 
@@ -52,7 +52,7 @@ Chcete-li pochopit, jak EF Core sleduje tyto objekty, je vhodné popřemýšlet,
 >[!NOTE]
 > Tato funkce je nového v EF Core 2.2.
 
-Ke konfiguraci kolekce vlastněné typy `OwnsMany` byste měli použít ve `OnModelCreating`. Ale primární klíč nenakonfigurují podle konvence, takže je potřeba explicitně zadat. Je běžné použití komplexní klíče u těchto typů entit začlenění cizí klíč pro vlastníka a dalších jedinečnou vlastnost, která může také být ve stavu stínové:
+Ke konfiguraci kolekce vlastněné typy `OwnsMany` byste měli použít ve `OnModelCreating`. Ale primární klíč se nenakonfigurují podle konvence, proto musí být zadané explicitně přímo. Je běžné použití komplexní klíče u těchto typů entit začlenění cizí klíč pro vlastníka a dalších jedinečnou vlastnost, která může také být ve stavu stínové:
 
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
