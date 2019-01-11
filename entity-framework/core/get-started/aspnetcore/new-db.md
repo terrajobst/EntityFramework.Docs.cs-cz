@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 2248c60045a914c902f1c958a86c69b283abd722
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 4734586adc89e9c1d866a1b4accd8b5e51fe2bb0
+ms.sourcegitcommit: ebf661025d2ad2b62466fa7bf0e0772a7811cbe7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022233"
+ms.lasthandoff: 01/11/2019
+ms.locfileid: "54211163"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF Core v ASP.NET Core s novou databázi
 
@@ -31,11 +31,11 @@ Nainstalujte následující software:
 * [Visual Studio 2017 verze 15.7 nebo novější](https://www.visualstudio.com/downloads/) se tyto úlohy:
   * **Vývoj pro ASP.NET a web** (v části **Web a Cloud**)
   * **Vývoj pro různé platformy .NET core** (v části **další sady nástrojů**)
-* [.NET core 2.1 SDK](https://www.microsoft.com/net/download/core).
+* [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-* [.NET core 2.1 SDK](https://www.microsoft.com/net/download/core).
+* [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).
 
 ---
 
@@ -54,7 +54,7 @@ Nainstalujte následující software:
   * Ujistěte se, že **ověřování** je nastavena na **bez ověřování**
   * Klikněte na tlačítko **OK**
 
-Upozornění: Pokud používáte **jednotlivé uživatelské účty** místo **žádný** pro **ověřování** pak model Entity Framework Core se přidá do projektu v `Models\IdentityModel.cs`. Pomocí technik, které se naučíte v tomto kurzu, můžete přidat druhý modelu nebo rozšiřte tento existující model tak, aby obsahovala tříd entit.
+Upozornění: Pokud používáte **jednotlivé uživatelské účty** místo **žádný** pro **ověřování** pak model Entity Framework Core se přidá do projektu `Models\IdentityModel.cs`. Pomocí technik, které se naučíte v tomto kurzu, můžete přidat druhý modelu nebo rozšiřte tento existující model tak, aby obsahovala tříd entit.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -182,7 +182,7 @@ Kontroler a zobrazení pro generování uživatelského rozhraní `Blog` entity.
 * Klikněte pravým tlačítkem na **řadiče** složky **Průzkumníku řešení** a vyberte **Přidat > kontroler**.
 * Vyberte **kontroler MVC se zobrazeními, s použitím Entity Framework** a klikněte na tlačítko **přidat**.
 * Nastavte **třída modelu** k **blogu** a **třída kontextu dat** k **BloggingContext**.
-* Klikněte na tlačítko **přidat**.
+* Klikněte na **Přidat**.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -201,7 +201,7 @@ Kontroler a zobrazení pro generování uživatelského rozhraní `Blog` entity.
 Modul generování uživatelského rozhraní vytvoří následující soubory:
 
 * Kontroler (*Controllers/BlogsController.cs*)
-* Zobrazení syntaxe Razor pro vytvořit, odstranit, podrobností, úpravy a Index stránky (_Views/Movies/*.cshtml_)
+* Zobrazení syntaxe Razor pro vytvořit, odstranit, podrobností, úpravy a Index stránky (_Views/Blogs/*.cshtml_)
 
 ## <a name="run-the-application"></a>Spuštění aplikace
 
