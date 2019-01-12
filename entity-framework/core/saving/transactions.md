@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 7083a1228420416a1b60d9744ca2dad2339be53f
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4c50d6694c6678678c0af8defe2601abee923af1
+ms.sourcegitcommit: 5f11a5fa5d2cde81a4e4d0d5c3a60aa74b83cbd4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993602"
+ms.lasthandoff: 01/11/2019
+ms.locfileid: "54226189"
 ---
 # <a name="using-transactions"></a>Použití transakcí
 
@@ -99,7 +99,7 @@ Je také možné zařazení v explicitní transakci.
 
 ### <a name="limitations-of-systemtransactions"></a>Omezení objektu System.Transactions  
 
-1. EF Core využívá databázi zprostředkovatele pro implementaci podpory System.Transactions. I když je podpora je celkem běžné patří poskytovatelů služeb ADO.NET pro rozhraní .NET Framework, rozhraní API pouze byl nedávno přidán do .NET Core a proto není tak rozsáhlou podporu. Pokud poskytovatel neimplementuje podporu pro System.Transactions, je možné, že volání těchto rozhraní API se zcela ignorovat. SqlClient pro .NET Core nepodporuje z 2.1 a vyšší. SqlClient pro .NET Core 2.0 vyvolá výjimku z při pokusu o použití funkce. 
+1. EF Core využívá databázi zprostředkovatele pro implementaci podpory System.Transactions. I když je podpora je celkem běžné patří poskytovatelů služeb ADO.NET pro rozhraní .NET Framework, rozhraní API pouze byl nedávno přidán do .NET Core a proto není tak rozsáhlou podporu. Pokud poskytovatel neimplementuje podporu pro System.Transactions, je možné, že volání těchto rozhraní API se zcela ignorovat. SqlClient pro .NET Core nepodporuje z 2.1 a vyšší. SqlClient pro .NET Core 2.0 vyvolá výjimku, pokud se pokusíte použít funkci. 
 
    > [!IMPORTANT]  
    > Doporučujeme, abyste otestovali, že rozhraní API správné chování u svého poskytovatele předtím, než byste spoléhat pro správu transakce. Jste vyzváni ke kontaktování funkce maintainer poskytovatele databáze, pokud tomu tak není. 
