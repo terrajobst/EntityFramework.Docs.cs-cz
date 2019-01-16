@@ -3,18 +3,18 @@ title: Ověřování - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: 3aeb33763819544618c4a3068bb278c9b23409b6
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 98d7bd08d841ee400afb62e1079f1a965f65e139
+ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490626"
+ms.lasthandoff: 01/15/2019
+ms.locfileid: "54316644"
 ---
 # <a name="data-validation"></a>Ověřování dat
 > [!NOTE]
 > **EF4.1 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 4.1. Pokud používáte starší verzi, některé nebo všechny informace neplatí
 
-Obsah na této stránce jsou upraveny z a článek původně vydané společností Julie Lerman ([http://thedatafarm.com](http://thedatafarm.com)).
+Obsah na této stránce jsou upraveny z článku původně vytvořeny pomocí Julie Lerman ([http://thedatafarm.com](http://thedatafarm.com)).
 
 Entity Framework obsahuje velké množství ověření funkcí, které můžou informační kanál prostřednictvím uživatelského rozhraní pro ověřování na straně klienta nebo použít pro ověřování na straně serveru. Při prvním použití kódu, můžete zadat ověření pomocí poznámky nebo fluent API konfigurace. Další ověření a složitější, dá se zadat v kódu a bude fungovat, jestli váš model má za sebou kód nejprve model nejprve nebo databáze nejprve.
 
@@ -25,24 +25,25 @@ Vám předvedu ověření pomocí jednoduchého páru tříd: Blog a příspěvk
 ``` csharp
     public class Blog
       {
-          public int Id { get; set; }
-          public string Title { get; set; }
-          public string BloggerName { get; set; }
-          public DateTime DateCreated { get; set; }
-          public virtual ICollection<Post> Posts { get; set; }
-          }
-      }
+          public int Id { get; set; }
+          public string Title { get; set; }
+          public string BloggerName { get; set; }
+          public DateTime DateCreated { get; set; }
+          public virtual ICollection<Post> Posts { get; set; }
+          }
+      }
 
-      public class Post
-      {
-          public int Id { get; set; }
-          public string Title { get; set; }
-          public DateTime DateCreated { get; set; }
-          public string Content { get; set; }
-          public int BlogId { get; set; }
-          public ICollection<Comment> Comments { get; set; }
-      }
+      public class Post
+      {
+          public int Id { get; set; }
+          public string Title { get; set; }
+          public DateTime DateCreated { get; set; }
+          public string Content { get; set; }
+          public int BlogId { get; set; }
+          public ICollection<Comment> Comments { get; set; }
+      }
 ```
+
 ## <a name="data-annotations"></a>Datové poznámky
 
 Poznámky ze sestavení System.ComponentModel.DataAnnotations kód nejprve používá jako jeden prostředek konfigurace kód první třídy. Mezi tyto poznámky jsou ty, které poskytují pravidla, jako jsou požadované, MinLength a MaxLength. Počet klientských aplikací .NET také rozpoznává tyto anotace, například technologie ASP.NET MVC. Můžete dosáhnout i na straně a serverem ověřování na straně klienta pomocí těchto poznámek. Například můžete vynutit název blogu vlastnost jako povinnou vlastnost.
@@ -64,7 +65,7 @@ Zakázat funkci ověřování na straně klienta pro MVC je jednoduchý způsob,
 
 ``` xml
     <appSettings>
-        <add key="ClientValidationEnabled"value="false"/>
+        <add key="ClientValidationEnabled"value="false"/>
         ...
     </appSettings>
 ```
@@ -79,16 +80,16 @@ Konfigurace Fluent API jsou použity v kódu nejprve se sestavení modelu z tř�
 
 ``` csharp
     public class BlogContext : DbContext
-      {
-          public DbSet<Blog> Blogs { get; set; }
-          public DbSet<Post> Posts { get; set; }
-          public DbSet<Comment> Comments { get; set; }
+      {
+          public DbSet<Blog> Blogs { get; set; }
+          public DbSet<Post> Posts { get; set; }
+          public DbSet<Comment> Comments { get; set; }
 
-          protected override void OnModelCreating(DbModelBuilder modelBuilder)
-          {
-              modelBuilder.Entity<Blog>().Property(p => p.BloggerName).HasMaxLength(10);
-          }
-        }
+          protected override void OnModelCreating(DbModelBuilder modelBuilder)
+          {
+              modelBuilder.Entity<Blog>().Property(p => p.BloggerName).HasMaxLength(10);
+          }
+        }
 ```
 
 Chyby ověření vyvolána konfigurace rozhraní Fluent API nebude automaticky dosah uživatelského rozhraní, ale můžete je i zachytávat v kódu a pak odpověď na ni odpovídajícím způsobem.
@@ -99,18 +100,18 @@ Tady je kód chyby v třídě BlogController vaší aplikace, která zachycuje t
     [HttpPost]
     public ActionResult Edit(int id, Blog blog)
     {
-        try
-        {
-            db.Entry(blog).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        catch(DbEntityValidationException ex)
-        {
-            var error = ex.EntityValidationErrors.First().ValidationErrors.First();
-            this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            return View();
-        }
+        try
+        {
+            db.Entry(blog).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        catch(DbEntityValidationException ex)
+        {
+            var error = ex.EntityValidationErrors.First().ValidationErrors.First();
+            this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            return View();
+        }
     }
 ```
 
@@ -130,23 +131,23 @@ V následujícím příkladu bylo rozšířeno blogu třídy k implementaci IVal
 
 ``` csharp
     public class Blog : IValidatableObject
-     {
-         public int Id { get; set; }
-         [Required]
-         public string Title { get; set; }
-         public string BloggerName { get; set; }
-         public DateTime DateCreated { get; set; }
-         public virtual ICollection<Post> Posts { get; set; }
+     {
+         public int Id { get; set; }
+         [Required]
+         public string Title { get; set; }
+         public string BloggerName { get; set; }
+         public DateTime DateCreated { get; set; }
+         public virtual ICollection<Post> Posts { get; set; }
 
-         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-         {
-             if (Title == BloggerName)
-             {
-                 yield return new ValidationResult
-                  ("Blog Title cannot match Blogger Name", new[] { "Title", “BloggerName” });
-             }
-         }
-     }
+         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+         {
+             if (Title == BloggerName)
+             {
+                 yield return new ValidationResult
+                  ("Blog Title cannot match Blogger Name", new[] { "Title", “BloggerName” });
+             }
+         }
+     }
 ```
 
 Konstruktor ValidationResult přebírá řetězec představující chybovou zprávu a pole řetězců, které představují názvy členů, které jsou spojeny s ověření. Protože toto ověření kontroluje název i BloggerName, vrátí se oba názvy vlastností.
@@ -168,27 +169,27 @@ DbEntityValidationResult jsou uloženy DbEntityEntry a rozhraní ICollection DbV
         System.Data.Entity.Infrastructure.DbEntityEntry entityEntry,
         IDictionary\<object, object> items)
     {
-        var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
-        if (entityEntry.Entity is Post && entityEntry.State == EntityState.Added)
-        {
-            Post post = entityEntry.Entity as Post;
-            //check for uniqueness of post title
-            if (Posts.Where(p => p.Title == post.Title).Count() > 0)
+        var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
+        if (entityEntry.Entity is Post && entityEntry.State == EntityState.Added)
+        {
+            Post post = entityEntry.Entity as Post;
+            //check for uniqueness of post title
+            if (Posts.Where(p => p.Title == post.Title).Count() > 0)
             {
-                result.ValidationErrors.Add(
-                        new System.Data.Entity.Validation.DbValidationError("Title",
-                        "Post title must be unique."));
+                result.ValidationErrors.Add(
+                        new System.Data.Entity.Validation.DbValidationError("Title",
+                        "Post title must be unique."));
             }
-        }
+        }
 
-        if (result.ValidationErrors.Count > 0)
+        if (result.ValidationErrors.Count > 0)
         {
-            return result;
-        }
-        else
+            return result;
+        }
+        else
         {
-         return base.ValidateEntity(entityEntry, items);
-        }
+         return base.ValidateEntity(entityEntry, items);
+        }
     }
 ```
 
@@ -198,19 +199,19 @@ Volání SaveChanges aktivuje všechny ověřovací popsaná v tomto článku. A
 
 DbContext.GetValidationErrors aktivují všech ověření, těmi definovanými ve poznámky nebo rozhraní Fluent API, ověření vytvořené v IValidatableObject (například Blog.Validate) a ověření provádět v DbContext.ValidateEntity Metoda.
 
-Následující kód zavolá GetValidationErrors na aktuální instancí třídy DbContext. ValidationErrors jsou seskupené podle typu entity do DbValidationRestuls. Kód prochází nejprve prostřednictvím DbValidationResults vrácený metodou a potom každý ValidationError uvnitř.
+Následující kód zavolá GetValidationErrors na aktuální instancí třídy DbContext. ValidationErrors jsou seskupené podle typu entity do DbValidationResults. Kód prochází nejprve prostřednictvím DbValidationResults vrácený metodou a potom každý ValidationError uvnitř.
 
 ``` csharp
     foreach (var validationResults in db.GetValidationErrors())
-        {
-            foreach (var error in validationResults.ValidationErrors)
-            {
-                Debug.WriteLine(
+        {
+            foreach (var error in validationResults.ValidationErrors)
+            {
+                Debug.WriteLine(
                                   "Entity Property: {0}, Error {1}",
-                                  error.PropertyName,
+                                  error.PropertyName,
                                   error.ErrorMessage);
-            }
-        }
+            }
+        }
 ```
 
 ## <a name="other-considerations-when-using-validation"></a>Další informace týkající se použití ověřování

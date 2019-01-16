@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 8f28dfea12461572ade8fbf3910ebd216dafb389
-ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
+ms.openlocfilehash: 1c450b142573368d043430f55a3144b6696a8691
+ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52857426"
+ms.lasthandoff: 01/15/2019
+ms.locfileid: "54316631"
 ---
 # <a name="data-seeding"></a>Předvyplnění dat
 
@@ -55,6 +55,8 @@ Po přidání dat do modelu, [migrace](xref:core/managing-schemas/migrations/ind
 > Pokud potřebujete provést migrace jako součást automatizované nasazení můžete [vytvořit skript SQL](xref:core/managing-schemas/migrations/index#generate-sql-scripts) , který lze zobrazit náhled před spuštěním.
 
 Alternativně můžete použít `context.Database.EnsureCreated()` k vytvoření nové databáze obsahující počáteční hodnoty dat, jako je například testovací databázi nebo při použití zprostředkovatele v paměti nebo jakékoli jiné relace databázi. Všimněte si, že pokud databáze již existuje, `EnsureCreated()` ani aktualizuje schéma ani počáteční hodnoty dat v databázi. U relačních databází byste neměli volat `EnsureCreated()` Pokud budete chtít použít migrace.
+
+### <a name="limitations-of-model-seed-data"></a>Omezení modelování počáteční hodnoty dat
 
 Tento typ dat počáteční hodnoty spravuje migrace a skript, který chcete aktualizovat data, která je již v databázi je potřeba vygenerovat bez připojení k databázi. To má určitá omezení:
 * Hodnota primárního klíče musí být zadaná i v případě, že je obvykle generován databází. Se použije ke zjištění změny dat mezi migrace.
