@@ -3,12 +3,12 @@ title: Migrace Code First - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: f408ef861a2992783142fa1483d1433ca710399a
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: e5a91af73bab9d45b0f1f4242ce503c6b6f407f6
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415793"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668697"
 ---
 # <a name="code-first-migrations"></a>Migrace Code First
 Migrace Code First je doporučeným způsobem, jak vyvíjet schéma databáze vaší aplikace, pokud používáte Code First pracovního postupu. Migrace poskytují sadu nástrojů, které umožňují:
@@ -330,7 +330,7 @@ Abychom mohli aktualizovat **Program.cs** souboru, jak je znázorněno níže, c
         {
             static void Main(string[] args)
             {
-                Database.SetInitializer(new MigrateDatabaseToLatestVersion\<BlogContext, Configuration>());
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<BlogContext, Configuration>());
 
                 using (var db = new BlogContext())
                 {

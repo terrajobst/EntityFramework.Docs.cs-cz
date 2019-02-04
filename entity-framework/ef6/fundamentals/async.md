@@ -3,12 +3,12 @@ title: Asynchronní dotazy a save - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 89c7b9d533d37b4c9e123f37d8ab27c67ba26cc8
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058757"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668710"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazy a uložit
 > [!NOTE]
@@ -223,7 +223,7 @@ Teď, když je asynchronní kód, můžete podle našich zkušeností různých 
 
 1.  **SaveChanges** začíná tak, aby nabízel nové **blogu** do databáze *po odesláním příkazu do databáze žádné další výpočetní čas je potřebný pro aktuální vlákno spravované. **PerformDatabaseOperations** metoda vrátí hodnotu (přestože nebyl dokončen, provádění) a pokračuje v toku programu v hlavní metodě.*
 2.  **Nabídka dne je zapsán do konzoly**
-    *protože neexistuje žádná další práce do metody Main, spravované vlákno je blokována v čekání volat, dokud se nedokončí operace databáze. Po jeho dokončení, zbývající část naší **PerformDatabaseOperations** * se spustí.
+    *protože neexistuje žádná další práce do metody Main, spravované vlákno je blokována v čekání volat, dokud se nedokončí operace databáze. Po jeho dokončení, zbývající část naší **PerformDatabaseOperations** se spustí.*
 3.  **SaveChanges** dokončení
 4.  Dotaz na všechny **blogy** je odeslán do databáze *spravované vlákno je opět, můžete provádět další operace, zatímco zpracování dotazu se v databázi. Protože všechny další spuštění bylo dokončeno, vlákno právě zastaví při volání čekání ale.*
 5.  Dotaz vrátí a výsledky se zapisují do **konzoly**

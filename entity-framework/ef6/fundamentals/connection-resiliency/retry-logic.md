@@ -3,12 +3,12 @@ title: Odolnost proti chybám a zkuste to znovu připojení logic - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 09ebed18b43f864af36b6931f45638f3a3056229
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7d6aa870cc32a2b344457fbb04525a7c2c8d1c61
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490802"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668762"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Připojení logic odolnost proti chybám a zkuste to znovu
 > [!NOTE]
@@ -149,7 +149,7 @@ namespace Demo
         {
             get
             {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy")  false;
+                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
             }
             set
             {
@@ -185,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-### <a name="workaround-manually-call-execution-strategy"></a>Alternativní řešení: Volání ručně strategie provádění  
+### <a name="workaround-manually-call-execution-strategy"></a>Alternativní řešení: Ručně volat strategie provádění  
 
 Další možností je ručně pomocí strategie provádění a přiřaďte mu celá sada logiky pro spuštění, tak, že je všechno, co opakujte Pokud jedna operace selže. Stále potřebujeme k pozastavení strategie provádění - technikou uvedeno výše - tak, aby všechny kontexty použít uvnitř blok opakovatelného kódu nebude pokoušet o opakování.  
 

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 985adc795f379199a3bacc985843f32f3168cf64
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6c5d516fcb3950ae168860029660e1b1061546b8
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993352"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668775"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Sledování vs. Sledování bez dotazy
 
@@ -63,7 +63,7 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> Žádné dotazy sledování stále zlepšovat řešení identit v rámci dotaz spustit. Pokud sada výsledků obsahuje více než jednou stejnou entitu, vrátí se stejnou instanci třídy entity u každého výskytu v sadě výsledků. Slabé odkazy se ale používají ke sledování entit, které již byly vráceny. Pokud předchozí výsledek se stejnou identitou dostane mimo rozsah a uvolňování paměti běží, může se zobrazit nová instance entity. Další informace najdete v tématu [jak funguje dotaz](overview.md).
+> Žádné dotazy sledování stále zlepšovat řešení identit v rámci provádění dotazu. Pokud sada výsledků obsahuje více než jednou stejnou entitu, vrátí se stejnou instanci třídy entity u každého výskytu v sadě výsledků. Slabé odkazy se ale používají ke sledování entit, které již byly vráceny. Pokud předchozí výsledek se stejnou identitou dostane mimo rozsah a uvolňování paměti běží, může se zobrazit nová instance entity. Další informace najdete v tématu [jak funguje dotaz](overview.md).
 
 ## <a name="tracking-and-projections"></a>Sledování a projekce
 

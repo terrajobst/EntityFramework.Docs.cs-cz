@@ -3,12 +3,12 @@ title: Zprostředkovatel modelu Entity Framework 6 - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: d07a8689fe968bb1512095a59a61abc7ac346a31
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 8cbf6f87e0936f374c3d8a0c15a0e1d9c828f764
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022321"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668749"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Zprostředkovatel modelu Entity Framework 6
 
@@ -60,7 +60,7 @@ Toto je volitelné služby, které umožňuje poskytovateli a přidat podporu pr
 
 Toto je volitelnou službu, která umožňuje migraci EF, který bude používán pro generování SQL použít při vytváření a úpravy databázových schématech Code First. Implementace je nutné pro podporu migrace. Pokud je k dispozici implementace pak také použije při vytváření databáze pomocí databáze inicializátory nebo Database.Create metody.
 
-### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection, řetězec, HistoryContextFactory >
+### <a name="funcdbconnection-string-historycontextfactory"></a>Func<DbConnection, string, HistoryContextFactory>
 
 Toto je volitelnou službu, která umožňuje poskytovateli ke konfiguraci mapování HistoryContext k `__MigrationHistory` tabulky používané migrace EF. HistoryContext je první DbContext kódu a lze nakonfigurovat pomocí rozhraní fluent API pro běžné věci, jako je název tabulky a specifikace mapování sloupce změnit. Výchozí implementace této služby vrátil EF pro všemi zprostředkovateli může fungovat pro danou databázi serveru, pokud všechny výchozí sloupce a tabulky mapování podporovaných tímto poskytovatelem. V takovém případě zprostředkovatele není nutné poskytnout implementaci této služby.
 

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 65cfea07a40939c1c3615c97ec785a4082b21de5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4e042acb805c743ee794f4e61105b8d2136973b1
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994785"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668723"
 ---
 # <a name="loading-related-data"></a>Načítání souvisejících dat
 
@@ -52,7 +52,7 @@ Můžete kombinovat, abyste mohli zahrnout související data z více úrovní a
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-Můžete chtít zahrnout více souvisejících entit pro jeden z entity, které je zahrnuto. Třeba při dotazování `Blog`s, zahrnete `Posts` a poté chcete provést oba `Author` a `Tags` z `Posts`. Chcete-li to provést, musíte zadat jednotlivé obsahovat počínaje kořenovou cestu. Například `Blog -> Posts -> Author` a `Blog -> Posts -> Tags`. To neznamená, že dojde k redundantní spojení, ve většině případů, které EF zkonsoliduje spojení generování SQL.
+Můžete chtít zahrnout více souvisejících entit pro jeden z entity, které je zahrnuto. Třeba při dotazování `Blog`s, zahrnete `Posts` a poté chcete provést oba `Author` a `Tags` z `Posts`. Chcete-li to provést, musíte zadat jednotlivé obsahovat počínaje kořenovou cestu. Například `Blog -> Posts -> Author` a `Blog -> Posts -> Tags`. To neznamená, že se zobrazí redundantní spojení; ve většině případů bude EF konsolidovat spojení při generování SQL.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
@@ -317,7 +317,7 @@ Protože EF Core se automaticky opravit navigačních vlastností můžete skon�
 
 Některé architektury serializace neumožňují takové cykly. Například Json.NET vyvolá následující výjimku, pokud dochází k zacyklení.
 
-> Newtonsoft.Json.JsonSerializationException: Self odkazující na zjištěna pro vlastnost "Blogu" typu "MyApplication.Models.Blog" smyčka.
+> Newtonsoft.Json.JsonSerializationException: Vlastní odkazující na zjištěna pro vlastnost "Blogu" typu "MyApplication.Models.Blog" smyčka.
 
 Pokud používáte ASP.NET Core, můžete nakonfigurovat Json.NET ignorovat cykly, které najde v grafu objektů. To se provádí v `ConfigureServices(...)` metoda ve `Startup.cs`.
 

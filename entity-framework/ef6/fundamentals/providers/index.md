@@ -3,12 +3,12 @@ title: Entity Framework poskytovatelé - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: 0cfe6c30d6533b0207f78a031d342847a7f68632
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: f6e34d1273bd1004ce9d1610ce3613068088eb5e
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022220"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668736"
 ---
 # <a name="entity-framework-6-providers"></a>Zprostředkovatelé Entity Framework 6
 > [!NOTE]
@@ -20,7 +20,7 @@ Rozhraní Entity Framework je nyní vyvíjených v licenci open source a EF6 a n
 
 Víme o poskytovatele, který po opětovném sestavení pro EF6 patří:
 
-*   **Zprostředkovatel Microsoft SQL Server**
+*   **Microsoft SQL Server provider**
     *   Od [Entity Framework otevřete základu zdrojového kódu](http://github.com/aspnet/EntityFramework6)
     *   Dodán jako součást [balíček NuGet objektu EntityFramework](http://nuget.org/packages/EntityFramework)
 *   **Zprostředkovatel Microsoft SQL Server Compact Edition**
@@ -31,13 +31,13 @@ Víme o poskytovatele, který po opětovném sestavení pro EF6 patří:
 *   [**Poskytovatelé softwaru CData**](http://www.cdata.com/ado/)
     *   Existují poskytovatele třetí strany z [CData softwaru](http://www.cdata.com/ado/) pro širokou škálu úložišť dat, včetně Salesforce, Azure Table Storage, MySql a mnoho dalších
 *   **Firebird poskytovatele**
-    *   K dispozici jako [balíček NuGet](http://www.nuget.org/packages/FirebirdSql.Data.FirebirdClient/)
-*   **Vizuální Fox Pro zprostředkovatele**
+    *   K dispozici jako [balíček NuGet](https://www.nuget.org/packages/EntityFramework.Firebird/)
+*   **Visual Fox Pro provider**
     *   K dispozici jako [balíček NuGet](https://www.nuget.org/packages/VFPEntityFrameworkProvider2/)
 *   **MySQL**
-    *   [MySQL Connector/Net](http://dev.mysql.com/downloads/connector/net/)
+    *   [MySQL Connector/NET pro Entity Framework](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html)
 *   **PostgreSQL**
-    *   Je k dispozici jako Npgsql [balíček NuGet](http://www.nuget.org/packages/Npgsql.EF6/)
+    *   Je k dispozici jako Npgsql [balíček NuGet](https://www.nuget.org/packages/EntityFramework6.Npgsql/)
 *   **Oracle**
     *   Je k dispozici jako ODP.NET [balíček NuGet](https://www.nuget.org/packages/Oracle.ManagedDataAccess.EntityFramework/)
 
