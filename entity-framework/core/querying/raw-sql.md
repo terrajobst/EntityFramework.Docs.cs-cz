@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 5bddddfbc2fe8d0ba99914f03b28bde4076fae42
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 343162596780e6146b57f73a38221701009cd855
+ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058707"
+ms.lasthandoff: 02/06/2019
+ms.locfileid: "55760506"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
@@ -17,23 +17,6 @@ Entity Framework Core umožňuje rozevírací seznam pro nezpracované dotazy SQ
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
-
-## <a name="limitations"></a>Omezení
-
-Existuje několik omezení, která je potřeba při používání nezpracované dotazy SQL:
-
-* Příkaz jazyka SQL musí vracet data pro všechny vlastnosti typu entity nebo dotazu.
-
-* Názvy sloupců v sadě výsledků musí shodovat s názvy sloupců, které vlastnosti jsou mapovány na. Všimněte si, že se liší od EF6, ve kterém byl ignorován, vlastnost nebo sloupec mapování pro nezpracované dotazy SQL a názvy musí shodovat s názvy vlastností, které sloupce sady výsledků dotazu.
-
-* Příkaz jazyka SQL nemůže obsahovat související data. Ale v mnoha případech můžete vytvářet nad pomocí dotazu `Include` operátor vrátí související data (naleznete v tématu [včetně souvisejících dat](#including-related-data)).
-
-* `SELECT` příkazy předaný této metodě by měl být obecně sestavitelný: Pokud EF Core potřebuje k vyhodnocení operátorů další dotazu na serveru (například pro převod operátory LINQ použity po `FromSql`), zadaný SQL bude zacházeno jako s poddotaz. To znamená, že SQL předán nesmí obsahovat žádné znaky nebo možnosti, které nejsou platné v poddotazu, jako například:
-  * koncovou středníkem
-  * Na serveru SQL Server, koncové pomocný parametr dotazu úrovni (třeba `OPTION (HASH JOIN)`)
-  * Na serveru SQL Server `ORDER BY` klauzuli, která se připojí z `TOP 100 PERCENT` v `SELECT` – klauzule
-
-* SQL příkazy jiných než `SELECT` jsou automaticky uznáváni jako bez možnosti složení. V důsledku toho úplné výsledky uložené procedury jsou vždy vrácen do klienta a jakékoli operátory LINQ použity po `FromSql` jsou vyhodnocené jako v paměti.
 
 ## <a name="basic-raw-sql-queries"></a>Základní nezpracované dotazy SQL
 
@@ -109,9 +92,25 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-### <a name="including-related-data"></a>Včetně souvisejících dat
+## <a name="change-tracking"></a>Sledování změn
 
-Sestavování s operátory LINQ, je možné zahrnout související data v dotazu.
+Dotazy, které používají `FromSql()` postupovat podle přesně stejnou změnu sledování pravidla jako jakýkoli jiný dotaz LINQ v EF Core. Například pokud dotaz projekty typy entit, výsledky budou sledovány ve výchozím nastavení.  
+
+Následující příklad pomocí neupraveného dotazu SQL, který vybere z Table-Valued – funkce (TVF) a zakáže změňte sledování volání. AsNoTracking():
+
+<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+``` csharp
+var searchTerm = ".NET";
+
+var blogs = context.Query<SearchBlogsDto>()
+    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .AsNoTracking()
+    .ToList();
+```
+
+## <a name="including-related-data"></a>Včetně souvisejících dat
+
+`Include()` Metodu je možné zahrnout související data, jak je jakýkoli jiný dotaz LINQ:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -122,6 +121,23 @@ var blogs = context.Blogs
     .Include(b => b.Posts)
     .ToList();
 ```
+
+## <a name="limitations"></a>Omezení
+
+Existuje několik omezení, která je potřeba při používání nezpracované dotazy SQL:
+
+* Příkaz jazyka SQL musí vracet data pro všechny vlastnosti typu entity nebo dotazu.
+
+* Názvy sloupců v sadě výsledků musí shodovat s názvy sloupců, které vlastnosti jsou mapovány na. Všimněte si, že se liší od EF6, ve kterém byl ignorován, vlastnost nebo sloupec mapování pro nezpracované dotazy SQL a názvy musí shodovat s názvy vlastností, které sloupce sady výsledků dotazu.
+
+* Příkaz jazyka SQL nemůže obsahovat související data. Ale v mnoha případech můžete vytvářet nad pomocí dotazu `Include` operátor vrátí související data (naleznete v tématu [včetně souvisejících dat](#including-related-data)).
+
+* `SELECT` příkazy předaný této metodě by měl být obecně sestavitelný: Pokud EF Core potřebuje k vyhodnocení operátorů další dotazu na serveru (například pro převod operátory LINQ použity po `FromSql`), zadaný SQL bude zacházeno jako s poddotaz. To znamená, že SQL předán nesmí obsahovat žádné znaky nebo možnosti, které nejsou platné v poddotazu, jako například:
+  * koncovou středníkem
+  * Na serveru SQL Server, koncové pomocný parametr dotazu úrovni (třeba `OPTION (HASH JOIN)`)
+  * Na serveru SQL Server `ORDER BY` klauzuli, která se připojí z `TOP 100 PERCENT` v `SELECT` – klauzule
+
+* SQL příkazy jiných než `SELECT` jsou automaticky uznáváni jako bez možnosti složení. V důsledku toho úplné výsledky uložené procedury jsou vždy vrácen do klienta a jakékoli operátory LINQ použity po `FromSql` jsou vyhodnocené jako v paměti.
 
 > [!WARNING]  
 > **Vždy používejte Parametrizace pro nezpracované dotazy SQL:** Rozhraní API, které přijímají nezpracovaná SQL, jako řetězec `FromSql` a `ExecuteSqlCommand` povolit hodnot do snadno předat jako parametry. Kromě ověřování uživatelského vstupu, vždy používejte Parametrizace pro všechny hodnoty použité v nezpracované dotazu nebo příkaz SQL. Pokud používáte zřetězení řetězců dynamicky vytvářet všechny části řetězce dotazu, pak budete muset ověřování jakékoli vstupu pro ochranu před útoky prostřednictvím injektáže SQL.

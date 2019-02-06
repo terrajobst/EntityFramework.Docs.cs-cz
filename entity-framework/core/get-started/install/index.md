@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 58c79d477d590eea355a922b3e1233bbecb305cc
-ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
+ms.openlocfilehash: 5ebc4edba07063ad5e77154adcde5f2664c0d748
+ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2018
-ms.locfileid: "53181978"
+ms.lasthandoff: 02/06/2019
+ms.locfileid: "55760519"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
@@ -31,9 +31,9 @@ EF Core přidat do aplikace, nainstalujte balíček NuGet pro poskytovatele data
 
 Pokud vytváříte aplikaci ASP.NET Core, není nutné instalovat v paměti a poskytovatelé serveru SQL Server. Tyto poskytovatelé jsou součástí aktuálních verzí ASP.NET Core, společně s runtime EF Core.  
 
-Pokud chcete nainstalovat nebo aktualizovat balíčky NuGet, můžete použít [rozhraní .NET Core rozhraní příkazového řádku (CLI), dialogové okno Správce balíčků Visual Studio nebo Konzola správce balíčků Visual Studio.
+Pokud chcete nainstalovat nebo aktualizovat balíčky NuGet, můžete použít .NET Core rozhraní příkazového řádku (CLI), dialogové okno Správce balíčků Visual Studio nebo Konzola správce balíčků Visual Studio.
 
-### <a name="net-core-cli"></a>.NET core CLI
+### <a name="net-core-cli"></a>.NET Core CLI
 
 * Použijte následující příkaz rozhraní příkazového řádku .NET Core z příkazového řádku operačního systému pro instalaci nebo aktualizaci zprostředkovatele EF Core SQL Server:
 
