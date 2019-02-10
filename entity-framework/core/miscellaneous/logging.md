@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 65501b5ac03ae544c51b7fc1a07fa9eea849f1e3
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 0a996403afdbe076b1690c98eeb305b40c4d1f4a
+ms.sourcegitcommit: 109a16478de498b65717a6e09be243647e217fb3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022142"
+ms.lasthandoff: 02/10/2019
+ms.locfileid: "55985571"
 ---
 # <a name="logging"></a>Protokolování
 
@@ -24,12 +24,15 @@ EF Core mechanismy protokolování ASP.NET Core integruje automaticky pokaždé,
 
 EF Core protokolování aktuálně vyžaduje implementaci třídy ILoggerFactory, která sama o sobě nakonfigurovanou ILoggerProvider jeden nebo více. Běžné poskytovatele se dodávají v následujících balíčků:
 
-* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): jednoduchý konzolový protokolovače.
-* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): podporuje Azure App Services "Diagnostické protokoly" a "Protokolování datového proudu" funkce.
-* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): protokoly a monitorování ladicí program pomocí System.Diagnostics.Debug.WriteLine().
-* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): protokoly do protokolu událostí Windows.
-* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): podporuje EventSource/naslouchacího procesu událostí.
-* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): protokoly pro naslouchací proces trasování pomocí System.Diagnostics.TraceSource.TraceEvent().
+* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): Jednoduchý konzolový protokolovače.
+* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Podporuje Azure App Services "Diagnostické protokoly" a 'Protokolování datového proudu' funkce.
+* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Protokoluje události do ladicího programu Sledování pomocí System.Diagnostics.Debug.WriteLine().
+* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Protokoluje události do protokolu událostí Windows.
+* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): Podporuje EventSource/naslouchacího procesu událostí.
+* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Pro naslouchací proces trasování pomocí System.Diagnostics.TraceSource.TraceEvent() ukládá do protokolu.
+
+> [!NOTE]
+> Následující kód používá ukázkový `ConsoleLoggerProvider` konstruktor, který bylo vyřazeno ve verzi 2.2. Správné nahrazení pro zastaralý protokolování rozhraní API bude k dispozici ve verzi 3.0. Do té doby se můžete bezpečně ignorovat a tato upozornění už nezobrazovala.
 
 Po instalaci příslušné balíčky, aplikace by měl vytvořit instanci typu singleton nebo globální LoggerFactory. Například použití protokolovací nástroj konzoly:
 
@@ -43,6 +46,9 @@ Potom by měly být zaregistrovány tuto instanci typu singleton nebo globální
 > Je velmi důležité, že aplikace nevytvářejte novou implementaci třídy ILoggerFactory instanci pro všechny instance kontextu. To způsobí nevrácení paměti a slabým výkonem.
 
 ## <a name="filtering-what-is-logged"></a>Co je protokolováno filtrování
+
+> [!NOTE]
+> Následující kód používá ukázkový `ConsoleLoggerProvider` konstruktor, který bylo vyřazeno ve verzi 2.2. Správné nahrazení pro zastaralý protokolování rozhraní API bude k dispozici ve verzi 3.0. Do té doby se můžete bezpečně ignorovat a tato upozornění už nezobrazovala.
 
 Nejjednodušší způsob, jak filtrovat, co se do protokolu zapíše se při registraci ILoggerProvider jeho konfiguraci. Příklad:
 
