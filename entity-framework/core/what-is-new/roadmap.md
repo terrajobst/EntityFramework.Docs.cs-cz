@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: 7eba9e1a8e145ef407f844ff3a3ab3069495b7ae
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 9064b323c11282418f2bedf70f874d45c18bb78a
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058731"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325337"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core – plán
 
@@ -23,7 +23,7 @@ EF Core 2.2 letos uvedli na trh našim hlavním hlavním cílem je nyní EF Core
 Jsme nebyly dokončeny žádné nové funkce ještě, proto [EF Core 3.0 ve verzi Preview 1 balíčky publikována do Galerie NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0-preview.18572.1) prosince 2018 pouze obsahovat [opravy chyb, menší vylepšení a změny, které jsme provedli v Příprava 3.0 pracovní](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed+label%3Aclosed-fixed).
 
 Ve skutečnosti ještě nutné upřesnit naše [release plánování](#release-planning-process) 3.0, ujistěte se, že jsme mají správnou sadu funkcí, které můžete dokončit v přiděleném čase.
-Jsme podělí o informace, jak jsme získali další jasné, ale tady jsou některá základní témata a funkce jsme itend pracovat na:
+Budeme sdílet více informací o získáme další jasné, ale zde jsou některé základní motivy a funkce, že jsme v úmyslu pracovat na:
 
 - **Vylepšení LINQ ([#12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795))**: LINQ umožňuje psát dotazy databáze, aniž byste museli opustit váš jazyk podle vlastní volby, využití výhod bohaté zadejte informace, které pomůžou technologie IntelliSense a kontrola typu v době kompilace.
   Ale LINQ také umožňuje psát neomezený počet složité dotazy a, který byl vždy velkým problémem pro zprostředkovatele LINQ.

@@ -6,12 +6,12 @@ description: Začínáme s .NET Core pomocí Entity Framework Core
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 6cebe14e179cb6998592f5d3823c114b3bda0138
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: a0df80a8fe96be4f8cc3177919e2b087e14cb49c
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022308"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325324"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Začínáme s EF Core na aplikace konzoly .NET Core s novou databázi
 
@@ -60,7 +60,7 @@ Definování kontextu a entity třídy, které tvoří modelu.
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Model.cs)]
 
-Tip: V reálné aplikaci, můžete vložit každá třída v samostatném souboru a vložit připojovací řetězec konfigurační soubor nebo prostředí proměnnou. Pro zjednodušení tento kurz, všechno, co je obsažen v jednom souboru.
+Tip: V reálné aplikaci vložit každá třída v samostatném souboru a vložit připojovací řetězec konfigurační soubor nebo prostředí proměnnou. Pro zjednodušení tento kurz, všechno, co je obsažen v jednom souboru.
 
 ## <a name="create-the-database"></a>Vytvoření databáze
 
@@ -69,7 +69,7 @@ Jakmile budete mít modelu, použijete [migrace](xref:core/managing-schemas/migr
 * Spustit `dotnet ef migrations add InitialCreate` generování uživatelského rozhraní migrace a vytvářet počáteční sadu tabulek pro model.
 * Spustit `dotnet ef database update` použít novou migraci databáze. Tento příkaz vytvoří databázi před použitím migrace.
 
-*Blogging.db** je databáze SQLite v adresáři projektu.
+*Blogging.db* SQLite databáze je v adresáři projektu.
 
 ## <a name="use-the-model"></a>Použití modelu
 
