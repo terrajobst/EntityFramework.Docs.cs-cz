@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 729cf9b8c038ea2adba8c79c68d9f6fb1676fefa
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 6d8cf117dfd94524a53e10bb4a23c2a44c4c8e7b
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022181"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459169"
 ---
 # <a name="connection-resiliency"></a>Odolnost připojení
 
@@ -17,9 +17,21 @@ Odolnost připojení automaticky opakuje neúspěšné databázových příkazů
 
 Jako příklad zprostředkovatele SQL Server obsahuje strategie provádění, která je specificky přizpůsobit, aby SQL Server (včetně SQL Azure). Zná typy výjimek, které umožňují opakovaný pokus a má účelné výchozí hodnoty pro maximální počet opakovaných pokusů, zpoždění mezi opakovanými pokusy apod.
 
-Strategie provádění je zadaný při konfiguraci možnosti pro váš kontext. Toto je obvykle v `OnConfiguring` metodu odvozené kontextu nebo v `Startup.cs` pro aplikace ASP.NET Core.
+Strategie provádění je zadaný při konfiguraci možnosti pro váš kontext. Toto je obvykle v `OnConfiguring` metoda odvozené kontextu:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
+
+nebo v `Startup.cs` pro aplikace ASP.NET Core:
+
+``` csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<PicnicContext>(
+        options => options.UseSqlServer(
+            "<connection string>",
+            providerOptions => providerOptions.EnableRetryOnFailure()));
+}
+```
 
 ## <a name="custom-execution-strategy"></a>Strategie provádění vlastní
 

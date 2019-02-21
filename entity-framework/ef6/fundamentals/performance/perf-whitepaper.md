@@ -3,19 +3,19 @@ title: Faktory ovlivňující výkon u EF4 EF5 a EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: c87c1412cb23abf232663d7e4f44eef5f7818ea2
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 4c1f03533cf6df49555c3ef8d09d5949b9a3335c
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022386"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459208"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Faktory ovlivňující výkon u EF 6, 4 a 5
 David Obando, Eric Dettinger a další
 
 Publikováno: Duben 2012
 
-Poslední aktualizace: květen 2014
+Poslední aktualizace: Květen 2014
 
 ------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ Pojďme trvat souhrnný přehled trvají delší dobu při provádění dotazu p
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | Vytvoření kontextu          | Střední                                                                                                                                                                                                                                                                                                                                                                                                                        | Střední                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Vytvoření výrazu dotazu | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                           | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `  var c1 = q1.First();`                                                                             | Provádění dotazů LINQ      | -Načítání metadat: Vysoká, ale v mezipaměti <br/> – Zobrazení generování: potenciálně velmi vysoké, ale v mezipaměti <br/> -Parametr hodnocení: střední <br/> -Dotazování překlad: střední <br/> -Generování materializer: střední ale v mezipaměti <br/> -Databáze provádění dotazů: potenciálně velkému <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: střední <br/> -Vyhledávání identity: střední | -Načítání metadat: Vysoká, ale v mezipaměti <br/> – Zobrazení generování: potenciálně velmi vysoké, ale v mezipaměti <br/> -Parametr hodnocení: Nízká <br/> -Dotazování překlad: střední ale v mezipaměti <br/> -Generování materializer: střední ale v mezipaměti <br/> -Databáze provádění dotazů: potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: střední <br/> -Vyhledávání identity: střední | -Načítání metadat: Vysoká, ale v mezipaměti <br/> – Zobrazení generování: střední ale v mezipaměti <br/> -Parametr hodnocení: Nízká <br/> -Dotazování překlad: střední ale v mezipaměti <br/> -Generování materializer: střední ale v mezipaměti <br/> -Databáze provádění dotazů: potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: střední (rychlejší než EF5) <br/> -Vyhledávání identity: střední |
+| `  var c1 = q1.First();`                                                                             | Provádění dotazů LINQ      | -Načítání metadat: Vysoká, ale v mezipaměti <br/> – Zobrazení generace: Potenciálně velmi vysoké, ale v mezipaměti <br/> -Parametr hodnocení: Střední <br/> -Překlad dotazu: Střední <br/> -Materializer generace: Střední, ale v mezipaměti <br/> – Provádění dotazu databáze: Potenciálně velkému <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: Střední <br/> -Vyhledávání identity: Střední | -Načítání metadat: Vysoká, ale v mezipaměti <br/> – Zobrazení generace: Potenciálně velmi vysoké, ale v mezipaměti <br/> -Parametr hodnocení: Nízká <br/> -Překlad dotazu: Střední, ale v mezipaměti <br/> -Materializer generace: Střední, ale v mezipaměti <br/> – Provádění dotazu databáze: Potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: Střední <br/> -Vyhledávání identity: Střední | -Načítání metadat: Vysoká, ale v mezipaměti <br/> – Zobrazení generace: Střední, ale v mezipaměti <br/> -Parametr hodnocení: Nízká <br/> -Překlad dotazu: Střední, ale v mezipaměti <br/> -Materializer generace: Střední, ale v mezipaměti <br/> – Provádění dotazu databáze: Potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: Střední (rychlejší než EF5) <br/> -Vyhledávání identity: Střední |
 | `}`                                                                                                  | Connection.Close          | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                           | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 
@@ -53,7 +53,7 @@ Pojďme trvat souhrnný přehled trvají delší dobu při provádění dotazu p
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | Vytvoření kontextu          | Střední                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Střední                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Vytvoření výrazu dotazu | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `  var c1 = q1.First();`                                                                             | Provádění dotazů LINQ      | -Metadat ~~načítání~~ vyhledávání: ~~vysoká, ale v mezipaměti~~ nízká <br/> – Zobrazení ~~generování~~ vyhledávání: ~~potenciálně velmi vysoké, ale v mezipaměti~~ nízká <br/> -Parametr hodnocení: střední <br/> -Dotazování ~~překlad~~ vyhledávání: střední <br/> -Materializer ~~generování~~ vyhledávání: ~~střední ale v mezipaměti~~ nízká <br/> -Databáze provádění dotazů: potenciálně velkému <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: střední <br/> -Vyhledávání identity: střední | -Metadat ~~načítání~~ vyhledávání: ~~vysoká, ale v mezipaměti~~ nízká <br/> – Zobrazení ~~generování~~ vyhledávání: ~~potenciálně velmi vysoké, ale v mezipaměti~~ nízká <br/> -Parametr hodnocení: Nízká <br/> -Dotazování ~~překlad~~ vyhledávání: ~~střední ale v mezipaměti~~ nízká <br/> -Materializer ~~generování~~ vyhledávání: ~~střední ale v mezipaměti~~ nízká <br/> -Databáze provádění dotazů: potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: střední <br/> -Vyhledávání identity: střední | -Metadat ~~načítání~~ vyhledávání: ~~vysoká, ale v mezipaměti~~ nízká <br/> – Zobrazení ~~generování~~ vyhledávání: ~~střední ale v mezipaměti~~ nízká <br/> -Parametr hodnocení: Nízká <br/> -Dotazování ~~překlad~~ vyhledávání: ~~střední ale v mezipaměti~~ nízká <br/> -Materializer ~~generování~~ vyhledávání: ~~střední ale v mezipaměti~~ nízká <br/> -Databáze provádění dotazů: potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: střední (rychlejší než EF5) <br/> -Vyhledávání identity: střední |
+| `  var c1 = q1.First();`                                                                             | Provádění dotazů LINQ      | -Metadat ~~načítání~~ vyhledávání: ~~Vysoká, ale v mezipaměti~~ nízká <br/> – Zobrazení ~~generování~~ vyhledávání: ~~Potenciálně velmi vysoké, ale v mezipaměti~~ nízká <br/> -Parametr hodnocení: Střední <br/> -Dotazování ~~překlad~~ vyhledávání: Střední <br/> -Materializer ~~generování~~ vyhledávání: ~~Střední, ale v mezipaměti~~ nízká <br/> – Provádění dotazu databáze: Potenciálně velkému <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: Střední <br/> -Vyhledávání identity: Střední | -Metadat ~~načítání~~ vyhledávání: ~~Vysoká, ale v mezipaměti~~ nízká <br/> – Zobrazení ~~generování~~ vyhledávání: ~~Potenciálně velmi vysoké, ale v mezipaměti~~ nízká <br/> -Parametr hodnocení: Nízká <br/> -Dotazování ~~překlad~~ vyhledávání: ~~Střední, ale v mezipaměti~~ nízká <br/> -Materializer ~~generování~~ vyhledávání: ~~Střední, ale v mezipaměti~~ nízká <br/> – Provádění dotazu databáze: Potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: Střední <br/> -Vyhledávání identity: Střední | -Metadat ~~načítání~~ vyhledávání: ~~Vysoká, ale v mezipaměti~~ nízká <br/> – Zobrazení ~~generování~~ vyhledávání: ~~Střední, ale v mezipaměti~~ nízká <br/> -Parametr hodnocení: Nízká <br/> -Dotazování ~~překlad~~ vyhledávání: ~~Střední, ale v mezipaměti~~ nízká <br/> -Materializer ~~generování~~ vyhledávání: ~~Střední, ale v mezipaměti~~ nízká <br/> – Provádění dotazu databáze: Potenciálně velkému (lepší dotazy v některých situacích) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> Materializace objektů: Střední (rychlejší než EF5) <br/> -Vyhledávání identity: Střední |
 | `}`                                                                                                  | Connection.Close          | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
@@ -207,7 +207,7 @@ Mezipaměti plánu dotazu je sdílen mezi instance ObjectContext v rámci téže
 
 #### <a name="321-some-notes-about-query-plan-caching"></a>3.2.1 několik poznámek o dotazu plánování ukládání do mezipaměti
 
--   Mezipaměti plánu dotazu jsou sdílena pro všechny typy dotazů: Entity SQL, technologii LINQ to Entities a CompiledQuery objekty.
+-   Pro všechny typy dotazů je sdílené mezipaměti plánu dotazu: Entita SQL, technologii LINQ to Entities a CompiledQuery objekty.
 -   Ve výchozím nastavení ukládání do mezipaměti plánu dotazu je povoleno pro Entity SQL dotazy, zda provést prostřednictvím EntityCommand nebo ObjectQuery. Je také ve výchozím nastavení zapnutá pro LINQ dotazy entity v Entity Framework v rozhraní .NET 4.5 a Entity Framework 6
     -   Ukládání do mezipaměti plánu dotazu je možné zakázat nastavením vlastnosti EnablePlanCaching (na EntityCommand nebo ObjectQuery) na hodnotu false. Příklad:
 ``` csharp
@@ -319,8 +319,6 @@ Tuto metodu helper by spustit následujícím způsobem:
 Je velmi užitečné; možnost compose přes jakýkoli dotaz LINQ k tomuto účelu můžete jednoduše vyvolat metodu po položka IQueryable, jako *Skip()* nebo *Count()*. Však to tedy v podstatě vrátí nový objekt IQueryable. Není nutné nic zastavit technicky z sestavování přes CompiledQuery, díky tomu budou generování nového IQueryable objektu, který vyžaduje procházející kompilátoru plán znovu.
 
 Některé součásti se využívají složené IQueryable objekty umožňují pokročilé funkce. Například ASP. NET prvku GridView může být vázán na data IQueryable objektu prostřednictvím vlastnosti metoda SelectMethod. Přes tento objekt IQueryable umožňuje řazení a stránkování datovém modelu se pak compose prvku GridView. Jak vidíte, pomocí prvku GridView CompiledQuery by přístupů kompilovaném dotazu ale vygeneruje nový dotaz autocompiled.
-
-Zákaznický poradní tým to popisuje v jejich "Potenciální výkon problémy s zkompilován LINQ dotaz znovu zkompiluje" blogovém příspěvku: <http://blogs.msdn.com/b/appfabriccat/archive/2010/08/06/potential-performance-issues-with-compiled-linq-query-re-compiles.aspx>.
 
 Jedno místo, kde můžete narazit to je při přidávání progresivní filtry dotazu. Předpokládejme například, že byste měli stránku zákazníky s několika rozevíracích seznamech pro volitelné filtry (například země a OrdersCount). Tyto filtry můžete vytvářet přes výsledky IQueryable CompiledQuery, ale to uděláte, dojde v nový dotaz projít kompilátoru plán pokaždé, když ji spustíte.
 
@@ -805,18 +803,18 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 
 Byly jednoduché microbenchmarks, kde se vytvoření kontextu vypršel časový limit zařazení do testu. Jsme měří dotazování 5000 časy pro sadu entit bez mezipaměti v řízeném prostředí. Tato čísla jsou mají být provedeny s upozorněním: neodrážejí aktuální počet vytvářených aplikace, ale místo toho jsou jak velká část rozdíly ve výkonnosti se, pokud jsou porovnány různé možnosti dotazování velmi přesné měření jablka na apples, s výjimkou náklady na vytvoření nový kontext.
 
-| EF  | Test                                 | Doba (ms) | Paměť   |
+| EF  | Test                                 | Doba (ms) | Memory (Paměť)   |
 |:----|:-------------------------------------|:----------|:---------|
 | EF5 | ObjectContext ESQL                   | 2414      | 38801408 |
 | EF5 | Dotaz Linq ObjectContext             | 2692      | 38277120 |
 | EF5 | Žádné sledování dotazu DbContext Linq     | 2818      | 41840640 |
-| EF5 | Dotaz Linq DbContext                 | 2930      | 41771008 |
+| EF5 | DbContext Linq Query                 | 2930      | 41771008 |
 | EF5 | Objekt ObjectContext Linq dotaz bez sledování | 3013      | 38412288 |
 |     |                                      |           |          |
 | EF6 | ObjectContext ESQL                   | 2059      | 46039040 |
 | EF6 | Dotaz Linq ObjectContext             | 3074      | 45248512 |
 | EF6 | Žádné sledování dotazu DbContext Linq     | 3125      | 47575040 |
-| EF6 | Dotaz Linq DbContext                 | 3420      | 47652864 |
+| EF6 | DbContext Linq Query                 | 3420      | 47652864 |
 | EF6 | Objekt ObjectContext Linq dotaz bez sledování | 3593      | 45260800 |
 
 ![EF5 micro srovnávací testy, 5000 teplé iterací](~/ef6/media/ef5micro5000warm.png)
@@ -827,7 +825,7 @@ Microbenchmarks jsou velmi citlivé na malých změn v kódu. V tomto případě
 
 Porovnat výkon skutečné možností jiný dotaz, vytvořili jsme 5 variace samostatný test, kde používáme možnost jiný dotaz, vyberte všechny produkty, jejichž název kategorie je "Nápoje". Každá iterace zahrnuje náklady na vytvoření kontextu a náklady na materializaci všechny vrácené entity. Před provedením součtu vypršel časový limit 1000 iterací jsou spuštěny untimed 10 iterací. Střední spustit z 5 spuštění každého testu jsou výsledky zobrazeny. Další informace najdete v tématu dodatku B, který obsahuje kód pro test.
 
-| EF  | Test                                        | Doba (ms) | Paměť   |
+| EF  | Test                                        | Doba (ms) | Memory (Paměť)   |
 |:----|:--------------------------------------------|:----------|:---------|
 | EF5 | Příkaz ObjectContext Entity                | 621       | 39350272 |
 | EF5 | Kontext databáze. dotaz Sql na databázi             | 825       | 37519360 |
@@ -838,7 +836,7 @@ Porovnat výkon skutečné možností jiný dotaz, vytvořili jsme 5 variace sam
 | EF5 | Dotaz Linq ObjectContext                    | 1152      | 38178816 |
 | EF5 | Žádné sledování dotazu DbContext Linq            | 1208      | 41803776 |
 | EF5 | Kontext databáze. dotaz Sql na DbSet                | 1414      | 37982208 |
-| EF5 | Dotaz Linq DbContext                        | 1574      | 41738240 |
+| EF5 | DbContext Linq Query                        | 1574      | 41738240 |
 |     |                                             |           |          |
 | EF6 | Příkaz ObjectContext Entity                | 480       | 47247360 |
 | EF6 | Query Store ObjectContext                   | 493       | 46739456 |
@@ -849,7 +847,7 @@ Porovnat výkon skutečné možností jiný dotaz, vytvořili jsme 5 variace sam
 | EF6 | Žádné sledování dotazu DbContext Linq            | 878       | 47554560 |
 | EF6 | Dotaz Linq ObjectContext                    | 953       | 47632384 |
 | EF6 | Kontext databáze. dotaz Sql na DbSet                | 1023      | 41992192 |
-| EF6 | Dotaz Linq DbContext                        | . 1290      | 47529984 |
+| EF6 | DbContext Linq Query                        | 1290      | 47529984 |
 
 
 ![EF5 teplé dotazu 1000 iterací](~/ef6/media/ef5warmquery1000.png)
@@ -891,10 +889,10 @@ Model obsahuje sady 1005 entit a sad 4227 přidružení.
 
 | Konfigurace                              | Rozpis uplynulý čas                                                                                                                                               |
 |:-------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Visual Studio 2010, Entity Framework 4     | Generování souborů SSDL: 2 hr 27 min <br/> Generování mapování: 1 sekunda <br/> CSDL generace: 1 sekunda <br/> ObjectLayer generace: 1 sekunda <br/> Generování zobrazení: 2 h 14 min |
-| Visual Studio 2010 SP1, Entity Framework 4 | Generování souborů SSDL: 1 sekunda <br/> Generování mapování: 1 sekunda <br/> CSDL generace: 1 sekunda <br/> ObjectLayer generace: 1 sekunda <br/> Generování zobrazení: 1 hr 53 min.   |
-| Visual Studio 2013, rozhraní Entity Framework 5     | Generování souborů SSDL: 1 sekunda <br/> Generování mapování: 1 sekunda <br/> CSDL generace: 1 sekunda <br/> ObjectLayer generace: 1 sekunda <br/> Generování zobrazení: 65 minut    |
-| Visual Studio 2013, rozhraní Entity Framework 6     | Generování souborů SSDL: 1 sekunda <br/> Generování mapování: 1 sekunda <br/> CSDL generace: 1 sekunda <br/> ObjectLayer generace: 1 sekunda <br/> Generování zobrazení: 28 sekundách.   |
+| Visual Studio 2010, Entity Framework 4     | Generování souborů SSDL: 2 hr 27 min <br/> Generování mapování: 1 sekunda <br/> Soubor CSDL generace: 1 sekunda <br/> Generování ObjectLayer: 1 sekunda <br/> Generování zobrazení: 2 h 14 min |
+| Visual Studio 2010 SP1, Entity Framework 4 | Generování souborů SSDL: 1 sekunda <br/> Generování mapování: 1 sekunda <br/> Soubor CSDL generace: 1 sekunda <br/> Generování ObjectLayer: 1 sekunda <br/> Generování zobrazení: 1 hr 53 min   |
+| Visual Studio 2013, Entity Framework 5     | Generování souborů SSDL: 1 sekunda <br/> Generování mapování: 1 sekunda <br/> Soubor CSDL generace: 1 sekunda <br/> Generování ObjectLayer: 1 sekunda <br/> Generování zobrazení: 65 minut    |
+| Visual Studio 2013, Entity Framework 6     | Generování souborů SSDL: 1 sekunda <br/> Generování mapování: 1 sekunda <br/> Soubor CSDL generace: 1 sekunda <br/> Generování ObjectLayer: 1 sekunda <br/> Generování zobrazení: 28 sekundách.   |
 
 
 Je vhodné poznamenat, že při generování souborů SSDL, zatížení je téměř zcela strávená na serveru SQL Server čeká na klientském počítači. vývojové nečinnosti výsledků k téhle akci vrátit ze serveru. Specializující by měl ocení zejména toto vylepšení. Je také vhodné poznamenat, že v podstatě náklady na generování modelu probíhá generování zobrazení nyní.
@@ -1312,21 +1310,21 @@ Toto prostředí používá počítač 2. nastavení se databáze na samostatné
 
 ##### <a name="11112-hardware-environment"></a>11.1.1.2 hardwarového prostředí
 
--   Dvoujádrový procesor: Intel(R) Xeon(R) CPU L5520 W3530 @ 2,27 GHz,. 2261 Mhz8 GHz, 4 jader, 84 logických procesorů.
--   RamRAM 2412 GB.
+-   Dvoujádrový procesor:     Intel(R) Xeon(R) CPU L5520 W3530 @ 2,27 GHz,. 2261 Mhz8 GHz, 4 jader, 84 logických procesorů.
+-   2412 GB RamRAM.
 -   136 GB SCSI250GB SATA 7200 ot. / min / 3GB/s disku rozdělit do 4 oddíly.
 
 #### <a name="1112-db-server"></a>11.1.2 Databázového serveru
 
 ##### <a name="11121-software-environment"></a>11.1.2.1 softwarovém prostředí
 
--   Název operačního systému: Windows Server 2008 R28.1 Enterprise s aktualizací SP1.
+-   Název operačního systému: Windows Server 2008 R28.1 Enterprise SP1.
 -   SQL Server 2008 R22012.
 
 ##### <a name="11122-hardware-environment"></a>11.1.2.2 hardwarového prostředí
 
 -   Jeden procesor: Intel(R) Xeon(R) CPU L5520 @ 2,27 GHz,. 2261 MhzES-1620 0 @ 3.60 GHz, 4 jader, 8 logických procesorů.
--   RamRAM 824 GB.
+-   824 GB RamRAM.
 -   465 GB ATA500GB SATA 7200 ot. / min 6GB/s disku rozdělit do 4 oddíly.
 
 ### <a name="112-b-query-performance-comparison-tests"></a>11.2 testy porovnání výkonu dotazů B.
@@ -1519,7 +1517,7 @@ Jednoduché vyhledávací dotaz s žádné agregace
   </Query>
 ```
 
-##### <a name="11312singleaggregating"></a>11.3.1.2 SingleAggregating
+##### <a name="11312singleaggregating"></a>11.3.1.2 SingleAggregating
 
 Normální BI dotaz s více agregací, ale žádné mezisoučty (jeden dotaz)
 
