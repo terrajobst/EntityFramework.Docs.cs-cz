@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 343162596780e6146b57f73a38221701009cd855
-ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
+ms.openlocfilehash: ad7ac3099cfd4c49b88acfbbff61f2af9294b6ec
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2019
-ms.locfileid: "55760506"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463240"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
@@ -140,4 +140,6 @@ Existuje několik omezení, která je potřeba při používání nezpracované 
 * SQL příkazy jiných než `SELECT` jsou automaticky uznáváni jako bez možnosti složení. V důsledku toho úplné výsledky uložené procedury jsou vždy vrácen do klienta a jakékoli operátory LINQ použity po `FromSql` jsou vyhodnocené jako v paměti.
 
 > [!WARNING]  
-> **Vždy používejte Parametrizace pro nezpracované dotazy SQL:** Rozhraní API, které přijímají nezpracovaná SQL, jako řetězec `FromSql` a `ExecuteSqlCommand` povolit hodnot do snadno předat jako parametry. Kromě ověřování uživatelského vstupu, vždy používejte Parametrizace pro všechny hodnoty použité v nezpracované dotazu nebo příkaz SQL. Pokud používáte zřetězení řetězců dynamicky vytvářet všechny části řetězce dotazu, pak budete muset ověřování jakékoli vstupu pro ochranu před útoky prostřednictvím injektáže SQL.
+> **Vždy používejte Parametrizace pro nezpracované dotazy SQL:** Kromě ověřování uživatelského vstupu, vždy používejte Parametrizace pro všechny hodnoty použité v nezpracované dotazu nebo příkaz SQL. Rozhraní API, které přijímají nezpracovaná SQL, jako řetězec `FromSql` a `ExecuteSqlCommand` povolit hodnot do snadno předat jako parametry. Přetížení `FromSql` a `ExecuteSqlCommand` , která přijímají FormattableString také povolit pomocí syntaxt interpolace řetězců tak, že pomáhá chránit před útoky prostřednictvím injektáže SQL. 
+> 
+> Pokud se dynamicky vytvářet všechny části řetězce dotazu pomocí zřetězení řetězců nebo interpolace nebo předání vstupu uživatele pro příkazy nebo uložené procedury, které můžete provést tyto vstupy jako dynamic SQL, pak budete muset pro jakýkoli vstup do ověření Ochrana před útoky prostřednictvím injektáže SQL.

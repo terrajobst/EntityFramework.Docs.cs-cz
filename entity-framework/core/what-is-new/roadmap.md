@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: 9064b323c11282418f2bedf70f874d45c18bb78a
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
+ms.openlocfilehash: f466d112e5ed8661ad1e2d91079c1c01d34b9002
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325337"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463227"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core – plán
 
@@ -18,43 +18,12 @@ ms.locfileid: "56325337"
 
 ### <a name="ef-core-30"></a>EF Core 3.0
 
-EF Core 2.2 letos uvedli na trh našim hlavním hlavním cílem je nyní EF Core 3.0, které budou zarovnané s .NET Core 3.0 a uvolní 3.0 technologie ASP.NET.
-
-Jsme nebyly dokončeny žádné nové funkce ještě, proto [EF Core 3.0 ve verzi Preview 1 balíčky publikována do Galerie NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0-preview.18572.1) prosince 2018 pouze obsahovat [opravy chyb, menší vylepšení a změny, které jsme provedli v Příprava 3.0 pracovní](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed+label%3Aclosed-fixed).
-
-Ve skutečnosti ještě nutné upřesnit naše [release plánování](#release-planning-process) 3.0, ujistěte se, že jsme mají správnou sadu funkcí, které můžete dokončit v přiděleném čase.
-Budeme sdílet více informací o získáme další jasné, ale zde jsou některé základní motivy a funkce, že jsme v úmyslu pracovat na:
-
-- **Vylepšení LINQ ([#12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795))**: LINQ umožňuje psát dotazy databáze, aniž byste museli opustit váš jazyk podle vlastní volby, využití výhod bohaté zadejte informace, které pomůžou technologie IntelliSense a kontrola typu v době kompilace.
-  Ale LINQ také umožňuje psát neomezený počet složité dotazy a, který byl vždy velkým problémem pro zprostředkovatele LINQ.
-  V prvních několika verzích EF Core jsme vyřešit, v části tím, jaké části dotazu může být přeloženy na SQL a tím, že zbývající části dotazu ke spuštění v paměti na straně klienta.
-  Toto spuštění na straně klienta může být žádoucí v některých situacích ale v mnoha jiných případech může vést neefektivní dotazy, které nejsou označené, dokud je aplikace nasazená do produkčního prostředí.
-  V EF Core 3.0 plánujeme změnit velký fungování naše implementace LINQ, a jak můžeme otestovat.
-  Cíle jsou k němu robustnější (třeba, aby se zabránilo přerušení dotazů v aktualizací), bude moct přeložit dalších výrazů správně do databáze SQL, vygenerujte efektivní dotazy ve více případech a zabránit v přechodu nezjištěné neefektivní dotazy.
-
-- **Podpora služby cosmos DB ([#8443](https://github.com/aspnet/EntityFrameworkCore/issues/8443))**: Pracujeme na poskytovatele služby Cosmos DB pro jádro EF Core a umožňuje vývojářům znáte model programování na EF snadno cílit na jako databáze aplikace služby Azure Cosmos DB.
-  Cílem je, že některé z výhod Cosmos DB, jako jsou globální distribuce "always on" dostupnost, elastické škálovatelnosti a nízké latenci, ještě více přístupné pro vývojáře na platformě .NET.
-  Zprostředkovatel umožní většina EF Core funkcí, jako je sledování automatických změn, LINQ a převody hodnot, s využitím rozhraní SQL API ve službě Cosmos DB. Začali jsme snaha před EF Core 2.2 a [jsme se rozhodli některé verze zprostředkovatele k dispozici ve verzi preview](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
-  Nový plán má pokračovat ve vývoji poskytovatele spolu s EF Core 3.0.   
-
-- **C#Podpora 8.0 ([#12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047))**: Chceme našim zákazníkům využívat některé části [nové funkce v C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) , jako jsou asynchronní datové proudy (včetně await pro každou) a typy s možnou hodnotou Null odkazů pomocí EF Core.
-
-- **Reverse engineering zobrazení databáze do typy dotazů ([#1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679))**: V EF Core 2.1 přidali jsme podporu pro typy dotazů, které mohou představovat data, která mohou číst z databáze, ale nejde aktualizovat.
-  Typy dotazů jsou zobrazení skvěle hodí k mapování databáze, tak v EF Core 3.0, rádi bychom k automatizaci vytváření typů dotazu pro zobrazení databáze.
-
-- **Vlastnosti kontejneru objektů a dat entit ([#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) a [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914))**: Tato funkce je o povolení entity, které ukládají data v indexované vlastnosti namísto regulární vlastností a také o bude možné použít instance stejné třídy .NET (potenciálně něco jednoduchého jako `Dictionary<string, object>`) k reprezentaci entit různých typů ve stejném modelu EF Core.
-  Tato funkce je odrazový můstek k podpoře many-to-many relací bez připojení k entitě, což je jedna z nejžádanějších vylepšení pro jádro EF Core.
-
-- **EF 6.3 v rozhraní .NET Core ([EF6 #271](https://github.com/aspnet/EntityFramework6/issues/271))**: Chápeme, že mnoho existujících aplikací pomocí předchozí verze EF a že přenesení do EF Core jenom, abyste mohli využívat výhod .NET Core může někdy vyžadovat značné úsilí.
-  Z tohoto důvodu jsme se přizpůsobení další verze EF 6 a spustit na .NET Core 3.0.
-  To usnadňuje přenos stávající aplikace s minimálními změnami provádíme.
-  Existuje budou představovat určitá omezení (například bude vyžadovat nové zprostředkovatele, nepovolí prostorových podporu s SQL serverem) a neexistují žádné nové plánované funkce pro EF 6.
-
-Do té doby můžete použít [tento dotaz v našich sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc) zobrazíte pracovní položky přiřazené nezávazně 3.0.
+EF Core 2.2 letos uvedli na trh našim hlavním cílem hlavní je nyní EF Core 3.0.
+V tématu [Novinky v EF Core 3.0](xref:core/what-is-new/ef-core-3.0/index) informace o plánované [nové funkce](xref:core/what-is-new/ef-core-3.0/features) a úmyslné [rozbíjející změny v](xref:core/what-is-new/ef-core-3.0/breaking-changes) zahrnuta ve vydané verzi.
 
 ## <a name="schedule"></a>Plán
 
-Plán pro jádro EF Core je synchronizace s [.NET Core plán](https://github.com/dotnet/core/blob/master/roadmap.md) a [ASP.NET Core plán](https://github.com/aspnet/Home/wiki/Roadmap).
+Plán vydání pro jádro EF Core je synchronizace s [plán vydané verze .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md).
 
 ## <a name="backlog"></a>Nevyřízená položka
 
@@ -84,9 +53,9 @@ Však můžete Shrneme informace z běžných otázek, na které jsme pokuste od
 
 2. **Co jsou lidé alternativní řešení můžete použít, pokud ještě neimplementujeme tuto funkci?** Mnoho vývojářů například můžete namapovat tabulku spojení obejít chybějící nativní podpora many-to-many. Samozřejmě ne všichni vývojáři, chcete to provést, ale mnoho můžete a, které se počítá jako faktor při naše rozhodnutí.
 
-3. **Implementaci této funkce vyvíjí architektura EF Core tak, aby nám ještě víc přibližuje přesune k implementaci dalšími funkcemi?** Často Představujeme upřednostnit funkce, které slouží jako stavební bloky pro další funkce. Například vlastnost kontejner objektů a dat entit může pomoct nám přesunout many-to-many podpory a konstruktory entity povolena podpora naše opožděné načtení. 
+3. **Implementaci této funkce vyvíjí architektura EF Core tak, aby nám ještě víc přibližuje přesune k implementaci dalšími funkcemi?** Často Představujeme upřednostnit funkce, které slouží jako stavební bloky pro další funkce. Například vlastnost kontejner objektů a dat entit může pomoct nám přesunout many-to-many podpory a konstruktory entity povolena podpora naše opožděné načtení.
 
-4. **Je funkce bod rozšiřitelnosti?** Často Představujeme upřednostnil před normální funkce bodů rozšiřitelnosti, protože umožňují vývojářům integrovat svoje vlastní chování a kompenzovat všechny chybějící funkce. 
+4. **Je funkce bod rozšiřitelnosti?** Často Představujeme upřednostnil před normální funkce bodů rozšiřitelnosti, protože umožňují vývojářům integrovat svoje vlastní chování a kompenzovat všechny chybějící funkce.
 
 5. **Co je synergii funkce, když použijete v kombinaci s jinými produkty?** Jsme upřednostnit funkce, které umožňují nebo výrazně vylepšit pomocí EF Core s jinými produkty, jako je .NET Core, nejnovější verze sady Visual Studio, Microsoft Azure, atd.
 

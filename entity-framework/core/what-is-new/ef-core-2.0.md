@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: b52b1fe6b2d5a585f4d55b0299891f61cbc968a3
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: b5ac31722f49589f1494a3d8d1c8a7011a4cf9ce
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997567"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463266"
 ---
 # <a name="new-features-in-ef-core-20"></a>Novinky v EF Core 2.0
 
-## <a name="net-standard-20"></a>.NET standard 2.0
+## <a name="net-standard-20"></a>.NET Standard 2.0
 EF Core teď cílí na .NET Standard 2.0, což znamená, že můžete pracovat s .NET Core 2.0, rozhraní .NET Framework 4.6.1 a dalších knihoven, které implementují rozhraní .NET Standard 2.0.
 Zobrazit [implementace .NET nepodporuje](../platforms/index.md) podrobné informace o podporovaných.
 
@@ -153,7 +153,7 @@ class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 builder.ApplyConfiguration(new CustomerConfiguration());
 ```
 
-## <a name="high-performance"></a>Vysoký výkon
+## <a name="high-performance"></a>High Performance
 
 ### <a name="dbcontext-pooling"></a>Sdružování DbContext
 
@@ -179,7 +179,7 @@ Nová metoda zavádí několik omezení na co se dá dělat ```OnConfiguring()``
 
 ### <a name="explicitly-compiled-queries"></a>Explicitně kompilované dotazy
 
-Toto je funkce druhé vyjádřit výslovný souhlas výkonu, které jsou navržené tak, aby nabízí výhody ve velkém měřítku scénářích.
+Toto je druhý vyjádřit výslovný souhlas výkonu funkce navržené tak, aby nabízí výhody ve scénářích vysoce škálovatelné.
 
 Ruční nebo explicitně zkompilovaného dotazu byly k dispozici v předchozích verzích EF a také v technologii LINQ to SQL, pokud chcete umožnit aplikacím pro ukládání do mezipaměti překlad dotazů, takže mohou být vypočítány pouze jednou a spustit v mnoha případech rozhraní API.
 
@@ -208,7 +208,7 @@ EF Core podporuje automatické generování hodnoty klíče prostřednictvím r�
 
 ## <a name="query"></a>Dotazy
 
-### <a name="improved-linq-translation"></a>Překlad lepší LINQ
+### <a name="improved-linq-translation"></a>Improved LINQ Translation
 
 Umožňuje další dotazy k byl úspěšně spuštěn s další logiku právě vyhodnocuje v databázi (namísto v paměti) a méně dat zbytečně načtených z databáze.
 
@@ -250,7 +250,7 @@ WHERE ""City"" = @p0
     AND ""ContactTitle"" = @p1
 ```
 
-### <a name="effunctionslike"></a>EF. Functions.Like()
+### <a name="effunctionslike"></a>EF.Functions.Like()
 
 Přidali jsme EF. Vlastnosti funkce, která je možné definovat metody, které mapují na funkce databáze nebo operátory tak, aby ty mohou být vyvolány v dotazech LINQ pomocí EF Core nebo poskytovatelů. První příklad této metody je Like():
 

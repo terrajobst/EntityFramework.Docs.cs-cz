@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: a87eca72aa58487415eea11e4f83de1a19e73506
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: cda5cc170646abc3e9d9a70d729237c01f028259
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022334"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463201"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -19,7 +19,15 @@ Tato stránka obsahuje odkazy na EF Core úložiště, které můžou vyžadovat
 
 Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) a [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) popisky na naše problémy a žádosti o přijetí změn.
 
-## <a name="21-----22"></a>2.1---> 2.2
+## <a name="22-----30"></a>2.2 ---> 3.0
+
+* https://github.com/aspnet/EntityFrameworkCore/pull/14022
+  * Odebraný zastaralá rozhraní API a přetížení s sbaleném volitelný parametr
+  * Removed DatabaseColumn.GetUnderlyingStoreType()
+* https://github.com/aspnet/EntityFrameworkCore/pull/14589
+  * Odebraný zastaralá rozhraní API
+
+## <a name="21-----22"></a>2.1 ---> 2.2
 
 ### <a name="test-only-changes"></a>Změny jen pro test
 
@@ -56,7 +64,7 @@ Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `pro
   * Tato žádost o přijetí změn přidá konceptu `CanConnect` který budou používat ASP.NET Core stavu kontroly k určení, jestli je databáze k dispozici. Ve výchozím nastavení, relační implementace jen volá `Exist`, ale zprostředkovatelé můžete implementovat něco jiného v případě potřeby. Nerelační poskytovatelé muset implementovat nové rozhraní API v pořadí pro kontrolu stavu, který má být použitelná.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -Aktualizace základní RelationalTypeMapping nenastavovat DbParameter velikost
   * Zastavte, protože to může způsobit zkrácení nastavení velikosti ve výchozím nastavení. Poskytovatelé pravděpodobně nutné přidat své vlastní logiky, pokud velikost musí být nastavena.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13372](https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng: Vždy určete typ sloupce pro desítkové sloupce
+* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng: Vždy určit typ sloupce pro desítkové sloupce
   * Vždy Konfigurujte typ sloupce pro desítkové sloupce automaticky generovaný kód, místo konfigurace podle konvence.
   * Poskytovatelé, neměli byste potřebovat všechny změny na své straně.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -Přidá CaseExpression pro generování výrazy SQL CASE

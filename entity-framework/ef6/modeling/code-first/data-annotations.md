@@ -3,12 +3,12 @@ title: Kód anotací dat při prvním - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 8d85ef85f56a23d9b3b526554417dc9dd360e139
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980038"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463279"
 ---
 # <a name="code-first-data-annotations"></a>Kód první datové poznámky
 > [!NOTE]
@@ -176,7 +176,7 @@ Poznámka MaxLength ovlivní databázi nastavením vlastnosti length na 10.
 
 ![Blogy tabulka zobrazující maximální délka pro sloupec BloggerName](~/ef6/media/jj591583-figure04.png)
 
-MVC na straně klienta poznámky a anotace EF 4.1 na straně serveru i dodrží toto ověření znovu dynamické vytvoření chybová zpráva: "pole BloggerName musí být typu řetězce nebo pole s maximální délkou"10"." Tato zpráva je trochu dlouhý. Mnoho anotace umožňují zadat chybovou zprávu s atributem chybová zpráva.
+Poznámka MVC na straně klienta a poznámky na straně serveru EF 4.1 dodrží i toto ověření znovu dynamické vytvoření chybová zpráva: "Pole BloggerName musí být typu řetězce nebo pole s maximální délkou"10"." Tato zpráva je trochu dlouhý. Mnoho anotace umožňují zadat chybovou zprávu s atributem chybová zpráva.
 
 ``` csharp
     [MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
@@ -206,7 +206,7 @@ První konvence kódu určí, že všech vlastností, které je podporované dat
 
  
 
-## <a name="complextype"></a>Typ ComplexType
+## <a name="complextype"></a>ComplexType
 
 Není k popisu entity domény mezi sadu tříd a potom vrstvy těchto tříd k popisu úplnou entitu. Můžete například přidat třídu s názvem BlogDetails do modelu.
 
@@ -245,11 +245,8 @@ V databázi v blogu tabulce bude obsahovat všechny vlastnosti včetně vlastnos
 
 ![Blog tabulku s komplexní typ](~/ef6/media/jj591583-figure06.png)
 
-Další zajímavé Poznámka je sice DateCreated vlastnost byla definována jako neumožňující hodnotu data a času ve třídě, pole příslušnou databázi s povolenou hodnotou Null. Pokud chcete mít vliv na schéma databáze, je nutné použít požadované poznámky.
 
- 
-
-## <a name="concurrencycheck"></a>Atribut ConcurrencyCheck
+## <a name="concurrencycheck"></a>ConcurrencyCheck
 
 Poznámka atribut ConcurrencyCheck umožňuje označit jednu nebo více vlastností, které má být použit pro souběžnost kontroly v databázi, když uživatel upraví nebo odstraní entitu. Pokud jste pracovali s EF designeru, ten je v souladu s nastavení vlastnosti režim ConcurrencyMode na pevný.
 
@@ -374,7 +371,7 @@ Indexy jsou ve výchozím nastavení, není jedinečný, ale můžete použít *
 
 ### <a name="multiple-column-indexes"></a>Sloupec indexů
 
-Indexy, které přesahují do více sloupců je určené vlastností se stejným názvem ve více poznámek Index pro danou tabulku. Při vytváření indexů více sloupci, je třeba zadat pořadí sloupců v indexu. Například následující kód vytvoří index více sloupců na **hodnocení** a **BlogId** volá **IX\_BlogAndRating**. **BlogId** je první sloupec v indexu a **hodnocení** je druhý.
+Indexy, které přesahují do více sloupců je určené vlastností se stejným názvem ve více poznámek Index pro danou tabulku. Při vytváření indexů více sloupci, je třeba zadat pořadí sloupců v indexu. Například následující kód vytvoří index více sloupců na **hodnocení** a **BlogId** volá **IX\_BlogIdAndRating**. **BlogId** je první sloupec v indexu a **hodnocení** je druhý.
 
 ``` csharp
     public class Post
@@ -441,7 +438,7 @@ Také budete muset přidat v třídě osoba odkazuje tyto vlastnosti. Třída os
     }
 ```
 
-Kód nejprve není schopen odpovídat vlastnosti ve dvou tříd sama o sobě. Databázové tabulky pro příspěvky by měl mít jeden cizí klíč pro osobu, CreatedBy a jeden pro osoby UpdatedBy ale kód nejprve vytvoří čtyři se vlastnosti cizího klíče: osoba\_Id, osoba\_Id1, CreatedBy\_Id a UpdatedBy\_ID.
+Kód nejprve není schopen odpovídat vlastnosti ve dvou tříd sama o sobě. Databázové tabulky pro příspěvky měli mít jeden cizí klíč pro osoby CreatedBy a jeden pro osobu, UpdatedBy ale kód nejprve vytvoří čtyři vlastnosti cizího klíče: Osoba\_Id, osoba\_Id1, CreatedBy\_Id a UpdatedBy\_ID.
 
 ![Příspěvky tabulku s velmi cizí klíče](~/ef6/media/jj591583-figure10.png)
 
