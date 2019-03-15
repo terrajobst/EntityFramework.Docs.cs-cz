@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: cf0d2cf032b9aa319fe706aece5b1ea66a5d6251
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463388"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829184"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Novým funkcím zahrnutým v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -75,7 +75,7 @@ Tato vlastnost je mezi nimi vlastně ideálně se hodí pro zobrazení databáze
 Bylo zahájeno práci na tuto funkci, ale není zahrnutý v aktuální verzi preview. 
 
 Tato funkce je o povolení entity, které ukládají data v indexované vlastnosti namísto regulární vlastností a také o bude možné použít instance stejné třídy .NET (potenciálně něco jednoduchého jako `Dictionary<string, object>`) k reprezentaci entit různých typů ve stejném modelu EF Core.
-Tato funkce je odrazový můstek k podpoře many-to-many relací bez připojení k entitě, což je jedna z nejžádanějších vylepšení pro jádro EF Core.
+Tato funkce je odrazový můstek k podpoře many-to-many relací bez připojení k entitě ([vydat #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), což je jedna z nejžádanějších vylepšení pro jádro EF Core.
 
 ## <a name="ef-63-on-net-core"></a>EF 6.3 v rozhraní .NET Core 
 

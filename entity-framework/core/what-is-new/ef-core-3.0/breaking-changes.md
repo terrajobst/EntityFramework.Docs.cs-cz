@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: a7e1a03bf1131cd53123f5cc39b07bed94619b44
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 748db8a71a04a2d696ef21a03319906b9fc776be
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463392"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829223"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -22,11 +22,10 @@ Tady nejsou uvedené konce v nové vlastnosti představené z jednoho 3.0 ve ver
 
 ## <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Dotazy LINQ se už nevyhodnocuje na straně klienta
 
-[Sledování problému #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[Sledování problému #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
+[také zjistit problém #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
-> [!IMPORTANT]
-> Oznamujeme předem toto přerušení.
-Dosud nebyl dodáno ve všech 3.0 ve verzi preview.
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -98,8 +97,14 @@ Tato změna byla provedena jak snížit šum na `Info` úrovně protokolování.
 **Zmírnění rizik**
 
 Tato událost protokolování je definována `RelationalEventId.CommandExecuting` s ID události 20100.
-Do protokolu SQL na `Info` úroveň znovu, zapnout protokolování na `Debug` úrovně a vyfiltrovat pouze této události.
-
+Do protokolu SQL na `Info` úroveň znovu, explicitně nakonfigurovat na úrovni `OnConfiguring` nebo `AddDbContext`.
+Příklad:
+```C#
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseSqlServer(connectionString)
+        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Info)));
+```
 
 ## <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>Dočasné hodnoty klíče už nejsou nastavené na instancí entit
 
@@ -439,6 +444,28 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool zavolejte už AddLogging a AddMemoryCache
+
+[Sledování problému #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Před EF Core 3.0, volání `AddDbContext` nebo `AddDbContextPool` by také zaregistrovat protokolování a ukládání služeb s D.I prostřednictvím volání do mezipaměti [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) a [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+
+**Nové chování**
+
+Od verze EF Core 3.0, `AddDbContext` a `AddDbContextPool` nebude registru tyto služby s DI (Dependency Injection).
+
+**Proč**
+
+EF Core 3.0 nevyžaduje, že tyto služby jsou v cotainer DI vaší aplikace. Nicméně pokud `ILoggerFactory` je zaregistrovaný v aplikačním kontejneru DI, pak bude i nadále využívat EF Core.
+
+**Zmírnění rizik**
+
+Pokud vaše aplikace potřebuje tyto služby, registrujte je explicitně s využitím kontejnerů DI [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) nebo [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+
 ## <a name="dbcontextentry-now-performs-a-local-detectchanges"></a>DbContext.Entry teď provádí místní metoda DetectChanges
 
 [Sledování problému #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
@@ -610,6 +637,43 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     optionsBuilder
         .ConfigureWarnings(w => w.Log(CoreEventId.ManyServiceProvidersCreatedWarning));
 }
+```
+
+## <a name="new-behavior-for-hasonehasmany-called-with-a-single-string"></a>Nové chování pro HasOne/HasMany volat jeden řetězec
+
+[Sledování problému #9171](https://github.com/aspnet/EntityFrameworkCore/issues/9171)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Před EF Core 3.0 kód volání `HasOne` nebo `HasMany` s jeden řetězec byl interpretovat matoucí způsobem.
+Příklad:
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
+```
+
+Kód vypadá je týkající se `Samuri` některé jiné entity typu použití `Entrance` navigační vlastnost, která může být privátní.
+
+Ve skutečnosti, tento kód se pokouší vytvořit relaci některé typ entity s názvem `Entrance` se žádné navigační vlastnost.
+
+**Nové chování**
+
+Od verze EF Core 3.0, výše uvedený kód nyní dělá co podívali jako její by měl mít byla činnosti před.
+
+**Proč**
+
+Staré chování bylo velmi matoucí, zejména při čtení konfigurace kód a hledání chyb.
+
+**Zmírnění rizik**
+
+Tímto přerušíte pouze aplikace, které jsou explicitně konfigurace relace používání řetězců pro názvy typů a bez explicitním zadáním navigační vlastnost.
+Není běžné.
+Předchozí chování můžete získat prostřednictvím explicitně předávání `null` pro název navigační vlastnosti.
+Příklad:
+
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
 
 ## <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Poznámka relační: TypeMapping je teď stejně TypeMapping

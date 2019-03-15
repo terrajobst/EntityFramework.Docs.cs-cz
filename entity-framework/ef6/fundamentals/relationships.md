@@ -3,12 +3,12 @@ title: Relace, navigačních vlastností a cizí klíče - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 46c2d11b5704ec7ae82a423ae042b87f5efe436f
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315656"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829197"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigačních vlastností a cizí klíče
 Toto téma obsahuje základní informace o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje pokyny o tom, jak mapovat a manipulaci s relací.
@@ -29,7 +29,7 @@ Doporučuje se pro vložení vlastností do modelu, které mapují na cizí klí
 
 Pokud sloupce cizího klíče nejsou součástí modelu, informací o přidružení je spravovat jako nezávislý objekt. Relace jsou sledovány pomocí odkazů na objekty místo vlastnosti cizího klíče. Tento typ přidružení se nazývá *nezávislé přidružení*. Nejběžnější způsob, jak upravit *nezávislé přidružení* je upravit navigační vlastnosti, které jsou generovány pro každou entitu, která se účastní asociace.
 
-Můžete použít jeden nebo oba typy přidružení v modelu. Ale pokud budete mít čistě many-to-many vztah, který je připojen pomocí připojení k tabulce, která obsahuje pouze cizí klíče, použije EF nezávislé přidružení ke správě takové vztah mnoho mnoho.   
+Můžete použít jeden nebo oba typy přidružení v modelu. Ale pokud budete mít čistě many-to-many vztah, který je připojen pomocí připojení k tabulce, která obsahuje pouze cizí klíče, použije EF nezávislé přidružení ke správě takové vztah mnoho mnoho.   
 
 Následující obrázek ukazuje koncepční model, který byl vytvořen s Entity Framework Designer. Model obsahuje dvě entity, které jsou součástí vztah jeden mnoho. Oba entity mají navigační vlastnosti. **Kurz** depend entitou a má **DepartmentID** cizí definovanou klíčovou vlastnost.
 
@@ -51,7 +51,7 @@ public class Department
 {
    public Department()
    {
-     this.Course = new HashSet<Course>();
+     this.Courses = new HashSet<Course>();
    }  
    public int DepartmentID { get; set; }
    public string Name { get; set; }
