@@ -4,14 +4,14 @@ author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 69c40fcd8b7ddb925728b1bad9992ad2a81e7540
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 53262bc926d79f42c4418a62717a462564dc80bf
+ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994661"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58131418"
 ---
-# <a name="sqlite-ef-core-database-provider-limitations"></a>Omezení poskytovatele pro databázi SQLite EF Core
+# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core Database Provider Limitations
 
 Zprostředkovatel SQLite má několik omezení migrace. Většina těchto omezení jsou výsledkem omezení v podkladové databázový stroj SQLite a nejsou specifická pro EF.
 
@@ -41,7 +41,7 @@ Databázový stroj SQLite nepodporuje počet operací schématu, které podporuj
 | DropPrimaryKey       | ✗          |                  |
 | DropTable            | ✔          | 1.0              |
 | DropUniqueConstraint | ✗          |                  |
-| RenameColumn         | ✗          |                  |
+| RenameColumn         | ✔          | 2.2.2            |
 | RenameIndex          | ✔          | 2.1              |
 | RenameTable          | ✔          | 1.0              |
 | EnsureSchema         | ✔ (no-op)  | 2.0              |

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 4e042acb805c743ee794f4e61105b8d2136973b1
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: 6beaebf2c6859fcf91e963bfae02f029f8f51147
+ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668723"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58131443"
 ---
 # <a name="loading-related-data"></a>Načítání souvisejících dat
 
@@ -52,7 +52,7 @@ Můžete kombinovat, abyste mohli zahrnout související data z více úrovní a
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-Můžete chtít zahrnout více souvisejících entit pro jeden z entity, které je zahrnuto. Třeba při dotazování `Blog`s, zahrnete `Posts` a poté chcete provést oba `Author` a `Tags` z `Posts`. Chcete-li to provést, musíte zadat jednotlivé obsahovat počínaje kořenovou cestu. Například `Blog -> Posts -> Author` a `Blog -> Posts -> Tags`. To neznamená, že se zobrazí redundantní spojení; ve většině případů bude EF konsolidovat spojení při generování SQL.
+Můžete chtít zahrnout více souvisejících entit pro jeden z entity, které je zahrnuto. Třeba při dotazování `Blogs`, zahrnete `Posts` a poté chcete provést oba `Author` a `Tags` z `Posts`. Chcete-li to provést, musíte zadat jednotlivé obsahovat počínaje kořenovou cestu. Například `Blog -> Posts -> Author` a `Blog -> Posts -> Tags`. To neznamená, že se zobrazí redundantní spojení; ve většině případů bude EF konsolidovat spojení při generování SQL.
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 

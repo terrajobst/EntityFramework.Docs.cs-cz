@@ -3,16 +3,16 @@ title: Entity Framework glosář - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 9ed7a2d841c625de35de57edb4e57e69b89a3db9
-ms.sourcegitcommit: 5d74ac575f813110db6d870720f50dd7606446bc
+ms.openlocfilehash: 4e42e5870879524b814cecdc361e688d36f0180f
+ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2018
-ms.locfileid: "48881264"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58131390"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework – glosář
 ## <a name="code-first"></a>Kód nejprve
-Vytvoření modelu Entity Framework pomocí kódu. Můžete cílit na modelu a stávající nebo novou databázi.
+Vytvoření modelu Entity Framework pomocí kódu. Model můžete cílit na existující databázi nebo novou databázi.
 
 ## <a name="context"></a>Kontext
 Třída, která představuje relaci s databází, umožňuje dotazování a uložit data. Kontext je odvozena z třídy DbContext nebo objektu ObjectContext.
@@ -33,7 +33,7 @@ Vizuálního návrháře v sadě Visual Studio, která umožňuje vytvoření mo
 Třída nebo objekt, který představuje data aplikací, jako jsou zákazníci, výrobky a objednávky.
 
 ## <a name="entity-data-model"></a>Entity Data Model
-Model, který popisuje entit a vztahů mezi nimi. EF používá k popisu konceptuální model, proti kterému EDM vývojářské programy. EDM je založena na modelu relace Entity zavedené zotavení po havárii. Petr Svoboda. EDM byla původně vyvinuta primárním cílem stávají common data model napříč sada pro vývojáře a server technologií od Microsoftu. EDM slouží také jako součást protokolu OData.
+Model, který popisuje entit a vztahů mezi nimi. EF používá k popisu konceptuální model, proti kterému EDM vývojářské programy. EDM je založena na modelu relace Entity zavedené zotavení po havárii. Peter Chen. EDM byla původně vyvinuta primárním cílem stávají common data model napříč sada pro vývojáře a server technologií od Microsoftu. EDM slouží také jako součást protokolu OData.
 
 ## <a name="explicit-loading"></a>explicitní načtení
 Vzor načítání souvisejících dat, kde jsou načteny související objekty voláním rozhraní API.
@@ -59,7 +59,7 @@ Vytvoření modelu Entity Framework, pomocí EF designeru, který potom slouží
 ## <a name="navigation-property"></a>Navigační vlastnost
 Vlastnosti entity, která odkazuje na jinou entitou. Například produkt obsahuje vlastnost navigace kategorie a kategorie obsahuje produkty navigační vlastnost.
 
-## <a name="poco"></a>OBJEKTŮ POCO
+## <a name="poco"></a>POCO
 Zkratka pro objekt CLR prostý staré. Jednoduché uživatelské třídu, která nemá žádné závislosti pomocí libovolné architektury. V rámci EF, třídu entity, která není odvozena od EntityObject, implementuje všechna rozhraní nebo představuje libovolné atributy definované v EF. Takové entity třídy, které jsou oddělené od rozhraní trvalost se také označují jako "trvalost ignorant".  
 
 ## <a name="relationship-inverse"></a>Inverzní relace
