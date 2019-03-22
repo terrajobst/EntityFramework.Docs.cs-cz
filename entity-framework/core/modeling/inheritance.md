@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 754be334-dd21-450e-9d22-2591e80012a2
 uid: core/modeling/inheritance
-ms.openlocfilehash: c5fa9d13dec8cfc3e1cac69e471f509cbbb9e4c5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f6b5c8f5a398ac1e28e29bc17f0674c5b76d7b20
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995893"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319124"
 ---
 # <a name="inheritance"></a>Dědičnost
 
@@ -24,7 +24,7 @@ EF bude pouze nastavení dědičnosti, dvou nebo více zděděných typů je exp
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceDbSets.cs?highlight=3-4&name=Model)]
 
 Pokud už nechcete vystavit *DbSet<TEntity>*  pro jeden nebo více entit v hierarchii, můžete použít rozhraní Fluent API zajistit jsou zahrnuty v modelu.
-A pokud nemusíte spoléhat na vytváření názvů můžete určit základní typ explicitně pomocí `HasBaseType`.
+A pokud nemusíte spoléhat na vytváření názvů, můžete určit základní typ explicitně pomocí `HasBaseType`.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/InheritanceModelBuilder.cs?highlight=7&name=Context)]
 

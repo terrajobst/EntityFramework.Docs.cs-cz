@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 748db8a71a04a2d696ef21a03319906b9fc776be
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 534ac95cccc03e9797ba766e601e2fe86eaf8061
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829223"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319215"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -653,7 +653,7 @@ Příklad:
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
 
-Kód vypadá je týkající se `Samuri` některé jiné entity typu použití `Entrance` navigační vlastnost, která může být privátní.
+Kód vypadá je týkající se `Samurai` některé jiné entity typu použití `Entrance` navigační vlastnost, která může být privátní.
 
 Ve skutečnosti, tento kód se pokouší vytvořit relaci některé typ entity s názvem `Entrance` se žádné navigační vlastnost.
 
@@ -785,3 +785,83 @@ Tato změna byla provedena tak, aby používalo verzi SQLite v Iosu konzistentn�
 **Zmírnění rizik**
 
 Pokud chcete použít nativní verzi SQLite v Iosu, nakonfigurovat `Microsoft.Data.Sqlite` použít jinou `SQLitePCLRaw` sady.
+
+## <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Hodnoty char jsou nyní uloženy jako TEXT na SQLite
+
+[Sledování problému #15020](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
+
+Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Hodnoty char byly dříve sored jako CELOČÍSELNÉ hodnoty na SQLite. Například znak hodnotu *A* byl uložen jako celočíselnou hodnotu 65.
+
+**Nové chování**
+
+Hodnoty char jsou nyní sotred jako TEXT.
+
+**Proč**
+
+Uložení hodnot jako TEXT je přirozenější a vytvoří databáze více kompatibilní s jinými technologiemi.
+
+**Zmírnění rizik**
+
+Spuštěním SQL takto můžete migrovat existující databáze na nový formát.
+
+``` sql
+UPDATE MyTable
+SET CharColumn = char(CharColumn)
+WHERE typeof(CharColumn) = 'integer';
+```
+
+V EF Core můžete také pokračovat pomocí předchozí chování configuirng převaděč hodnoty těchto vlastností.
+
+``` csharp
+modelBuilder
+    .Entity<MyEntity>()
+    .Property(e => e.CharProperty)
+    .HasConversion(
+        c => (long)c,
+        i => (char)i);
+```
+
+Microsoft.Data.Sqlite také zbývá schopný načíst znakových hodnot z celé číslo a TEXT sloupců, takže určitých scénářích nevyžadují žádnou akci.
+
+## <a name="migration-ids-are-now-generated-using-the-invariant-cultures-calendar"></a>ID migrace jsou generovány pomocí neutrální jazykové verze kalendáře
+
+[Sledování problému #12978](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
+
+Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+ID migrace byly generovány pomocí kalendář jazykové verze currret neúmyslně.
+
+**Nové chování**
+
+ID migrace jsou teď vždy generovány pomocí neutrální jazykové verze kalendáře (gregoriánského).
+
+**Proč**
+
+Pořadí migrace je důležité při aktualizaci databáze nebo řešení konfliktů při sloučení. Pomocí neutrální kalendáře se vyhnete řazení problémy, které můžou být výsledkem členy týmu s jiným kalendáře.
+
+**Zmírnění rizik**
+
+Tato změna ovlivní těm, kdo používají jiné než gregoriánské kalendářní, kde rok je větší než gregoriánském kalendáři (např. thajský buddhistický kalendář). Migrace stávající ID bude potřeba aktualizovat tak, aby nové migrace jsou řazeny za stávající migrace.
+
+ID migrace najdete v atributu migrace soubory návrháře migrace.
+
+``` diff
+ [DbContext(typeof(MyDbContext))]
+-[Migration("25620318122820_MyMigration")]
++[Migration("20190318122820_MyMigration")]
+ partial class MyMigration
+ {
+```
+
+Tabulky historie migrace je také potřeba aktualizovat.
+
+``` sql
+UPDATE __EFMigrationsHistory
+SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
+```

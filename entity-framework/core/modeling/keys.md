@@ -4,16 +4,18 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
 uid: core/modeling/keys
-ms.openlocfilehash: 9e6946100ebabc6ba57cb792b3672219098b1e21
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6272e323b83ccab2ed060a2ebbde1d1e8e353d66
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994018"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319163"
 ---
 # <a name="keys-primary"></a>Klíče (primární)
 
-Klíč slouží jako primární jedinečný identifikátor pro každou instanci entity. Při používání relační databáze, to se mapuje na konceptu *primární klíč*. Můžete také nakonfigurovat jedinečný identifikátor, který není primární klíč (viz [alternativní klíče](alternate-keys.md) Další informace).
+Klíč slouží jako primární jedinečný identifikátor pro každou instanci entity. Při používání relační databáze, to se mapuje na konceptu *primární klíč*. Můžete také nakonfigurovat jedinečný identifikátor, který není primární klíč (viz [alternativní klíče](alternate-keys.md) Další informace). 
+
+Jeden z následujících metod slouží k nastavení/vytvoření primární klíč.
 
 ## <a name="conventions"></a>Konvence
 

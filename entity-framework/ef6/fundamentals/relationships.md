@@ -3,12 +3,12 @@ title: Relace, navigačních vlastností a cizí klíče - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 8292ae7af8d760240715854611d92ab340bf1ca7
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829197"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319189"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigačních vlastností a cizí klíče
 Toto téma obsahuje základní informace o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje pokyny o tom, jak mapovat a manipulaci s relací.
@@ -147,7 +147,7 @@ Pokud používáte entity POCO bez proxy servery, je třeba Ujistěte se, že **
 
 ## <a name="loading-related-objects"></a>Načítají se související objekty
 
-V Entity Framework, které nejčastěji používáte pro načtení entity, které se vztahují k vrácenou entitu definovanou v přidružení použijte navigační vlastnosti. Další informace najdete v tématu [načítání související objekty](~/ef6/querying/related-data.md).
+V rozhraní Entity Framework běžně používají navigační vlastnosti pro načtení entit, které se vztahují k vrácenou entitu definovanou v přidružení. Další informace najdete v tématu [načítání související objekty](~/ef6/querying/related-data.md).
 
 > [!NOTE]
 > V přidružení cizího klíče při načtení související konec závislý objekt objekt v relaci se načtou podle hodnoty cizího klíče, který je aktuálně v paměti závislé:

@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 4734586adc89e9c1d866a1b4accd8b5e51fe2bb0
-ms.sourcegitcommit: ebf661025d2ad2b62466fa7bf0e0772a7811cbe7
+ms.openlocfilehash: 25e5a683acf4bbed0b978cc6a80f1b50a0b64ca1
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54211163"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319176"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>Začínáme s EF Core v ASP.NET Core s novou databázi
 
@@ -19,7 +19,7 @@ V tomto kurzu sestavíte aplikaci ASP.NET Core MVC, která provádí základní 
 Tento kurz provedením pomocí sady Visual Studio 2017 na Windows nebo pomocí rozhraní příkazového řádku .NET Core ve Windows, macOS nebo Linuxu.
 
 Zobrazte ukázky v tomto článku na Githubu:
-* [Visual Studio 2017 s SQL serverem](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb)
+* [Visual Studio 2017 with SQL Server](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb)
 * [.NET core CLI s SQLite](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb.Sqlite).
 
 ## <a name="prerequisites"></a>Požadavky
@@ -43,7 +43,7 @@ Nainstalujte následující software:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Otevřít Visual Studio 2017
+* Open Visual Studio 2017
 * **Soubor > Nový > Projekt**
 * V nabídce vlevo vyberte **nainstalováno > Visual C# > .NET Core**.
 * Vyberte **webová aplikace ASP.NET Core**.
@@ -114,9 +114,9 @@ Produkční aplikace obvykle vložili každá třída v samostatném souboru. V 
 
 ## <a name="register-the-context-with-dependency-injection"></a>Zaregistrovat kontext pomocí vkládání závislostí
 
-Služby (například `BloggingContext`) jsou registrovány [injektáž závislostí](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) během spuštění aplikace. Komponenty, které vyžadují tyto služby (jako jsou řadiče MVC) jsou k dispozici tyto služby prostřednictvím vlastnosti nebo parametry konstruktoru.
+Chcete-li `BloggingContext` k dispozici pro kontrolery MVC registrovat jako službu v `Startup.cs`.
 
-Chcete-li `BloggingContext` k dispozici pro kontrolery MVC, zaregistrujte ho jako služba.
+Služby (například `BloggingContext`) jsou registrovány [injektáž závislostí](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) během spuštění aplikace tak, aby se je možné poskytnout automaticky součásti, které využívají služeb (jako jsou řadiče MVC) prostřednictvím konstruktoru parametry a vlastnosti.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
