@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: 468698d1bbd17d4ad10b1b1601bfbc315a01c1ff
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: cb05e3fb66adf96f8a6778711a76520d0be24c71
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688703"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419767"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core tools reference - Konzola správce balíčků v sadě Visual Studio
 
@@ -151,7 +151,7 @@ Parametry:
 | <nobr>-Název \<řetězec ><nobr>       | Název migrace. Toto je pozičních parametrů a je povinný.                                              |
 | <nobr>-OutputDir \<řetězec ></nobr> | Adresáři (a v podřízeném oboru názvů) používat. Cesty jsou relativní vzhledem k adresáři projektu cíl. Výchozí hodnota je "Migrace". |
 
-## <a name="drop-database"></a>Odstranění databáze
+## <a name="drop-database"></a>Drop-Database
 
 Zahodí databáze.
 
@@ -163,7 +163,7 @@ Parametry:
 
 ## <a name="get-dbcontext"></a>Get-DbContext
 
-Seznamy, které jsou k dispozici `DbContext` typy.
+Získá informace `DbContext` typu.
 
 ## <a name="remove-migration"></a>Remove migrace
 
@@ -175,7 +175,7 @@ Parametry:
 |:----------|:--------------------------------------------------------------------------------|
 | -Force    | Vrácení migrace (vrátit zpět změny, které byly použity k databázi). |
 
-## <a name="scaffold-dbcontext"></a>Vygenerované uživatelské rozhraní DbContext
+## <a name="scaffold-dbcontext"></a>Scaffold-DbContext
 
 Generuje kód `DbContext` a typy entit pro databázi. Aby `Scaffold-DbContext` generovat typ entity, databázové tabulky musí mít primární klíč.
 
@@ -216,7 +216,7 @@ Parametry:
 |:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | *-Od* \<řetězec >        | Počáteční migraci. Migrace může identifikovat podle názvu nebo podle ID. Zvláštní případ, který znamená, že je číslo 0 *před první migraci*. Výchozí hodnota je 0.                                                              |
 | *-Na* \<řetězec >          | Dokončení migrace. Výchozí hodnota je poslední migrace.                                                                                                                                                                      |
-| <nobr>-Idempotentní</nobr> | Generovat skript, který jde použít na databáze v libovolné migrace.                                                                                                                                                         |
+| <nobr>-Idempotent</nobr> | Generovat skript, který jde použít na databáze v libovolné migrace.                                                                                                                                                         |
 | -Výstupní \<řetězec >        | Soubor pro zápis výsledek. Pokud je tento parametr vynechán, soubor je vytvořen s vygenerovaným názvem ve stejné složce jako soubory modulu runtime aplikace se vytvářejí, například: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/*. |
 
 > [!TIP]
@@ -234,7 +234,7 @@ Následující příklad vytvoří skript pro všechny migrace po dokončení mi
 Script-Migration -From 20180904195021_InitialCreate
 ```
 
-## <a name="update-database"></a>Aktualizace databáze
+## <a name="update-database"></a>Update-Database
 
 Aktualizace databáze na poslední migraci nebo zadaný migrace.
 

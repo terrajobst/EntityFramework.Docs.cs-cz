@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 0f8389decbc1995cc629d24c5baa197255cd328a
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 1133976d8d25e4099b64a1a30a8d2066ff3f6cd7
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319137"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419663"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -20,6 +20,8 @@ Tato stránka obsahuje odkazy na EF Core úložiště, které můžou vyžadovat
 Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) a [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) popisky na naše problémy a žádosti o přijetí změn.
 
 ## <a name="22-----30"></a>2.2 ---> 3.0
+
+Mějte na paměti, který mnoho [rozbíjející změny v úrovni aplikace](../what-is-new/ef-core-3.0/breaking-changes.md) také ovlivní poskytovatelů.
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/14022
   * Odebraný zastaralá rozhraní API a přetížení s sbaleném volitelný parametr
@@ -30,6 +32,35 @@ Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `pro
   * Podtřídy třídy CharTypeMapping byla pravděpodobně přerušena z důvodu změny chování potřeba opravit několik chyb ve základní implementaci.
 * https://github.com/aspnet/EntityFrameworkCore/pull/15090
   * Přidat základní třídu pro IDatabaseModelFactory a aktualizovat ho na použití objekt zadal ke zmírnění budoucí konce.
+* https://github.com/aspnet/EntityFrameworkCore/pull/15123
+  * Použít parametr objekty v MigrationsSqlGenerator ke zmírnění budoucí konce.
+* https://github.com/aspnet/EntityFrameworkCore/pull/14972
+  * Explicitní konfigurace úrovně protokolu vyžaduje některé změny rozhraní API, která může používat poskytovatele. Konkrétně poskytovatelé přímo použití protokolování infrastruktury, pak tato změna může budou přerušeny, které používají. Navíc zprostředkovatelů, které používají infrastrukturu (což bude veřejný) od dané chvíle bude nutné odvozovat `LoggingDefinitions` nebo `RelationalLoggingDefinitions`. Podívejte se systému SQL Server a poskytovatele v paměti pro příklady.
+* https://github.com/aspnet/EntityFrameworkCore/pull/15091
+  * Core, relační databází a abstrakce zdrojové řetězce jsou nyní veřejné.
+  * `CoreLoggerExtensions` a `RelationalLoggerExtensions` jsou nyní veřejné. Poskytovatelé by pomocí těchto rozhraní API při protokolování událostí, které jsou definovány na úrovni relační nebo core. Nemají přístup k prostředkům protokolování přímo. Toto jsou stále interní.
+  * `IRawSqlCommandBuilder` změnil ze služby typu singleton vymezené služby
+  * `IMigrationsSqlGenerator` změnil ze služby typu singleton vymezené služby
+* https://github.com/aspnet/EntityFrameworkCore/pull/14706
+  * Infrastrukturu pro vytváření relačních příkazy byl proveden veřejný, může být bezpečně používán poskytovateli a Refaktorovat mírně.
+  * `IRelationalCommandBuilderFactory`změnil ze služby typu singleton vymezené služby
+  * `IShaperCommandContextFactory` změnil ze služby typu singleton vymezené služby
+  * `ISelectExpressionFactory` změnil ze služby typu singleton vymezené služby
+* https://github.com/aspnet/EntityFrameworkCore/pull/14733
+  * `ILazyLoader` byl změněn z vymezené služby na přechodné služby
+* https://github.com/aspnet/EntityFrameworkCore/pull/14610
+  * `IUpdateSqlGenerator` byl změněn z vymezené služby na jednotlivý prvek služby
+  * Navíc `ISingletonUpdateSqlGenerator` byl odebrán
+* https://github.com/aspnet/EntityFrameworkCore/pull/15067
+  * Velké množství vnitřní kód, který se používal poskytovateli teď byl zveřejněn
+  * Neměla by už být necssary odkazovat `IndentedStringBuilder` vzhledem k tomu, že má se dostaneme z míst, která je vystavena
+  * Použití `NonCapturingLazyInitializer` by měla být nahrazena `LazyInitializer` z BCL
+* https://github.com/aspnet/EntityFrameworkCore/pull/14608
+  * Tato změna je podrobně popsané v aplikaci rozbíjející změny dokumentu. Pro poskytovatele to může být další na vliv, protože testovací EF core může často vést k dosažení tohoto problému, takže testovací infrastruktury byl změněn na ujistěte, že méně pravděpodobné.
+* https://github.com/aspnet/EntityFrameworkCore/issues/13961
+  * `EntityMaterializerSource` zjednodušili jsme
+* https://github.com/aspnet/EntityFrameworkCore/pull/14895
+  * StartsWith překlad změnilo tak, aby zprostředkovatelé může chtít/potřeba reagovat
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 

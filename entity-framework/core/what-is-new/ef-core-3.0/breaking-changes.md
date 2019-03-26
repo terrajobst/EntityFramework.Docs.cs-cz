@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 534ac95cccc03e9797ba766e601e2fe86eaf8061
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 7ed55d4cae36f6b25059a5b218db4b0d5e2fb266
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319215"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419741"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -786,6 +786,56 @@ Tato změna byla provedena tak, aby používalo verzi SQLite v Iosu konzistentn�
 
 Pokud chcete použít nativní verzi SQLite v Iosu, nakonfigurovat `Microsoft.Data.Sqlite` použít jinou `SQLitePCLRaw` sady.
 
+## <a name="guid-values-are-now-stored-as-text-on-sqlite"></a>Identifikátor GUID hodnoty jsou nyní uloženy jako TEXT na SQLite
+
+[Sledování problému #15078](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
+
+Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Identifikátor GUID hodnoty byly dříve sored jako hodnoty objektu BLOB na SQLite.
+
+**Nové chování**
+
+Identifikátor GUID hodnoty jsou nyní sotred jako TEXT.
+
+**Proč**
+
+Binární formát GUID není standardizované. Uložení hodnot jako TEXT díky databáze více kompatibilní s jinými technologiemi.
+
+**Zmírnění rizik**
+
+Spuštěním SQL takto můžete migrovat existující databáze na nový formát.
+
+``` sql
+UPDATE MyTable
+SET GuidColumn = hex(substr(GuidColumn, 4, 1)) ||
+                 hex(substr(GuidColumn, 3, 1)) ||
+                 hex(substr(GuidColumn, 2, 1)) ||
+                 hex(substr(GuidColumn, 1, 1)) || '-' ||
+                 hex(substr(GuidColumn, 6, 1)) ||
+                 hex(substr(GuidColumn, 5, 1)) || '-' ||
+                 hex(substr(GuidColumn, 8, 1)) ||
+                 hex(substr(GuidColumn, 7, 1)) || '-' ||
+                 hex(substr(GuidColumn, 9, 2)) || '-' ||
+                 hex(substr(GuidColumn, 11, 6))
+WHERE typeof(GuidColumn) == 'blob';
+```
+
+V EF Core můžete také pokračovat pomocí předchozí chování configuirng převaděč hodnoty těchto vlastností.
+
+``` csharp
+modelBuilder
+    .Entity<MyEntity>()
+    .Property(e => e.GuidProperty)
+    .HasConversion(
+        g => g.ToByteArray(),
+        b => new Guid(b));
+```
+
+Microsoft.Data.Sqlite zůstává schopný načíst hodnoty identifikátoru Guid z objektu BLOB a TEXTOVÉHO sloupce; ale vzhledem k tomu, že došlo ke změně výchozího formátu pro parametry a konstant bude pravděpodobně potřeba provést akci pro většinu scénářů zahrnující identifikátory GUID.
+
 ## <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Hodnoty char jsou nyní uloženy jako TEXT na SQLite
 
 [Sledování problému #15020](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
@@ -865,3 +915,51 @@ Tabulky historie migrace je také potřeba aktualizovat.
 UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
+
+## <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator byl přejmenován.
+
+[Sledování problému #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
+
+Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Změna**
+
+`RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` byl přejmenován na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
+
+**Proč**
+
+Zarovná pojmenování Tato událost upozornění s jinými událostmi upozornění.
+
+**Zmírnění rizik**
+
+Použití nového názvu. (Všimněte si, že nedošlo ke změně číslo ID události.)
+
+## <a name="clarify-api-for-foreign-key-constraint-names"></a>Vysvětlení rozhraní API pro názvy omezení pro cizí klíč
+
+[Sledování problému #10730](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
+
+Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Před EF Core 3.0 omezení pro cizí klíč názvy označovaly jako jednoduše "name". Příklad:
+
+```C#
+var constraintName = myForeignKey.Name;
+```
+
+**Nové chování**
+
+Od verze EF Core 3.0, omezení pro cizí klíč názvy jsou dnes označovány jako "kruhového name". Příklad:
+
+```C#
+var constraintName = myForeignKey.ConstraintName;
+```
+
+**Proč**
+
+Tato změna přináší konzistenci pro názvy v této oblasti a také vysvětluje, že se jedná o název název cizího klíče kruhového a nikoli na sloupec nebo vlastnost, která je definována cizího klíče na.
+
+**Zmírnění rizik**
+
+Použití nového názvu.
