@@ -99,7 +99,7 @@ Mějte na paměti, který mnoho [rozbíjející změny v úrovni aplikace](../wh
   * Tato žádost o přijetí změn přidá konceptu `CanConnect` který budou používat ASP.NET Core stavu kontroly k určení, jestli je databáze k dispozici. Ve výchozím nastavení, relační implementace jen volá `Exist`, ale zprostředkovatelé můžete implementovat něco jiného v případě potřeby. Nerelační poskytovatelé muset implementovat nové rozhraní API v pořadí pro kontrolu stavu, který má být použitelná.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -Aktualizace základní RelationalTypeMapping nenastavovat DbParameter velikost
   * Zastavte, protože to může způsobit zkrácení nastavení velikosti ve výchozím nastavení. Poskytovatelé pravděpodobně nutné přidat své vlastní logiky, pokud velikost musí být nastavena.
-* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng: Vždy určit typ sloupce pro desítkové sloupce
+* (https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng: Vždy určit typ sloupce pro desítkové sloupce
   * Vždy Konfigurujte typ sloupce pro desítkové sloupce automaticky generovaný kód, místo konfigurace podle konvence.
   * Poskytovatelé, neměli byste potřebovat všechny změny na své straně.
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -Přidá CaseExpression pro generování výrazy SQL CASE
