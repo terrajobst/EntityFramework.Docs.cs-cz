@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 7ed55d4cae36f6b25059a5b218db4b0d5e2fb266
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: 199cc45e316e215b9b8e859700e4dc124de315b2
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419741"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58867980"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -75,6 +75,46 @@ Vývojáři také nyní mohou ovládat přesně při upgradu EF Core a EF Core z
 **Zmírnění rizik**
 
 V aplikaci ASP.NET Core 3.0 nebo jakékoli jiné podporované aplikace použít EF Core, explicitně přidáte odkaz na balíček k poskytovateli databáze EF Core, který bude aplikace používat.
+
+## <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>Byla přejmenovaná FromSql ExecuteSql a ExecuteSqlAsync
+
+[Sledování problému #10996](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
+
+Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Před EF Core 3.0 byly tyto názvy metod přetížení pro práci s normální řetězec nebo řetězec, který by měl být interpolovaných do SQL a parametry.
+
+**Nové chování**
+
+Od verze EF Core 3.0, použijte `FromSqlRaw`, `ExecuteSqlRaw`, a `ExecuteSqlRawAsync` vytvořit parametrický dotaz, kde parametry jsou předány samostatně z řetězce dotazu.
+Příklad:
+
+```C#
+context.Products.FromSqlRaw(
+    "SELECT * FROM Products WHERE Name = {0}",
+    product.Name);
+```
+
+Použití `FromSqlInterpolated`, `ExecuteSqlInterpolated`, a `ExecuteSqlInterpolatedAsync` vytvořit parametrický dotaz, kde parametry jsou předány jako součást dotazu interpolované řetězce.
+Příklad:
+
+```C#
+context.Products.FromSqlInterpolated(
+    $"SELECT * FROM Products WHERE Name = {product.Name}");
+```
+
+Všimněte si, že oba dotazy výše uvedené vytvoří stejný parametrizovaného dotazu SQL se stejnými parametry SQL.
+
+**Proč**
+
+Přetížení metody, jako je to velmi usnadňují omylem nezpracovaná srting metodu volat, pokud bylo záměrem pro volání metody interpolovaný řetězec a naopak.
+To může vést k dotazům naprostou když měla být parametrizovány.
+
+**Zmírnění rizik**
+
+Přepněte na nové názvy metod.
 
 ## <a name="query-execution-is-logged-at-debug-level"></a>Provádění dotazu se protokoluje při ladění na úrovni
 
@@ -291,6 +331,156 @@ Tím zase nejednoznačnosti a záměny kolem metody, jako je `HasForeignKey`.
 
 Změna konfigurace vlastněné typ vztahů používat nové plochy rozhraní API, jak je znázorněno v příkladu výše.
 
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislých položek sdílení v tabulce k objektu zabezpečení jsou teď nepovinné.
+
+[Sledování problému #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Vezměte v úvahu následující model:
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+```
+Před EF Core 3.0, pokud `OrderDetails` vlastní `Order` nebo explicitně namapované na stejnou tabulku a `OrderDetails` instance byla požadována vždy při přidání nového `Order`.
+
+
+**Nové chování**
+
+Od verze 3.0, EF Core umožňuje přidat `Order` bez `OrderDetails` a mapuje všechny `OrderDetails` vlastnosti s výjimkou primární klíč pro sloupce s možnou hodnotou Null.
+Při dotazování na EF Core sady `OrderDetails` k `null` Pokud některou z jejích požadovaných vlastností nemá žádnou hodnotu nebo nemá žádné požadované vlastnosti kromě primárního klíče a všechny vlastnosti jsou `null`.
+
+**Zmírnění rizik**
+
+Pokud váš model obsahuje tabulku sdílení závislé se všemi sloupci volitelné, ale navigace ukazatel není má být `null` pak aplikace by měla upravit tak, aby zpracovat případy při navigaci `null`. Pokud to není možné požadovanou vlastnost měla být přidána do typu entity nebo musí mít alespoň jednu vlastnost non -`null` přiřazena hodnota.
+
+## <a name="all-entities-sharing-a-table-with-a-concurrency-token-column-have-to-map-it-to-a-property"></a>Všechny entity sdílení tabulku se sloupcem tokenů souběžnosti mít mapování na vlastnost
+
+[Sledování problému #14154](https://github.com/aspnet/EntityFrameworkCore/issues/14154)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Vezměte v úvahu následující model:
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public byte[] Version { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Order>()
+        .Property(o => o.Version).IsRowVersion().HasColumnName("Version");
+}
+```
+Před EF Core 3.0, pokud `OrderDetails` vlastní `Order` nebo explicitně namapované na stejnou tabulku následně aktualizovat jenom `OrderDetails` neaktualizuje `Version` hodnoty na klientovi a příští aktualizace se nezdaří.
+
+
+**Nové chování**
+
+Od verze 3.0, rozšíří EF Core nové `Version` hodnota, která se `Order` Pokud vlastní `OrderDetails`. V opačném případě dojde k výjimce během ověření modelu.
+
+**Proč**
+
+Tato změna byla provedena, když se aktualizuje jenom jeden z entity, které jsou namapované na stejnou tabulku, aby hodnota tokenu zastaralé souběžnosti.
+
+**Zmírnění rizik**
+
+Všechny entity v tabulce pro sdílení obsahu se mají zahrnout vlastnost, která je namapovaná na sloupci tokenů souběžnosti. Je možné vytvořit, jeden v stínové stavu:
+```C#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<OrderDetails>()
+        .Property<byte[]>("Version").IsRowVersion().HasColumnName("Version");
+}
+```
+
+## <a name="inherited-properties-from-unmapped-types-are-now-mapped-to-a-single-column-for-all-derived-types"></a>Vlastnosti zděděné nenamapované typy jsou nyní mapovány do jednoho sloupce pro všechny odvozené typy
+
+[Sledování problému #13998](https://github.com/aspnet/EntityFrameworkCore/issues/13998)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Vezměte v úvahu následující model:
+```C#
+public abstract class EntityBase
+{
+    public int Id { get; set; }
+}
+
+public abstract class OrderBase : EntityBase
+{
+    public int ShippingAddress { get; set; }
+}
+
+public class BulkOrder : OrderBase
+{
+}
+
+public class Order : OrderBase
+{
+}
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Ignore<OrderBase>();
+    modelBuilder.Entity<EntityBase>();
+    modelBuilder.Entity<BulkOrder>();
+    modelBuilder.Entity<Order>();
+}
+```
+
+Před EF Core 3.0 `ShippingAddress` vlastnost by být mapována k oddělení sloupců pro `BulkOrder` a `Order` ve výchozím nastavení.
+
+**Nové chování**
+
+Od verze 3.0, EF Core vytvoří pouze jeden sloupec pro `ShippingAddress`.
+
+**Proč**
+
+Staré chování nebyl očekáván.
+
+**Zmírnění rizik**
+
+Vlastnost je stále explicitně mapovat pro oddělení sloupců v odvozených typů:
+
+```C#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Ignore<OrderBase>();
+    modelBuilder.Entity<EntityBase>();
+    modelBuilder.Entity<BulkOrder>()
+        .Property(o => o.ShippingAddress).HasColumnName("BulkShippingAddress");
+    modelBuilder.Entity<Order>()
+        .Property(o => o.ShippingAddress).HasColumnName("ShippingAddress");
+}
+```
+
 ## <a name="the-foreign-key-property-convention-no-longer-matches-same-name-as-the-principal-property"></a>Konvence vlastnost cizího klíče už neodpovídá stejný název jako vlastnost instančního objektu
 
 [Sledování problému #13274](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
@@ -312,14 +502,13 @@ public class Order
     public int Id { get; set; }
     public int CustomerId { get; set; }
 }
-
 ```
 Před EF Core 3.0 `CustomerId` vlastnost se použije pro cizí klíč konvencí.
 Nicméně pokud `Order` je typ vlastnictví, a potom to by také provést `CustomerId` primární klíč a to se většinou očekává.
 
 **Nové chování**
 
-Od verze 3.0, nebude zkoušet EF Core při využívání vlastností cizího klíče podle konvence, pokud mají stejný název jako vlastnost instančního objektu.
+Od verze 3.0, EF Core nesnaží při využívání vlastností cizího klíče podle konvence, pokud mají stejný název jako vlastnost instančního objektu.
 Název instančního objektu typu zřetězený s názvem hlavní vlastnosti a název navigační zřetězená s vzory názvů vlastnosti principal budou stále odpovídat.
 Příklad:
 
@@ -359,6 +548,58 @@ Tato změna byla provedena na chybně nedefinujte vlastnost primárního klíče
 **Zmírnění rizik**
 
 Pokud byla vlastnost má být cizí klíč a proto část primárního klíče a pak explicitně jako takový ho nakonfigurujte.
+
+## <a name="database-connection-is-now-closed-if-not-used-anymore-before-the-transactionscope-has-been-completed"></a>Připojení k databázi je nyní uzavřeno, pokud není využito už před objektu TransactionScope byla dokončena.
+
+[Sledování problému #14218](https://github.com/aspnet/EntityFrameworkCore/issues/14218)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Před EF Core 3.0, pokud kontext otevře připojení k uvnitř `TransactionScope`, připojení zůstane otevřená, při aktuální `TransactionScope` je aktivní.
+
+```C#
+using (new TransactionScope())
+{
+    using (AdventureWorks context = new AdventureWorks())
+    {
+        context.ProductCategories.Add(new ProductCategory());
+        context.SaveChanges();
+
+        // Old behavior: Connection is still open at this point
+        
+        var categories = context.ProductCategories().ToList();
+    }
+}
+```
+
+**Nové chování**
+
+Od verze 3.0, EF Core uzavře připojení co nejdříve po dokončení jeho použití.
+
+**Proč**
+
+Tato změna umožňuje použití několika kontextech v rámci stejného `TransactionScope`. Nové chování alose odpovídá EF6.
+
+**Zmírnění rizik**
+
+Pokud je nutné připojení zůstat otevřené explicitní volání konstruktoru `OpenConnection()` zajistí, že EF Core nezavírá je předčasně ukončena:
+
+```C#
+using (new TransactionScope())
+{
+    using (AdventureWorks context = new AdventureWorks())
+    {
+        context.Database.OpenConnection();
+        context.ProductCategories.Add(new ProductCategory());
+        context.SaveChanges();
+        
+        var categories = context.ProductCategories().ToList();
+        context.Database.CloseConnection();
+    }
+}
+```
 
 ## <a name="each-property-uses-independent-in-memory-integer-key-generation"></a>Jednotlivé vlastnosti pomocí generování klíčů nezávislé celé číslo v paměti
 

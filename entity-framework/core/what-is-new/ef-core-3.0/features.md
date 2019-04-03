@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 7501a806271c9734e85e31845f260f2d512da077
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829184"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58867954"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Novým funkcím zahrnutým v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -50,6 +50,31 @@ Zprostředkovatel umožní většina EF Core funkcí, jako je sledování automa
 Začali jsme snaha před EF Core 2.2 a [jsme se rozhodli některé verze zprostředkovatele k dispozici ve verzi preview](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
 Nový plán má pokračovat ve vývoji poskytovatele spolu s EF Core 3.0. 
 
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislých položek sdílení v tabulce k objektu zabezpečení jsou teď nepovinné.
+
+[Sledování problému #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+
+Tato funkce bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+Vezměte v úvahu následující model:
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+```
+
+Od verze EF Core 3.0, pokud `OrderDetails` vlastní `Order` nebo explicitně namapované na stejnou tabulku je možné přidat `Order` bez `OrderDetails` a všechny `OrderDetails` vlastnosti s výjimkou primární klíč se namapují na sloupce s možnou hodnotou Null.
+Při dotazování na EF Core nastaví `OrderDetails` k `null` Pokud některou z jejích požadovaných vlastností nemá žádnou hodnotu nebo nemá žádné požadované vlastnosti kromě primárního klíče a všechny vlastnosti jsou `null`.
+
 ## <a name="c-80-support"></a>C#Podpora 8.0
 
 [Sledování problému #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
@@ -68,7 +93,7 @@ Tato funkce není součástí aktuální verzi preview.
 [Typy dotazů](xref:core/modeling/query-types), zavedená v EF Core 2.1 a považován za typy entit bez klíčů v EF Core 3.0, představují data, která mohou číst z databáze, ale nejde aktualizovat.
 Tato vlastnost je mezi nimi vlastně ideálně se hodí pro zobrazení databáze ve většině scénářů, abychom plánovat k automatizaci vytváření typů entit bez klíčů při zpětné analýze zobrazení databáze.
 
-## <a name="property-bag-entities"></a>Vlastnosti kontejneru objektů a dat entit 
+## <a name="property-bag-entities"></a>Vlastnosti kontejneru objektů a dat entit
 
 [Sledování problému #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) a [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
 
@@ -77,7 +102,7 @@ Bylo zahájeno práci na tuto funkci, ale není zahrnutý v aktuální verzi pre
 Tato funkce je o povolení entity, které ukládají data v indexované vlastnosti namísto regulární vlastností a také o bude možné použít instance stejné třídy .NET (potenciálně něco jednoduchého jako `Dictionary<string, object>`) k reprezentaci entit různých typů ve stejném modelu EF Core.
 Tato funkce je odrazový můstek k podpoře many-to-many relací bez připojení k entitě ([vydat #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), což je jedna z nejžádanějších vylepšení pro jádro EF Core.
 
-## <a name="ef-63-on-net-core"></a>EF 6.3 v rozhraní .NET Core 
+## <a name="ef-63-on-net-core"></a>EF 6.3 v rozhraní .NET Core
 
 [Sledování problému EF6 #271](https://github.com/aspnet/EntityFramework6/issues/271)
 
