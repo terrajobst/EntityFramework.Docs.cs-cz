@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 0ad43db794902cf1f46bfe8f117fbd36e06f3c44
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 3024c0101c9d886ef844d1b7dc85aaf1be27e86b
+ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829171"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "58914075"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
@@ -64,7 +64,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-Můžete také sestavit DbParameter a zadat jako hodnotu parametru. To umožňuje použití pojmenovaných parametrů v řetězci dotazu SQL.
+Můžete také sestavit DbParameter a zadat jako hodnotu parametru:
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -72,6 +72,17 @@ var user = new SqlParameter("user", "johndoe");
 
 var blogs = context.Blogs
     .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
+    .ToList();
+```
+
+To umožňuje použití pojmenovaných parametrů v řetězci dotazu SQL, což je užitečné, pokud uložená procedura má nepovinné parametry:
+
+<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+``` csharp
+var user = new SqlParameter("user", "johndoe");
+
+var blogs = context.Blogs
+    .FromSql("EXECUTE dbo.GetMostPopularBlogs @filterByUser=@user", user)
     .ToList();
 ```
 

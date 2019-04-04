@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 199cc45e316e215b9b8e859700e4dc124de315b2
-ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
+ms.openlocfilehash: fd593b2832a5a6ffe27cd4493127b5d405f684ba
+ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "58867980"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "58914124"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -916,6 +916,36 @@ Příklad:
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
+
+## <a name="the-return-type-for-several-async-methods-has-been-changed-from-task-to-valuetask"></a>Návratový typ pro několik asynchronních metod se změnil z úlohy na ValueTask
+
+[Sledování problému #15184](https://github.com/aspnet/EntityFrameworkCore/issues/15184)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Dříve vrátila následující asynchronní metody `Task<T>`:
+
+* `DbContext.FindAsync()`
+* `DbSet.FindAsync()`
+* `DbContext.AddAsync()`
+* `DbSet.AddAsync()`
+* `ValueGenerator.NextValueAsync()` (a odvozených tříd)
+
+**Nové chování**
+
+Výše uvedené metody nyní vrací `ValueTask<T>` přes stejné `T` stejně jako předtím.
+
+**Proč**
+
+Tato změna snižuje počet přidělení haldy vzniklé při volání těchto metod, zlepšení obecné informace o výkonu.
+
+**Zmírnění rizik**
+
+Aplikace jednoduše čeká na výše uvedené rozhraní API pouze muset být překompilovány - žádné změny zdroje jsou nezbytné.
+Složitější využití (například předání vráceného `Task` k `Task.WhenAny()`) obvykle vyžadují, aby vráceného `ValueTask<T>` převedou na hodnoty `Task<T>` voláním `AsTask()` na něm.
+Všimněte si, že to Neguje snížení přidělení, které tato změna přináší.
 
 ## <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Poznámka relační: TypeMapping je teď stejně TypeMapping
 
