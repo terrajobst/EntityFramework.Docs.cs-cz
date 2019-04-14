@@ -65,6 +65,7 @@
 #### [Převody hodnot](core/modeling/value-conversions.md)
 #### [Předvyplnění dat](core/modeling/data-seeding.md)
 #### [Konstruktory typů entit](core/modeling/constructors.md)
+#### [Dělení tabulky](core/modeling/table-splitting.md)
 #### [Vlastněné typy entit](core/modeling/owned-entities.md)
 #### [Typy dotazů](core/modeling/query-types.md)
 #### [Střídání modelů pomocí stejného DbContext](core/modeling/dynamic-model.md)
