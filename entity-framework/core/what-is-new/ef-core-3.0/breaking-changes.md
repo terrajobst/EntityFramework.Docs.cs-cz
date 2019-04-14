@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: fd593b2832a5a6ffe27cd4493127b5d405f684ba
-ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
+ms.openlocfilehash: 6d78fc40fea210506235758bcd3613343ecabbcd
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/04/2019
-ms.locfileid: "58914124"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562569"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -685,6 +685,52 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="field-only-property-names-should-match-the-field-name"></a>Vlastnost jen pro pole názvů by měl odpovídat názvu pole
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Před EF Core 3.0 vlastnost může být určeno hodnotu řetězce a pokud nebyla nalezena žádná vlastnost s tímto názvem na typu CLR EF Core by opakujte tak, aby odpovídaly na pole, které používá convetion pravidla.
+```C#
+private class Blog
+{
+    private int _id;
+    public string Name { get; set; }
+}
+```
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id");
+```
+
+**Nové chování**
+
+Od verze EF Core 3.0, vlastnost jen pro pole musí odpovídat názvu pole přesně.
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("_id");
+```
+
+**Proč**
+
+Tato změna byla provedena, abyste se vyhnuli použití stejné pole pro dvě vlastnosti s názvem podobně, také udržuje pravidla pro porovnávání vlastností pouze pole je stejný jako u vlastnosti, které jsou namapovány na vlastnosti CLR.
+
+**Zmírnění rizik**
+
+Vlastnosti pouze pro pole musí mít název jako pole, které jsou mapovány na stejný.
+V novější verzi preview EF Core 3.0 Plánujeme znovu povolit explicitně konfigurace název pole, které se liší od názvu vlastnosti:
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id")
+    .HasField("_id");
+```
+
 ## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool zavolejte už AddLogging a AddMemoryCache
 
 [Sledování problému #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
@@ -1010,11 +1056,35 @@ Použití `HasIndex().ForSqlServerInclude()`.
 
 **Proč**
 
-Tato změna byla provedena konsolidovat rozhraní API pro indexy s `Includes` do jednoho umístění pro všechny databáze poskytovatele.
+Tato změna byla provedena konsolidovat rozhraní API pro indexy s `Include` do jednoho umístění pro všechny databáze poskytovatele.
 
 **Zmírnění rizik**
 
 Pomocí nového rozhraní API, jak je znázorněno výše.
+
+## <a name="metadata-api-changes"></a>Změn metadat rozhraní API
+
+[Sledování problému #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Nové chování**
+
+Následující vlastnosti byly převedeny na rozšiřující metody:
+
+* `IEntityType.QueryFilter` -> `GetQueryFilter()`
+* `IEntityType.DefiningQuery` -> `GetDefiningQuery()`
+* `IProperty.IsShadowProperty` -> `IsShadowProperty()`
+* `IProperty.BeforeSaveBehavior` -> `GetBeforeSaveBehavior()`
+* `IProperty.AfterSaveBehavior` -> `GetAfterSaveBehavior()`
+
+**Proč**
+
+Tato změna usnadňuje provádění výše uvedených rozhraní.
+
+**Zmírnění rizik**
+
+Pomocí nové metody rozšíření.
 
 ## <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core už odešle – Direktiva pragma pro vynucení SQLite FK
 

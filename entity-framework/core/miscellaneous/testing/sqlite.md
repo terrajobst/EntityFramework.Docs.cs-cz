@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 7a2b75e2-1875-4487-9877-feff0651b5a6
 uid: core/miscellaneous/testing/sqlite
-ms.openlocfilehash: bc9d6768a90ce17160c4126d2a68fddaa30d63de
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e8ff204a09d50064b4f0d4376f02b05c8681ac25
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996865"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562530"
 ---
 # <a name="testing-with-sqlite"></a>Testování s SQLite
 
@@ -47,5 +47,8 @@ Nejjednodušší způsob, jak povolit testování na jinou databázi je upravit 
 ## <a name="writing-tests"></a>Zápis testů
 
 Klíčem k testování s tímto poskytovatelem je možnost předat kontext, který má použít SQLite a řízení rozsahu databázi v paměti. Obor databáze je řízena otevírání a zavírání připojení. Databáze je vymezen na dobu, po kterou je připojení otevřeno. Obvykle chcete vyčistit databázi pro každou metodu testu.
+
+>[!TIP]
+> Chcete-li použít `SqliteConnection()` a `.UseSqlite()` metody rozšíření, odkaz na balíček NuGet [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/).
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]

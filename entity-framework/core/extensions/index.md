@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 414773284df7c208b9a2acf0536fda459bdf775b
-ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
+ms.openlocfilehash: d432ca36c166f7baf71253709bf58b1f5428a11a
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2019
-ms.locfileid: "54069227"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562504"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core nástroje a rozšíření
 
@@ -36,11 +36,11 @@ Pro vývojáře entity je výkonný Návrhář ORM pro ADO.NET Entity Framework,
 
 EF Core Power Tools je rozšíření sady Visual Studio 2017, která zveřejňuje různé úlohy návrhu EF Core v jednoduché uživatelské rozhraní. Zahrnuje zpětné analýze třídy DbContext a entitou ze stávajících databází a [SQL Server DACPACs](https://docs.microsoft.com/sql/relational-databases/data-tier-applications/data-tier-applications), správu migracemi databází a vizualizace modelu.
 
-[Wiki úložiště GitHub](https://github.com/ErikEJ/EFCorePowerTools/wiki)
+[GitHub wiki](https://github.com/ErikEJ/EFCorePowerTools/wiki)
 
 ### <a name="entity-framework-visual-editor"></a>Editor sady Visual Entity Framework
 
-Editor sady Visual Entity Framework je rozšíření sady Visual Studio 2017, které přidá návrhář ORM pro vizuální návrh EF 6 a EF Core tříd. Kód je generována pomocí šablony T4, takže je možné přizpůsobit podle potřeby. Podporuje dědičnosti, jednosměrný a přidružení obousměrný, výčty a schopnost barevné označení tříd a přidejte textové bloky vysvětlují potenciálně složité součástí návrhu.
+Editor sady Visual Entity Framework je rozšíření sady Visual Studio, který přidá návrhář ORM pro vizuální návrh EF 6 a EF Core tříd. Kód je generována pomocí šablony T4, takže je možné přizpůsobit podle potřeby. Podporuje dědičnosti, jednosměrný a přidružení obousměrný, výčty a schopnost barevné označení tříd a přidejte textové bloky vysvětlují potenciálně složité součástí návrhu.
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
