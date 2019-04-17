@@ -3,12 +3,12 @@ title: Konfigurace založená na kódu - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
-ms.openlocfilehash: c317f112f713612f7b9aef3764a0bd004fef5424
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
+ms.openlocfilehash: 079a4ab30af74eac8b1f51ece5801ff40a867a29
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325350"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619282"
 ---
 # <a name="code-based-configuration"></a>Konfigurace založená na kódu
 > [!NOTE]
@@ -106,7 +106,7 @@ V tomto případě umožňuje objektu EntityFramework obslužné rutiny událost
 - Při spuštění aplikace (před použitím EF) modul plug-in nebo zprostředkovatele měli zaregistrovat metodu obslužné rutiny události pro tuto událost. (Všimněte si, že to musíte provést před vytvořením aplikace pomocí EF.)  
 - Obslužná rutina události zavolá ReplaceService pro každou službu, která potřebuje vyměnit.  
 
-Například by repalce IDbConnectionFactory a DbProviderService zaregistrovat obslužnou rutinu podobný následujícímu:  
+Například chcete-li nahradit IDbConnectionFactory a DbProviderService by zaregistrovat obslužnou rutinu podobný následujícímu:  
 
 ``` csharp
 DbConfiguration.Loaded += (_, a) =>

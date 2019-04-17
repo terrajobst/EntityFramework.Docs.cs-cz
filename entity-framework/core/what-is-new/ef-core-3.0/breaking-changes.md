@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 6d78fc40fea210506235758bcd3613343ecabbcd
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 4b251638de43af6525f3e6faa0bd4113ab1714b9
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562569"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619256"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -242,6 +242,28 @@ Příklad:
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
+
+## <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior.Restrict má sémantiku čisticího modulu
+
+[Sledování problému #12661](https://github.com/aspnet/EntityFrameworkCore/issues/12661)
+
+Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 5.
+
+**Staré chování**
+
+Než 3.0 `DeleteBehavior.Restrict` vytvořit cizí klíče v databázi s `Restrict` sémantiku, ale také změněné interní opravy není zřejmé způsobem.
+
+**Nové chování**
+
+Od verze 3.0, `DeleteBehavior.Restrict` zajistí, že cizí klíče jsou vytvořeny pomocí `Restrict` sémantiku – tedy žádná cascades; throw na porušení omezení – bez vliv i na EF interní opravy.
+
+**Proč**
+
+Tato změna byla provedena na zlepšení uživatelského rozhraní pro použití `DeleteBehavior` intuitivní způsobem, bez neočekávané vedlejší účinky.
+
+**Zmírnění rizik**
+
+Předchozí chování můžete obnovit pomocí `DeleteBehavior.ClientNoAction`.
 
 ## <a name="query-types-are-consolidated-with-entity-types"></a>Typy dotazů jsou spojeny s typy entit
 
