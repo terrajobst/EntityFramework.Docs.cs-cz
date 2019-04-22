@@ -5,10 +5,10 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
 ms.openlocfilehash: 3024c0101c9d886ef844d1b7dc85aaf1be27e86b
-ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/18/2019
 ms.locfileid: "58914075"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
