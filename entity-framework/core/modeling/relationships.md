@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 uid: core/modeling/relationships
-ms.openlocfilehash: a53a862cc2443a1c4461aa287def100284635f26
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 9ef1a9269fc99f5b27a81c11a161ed5f9d74180d
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994939"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929934"
 ---
 # <a name="relationships"></a>Relace
 
@@ -22,21 +22,21 @@ Jak dvě entity, které definuje vztah vzájemně souvisí. V relační databáz
 
 Existuje několik termínů používaných k popisu relací
 
-* **Závislé entity:** to je entita, která obsahuje cizí klíčové vlastnosti. Někdy označovány jako "podřízený" relace.
+* **Závislé entity:** Toto je entita, která obsahuje cizí klíčové vlastnosti. Někdy označovány jako "podřízený" relace.
 
-* **Hlavní entity:** to je entita, která obsahuje primární a alternativní klíčové vlastnosti. Někdy označovány jako "nadřazený" relace.
+* **Hlavní entita:** Toto je entita, která obsahuje primární a alternativní klíčové vlastnosti. Někdy označovány jako "nadřazený" relace.
 
-* **Cizí klíč:** vlastností v závislé entity, který se používá k ukládání hodnot hlavní klíčová vlastnost, která entita souvisí s.
+* **Cizí klíč:** Vlastností v závislé entity, který se používá k ukládání hodnot hlavní klíčová vlastnost, která entita souvisí s.
 
-* **Klíč instančního objektu:** vlastností, které jednoznačně identifikuje instančního objektu entity. To může být primární klíč nebo alternativního klíče.
+* **Klíč instančního objektu:** Vlastnost, která jednoznačně identifikuje instančního objektu entity. To může být primární klíč nebo alternativního klíče.
 
-* **Navigační vlastnost:** vlastnost definovaná pro entitu instančního objektu a/nebo závislé, který obsahuje odkazy na související entity(s).
+* **Navigační vlastnost:** Vlastnost definovaná pro entitu instančního objektu a/nebo závislé, který obsahuje odkazy na související entity(s).
 
-  * **Navigační vlastnost kolekce:** navigační vlastnost, která obsahuje odkazy na související entity.
+  * **Navigační vlastnost kolekce:** Navigační vlastnost, která obsahuje odkazy na související entity.
 
-  * **Odkazovat na vlastnost navigace:** navigační vlastnost, která obsahuje odkaz na jednu související entity.
+  * **Vlastnost navigace odkaz:** Navigační vlastnost, která obsahuje odkaz na jednu související entity.
 
-  * **Inverzní navigační vlastnost:** diskuse o konkrétní navigační vlastnost, tento výraz odkazuje na vlastnost navigace na druhém konci vztahu.
+  * **Inverzní navigační vlastnost:** Když hovoříte o konkrétní navigační vlastnost, tento výraz odkazuje na vlastnost navigace na druhém konci vztahu.
 
 Následující výpis kódu ukazuje vztah jeden mnoho mezi `Blog` a `Post`
 
@@ -98,13 +98,13 @@ Zobrazit [Kaskádové odstraňování](../saving/cascade-delete.md) pro další 
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Existují dva anotacemi dat, které lze použít ke konfiguraci relace, `[ForeignKey]` a `[InverseProperty]`.
+Existují dva anotacemi dat, které lze použít ke konfiguraci relace, `[ForeignKey]` a `[InverseProperty]`. Tyto jsou dostupné v `System.ComponentModel.DataAnnotations.Schema` oboru názvů.
 
-### <a name="foreignkey"></a>[Klíč ForeignKey]
+### <a name="foreignkey"></a>[ForeignKey]
 
 Datové poznámky můžete použít ke konfiguraci vlastností, které slouží jako vlastnost cizího klíče pro daný vztah. To se obvykle provádí při vlastnost cizího klíče nejde zjistit konvencí.
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?name=Entities&highlight=17)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?highlight=30)]
 
 > [!TIP]  
 > `[ForeignKey]` Poznámky můžete umístit na žádnou vlastnost navigace v relaci. Není nutné přejít na navigační vlastnost ve třídě závislé entity.
@@ -113,29 +113,29 @@ Datové poznámky můžete použít ke konfiguraci vlastností, které slouží 
 
 Datové poznámky můžete nakonfigurovat jak vlastnosti navigace entit dependent a principal spárovat. To se obvykle provádí po více než jednu dvojici vlastností navigace mezi dvěma typy entit.
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?name=Entities&highlight=20,23)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?highlight=33,36)]
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
 Ke konfiguraci vztahu v rozhraní Fluent API, spusťte určením navigační vlastnosti, které tvoří relace. `HasOne` nebo `HasMany` určuje vlastnost navigace typu entity jsou od konfigurace. Potom řetězit volání `WithOne` nebo `WithMany` k identifikaci inverzní navigace. `HasOne`/`WithOne` se používají pro vlastnosti navigačního odkazu a `HasMany` / `WithMany` se používají pro navigační vlastnosti kolekce.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?name=Model&highlight=8,9,10)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?highlight=14-16)]
 
 ### <a name="single-navigation-property"></a>Jednu navigační vlastnost
 
 Pokud máte jenom jednu navigační vlastnost, existují konstruktor bez parametrů přetížení `WithOne` a `WithMany`. To znamená, že je koncepčně referencí nebo kolekcí na druhém konci vztahu, ale neexistuje žádné navigační vlastnost zahrnuta do entity třídy.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?name=Model&highlight=10)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?highlight=14-16)]
 
 ### <a name="foreign-key"></a>Cizí klíč
 
 Rozhraní Fluent API můžete použít ke konfiguraci vlastností, které slouží jako vlastnost cizího klíče pro daný vztah.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?name=Model&highlight=11)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?highlight=17)]
 
 Následující výpis kódu ukazuje, jak nakonfigurovat složený cizí klíč.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?name=Model&highlight=13)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?highlight=20)]
 
 Můžete použít přetížení řetězce `HasForeignKey(...)` pro konfiguraci vlastnosti stínové jako cizí klíč (viz [stínové vlastnosti](shadow-properties.md) Další informace). Doporučujeme explicitně přidat vlastnost stínové modelu před jeho použitím jako cizí klíč (jak je vidět níže).
 

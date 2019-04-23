@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 9ef87a737111053df0359f3b2d7a4f82d25c578a
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 61a58bd6119763d90731fac62343b983af510cb6
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58867941"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929872"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -62,6 +62,7 @@ Mějte na paměti, který mnoho [rozbíjející změny v úrovni aplikace](../wh
   * Vytváření sady služeb se změnily. Poskytovatelé by měl nyní dědí z "ProviderConventionSet" nebo "RelationalConventionSet".
   * Přizpůsobení je možné přidat prostřednictvím `IConventionSetCustomizer` služeb, ale je určena pro použití jiné rozšíření poskytovatelů není.
   * Konvencích použitých v době běhu by měly být opraveny z `IConventionSetBuilder`.
+* https://github.com/aspnet/EntityFrameworkCore/pull/15288 -Synchronizace replik indexů data byla refaktorována, do veřejné rozhraní API, abyste ho nemuseli používat vnitřní typy. Pouze to by měl mít vliv na nerelačních poskytovatele, protože synchronizace replik indexů se zpracovává souborem relační základní třídu pro všechny poskytovatele relační.
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
@@ -82,7 +83,6 @@ Mějte na paměti, který mnoho [rozbíjející změny v úrovni aplikace](../wh
   * Možná bude nutné zprostředkovatelů tyto testy pomocí react
 * [https://github.com/aspnet/EntityFrameworkCore/pull/12141](https://github.com/aspnet/EntityFrameworkCore/pull/12141) -Vrátíte kontext do fondu namísto disposing v funkční testy
   * Tato změna zahrnuje některé refaktoring testů, může být nutné poskytovatelé react
-
 
 ### <a name="test-and-product-code-changes"></a>Změny kódu testu a produktu
 

@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 4b251638de43af6525f3e6faa0bd4113ab1714b9
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 1c12abb31c82e603e0d694926f4c289908217778
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59619256"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929908"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -75,6 +75,35 @@ Vývojáři také nyní mohou ovládat přesně při upgradu EF Core a EF Core z
 **Zmírnění rizik**
 
 V aplikaci ASP.NET Core 3.0 nebo jakékoli jiné podporované aplikace použít EF Core, explicitně přidáte odkaz na balíček k poskytovateli databáze EF Core, který bude aplikace používat.
+
+## <a name="the-ef-core-command-line-tool-dotnet-ef-is-no-longer-part-of-the-net-core-sdk"></a>EF Core nástroji příkazového řádku dotnet ef, už nejsou součástí sady .NET Core SDK
+
+[Sledování problému #14016](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
+
+Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4 a odpovídající verze sady .NET Core SDK.
+
+**Staré chování**
+
+Než 3.0 `dotnet ef` nástroj je zahrnutý v .NET Core SDK a se snadno k dispozici pro použití z příkazového řádku z libovolného projektu bez nutnosti pár kroků navíc. 
+
+**Nové chování**
+
+Od verze 3.0, sady .NET SDK nepodporuje incude `dotnet ef` nástroj, takže než budete moct použít, budete mít explicitně ji nainstalovat jako nástroj pro místní nebo globální. 
+
+**Proč**
+
+Tato změna umožňuje distribuci a aktualizaci `dotnet ef` jako regulární nástroj rozhraní příkazového řádku .NET na webu NuGet, konzistentní s skutečnost, že je EF Core 3.0 také vždy distribuován jako balíček NuGet.
+
+**Zmírnění rizik**
+
+Abyste mohli spravovat migrace nebo vygenerované uživatelské rozhraní `DbContext`, nainstalovat `dotnet-ef` pomocí `dotnet tool install` příkazu.
+Například můžete ji nainstalovat jako globální nástroj, zadejte následující příkaz:
+
+  ``` console
+  $ dotnet tool install --global dotnet-ef --version <exact-version>
+  ```
+
+Můžete také získat jeho místní nástroj při obnovování závislosti projektu, který deklaruje jako závislost pomocí nástroje [soubor manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
 
 ## <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>Byla přejmenovaná FromSql ExecuteSql a ExecuteSqlAsync
 
