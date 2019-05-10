@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 1c12abb31c82e603e0d694926f4c289908217778
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929908"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405232"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -138,7 +138,7 @@ Všimněte si, že oba dotazy výše uvedené vytvoří stejný parametrizované
 
 **Proč**
 
-Přetížení metody, jako je to velmi usnadňují omylem nezpracovaná srting metodu volat, pokud bylo záměrem pro volání metody interpolovaný řetězec a naopak.
+Přetížení metody, jako je to velmi usnadňují omylem volat metodu nezpracovaného řetězce, pokud bylo záměrem pro volání metody interpolovaný řetězec a naopak.
 To může vést k dotazům naprostou když měla být parametrizovány.
 
 **Zmírnění rizik**
@@ -631,7 +631,7 @@ Od verze 3.0, EF Core uzavře připojení co nejdříve po dokončení jeho pou�
 
 **Proč**
 
-Tato změna umožňuje použití několika kontextech v rámci stejného `TransactionScope`. Nové chování alose odpovídá EF6.
+Tato změna umožňuje použití několika kontextech v rámci stejného `TransactionScope`. Nové chování také odpovídající EF6.
 
 **Zmírnění rizik**
 
@@ -689,7 +689,7 @@ K tomuto výjimka provádění dotazů, kde pomocné pole se nastavuje přímo P
 
 **Nové chování**
 
-Počínaje EF Core 3.0, pokud je znám pomocným polem vlastnosti potom budou vždy číst a Zapisovat vlastnosti pomocí pole zálohování.
+Počínaje EF Core 3.0, pokud jsou známé vlastnosti pole zálohování, potom EF Core budou vždy číst a Zapisovat vlastnosti pomocí pole zálohování.
 Pokud aplikace se spoléhá na další chování zakódovaný do metody getter nebo setter to může způsobit přerušení aplikace.
 
 **Proč**

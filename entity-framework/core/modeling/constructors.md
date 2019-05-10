@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: 1b36197465fb9a6571a306d36eb1e9d885a5399e
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 5bf49718f02c1860871b1f4c255ec4d98fce2fc7
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152462"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405250"
 ---
 # <a name="entity-types-with-constructors"></a>Typy entit s konstruktory
 
@@ -90,7 +90,7 @@ Poznamenat několik věcí:
 * Ne všechny vlastnosti musí mít parametry konstruktoru. Například vlastnost Post.Content není nastavena podle jakékoli parametr konstruktoru, takže EF Core ho nastavte po volání konstruktoru běžným způsobem.
 * Typy parametrů a názvů musí odpovídat názvy a typy vlastností s tím rozdílem, že vlastnosti mohou být – jazyka Pascal – parametry jsou – ve formátu camelCase.
 * EF Core nelze nastavit navigační vlastnosti (například blogu nebo příspěvky výše) pomocí konstruktoru.
-* Konstruktor může být veřejný, privátní, nebo máte další usnadnění přístupu.
+* Konstruktor může být veřejný, privátní, nebo máte další usnadnění přístupu. Opožděné načtení proxy vyžadují konstruktor je přístupná ze dědičné třídy proxy serveru. Obvykle to znamená, že je veřejná nebo chráněná.
 
 ### <a name="read-only-properties"></a>Vlastnosti jen pro čtení
 

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 0350b25d0d0efe05df7cb9e93a3f4ae2d864fd63
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 316d363d4a1b8a909efc1c32b492280c0d16cb4e
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "59363934"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405212"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
@@ -163,7 +163,13 @@ var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
 ## <a name="avoiding-dbcontext-threading-issues"></a>Jak se vyhnout DbContext potíže s vlákny
 
-Entity Framework Core nepodporuje více paralelních operací běží na stejné `DbContext` instance. Souběžný přístup může způsobit nedefinované chování, data před poškozením a selhání aplikace. Proto je důležité, vždy používali samostatné `DbContext` instance pro operace, které jsou spuštěny paralelně. 
+Entity Framework Core nepodporuje více paralelních operací běží na stejné `DbContext` instance. To zahrnuje paralelní provádění asynchronních dotazů a žádné explicitní souběžné použití z více vláken. Proto, vždy `await` asynchronní volání okamžitě nebo použít samostatné `DbContext` instance pro operace, které jsou spuštěny paralelně.
+
+Když EF Core zjistí pokus o použití `DbContext` instance současně, uvidíte `InvalidOperationException` a zobrazí se zpráva takto: 
+
+> V tomto kontextu dokončení předchozí operace spustit druhou operaci. To je obvykle způsobeno různých vláken pomocí stejné instance DbContext, ale členy instance nemusí být bezpečné pro vlákna.
+
+Když se dostane nezjištěné souběžný přístup, může způsobit nedefinované chování, selhání aplikace a poškození dat.
 
 Existují běžných chyb, které můžete inadvernetly příčina souběžný přístup na stejném `DbContext` instance:
 

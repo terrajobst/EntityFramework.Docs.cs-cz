@@ -3,12 +3,12 @@ title: Práce s transakcí - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 7197733ab25c8475746e7863963384730919e3ff
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 96cfff4cca59ab27dd68f50d0260e90902e33a92
+ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489775"
+ms.lasthandoff: 04/29/2019
+ms.locfileid: "64873236"
 ---
 # <a name="working-with-transactions"></a>Práce s transakcí
 > [!NOTE]
@@ -39,7 +39,7 @@ Před EF6 Entity Framework insisted při otevření připojení k databázi samo
 
 Počínaje EF6 rozhraní framework teď poskytuje:  
 
-1. **Database.BeginTransaction()** : jednodušší způsob pro uživatele ke spuštění a dokončení transakcí sami v rámci existující DbContext – povolení několika operací a nelze jej zkombinovat v rámci jedné transakce a proto všechny potvrzené nebo všechny Vrátí zpět jako jeden. Také umožňuje uživateli snadněji určit úroveň izolace transakce.  
+1. **Database.BeginTransaction()** : Jednodušší způsob pro uživatele ke spuštění a dokončení transakcí sami v rámci existující DbContext – povolení několika operací a nelze jej zkombinovat v rámci jedné transakce a proto všechny potvrzené nebo všechny vrácena zpět jako jeden. Také umožňuje uživateli snadněji určit úroveň izolace transakce.  
 2. **Database.UseTransaction()** : umožňuje používat transakce, která byla spuštěna mimo rozhraní Entity Framework uvolněn objekt DbContext.  
 
 ### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Kombinování několik operací do jedné transakce v rámci stejného kontextu  
@@ -126,7 +126,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-sing System.Transactions;
+using System.Transactions;
 
 namespace TransactionsExamples
 {

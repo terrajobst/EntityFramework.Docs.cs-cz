@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: e98e2e601203db7ea3d3344ddc7b7e0aff7f2143
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 590d16902329ffb3fff8026f8dfdcfc887f6dea3
+ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562517"
+ms.lasthandoff: 04/29/2019
+ms.locfileid: "64873195"
 ---
 # <a name="loading-related-data"></a>Načítání souvisejících dat
 
@@ -334,3 +334,5 @@ public void ConfigureServices(IServiceCollection services)
     ...
 }
 ```
+
+Další možností je jedna z vlastností navigace s uspořádání `[JsonIgnore]` atribut, který dává pokyn k neprocházejí přes této navigační vlastnosti při serializaci Json.NET.
