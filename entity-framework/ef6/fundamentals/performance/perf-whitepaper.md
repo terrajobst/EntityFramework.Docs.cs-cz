@@ -3,12 +3,12 @@ title: Faktory ovlivňující výkon u EF4 EF5 a EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: 4c1f03533cf6df49555c3ef8d09d5949b9a3335c
-ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
+ms.openlocfilehash: f8fa1001c85366e169cf50e89efdb65bd92b671e
+ms.sourcegitcommit: f277883a5ed28eba57d14aaaf17405bc1ae9cf94
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56459208"
+ms.lasthandoff: 05/18/2019
+ms.locfileid: "65874614"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Faktory ovlivňující výkon u EF 6, 4 a 5
 David Obando, Eric Dettinger a další
@@ -119,9 +119,9 @@ Náklady na generování zobrazení z modelu načítají (čas spuštění) pomo
 
 Jsme viděli počet případů, kdy přepínání přidružení v modelu z nezávislé přidružení cizího klíče asociace výrazné vylepšení doby trvání generování zobrazení.
 
-Abychom si předvedli toto vylepšení, jsme dvě verze modelu Navision vygenerovaného s využitím EDMGen. *Poznámka: seeappendix Cfor popis Navision modelu.* Navision model je zajímavé pro toto cvičení z důvodu jeho velmi velké množství entit a vztahů mezi nimi.
+Abychom si předvedli toto vylepšení, jsme dvě verze modelu Navision vygenerovaného s využitím EDMGen. *Poznámka: najdete v dodatku C popis Navision modelu.* Navision model je zajímavé pro toto cvičení z důvodu jeho velmi velké množství entit a vztahů mezi nimi.
 
-Jedna verze tohoto modelu velmi velké se vygeneroval s přidružení cizího klíče a druhá se vygeneroval s nezávislé přidružení. Potom skončila, jak dlouho trvalo generování zobrazení pro každý model. Entity Framework5 test použil metodu GenerateViews() ze třídy EntityViewGenerator ke generování zobrazení, i když Entity Framework 6 test použít metodu GenerateViews() ze třídy objekt StorageMappingItemCollection. To z důvodu kód restrukturalizaci, ke které došlo v základu kódu Entity Framework 6.
+Jedna verze tohoto modelu velmi velké se vygeneroval s přidružení cizího klíče a druhá se vygeneroval s nezávislé přidružení. Potom skončila, jak dlouho trvalo generování zobrazení pro každý model. Entity Framework 5 test použít metodu GenerateViews() ze třídy EntityViewGenerator ke generování zobrazení, zatímco Entity Framework 6 test použil metodu GenerateViews() ze třídy objekt StorageMappingItemCollection. To z důvodu kód restrukturalizaci, ke které došlo v základu kódu Entity Framework 6.
 
 Pomocí Entity Framework 5, generování zobrazení pro model s cizí klíče trvalo 65 minut na testovacím počítači. Není známo jak dlouho by trvalo generování zobrazení pro model, který používá nezávislé přidružení. Ponechali jsme test spuštěného víc než měsíc předtím, než počítač byl restartován v našem testovacím prostředí instalace měsíčních aktualizací.
 
@@ -240,7 +240,7 @@ Všimněte si, že se spustí se časovač vyřazení mezipaměti v, když nejso
 
 #### <a name="323-test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 testování metriky demonstrace plán dotazu, ukládání do mezipaměti výkonu
 
-Abychom si předvedli efekt plán dotazu do mezipaměti na výkon vaší aplikace, jsme provedli test kde jsme spouštěli počet dotazů Entity SQL proti Navision modelu. Viz dodatek popis modelu Navision a typy dotazů, které byly spuštěny. V tomto testu jsme první iteraci v rámci seznamu dotazů a po spuštění každé z nich přidat do mezipaměti (Pokud je povoleno ukládání do mezipaměti). Tento krok je untimed. V dalším kroku můžeme přejít do režimu spánku hlavního vlákna pro více než 60 sekund mezipaměti cílit na konkrétní uskutečnit; Nakonec jsme iterovat přes seznam 2. čas ke spuštění dotazy uložené v mezipaměti. Kromě toho má SQL Server mezipaměti plánu vyprázdní před provedením každého sadu dotazů tak, aby kolikrát získáme přesně odrážet výhodu Dal mezipaměti plánu dotazu.
+Abychom si předvedli efekt plán dotazu do mezipaměti na výkon vaší aplikace, jsme provedli test kde jsme spouštěli počet dotazů Entity SQL proti Navision modelu. Viz dodatek popis modelu Navision a typy dotazů, které byly spuštěny. V tomto testu jsme první iteraci v rámci seznamu dotazů a po spuštění každé z nich přidat do mezipaměti (Pokud je povoleno ukládání do mezipaměti). Tento krok je untimed. V dalším kroku můžeme přejít do režimu spánku hlavního vlákna pro více než 60 sekund mezipaměti cílit na konkrétní uskutečnit; Nakonec jsme iterovat přes seznam 2. čas ke spuštění dotazy uložené v mezipaměti. Kromě toho vyprázdnění mezipaměti plánu systému SQL Server před provedením každého sadu dotazů tak, aby kolikrát získáme přesně odrážet výhodu Dal mezipaměti plánu dotazu.
 
 ##### <a name="3231-test-results"></a>3.2.3.1 výsledky testů
 
@@ -487,7 +487,7 @@ Rychlejší verzi Tento stejný kód by vyžadovalo volání přeskočit pomocí
 
 ``` csharp
 var customers = context.Customers.OrderBy(c => c.LastName);
-for (var i = 0; i \< count; ++i)
+for (var i = 0; i < count; ++i)
 {
     var currentCustomer = customers.Skip(() => i).FirstOrDefault();
     ProcessCustomer(currentCustomer);
@@ -887,7 +887,7 @@ SQL Server – konkrétní zlepšení algoritmu, který generuje vrstvy úloži�
 
 Model obsahuje sady 1005 entit a sad 4227 přidružení.
 
-| Konfigurace                              | Rozpis uplynulý čas                                                                                                                                               |
+| Konfiguraci                              | Rozpis uplynulý čas                                                                                                                                               |
 |:-------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Visual Studio 2010, Entity Framework 4     | Generování souborů SSDL: 2 hr 27 min <br/> Generování mapování: 1 sekunda <br/> Soubor CSDL generace: 1 sekunda <br/> Generování ObjectLayer: 1 sekunda <br/> Generování zobrazení: 2 h 14 min |
 | Visual Studio 2010 SP1, Entity Framework 4 | Generování souborů SSDL: 1 sekunda <br/> Generování mapování: 1 sekunda <br/> Soubor CSDL generace: 1 sekunda <br/> Generování ObjectLayer: 1 sekunda <br/> Generování zobrazení: 1 hr 53 min   |
