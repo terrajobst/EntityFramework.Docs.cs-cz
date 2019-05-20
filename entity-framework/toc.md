@@ -30,6 +30,7 @@
 #### [.NET Core](core/get-started/netcore/index.md)
 ##### [Nová databáze](core/get-started/netcore/new-db-sqlite.md)
 #### [ASP.NET Core](core/get-started/aspnetcore/index.md)
+##### [⤤ Interaktivní kurz](/learn/modules/persist-data-ef-core/)
 ##### [Nová databáze](core/get-started/aspnetcore/new-db.md)
 ##### [Existující databáze](core/get-started/aspnetcore/existing-db.md)
 ##### [⤤ EF Core a Razor Pages](/aspnet/core/data/ef-rp/intro)
