@@ -62,7 +62,7 @@ Mějte na paměti, který mnoho [rozbíjející změny v úrovni aplikace](../wh
   * Vytváření sady služeb se změnily. Poskytovatelé by měl nyní dědí z "ProviderConventionSet" nebo "RelationalConventionSet".
   * Přizpůsobení je možné přidat prostřednictvím `IConventionSetCustomizer` služeb, ale je určena pro použití jiné rozšíření poskytovatelů není.
   * Konvencích použitých v době běhu by měly být opraveny z `IConventionSetBuilder`.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15288 -Synchronizace replik indexů data byla refaktorována, do veřejné rozhraní API, abyste ho nemuseli používat vnitřní typy. Pouze to by měl mít vliv na nerelačních poskytovatele, protože synchronizace replik indexů se zpracovává souborem relační základní třídu pro všechny poskytovatele relační.
+* [https://github.com/aspnet/EntityFrameworkCore/pull/15288](https://github.com/aspnet/EntityFrameworkCore/pull/15288) -Synchronizace replik indexů data byla refaktorována, do veřejné rozhraní API, abyste ho nemuseli používat vnitřní typy. Pouze to by měl mít vliv na nerelačních poskytovatele, protože synchronizace replik indexů se zpracovává souborem relační základní třídu pro všechny poskytovatele relační.
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
