@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
-ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
+ms.openlocfilehash: faae0153e0f2bdd42d3b316582dfcab88d9ceb5b
+ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65405232"
+ms.lasthandoff: 05/31/2019
+ms.locfileid: "66452295"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -88,7 +88,7 @@ Než 3.0 `dotnet ef` nástroj je zahrnutý v .NET Core SDK a se snadno k dispozi
 
 **Nové chování**
 
-Od verze 3.0, sady .NET SDK nepodporuje incude `dotnet ef` nástroj, takže než budete moct použít, budete mít explicitně ji nainstalovat jako nástroj pro místní nebo globální. 
+Od verze 3.0, sady .NET SDK se nenachází `dotnet ef` nástroj, takže než budete moct použít, budete mít explicitně ji nainstalovat jako nástroj pro místní nebo globální. 
 
 **Proč**
 
@@ -742,7 +742,7 @@ Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
-Před EF Core 3.0 vlastnost může být určeno hodnotu řetězce a pokud nebyla nalezena žádná vlastnost s tímto názvem na typu CLR EF Core by opakujte tak, aby odpovídaly na pole, které používá convetion pravidla.
+Před EF Core 3.0 vlastnost může být určeno hodnotu řetězce a pokud nebyla nalezena žádná vlastnost s tímto názvem na typu CLR EF Core by opakujte tak, aby odpovídaly na pole pomocí pravidel pro vytváření názvů.
 ```C#
 private class Blog
 {
@@ -798,7 +798,7 @@ Od verze EF Core 3.0, `AddDbContext` a `AddDbContextPool` nebude registru tyto s
 
 **Proč**
 
-EF Core 3.0 nevyžaduje, že tyto služby jsou v cotainer DI vaší aplikace. Nicméně pokud `ILoggerFactory` je zaregistrovaný v aplikačním kontejneru DI, pak bude i nadále využívat EF Core.
+EF Core 3.0 nevyžaduje, že tyto služby jsou v kontejneru DI vaší aplikace. Nicméně pokud `ILoggerFactory` je zaregistrovaný v aplikačním kontejneru DI, pak bude i nadále využívat EF Core.
 
 **Zmírnění rizik**
 
@@ -985,7 +985,7 @@ Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
-Před EF Core 3.0 kód volání `HasOne` nebo `HasMany` s jeden řetězec byl interpretovat matoucí způsobem.
+Před EF Core 3.0 kód volání `HasOne` nebo `HasMany` s jeden řetězec byl interpretován tak matoucí.
 Příklad:
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
@@ -1215,7 +1215,7 @@ SET GuidColumn = hex(substr(GuidColumn, 4, 1)) ||
 WHERE typeof(GuidColumn) == 'blob';
 ```
 
-V EF Core můžete také pokračovat pomocí předchozí chování configuirng převaděč hodnoty těchto vlastností.
+V EF Core můžete také pokračovat pomocí předchozí chování nakonfigurováním převaděč hodnoty na tyto vlastnosti.
 
 ``` csharp
 modelBuilder
@@ -1240,7 +1240,7 @@ Hodnoty char byly dříve sored jako CELOČÍSELNÉ hodnoty na SQLite. Napříkl
 
 **Nové chování**
 
-Hodnoty char jsou nyní sotred jako TEXT.
+Hodnoty char jsou nyní uloženy jako TEXT.
 
 **Proč**
 
@@ -1256,7 +1256,7 @@ SET CharColumn = char(CharColumn)
 WHERE typeof(CharColumn) = 'integer';
 ```
 
-V EF Core můžete také pokračovat pomocí předchozí chování configuirng převaděč hodnoty těchto vlastností.
+V EF Core můžete také pokračovat pomocí předchozí chování nakonfigurováním převaděč hodnoty na tyto vlastnosti.
 
 ``` csharp
 modelBuilder
@@ -1277,7 +1277,7 @@ Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
-ID migrace byly generovány pomocí kalendář jazykové verze currret neúmyslně.
+ID migrace neúmyslně byly vygenerovány pomocí kalendář aktuální jazykové verze.
 
 **Nové chování**
 
@@ -1289,7 +1289,7 @@ Pořadí migrace je důležité při aktualizaci databáze nebo řešení konfli
 
 **Zmírnění rizik**
 
-Tato změna ovlivní těm, kdo používají jiné než gregoriánské kalendářní, kde rok je větší než gregoriánském kalendáři (např. thajský buddhistický kalendář). Migrace stávající ID bude potřeba aktualizovat tak, aby nové migrace jsou řazeny za stávající migrace.
+Tato změna ovlivní těm, kdo používají jiných gregoriánském kalendáři, kde rok je větší než gregoriánském kalendáři (např. thajský buddhistický kalendář). Migrace stávající ID bude potřeba aktualizovat tak, aby nové migrace jsou řazeny za stávající migrace.
 
 ID migrace najdete v atributu migrace soubory návrháře migrace.
 
@@ -1342,7 +1342,7 @@ var constraintName = myForeignKey.Name;
 
 **Nové chování**
 
-Od verze EF Core 3.0, omezení pro cizí klíč názvy jsou dnes označovány jako "kruhového name". Příklad:
+Od verze EF Core 3.0, omezení pro cizí klíč názvy jsou dnes označovány jako "název omezení". Příklad:
 
 ```C#
 var constraintName = myForeignKey.ConstraintName;
@@ -1350,7 +1350,7 @@ var constraintName = myForeignKey.ConstraintName;
 
 **Proč**
 
-Tato změna přináší konzistenci pro názvy v této oblasti a také vysvětluje, že se jedná o název název cizího klíče kruhového a nikoli na sloupec nebo vlastnost, která je definována cizího klíče na.
+Tato změna přináší konzistenci pro názvy v této oblasti a také vysvětluje, že se jedná o název název cizího klíče omezení a nikoli na sloupec nebo vlastnost, která je definována cizího klíče na.
 
 **Zmírnění rizik**
 
