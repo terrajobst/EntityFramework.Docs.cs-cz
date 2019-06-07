@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: faae0153e0f2bdd42d3b316582dfcab88d9ceb5b
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: 656a6187c1572746e3f28961b3df3268e611ce99
+ms.sourcegitcommit: 119058fefd7f35952048f783ada68be9aa612256
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452295"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66749730"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -698,7 +698,7 @@ Tato změna byla provedena zabránit EF Core chybně aktivací obchodní logiky 
 
 **Zmírnění rizik**
 
-Prostřednictvím konfigurace režim přístupu k vlastnosti v rozhraní API fluent modelBuilder lze obnovit chování pre-3.0.
+Pre-3.0 chování lze obnovit prostřednictvím konfigurace režim přístupu k vlastnosti na `ModelBuilder`.
 Příklad:
 
 ```C#
@@ -1190,7 +1190,7 @@ Identifikátor GUID hodnoty byly dříve sored jako hodnoty objektu BLOB na SQLi
 
 **Nové chování**
 
-Identifikátor GUID hodnoty jsou nyní sotred jako TEXT.
+Identifikátor GUID hodnoty jsou nyní uloženy jako TEXT.
 
 **Proč**
 
