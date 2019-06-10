@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 uid: core/modeling/relationships
-ms.openlocfilehash: 9ef1a9269fc99f5b27a81c11a161ed5f9d74180d
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: 793401362788e865c89ce01b6246b1ba14c36c8a
+ms.sourcegitcommit: 8b9568211d37a1c36da9533fa1ac2ef063b0bf8c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929934"
+ms.lasthandoff: 06/08/2019
+ms.locfileid: "66815010"
 ---
 # <a name="relationships"></a>Relace
 
@@ -140,6 +140,12 @@ Následující výpis kódu ukazuje, jak nakonfigurovat složený cizí klíč.
 Můžete použít přetížení řetězce `HasForeignKey(...)` pro konfiguraci vlastnosti stínové jako cizí klíč (viz [stínové vlastnosti](shadow-properties.md) Další informace). Doporučujeme explicitně přidat vlastnost stínové modelu před jeho použitím jako cizí klíč (jak je vidět níže).
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ShadowForeignKey.cs#Sample)]
+
+### <a name="without-navigation-property"></a>Bez navigační vlastnost
+
+Není nutné nemusí poskytnout navigační vlastnost. Cizí klíč můžete jednoduše zadat na jedné straně relace.
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoNavigation.cs?highlight=14-17)]
 
 ### <a name="principal-key"></a>Klíč objektu
 

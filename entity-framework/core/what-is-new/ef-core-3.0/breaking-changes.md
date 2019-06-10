@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 656a6187c1572746e3f28961b3df3268e611ce99
-ms.sourcegitcommit: 119058fefd7f35952048f783ada68be9aa612256
+ms.openlocfilehash: 0b36571dfe9e462be3aa818b72b5a38b9573410c
+ms.sourcegitcommit: 1e44721cd0903b08781b78eb398d2a9b13a46db9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66749730"
+ms.lasthandoff: 06/08/2019
+ms.locfileid: "66815649"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -25,7 +25,7 @@ Tady nejsou uvedené konce v nové vlastnosti představené z jednoho 3.0 ve ver
 [Sledování problému #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
 [také zjistit problém #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -55,7 +55,7 @@ Pokud dotaz nelze přeložit plně, pak buď přepište dotaz ve formuláři, kt
 
 [Oznámení týkající se sledování problému #325](https://github.com/aspnet/Announcements/issues/325)
 
-Tato změna byla zavedena v ASP.NET Core 3.0 ve verzi preview 1. 
+Tato změna se používá v ASP.NET Core 3.0 ve verzi preview 1. 
 
 **Staré chování**
 
@@ -80,7 +80,7 @@ V aplikaci ASP.NET Core 3.0 nebo jakékoli jiné podporované aplikace použít 
 
 [Sledování problému #14016](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4 a odpovídající verze sady .NET Core SDK.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4 a odpovídající verze sady .NET Core SDK.
 
 **Staré chování**
 
@@ -109,7 +109,7 @@ Můžete také získat jeho místní nástroj při obnovování závislosti proj
 
 [Sledování problému #10996](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -149,7 +149,7 @@ Přepněte na nové názvy metod.
 
 [Sledování problému #14523](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -179,7 +179,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 [Sledování problému #12378](https://github.com/aspnet/EntityFrameworkCore/issues/12378)
 
-Tato změna byla zavedená v EF Core 3.0 – náhled 2.
+Tato změna je zavedená v EF Core 3.0 – náhled 2.
 
 **Staré chování**
 
@@ -207,7 +207,7 @@ Například `context.Entry(blog).Property(e => e.Id).CurrentValue` i v případ�
 
 [Sledování problému #14616](https://github.com/aspnet/EntityFrameworkCore/issues/14616)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -247,7 +247,7 @@ public string Id { get; set; }
 
 [Sledování problému #10114](https://github.com/aspnet/EntityFrameworkCore/issues/10114)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -276,7 +276,7 @@ context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 
 [Sledování problému #12661](https://github.com/aspnet/EntityFrameworkCore/issues/12661)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 5.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 5.
 
 **Staré chování**
 
@@ -298,7 +298,7 @@ Předchozí chování můžete obnovit pomocí `DeleteBehavior.ClientNoAction`.
 
 [Sledování problému #14194](https://github.com/aspnet/EntityFrameworkCore/issues/14194)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -330,7 +330,7 @@ To by stále probíhá konfigurace podle konvence se vyhnete chybné konfigurace
 [sledování problému #9148](https://github.com/aspnet/EntityFrameworkCore/issues/9148)
 [sledování problému #14153](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -386,7 +386,7 @@ Změna konfigurace vlastněné typ vztahů používat nové plochy rozhraní API
 
 [Sledování problému #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -421,7 +421,7 @@ Pokud váš model obsahuje tabulku sdílení závislé se všemi sloupci volitel
 
 [Sledování problému #14154](https://github.com/aspnet/EntityFrameworkCore/issues/14154)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -473,7 +473,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 [Sledování problému #13998](https://github.com/aspnet/EntityFrameworkCore/issues/13998)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -536,7 +536,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 [Sledování problému #13274](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -604,7 +604,7 @@ Pokud byla vlastnost má být cizí klíč a proto část primárního klíče a
 
 [Sledování problému #14218](https://github.com/aspnet/EntityFrameworkCore/issues/14218)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -656,7 +656,7 @@ using (new TransactionScope())
 
 [Sledování problému #6872](https://github.com/aspnet/EntityFrameworkCore/issues/6872)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -680,7 +680,7 @@ Zvažte místo toho spoléhat na konkrétní hodnoty klíče, ani aktualizaci ta
 
 [Sledování problému #12430](https://github.com/aspnet/EntityFrameworkCore/issues/12430)
 
-Tato změna byla zavedená v EF Core 3.0 – náhled 2.
+Tato změna je zavedená v EF Core 3.0 – náhled 2.
 
 **Staré chování**
 
@@ -709,7 +709,7 @@ modelBuilder.UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruct
 
 [Sledování problému #12523](https://github.com/aspnet/EntityFrameworkCore/issues/12523)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -738,7 +738,7 @@ modelBuilder
 
 ## <a name="field-only-property-names-should-match-the-field-name"></a>Vlastnost jen pro pole názvů by měl odpovídat názvu pole
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -786,7 +786,7 @@ modelBuilder
 
 [Sledování problému #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -808,7 +808,7 @@ Pokud vaše aplikace potřebuje tyto služby, registrujte je explicitně s využ
 
 [Sledování problému #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -836,7 +836,7 @@ Volání `ChgangeTracker.DetectChanges()` explicitně před voláním `Entry` k 
 
 [Sledování problému #14617](https://github.com/aspnet/EntityFrameworkCore/issues/14617)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -874,7 +874,7 @@ public string Id { get; set; }
 
 [Sledování problému #14698](https://github.com/aspnet/EntityFrameworkCore/issues/14698)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -900,7 +900,7 @@ Pokud narazíte na situace tímto způsobem, založte prosím problém na na [sl
 
 [Sledování problému #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -922,7 +922,7 @@ Tato změna byla provedena, protože rozhraní jsou koncepčně jednou.
 
 [Sledování problému #12780](https://github.com/aspnet/EntityFrameworkCore/issues/12780)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -949,7 +949,7 @@ Kód aplikace, který nebude pokoušet opožděné načtení vyřazený kontextu
 
 [Sledování problému #10236](https://github.com/aspnet/EntityFrameworkCore/issues/10236)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -981,7 +981,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 [Sledování problému #9171](https://github.com/aspnet/EntityFrameworkCore/issues/9171)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -1018,7 +1018,7 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 
 [Sledování problému #15184](https://github.com/aspnet/EntityFrameworkCore/issues/15184)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -1048,7 +1048,7 @@ Všimněte si, že to Neguje snížení přidělení, které tato změna přiná
 
 [Sledování problému #9913](https://github.com/aspnet/EntityFrameworkCore/issues/9913)
 
-Tato změna byla zavedená v EF Core 3.0 – náhled 2.
+Tato změna je zavedená v EF Core 3.0 – náhled 2.
 
 **Staré chování**
 
@@ -1071,7 +1071,7 @@ Nejvhodnější opatření na opravu se má používat rovinu rozhraní API pro 
 
 [Sledování problému #11811](https://github.com/aspnet/EntityFrameworkCore/issues/11811)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -1094,7 +1094,7 @@ Odeberte všechny pokusy o mapování odvozené typy s jinými tabulkami.
 
 [Sledování problému #12366](https://github.com/aspnet/EntityFrameworkCore/issues/12366)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -1117,7 +1117,7 @@ Pomocí nového rozhraní API, jak je znázorněno výše.
 
 [Sledování problému #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
 
-Tato změna bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Nové chování**
 
@@ -1137,11 +1137,33 @@ Tato změna usnadňuje provádění výše uvedených rozhraní.
 
 Pomocí nové metody rozšíření.
 
+## <a name="provider-specific-metadata-api-changes"></a>Změny specifickým pro zprostředkovatele metadat rozhraní API
+
+[Sledování problému #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+
+Tato změna je zavedená v EF Core 3.0-preview 6.
+
+**Nové chování**
+
+Metody rozšíření specifické pro zprostředkovatele bude zjednodušen navýšení kapacity:
+
+* `IProperty.Relational().ColumnName` -> `IProperty.GetColumnName()`
+* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.GetSqlServerIsMemoryOptimized()`
+* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.ForSqlServerUseIdentityColumn()`
+
+**Proč**
+
+Tato změna usnadňuje provádění metody výše uvedená rozšíření.
+
+**Zmírnění rizik**
+
+Pomocí nové metody rozšíření.
+
 ## <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core už odešle – Direktiva pragma pro vynucení SQLite FK
 
 [Sledování problému #12151](https://github.com/aspnet/EntityFrameworkCore/issues/12151)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
 
 **Staré chování**
 
@@ -1182,7 +1204,7 @@ Pokud chcete použít nativní verzi SQLite v Iosu, nakonfigurovat `Microsoft.Da
 
 [Sledování problému #15078](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -1232,7 +1254,7 @@ Microsoft.Data.Sqlite zůstává schopný načíst hodnoty identifikátoru Guid 
 
 [Sledování problému #15020](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -1273,7 +1295,7 @@ Microsoft.Data.Sqlite také zbývá schopný načíst znakových hodnot z celé 
 
 [Sledování problému #12978](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
@@ -1312,7 +1334,7 @@ SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 
 
 [Sledování problému #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Změna**
 
@@ -1330,7 +1352,7 @@ Použití nového názvu. (Všimněte si, že nedošlo ke změně číslo ID ud�
 
 [Sledování problému #10730](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
 
-Tato změna byla zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
 
 **Staré chování**
 
