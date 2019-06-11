@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 0b36571dfe9e462be3aa818b72b5a38b9573410c
-ms.sourcegitcommit: 1e44721cd0903b08781b78eb398d2a9b13a46db9
+ms.openlocfilehash: 9112d8d235237e68232aac54453d584af0edb524
+ms.sourcegitcommit: b188194a1901f4d086d05765cbc5c9b8c9dc5eed
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/08/2019
-ms.locfileid: "66815649"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66829488"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -144,6 +144,28 @@ To může vést k dotazům naprostou když měla být parametrizovány.
 **Zmírnění rizik**
 
 Přepněte na nové názvy metod.
+
+## <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>FromSql metody lze zadat pouze na dotaz kořeny
+
+[Sledování problému #15704](https://github.com/aspnet/EntityFrameworkCore/issues/15704)
+
+Tato změna je zavedená v EF Core 3.0-preview 6.
+
+**Staré chování**
+
+Před EF Core 3.0 `FromSql` může být zadaná metoda kdekoli v dotazu.
+
+**Nové chování**
+
+Od verze EF Core 3.0, nový `FromSqlRaw` a `FromSqlInterpolated` metody (které nahradit `FromSql`) lze zadat pouze na dotaz kořeny, to znamená přímo na `DbSet<>`. Pokus zadat je někde jinde způsobí chybu kompilace.
+
+**Proč**
+
+Určení `FromSql` kdekoli jiné než na `DbSet` bez přidání význam nebo přidanou hodnotu a v některých případech může způsobit nejednoznačnost.
+
+**Zmírnění rizik**
+
+`FromSql` volání by měl být přímo na přesunout `DbSet` na které se vztahují.
 
 ## <a name="query-execution-is-logged-at-debug-level"></a>Provádění dotazu se protokoluje při ladění na úrovni
 
