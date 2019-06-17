@@ -3,12 +3,12 @@ title: Asynchronní dotazy a save - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 89c7b9d533d37b4c9e123f37d8ab27c67ba26cc8
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: 8c72012be4b77ff31faf909bf02035865521a640
+ms.sourcegitcommit: 7c5c5e09a4d2671d7461e027837966c4ff91e398
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668710"
+ms.lasthandoff: 06/15/2019
+ms.locfileid: "67148488"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazy a uložit
 > [!NOTE]
@@ -157,7 +157,7 @@ Když teď máme náš program rychle zprovoznit, můžeme začít vytváření 
 1.  Řádek 2: Použití příkazu pro **System.Data.Entity** obor názvů poskytuje nám přístup k EF asynchronní rozšiřující metody.
 2.  Řádek 4: Použití příkazu pro **System.Threading.Tasks** obor názvů umožňuje, abyste mohli používat **úloh** typu.
 3.  Řádek 12 a 18: Jsme zachycování jako úlohu, která monitoruje průběh **PerformSomeDatabaseOperations** (řádkem 12) a pak blokování provádění programu pro tento úkol kompletní jednou všechnu práci pro program provádí (řádek 18).
-4.  25. řádek: Jsme aktualizace **PerformSomeDatabaseOperations** být označený jako **asynchronní** a vraťte se **úloh**.
+4.  25\. řádek: Jsme aktualizace **PerformSomeDatabaseOperations** být označený jako **asynchronní** a vraťte se **úloh**.
 5.  Řádek 35: Nyní jsme volání asynchronní verzi SaveChanges a čekáním na její dokončení.
 6.  Řádek 42: Voláme na asynchronní verzi ToList a čekání na výsledek.
 
