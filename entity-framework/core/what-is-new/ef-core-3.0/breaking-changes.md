@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 9112d8d235237e68232aac54453d584af0edb524
-ms.sourcegitcommit: b188194a1901f4d086d05765cbc5c9b8c9dc5eed
+ms.openlocfilehash: 1d2853cfc7f6eadfc76000f91a723f8b0b8c201f
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66829488"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333831"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -167,34 +167,18 @@ Určení `FromSql` kdekoli jiné než na `DbSet` bez přidání význam nebo př
 
 `FromSql` volání by měl být přímo na přesunout `DbSet` na které se vztahují.
 
-## <a name="query-execution-is-logged-at-debug-level"></a>Provádění dotazu se protokoluje při ladění na úrovni
+## <a name="query-execution-is-logged-at-debug-level-reverted"></a>~~Provádění dotazu se protokoluje při ladění na úrovni~~ obnoveny
 
 [Sledování problému #14523](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
+Tato změna se vrátí zpět v EF Core 3.0 – ve verzi preview 7.
 
-**Staré chování**
-
-Před EF Core 3.0, provádění dotazů a jiných příkazů protokolu byla zaznamenána v `Info` úroveň.
-
-**Nové chování**
-
-Od verze EF Core 3.0, protokolování spuštění příkazu/SQL je na `Debug` úroveň.
-
-**Proč**
-
-Tato změna byla provedena jak snížit šum na `Info` úrovně protokolování.
-
-**Zmírnění rizik**
-
-Tato událost protokolování je definována `RelationalEventId.CommandExecuting` s ID události 20100.
-Do protokolu SQL na `Info` úroveň znovu, explicitně nakonfigurovat na úrovni `OnConfiguring` nebo `AddDbContext`.
-Příklad:
+Jsme vrátit tuto změnu, protože nové konfigurace v EF Core 3.0 umožňuje úroveň protokolování pro události, které chcete být určená aplikací. Například chcete-li přepnout protokolování SQL `Debug`, explicitně nakonfigurovat na úrovni `OnConfiguring` nebo `AddDbContext`:
 ```C#
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseSqlServer(connectionString)
-        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Info)));
+        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Debug)));
 ```
 
 ## <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>Dočasné hodnoty klíče už nejsou nastavené na instancí entit
@@ -918,28 +902,6 @@ V těchto případech většinu toho, co bude dál fungovat, ale žádné služb
 
 Pokud narazíte na situace tímto způsobem, založte prosím problém na na [sledování problémů Githubu EF Core](https://github.com/aspnet/EntityFrameworkCore/issues) a dejte nám vědět, jak používáte `ILoggerFactory` tak, aby nám můžete lépe porozumět nechcete v budoucnu znovu rozdělit.
 
-## <a name="idbcontextoptionsextensionwithdebuginfo-merged-into-idbcontextoptionsextension"></a>Sloučí IDbContextOptionsExtension IDbContextOptionsExtensionWithDebugInfo
-
-[Sledování problému #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
-
-Tato změna je zavedená v EF Core 3.0 – ve verzi preview 3.
-
-**Staré chování**
-
-`IDbContextOptionsExtensionWithDebugInfo` Další volitelné rozhraní byla prodloužena z `IDbContextOptionsExtension` pro vyvarování rozbíjející změně rozhraní během cyklu vydání verze 2.x.
-
-**Nové chování**
-
-Rozhraní jsou nyní sloučeny do `IDbContextOptionsExtension`.
-
-**Proč**
-
-Tato změna byla provedena, protože rozhraní jsou koncepčně jednou.
-
-**Zmírnění rizik**
-
-Žádné implementace `IDbContextOptionsExtension` bude muset být aktualizované kvůli podpoře nového člena.
-
 ## <a name="lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded"></a>Opožděné načtení proxy už předpokládají, že jsou plně načteny navigační vlastnosti
 
 [Sledování problému #12780](https://github.com/aspnet/EntityFrameworkCore/issues/12780)
@@ -1352,6 +1314,30 @@ UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
 
+## <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>Informace o rozšíření nebo metadata byla odebrána z IDbContextOptionsExtension
+
+[Sledování problému #16119](https://github.com/aspnet/EntityFrameworkCore/issues/16119)
+
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 7.
+
+**Staré chování**
+
+`IDbContextOptionsExtension` obsahuje metody pro získání metadat o rozšíření.
+
+**Nové chování**
+
+Tyto metody byly přesunuty do nové `DbContextOptionsExtensionInfo` abstraktní základní třída, která je vrácena z nového `IDbContextOptionsExtension.Info` vlastnost.
+
+**Proč**
+
+Nad verzí z verze 2.0, 3.0, potřebujeme přidat nebo změnit tyto metody několikrát.
+Do nové abstraktní základní třída je zásadní navýšení kapacity vám usnadní vytvořit tento druh změny bez narušení existující rozšíření.
+
+**Zmírnění rizik**
+
+Aktualizujte rozšíření mají nový tvar.
+Příklady jsou součástí různými implementacemi tohoto `IDbContextOptionsExtension` pro různé typy rozšíření v EF Core zdrojový kód.
+
 ## <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator byl přejmenován.
 
 [Sledování problému #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
@@ -1399,3 +1385,29 @@ Tato změna přináší konzistenci pro názvy v této oblasti a také vysvětlu
 **Zmírnění rizik**
 
 Použití nového názvu.
+
+## <a name="irelationaldatabasecreatorhastableshastablesasync-have-been-made-public"></a>IRelationalDatabaseCreator.HasTables/HasTablesAsync byly provedeny veřejné
+
+[Sledování problému #15997](https://github.com/aspnet/EntityFrameworkCore/issues/15997)
+
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 7.
+
+**Staré chování**
+
+Před EF Core 3.0 byly chráněné tyto metody.
+
+```C#
+var constraintName = myForeignKey.Name;
+```
+
+**Nové chování**
+
+Od verze EF Core 3.0, tyto metody jsou veřejné.
+
+**Proč**
+
+Tyto metody jsou používány EF k určení, zda je databáze vytvořená, ale prázdný. To může také být užitečné z mimo EF při určování, jestli se mají použít migrace.
+
+**Zmírnění rizik**
+
+Změňte přístupnost nějaká přepsání.

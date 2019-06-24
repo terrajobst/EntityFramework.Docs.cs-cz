@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: fa0695be29668789a179f9a0d6330f3361dbac29
-ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
+ms.openlocfilehash: 0e35a2b3f89c92b717b8e05c8fa3ae5af5ce8fd3
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58131420"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333782"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
@@ -23,7 +23,7 @@ EF Core podporuje mnoho databázových strojů, naleznete v tématu [poskytovate
 
 Přístup k datům s EF Core se provádí pomocí modelu. Model se skládá z tříd entit a objekt kontextu, který reprezentuje relaci s databází, umožňuje dotazování a uložit data. Zobrazit [vytváření modelu](modeling/index.md) Další informace.
 
-Generování modelu z existující databázi, ručně kód modelu odpovídat databázi, nebo použít k vytvoření databáze z vašeho modelu migrace EF a potom vyvíjí jako váš model mění v průběhu času.
+Můžete generovat model z existující databáze, předat kód modelu pro vyhledání databáze, nebo použijte [migrace EF](managing-schemas/migrations/index.md) vytvoření databáze z modelu a pak ho můžete vyvíjet s modelu mění v průběhu času.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;

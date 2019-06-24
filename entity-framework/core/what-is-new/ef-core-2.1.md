@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: f67f2e695d269e2dde11d396f9a67fd137600f56
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 16600ccbb1194d584fae15671118d9c046f1f637
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489398"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333860"
 ---
 # <a name="new-features-in-ef-core-21"></a>Novinky v EF Core 2.1
 
@@ -34,7 +34,7 @@ Až doteď EF Core namapovat pouze vlastnosti typů nativně podporuje základn�
 
 Přečtěte si [věnované převody hodnot](xref:core/modeling/value-conversions) Další informace o tomto tématu.  
 
-## <a name="linq-groupby-translation"></a>Překlad LINQ GroupBy
+## <a name="linq-groupby-translation"></a>LINQ GroupBy translation
 Dříve než ve verzi 2.1 v EF Core – operátor GroupBy LINQ vždy vyhodnocována v paměti. Nyní podporujeme překladu klauzule GROUP BY jazyka SQL ve nejběžnější případy.
 
 Tento příklad ukazuje dotaz s GroupBy slouží k výpočtu různých agregační funkce:
@@ -49,7 +49,7 @@ var query = context.Orders
           Sum = g.Sum(o => o.Amount),
           Min = g.Min(o => o.Amount),
           Max = g.Max(o => o.Amount),
-          Avg = g.Average(o => Amount)
+          Avg = g.Average(o => o.Amount)
         });
 ```
 
@@ -119,7 +119,7 @@ var query = context.Customers.Select(
     c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount).ToList());
 ```
 
-Všimněte si, že tento dotaz se přeložit na pouze dva dotazy SQL: jeden pro zákazníky a další příkaz za objednávky.
+Všimněte si, že tento dotaz se přeložit na pouze dva dotazy SQL: Jeden pro zákazníky a další příkaz za objednávky.
 
 ## <a name="owned-attribute"></a>Atribut [vlastní]
 
