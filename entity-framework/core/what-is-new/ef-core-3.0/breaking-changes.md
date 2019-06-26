@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 1d2853cfc7f6eadfc76000f91a723f8b0b8c201f
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: 96586808862c4373168dcd34a5f00c9f2f7563c3
+ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333831"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394832"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -1411,3 +1411,55 @@ Tyto metody jsou používány EF k určení, zda je databáze vytvořená, ale p
 **Zmírnění rizik**
 
 Změňte přístupnost nějaká přepsání.
+
+## <a name="microsoftentityframeworkcoredesign-is-now-a-developmentdependency-package"></a>Microsoft.EntityFrameworkCore.Design je nyní DevelopmentDependency balíček
+
+[Sledování problému #11506](https://github.com/aspnet/EntityFrameworkCore/issues/11506)
+
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 4.
+
+**Staré chování**
+
+Před EF Core 3.0 byl Microsoft.EntityFrameworkCore.Design regulární balíčku NuGet, jejichž sestavení mohou být odkazovány podle projektů, které na ní závisí.
+
+**Nové chování**
+
+Od verze EF Core 3.0, jedná se o DevelopmentDependency balíček. To znamená, závislost nebude přechodně tok do jiné projekty a že již nejsou ve výchozím nastavení, můžete odkazovat na jeho sestavení.
+
+**Proč**
+
+Tento balíček je určena pouze pro použití v době návrhu. Nasazené aplikace by neměl odkazovat. Vytváření balíčku DevelopmentDependency posiluje toto doporučení.
+
+**Zmírnění rizik**
+
+Pokud potřebujete odkazovat na tento balíček do EF Core návrhu chování přepsat, můžete aktualizovat aktualizace PackageReference položky metadat ve vašem projektu. Pokud balíček je se odkazovalo přechodně prostřednictvím Microsoft.EntityFrameworkCore.Tools, je potřeba přidat explicitní PackageReference pro balíček, který má změnit jeho metadata.
+
+``` xml
+<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview4.19216.3">
+  <PrivateAssets>all</PrivateAssets>
+  <!-- Remove IncludeAssets to allow compiling against the assembly -->
+  <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+</PackageReference>
+```
+
+## <a name="sqlitepclraw-updated-to-version-200"></a>SQLitePCL.raw aktualizována na verzi 2.0.0
+
+[Sledování problému #14824](https://github.com/aspnet/EntityFrameworkCore/issues/14824)
+
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 7.
+
+**Staré chování**
+
+Microsoft.EntityFrameworkCore.Sqlite dříve závisí na verzi 1.1.12 SQLitePCL.raw.
+
+**Nové chování**
+
+Aktualizujeme naše balíček závisí na verze 2.0.0.
+
+**Proč**
+
+Verze 2.0.0 SQLitePCL.raw cílí na .NET Standard 2.0. Dříve cílený .NET Standard 1.1, který vyžaduje velké uzavření tranzitivní balíčky pro práci.
+
+**Zmírnění rizik**
+
+Zahrnuje SQLitePCL.raw verze 2.0.0 odstraňuje některé narušující změny. Zobrazit [poznámky k verzi](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) podrobnosti.

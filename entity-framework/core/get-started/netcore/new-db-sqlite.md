@@ -6,16 +6,16 @@ description: Začínáme s .NET Core pomocí Entity Framework Core
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: a0df80a8fe96be4f8cc3177919e2b087e14cb49c
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
+ms.openlocfilehash: e6996630e399659807d23304993c8e19c11ca6f5
+ms.sourcegitcommit: 83c1e2fc034e5eb1fec1ebabc8d629ffcc7c0632
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325324"
+ms.lasthandoff: 06/25/2019
+ms.locfileid: "67351330"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>Začínáme s EF Core na aplikace konzoly .NET Core s novou databázi
 
-V tomto kurzu vytvoříte konzolovou aplikaci .NET Core, který provádí přístup k datům s použitím Entity Framework Core databáze SQLite. Migrace použijete k vytvoření databáze z modelu. Zobrazit [ASP.NET Core – nová databáze](xref:core/get-started/aspnetcore/new-db) pro verzi sady Visual Studio pomocí ASP.NET Core MVC.
+V tomto kurzu vytvoříte konzolovou aplikaci .NET Core, který provádí přístup k datům s použitím Entity Framework Core databáze SQLite. Použijete [migrace](xref:core/managing-schemas/migrations/index) k vytvoření databáze z modelu. Zobrazit [ASP.NET Core – nová databáze](xref:core/get-started/aspnetcore/new-db) pro verzi sady Visual Studio pomocí ASP.NET Core MVC.
 
 [Zobrazit ukázky v tomto článku na Githubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite).
 

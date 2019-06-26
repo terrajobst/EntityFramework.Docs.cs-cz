@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: ce834d60b9ceb4c414f097f2d86254cc5edd958f
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
+ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419702"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394802"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core Database Provider Limitations
 
@@ -22,6 +22,25 @@ Společná knihovna relační (sdílené poskytovateli rozhraní Entity Framewor
 * Schémata
 * Sekvence
 * Vypočítané sloupce
+
+## <a name="query-limitations"></a>Omezení dotazu
+
+SQLite nenabízí nativní podporu následujících datových typů. EF Core může číst a zapisovat hodnoty těchto typů a dotazování na rovnost (`where e.Property == value`) je také podpora. Další operace, jako jsou však porovnání a řazení se vyžaduje vyhodnocení na straně klienta.
+
+* DateTimeOffset
+* Desetinné číslo
+* TimeSpan
+* UInt64
+
+Místo `DateTimeOffset`, doporučujeme použít hodnoty data a času. Při zpracování více časových pásem, doporučujeme převod hodnoty na standard UTC před uložením a pak převod zpátky na odpovídající časové pásmo.
+
+`Decimal` Typ poskytuje vysokou úroveň přesnosti. Pokud nepotřebujete tuto úroveň přesnosti, však doporučujeme místo toho použít double. Můžete použít [převaděč hodnoty](../../modeling/value-conversions.md) nadále používat desetinné ve třídách.
+
+``` csharp
+modelBuilder.Entity<MyEntity>()
+    .Property(e => e.DecimalProperty)
+    .HasConversion<double>();
+```
 
 ## <a name="migrations-limitations"></a>Omezení migrace
 
