@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 96586808862c4373168dcd34a5f00c9f2f7563c3
-ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
+ms.openlocfilehash: dcbea1a2aab5baea35f81500bb7bb5482695d778
+ms.sourcegitcommit: 812010a35afe902d8c4bb03a67d575f8e91b5ec0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394832"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67506259"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -1396,10 +1396,6 @@ Tato změna je zavedená v EF Core 3.0 – ve verzi preview 7.
 
 Před EF Core 3.0 byly chráněné tyto metody.
 
-```C#
-var constraintName = myForeignKey.Name;
-```
-
 **Nové chování**
 
 Od verze EF Core 3.0, tyto metody jsou veřejné.
@@ -1463,3 +1459,26 @@ Verze 2.0.0 SQLitePCL.raw cílí na .NET Standard 2.0. Dříve cílený .NET Sta
 **Zmírnění rizik**
 
 Zahrnuje SQLitePCL.raw verze 2.0.0 odstraňuje některé narušující změny. Zobrazit [poznámky k verzi](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) podrobnosti.
+
+
+## <a name="nettopologysuite-updated-to-version-200"></a>NetTopologySuite aktualizována na verzi 2.0.0
+
+[Sledování problému #14825](https://github.com/aspnet/EntityFrameworkCore/issues/14825)
+
+Tato změna je zavedená v EF Core 3.0 – ve verzi preview 7.
+
+**Staré chování**
+
+Prostorový balíčky dříve závisí na verzi 1.15.1 NetTopologySuite.
+
+**Nové chování**
+
+Aktualizujeme naše balíček závisí na verze 2.0.0.
+
+**Proč**
+
+Verze 2.0.0 NetTopologySuite, zaměřuje několik problémů použitelnosti, se kterými uživatelé EF Core.
+
+**Zmírnění rizik**
+
+NetTopologySuite verze 2.0.0 zahrnuje některé narušující změny. Zobrazit [poznámky k verzi](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) podrobnosti.
