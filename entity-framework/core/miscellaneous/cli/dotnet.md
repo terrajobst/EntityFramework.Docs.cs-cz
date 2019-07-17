@@ -2,14 +2,14 @@
 title: EF Core referenční dokumentace nástrojů .NET CLI () – EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 09/20/2018
+ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 959785c7b10ca668f3691106f62076d538978c03
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: 05c5f89fc79556e72a7e629c147aa817fe7d1a6b
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688664"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286470"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Reference – rozhraní příkazového řádku .NET nástroje Entity Framework Core
 
@@ -23,9 +23,28 @@ Pokud používáte Visual Studio, doporučujeme [Konzola správce balíčků ná
 
 Postup instalace závisí na typu projektu a verzi:
 
+* EF Core 3.x
 * ASP.NET Core 2.1 nebo novější verze
 * EF Core 2.x
 * EF Core 1.x
+
+### <a name="ef-core-3x"></a>EF Core 3.x
+
+* `dotnet ef` musí být nainstalován jako globální ani místní nástroj. Většina vývojářů nainstaluje `dotnet ef` jako globální nástroj pomocí následujícího příkazu:
+
+  ``` console
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+  ```
+
+  Můžete také použít `dotnet ef` jako místní nástroj. Se použít ji jako nástroj pro místní, obnovte závislosti projektu, který deklaruje jako závislost pomocí nástroje [soubor manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
+
+* Nainstalujte [.NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Sada SDK musí být nainstalovaný, i v případě, že máte nejnovější verzi sady Visual Studio.
+
+* Nainstalujte nejnovější `Microsoft.EntityFrameworkCore.Design` balíčku.
+
+  ``` Console
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  ```
 
 ### <a name="aspnet-core-21"></a>ASP.NET Core 2.1 +
 
@@ -37,7 +56,7 @@ Postup instalace závisí na typu projektu a verzi:
 
 `dotnet ef` Příkazy jsou součástí sady .NET Core SDK, ale chcete-li povolit příkazy budete muset nainstalovat `Microsoft.EntityFrameworkCore.Design` balíčku.
 
-* Nainstalujte aktuální [.NET Core SDK](https://www.microsoft.com/net/download/core). Sada SDK musí být nainstalovaný, i v případě, že máte nejnovější verzi sady Visual Studio 2017.
+* Nainstalujte aktuální [.NET Core SDK](https://www.microsoft.com/net/download/core). Sada SDK musí být nainstalovaný, i v případě, že máte nejnovější verzi sady Visual Studio.
 
 * Nainstalujte nejnovější stabilní verze `Microsoft.EntityFrameworkCore.Design` balíčku.
 
@@ -195,7 +214,7 @@ Argumenty:
 
 | Argument       | Popis                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2.x, může být hodnota *název =\<název připojovacího řetězce >*. Název v tomto případě pochází ze zdroje konfigurace, které jsou nastavené pro projekt. |
+| `<CONNECTION>` | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2.x, může být hodnota *název =\<název připojovacího řetězce >* . Název v tomto případě pochází ze zdroje konfigurace, které jsou nastavené pro projekt. |
 | `<PROVIDER>`   | Zprostředkovatel k použití. Obvykle jde o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Možnosti:

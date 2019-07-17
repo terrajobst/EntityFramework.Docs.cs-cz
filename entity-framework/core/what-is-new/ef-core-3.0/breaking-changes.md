@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: dcbea1a2aab5baea35f81500bb7bb5482695d778
-ms.sourcegitcommit: 812010a35afe902d8c4bb03a67d575f8e91b5ec0
+ms.openlocfilehash: 7cc0bd3946be2e63d9fb46a023bf6abe750ae0e3
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67506259"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286484"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Rozbíjející změny zahrnuté v EF Core 3.0 (aktuálně ve verzi preview)
 
@@ -96,11 +96,10 @@ Tato změna umožňuje distribuci a aktualizaci `dotnet ef` jako regulární ná
 
 **Zmírnění rizik**
 
-Abyste mohli spravovat migrace nebo vygenerované uživatelské rozhraní `DbContext`, nainstalovat `dotnet-ef` pomocí `dotnet tool install` příkazu.
-Například můžete ji nainstalovat jako globální nástroj, zadejte následující příkaz:
+Abyste mohli spravovat migrace nebo vygenerované uživatelské rozhraní `DbContext`, nainstalovat `dotnet-ef` jako globální nástroj:
 
   ``` console
-  $ dotnet tool install --global dotnet-ef --version <exact-version>
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
   ```
 
 Můžete také získat jeho místní nástroj při obnovování závislosti projektu, který deklaruje jako závislost pomocí nástroje [soubor manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
@@ -1313,6 +1312,28 @@ Tabulky historie migrace je také potřeba aktualizovat.
 UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
+
+## <a name="userownumberforpaging-has-been-removed"></a>UseRowNumberForPaging byla odebrána.
+
+[Sledování problému #16400](https://github.com/aspnet/EntityFrameworkCore/issues/16400)
+
+Tato změna je zavedená v EF Core 3.0-preview 6.
+
+**Staré chování**
+
+Před EF Core 3.0 `UseRowNumberForPaging` může sloužit ke generování SQL pro stránkování, který je kompatibilní s SQL Server 2008.
+
+**Nové chování**
+
+Od verze EF Core 3.0, EF vygeneruje jenom SQL pro stránkování, který je kompatibilní jenom s novější verzí SQL serveru. 
+
+**Proč**
+
+Vzhledem k tomu, aby tato změna [systému SQL Server 2008 už nejsou podporované produkty](https://blogs.msdn.microsoft.com/sqlreleaseservices/end-of-mainstream-support-for-sql-server-2008-and-sql-server-2008-r2/) a aktualizuje se tato funkce pro práci s dotazu změny provedené v EF Core 3.0 je velice pracné.
+
+**Zmírnění rizik**
+
+Doporučujeme aktualizaci na novější verzi systému SQL Server, nebo pomocí vyšší úroveň kompatibility, aby generovaného SQL je podporována. Který říká, pokud se nemůžete k tomu, pak prosím [komentářů k tomuto problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/16400) s podrobnostmi. Společnost Microsoft může své rozhodnutí na základě zpětné vazby.
 
 ## <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>Informace o rozšíření nebo metadata byla odebrána z IDbContextOptionsExtension
 

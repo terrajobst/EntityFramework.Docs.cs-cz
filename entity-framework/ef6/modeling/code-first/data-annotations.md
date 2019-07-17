@@ -3,12 +3,12 @@ title: Kód anotací dat při prvním - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: fcd01aef7303573001460b352f8099b2cc6e224a
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463279"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286482"
 ---
 # <a name="code-first-data-annotations"></a>Kód první datové poznámky
 > [!NOTE]
@@ -146,7 +146,7 @@ Přidání vyžaduje vlastnost názvu vynutí EF (a MVC) ujistěte se, že vlast
     public string Title { get; set; }
 ```
 
-Žádné další bez změny kódu nebo značek v aplikaci, aplikace MVC provede ověřování na straně klienta, dokonce i dynamické vytvoření zprávu pomocí názvy vlastností a poznámek.
+Žádný další kód nebo změny kódu v aplikaci aplikace MVC provede ověřování na straně klienta, dokonce i dynamické vytvoření zprávu pomocí názvy vlastností a poznámek.
 
 ![Vytvoření stránky s názvem je povinné chyba](~/ef6/media/jj591583-figure02.png)
 
@@ -206,7 +206,7 @@ První konvence kódu určí, že všech vlastností, které je podporované dat
 
  
 
-## <a name="complextype"></a>ComplexType
+## <a name="complextype"></a>Typ ComplexType
 
 Není k popisu entity domény mezi sadu tříd a potom vrstvy těchto tříd k popisu úplnou entitu. Můžete například přidat třídu s názvem BlogDetails do modelu.
 
@@ -246,7 +246,7 @@ V databázi v blogu tabulce bude obsahovat všechny vlastnosti včetně vlastnos
 ![Blog tabulku s komplexní typ](~/ef6/media/jj591583-figure06.png)
 
 
-## <a name="concurrencycheck"></a>ConcurrencyCheck
+## <a name="concurrencycheck"></a>Atribut ConcurrencyCheck
 
 Poznámka atribut ConcurrencyCheck umožňuje označit jednu nebo více vlastností, které má být použit pro souběžnost kontroly v databázi, když uživatel upraví nebo odstraní entitu. Pokud jste pracovali s EF designeru, ten je v souladu s nastavení vlastnosti režim ConcurrencyMode na pevný.
 
