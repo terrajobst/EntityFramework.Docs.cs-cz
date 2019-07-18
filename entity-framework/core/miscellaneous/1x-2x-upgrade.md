@@ -1,41 +1,41 @@
 ---
-title: Upgrade z předchozí verze na EF Core 2 - EF Core
+title: Upgrade z předchozích verzí na EF Core 2 – EF Core
 author: divega
 ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 5371c8f3b7c6102c621296bbae145d13779e0c6e
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 1222f10811914f65822a49e18522c287ece12174
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283768"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306490"
 ---
-# <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Upgrade aplikací z předchozí verze na EF Core 2.0
+# <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Upgrade aplikací z předchozích verzí na EF Core 2,0
 
-Přesměrovali jsme možnost výrazně vylepšit naše stávající rozhraní API a chování ve verzi 2.0. Existuje několik vylepšení, které může vyžadovat úprava existující kód aplikace, i když se budeme domnívat, že pro většinu aplikací dopad bude nízká, ve většině případů vyžaduje právě rekompilace a minimální změny s průvodcem k nahrazení zastaralé rozhraní API.
+Máme příležitost významně vylepšit naše existující rozhraní API a chování v 2,0. Existuje několik vylepšení, která mohou vyžadovat úpravu stávajícího kódu aplikace, i když se domníváme, že většina aplikací bude mít dopad na nízký výkon, ve většině případů, kdy je potřeba pouze opětovná kompilace a minimální změny Průvodce pro nahrazení zastaralých rozhraní API.
 
-Aktualizuje existující aplikaci na EF Core 2.0 může vyžadovat:
+Aktualizace existující aplikace na EF Core 2,0 může vyžadovat:
 
-1. Upgrade .NET cíl provádění aplikace, který podporuje .NET Standard 2.0. Zobrazit [implementace .NET nepodporuje](../platforms/index.md) další podrobnosti.
+1. Upgrade cílové implementace .NET aplikace na jednu, která podporuje .NET Standard 2,0. Další podrobnosti najdete v tématu [podporované implementace rozhraní .NET](../platforms/index.md) .
 
-2. Identifikujte zprostředkovatele pro cílovou databázi, která je kompatibilní s EF Core 2.0. Zobrazit [EF Core 2.0 vyžaduje poskytovatele 2.0 databáze](#ef-core-20-requires-a-20-database-provider) níže.
+2. Identifikujte poskytovatele cílové databáze, který je kompatibilní s EF Core 2,0. Viz [EF Core 2,0 vyžaduje níže uvedený zprostředkovatel databáze 2,0](#ef-core-20-requires-a-20-database-provider) .
 
-3. Upgrade všech balíčků EF Core (runtime a nástroje) 2.0. Odkazovat na [instalace EF Core](../get-started/install/index.md) další podrobnosti.
+3. Upgradují se všechny balíčky EF Core (běhové prostředí a nástroje) na 2,0. Další podrobnosti najdete v tématu [instalace EF Core](../get-started/install/index.md) .
 
-4. Proveďte změny nezbytného kódu jako kompenzaci za rozbíjející změny popsaných ve zbývající části tohoto dokumentu.
+4. Proveďte potřebné změny kódu, abyste mohli kompenzovat zásadní změny popsané ve zbývající části tohoto dokumentu.
 
-## <a name="aspnet-core-now-includes-ef-core"></a>ASP.NET Core teď zahrnuje EF Core
+## <a name="aspnet-core-now-includes-ef-core"></a>ASP.NET Core nyní zahrnuje EF Core
 
-Aplikace pro ASP.NET Core 2.0, můžete použít EF Core 2.0 bez další závislosti kromě poskytovatelé databází výrobců. Aplikace cílené na předchozích verzích technologie ASP.NET Core je však nutné upgradovat na ASP.NET Core 2.0, aby bylo možné používat EF Core 2.0. Další podrobnosti o upgradu aplikace ASP.NET Core 2.0 najdete v tématu [dokumentace k ASP.NET Core v předmětu](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/).
+Aplikace cílené na ASP.NET Core 2,0 mohou používat EF Core 2,0 bez dalších závislostí kromě poskytovatelů databáze třetích stran. Avšak aplikace cílené na předchozí verze ASP.NET Core nutné upgradovat na ASP.NET Core 2,0, aby bylo možné použít EF Core 2,0. Další podrobnosti o upgradu ASP.NET Corech aplikací na 2,0 najdete v [dokumentaci k ASP.NET Core na daném předmětu](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/).
 
-## <a name="new-way-of-getting-application-services-in-aspnet-core"></a>Nový způsob získávání aplikační služby v ASP.NET Core
+## <a name="new-way-of-getting-application-services-in-aspnet-core"></a>Nový způsob získání aplikačních služeb v ASP.NET Core
 
-Doporučený model pro webové aplikace ASP.NET Core se aktualizovala tak, aby se podařilo přerušit návrhu logiky, použita v 1.x EF Core 2.0. Dříve v době návrhu, EF Core se pokusit o vyvolání `Startup.ConfigureServices` přímo, aby bylo možné získat přístup k poskytovateli služby vaší aplikace. V technologii ASP.NET Core 2.0, je konfigurace inicializována mimo `Startup` třídy. Aplikace obvykle pomocí EF Core k jejich připojovací řetězec z konfigurace, takže `Startup` sám o sobě už nestačí. Pokud upgradujete aplikaci ASP.NET Core 1.x, může zobrazit následující chyba, při používání nástrojů EF Core.
+Doporučený vzor pro ASP.NET Core webové aplikace byl aktualizován pro 2,0 způsobem, který podařilo přerušit logiku návrhu EF Core použitou v 1. x. Dříve v době návrhu EF Core pokus o vyvolání `Startup.ConfigureServices` přímo za účelem přístupu k poskytovateli služeb aplikace. V ASP.NET Core 2,0 je konfigurace inicializována mimo `Startup` třídu. Aplikace používající EF Core obvykle ke svému připojovacímu řetězci přistupuje z konfigurace `Startup` , takže sám o sobě nestačí. Pokud upgradujete ASP.NET Core 1. x aplikace, může se při použití EF Core nástrojů zobrazit následující chyba.
 
-> Na 'ApplicationContext' nebyl nalezen žádný konstruktor bez parametrů. Přidejte konstruktor bez parametrů "ApplicationContext" nebo implementace "IDesignTimeDbContextFactory&lt;ApplicationContext&gt;" ve stejném sestavení jako "ApplicationContext.
+> V ' ApplicationContext ' nebyl nalezen žádný konstruktor bez parametrů. Buď přidejte konstruktor bez parametrů do ' ApplicationContext ' nebo přidejte implementaci ' IDesignTimeDbContextFactory&lt;ApplicationContext&gt;' do stejného sestavení jako ' ApplicationContext '
 
-Byl přidán nový hook návrhu v výchozí šablony ASP.NET Core 2.0. Statické `Program.BuildWebHost` metoda umožňuje EF Core při přístupu k poskytovateli služby vaší aplikace v době návrhu. Pokud provádíte upgrade aplikace ASP.NET Core 1.x, budete muset aktualizovat `Program` třídy tak, aby připomínala následující.
+Do výchozí šablony ASP.NET Core 2.0 byl přidán nový přidaný čas návrhu. Statická `Program.BuildWebHost` metoda umožňuje EF Core přistupovat k poskytovateli služeb aplikace v době návrhu. Pokud upgradujete ASP.NET Core 1. x aplikace, budete muset `Program` třídu aktualizovat tak, aby vypadala jako následující.
 
 ``` csharp
 using Microsoft.AspNetCore;
@@ -58,108 +58,108 @@ namespace AspNetCoreDotNetCore2._0App
 }
 ```
 
-Přijetí tohoto nového modelu při aktualizaci aplikace na 2.0 se důrazně doporučuje a je nutná pro funkce produktu, jako je migrace Entity Framework Core pracovat. Běžnou alternativou je [implementovat *IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory).
+Přijetí tohoto nového vzoru, když se aktualizuje aplikace na 2,0, se důrazně doporučuje a je potřeba, aby se funkce produktu, jako Entity Framework Core migrace, daly pracovat. Další běžnou alternativou je [implementace *IDesignTimeDbContextFactory\<TContext >* ](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory).
 
-## <a name="idbcontextfactory-renamed"></a>IDbContextFactory přejmenovat
+## <a name="idbcontextfactory-renamed"></a>Přejmenované IDbContextFactory
 
-Aby bylo možné podporovat zpracování různých aplikací a dává uživatelům větší kontrolu nad jak jejich `DbContext` se používá v době návrhu, uvádíme, v minulosti `IDbContextFactory<TContext>` rozhraní. V době návrhu, EF Core tools zjistí implementace tohoto rozhraní ve vašem projektu a použijte ji k vytvoření `DbContext` objekty.
+Aby bylo možné podporovat různé vzorce aplikací a poskytnout uživatelům větší kontrolu nad tím `DbContext` `IDbContextFactory<TContext>` , jak se používají v době návrhu, máme v minulosti za rozhraní. V době návrhu budou EF Core nástroje ve vašem projektu zjišťovat implementace tohoto rozhraní a použít ho k vytvoření `DbContext` objektů.
 
-Toto rozhraní má velmi obecný název, který v omyl zkusit znovu použít pro ostatní někteří uživatelé `DbContext`– vytvoření scénářů. Byla zachycena vypnout guard při nástroje EF poté se pokusil použít jejich implementace v době návrhu a způsobila příkazů, jako jsou `Update-Database` nebo `dotnet ef database update` selhání.
+Toto rozhraní má velmi obecný název, který je v omylu pro uživatele, kteří si ho můžou `DbContext`zkusit znovu použít pro jiné scénáře vytváření. Odcházejí z ochrany, když se nástroje EF potom pokusily použít jejich implementaci v době návrhu a způsobily selhání příkazů `Update-Database` , `dotnet ef database update` jako je nebo chyba.
 
-Chcete-li komunikovat silné sémantiku návrhu tohoto rozhraní, jsme přejmenovali na `IDesignTimeDbContextFactory<TContext>`.
+Abychom mohli sdělit silný sémantiku tohoto rozhraní v době návrhu, přejmenovali jsme ho na `IDesignTimeDbContextFactory<TContext>`.
 
-Rozhraní příkazového řádku 2.0 vydání `IDbContextFactory<TContext>` stále existuje, ale je označen jako zastaralý.
+Pro vydání 2,0 verze `IDbContextFactory<TContext>` stále existuje, ale je označena jako zastaralá.
 
-## <a name="dbcontextfactoryoptions-removed"></a>Odebrat DbContextFactoryOptions
+## <a name="dbcontextfactoryoptions-removed"></a>DbContextFactoryOptions odebrané
 
-Z důvodu změn v ASP.NET Core 2.0 je popsáno výše, jsme zjistili, že `DbContextFactoryOptions` byl už je nepotřebujete na novém `IDesignTimeDbContextFactory<TContext>` rozhraní. Tady jsou alternativy, které byste měli použít místo toho.
+Vzhledem k tomu, že se výše popsané změny ASP.NET Core 2,0, `DbContextFactoryOptions` zjistili jsme, že už na novém `IDesignTimeDbContextFactory<TContext>` rozhraní nepotřebujeme. Tady jsou alternativy, které byste měli použít místo toho.
 
-| DbContextFactoryOptions | Alternativní                                                  |
+| DbContextFactoryOptions | Jiné                                                  |
 |:------------------------|:-------------------------------------------------------------|
-| ApplicationBasePath     | AppContext.BaseDirectory                                     |
+| ApplicationBasePath     | AppContext. BaseDirectory                                     |
 | ContentRootPath         | Directory.GetCurrentDirectory()                              |
-| EnvironmentName         | Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") |
+| EnvironmentName         | Environment. GetEnvironmentVariable ("ASPNETCORE_ENVIRONMENT") |
 
-## <a name="design-time-working-directory-changed"></a>Změnit návrhu pracovního adresáře
+## <a name="design-time-working-directory-changed"></a>Pracovní adresář v době návrhu se změnil.
 
-ASP.NET Core 2.0 změny také potřebné pracovní adresář, který používá `dotnet ef` souladu s pracovní adresář, který používá sada Visual Studio při spuštění aplikace. Jeden pozorovatelný vedlejší účinek tohoto objektu je tento SQLite názvy souborů jsou nyní relativní k adresáři projektu a ne k adresáři výstupu jako dříve.
+Změny ASP.NET Core 2,0 také vyžadují pracovní adresář používaný nástrojem `dotnet ef` k zarovnávání s pracovním adresářem používaným sadou Visual Studio při spuštění aplikace. Jedním z podobných vedlejších účinků je, že názvy souborů SQLite jsou nyní relativní vzhledem k adresáři projektu, a nikoli výstupní adresář, jako by se použily.
 
-## <a name="ef-core-20-requires-a-20-database-provider"></a>EF Core 2.0 vyžaduje poskytovatele 2.0 databáze
+## <a name="ef-core-20-requires-a-20-database-provider"></a>EF Core 2,0 vyžaduje poskytovatele databáze 2,0.
 
-EF Core 2.0 provedli jsme řadu zjednodušení a vylepšení v poskytovatelé databází způsob, jak pracovat. To znamená, že zprostředkovatele 1.0.x a 1.1.x nebude fungovat s EF Core 2.0.
+Pro EF Core 2,0 jsme provedli mnoho zjednodušení a vylepšení, jak fungují poskytovatelé databáze. To znamená, že zprostředkovatelé 1.0. x a 1.1. x nebudou fungovat s EF Core 2,0.
 
-Zprostředkovatele SQL Server a SQLite se dodávají týmem EF, verze 2.0 bude k dispozici jako součást rozhraní příkazového řádku 2.0 release. Zprostředkovatelé open source třetích stran pro [SQL Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact), [PostgreSQL](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL), a [MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) aktualizované 2.0. U jiných poskytovatelů obraťte se prosím na poskytovatele zapisovače.
+Poskytovatelé SQL Server a SQLite jsou dodány týmem EF a verze 2,0 budou k dispozici jako součást verze 2,0. Open Source poskytovatelé třetích stran pro [SQL Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact), [PostgreSQL](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)a [MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) se aktualizují na 2,0. U všech ostatních zprostředkovatelů se prosím obraťte na zapisovač poskytovatele.
 
-## <a name="logging-and-diagnostics-events-have-changed"></a>Změnil se události protokolování a Diagnostika
+## <a name="logging-and-diagnostics-events-have-changed"></a>Události protokolování a diagnostiky se změnily.
 
-Poznámka: tyto změny by neměla mít vliv většinu kódu aplikace.
+Poznámka: tyto změny by neměly mít vliv na většinu kódu aplikace.
 
-ID událostí pro zprávy odeslané do [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs) jste změnili ve verzi 2.0. ID událostí jsou nyní jedinečné v EF Core kódu. Tyto zprávy nyní také použít standardní vzor strukturované protokolování používá, například MVC.
+ID událostí pro zprávy odeslané do [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs) se změnila v 2,0. Identifikátory událostí jsou teď v rámci EF Core kódu jedinečné. Tyto zprávy se teď také řídí standardním vzorem pro strukturované protokolování, které používá, například MVC.
 
-Kategorie protokolovací nástroj se také změnily. Má nyní prostřednictvím dobře známé sady kategorií [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
+Změnily se také kategorie protokolovacího nástroje. K dispozici je teď známá sada kategorií, ke které se dostanete prostřednictvím [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
 
-[DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) události teď používají stejné ID názvy událostí jako odpovídající `ILogger` zprávy. Datové části události jsou všechny nominální typy odvozené od [EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs).
+Události [DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) nyní používají stejné názvy ID události jako odpovídající `ILogger` zprávy. Datové části událostí jsou všechny nominální typy odvozené z [EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs).
 
-ID událostí, datové typy a kategorie jsou dokumentovány v článku [CoreEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/CoreEventId.cs) a [RelationalEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore.Relational/Diagnostics/RelationalEventId.cs) třídy.
+ID událostí, typy datových částí a kategorie jsou zdokumentovány v [CoreEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/CoreEventId.cs) a třídách [RelationalEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore.Relational/Diagnostics/RelationalEventId.cs) .
 
-ID také přesunuli do nového oboru názvů Microsoft.EntityFrameworkCore.Diagnostics z Microsoft.EntityFrameworkCore.Infraestructure.
+ID se také přesunula z Microsoft. EntityFrameworkCore. Infrastructure na nový obor názvů Microsoft. EntityFrameworkCore. Diagnostics.
 
-## <a name="ef-core-relational-metadata-api-changes"></a>Změny relační metadat rozhraní API EF Core
+## <a name="ef-core-relational-metadata-api-changes"></a>EF Core změny v rozhraní API relačních metadat
 
-EF Core 2.0 nyní vytvořit jiný [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) pro každý jiný poskytovatel používá. Toto je obvykle zřejmé do aplikace. To má zajišťované zjednodušení nižší úrovně metadat rozhraní API tak, aby žádný přístup k _běžné koncepty relační metadat_ se vždycky provádí pomocí volání `.Relational` místo `.SqlServer`, `.Sqlite`atd. Například 1.1.x kód následujícím způsobem:
+EF Core 2,0 teď pro každého jiného zprostředkovatele vytvoří jiný [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) . To je obvykle transparentní pro aplikaci. Usnadnili jsme tak zjednodušení rozhraní API na nižší úrovni tak, aby jakýkoliv přístup k _běžným koncepcím relačních metadat_ byl vždy proveden prostřednictvím volání `.Relational` namísto `.SqlServer`, `.Sqlite`atd. Například kód 1.1. x podobný tomuto:
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;
 ```
 
-Musí teď zapisují takto:
+By teď mělo být zapsáno takto:
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).Relational().TableName;
 ```
 
-Namísto použití metody, jako je `ForSqlServerToTable`, rozšiřující metody jsou nyní k dispozici pro zápis podmíněný kód podle aktuálního zprostředkovatele používá. Příklad:
+Namísto použití metod jako `ForSqlServerToTable`jsou nyní k dispozici metody rozšíření pro zápis podmíněného kódu na základě aktuálně používaného poskytovatele. Příklad:
 
 ```C#
 modelBuilder.Entity<User>().ToTable(
     Database.IsSqlServer() ? "SqlServerName" : "OtherName");
 ```
 
-Všimněte si, že tato změna platí pouze pro rozhraní API nebo metadata, která je definována pro _všechny_ relační poskytovatelů. Rozhraní API a metadata zůstává při je specifická pro pouze jednoho poskytovatele. Clusterované indexy jsou například specifické pro SQL Server, takže `ForSqlServerIsClustered` a `.SqlServer().IsClustered()` musí být použita.
+Tato změna se vztahuje pouze na rozhraní API/metadata, která jsou definována pro _všechny_ relační zprostředkovatele. Rozhraní API a metadata zůstávají stejné, pokud jsou specifické jenom pro jednoho poskytovatele. Například clusterované indexy jsou specifické pro SQL Server, takže `ForSqlServerIsClustered` a `.SqlServer().IsClustered()` musí se dál používat.
 
-## <a name="dont-take-control-of-the-ef-service-provider"></a>Není převzít kontrolu nad EF poskytovatele služeb
+## <a name="dont-take-control-of-the-ef-service-provider"></a>Nepřevzít kontrolu nad poskytovatelem služby EF
 
-EF Core využívá interní `IServiceProvider` (kontejner vkládání závislostí) pro vnitřní implementace. Aplikace by měla umožňovat EF Core k vytváření a správě tohoto zprostředkovatele s výjimkou ve zvláštních případech. Důkladně zvážit možnost odebrání všechna volání do `UseInternalServiceProvider`. Pokud aplikace potřebuje k volání `UseInternalServiceProvider`, pak zvažte [založením problému](https://github.com/aspnet/EntityFramework/Issues) tak nám prozkoumat další možnosti, jak zpracovat váš scénář.
+EF Core pro svou interní `IServiceProvider` implementaci používá interní (kontejner vkládání s závislostmi). Aplikace by měly EF Core vytvářet a spravovat tohoto poskytovatele s výjimkou zvláštních případů. Důrazně zvažte odebrání všech volání `UseInternalServiceProvider`. Pokud aplikace vyžaduje volání `UseInternalServiceProvider`, zvažte, jestli je potřeba nahlásit [problém](https://github.com/aspnet/EntityFramework/Issues) , abychom mohli prozkoumat další způsoby, jak váš scénář zpracovat.
 
-Volání `AddEntityFramework`, `AddEntityFrameworkSqlServer`, atd. není vyžadován kód aplikace, není-li `UseInternalServiceProvider` se označuje taky jako. Odeberte všechny existující volání `AddEntityFramework` nebo `AddEntityFrameworkSqlServer`atd `AddDbContext` měli stále použít stejným způsobem jako předtím.
+Volání `AddEntityFramework`, `AddEntityFrameworkSqlServer`, atd. není vyžadováno kódem aplikace, pokud `UseInternalServiceProvider` není volána také metoda. Odeberte všechna existující volání `AddEntityFramework` nebo `AddEntityFrameworkSqlServer`atd. `AddDbContext` by měla být použita stejným způsobem jako předtím.
 
-## <a name="in-memory-databases-must-be-named"></a>Musí mít název databáze v paměti
+## <a name="in-memory-databases-must-be-named"></a>Databáze v paměti musí mít název.
 
-Globální nepojmenované databáze v paměti jsme odebrali a místo toho musí mít název všechny databáze v paměti. Příklad:
+Globální Nepojmenovaná databáze v paměti byla odebrána a místo toho musí být všechny databáze v paměti pojmenovány. Příklad:
 
 ``` csharp
 optionsBuilder.UseInMemoryDatabase("MyDatabase");
 ```
 
-To vytváří a používá databázi s názvem "Databáze". Pokud `UseInMemoryDatabase` volána znovu se stejným názvem, pak stejnou databázi v paměti se použije, což umožňuje sdílet více instancí kontextu.
+Tím se vytvoří nebo použije databáze s názvem "MyDatabase". Pokud `UseInMemoryDatabase` je volána znovu se stejným názvem, bude použita stejná databáze v paměti, což umožňuje sdílení více instancí kontextu.
 
-## <a name="read-only-api-changes"></a>Jen pro čtení změn rozhraní API
+## <a name="read-only-api-changes"></a>Změny rozhraní API jen pro čtení
 
-`IsReadOnlyBeforeSave`, `IsReadOnlyAfterSave`, a `IsStoreGeneratedAlways` bylo vyřazeno a nahradí [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) a [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Tyto chování platí pro všechny vlastnosti (nejen generovaných úložištěm vlastnosti) a určit, jak hodnota vlastnosti má být použita při vkládání do řádku databáze (`BeforeSaveBehavior`) nebo když existující databáze se aktualizuje řádek (`AfterSaveBehavior`).
+`IsReadOnlyBeforeSave`, `IsReadOnlyAfterSave`a `IsStoreGeneratedAlways` byly zastaralé a nahrazeny [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) a [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Toto chování platí pro libovolnou vlastnost (nikoli pouze vlastnosti generované úložištěm) a určuje, jak má být hodnota vlastnosti použita při vložení do řádku databáze (`BeforeSaveBehavior`) nebo při aktualizaci stávajícího řádku databáze (`AfterSaveBehavior`).
 
-Vlastnosti jsou označeny jako [ValueGenerated.OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (třeba u počítaných sloupcích) bude ve výchozím nastavení ignorovat libovolná hodnota aktuálně nastavená na vlastnost. To znamená, že hodnota generovaná úložištěm se budou získávat vždy bez ohledu na to, jestli nastavit nebo změnit u sledovaných entity libovolnou hodnotu. To se dá změnit tak, že nastavíte jinou `Before\AfterSaveBehavior`.
+Vlastnosti označené jako [ValueGenerated. OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (například pro počítané sloupce) budou ve výchozím nastavení ignorovat všechny hodnoty aktuálně nastavené u vlastnosti. To znamená, že hodnota generovaná úložištěm bude vždycky získaná bez ohledu na to, jestli se pro sledovanou entitu nastavila nebo změnila nějaká hodnota. To lze změnit nastavením jiného `Before\AfterSaveBehavior`.
 
 ## <a name="new-clientsetnull-delete-behavior"></a>Nové chování při odstraňování ClientSetNull
 
-V předchozích verzích [DeleteBehavior.Restrict](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs) měl chování entit sledován pomocí funkce kontextu, že více uzavřený odpovídající `SetNull` sémantiku. V EF Core 2.0 nový `ClientSetNull` chování je zavedený jako výchozí pro volitelné vztahy. Toto chování je `SetNull` sémantiku sledované entit a `Restrict` chování pro databáze vytvořené využitím EF Core. Podle našich zkušeností jedná se očekával/nejužitečnější chování sledované entit a databáze. `DeleteBehavior.Restrict` Zachovaný nyní sledované entit, pokud jsou nastavené pro volitelné vztahy.
+V předchozích verzích měla [DeleteBehavior. restrict](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs) chování pro entity sledované kontextem, který je více uzavřenou `SetNull` shodnou sémantikou. V EF Core 2,0 byl pro volitelné `ClientSetNull` relace zaveden nové chování jako výchozí. Toto chování má `SetNull` sémantiku pro sledované entity a `Restrict` chování pro databáze vytvořené pomocí EF Core. V našem prostředí se jedná o nejpravděpodobnější/užitečné chování sledovaných entit a databáze. `DeleteBehavior.Restrict`se teď u sledovaných entit dodrží při nastavení pro volitelné vztahy.
 
-## <a name="provider-design-time-packages-removed"></a>Balíčky návrhu zprostředkovatele odebrat
+## <a name="provider-design-time-packages-removed"></a>Odebrané balíčky pro dobu návrhu zprostředkovatele
 
-`Microsoft.EntityFrameworkCore.Relational.Design` Odebral balíček. Jeho obsah konsolidovalo do `Microsoft.EntityFrameworkCore.Relational` a `Microsoft.EntityFrameworkCore.Design`.
+`Microsoft.EntityFrameworkCore.Relational.Design` Balíček se odebral. Obsah byl konsolidován do `Microsoft.EntityFrameworkCore.Relational` a. `Microsoft.EntityFrameworkCore.Design`
 
-To se rozšíří do balíčků návrhu zprostředkovatele. Tyto balíčky (`Microsoft.EntityFrameworkCore.Sqlite.Design`, `Microsoft.EntityFrameworkCore.SqlServer.Design`atd) byly odebrány a jejich obsah konsolidované do hlavní poskytovatel balíčky.
+To se šíří do balíčků pro dobu návrhu zprostředkovatele. Balíčky (`Microsoft.EntityFrameworkCore.Sqlite.Design`, `Microsoft.EntityFrameworkCore.SqlServer.Design`atd.) se odebraly a jejich obsah se konsoliduje do hlavních balíčků poskytovatele.
 
-Chcete-li povolit `Scaffold-DbContext` nebo `dotnet ef dbcontext scaffold` v EF Core 2.0, je potřeba jenom odkazujte na balíček jednoho zprostředkovatele:
+Chcete- `Scaffold-DbContext` li `dotnet ef dbcontext scaffold` povolit nebo v EF Core 2,0, stačí pouze odkazovat na balíček s jedním zprostředkovatelem:
 
 ``` xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"

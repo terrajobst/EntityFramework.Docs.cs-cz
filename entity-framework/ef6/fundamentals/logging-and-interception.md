@@ -1,30 +1,30 @@
 ---
-title: Protokolování a zachycení databázových operací - EF6
+title: Protokolování a zachycení databázových operací – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: 3f06e073f3ab6e46883663620219e302d5db1d60
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: be32ed114269543ac36b256a202e0494d466e4f7
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490076"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306536"
 ---
-# <a name="logging-and-intercepting-database-operations"></a>Protokolování a zachycení databázové operace
+# <a name="logging-and-intercepting-database-operations"></a>Protokolování a zachycení databázových operací
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Od verze Entity Framework 6, kdykoliv Entity Framework odešle příkaz do databáze tohoto příkazu může být zachycen kódu aplikace. To se většinou používá při protokolování SQL, ale můžete také použít ke změně nebo zrušení příkazu.  
+Počínaje Entity Framework 6, kdykoli Entity Framework odešle příkaz do databáze tento příkaz může zachytit kód aplikace. Nejčastěji se používá pro protokolování SQL, ale dá se použít i k úpravě nebo přerušení příkazu.  
 
 Konkrétně EF zahrnuje:  
 
-- Vlastnosti protokolu pro daný kontext podobný DataContext.Log v technologii LINQ to SQL  
-- Mechanismus pro přizpůsobení obsahu a formátování výstupu odesílány do protokolu  
-- Nízké úrovně stavební bloky pro zachycení poskytuje větší ovládací prvek/flexibilitu  
+- Vlastnost protokolu pro kontext podobný kontextu DataContext. Přihlaste se LINQ to SQL  
+- Mechanismus přizpůsobení obsahu a formátování výstupu odeslaného do protokolu  
+- Stavební bloky nízké úrovně pro zachycení poskytující větší možnosti kontroly a flexibility  
 
-## <a name="context-log-property"></a>Vlastnost Context protokolu  
+## <a name="context-log-property"></a>Vlastnost log kontextu  
 
-Vlastnost DbContext.Database.Log můžete nastavit na delegáta pro libovolnou metodu, která přebírá řetězec. Nejčastěji se používá s jakékoli TextWriter nastavením na metody "Zápisu" Tento TextWriter. Všechny SQL generovaných aktuálním kontextu se budou protokolovat do tohoto zapisovače. Například následující kód se budou protokolovat SQL do konzoly:  
+Vlastnost DbContext. Database. log lze nastavit na delegáta pro jakoukoliv metodu, která přebírá řetězec. Nejčastěji se používá s jakýmkoli modulem TextWriter nastavením na metodu zápisu tohoto modulu TextWriter. Všechny SQL generované aktuálním kontextem budou protokolovány do tohoto zapisovače. Například následující kód bude protokolovat SQL do konzoly:  
 
 ``` csharp
 using (var context = new BlogContext())
@@ -35,9 +35,9 @@ using (var context = new BlogContext())
 }
 ```  
 
-Všimněte si, že tento kontext. Database.Log nastavená na Console.Write. To je vše, co je potřeba pro SQL přihlášení ke konzole.  
+Všimněte si, že kontext. Database. log je nastavená na Console. Write. To je všechno, co je potřeba k protokolování SQL do konzoly.  
 
-Přidejme jednoduchého kódu query/insert nebo update, jsme viděli některé výstup:  
+Pojďme přidat nějaký jednoduchý kód pro dotaz, vložení/aktualizaci, aby se mohl zobrazit nějaký výstup:  
 
 ``` csharp
 using (var context = new BlogContext())
@@ -94,39 +94,39 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 -- Completed in 2 ms with result: SqlDataReader
 ```  
 
-(Všimněte si, že se jedná o výstup, za předpokladu, že již došlo k inicializaci žádné databáze. Pokud inicializaci databáze nebyly již došlo k pak bude mnohem více výstup zobrazuje všechnu práci migrace provede na pozadí vyhledat nebo vytvořit novou databázi.)  
+(Všimněte si, že se jedná o výstup za předpokladu, že nějaká inicializace databáze již proběhla. Pokud inicializace databáze ještě neproběhla, měla by se zobrazit spousta dalších výstupů, na kterých se v rámci pokrývá všechny pracovní migrace za účelem kontroly nebo vytvoření nové databáze.)  
 
-## <a name="what-gets-logged"></a>Co získá přihlášení?  
+## <a name="what-gets-logged"></a>Co se protokoluje?  
 
-Když je vlastnost protokolu nastavena všechny tyto se protokolovat:  
+Při nastavení vlastnosti log se zaprotokoluje následující:  
 
-- SQL pro všechny různé druhy příkazy. Příklad:  
-    - Dotazy, včetně běžných dotazů LINQ, eSQL dotazy a nezpracované dotazy z metod, jako je například SqlQuery  
-    - Vložení, aktualizace a odstranění generována jako součást SaveChanges  
-    - Relace načítání dotazů, jako jsou protokoly generované systémem opožděné načtení  
+- SQL pro všechny různé druhy příkazů. Příklad:  
+    - Dotazy, včetně normálních dotazů LINQ, dotazy eSQL a nezpracované dotazy z metod, jako je SqlQuery  
+    - Vložení, aktualizace a odstranění vygenerované jako součást metody SaveChanges  
+    - Vztah načítání dotazů, například generovaných opožděným načtením  
 - Parametry  
-- Určuje, jestli tento příkaz se provádí asynchronně  
-- Časové razítko určující, kdy příkaz zahájilo se spuštění  
-- Jestli se nedokončil úspěšně, příkaz se nezdařil, vyvoláním výjimky nebo pro asynchronní, byla zrušena.  
-- Některá označení výsledná hodnota  
-- Přibližná množství času, které trvalo provedení příkazu. Všimněte si, že se jedná o času v odesílání příkazu k získání objektu výsledek zpět. Doba čtení výsledků neobsahuje.  
+- Bez ohledu na to, zda je příkaz prováděn asynchronně  
+- Časové razítko, které signalizuje spuštění příkazu  
+- Bez ohledu na to, jestli se příkaz úspěšně dokončil, selhala výjimka, nebo pro Async se zrušila operace.  
+- Některé náznaky hodnoty výsledku  
+- Přibližná doba, jakou trvalo spuštění příkazu. Všimněte si, že se jedná o čas odeslání příkazu k získání objektu výsledku zpět. Nezahrnuje čas pro čtení výsledků.  
 
-Hledání na výše uvedeném příkladu výstupu, každý ze čtyř příkazů protokoluje jsou:  
+Ve výše uvedeném příkladu se každý ze čtyř protokolovaných příkazů podívá:  
 
-- Dotaz vyplývající z volání kontextu. Blogs.First  
-    - Všimněte si, že Metoda ToString získání SQL nebude mít pracoval pro tento dotaz od "First" neposkytuje položku IQueryable, na kterém se mohl nazývat ToString  
-- Dotaz vyplývající z blogu opožděné načtení. Příspěvky  
-    - Všimněte si, že se děje podrobnosti parametr pro hodnotu klíče, pro které opožděné načtení  
-    - Pouze vlastnosti parametru, které jsou nastaveny na jiné než výchozí hodnoty jsou protokolovány. Například vlastnost velikosti se zobrazí pouze pokud je nulová.  
-- Dva příkazy vyplývající z SaveChangesAsync; jeden pro aktualizace, chcete-li změnit název post, druhá pro vložení pro přidání nového příspěvku  
-    - Všimněte si, že parametr podrobné vlastnosti cizího klíče a funkce  
-    - Všimněte si, že tyto příkazy se spouštějí asynchronně  
+- Dotaz, který je výsledkem volání kontextu. Blogy. First  
+    - Všimněte si, že metoda ToString pro získání SQL by pro tento dotaz nefungovala, protože "First" neposkytuje rozhraní IQueryable, na které by mohlo být voláno rozhraní ToString.  
+- Dotaz vyplývají z opožděného načítání blogu. Fórech  
+    - Všimněte si podrobností parametru pro hodnotu klíče, pro kterou probíhá opožděné načítání.  
+    - Protokolují se pouze vlastnosti parametru, které jsou nastaveny na jiné než výchozí hodnoty. Například vlastnost Size se zobrazí pouze v případě, že je nenulová.  
+- Dva příkazy, které jsou výsledkem SaveChangesAsync; jedna pro aktualizaci pro změnu názvu příspěvku, druhá pro vložení pro přidání nového příspěvku  
+    - Všimněte si podrobností parametru pro vlastnosti FK a title.  
+    - Všimněte si, že se tyto příkazy provádějí asynchronně.  
 
-## <a name="logging-to-different-places"></a>Protokolování na různých místech  
+## <a name="logging-to-different-places"></a>Protokolování na různá místa  
 
-Jak je znázorněno výše protokolování do konzoly máte velmi snadný. Se dá taky snadno protokolovat do paměti, souborů, atd. pomocí různých typů z [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx).  
+Jak vidíte výše, protokolování do konzoly je velice snadné. Je také snadné protokolovat do paměti, souboru atd. pomocí různých druhů [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx).  
 
-Pokud jste se seznámili s jazykem LINQ to SQL pravděpodobně zjistíte, že v technologii LINQ to SQL protokolu vlastnost nastavena na skutečné TextWriter objekt (například Console.Out) při v EF protokolu vlastnost nastavena na metodu, která přijímá řetězec (například Console.Write nebo Console.Out.Write). Důvodem je oddělit EF z TextWriter přijetím jakýkoli delegát, který může fungovat jako jímka pro řetězce. Představte si například, že už máte některé protokolovacího rozhraní a definuje metodu protokolování takto:  
+Pokud jste obeznámeni s LINQ to SQL, můžete si všimnout, že v části LINQ to SQL je vlastnost protokolu nastavena na skutečný objekt TextWriter (například Console. out), zatímco v EF je vlastnost log nastavena na metodu, která přijímá řetězec (například , Console. Write nebo Console. out. Write). Důvodem je oddělit EF od TextWriter tím, že přijmete libovolného delegáta, který může fungovat jako jímka pro řetězce. Představte si například, že už máte nějaké protokolovací rozhraní a definujete metodu protokolování, například:  
 
 ``` csharp
 public class MyLogger
@@ -138,28 +138,28 @@ public class MyLogger
 }
 ```  
 
-To může být připojili k vlastnosti EF protokolu následujícím způsobem:  
+To může být zapojování do vlastnosti protokolu EF takto:  
 
 ``` csharp
 var logger = new MyLogger();
 context.Database.Log = s => logger.Log("EFApp", s);
 ```  
 
-## <a name="result-logging"></a>Výsledek protokolování  
+## <a name="result-logging"></a>Protokolování výsledků  
 
-Protokolovací nástroj výchozí text příkazu (SQL), parametry a protokoly "Zpracování" řádku s časovým razítkem před odesláním příkazu do databáze. "Dokončených" řádek obsahující uplynulý čas je zaznamenané následující provedení příkazu.  
+Výchozí protokolovací nástroj protokoluje text příkazu (SQL), parametry a "spouští" řádek s časovým razítkem před odesláním příkazu do databáze. Po provedení příkazu se zaprotokoluje dokončený řádek obsahující uplynulý čas.  
 
-Všimněte si, že pro asynchronní příkazy "dokončených" řádku není přihlášen, dokud se asynchronní úlohy ve skutečnosti se dokončí, selže nebo je zrušena.  
+Všimněte si, že pro asynchronní příkazy se "dokončený" řádek nezaznamenává do chvíle, kdy je asynchronní úkol dokončen, dojde k chybě nebo byl zrušen.  
 
-"Dokončených" řádek obsahuje různé informace v závislosti na typu příkazu a určuje, jestli spuštění proběhlo úspěšně.  
+Řádek dokončeno obsahuje různé informace v závislosti na typu příkazu a na tom, zda bylo spuštění úspěšné.  
 
-### <a name="successful-execution"></a>Úspěšná spuštění  
+### <a name="successful-execution"></a>Úspěšné provedení  
 
-Příkazy, které úspěšně dokončit výstup je "dokončeno v x ms s výsledkem:" následované některé indikace toho, co bylo výsledek. Pro příkazy, které vracejí výsledek čtecí modul dat je označení typu [DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx) vrátila. Pro příkazy, které vrátí celočíselnou hodnotu, jako je například aktualizace je uvedenému výše ukazuje výsledek tohoto celé číslo.  
+Pro příkazy, které se úspěšně dokončily, se výstup dokončí v x MS s výsledkem: následovaný nějakým náznakem toho, co byl výsledek. Pro příkazy, které vracejí data Reader, je výsledkem výsledná indikace typ vráceného typu [DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx) . Pro příkazy, které vrátí celočíselnou hodnotu, jako je například příkaz Update zobrazený výše zobrazeným výsledkem, je toto celé číslo.  
 
 ### <a name="failed-execution"></a>Neúspěšné provedení  
 
-Výstup obsahuje příkazy, které selhání vyvoláním výjimky, zprávu výjimky. Například pomocí dotazu na tabulku, která neexistuje SqlQuery se v protokolu výstupu výsledků vypadat přibližně takto:  
+Pro příkazy, které selžou při vyvolání výjimky, výstup obsahuje zprávu z výjimky. Například použití SqlQuery k dotazování na tabulku, která existuje, bude mít za následek výstup protokolu podobný tomuto:  
 
 ``` SQL
 SELECT * from ThisTableIsMissing
@@ -167,9 +167,9 @@ SELECT * from ThisTableIsMissing
 -- Failed in 1 ms with error: Invalid object name 'ThisTableIsMissing'.
 ```  
 
-### <a name="canceled-execution"></a>Zrušená spuštění  
+### <a name="canceled-execution"></a>Zrušené provedení  
 
-Pro asynchronní příkazy, kde je tato úloha nezruší výsledek může být chyba s výjimkou, protože se jedná podkladového zprostředkovatele ADO.NET často význam při pokusu o zrušení. Pokud rovnosti a úloha se zruší čistě pak výstup bude vypadat přibližně takto:  
+V případě asynchronních příkazů, kde je úloha zrušena, může být výsledkem chyba s výjimkou, protože se jedná o to, co nadřízený poskytovatel ADO.NET často provádí při pokusu o zrušení. Pokud k tomu nedojde a úloha se zruší čistě, bude výstup vypadat přibližně takto:  
 
 ```  
 update Blogs set Title = 'No' where Id = -1
@@ -177,24 +177,24 @@ update Blogs set Title = 'No' where Id = -1
 -- Canceled in 1 ms
 ```  
 
-## <a name="changing-log-content-and-formatting"></a>Změna obsah protokolu a formátování  
+## <a name="changing-log-content-and-formatting"></a>Změna obsahu a formátování protokolu  
 
-Pod pokličkou Database.Log vlastnost díky využívání DatabaseLogFormatter objektu. Tento objekt efektivně váže IDbCommandInterceptor implementaci (viz níže) na delegáta, který přijímá řetězce a DbContext. To znamená, že v DatabaseLogFormatter metody jsou volány před a po spuštění příkazů EF. Tyto metody DatabaseLogFormatter shromažďovat a formátování výstupu protokolu a odeslat do delegáta.  
+V části pokrývá vlastnost Database. log využívá objekt DatabaseLogFormatter. Tento objekt efektivně váže implementaci IDbCommandInterceptor (viz níže) k delegátovi, který přijímá řetězce a DbContext. To znamená, že metody v DatabaseLogFormatter jsou volány před a po provedení příkazů podle EF. Tyto metody DatabaseLogFormatter shromažďují a formátují výstup protokolu a odesílají je do delegáta.  
 
 ### <a name="customizing-databaselogformatter"></a>Přizpůsobení DatabaseLogFormatter  
 
-Změna co a jak je formátovaný můžete dosáhnout tím, že vytvoříte novou třídu, která je odvozena z DatabaseLogFormatter a přepíše metody podle potřeby. Nejběžnější metody přepsání jsou následující:  
+Změna toho, co je protokolováno a jak je formátováno, lze dosáhnout vytvořením nové třídy, která je odvozena z DatabaseLogFormatter a potlačení metod podle potřeby. Nejběžnější metody přepsání:  
 
-- LogCommand – změnit, změnit, jak jsou protokolovány příkazy předtím, než se spustí. Ve výchozím nastavení LogCommand volá LogParameter pro každý parametr; můžete provést totéž v přepsání nebo zpracování parametrů jinak místo.  
-- LogResult – změnit, změnit, jak se do protokolu zapíše výsledek spuštění příkazu.  
-- LogParameter – změnit, změňte parametr protokolování obsahu a formátování.  
+- LogCommand – přepište tuto změnu, chcete-li změnit způsob, jakým jsou protokolovány příkazy před jejich spuštěním. Ve výchozím nastavení LogCommand volá LogParameter pro každý parametr; místo toho se můžete rozhodnout v parametrech přepisu nebo pořizování jinak.  
+- LogResult – přepište tuto změnu, chcete-li změnit způsob, jakým je výsledek spuštění příkazu zaznamenán.  
+- LogParameter – toto přepište pro změnu formátování a obsahu protokolování parametrů.  
 
-Předpokládejme například, že jsme chtěli přihlásit jen jeden řádek před odesláním každý příkaz v databázi. To můžete udělat s dva přepisy:  
+Předpokládejme například, že jsme chtěli protokolovat pouze jeden řádek před odesláním každého příkazu do databáze. Můžete to udělat se dvěma přepsáními:  
 
-- Přepsat LogCommand formátování a napsat jediný řádek SQL  
-- Přepište LogResult neprovede žádnou akci.  
+- Přepsat LogCommand pro formátování a zápis jednoho řádku SQL  
+- Přepište LogResult, aby nedošlo k žádné akci.  
 
-Kód by vypadat přibližně takto:
+Kód by vypadal přibližně takto:
 
 ``` csharp
 public class OneLineFormatter : DatabaseLogFormatter
@@ -221,13 +221,13 @@ public class OneLineFormatter : DatabaseLogFormatter
 }
 ```  
 
-Protokolovat výstup jednoduše volání zápisu metodu, která bude odesílat výstup delegáta nakonfigurované zápisu.  
+Do log output stačí zavolat metodu zápisu, která odešle výstup do konfigurovaného delegáta pro zápis.  
 
-(Všimněte si, že tento kód provede zjednodušenou odebrání konců jenom jako příklad. Nebude pravděpodobně fungovat dobře pro zobrazení komplexní SQL.)  
+(Všimněte si, že tento kód provede odebrání konců řádků pouze jako příklad. Nebude nejspíš fungovat dobře pro zobrazení složitého SQL.)  
 
 ### <a name="setting-the-databaselogformatter"></a>Nastavení DatabaseLogFormatter  
 
-Po jeho vytvoření nové třídy DatabaseLogFormatter musí být registrována pomocí EF. To se provádí pomocí konfigurace založená na kódu. Řečeno v kostce to znamená, že vytváří novou třídu, která je odvozena z DbConfiguration ve stejném sestavení jako vaší třídy DbContext a následným voláním SetDatabaseLogFormatter v konstruktoru tato nová třída. Příklad:  
+Po vytvoření nové třídy DatabaseLogFormatter musí být zaregistrována v EF. To se provádí pomocí konfigurace založené na kódu. V kostce to znamená vytvořit novou třídu, která je odvozena z DbConfiguration ve stejném sestavení jako vaše třída DbContext a pak volat SetDatabaseLogFormatter v konstruktoru této nové třídy. Příklad:  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration
@@ -240,9 +240,9 @@ public class MyDbConfiguration : DbConfiguration
 }
 ```  
 
-### <a name="using-the-new-databaselogformatter"></a>Pomocí nové DatabaseLogFormatter  
+### <a name="using-the-new-databaselogformatter"></a>Použití nového DatabaseLogFormatter  
 
-Tento nový DatabaseLogFormatter budou se teď dá kdykoliv Database.Log nastavena. Ano spouštění kódu z část 1 nyní způsobí následující výstup:  
+Tento nový DatabaseLogFormatter se teď použije jako soubor Anytime Database. log. Takže spuštění kódu z části 1 teď má za následek následující výstup:  
 
 ```  
 Context 'BlogContext' is executing command 'SELECT TOP (1) [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title]FROM [dbo].[Blogs] AS [Extent1]WHERE (N'One Unicorn' = [Extent1].[Title]) AND ([Extent1].[Title] IS NOT NULL)'
@@ -253,58 +253,58 @@ Context 'BlogContext' is executing command 'insert [dbo].[Posts]([Title], [BlogI
 
 ## <a name="interception-building-blocks"></a>Stavební bloky zachycení  
 
-Zatím jsme se podívat na použití k protokolování SQL generovaných EF DbContext.Database.Log. Ale tento kód je ve skutečnosti poměrně dynamického zajišťování průčelí přes některé nízké úrovně stavební bloky pro obecnější zachycení.  
+Zatím jsme si vyhledali, jak používat DbContext. Database. log k protokolování SQL generovaných EF. Tento kód je ale ve skutečnosti relativně tenká fasáda v některých stavebních blocích nízké úrovně pro obecnější zachycení.  
 
-### <a name="interception-interfaces"></a>Zachycení rozhraní  
+### <a name="interception-interfaces"></a>Rozhraní zachycení  
 
-Zachycení kódu byla vybudována okolo koncept zachycení rozhraní. Tato rozhraní se dědí z IDbInterceptor a definovat metody, které jsou volány při EF provede určitou akci. Cílem je mít jedno rozhraní na typ objektu, které jsou zachyceny. Například IDbCommandInterceptor rozhraní definuje metody, které jsou volány před EF zavolá metodu ExecuteNonQuery, ExecuteScalar, ExecuteReader a s ní související metody. Obdobně rozhraní definuje metody, které jsou volány při dokončení každé z těchto operací. DatabaseLogFormatter třídu, která jsme se podívali na výše implementuje toto rozhraní k protokolování příkazy.  
+Kód zachycení je sestaven kolem konceptu rozhraní zachycení. Tato rozhraní dědí z IDbInterceptor a definují metody, které jsou volány, když EF provede určitou akci. Záměrem je, aby bylo možné zachytit jedno rozhraní na typ objektu. Například rozhraní IDbCommandInterceptor definuje metody, které jsou volány před EF, provede volání ExecuteNonQuery, ExecuteScalar, ExecuteReader a souvisejících metod. Podobně rozhraní definuje metody, které jsou volány při dokončení každé z těchto operací. Třída DatabaseLogFormatter, kterou jsme prohlédli výše, implementuje toto rozhraní k protokolování příkazů.  
 
-### <a name="the-interception-context"></a>Zachycení kontextu  
+### <a name="the-interception-context"></a>Kontext zachycení  
 
-Hledání na metody definované na žádném z rozhraní zachycování je zřejmé, že všechna volání je daný objekt typu DbInterceptionContext nebo typ odvozený od to například DbCommandInterceptionContext\<\>. Tento objekt obsahuje kontextové informace o akci, která EF trvá. Například pokud se právě používá akce jménem DbContext, pak uvolněn objekt DbContext je součástí DbInterceptionContext. Podobně pro příkazy, které se spouštějí asynchronně, isasync: příznak nastaven na DbCommandInterceptionContext.  
+V případě metod, které jsou definovány v jakémkoli rozhraní pro zachycování, je zřejmé, že každé volání je uděleno objekt typu DbInterceptionContext nebo nějaký typ odvozený z tohoto typu\<, jako je například DbCommandInterceptionContext\>. Tento objekt obsahuje kontextové informace o akci, kterou EF vezme. Například pokud je akce prováděna jménem DbContext, pak DbContext je součástí DbInterceptionContext. Podobně pro příkazy, které jsou spouštěny asynchronně, je příznak-Async nastaven na DbCommandInterceptionContext.  
 
-### <a name="result-handling"></a>Výsledek zpracování  
+### <a name="result-handling"></a>Zpracování výsledku  
 
-DbCommandInterceptionContext\< \> třída obsahuje vlastnosti s názvem výsledek, OriginalResult, výjimky a původní výjimka. Tyto vlastnosti jsou nastaveny na hodnotu null nebo nulu pro volání metod zachycení, které jsou volány předtím, než se operace provede – to znamená pro... Provádění metody. Pokud operace se spustí a proběhne úspěšně, potom výsledek a OriginalResult jsou nastavenou na výsledek operace. Tyto hodnoty pak můžete pozorovat zachycení metody, které jsou volány po provedení operace – to znamená na... Provedený metody. Podobně pokud vyvolá operaci, pak výjimku a původní výjimka budou nastaveny vlastnosti.  
+Třída DbCommandInterceptionContext\< \> obsahuje vlastnosti nazvané výsledek, OriginalResult, výjimka a OriginalException. Tyto vlastnosti jsou nastaveny na hodnotu null/nula pro volání metod zachycení, které jsou volány před spuštěním operace – to znamená pro... Spouštění metod. Pokud je operace spuštěná a úspěšná, pak se výsledek a OriginalResult nastaví na výsledek operace. Tyto hodnoty lze následně pozorovat v metodách zachycení, které jsou volány po provedení operace – to znamená na... Spouštěné metody. Podobně platí, že pokud operace vyvolá, budou nastaveny vlastnosti Exception a OriginalException.  
 
-#### <a name="suppressing-execution"></a>Potlačení spuštění  
+#### <a name="suppressing-execution"></a>Potlačení provádění  
 
-Pokud zachycování předtím, než se spustí příkaz nastaví vlastnost výsledek (v jednom z... Provádění metody) pak EF nepokusí se provést příkaz ve skutečnosti, ale budou místo toho použijte sadu výsledků dotazu. Jinými slovy lze sběrač potlačit provedení příkazu ale mít EF pokračovat jako příkazu se provedl.  
+Pokud zachytává Vlastnost Result před provedením příkazu (v jednom z těchto... Po spuštění metod) se EF nepokusí spustit příkaz, ale místo toho použije sadu výsledků. Jinými slovy, zachytávací modul může potlačit provádění příkazu, ale měl by mít v kódu EF pokračovat, jako kdyby byl příkaz proveden.  
 
-Příkaz dávkové zpracování, která proběhla tradičně s zabalení poskytovatele je příklad, jak to může být používána. Sběrač by uložit pro pozdější provedení příkazu v dávce, ale by "předstírají, že" EF, který provedl příkazu jako za normálních okolností. Všimněte si, že vyžaduje více než toto implementovat dávkové zpracování, ale toto je příklad použití Změna výsledku zachycení může být.  
+Příkladem toho, jak to lze použít, je dávkování příkazů, které bylo tradičně provedeno s poskytovatelem zabalení. Zachytávací příkaz by uložil příkaz pro pozdější spuštění jako dávku, ale měl by být "předstírat" na EF, že příkaz byl proveden jako normální. Všimněte si, že k implementaci dávkového zpracování vyžaduje více než tento postup, ale jedná se například o způsob, jakým je možné použít změnu výsledku zachycení.  
 
-Spuštění lze potlačit také tak, že nastavíte vlastnost výjimky v jednom z... Provádění metody. To způsobí, že EF pokračovat jako v případě provádění operace se nezdařila vyvoláním výjimka. Samozřejmě to může způsobit aplikace ohlašování chyb, ale mohou být také s přechodnou výjimkou nebo jinou výjimku, kterou provádí služba EF. Například to může použít v testovacích prostředích k testování chování aplikace při spuštění příkazu se nezdaří.  
+Spuštění lze také potlačit nastavením vlastnosti Exception v jednom z... Spouštění metod. To způsobuje, že EF pokračuje jako v případě, že provedení operace selhalo vyvoláním dané výjimky. To může samozřejmě způsobit chybu aplikace, ale může to být také přechodná výjimka nebo jiná výjimka, která je zpracována EF. To může být například použito v testovacích prostředích k otestování chování aplikace při neúspěšném spuštění příkazu.  
 
 #### <a name="changing-the-result-after-execution"></a>Změna výsledku po spuštění  
 
-Pokud zachycování nastaví vlastnost výsledek po provedení příkazu (v jednom z... Spuštění metody) pak EF bude používat změněný výsledek místo výsledku, který se ve skutečnosti vrácená z operace. Podobně pokud se zachycování nastaví vlastnost výjimky po provedení příkazu, pak EF vyvolá výjimku sady jako by operace měla vyvolána výjimka.  
+Pokud zachytávací Vlastnost Result nastaví po provedení příkazu (v jedné z vlastností... Spouštěné metody), pak EF použije změněný výsledek místo výsledku, který byl skutečně vrácen z operace. Podobně, pokud zachytává událost nastaví vlastnost Exception po provedení příkazu, pak EF vyvolá výjimku set, jako kdyby byla výjimka vyvolána v operaci.  
 
-Zachycování můžete také nastavit vlastnost výjimku null k označení, že by měl být vyvolána žádná výjimka. To může být užitečné, pokud se nepodařilo spustit operaci, ale sběrač si přeje EF, abyste mohli pokračovat, jako by se operace dokončila. Obvykle to také zahrnuje nastavení výsledku tak, aby EF má některá z hodnot výsledek pro práci s jako pokračuje.  
+Zachytávací objekt může také nastavit vlastnost Exception na hodnotu null, aby označovala, že by neměla být vyvolána žádná výjimka. To může být užitečné v případě, že provedení operace se nezdařilo, ale zachytávací, který chce EF pokračovat, jako kdyby operace proběhla úspěšně. To obvykle zahrnuje nastavení výsledku tak, aby měl EF při pokračování nějakou hodnotu výsledku.  
 
-#### <a name="originalresult-and-originalexception"></a>OriginalResult a původní výjimka  
+#### <a name="originalresult-and-originalexception"></a>OriginalResult a OriginalException  
 
-Po EF po provedení operace nastaví vlastnosti výsledek a OriginalResult, pokud byla úspěšná spuštění nebo vlastnosti výjimky a původní výjimka Pokud spuštění selhalo s výjimkou.  
+Po provedení operace v EF se nastaví buď vlastnosti Result a OriginalResult, pokud spuštění neselže, nebo pokud se spuštění nezdařilo, došlo k chybě s výjimkou.  
 
-OriginalResult a původní výjimka vlastnosti jsou jen pro čtení a jsou nastaveny jenom pomocí EF po skutečně provedení operace. Tyto vlastnosti nejde nastavit zachycovacích dotazů. To znamená, že všechny zachycování možné rozlišit výjimku nebo výsledek, který je nastavená podle jiných zachycování na rozdíl od skutečné výjimky nebo výsledek, ke které došlo při operaci spustil.  
+Vlastnosti OriginalResult a OriginalException jsou jen pro čtení a nastavují je jenom EF v rámci skutečného provedení operace. Tyto vlastnosti nelze nastavit pomocí zachycení. To znamená, že jakýkoliv zachytávací může rozlišovat výjimku nebo výsledek, který byl nastaven jiným zachytávací, na rozdíl od reálné výjimky nebo výsledek, ke kterému došlo při provedení operace.  
 
-### <a name="registering-interceptors"></a>Registrace zachycovacích dotazů  
+### <a name="registering-interceptors"></a>Registrace zachycení  
 
-Po vytvoření třídy, která implementuje jednu nebo více rozhraní zachycení lze registrovat pomocí EF horizontálních oddílů pomocí třídy DbInterception. Příklad:  
+Jakmile je třída, která implementuje jedno nebo více rozhraní zachycení, vytvořena, může být zaregistrována s EF pomocí třídy DbInterception. Příklad:  
 
 ``` csharp
 DbInterception.Add(new NLogCommandInterceptor());
 ```  
 
-Sběrače lze také zaregistrovat na úrovni domény aplikace pomocí mechanismu DbConfiguration konfigurace založená na kódu.  
+Zachycení lze také registrovat na úrovni aplikačních domén pomocí mechanismu konfigurace založeného na kódu DbConfiguration.  
 
-### <a name="example-logging-to-nlog"></a>Příklad: Protokolování NLog  
+### <a name="example-logging-to-nlog"></a>Příklad: Protokolování do NLog  
 
-Pojďme dohromady to vše na příklad, že při použití IDbCommandInterceptor a [NLog](http://nlog-project.org/) na:  
+Pojďme to všechno dohromady do příkladu, který používá IDbCommandInterceptor a [nLOG](http://nlog-project.org/) k:  
 
-- Upozornění pro jakýkoli příkaz, který je spuštěn mimo asynchronně  
-- Zaznamenat chybu pro jakýkoli příkaz, který vyvolá při spuštění  
+- Zaprotokoluje upozornění pro všechny příkazy, které se provedly bez asynchronního zpracování.  
+- Zaznamená chybu pro jakýkoli příkaz, který vyvolá při spuštění.  
 
-Tady je třída, která provádí protokolování, které by měly být zaregistrovány, jak je uvedeno výše:  
+Zde je třída, která provede protokolování, které by mělo být registrováno, jak je uvedeno výše:  
 
 ``` csharp
 public class NLogCommandInterceptor : IDbCommandInterceptor
@@ -368,4 +368,4 @@ public class NLogCommandInterceptor : IDbCommandInterceptor
 }
 ```  
 
-Všimněte si, jak tento kód používá kontext zachycení ke zjištění, kdy příkaz se zpracovává jiné asynchronní a chcete zjistit, když došlo k chybě při spuštění příkazu.  
+Všimněte si, jak tento kód používá kontext zachycení ke zjištění, že se příkaz provádí neasynchronně a že při provádění příkazu se zjistila chyba.  

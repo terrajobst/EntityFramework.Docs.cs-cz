@@ -1,38 +1,38 @@
 ---
-title: Odolnost proti chybám a zkuste to znovu připojení logic - EF6
+title: Odolnost připojení a logika opakování – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 7d6aa870cc32a2b344457fbb04525a7c2c8d1c61
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: a01216c3399ca4a04943563435eacd0047337a5f
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668762"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306579"
 ---
-# <a name="connection-resiliency-and-retry-logic"></a>Připojení logic odolnost proti chybám a zkuste to znovu
+# <a name="connection-resiliency-and-retry-logic"></a>Odolnost připojení a logika opakování
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Připojení k serveru pro databázi aplikace byly vždy snadno napadnutelný konce připojení z důvodu selhání back-end a nestability sítě. Ale v prostředí sítě LAN, na základě pracovat se službou vyhrazené databázové servery tyto chyby jsou dostatečně vzácné, že další logiky, která by tyto chyby se často nevyžaduje. S nástupem cloud na základě databázové servery, jako jsou Windows Azure SQL Database a připojení přes méně spolehlivé sítě, které je nyní běžné připojení konce řádků. To může být způsobeno obranné techniky, které cloudové databáze pomocí zajistit dostupnost služby, například omezování využití připojení, nebo na nestabilitu v síti způsobují přerušované vypršení časových limitů a jiné přechodné chyby.  
+Aplikace, které se připojují k databázovému serveru, byly vždycky zranitelné z důvodu selhání back-endu a nestability sítě. V prostředí založeném na síti LAN, které pracuje na vyhrazených databázových serverech, jsou ale tyto chyby vzácná natolik, že navíc není často nutná logika, která by tyto chyby zpracovala. S růstem cloudových databázových serverů, jako jsou Windows Azure SQL Database a připojení přes méně spolehlivé sítě, je teď častěji častější, než dojde k přerušením připojení. To může být způsobeno obrannou linií technikami, které používají cloudové databáze k zajištění spravedlivého poskytování služeb, jako je omezování připojení nebo nestabilitě sítě, která způsobuje přerušované časové limity a další přechodné chyby.  
 
-Odolnost připojení odkazuje na možnost pro EF, aby automaticky opakovala všechny příkazy, které selžou kvůli konce těchto připojení.  
+Odolnost připojení označuje schopnost EF automaticky opakovat všechny příkazy, které selhaly kvůli přerušení připojení.  
 
 ## <a name="execution-strategies"></a>Strategie provádění  
 
-Opakování připojení se postaral o implementaci rozhraní IDbExecutionStrategy. Implementace IDbExecutionStrategy bude zodpovídat za přijímání operace a pokud dojde k výjimce, určíte, pokud je opakování pokusu vhodné a to zkusíte znovu, pokud se jedná. Existují čtyři strategií provádění, které se dodávají s EF:  
+Pokus o připojení se postará o implementaci rozhraní IDbExecutionStrategy. Implementace IDbExecutionStrategy budou zodpovědné za přijetí operace a, pokud dojde k výjimce, určí, jestli je opakování vhodné, a zkuste to znovu, pokud je. Existují čtyři strategie provádění dodávané s EF:  
 
-1. **DefaultExecutionStrategy**: Tato strategie provádění neopakuje žádné operace, je výchozí nastavení pro databáze než sql server.  
-2. **DefaultSqlExecutionStrategy**: Toto je strategie provádění vnitřní, který se používá ve výchozím nastavení. Tato strategie neopakuje vůbec, ale sbalíte žádné výjimky, které by mohly být přechodné informovat uživatele, kteří chtějí povolit odolnost připojení.  
-3. **DbExecutionStrategy**: Tato třída je vhodná jako základní třída pro jiné strategie provádění, včetně vlastních vlastní značky. Implementuje zásady opakování exponenciálního, kde počáteční opakování se stane s nulovou zpoždění a zpoždění zvyšuje exponenciálně až do dosažení maximální počet opakování. Tato třída je abstraktní metody ShouldRetryOn, který se dá implementovat v odvozené spuštění strategie řízení výjimek, které je třeba opakovat.  
-4. **SqlAzureExecutionStrategy**: Tato strategie provádění dědí z DbExecutionStrategy a bude opakovat při výjimkách, které jsou známé jako pravděpodobně přechodné při práci s Azure SQL Database.
+1. **DefaultExecutionStrategy**: Tato strategie provádění neopakuje žádné operace, je výchozí pro databáze jiné než SQL Server.  
+2. **DefaultSqlExecutionStrategy**: Jedná se o interní strategii provádění, která se používá ve výchozím nastavení. Tato strategie se vůbec neopakuje, ale zabalí všechny výjimky, které by mohly být přechodné, aby informovaly uživatele o tom, že by mohly chtít povolit odolnost připojení.  
+3. **DbExecutionStrategy**: Tato třída je vhodná jako základní třída pro jiné strategie provádění, včetně vašich vlastních. Implementuje zásadu exponenciálního opakování, kde počáteční opakování proběhne s nulovým zpožděním a zpoždění se zvyšuje exponenciálně, dokud nebude dosaženo maximálního počtu opakování. Tato třída má abstraktní metodu ShouldRetryOn, která může být implementována v odvozených strategiích provádění, aby bylo možné řídit, které výjimky by se měly opakovat.  
+4. **SqlAzureExecutionStrategy**: Tato strategie provádění dědí z DbExecutionStrategy a zopakuje pokus o výjimkách, u kterých je známo, že budou pravděpodobně přechodné při práci s Azure SQL Database.
 
 > [!NOTE]
-> Strategie provádění 2 a 4 jsou součástí zprostředkovatele Sql Server, který se dodává s EF, který se nachází v sestavení EntityFramework.SqlServer a jsou navrženy pro práci se serverem SQL Server.  
+> Strategie provádění 2 a 4 jsou součástí poskytovatele SQL serveru, který je dodáván s EF, který je v sestavení EntityFramework. SqlServer a je navržen pro práci s SQL Server.  
 
 ## <a name="enabling-an-execution-strategy"></a>Povolení strategie provádění  
 
-Nejjednodušší způsob, jak zjistit EF použití strategie provádění je s metodou SetExecutionStrategy [DbConfiguration](~/ef6/fundamentals/configuring/code-based.md) třídy:  
+Nejjednodušší způsob, jak říct EF, aby používal strategii provádění, je metoda SetExecutionStrategy třídy [DbConfiguration](~/ef6/fundamentals/configuring/code-based.md) :  
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -44,13 +44,13 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-Tento kód říká EF SqlAzureExecutionStrategy používat při připojování k serveru SQL Server.  
+Tento kód oznamuje EF, aby při připojování k SQL Server používal rozhraní SqlAzureExecutionStrategy.  
 
 ## <a name="configuring-the-execution-strategy"></a>Konfigurace strategie provádění  
 
-Konstruktor SqlAzureExecutionStrategy může přijmout dva parametry, MaxRetryCount a MaxDelay. Počet MaxRetry je maximální počet opakování strategie. MaxDelay je časový interval představující zpoždění mezi opakovanými pokusy, které se používají strategie provádění.  
+Konstruktor třídy SqlAzureExecutionStrategy může přijmout dva parametry, MaxRetryCount a MaxDelay. MaxRetry Count je maximální počet pokusů, kolikrát se strategie zopakuje. MaxDelay je interval TimeSpan, který představuje maximální zpoždění mezi opakovanými pokusy, které bude používat strategie provádění.  
 
-Chcete-li nastavit maximální počet pokusů o 1 a Maximální zpoždění 30 sekund by execue následující:  
+Pokud chcete nastavit maximální počet opakovaných pokusů na hodnotu 1 a maximální zpoždění na 30 sekund, proveďte následující:  
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -64,15 +64,15 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-SqlAzureExecutionStrategy bude opakovat okamžitě překročil poprvé, dojde k přechodnému selhání, ale bude nadále zpoždění mezi opakováními, dokud se buď maximální limit opakování nebo celkové doby narazí na maximální zpoždění.  
+SqlAzureExecutionStrategy se zopakuje okamžitě při prvním výskytu přechodného selhání, ale během každého opakování bude trvat déle, dokud nedosáhnete maximálního počtu opakování, nebo celkovým časem, který uplyne na maximálním zpoždění.  
 
-Strategie provádění bude opakovat jenom omezený počet výjimek, které jsou obvykle tansient, bude i nadále potřebujete zpracovávat jiné chyby, jakož i RetryLimitExceeded výjimku pro případ, kdy chyba není přechodná nebo trvá příliš dlouho řešení samotný.  
+Strategie provádění budou opakovat pouze omezený počet výjimek, které jsou obvykle přechodné, stále budete muset zpracovat další chyby a zachytit výjimku RetryLimitExceeded pro případ, že chyba není přechodná nebo je příliš dlouhá, aby ji bylo možné vyřešit. využít.  
 
-Existují některé známé omezení při použití strategie opakování spuštění:  
+Při použití strategie opakování pokusu je potřeba mít několik známých omezení:  
 
-## <a name="streaming-queries-are-not-supported"></a>Streamování dotazů se nepodporují.  
+## <a name="streaming-queries-are-not-supported"></a>Dotazy streamování nejsou podporované.  
 
-Ve výchozím nastavení EF6 a novější verze bude ve vyrovnávací paměti výsledky dotazu a nikoli jejich streamování. Pokud chcete mít výsledky streamování můžete použít metodu AsStreaming změnit LINQ dotaz entity pro streamování.  
+Ve výchozím nastavení EF6 a novější verze vyřadí výsledky dotazu do vyrovnávací paměti místo jejich streamování. Pokud chcete mít výsledky streamování výsledků, můžete pomocí metody AsStreaming změnit dotaz LINQ to Entities na streamování.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -84,15 +84,15 @@ using (var db = new BloggingContext())
 }
 ```  
 
-Streamování se nepodporuje při registraci opakuje strategie provádění. Toto omezení existuje, protože připojení může vyřadit rozúčtují přes výsledky se vrací. V tomto případě je potřeba znovu spustit celý dotaz EF, ale nemá žádné spolehlivě zjistit, jaké výsledky již byly vráceny (dat mohl být změněn počáteční dotaz byla odeslána, výsledky mohou vrátit v jiném pořadí, výsledky nemusí být jedinečný identifikátor atd.).  
+Streamování není podporováno, pokud je zaregistrována strategie spuštění opakování. Toto omezení existuje, protože připojení by mohlo vyřadit část způsobem prostřednictvím vrácených výsledků. V takovém případě musí EF znovu spustit celý dotaz, ale nemá žádný spolehlivý způsob, jak zjistit, které výsledky již byly vráceny (data se pravděpodobně od odeslání počátečního dotazu změnila, výsledky mohou být vráceny v jiném pořadí, výsledky nemusí mít jedinečný identifikátor). atd.).  
 
-## <a name="user-initiated-transactions-are-not-supported"></a>Uživatelem iniciované transakce nejsou podporovány.  
+## <a name="user-initiated-transactions-are-not-supported"></a>Uživatelem iniciované transakce nejsou podporované.  
 
-Pokud jste nakonfigurovali strategie provádění, jehož výsledkem opakovaných pokusů, narazíte na určitá omezení týkající použití transakcí.  
+Pokud jste nakonfigurovali strategii provádění, která má za následek opakování, existují určitá omezení týkající se použití transakcí.  
 
-Ve výchozím nastavení provede EF žádné aktualizace databáze v rámci transakce. Nemusíte dělat nic, aby tuto možnost povolte, EF vždy to dělá automaticky.  
+Ve výchozím nastavení bude EF provádět všechny aktualizace databáze v rámci transakce. Nemusíte nic dělat, abyste ho mohli povolit, EF to vždycky dělá automaticky.  
 
-Například v následujícím kódu metoda SaveChanges se provádí automaticky v rámci transakce. Pokud SaveChanges po vložení mezi novou lokalitou a transakce bude vrácena zpět a žádné změny k databázi selhat. Kontext je také zbývá ve stavu umožňujícím uloží změny do volat pokus o použití změn.  
+Například v následujícím kódu je kód SaveChanges automaticky proveden v rámci transakce. Pokud nebylo po vložení jedné z nových lokalit provedeno selhání metody SaveChanges, transakce by se vrátila zpět a v databázi se nepoužily žádné změny. Kontext je také ponechán ve stavu, který umožňuje, aby bylo volání metody SaveChanges znovu voláno pro opakované použití změn.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -103,7 +103,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-Pokud nepoužíváte opakuje strategie provádění v rámci jedné transakce můžete zalomit více operací. Následující kód například zabalí dvě SaveChanges volání v rámci jedné transakce. Pokud se nezdaří libovolné části buď operaci pak žádná ze změn, jsou použity.  
+Pokud nepoužíváte strategii spuštění opakování, můžete v jedné transakci zabalit více operací. Například následující kód zalomí dvě volání metody SaveChanges v rámci jedné transakce. Pokud některé z obou operací selžou, nepoužije se žádná ze změn.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -122,11 +122,11 @@ using (var db = new BloggingContext())
 }
 ```  
 
-To není podporováno při použití opakuje strategie provádění, protože není si vědom jakékoli předchozí operace a způsob opakování je EF. Například pokud se druhý SaveChanges nezdařilo pak EF už má požadované informace pro první volání SaveChanges zopakovat.  
+Tato funkce není podporována, pokud používáte strategii opakovaného spuštění, protože EF neznáte žádné předchozí operace a postup opakování. Například pokud druhý příkaz SaveChanges neproběhne úspěšně, EF již neobsahuje požadované informace pro opakování prvního volání metody SaveChanges.  
 
-### <a name="workaround-suspend-execution-strategy"></a>Alternativní řešení: Pozastavení strategie provádění  
+### <a name="workaround-suspend-execution-strategy"></a>Alternativní řešení: Pozastavit strategii provádění  
 
-Jedním z možných řešení je dočasně pozastavit opakuje strategie provádění pro část kódu, který potřebuje uživatel inicioval transakce. Nejjednodušší způsob, jak to provést, je přidání SuspendExecutionStrategy příznak, který do vašeho kódu na základě konfigurace třídy a změňte lambda strategie provádění pro vrácení výchozí strategie provádění (bez retying), když je příznak nastaven.  
+Jedním z možných alternativních řešení je pozastavit strategii spuštění opakování pro část kódu, která potřebuje použít transakci iniciované uživatelem. Nejjednodušší způsob, jak to provést, je přidat příznak SuspendExecutionStrategy do třídy konfigurace na základě kódu a změnit výraz lambda strategie provádění, který vrátí výchozí (nevratnou) strategii provádění, když je příznak nastaven.  
 
 ``` csharp
 using System.Data.Entity;
@@ -160,9 +160,9 @@ namespace Demo
 }
 ```  
 
-Všimněte si, že používáme CallContext pro ukládání hodnoty horní příznak. Poskytuje podobné funkce jako úložiště thread local, ale je bezpečné používat s asynchronní kód – včetně asynchronního dotazu a uložit s Entity Framework.  
+Všimněte si, že k uložení hodnoty příznaku používáme CallContext. To poskytuje podobné funkce jako thread local úložiště, ale je bezpečné ho použít s asynchronním kódem – včetně asynchronního dotazu a uložení s Entity Framework.  
 
-Nyní jsme můžete pozastavení strategie provádění pro části kódu, který používá transakce iniciované uživatelem.  
+Nyní můžeme pro oddíl kódu, který používá transakci iniciované uživatelem, pozastavit strategii provádění.  
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -185,11 +185,11 @@ using (var db = new BloggingContext())
 }
 ```  
 
-### <a name="workaround-manually-call-execution-strategy"></a>Alternativní řešení: Ručně volat strategie provádění  
+### <a name="workaround-manually-call-execution-strategy"></a>Alternativní řešení: Ruční volání strategie provádění  
 
-Další možností je ručně pomocí strategie provádění a přiřaďte mu celá sada logiky pro spuštění, tak, že je všechno, co opakujte Pokud jedna operace selže. Stále potřebujeme k pozastavení strategie provádění - technikou uvedeno výše - tak, aby všechny kontexty použít uvnitř blok opakovatelného kódu nebude pokoušet o opakování.  
+Další možností je ručně použít strategii spouštění a dát jí celou sadu logiky, která se má spustit, aby se mohla opakovat vše, pokud jedna z operací neproběhne úspěšně. Ještě musíme na základě výše uvedené techniky pozastavit strategii spouštění, aby se všechny kontexty používané uvnitř bloku kódu s opakováním nepokoušely opakovat.  
 
-Všimněte si, že všechny kontexty by měla být vytvořena v rámci bloku kódu se na opakování pokusu. Tím se zajistí, že jsme začínají s do čistého stavu pro každou. Zkuste to znovu.  
+Všimněte si, že všechny kontexty by měly být vytvořeny v rámci bloku kódu, který se má opakovat. Tím se zajistí, že pro každý pokus začneme s čistým stavem.  
 
 ``` csharp
 var executionStrategy = new SqlAzureExecutionStrategy();

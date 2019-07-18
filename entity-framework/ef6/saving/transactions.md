@@ -1,52 +1,52 @@
 ---
-title: Práce s transakcí - EF6
+title: Práce s transakcemi – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 96cfff4cca59ab27dd68f50d0260e90902e33a92
-ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
+ms.openlocfilehash: 7030dc675993339f72c935f6b430cead85fecb7f
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/29/2019
-ms.locfileid: "64873236"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306527"
 ---
-# <a name="working-with-transactions"></a>Práce s transakcí
+# <a name="working-with-transactions"></a>Práce s transakcemi
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Tento dokument popisuje použití transakcí v EF6, včetně vylepšení, které jsme přidali od EF5 usnadňují práci s transakcí.  
+Tento dokument popisuje použití transakcí v EF6, včetně vylepšení, která jsme přidali od EF5, aby bylo snadné pracovat s transakcemi.  
 
-## <a name="what-ef-does-by-default"></a>EF nemá ve výchozím nastavení  
+## <a name="what-ef-does-by-default"></a>Jaké má EF ve výchozím nastavení  
 
-Ve všech verzích rozhraní Entity Framework při každém spuštění **SaveChanges()** vložit, aktualizovat nebo odstranit v databázi rozhraní framework, zabalit tuto operaci v transakci. Tato transakce trvá pouze na dobu nutnou k provedení operace a pak je dokončí. Při spouštění jiná taková operace se spustí novou transakci.  
+Ve všech verzích Entity Framework, kdykoli spustíte **SaveChanges ()** pro vložení, aktualizaci nebo odstranění databáze, rozhraní zalomí tuto operaci v transakci. Tato transakce trvá pouze dostatečně dlouhou dobu pro provedení operace a poté dokončí. Při provádění jiné takové operace se spustí nová transakce.  
 
-Počínaje EF6 **Database.ExecuteSqlCommand()** ve výchozím nastavení se zabalení příkazu v transakci Pokud jeden není již k dispozici. Existují přetížení této metody, které umožňují toto chování přepsat, pokud chcete. Také v EF6 provádění uložené procedury, které jsou součástí modelu prostřednictvím rozhraní API, jako **ObjectContext.ExecuteFunction()** dělá to samé (s tím rozdílem, že výchozí chování nelze v tuto chvíli přepsat).  
+Počínaje příkazem EF6 **Database. ExecuteSqlCommand ()** se ve výchozím nastavení zabalí příkaz do transakce, pokud ještě nikdo neexistoval. Existují přetížení této metody, které vám umožní toto chování přepsat, pokud chcete. Také v EF6 provádění uložených procedur obsažených v modelu prostřednictvím rozhraní API, jako je **ObjectContext. ExecuteFunction ()** , je stejné (s tím rozdílem, že výchozí chování nelze v okamžiku přepsat).  
 
-V obou případech je úroveň izolace transakce libovolnou úroveň izolace poskytovatele databáze bude považovat za jeho výchozí nastavení. Ve výchozím nastavení například na SQL serveru jde READ COMMITTED.  
+V obou případech je úroveň izolace transakce libovolnou úrovní izolace, kterou poskytovatel databáze považuje za výchozí nastavení. Ve výchozím nastavení je to například u SQL Server se jedná o POTVRZENé čtení.  
 
-Entity Framework nezalamuje dotazy v rámci transakce.  
+Entity Framework nebalí dotazy v transakci.  
 
-Toto výchozí chování je vhodná pro velké množství uživatelů a pokud to není nutné udělat nic jiného v EF6; stejně jako vždy stačí napište požadovaný kód.  
+Tato výchozí funkce je vhodná pro velké množství uživatelů, a pokud není potřeba nic dělat jinak v EF6; Stačí napsat kód tak, jak jste to trvali.  
 
-Ale někteří uživatelé vyžadují větší kontrolu nad jejich transakcí – tento proces je popsán v následujících částech.  
+Někteří uživatelé však vyžadují větší kontrolu nad svými transakcemi – to je popsáno v následujících částech.  
 
 ## <a name="how-the-apis-work"></a>Jak fungují rozhraní API  
 
-Před EF6 Entity Framework insisted při otevření připojení k databázi samotného (došlo k výjimce byl předán připojení, které už je otevřený). Protože transakce lze spustit pouze na otevření připojení, to znamená, že jediný způsob, jak uživatel zabalit několik operací do jedné transakce se má používat [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) nebo použijte  **ObjectContext.Connection** vlastnosti a volání start **Open()** a **BeginTransaction()** přímo na vrácený **EntityConnection** objekt. Kromě toho volání rozhraní API, které kontaktovat databáze by selhat, pokud transakce byl spuštěn na základní připojení k databázi sami.  
+Před EF6 Entity Framework nastaly při otevírání samotného databázového připojení (vyvolalo výjimku, pokud bylo předáno připojení, které již bylo otevřeno). Vzhledem k tomu, že transakci lze spustit pouze v otevřeném připojení, což znamená, že jediný způsob, jakým může uživatel zabalit několik operací do jedné transakce, byl buď použit jako [objekt TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) , nebo použít vlastnost **ObjectContext. Connection** a spustit volání metody **Open ()** a **BeginTransaction ()** přímo na vráceném objektu **EntityConnection** . Kromě toho volání rozhraní API, která kontaktovala databázi, by nebylo úspěšné, pokud jste spustili transakci na podkladovém připojení databáze sami.  
 
 > [!NOTE]
-> Omezení pouze přijímat připojení uzavřené byla odebrána v Entity Framework 6. Podrobnosti najdete v tématu [správu připojení](~/ef6/fundamentals/connection-management.md).  
+> Omezení pouze přijetí uzavřených připojení bylo v Entity Framework 6 odebráno. Podrobnosti najdete v tématu [Správa připojení](~/ef6/fundamentals/connection-management.md).  
 
-Počínaje EF6 rozhraní framework teď poskytuje:  
+Počínaje EF6 Framework nyní poskytuje:  
 
-1. **Database.BeginTransaction()** : Jednodušší způsob pro uživatele ke spuštění a dokončení transakcí sami v rámci existující DbContext – povolení několika operací a nelze jej zkombinovat v rámci jedné transakce a proto všechny potvrzené nebo všechny vrácena zpět jako jeden. Také umožňuje uživateli snadněji určit úroveň izolace transakce.  
-2. **Database.UseTransaction()** : umožňuje používat transakce, která byla spuštěna mimo rozhraní Entity Framework uvolněn objekt DbContext.  
+1. **Database.BeginTransaction()** : Jednodušší způsob, jak uživatel spustit a dokončit transakce samotné v rámci existující DbContext – umožňuje kombinovat několik operací v rámci stejné transakce a tedy všechny potvrzené nebo všechny provedené zpátky jako jeden. Umožňuje také uživateli snadněji zadat úroveň izolace transakce.  
+2. **Database. UseTransaction ()** : umožňuje DbContext použít transakci, která byla spuštěna mimo Entity Framework.  
 
-### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Kombinování několik operací do jedné transakce v rámci stejného kontextu  
+### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Kombinování několika operací do jedné transakce v rámci stejného kontextu  
 
-**Database.BeginTransaction()** má dva přepisy – znak, který se má explicitní [IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx) a druhou, která nepřijímá žádné argumenty a používá výchozí IsolationLevel z podkladového zprostředkovatele databáze. Vrátí obě přepsání **DbContextTransaction** objekt, který poskytuje **Commit()** a **Rollback()** metody, které provádějí potvrzení změn a vrácení zpět na příslušné úložiště transakce.  
+**Database. BeginTransaction ()** má dvě přepsání – jedna, která přijímá explicitní [IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx) a jednu, která nepřijímá žádné argumenty a používá výchozí IsolationLevel z podkladového poskytovatele databáze. Obě přepsání vrátí objekt **DbContextTransaction** , který poskytuje metody **potvrzení ()** a **vrácení zpět ()** , které provádějí potvrzení a vrácení zpět v podkladové transakci úložiště.  
 
-**DbContextTransaction** má být uvolněn, jakmile byla potvrzena nebo vrácena zpět. Snadný způsob, jak dosáhnout jednoho se **using(...) {...}** syntaxe, která automaticky zavolá **Dispose()** při using blokovat dokončení:  
+**DbContextTransaction** má být uvolněna, jakmile bude potvrzena nebo vrácena zpět. Jedním ze způsobů, jak toho dosáhnout, je **použití (...). {...}** syntaxe, která bude automaticky volat **Dispose ()** při dokončení bloku using:  
 
 ``` csharp
 using System;
@@ -66,27 +66,20 @@ namespace TransactionsExamples
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
-                    try
+                    context.Database.ExecuteSqlCommand(
+                        @"UPDATE Blogs SET Rating = 5" +
+                            " WHERE Name LIKE '%Entity Framework%'"
+                        );
+
+                    var query = context.Posts.Where(p => p.Blog.Rating >= 5);
+                    foreach (var post in query)
                     {
-                        context.Database.ExecuteSqlCommand(
-                            @"UPDATE Blogs SET Rating = 5" +
-                                " WHERE Name LIKE '%Entity Framework%'"
-                            );
-
-                        var query = context.Posts.Where(p => p.Blog.Rating >= 5);
-                        foreach (var post in query)
-                        {
-                            post.Title += "[Cool Blog]";
-                        }
-
-                        context.SaveChanges();
-
-                        dbContextTransaction.Commit();
+                        post.Title += "[Cool Blog]";
                     }
-                    catch (Exception)
-                    {
-                        dbContextTransaction.Rollback();
-                    }
+
+                    context.SaveChanges();
+
+                    dbContextTransaction.Commit();
                 }
             }
         }
@@ -95,16 +88,16 @@ namespace TransactionsExamples
 ```  
 
 > [!NOTE]
-> Od transakce vyžaduje, že základní úložiště připojení je otevřeno. Proto volání Database.BeginTransaction() otevře připojení, pokud již není otevřen. Pokud DbContextTransaction otevřít připojení pak dojde k uzavření ho při volání Dispose().  
+> Zahájení transakce vyžaduje otevření základního připojení úložiště. Proto voláním Database. BeginTransaction () otevře připojení, pokud ještě není otevřené. Pokud DbContextTransaction připojení otevřelo, zavře se, až se zavolá Dispose ().  
 
-### <a name="passing-an-existing-transaction-to-the-context"></a>Předání kontextu existující transakce  
+### <a name="passing-an-existing-transaction-to-the-context"></a>Předání existující transakce do kontextu  
 
-Někdy chcete transakce, které se ještě zvětšuje, v oboru a která zahrnuje operace ve stejné databázi, ale mimo EF úplně. K tomu musíte otevřít připojení a spuštění transakce a pak dali pokyn EF a) pro použití připojení k databázi už otevřený a (b) můžete využít existující transakce na toto připojení.  
+Někdy byste chtěli být transakce, která je ještě širší v oboru a která zahrnuje operace ve stejné databázi, ale mimo EF zcela. Aby to bylo možné, musíte otevřít připojení a spustit transakci sami, sdělit EF a) pro použití již otevřeného připojení k databázi a b) pro použití existující transakce na tomto připojení.  
 
-K tomu musíte definovat a použijte konstruktor na vaší třídy kontextu, který dědí z jednoho z konstruktorů DbContext, což trvat i) existující parametr připojení a ii) na contextOwnsConnection logická.  
+Chcete-li to provést, je nutné definovat a použít konstruktor pro třídu Context, která dědí z jednoho z konstruktorů DbContext, který přebírá i stávající parametr připojení a II) contextOwnsConnectionou logickou hodnotu.  
 
 > [!NOTE]
-> Příznak contextOwnsConnection musí být nastavena na hodnotu NEPRAVDA, pokud je volána v tomto scénáři. Je to důležité proto informuje Entity Framework, že se po dokončení se s ním neměli zavírat připojení (například. Viz řádek 4 níže):  
+> Při volání v tomto scénáři musí být příznak contextOwnsConnection nastaven na hodnotu false. To je důležité, protože informují Entity Framework, že by nezavřeli připojení, když s ním bude provedeno (například na řádku 4 níže):  
 
 ``` csharp
 using (var conn = new SqlConnection("..."))
@@ -116,9 +109,9 @@ using (var conn = new SqlConnection("..."))
 }
 ```  
 
-Kromě toho musí začínat transakce sami (včetně IsolationLevel, pokud chcete, aby se zabránilo výchozí nastavení) a umožní Entity Framework, že je již spuštěna na připojení k existující transakce (viz řádek 33 níže).  
+Kromě toho je nutné spustit transakci sami sami (včetně IsolationLevel, pokud chcete zabránit výchozímu nastavení) a nechat Entity Framework, že již existuje existující transakce, která již začala na připojení (viz řádek 33 níže).  
 
-Potom můžete libovolně u provádění operací databáze přímo na objekt SqlConnection samotné nebo objekt dbcontext. Všechny tyto operace jsou spuštěny v rámci jedné transakce. Můžete převzít odpovědnost pro potvrzení nebo vrácení transakce a volání Dispose() na ni, stejně jako pro zavření a rušení připojení databáze. Příklad:  
+Pak můžete spouštět databázové operace buď přímo na samotném SqlConnection, nebo na DbContext. Všechny tyto operace jsou spouštěny v rámci jedné transakce. Přinesete zodpovědnost za potvrzení nebo vrácení transakce a pro volání metody Dispose () na ni a také pro uzavření a zrušení připojení k databázi. Příklad:  
 
 ``` csharp
 using System;
@@ -140,35 +133,28 @@ namespace TransactionsExamples
 
                using (var sqlTxn = conn.BeginTransaction(System.Data.IsolationLevel.Snapshot))
                {
-                   try
-                   {
-                       var sqlCommand = new SqlCommand();
-                       sqlCommand.Connection = conn;
-                       sqlCommand.Transaction = sqlTxn;
-                       sqlCommand.CommandText =
-                           @"UPDATE Blogs SET Rating = 5" +
-                            " WHERE Name LIKE '%Entity Framework%'";
-                       sqlCommand.ExecuteNonQuery();
+                   var sqlCommand = new SqlCommand();
+                   sqlCommand.Connection = conn;
+                   sqlCommand.Transaction = sqlTxn;
+                   sqlCommand.CommandText =
+                       @"UPDATE Blogs SET Rating = 5" +
+                        " WHERE Name LIKE '%Entity Framework%'";
+                   sqlCommand.ExecuteNonQuery();
 
-                       using (var context =  
-                         new BloggingContext(conn, contextOwnsConnection: false))
-                        {
-                            context.Database.UseTransaction(sqlTxn);
-
-                            var query =  context.Posts.Where(p => p.Blog.Rating >= 5);
-                            foreach (var post in query)
-                            {
-                                post.Title += "[Cool Blog]";
-                            }
-                           context.SaveChanges();
-                        }
-
-                        sqlTxn.Commit();
-                    }
-                    catch (Exception)
+                   using (var context =  
+                     new BloggingContext(conn, contextOwnsConnection: false))
                     {
-                        sqlTxn.Rollback();
+                        context.Database.UseTransaction(sqlTxn);
+
+                        var query =  context.Posts.Where(p => p.Blog.Rating >= 5);
+                        foreach (var post in query)
+                        {
+                            post.Title += "[Cool Blog]";
+                        }
+                       context.SaveChanges();
                     }
+
+                    sqlTxn.Commit();
                 }
             }
         }
@@ -176,21 +162,21 @@ namespace TransactionsExamples
 }
 ```  
 
-### <a name="clearing-up-the-transaction"></a>Odstraňování transakce
+### <a name="clearing-up-the-transaction"></a>Vymazávání transakce
 
-Můžete předat hodnotu null Database.UseTransaction() zrušte Entity Framework znalost aktuální transakce. Entity Framework bude ani potvrzení ani vrácení stávajících transakcí při tomto, proto používejte opatrně a pouze v případě, že jste si jisti, to je, co chcete udělat.  
+Můžete předat hodnotu null objektu Database. UseTransaction (), aby bylo jasné, že se Entity Framework aktuální transakce. Pokud to uděláte, Entity Framework nebude ani po provedení této akce potvrdit ani vrátit zpátky existující transakci, takže používejte s péčí a jenom pokud jste si jisti, co chcete udělat.  
 
-### <a name="errors-in-usetransaction"></a>Chyby v transakci
+### <a name="errors-in-usetransaction"></a>Chyby v UseTransaction
 
-Zobrazí se výjimka z Database.UseTransaction() Pokud předáte transakce při:  
-- Entity Framework již má existující transakce  
-- Entity Framework je již zpracovávána v rámci objekt TransactionScope  
-- V transakci předaný objekt připojení má hodnotu null. To znamená, že transakce není přidružena připojení – to je obvykle známkou toho, že této transakce již byla dokončena  
-- Objekt připojení v předán transakce neodpovídá připojení rozhraní Entity Framework.  
+Výjimka z databáze. UseTransaction () se zobrazí, Pokud předáte transakci v těchto případech:  
+- Entity Framework už má existující transakci.  
+- Entity Framework už v rámci objektu TransactionScope funguje.  
+- Objekt připojení v předané transakci má hodnotu null. To znamená, že transakce není přidružena k připojení – obvykle se jedná o znaménko, že tato transakce již byla dokončena.  
+- Objekt připojení v předané transakci se neshoduje s připojením Entity Framework.  
 
-## <a name="using-transactions-with-other-features"></a>Použití transakcí s dalšími funkcemi  
+## <a name="using-transactions-with-other-features"></a>Používání transakcí s jinými funkcemi  
 
-Tato část podrobně popisuje, jak výše uvedené transakce interakci s:  
+Tato část podrobně popisuje, jak výše uvedené transakce spolupracují:  
 
 - Odolnost připojení  
 - Asynchronní metody  
@@ -198,16 +184,16 @@ Tato část podrobně popisuje, jak výše uvedené transakce interakci s:
 
 ### <a name="connection-resiliency"></a>Odolnost připojení  
 
-Novou funkci odolnosti proti chybám připojení nefunguje s uživatelem iniciované transakce. Podrobnosti najdete v tématu [strategie opakování pokusu o spuštění](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported).  
+Nová funkce odolnosti připojení nefunguje s transakcemi iniciované uživatelem. Podrobnosti najdete v tématu [opakování strategií provádění](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported).  
 
 ### <a name="asynchronous-programming"></a>Asynchronní programování  
 
-Přístup uvedených v předchozích částech potřebuje žádné další možnosti nebo nastavení pro práci s [asynchronního dotazu a uložit metody](~/ef6/fundamentals/async.md
-). Ale mějte na paměti, že v závislosti na tom, co dělat v rámci asynchronní metody může být výsledkem dlouhotrvajících transakcí – které pak může způsobit zablokování nebo blokování, což je vhodná pro výkon celkové aplikace.  
+Přístup, který je popsaný v předchozích částech, nepotřebuje žádné další možnosti ani nastavení pro práci [s asynchronními dotazy a](~/ef6/fundamentals/async.md
+)metodami úspory. Mějte ale na paměti, že v závislosti na tom, co v rámci asynchronních metod provedete, to může způsobit dlouhotrvající transakce – což může způsobit zablokování nebo blokování, které je pro výkon celé aplikace špatné.  
 
 ### <a name="transactionscope-transactions"></a>Transakce TransactionScope  
 
-Před EF6 doporučený způsob poskytnutí větší rozsah transakce byla použití objektu TransactionScope:  
+Před EF6 doporučeným způsobem poskytnutí větších transakcí rozsahu bylo použití objektu TransactionScope:  
 
 ``` csharp
 using System.Collections.Generic;
@@ -254,9 +240,9 @@ namespace TransactionsExamples
 }
 ```  
 
-Připojení SqlConnection a Entity Framework jak použije okolí transakce TransactionScope a proto se měly potvrdit společně.  
+SqlConnection a Entity Framework by používaly ambientní transakci TransactionScope a měla by se tedy považovat za společně.  
 
-Od verze rozhraní .NET 4.5.1 objekt TransactionScope byl aktualizován na také pracovat prostřednictvím použití asynchronních metod [TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx) výčtu:  
+Počínaje rozhraním .NET 4.5.1 TransactionScope bylo aktualizováno, aby fungovalo také s asynchronními metodami prostřednictvím použití výčtu [nastavením TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx) :  
 
 ``` csharp
 using System.Collections.Generic;
@@ -301,16 +287,16 @@ namespace TransactionsExamples
 }
 ```  
 
-Stále existují určitá omezení přístupu TransactionScope:  
+Existují i určitá omezení přístupu k objektu TransactionScope:  
 
-- Vyžaduje .NET 4.5.1 nebo novější pro práci s asynchronní metody.  
-- Ve scénářích cloudové jej nelze použít, pokud jste si jisti, budete mít jeden a pouze jeden připojení (cloudové scénáře nepodporují distribuované transakce).  
-- Ji nelze kombinovat s přístupem Database.UseTransaction() z předchozí části.  
-- Výjimky vyvolá-li vydávat žádné DDL a nepovolili distribuované transakce ve službě MSDTC.  
+- Pro práci s asynchronními metodami vyžaduje rozhraní .NET 4.5.1 nebo novější.  
+- Nedá se použít v cloudových scénářích, pokud si nejste jistí, že máte jenom jedno připojení (cloudové scénáře nepodporují distribuované transakce).  
+- Nejde kombinovat s přístupem k databázi. UseTransaction () v předchozích částech.  
+- Vyvolá výjimky, pokud vydáte skript DDL a nepovolíte distribuované transakce prostřednictvím služby MSDTC.  
 
-Výhody TransactionScope přístupu:  
+Výhody přístupu s objektem TransactionScope:  
 
-- Se automaticky upgraduje místní transakce na distribuovanou transakci Pokud provedete víc než jedno připojení k dané databázi nebo připojení k jedné databáze v kombinaci s připojení k jiné databázi v rámci jedné transakce (Poznámka: je zapotřebí Služba MSDTC službu nakonfigurované tak, aby distribuovaných transakcí, aby to fungovalo).  
-- Usnadnění psaní kódu. Pokud dáváte přednost transakci okolí a zpracovávány implicitně na pozadí, spíše než explicitně v části ovládací prvek pak TransactionScope přístup může vyhovovat je lepší.  
+- Pokud provedete více než jedno připojení k dané databázi nebo zkombinujete připojení k jedné databázi s připojením k jiné databázi v rámci stejné transakce, bude automaticky upgradována místní transakce na distribuovanou transakci (Poznámka: musíte mít Služba MSDTC nakonfigurovaná tak, aby umožňovala fungování distribuovaných transakcí.  
+- Snadné kódování. Pokud upřednostňujete, aby transakce byla ambientní a řešena implicitně na pozadí místo explicitního řízení, může přístup k objektům TransactionScope lépe vyhovovat.  
 
-Stručně řečeno, nové Database.BeginTransaction() a rozhraní API Database.UseTransaction() výše přístup objekt TransactionScope byl již není nezbytné pro většinu uživatelů. Pokud budete nadále používat TransactionScope pak mějte na paměti z výše uvedených omezení. Doporučujeme použít přístup popsaných v předchozích částech místo, kde je to možné.  
+V souhrnu s novými rozhraními API Database. BeginTransaction () a Database. UseTransaction () výše už není přístup k objektům TransactionScope nutný pro většinu uživatelů. Pokud budete pokračovat v používání objektu TransactionScope, pamatujte na výše uvedená omezení. Místo toho doporučujeme použít postup popsaný v předchozích částech.  
