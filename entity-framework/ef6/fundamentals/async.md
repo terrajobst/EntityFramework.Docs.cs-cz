@@ -1,48 +1,48 @@
 ---
-title: Asynchronní dotazy a save - EF6
+title: Asynchronní dotazování a ukládání – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 8c72012be4b77ff31faf909bf02035865521a640
-ms.sourcegitcommit: 7c5c5e09a4d2671d7461e027837966c4ff91e398
+ms.openlocfilehash: bf2039110962e8dd114242dcd0b9454963750774
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/15/2019
-ms.locfileid: "67148488"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306587"
 ---
-# <a name="async-query-and-save"></a>Asynchronní dotazy a uložit
+# <a name="async-query-and-save"></a>Asynchronní dotazování a ukládání
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.
 
-Zavedena podpora asynchronního dotazu a uložit pomocí EF6 [async a operátoru await klíčová slova](https://msdn.microsoft.com/library/vstudio/hh191443.aspx) , která byla zavedena v rozhraní .NET 4.5. Zatímco u některých aplikací není můžou mít užitek z asynchronii, můžete použít ke zlepšení škálovatelnosti rychlost reakce a server klienta při zpracování dlouhodobě spuštěných, sítě nebo vstupně-výstupní úlohy.
+EF6 zavádí podporu pro asynchronní dotazy a ukládá je pomocí [klíčových slov Async a await](https://msdn.microsoft.com/library/vstudio/hh191443.aspx) , která byla představena v rozhraní .NET 4,5. I když ne všechny aplikace můžou těžit z asynchronii, je možné ji použít ke zlepšení odezvy klienta a škálovatelnosti serveru při zpracování dlouhotrvajících, síťových nebo vstupně-výstupních úloh.
 
-## <a name="when-to-really-use-async"></a>Kdy k opravdu použít operátory async
+## <a name="when-to-really-use-async"></a>Kdy skutečně použít asynchronní
 
-Účelem tohoto návodu je zavést koncepty asynchronní způsobem, který umožňuje snadno sledovat rozdíl mezi provádění asynchronní a synchronní programu. Tento názorný postup není určený k objasnění některé z klíčových scénářů, kde asynchronní programování poskytuje výhody.
+Účelem tohoto návodu je zavedení asynchronních konceptů způsobem, který usnadňuje sledování rozdílů mezi asynchronním a synchronním prováděním programu. Tento návod není určen k ilustraci žádných klíčových scénářů, kde asynchronní programování poskytuje výhody.
 
-Asynchronní programování je primárně zaměřen na aktuální spravované vlákno (vlákno spuštěním kódu .NET) provádět další činnosti, kdy čeká operace, která nevyžaduje žádné výpočetní čas věnovat ze spravované vlákno. Například zpracovávání databázový stroj je dotaz nic udělat kód .NET.
+Asynchronní programování je primárně zaměřeno na uvolnění aktuálního spravovaného vlákna (vlákno spouštějící kód .NET) k provedení jiné práce v době, kdy čeká na operaci, která nevyžaduje výpočetní čas ze spravovaného vlákna. Například když databázový stroj zpracovává dotaz, nemusíte nic dělat pomocí kódu .NET.
 
-V klientských aplikacích (WinForms, WPF atd.) aktuální vlákno je možné zachovat interaktivní uživatelské rozhraní během provádění asynchronní operace. V serverových aplikací (ASP.NET atd.) do vlákna je možné zpracovávat jiné příchozí žádosti – to může snížit využití paměti a/nebo zvýšit propustnost ze serveru.
+V klientských aplikacích (WinForms, WPF atd.) je možné použít aktuální vlákno k udržení odezvy uživatelského rozhraní během provádění asynchronní operace. V serverových aplikacích (ASP.NET atd.) se vlákno dá použít ke zpracování dalších příchozích požadavků – to může snížit využití paměti nebo zvýšit propustnost serveru.
 
-Ve většině aplikací použití modifikátoru async, bude mít žádné výrazné výhody a dokonce může být škodlivé. Pomocí testování, profilaci a zdravý měřit dopad asynchronní v konkrétním případě před potvrzením do něj.
+Ve většině aplikací s využitím Async nebudou žádné znatelné výhody a dokonce by mohlo být škodlivé. Používejte testy, profilaci a běžné smysly k měření dopadu asynchronního testu ve vašem konkrétním scénáři před jeho potvrzením.
 
-Tady jsou některé další zdroje informací o asynchronní:
+Zde jsou některé další zdroje informací o asynchronních prostředcích:
 
--   [Přehled Brandon Bray async/await v rozhraní .NET 4.5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
--   [Asynchronní programování](https://msdn.microsoft.com/library/hh191443.aspx) stránek v knihovně MSDN
--   [Jak vytvořit asynchronní pomocí technologie ASP.NET webové aplikace](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (včetně ukázku propustnost vyšší server)
+-   [Brandon Bray – přehled Async/await v rozhraní .NET 4,5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
+-   Stránky [asynchronního programování](https://msdn.microsoft.com/library/hh191443.aspx) v knihovně MSDN
+-   [Sestavování webových aplikací v ASP.NET pomocí Async](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (zahrnuje ukázku zvýšené propustnosti serveru)
 
 ## <a name="create-the-model"></a>Vytvoření modelu
 
-Budeme používat [Code First pracovního postupu](~/ef6/modeling/code-first/workflows/new-database.md) vytvoření náš model a generovat databázi, ale asynchronní funkcí bude fungovat s všechny modely EF, včetně těch, které vytvořili s EF designeru.
+Pomocí [pracovního postupu Code First](~/ef6/modeling/code-first/workflows/new-database.md) vytvoříte náš model a vygenerujete databázi, ale asynchronní funkce budou fungovat se všemi modely EF, včetně těch, které jsou vytvořené pomocí návrháře EF.
 
--   Vytvořte konzolovou aplikaci a jeho volání **AsyncDemo**
--   Přidání balíčku NuGet objektu EntityFramework
-    -   V Průzkumníku řešení klikněte pravým tlačítkem myši na **AsyncDemo** projektu
-    -   Vyberte **spravovat balíčky NuGet...**
-    -   V dialogovém okně Spravovat balíčky NuGet vyberte **Online** kartě a zvolte **EntityFramework** balíčku
-    -   Klikněte na tlačítko **instalace**
--   Přidat **Model.cs** třídy následující implementaci
+-   Vytvořte konzolovou aplikaci a zavolejte ji **AsyncDemo**
+-   Přidat balíček NuGet EntityFramework
+    -   V Průzkumník řešení klikněte pravým tlačítkem na projekt **AsyncDemo** .
+    -   Vyberte **Spravovat balíčky NuGet...**
+    -   V dialogovém okně Spravovat balíčky NuGet vyberte kartu **online** a zvolte balíček **EntityFramework** .
+    -   Klikněte na **nainstalovat** .
+-   Přidat třídu **model.cs** s následující implementací
 
 ``` csharp
     using System.Collections.Generic;
@@ -78,11 +78,11 @@ Budeme používat [Code First pracovního postupu](~/ef6/modeling/code-first/wor
 
  
 
-## <a name="create-a-synchronous-program"></a>Vytvoření synchronní aplikace
+## <a name="create-a-synchronous-program"></a>Vytvořit synchronní program
 
-Když teď máme modelu EF, napište kód, který používá některá přístup k datům.
+Teď, když máme model EF, napíšeme kód, který ho používá k provedení určitého přístupu k datům.
 
--   Nahraďte obsah **Program.cs** následujícím kódem
+-   Nahraďte obsah **program.cs** následujícím kódem.
 
 ``` csharp
     using System;
@@ -136,32 +136,32 @@ Když teď máme modelu EF, napište kód, který používá některá přístup
     }
 ```
 
-Tento kód volá **PerformDatabaseOperations** metodu, která uloží nový **blogu** do databáze a pak načte všechny **blogy** z databáze a vytiskne jim **Konzoly**. Po této, program zapíše nabídky dne **konzoly**.
+Tento kód volá metodu **PerformDatabaseOperations** , která uloží nový **blog** do databáze a potom načte všechny **Blogy** z databáze a vytiskne je do **konzoly**. Potom program zapíše do **konzoly**nabídku dne.
 
-Protože kód je synchronní, můžete podle našich zkušeností následující postup provádění když spustíme program:
+Vzhledem k tomu, že kód je synchronní, můžeme při spuštění programu sledovat následující tok spuštění:
 
-1.  **SaveChanges** začíná tak, aby nabízel nové **blogu** do databáze
-2.  **SaveChanges** dokončení
-3.  Dotaz na všechny **blogy** je odeslán do databáze
-4.  Dotaz vrátí a výsledky se zapisují do **konzoly**
-5.  Nabídka dne je zapsán do **konzoly**
+1.  **SaveChanges** zahajuje vložení nového **blogu** do databáze.
+2.  **SaveChanges** se dokončí.
+3.  Dotaz pro všechny **Blogy** jsou odesílány do databáze.
+4.  Dotaz vrátí a výsledky se zapisují do **konzoly** .
+5.  Nabídka dne se zapisuje do **konzoly** .
 
-![Výstup synchronizace](~/ef6/media/syncoutput.png) 
+![Synchronizovat výstup](~/ef6/media/syncoutput.png) 
 
  
 
-## <a name="making-it-asynchronous"></a>Díky tomu je asynchronní
+## <a name="making-it-asynchronous"></a>Asynchronní vytváření
 
-Když teď máme náš program rychle zprovoznit, můžeme začít vytváření využívání nových async a operátoru await klíčová slova. Provedli jsme následující změny do souboru Program.cs
+Teď, když máme náš program v provozu, můžeme začít používat nová klíčová slova Async a await. Provedli jsme následující změny Program.cs
 
-1.  Řádek 2: Použití příkazu pro **System.Data.Entity** obor názvů poskytuje nám přístup k EF asynchronní rozšiřující metody.
-2.  Řádek 4: Použití příkazu pro **System.Threading.Tasks** obor názvů umožňuje, abyste mohli používat **úloh** typu.
-3.  Řádek 12 a 18: Jsme zachycování jako úlohu, která monitoruje průběh **PerformSomeDatabaseOperations** (řádkem 12) a pak blokování provádění programu pro tento úkol kompletní jednou všechnu práci pro program provádí (řádek 18).
-4.  25\. řádek: Jsme aktualizace **PerformSomeDatabaseOperations** být označený jako **asynchronní** a vraťte se **úloh**.
-5.  Řádek 35: Nyní jsme volání asynchronní verzi SaveChanges a čekáním na její dokončení.
-6.  Řádek 42: Voláme na asynchronní verzi ToList a čekání na výsledek.
+1.  Řádek 2: Příkaz using pro obor názvů **System. data. entity** poskytne přístup k metodám asynchronního rozšíření EF.
+2.  Řádek 4: Příkaz using pro obor názvů **System. Threading. Tasks** nám umožňuje použít typ **úkolu** .
+3.  Řádek 12 & 18: Zachycujeme jako úkol, který monitoruje průběh **PerformSomeDatabaseOperations** (řádek 12) a potom zablokuje spuštění programu pro tuto úlohu, aby se dokončila i po dokončení veškeré práce pro daný program (řádek 18).
+4.  Řádek 25: **PerformSomeDatabaseOperations** jsme aktualizovali tak, aby byla označena jako **asynchronní** a vrátila **úlohu**.
+5.  Řádek 35: Nyní voláme asynchronní verzi metody SaveChanges a čeká se na její dokončení.
+6.  Řádek 42: Nyní voláme asynchronní verzi ToList – a čekáme na výsledek.
 
-Úplný seznam dostupných rozšiřujících metod v oboru názvů System.Data.Entity odkazovat na třídu QueryableExtensions. *Bude také potřeba přidat "pomocí System.Data.Entity" k pomocí příkazů.*
+Úplný seznam dostupných metod rozšíření v oboru názvů System. data. entity naleznete v tématu Třída QueryableExtensions. *Pro příkazy using budete také muset přidat "using System. data. entity".*
 
 ``` csharp
     using System;
@@ -219,19 +219,19 @@ Když teď máme náš program rychle zprovoznit, můžeme začít vytváření 
     }
 ```
 
-Teď, když je asynchronní kód, můžete podle našich zkušeností různých provádění toku když spustíme program:
+Teď, když je kód asynchronní, můžeme při spuštění programu sledovat jiný tok spuštění:
 
-1.  **SaveChanges** začíná tak, aby nabízel nové **blogu** do databáze *po odesláním příkazu do databáze žádné další výpočetní čas je potřebný pro aktuální vlákno spravované. **PerformDatabaseOperations** metoda vrátí hodnotu (přestože nebyl dokončen, provádění) a pokračuje v toku programu v hlavní metodě.*
-2.  **Nabídka dne je zapsán do konzoly**
-    *protože neexistuje žádná další práce do metody Main, spravované vlákno je blokována v čekání volat, dokud se nedokončí operace databáze. Po jeho dokončení, zbývající část naší **PerformDatabaseOperations** se spustí.*
-3.  **SaveChanges** dokončení
-4.  Dotaz na všechny **blogy** je odeslán do databáze *spravované vlákno je opět, můžete provádět další operace, zatímco zpracování dotazu se v databázi. Protože všechny další spuštění bylo dokončeno, vlákno právě zastaví při volání čekání ale.*
-5.  Dotaz vrátí a výsledky se zapisují do **konzoly**
+1.  **SaveChanges** začíná po odeslání příkazu do  databáze odeslat nový blog *do databáze. v aktuálním spravovaném vlákně není potřeba žádné další výpočetní čas. Metoda **PerformDatabaseOperations** vrací (i když ještě nedokončila) a tok programu v metodě Main pokračuje.*
+2.  **Nabídka dne je zapsána do konzoly**
+     *, protože v metodě Main neexistuje více práce, spravované vlákno je blokováno ve volání čekání, dokud se operace databáze nedokončí. Po dokončení bude zbytek našich **PerformDatabaseOperations** spuštěn.*
+3.  **SaveChanges** se dokončí.
+4.  Dotaz pro všechny **Blogy** se znovu pošle do *databáze, spravované vlákno se zadarmo provede v průběhu zpracování dotazu v databázi. Vzhledem k tomu, že bylo dokončeno jakékoli jiné spuštění, vlákno bude pouze zastaveno ve volání čekání, i když.*
+5.  Dotaz vrátí a výsledky se zapisují do **konzoly** .
 
-![Asynchronní výstupu](~/ef6/media/asyncoutput.png) 
+![Asynchronní výstup](~/ef6/media/asyncoutput.png) 
 
  
 
-## <a name="the-takeaway"></a>Hlavní, co vyplývá
+## <a name="the-takeaway"></a>Poznatkem
 
-Jsme teď viděli, jak snadné je vytvořit použití asynchronních metod na EF. I když výhody asynchronní nemusí být jasné, s jednoduchou konzolovou aplikaci, tyto stejné strategie lze použít v situacích, kde dlouhotrvajících nebo vázané na síť aktivity může být jinak blokovat aplikaci, nebo způsobit, že velký počet vláken zvýšit nároky na paměť.
+Nyní jsme viděli, jak snadné je využít asynchronní metody EF. I když se výhody asynchronního asynchronního typu nemusí velmi vyhodnotit pomocí jednoduché konzolové aplikace, je možné tyto stejné strategie použít v situacích, kdy dlouhotrvající nebo síťové aktivity může jinak blokovat aplikaci nebo způsobit velký počet vláken. Zvětšete nároky na paměť.
