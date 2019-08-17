@@ -1,21 +1,21 @@
 ---
-title: Načítají se související entity - EF6
+title: Načítají se související entity – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: c8417e18-a2ee-499c-9ce9-2a48cc5b468a
-ms.openlocfilehash: 2d33d9db8acc61f7d556e3eca46b1ea90198723e
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: f40034475ed6659b60ab4317605fd1d802218d69
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415754"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565310"
 ---
-# <a name="loading-related-entities"></a>Načítají se související entity
-Entity Framework podporuje tři způsoby, jak načíst související data - eager načítání, opožděné načtení a explicitní načtení. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+# <a name="loading-related-entities"></a>Načítají se související entity.
+Entity Framework podporuje tři způsoby, jak načítat související Eager načítání dat, opožděné načítání a explicitní načítání. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-## <a name="eagerly-loading"></a>Například načítání  
+## <a name="eagerly-loading"></a>Eagerly načítání  
 
-Předběžné načítání je proces, kterým dotazu pro jeden typ entity se také načtou související entity jako součást dotazu. Předběžné načítání je dosaženo pomocí metody Include. Například níže uvedené dotazy se načte blogové příspěvky a všechny příspěvky vztahující se k blogů.  
+Eager načítání je proces, při kterém dotaz pro jeden typ entity také načte související entity jako součást dotazu. Načítání Eager se dosahuje pomocí metody include. Například níže uvedené dotazy načtou Blogy a všechny příspěvky týkající se jednotlivých blogů.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -25,7 +25,7 @@ using (var context = new BloggingContext())
                         .Include(b => b.Posts)
                         .ToList();
 
-    // Load one blogs and its related posts
+    // Load one blog and its related posts
     var blog1 = context.Blogs
                        .Where(b => b.Name == "ADO.NET Blog")
                        .Include(b => b.Posts)
@@ -46,11 +46,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, zahrnout je rozšiřující metodu v oboru názvů System.Data.Entity proto se ujistěte, že používáte tento obor názvů.  
+Všimněte si, že zahrnutí je rozšiřující metoda v oboru názvů System. data. entity, takže se ujistěte, že používáte tento obor názvů.  
 
-### <a name="eagerly-loading-multiple-levels"></a>Například načítání více úrovní  
+### <a name="eagerly-loading-multiple-levels"></a>Eagerly načítání více úrovní  
 
-Je také možné například načíst několik úrovní související entity. Níže uvedené dotazy ukazují příklady toho, jak to provést u kolekce a odkaz na navigační vlastnosti.  
+Je také možné eagerly načíst více úrovní souvisejících entit. Níže uvedené dotazy ukazují příklady toho, jak to udělat pro vlastnosti kolekce i navigační navigace.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -79,11 +79,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že není aktuálně můžete provést filtrování souvisejících entit, které jsou načteny. Zahrnout bude vždy umožňuje přinést si všechny související entity.  
+Všimněte si, že v tuto chvíli není možné filtrovat, které související entity se načítají. Zahrnutí se vždycky přenese do všech souvisejících entit.  
 
-## <a name="lazy-loading"></a>Opožděné načtení  
+## <a name="lazy-loading"></a>Opožděné načítání  
 
-Opožděné načtení je proces, kterým entitu nebo kolekci entit se automaticky načtou z databáze při prvním přístupu k vlastnosti odkazující na entity nebo entities. Při použití typů entit POCO, opožděné načtení se dosahuje prostřednictvím vytváření instancí typů odvozených proxy serveru a potom přepsáním virtuální vlastnosti přidáte hook načítání. Například pokud používáte třídu entity blogu definovaná níže, souvisejících příspěvků se načtou při prvním příspěvky vlastnost navigace pracuje:  
+Opožděné načítání je proces, při kterém je entita nebo kolekce entit automaticky načtena z databáze při prvním otevření vlastnosti odkazující na entitu nebo entity. Při použití typů entit POCO je dosaženo opožděné načítání vytvořením instancí odvozených typů proxy a následným přepsáním virtuálních vlastností pro přidání zavěšení zatížení. Pokud například používáte třídu entity blogu definovanou níže, související příspěvky se načtou při prvním otevření navigační vlastnosti příspěvky:  
 
 ``` csharp
 public class Blog
@@ -97,13 +97,13 @@ public class Blog
 }
 ```  
 
-### <a name="turn-lazy-loading-off-for-serialization"></a>Zapnout opožděné načtení vypnout pro serializaci  
+### <a name="turn-lazy-loading-off-for-serialization"></a>Zapnout opožděné načítání pro serializaci  
 
-Serializace a opožděné načtení Nekombinujte dobře a nevyloučíte můžete skončit dotazování pro celou databázi pouze z důvodu opožděné načtení je povolená. Většina serializátory práci díky přístupu do každou vlastnost v instanci typu. Přístup k vlastnostem aktivuje opožděné načtení, tak se serializují dalších entit. S těmito entitami přístup k vlastnostem a ještě více entit se načtou. Je vhodné zapnout opožděné načtení vypnout před serializovat entity. Následující části vysvětlují, jak to udělat.  
+Opožděné načítání a serializace se dobře nespojují. Pokud nemusíte pozor, můžete ukončit dotazování pro celou databázi, a to jenom v případě, že je povolené opožděné načítání. Většina serializátorů funguje při přístupu k jednotlivým vlastnostem instance typu. Přístup k vlastnostem aktivuje opožděné načítání, takže se další entity získají serializovat. K těmto vlastnostem entit se dostanete a načtou se i další entity. Před serializací entity je dobrým zvykem zapnout opožděné načítání. Následující části vysvětlují, jak to udělat.  
 
-### <a name="turning-off-lazy-loading-for-specific-navigation-properties"></a>Vypnutí opožděné načtení pro konkrétní navigační vlastnosti  
+### <a name="turning-off-lazy-loading-for-specific-navigation-properties"></a>Vypnutí opožděného načítání pro konkrétní navigační vlastnosti  
 
-Opožděné načtení kolekce příspěvky můžete vypnout tak, že vlastnost příspěvky nevirtuální:  
+Opožděné načítání kolekce příspěvků lze vypnout tím, že vlastnost posts není virtuální:  
 
 ``` csharp
 public class Blog
@@ -117,11 +117,11 @@ public class Blog
 }
 ```  
 
-Načítání příspěvků kolekce stále lze dosáhnout pomocí předběžné načítání (naleznete v tématu *například načítání* výše) nebo metodu načtení (naleznete v tématu *explicitně načítání* níže).  
+Načítání kolekce příspěvků lze stále dosáhnout pomocí Eager načítání (viz *eagerly* Load výše) nebo metody Load (viz *explicitní načtení* níže).  
 
-### <a name="turn-off-lazy-loading-for-all-entities"></a>Vypnout opožděné načtení pro všechny entity  
+### <a name="turn-off-lazy-loading-for-all-entities"></a>Vypnout opožděné načítání pro všechny entity  
 
-Opožděné načtení může být vypnuté pro všechny entity v kontextu nastavením příznaku v konfigurační vlastnosti. Příklad:  
+Opožděné načítání lze vypnout pro všechny entity v kontextu nastavením příznaku na vlastnost konfigurace. Příklad:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -133,11 +133,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Načítání souvisejících entit stále lze dosáhnout pomocí předběžné načítání (naleznete v tématu *například načítání* výše) nebo metodu načtení (naleznete v tématu *explicitně načítání* níže).  
+Načítání souvisejících entit se stále může dosáhnout pomocí Eager načítání (viz *eagerly* Load výše) nebo metodou Load (viz *explicitní načítání* níže).  
 
-## <a name="explicitly-loading"></a>Explicitně načítání  
+## <a name="explicitly-loading"></a>Explicitní načítání  
 
-I přes opožděné načítání je zakázáno je stále možné laxně načtení souvisejících entit, ale je nutné provést pomocí explicitní volání konstruktoru. K tomu použít metodu zatížení u související entity položky. Příklad:  
+I v případě, že je opožděné načítání zakázané, je stále možné laxně vytvářená načíst související entity, ale je nutné provést explicitní volání. K tomu slouží metoda Load pro položku související entity. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -161,11 +161,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že metodu odkaz by měl být pokud má entita navigační vlastnost pro další jednu entitu. Metodu kolekce na druhé straně by měl použít, pokud má entita navigační vlastnost kolekce jiných entit.  
+Všimněte si, že metoda reference by měla být použita, pokud má entita navigační vlastnost k jiné jedné entitě. Na druhé straně by se měla použít metoda kolekce, pokud má entita navigační vlastnost pro kolekci jiných entit.  
 
-### <a name="applying-filters-when-explicitly-loading-related-entities"></a>Použití filtrů při načítání explicitně související entity  
+### <a name="applying-filters-when-explicitly-loading-related-entities"></a>Použití filtrů při explicitním načítání souvisejících entit  
 
-Metoda dotazu poskytuje přístup k základní dotaz, který Entity Framework bude používat při načítání souvisejících entit. Potom můžete LINQ a nastavte filtry pro dotaz před spuštěním pomocí volání metody rozšíření LINQ jako je například ToList zatížení, atd. Metodu dotazu je možné použít s vlastnostmi navigační odkaz a kolekce, ale je zvláště užitečná pro kolekce, ve kterém je možné načíst pouze část shromažďování. Příklad:  
+Metoda dotazu poskytuje přístup k podkladovým dotazům, které Entity Framework použijí při načítání souvisejících entit. Pak můžete použít LINQ k aplikování filtrů na dotaz před jeho provedením voláním metody rozšíření LINQ, jako je ToList –, Load atd. Metoda dotazu může být použita s oběma vlastnostmi odkazu i navigace v kolekci, ale je nejužitečnější pro kolekce, kde je lze použít pro načtení pouze části kolekce. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -189,13 +189,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Při použití metody dotazu je obvykle nejlepší volbou, chcete-li vypnout opožděné načtení pro navigační vlastnost. Je to proto jinak celou kolekci mohou získat načteny automaticky opožděné načtení mechanismem před nebo po provedení filtrovaného dotazu.  
+Při použití metody dotazu obvykle je nejlepší vypnout opožděné načítání pro navigační vlastnost. Důvodem je, že v opačném případě může být celá kolekce automaticky načtena mechanismem opožděného načítání buď před, nebo po provedení filtrovaného dotazu.  
 
-Všimněte si, že během relace můžete zadat jako řetězec namísto výrazu lambda, vrácený typ IQueryable není obecná při řetězec se používá, a proto metodu přetypování je obvykle potřeba před nic užitečného můžete s ním dá dělat.  
+Všimněte si, že zatímco relaci lze zadat jako řetězec namísto lambda výrazu, vrácený parametr IQueryable není obecný, je-li použit řetězec, takže metoda cast je obvykle potřebná předtím, než je možné s ní provádět cokoli užitečné.  
 
-## <a name="using-query-to-count-related-entities-without-loading-them"></a>Pomocí dotazu na počet souvisejících entit bez jejich načtení  
+## <a name="using-query-to-count-related-entities-without-loading-them"></a>Použití dotazu k počítání souvisejících entit bez jejich načtení  
 
-Někdy je užitečné vědět, kolik entity se vztahují na jinou entitu v databázi bez ve skutečnosti by tím narůstaly náklady na načtení těchto entit. K tomu je možné metodu dotazu pomocí LINQ Count – metoda. Příklad:  
+Někdy je užitečné zjistit, kolik entit souvisí s jinou entitou v databázi, aniž by to mělo za následek nasazování všech těchto entit. K tomu lze použít metodu dotazu s metodou LINQ Count. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())

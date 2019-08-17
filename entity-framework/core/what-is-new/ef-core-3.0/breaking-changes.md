@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: c73663412efcd93c04892f193d4f5a2485724e22
-ms.sourcegitcommit: 755a15a789631cc4ea581e2262a2dcc49c219eef
+ms.openlocfilehash: 884cc6611b986fb213d99d3d2fc69d7bebe34aa2
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68497532"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565327"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Přerušující změny zahrnuté v EF Core 3,0 (aktuálně ve verzi Preview)
 
@@ -25,6 +25,7 @@ Přerušení nových funkcí zavedených z jedné verze 3,0 Preview do jiné 3,0
 | **Zásadní změna**                                                                                               | **Dopad** |
 |:------------------------------------------------------------------------------------------------------------------|------------|
 | [Dotazy LINQ již nejsou vyhodnocovány na klientovi.](#linq-queries-are-no-longer-evaluated-on-the-client)         | Vysoká       |
+| [EF Core 3,0 cíle .NET Standard 2,1 místo .NET Standard 2,0](#netstandard21) | Vysoká      |
 | [EF Core nástroj příkazového řádku dotnet EF již není součástí .NET Core SDK](#dotnet-ef) | Vysoká      |
 | [Z tabulek, ExecuteSql a ExecuteSqlAsync byly přejmenovány.](#fromsql) | Vysoká      |
 | [Typy dotazů jsou konsolidovány s typy entit](#qt) | Vysoká      |
@@ -33,6 +34,7 @@ Přerušení nových funkcí zavedených z jedné verze 3,0 Preview do jiné 3,0
 | [DeleteBehavior. restrict má sémantiku čištění.](#deletebehavior) | Střední      |
 | [Změnilo se konfigurační rozhraní API pro vztahy vlastněných typů.](#config) | Střední      |
 | [Každá vlastnost používá nezávislou generaci celočíselného klíče v paměti.](#each) | Střední      |
+| [Žádné dotazy pro sledování neprovádějí překlad identity](#notrackingresolution) | Střední      |
 | [Změny rozhraní API pro metadata](#metadata-api-changes) | Střední      |
 | [Změny rozhraní API pro konkrétního zprostředkovatele](#provider) | Střední      |
 | [UseRowNumberForPaging se odebral.](#urn) | Střední      |
@@ -102,6 +104,29 @@ Kromě toho může automatické hodnocení klienta vést k problémům s tím, �
 **Hrozeb**
 
 Pokud dotaz nelze plně přeložit, pak buď Přepište dotaz do formuláře, který lze přeložit, nebo použijte `AsEnumerable()`, `ToList()`nebo podobným způsobem explicitně přeneste data zpět do klienta, kde lze následně dále zpracovávat pomocí LINQ-to-Objects.
+
+<a name="netstandard21"></a>
+### <a name="ef-core-30-targets-net-standard-21-rather-than-net-standard-20"></a>EF Core 3,0 cíle .NET Standard 2,1 místo .NET Standard 2,0
+
+[Sledování problému #15498](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
+
+Tato změna je představena ve verzi EF Core 3,0-Preview 7.
+
+**Staré chování**
+
+Před 3,0 EF Core cílené .NET Standard 2,0 a spustí se na všech platformách, které podporují tento standard, včetně .NET Framework.
+
+**Nové chování**
+
+Počínaje 3,0 se EF Core cíle .NET Standard 2,1 a spustí se na všech platformách, které podporují tento standard. To nezahrnuje .NET Framework.
+
+**Proč**
+
+Toto je součást strategického rozhodnutí napříč technologiemi .NET a zaměřuje se na energii na platformě .NET Core a dalších moderních platformách .NET, jako je Xamarin.
+
+**Hrozeb**
+
+Zvažte přechod na moderní platformu .NET. Pokud to není možné, pak pokračujte v používání EF Core 2,1 nebo EF Core 2,2, které podporují .NET Framework.
 
 <a name="no-longer"></a>
 ### <a name="entity-framework-core-is-no-longer-part-of-the-aspnet-core-shared-framework"></a>Entity Framework Core už není součástí sdílené ASP.NET Core architektury.
@@ -222,6 +247,34 @@ Určení `FromSql` kdekoli jinde než u a `DbSet` neobsahovalo žádné přidan�
 **Hrozeb**
 
 `FromSql`volání by se měla přesunout přímo na, `DbSet` na které se vztahují.
+
+<a name="notrackingresolution"></a>
+### <a name="no-tracking-queries-no-longer-perform-identity-resolution"></a>Žádné dotazy pro sledování neprovádějí překlad identity
+
+[Sledování problému #13518](https://github.com/aspnet/EntityFrameworkCore/issues/13518)
+
+Tato změna je představena ve verzi EF Core 3,0-Preview 6.
+
+**Staré chování**
+
+Před EF Core 3,0 se stejná instance entity používá pro všechny výskyty entity se zadaným typem a ID. To odpovídá chování sledovacích dotazů. Například tento dotaz:
+
+```C#
+var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
+```
+vrátí stejnou `Category` instanci pro každý `Product` , který je spojen s danou kategorií.
+
+**Nové chování**
+
+Počínaje EF Core 3,0 budou vytvořeny různé instance entit při výskytu entity se zadaným typem a ID na různých místech vráceného grafu. Například dotaz výše bude nyní vracet novou `Category` instanci pro každou `Product` , i když jsou ke stejné kategorii přidruženy dva produkty.
+
+**Proč**
+
+Překlad identity (to znamená, že určení, že entita má stejný typ a ID jako dříve zjištěná entita) přidává další výkon a režii paměti. Obvykle se spustí čítač, aby se v prvním místě nepoužily žádné dotazy na sledování. I když může být v některých případech užitečný překlad identity, není potřeba, pokud se entity mají serializovat a odeslat klientovi, což je běžné pro žádné dotazy pro sledování.
+
+**Hrozeb**
+
+Pokud je vyžadováno rozlišení identity, použijte dotaz sledování.
 
 <a name="qe"></a>
 
@@ -1222,8 +1275,8 @@ Tato změna je představena ve verzi EF Core 3,0-Preview 6.
 Metody rozšíření specifické pro poskytovatele budou shrnuty:
 
 * `IProperty.Relational().ColumnName` -> `IProperty.GetColumnName()`
-* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.GetSqlServerIsMemoryOptimized()`
-* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.ForSqlServerUseIdentityColumn()`
+* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.IsMemoryOptimized()`
+* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.UseIdentityColumn()`
 
 **Proč**
 
@@ -1260,7 +1313,7 @@ V ostatních případech je možné povolit cizí klíče zadáním `Foreign Key
 
 <a name="sqlite3"></a>
 
-### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundleesqlite3"></a>Microsoft. EntityFrameworkCore. sqlite teď závisí na SQLitePCLRaw. bundle_e_sqlite3
+### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundle_e_sqlite3"></a>Microsoft. EntityFrameworkCore. sqlite teď závisí na SQLitePCLRaw. bundle_e_sqlite3
 
 **Staré chování**
 

@@ -5,12 +5,12 @@ description: Začínáme s EF Core ASP.NET Core se stávající databází
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 6b0ed0a9222644bee31d23234aa27b2084137f4a
-ms.sourcegitcommit: 755a15a789631cc4ea581e2262a2dcc49c219eef
+ms.openlocfilehash: eeebd75bebe85994c6439e06243e113f2bda814c
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68497514"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565225"
 ---
 # <a name="get-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>Začínáme s EF Core ASP.NET Core se stávající databází
 
@@ -92,7 +92,7 @@ Proces zpětného analýz vytvořil třídy entit (`Blog.cs` & `Post.cs`) a odvo
  Kontext představuje relaci s databází a umožňuje dotazování a ukládání instancí tříd entit.
 
 <!-- Static code listing, rather than a linked file, because the tutorial modifies the context file heavily -->
- ``` csharp
+``` csharp
 public partial class BloggingContext : DbContext
 {
     public BloggingContext()
@@ -157,7 +157,7 @@ Nyní můžete použít `AddDbContext(...)` metodu k její registraci jako služ
 
 ## <a name="create-a-controller-and-views"></a>Vytvoření kontroleru a zobrazení
 
-* Klikněte pravým tlačítkem na  složku Controllers v **Průzkumník řešení** a vyberte **Add-> Controller...**
+* Klikněte pravým tlačítkem na složku Controllers v **Průzkumník řešení** a vyberte **Add-> Controller...**
 * Vyberte **kontroler MVC se zobrazeními, pomocí Entity Framework** a klikněte na **OK** .
 * Nastavení **třídy modelu** na **blog** a **třídu kontextu dat** na **BloggingContext**
 * Klikněte na **Přidat** .
