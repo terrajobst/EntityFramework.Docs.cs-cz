@@ -4,12 +4,12 @@ author: anpete
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/query-types
-ms.openlocfilehash: 6f0f860c6a4e619e13d55e6207234a8b5261ee09
-ms.sourcegitcommit: d1230e34673b8323a227ab37958dfa77f3684728
+ms.openlocfilehash: c023d442b0fa2728bd20694a55ebb3a7b5c0efd1
+ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/19/2019
-ms.locfileid: "68330791"
+ms.lasthandoff: 08/20/2019
+ms.locfileid: "69628413"
 ---
 # <a name="query-types"></a>Typy dotazů
 > [!NOTE]
@@ -75,7 +75,9 @@ Můžeme použít standardní konfigurace fluent API pro konfiguraci mapování 
 
 [!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Configuration)]
 
-Dále nakonfigurujeme `DbContext` tak, aby `DbQuery<T>`zahrnovala:[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#DbQuery)]
+Dále nakonfigurujeme `DbContext` tak, aby `DbQuery<T>`zahrnovala:
+
+[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#DbQuery)]
 
 Nakonec jsme zobrazení databáze můžete dotazovat na standardním způsobem:
 

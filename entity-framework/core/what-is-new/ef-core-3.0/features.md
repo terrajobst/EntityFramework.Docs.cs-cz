@@ -1,60 +1,60 @@
 ---
-title: Novinky v EF Core 3.0 – EF Core
+title: Nové funkce v EF Core 3,0 – EF Core
 author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: 7501a806271c9734e85e31845f260f2d512da077
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: a71aa01e81d9830d7b9e6cb01c200851100a15df
+ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58867954"
+ms.lasthandoff: 08/20/2019
+ms.locfileid: "69628419"
 ---
-# <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Novým funkcím zahrnutým v EF Core 3.0 (aktuálně ve verzi preview)
+# <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Nové funkce, které jsou součástí EF Core 3,0 (aktuálně ve verzi Preview)
 
 > [!IMPORTANT]
-> Mějte prosím na paměti, že sady funkcí a plány budoucích verzí se vždy mohou změnit a přestože se snažíme se zachovat aktuální, nemusí odrážet naše nejnovější plány vůbec na této stránce vyprší.
+> Počítejte s tím, že sady funkcí a plány budoucích verzí se vždycky mění, a i když se pokusíme tuto stránku uchovávat v aktuálním stavu, nemusí se po celou dobu projevit naše nejnovější plány.
 
-Následující seznam obsahuje hlavní nové funkce pro EF Core 3.0.
-Většina těchto funkcí nejsou zahrnuté v aktuální verzi preview, ale bude k dispozici během postupu směrem k RTM.
+Následující seznam obsahuje hlavní nové funkce, které jsou plánovány pro EF Core 3,0.
+Většina těchto funkcí není součástí aktuální verze Preview, ale bude k dispozici v průběhu vývoje směrem k RTM.
 
-Důvodem je, že na začátku uvolnění se Zaměřujeme na implementaci plánované [rozbíjející změny v](xref:core/what-is-new/ef-core-3.0/breaking-changes).
-Mnohé z těchto novinkách jsou vylepšení na EF Core na své vlastní.
-Řada dalších vyžadovaných pro odblokování dalších vylepšení. 
+Důvodem je to, že na začátku vydání se zaměřujeme na implementaci plánovaných [nejnovějších změn](xref:core/what-is-new/ef-core-3.0/breaking-changes).
+Mnohé z těchto nejnovějších změn jsou vylepšení EF Core vlastními.
+K odblokování dalších vylepšení je potřeba řada dalších. 
 
-Úplný seznam oprav chyb a vylepšení probíhá, zobrazí se [tento dotaz v našich sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc).
+Úplný seznam oprav chyb a vylepšení, které probíhají, najdete [v našem sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc).
 
 ## <a name="linq-improvements"></a>Vylepšení LINQ 
 
 [Sledování problému #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
-Bylo zahájeno práci na tuto funkci, ale není zahrnutý v aktuální verzi preview.
+Práce na této funkci začala, ale není součástí aktuální verze Preview.
 
-LINQ umožňuje psát dotazy databáze, aniž byste museli opustit váš jazyk podle vlastní volby, využití výhod bohaté zadejte informace, které pomůžou technologie IntelliSense a kontrola typu v době kompilace.
-Ale LINQ také umožňuje psát neomezený počet složité dotazy a, který byl vždy velkým problémem pro zprostředkovatele LINQ.
-V prvních několika verzích EF Core jsme vyřešit, v části tím, jaké části dotazu může být přeloženy na SQL a tím, že zbývající části dotazu ke spuštění v paměti na straně klienta.
-Toto spuštění na straně klienta může být žádoucí v některých situacích ale v mnoha jiných případech může vést neefektivní dotazy, které nejsou označené, dokud je aplikace nasazená do produkčního prostředí.
-V EF Core 3.0 plánujeme změnit velký fungování naše implementace LINQ, a jak můžeme otestovat.
-Cíle jsou k němu robustnější (třeba, aby se zabránilo přerušení dotazů v aktualizací), Povolit překlad více výrazů správně do databáze SQL, vygenerujte efektivní dotazy ve více případech a zabránit v přechodu nezjištěné neefektivní dotazy.
+LINQ umožňuje psát databázové dotazy bez nutnosti opustit svůj jazyk a využít bohatých informací o typech k získání IntelliSense a kontrole typu při kompilaci.
+Ale LINQ také umožňuje napsat neomezený počet složitých dotazů a který má vždycky pro poskytovatele LINQ velmi velkou výzvu.
+V prvních několika verzích EF Core jsme vyřešili, které části dotazu by mohly být přeložené do SQL, a pak tím, že se zbytek dotazu spustí v paměti na klientovi.
+Toto spuštění na straně klienta může být v některých situacích žádoucí, ale v mnoha dalších případech může dojít k neefektivním dotazům, které nemusí být identifikované, dokud se aplikace nasadí do produkčního prostředí.
+V EF Core 3,0 plánujeme, abychom provedli velmi snadné změny v tom, jak naše implementace LINQ funguje a jak ji testujeme.
+Cílem je zvýšit robustnost (například aby se zabránilo neúmyslnému dotazování ve verzích oprav), aby se povolilo překládání dalších výrazů do SQL, aby se vytvořily efektivní dotazy ve více případech a aby nedocházelo k nezjistitelným dotazům.
 
-## <a name="cosmos-db-support"></a>Podpora služby cosmos DB 
+## <a name="cosmos-db-support"></a>Podpora Cosmos DB 
 
 [Sledování problému #8443](https://github.com/aspnet/EntityFrameworkCore/issues/8443)
 
-Tato funkce je zahrnutá v aktuální verzi preview, ale ještě není dokončena. 
+Tato funkce je součástí aktuální verze Preview, ale ještě není dokončená. 
 
-Pracujeme na poskytovatele služby Cosmos DB pro jádro EF Core a umožňuje vývojářům znáte model programování na EF snadno cílit na jako databáze aplikace služby Azure Cosmos DB.
-Cílem je, že některé z výhod Cosmos DB, jako jsou globální distribuce "always on" dostupnost, elastické škálovatelnosti a nízké latenci, ještě více přístupné pro vývojáře na platformě .NET.
-Zprostředkovatel umožní většina EF Core funkcí, jako je sledování automatických změn, LINQ a převody hodnot, s využitím rozhraní SQL API ve službě Cosmos DB.
-Začali jsme snaha před EF Core 2.2 a [jsme se rozhodli některé verze zprostředkovatele k dispozici ve verzi preview](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
-Nový plán má pokračovat ve vývoji poskytovatele spolu s EF Core 3.0. 
+Pracujeme na poskytovateli Cosmos DB pro EF Core, aby mohli vývojáři, kteří znají model programu EF, snadno cílit Azure Cosmos DB jako databázi aplikace.
+Cílem je udělat si některé z výhod Cosmos DB, jako je globální distribuce, "Always On", pružná škálovatelnost a nízká latence, dokonce i přístup k vývojářům v rozhraní .NET.
+Zprostředkovatel povolí většinu funkcí EF Core, jako je automatické sledování změn, LINQ a převod hodnot, s rozhraním SQL API v Cosmos DB.
+Tuto snahu jsme zahájili před EF Core 2,2 a provedli [jsme několik verzí Preview, které poskytovatel nabízí](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
+Novým plánem je pokračovat ve vývoji poskytovatele vedle EF Core 3,0. 
 
-## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislých položek sdílení v tabulce k objektu zabezpečení jsou teď nepovinné.
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.
 
 [Sledování problému #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
 
-Tato funkce bude zavedená v EF Core 3.0 – ve verzi preview 4.
+Tato funkce bude zavedena ve verzi EF Core 3,0-Preview 4.
 
 Vezměte v úvahu následující model:
 ```C#
@@ -65,6 +65,7 @@ public class Order
     public OrderDetails Details { get; set; }
 }
 
+[Owned]
 public class OrderDetails
 {
     public int Id { get; set; }
@@ -72,47 +73,48 @@ public class OrderDetails
 }
 ```
 
-Od verze EF Core 3.0, pokud `OrderDetails` vlastní `Order` nebo explicitně namapované na stejnou tabulku je možné přidat `Order` bez `OrderDetails` a všechny `OrderDetails` vlastnosti s výjimkou primární klíč se namapují na sloupce s možnou hodnotou Null.
-Při dotazování na EF Core nastaví `OrderDetails` k `null` Pokud některou z jejích požadovaných vlastností nemá žádnou hodnotu nebo nemá žádné požadované vlastnosti kromě primárního klíče a všechny vlastnosti jsou `null`.
+Počínaje EF Core 3,0, pokud `OrderDetails` je `Order` vlastněná nebo explicitně namapovaná na stejnou tabulku, bude možné přidat `Order` bez `OrderDetails` a všechny `OrderDetails` vlastnosti, s výjimkou, že primární klíč bude namapován na sloupce s možnou hodnotou null.
 
-## <a name="c-80-support"></a>C#Podpora 8.0
+Při dotazování se EF Core nastaví `OrderDetails` na `null` , pokud některá z jejích požadovaných vlastností nemá hodnotu, nebo pokud se kromě primárního `null`klíče a všech vlastností nevyžadují žádné vlastnosti.
+
+## <a name="c-80-support"></a>C#podpora 8,0
 
 [Sledování problému #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
 [sledování problému #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)
 
-Bylo zahájeno práci na tuto funkci, ale není zahrnutý v aktuální verzi preview.
+Práce na této funkci začala, ale není součástí aktuální verze Preview.
 
-Chceme našim zákazníkům využívat některé části [nové funkce v C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) , jako jsou asynchronní datové proudy (včetně `await foreach`) a typy s možnou hodnotou Null odkazů pomocí EF Core.
+Chceme, aby naši zákazníci využili výhod některých [nových funkcí v C# 8,0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) , jako jsou asynchronní streamy (včetně `await foreach`) a typy s možnou hodnotou null při použití EF Core.
 
 ## <a name="reverse-engineering-of-database-views"></a>Zpětná analýza zobrazení databáze
 
 [Sledování problému #1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679)
 
-Tato funkce není součástí aktuální verzi preview.
+Tato funkce není součástí aktuální verze Preview.
 
-[Typy dotazů](xref:core/modeling/query-types), zavedená v EF Core 2.1 a považován za typy entit bez klíčů v EF Core 3.0, představují data, která mohou číst z databáze, ale nejde aktualizovat.
-Tato vlastnost je mezi nimi vlastně ideálně se hodí pro zobrazení databáze ve většině scénářů, abychom plánovat k automatizaci vytváření typů entit bez klíčů při zpětné analýze zobrazení databáze.
+[Typy dotazů](xref:core/modeling/query-types), představené v EF Core 2,1 a považované za typy entit bez klíčů v EF Core 3,0, reprezentují data, která je možné číst z databáze, ale nelze je aktualizovat.
+Tato vlastnost je ve většině scénářů vhodná pro zobrazení databáze, takže při zpětné analýze zobrazení databáze plánujeme automatizaci vytváření typů entit bez použití klíčů.
 
-## <a name="property-bag-entities"></a>Vlastnosti kontejneru objektů a dat entit
+## <a name="property-bag-entities"></a>Entity kontejneru objektů a dat
 
 [Sledování problému #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) a [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
 
-Bylo zahájeno práci na tuto funkci, ale není zahrnutý v aktuální verzi preview. 
+Práce na této funkci začala, ale není součástí aktuální verze Preview. 
 
-Tato funkce je o povolení entity, které ukládají data v indexované vlastnosti namísto regulární vlastností a také o bude možné použít instance stejné třídy .NET (potenciálně něco jednoduchého jako `Dictionary<string, object>`) k reprezentaci entit různých typů ve stejném modelu EF Core.
-Tato funkce je odrazový můstek k podpoře many-to-many relací bez připojení k entitě ([vydat #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), což je jedna z nejžádanějších vylepšení pro jádro EF Core.
+Tato funkce se týká povolování entit, které ukládají data do indexovaných vlastností místo běžných vlastností, a také o tom, že je možné použít instance stejné třídy .NET (potenciálně něco jako a `Dictionary<string, object>`), které reprezentují různé typy entit. ve stejném modelu EF Core.
+Tato funkce je kámen, který podporuje relace m:n bez spojení ([problém #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), což je jedno z nejvíce požadovaných vylepšení pro EF Core.
 
-## <a name="ef-63-on-net-core"></a>EF 6.3 v rozhraní .NET Core
+## <a name="ef-63-on-net-core"></a>EF 6,3 pro .NET Core
 
-[Sledování problému EF6 #271](https://github.com/aspnet/EntityFramework6/issues/271)
+[Sledování problému EF6 # 271](https://github.com/aspnet/EntityFramework6/issues/271)
 
-Bylo zahájeno práci na tuto funkci, ale není zahrnutý v aktuální verzi preview. 
+Práce na této funkci začala, ale není součástí aktuální verze Preview. 
 
-Chápeme, že mnoho existujících aplikací pomocí předchozí verze EF a že přenesení do EF Core jenom, abyste mohli využívat výhod .NET Core může někdy vyžadovat značné úsilí.
-Z tohoto důvodu jsme se přizpůsobení další verze EF 6 a spustit na .NET Core 3.0.
-To usnadňuje přenos stávající aplikace s minimálními změnami provádíme.
-Existuje budou představovat určitá omezení. Příklad:
-- Bude vyžadovat noví zprostředkovatelé pro práci s jinými databázemi kromě podpory systému SQL Server na .NET Core
-- Prostorový podporu systému SQL Server nebude povolen
+Chápeme, že mnoho existujících aplikací používá předchozí verze EF a že je bude EF Core jenom k tomu, aby využila výhody .NET Core, může někdy vyžadovat značné úsilí.
+Z tohoto důvodu budeme přizpůsobovat další verzi EF 6, která bude běžet v .NET Core 3,0.
+Provedeme to, abychom usnadnili přenos stávajících aplikací s minimálními změnami.
+Existují určitá omezení. Příklad:
+- Bude vyžadovat, aby noví poskytovatelé pracovali s dalšími databázemi kromě zahrnuté podpory SQL Server podpoře .NET Core.
+- Prostorová podpora v SQL Server nebude povolena.
 
-Všimněte si také, že neexistují žádné nové plánované funkce pro EF 6 v tomto okamžiku.
+Všimněte si také, že v tomto okamžiku nejsou plánovány žádné nové funkce pro EF 6.
