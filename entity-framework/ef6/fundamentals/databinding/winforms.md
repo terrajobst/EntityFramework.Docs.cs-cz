@@ -3,12 +3,12 @@ title: Vazba s WinForms – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: ad55ef4d496bbfe30eafcab9811c92989066519f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 3c7c58f5ded29c136bbdca1d81c64b07c53ce583
+ms.sourcegitcommit: 7391cc31193c1216ec9ed485709042ad0c2106cf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306565"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985478"
 ---
 # <a name="databinding-with-winforms"></a>Datová vazba s WinForms
 V tomto podrobném návodu se dozvíte, jak navazovat POCO typy na ovládací prvky WinForms (Window Forms) ve formuláři "Master-Detail". Aplikace používá Entity Framework k naplnění objektů daty z databáze, sledování změn a zachování dat v databázi.
@@ -254,7 +254,7 @@ EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visua
 
 -   Poklikejte na soubor ProductModel.tt a otevře se v editoru Visual studia.
 -   Vyhledejte a nahraďte dva výskyty "**ICollection**" pomocí "**ObservableListSource**". Tyto jsou umístěné přibližně na řádcích 296 a 484.
--   Najde první výskyt "**HashSet –** " a nahradí ho "**ObservableListSource**". Tento výskyt je umístěný přibližně na řádku 50. **Neměňte druhý** výskyt HashSet –, který byl nalezen později v kódu.
+-   Najde první výskyt "**HashSet –** " a nahradí ho "**ObservableListSource**". Tento výskyt je umístěný přibližně na řádku 50. Neměňte druhý výskyt HashSet –, který byl nalezen později v kódu.
 -   Uložte soubor ProductModel.tt. To by mělo způsobit opětovné vygenerování kódu pro entity. Pokud se kód znovu negeneruje automaticky, klikněte pravým tlačítkem na ProductModel.tt a zvolte spustit vlastní nástroj.
 
 Pokud teď otevřete soubor Category.cs (který je vnořený pod ProductModel.TT), měli byste vidět, že kolekce Products má typ **ObservableListSource&lt;produkt&gt;** .
@@ -263,7 +263,7 @@ Zkompilujte projekt.
 
 ## <a name="lazy-loading"></a>Opožděné načítání
 
-Vlastnost **Products** u vlastnosti Category **třídy a** **kategorie** u třídy **produkt** je vlastností navigace. V Entity Framework navigační vlastnosti poskytují způsob, jak procházet relaci mezi dvěma typy entit.
+Vlastnost **Products** u vlastnosti Category třídy a **kategorie** u třídy **produkt** je vlastností navigace. V Entity Framework navigační vlastnosti poskytují způsob, jak procházet relaci mezi dvěma typy entit.
 
 EF vám nabízí možnost načítat související entity z databáze automaticky při prvním přístupu k vlastnosti navigace. U tohoto typu načítání (tzv. opožděné načítání) mějte na paměti, že při prvním přístupu k jednotlivým vlastnostem navigace se v databázi spustí samostatný dotaz, pokud obsah ještě není v kontextu.
 
@@ -280,8 +280,8 @@ Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto apl
 
     ![Zdroj dat](~/ef6/media/datasource.png)
 
--   Klikněte na tlačítko **Dokončit.** Pokud se *nezobrazí okno zdroje dat, vyberte * * * zobrazení-&gt; ostatní Windows-&gt; zdroje dat.* 
-    *
+-   Klikněte na tlačítko **Dokončit.**
+    Pokud se nezobrazí okno zdroje dat, vyberte možnost **Zobrazit –&gt; &gt; ostatní zdroje dat systému Windows.**
 -   Stiskněte ikonu připnutí, aby se okno zdroje dat neautomaticky skrylo. Pokud je okno již viditelné, může být nutné spustit tlačítko Aktualizovat.
 
     ![Zdroj dat 2](~/ef6/media/datasource2.png)
