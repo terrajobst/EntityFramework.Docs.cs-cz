@@ -3,12 +3,12 @@ title: Globální filtry dotazů – EF Core
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: e1cb9f5afc54aaa12e5880ace606277b00911c06
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: c9bbb8a5889834ea078ddb7e432863b3d0cf2ffe
+ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306476"
+ms.lasthandoff: 09/04/2019
+ms.locfileid: "70271461"
 ---
 # <a name="global-query-filters"></a>Globální filtry dotazů
 
@@ -41,6 +41,9 @@ Predikátu výraz předaný _HasQueryFilter_ volání se teď automaticky použi
 
 > [!TIP]
 > Všimněte si použití úrovně pole instance DbContext: `_tenantId` slouží k nastavení aktuálního tenanta. Filtry na úrovni modelu bude používat hodnotu z instance správného kontextu (to znamená, instance, který spouští dotaz).
+
+> [!NOTE]
+> V současné době není možné definovat více filtrů dotazů na stejnou entitu. použije se jenom poslední z nich. Můžete však definovat jeden filtr s více podmínkami pomocí logického operátoru _and_ ([ `&&` v C# ](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)).
 
 ## <a name="disabling-filters"></a>Zakázání filtrů
 

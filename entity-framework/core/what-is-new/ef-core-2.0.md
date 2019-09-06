@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 2712845512d9eb349ef3a7e14f4365327db0fcd6
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 28b2180e898b91d233b590b1639674a464f8c679
+ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565334"
+ms.lasthandoff: 09/04/2019
+ms.locfileid: "70271424"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nové funkce v EF Core 2,0
 
@@ -303,7 +303,7 @@ Díky tomu máme robustnější řešení v Microsoft. data. sqlite pro distribu
 ### <a name="only-one-provider-per-model"></a>Pouze jeden zprostředkovatel na model
 Významně rozšiřuje způsob, jakým můžou poskytovatelé pracovat s modelem a zjednodušuje, jak konvence, poznámky a rozhraní API Fluent pracují s různými poskytovateli.
 
-EF Core 2,0 teď pro každého jiného zprostředkovatele vytvoří jiný [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) . To je obvykle transparentní pro aplikaci. Usnadnili jsme tak zjednodušení rozhraní API na nižší úrovni tak, aby jakýkoliv přístup k *běžným koncepcím relačních metadat* byl vždy proveden prostřednictvím volání `.Relational` namísto `.SqlServer`, `.Sqlite`atd.
+EF Core 2,0 teď pro každého jiného zprostředkovatele vytvoří jiný [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) . To je obvykle transparentní pro aplikaci. Usnadnili jsme tak zjednodušení rozhraní API na nižší úrovni tak, aby jakýkoliv přístup k *běžným koncepcím relačních metadat* byl vždy proveden prostřednictvím volání `.Relational` namísto `.SqlServer`, `.Sqlite`atd.
 
 ### <a name="consolidated-logging-and-diagnostics"></a>Konsolidovaná protokolování a diagnostika
 
@@ -311,6 +311,6 @@ Protokolování (založené na ILogger) a diagnostické mechanismy (založené n
 
 ID událostí pro zprávy odeslané do ILogger se změnila v 2,0. Identifikátory událostí jsou teď v rámci EF Core kódu jedinečné. Tyto zprávy se teď také řídí standardním vzorem pro strukturované protokolování, které používá, například MVC.
 
-Změnily se také kategorie protokolovacího nástroje. K dispozici je teď známá sada kategorií, ke které se dostanete prostřednictvím [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
+Změnily se také kategorie protokolovacího nástroje. K dispozici je teď známá sada kategorií, ke které se dostanete prostřednictvím [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/DbLoggerCategory.cs).
 
 Události DiagnosticSource nyní používají stejné názvy ID události jako odpovídající `ILogger` zprávy.
