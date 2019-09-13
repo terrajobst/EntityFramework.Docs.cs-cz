@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: a71aa01e81d9830d7b9e6cb01c200851100a15df
-ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
+ms.openlocfilehash: d61fa884f4669daa220ffc96ae59dd63518e6d5a
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/20/2019
-ms.locfileid: "69628419"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921678"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>Nové funkce, které jsou součástí EF Core 3,0 (aktuálně ve verzi Preview)
 
@@ -47,7 +47,7 @@ Tato funkce je součástí aktuální verze Preview, ale ještě není dokončen
 Pracujeme na poskytovateli Cosmos DB pro EF Core, aby mohli vývojáři, kteří znají model programu EF, snadno cílit Azure Cosmos DB jako databázi aplikace.
 Cílem je udělat si některé z výhod Cosmos DB, jako je globální distribuce, "Always On", pružná škálovatelnost a nízká latence, dokonce i přístup k vývojářům v rozhraní .NET.
 Zprostředkovatel povolí většinu funkcí EF Core, jako je automatické sledování změn, LINQ a převod hodnot, s rozhraním SQL API v Cosmos DB.
-Tuto snahu jsme zahájili před EF Core 2,2 a provedli [jsme několik verzí Preview, které poskytovatel nabízí](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
+Tuto snahu jsme zahájili před EF Core 2,2 a [provedli jsme několik verzí Preview, které poskytovatel nabízí](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).
 Novým plánem je pokračovat ve vývoji poskytovatele vedle EF Core 3,0. 
 
 ## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.
@@ -94,15 +94,6 @@ Tato funkce není součástí aktuální verze Preview.
 
 [Typy dotazů](xref:core/modeling/query-types), představené v EF Core 2,1 a považované za typy entit bez klíčů v EF Core 3,0, reprezentují data, která je možné číst z databáze, ale nelze je aktualizovat.
 Tato vlastnost je ve většině scénářů vhodná pro zobrazení databáze, takže při zpětné analýze zobrazení databáze plánujeme automatizaci vytváření typů entit bez použití klíčů.
-
-## <a name="property-bag-entities"></a>Entity kontejneru objektů a dat
-
-[Sledování problému #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) a [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
-
-Práce na této funkci začala, ale není součástí aktuální verze Preview. 
-
-Tato funkce se týká povolování entit, které ukládají data do indexovaných vlastností místo běžných vlastností, a také o tom, že je možné použít instance stejné třídy .NET (potenciálně něco jako a `Dictionary<string, object>`), které reprezentují různé typy entit. ve stejném modelu EF Core.
-Tato funkce je kámen, který podporuje relace m:n bez spojení ([problém #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368)), což je jedno z nejvíce požadovaných vylepšení pro EF Core.
 
 ## <a name="ef-63-on-net-core"></a>EF 6,3 pro .NET Core
 

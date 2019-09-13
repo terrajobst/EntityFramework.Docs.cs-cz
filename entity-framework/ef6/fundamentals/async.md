@@ -3,12 +3,12 @@ title: Asynchronní dotazování a ukládání – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: bf2039110962e8dd114242dcd0b9454963750774
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: ae578976ffc88b407ef0aaa0017935005bedd093
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306587"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921632"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazování a ukládání
 > [!NOTE]
@@ -221,12 +221,14 @@ Teď, když máme náš program v provozu, můžeme začít používat nová kl�
 
 Teď, když je kód asynchronní, můžeme při spuštění programu sledovat jiný tok spuštění:
 
-1.  **SaveChanges** začíná po odeslání příkazu do  databáze odeslat nový blog *do databáze. v aktuálním spravovaném vlákně není potřeba žádné další výpočetní čas. Metoda **PerformDatabaseOperations** vrací (i když ještě nedokončila) a tok programu v metodě Main pokračuje.*
-2.  **Nabídka dne je zapsána do konzoly**
-     *, protože v metodě Main neexistuje více práce, spravované vlákno je blokováno ve volání čekání, dokud se operace databáze nedokončí. Po dokončení bude zbytek našich **PerformDatabaseOperations** spuštěn.*
-3.  **SaveChanges** se dokončí.
-4.  Dotaz pro všechny **Blogy** se znovu pošle do *databáze, spravované vlákno se zadarmo provede v průběhu zpracování dotazu v databázi. Vzhledem k tomu, že bylo dokončeno jakékoli jiné spuštění, vlákno bude pouze zastaveno ve volání čekání, i když.*
-5.  Dotaz vrátí a výsledky se zapisují do **konzoly** .
+1. **SaveChanges** zahajuje vložení nového **blogu** do databáze.  
+    *Po odeslání příkazu do databáze není v aktuálním spravovaném vlákně potřeba další výpočetní čas. Metoda **PerformDatabaseOperations** vrací (i když ještě nedokončila) a tok programu v metodě Main pokračuje.*
+2. **Nabídka dne se zapisuje do konzoly.**  
+    *Vzhledem k tomu, že v metodě Main neexistuje žádná další práce, spravované vlákno je ve volání čekání blokováno, dokud se operace databáze nedokončí. Po dokončení bude zbytek našich **PerformDatabaseOperations** spuštěn.*
+3.  **SaveChanges** se dokončí.  
+4.  Dotaz pro všechny **Blogy** jsou odesílány do databáze.  
+    *Spravované vlákno je znovu zadarmo v průběhu zpracování dotazu v databázi. Vzhledem k tomu, že bylo dokončeno jakékoli jiné spuštění, vlákno bude pouze zastaveno ve volání čekání, i když.*
+5.  Dotaz vrátí a výsledky se zapisují do **konzoly** .  
 
 ![Asynchronní výstup](~/ef6/media/asyncoutput.png) 
 

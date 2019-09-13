@@ -1,44 +1,44 @@
 ---
-title: Prostorových dat – EF Core
+title: Prostorová data – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: cf488c6b7d94ca19018efe1c23ff410fe7eb594b
-ms.sourcegitcommit: 81c53ac43d8f15b900f117294ec71dc49fe028fa
+ms.openlocfilehash: 026df735473e31f1c1463c1fbc6f46c4fd6dfd4f
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/16/2018
-ms.locfileid: "51817907"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921725"
 ---
-# <a name="spatial-data"></a>Prostorová Data
+# <a name="spatial-data"></a>Prostorová data
 
 > [!NOTE]
-> Tato funkce je nového v EF Core 2.2.
+> Tato funkce se přidala do EF Core 2,2.
 
-Prostorová data představuje fyzické umístění a tvar objektů. Mnoho databází poskytují podporu pro tento typ dat je možné indexovat a dotazovat společně s dalšími daty. Běžné scénáře zahrnují zadávání dotazů na objekty v rámci dané vzdálenost od umístění, nebo jeho výběru objektu, jehož ohraničení obsahuje na dané místo. EF Core podporuje mapování pro typy prostorových dat pomocí [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) prostorových knihovny.
+Prostorová data představují fyzické umístění a tvar objektů. Mnohé databáze poskytují podporu pro tento typ dat, aby je bylo možné indexovat a dotazovat společně s ostatními daty. Mezi běžné scénáře patří dotazování pro objekty v dané vzdálenosti od místa nebo výběr objektu, jehož ohraničení obsahuje dané umístění. EF Core podporuje mapování na prostorové datové typy pomocí knihovny prostorů [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) .
 
-## <a name="installing"></a>Instalace
+## <a name="installing"></a>Instalují
 
-Chcete-li použít prostorová data s EF Core, musíte nainstalovat odpovídající podpůrný balíček NuGet. Balíčky, které je potřeba nainstalovat závisí na poskytovateli, které používáte.
+Aby bylo možné použít prostorová data s EF Core, je nutné nainstalovat příslušný podpůrný balíček NuGet. Který balíček, který potřebujete nainstalovat, závisí na používaném poskytovateli.
 
-EF Core poskytovatele                        | Prostorový balíček NuGet
+Poskytovatel EF Core                        | Prostorový balíček NuGet
 --------------------------------------- | ---------------------
-Microsoft.EntityFrameworkCore.SqlServer | [Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
-Microsoft.EntityFrameworkCore.Sqlite    | [Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
+Microsoft.EntityFrameworkCore.SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
+Microsoft.EntityFrameworkCore.Sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
 Microsoft.EntityFrameworkCore.InMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
-Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
+Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreSQL. NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
 
 ## <a name="reverse-engineering"></a>Zpětná analýza
 
-Prostorový NuGet balíčky také umožňují [zpětná analýza](../managing-schemas/scaffolding.md) modely s prostorových vlastnosti, ale je potřeba nainstalovat balíček ***před*** systémem `Scaffold-DbContext` nebo `dotnet ef dbcontext scaffold`. Pokud to neuděláte, zobrazí se upozornění o nenašli mapování typů pro sloupce a sloupce, které se přeskočí.
+Prostorové balíčky NuGet také umožňují modely [zpětné analýzy](../managing-schemas/scaffolding.md) s prostorovými vlastnostmi, ale ***před*** spuštěním `Scaffold-DbContext` `dotnet ef dbcontext scaffold`nástroje je potřeba balíček nainstalovat. Pokud to neuděláte, zobrazí se upozornění týkající se nehledání mapování typů pro sloupce a sloupce se přeskočí.
 
 ## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
 
-NetTopologySuite je prostorových knihovna pro .NET. EF Core umožňuje mapování prostorová data typů v databázi s použitím typů chny Zarážky ve vašem modelu.
+NetTopologySuite je prostorová knihovna pro .NET. EF Core umožňuje mapování na prostorové datové typy v databázi pomocí typů NTS v modelu.
 
-Pokud chcete povolit mapování pro typy prostorových prostřednictvím chny Zarážky, volání metody UseNetTopologySuite na poskytovatele DbContext možnosti Tvůrce. Například s SQL serverem by zavoláte ji následujícím způsobem.
+Chcete-li povolit mapování na prostorové typy prostřednictvím NTS, volejte metodu UseNetTopologySuite na tvůrci možností DbContext poskytovatele. Například pomocí SQL Server byste to rádi volali.
 
 ``` csharp
 optionsBuilder.UseSqlServer(
@@ -46,23 +46,23 @@ optionsBuilder.UseSqlServer(
     x => x.UseNetTopologySuite());
 ```
 
-Existuje několik typů prostorová data. Jaký typ použijete závisí na typy tvary, které chcete povolit. Tady je hierarchie typů chny Zarážky, které můžete použít pro vlastnosti v modelu. Jsou umístěny v rámci `NetTopologySuite.Geometries` oboru názvů. Odpovídající rozhraní v balíčku GeoAPI (`GeoAPI.Geometries` oboru názvů) je také možné.
+Existuje několik prostorových datových typů. Typ, který použijete, závisí na typech tvarů, které chcete zapnout. Tady je hierarchie typů NTS, které můžete použít pro vlastnosti v modelu. Nacházejí se v rámci `NetTopologySuite.Geometries` oboru názvů.
 
 * Geometrie
-  * Bod
+  * Vyberte
   * LineString
-  * Mnohoúhelník
+  * Postupně
   * GeometryCollection
-    * Systému multiPoint
+    * MultiPoint
     * MultiLineString
     * MultiPolygon
 
 > [!WARNING]
-> CircularString, CompoundCurve a CurePolygon nepodporuje chny Zarážky.
+> CircularString, CompoundCurve a CurePolygon nejsou podporovány NTS.
 
-Použití základního typu Geometry umožňuje libovolný typ tvar, který má být určené vlastností.
+Použití typu základní geometrie umožňuje, aby byl jakýkoli typ obrazce určen vlastností.
 
-Následující třídy entit může použít k mapování na tabulky v [ukázkové databáze Wide World Importers](http://go.microsoft.com/fwlink/?LinkID=800630).
+Následující třídy entit se dají použít k mapování tabulek v [ukázkové databázi World World Imports](http://go.microsoft.com/fwlink/?LinkID=800630).
 
 ``` csharp
 [Table("Cities", Schema = "Application"))]
@@ -72,7 +72,7 @@ class City
 
     public string CityName { get; set; }
 
-    public IPoint Location { get; set; }
+    public Point Location { get; set; }
 }
 
 [Table("Countries", Schema = "Application"))]
@@ -83,13 +83,13 @@ class Country
     public string CountryName { get; set; }
 
     // Database includes both Polygon and MultiPolygon values
-    public IGeometry Border { get; set; }
+    public Geometry Border { get; set; }
 }
 ```
 
-### <a name="creating-values"></a>Vytváření hodnoty
+### <a name="creating-values"></a>Vytváření hodnot
 
-Konstruktory můžete použít k vytvoření geometrické objekty; Směřuje doporučuje místo toho použít objekt pro vytváření geometry. To umožňuje určit výchozí SRID (spatial reference systém souřadnice) a umožňuje kontrolu nad pokročilejší věci jako přesnost modelu (využitých výpočtů) a souřadnice pořadí (Určuje, která souřadnice--dimenze a míry – jsou k dispozici).
+Konstruktory lze použít k vytvoření objektů geometrie; NTS však doporučuje použít místo toho objekt pro vytváření geometrie. To vám umožní určit výchozí SRID (prostorový referenční systém používaný souřadnicemi) a vám umožní ovládat pokročilejší věci, jako je model přesnosti (použitý během výpočtů) a sekvence souřadnic (určuje, které souřadnice--Dimensions a míry – jsou k dispozici).
 
 ``` csharp
 var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
@@ -97,25 +97,24 @@ var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
 ```
 
 > [!NOTE]
-> 4326 odkazuje na WGS 84 standard používaný v GPS a jiných zeměpisných systémů.
+> 4326 odkazuje na WGS 84, Standard používaný v GPS a dalších geografických systémech.
 
-### <a name="longitude-and-latitude"></a>Zeměpisné šířky a délky
+### <a name="longitude-and-latitude"></a>Zeměpisná délka a zeměpisná šířka
 
-Souřadnice v chny Zarážky jsou z hlediska hodnoty X a Y. K reprezentaci zeměpisné šířky a délky, použijte pro zeměpisnou délku a Y pro zeměpisnou šířku X. Všimněte si, že toto je **zpětně** z `latitude, longitude` formát, ve kterém se obvykle zobrazí tyto hodnoty.
+Souřadnice v NTS jsou vyhledané v hodnotách X a Y. Aby představoval zeměpisnou délku a zeměpisnou šířku, použijte X pro zeměpisnou délku a Y pro zeměpisnou šířku. Všimněte si, že se jedná o `latitude, longitude` **zpětnou** hodnotu ve formátu, ve kterém tyto hodnoty obvykle vidíte.
 
-### <a name="srid-ignored-during-client-operations"></a>SRID ignorovat během operace klienta
+### <a name="srid-ignored-during-client-operations"></a>SRID se během operací klienta ignorovat.
 
-Směřuje ignoruje SRID hodnoty během operací. Předpokládá planární systém souřadnic. To znamená, že pokud zadáte souřadnice z hlediska zeměpisnou délku a šířku, některé hodnoty klienta vyhodnocen jako vzdálenost, délku a oblast bude ve stupních, ne měřiče. Pro více smysluplné hodnoty, je nutné nejprve do projektu souřadnice, kde jiný souřadnicový systém pomocí knihovny jako [ProjNet4GeoAPI](https://github.com/NetTopologySuite/ProjNet4GeoAPI) před výpočtem tyto hodnoty.
+NTS ignoruje hodnoty SRID během operací. Předpokládá planární souřadnicový systém. To znamená, že pokud zadáte souřadnice z oblasti Zeměpisná délka a zeměpisná šířka, některé hodnoty vyhodnocené klientem, jako je vzdálenost, délka a oblast, budou ve stupních, nikoli měřičích. Pro smysluplnější hodnoty musíte nejprve před výpočtem těchto hodnot vyhodnotit souřadnice pro jiný systém souřadnic pomocí knihovny, jako je [ProjNet4GeoAPI](https://github.com/NetTopologySuite/ProjNet4GeoAPI) .
 
-Pokud operace serveru vyhodnocovaný EF Core pomocí SQL, určí databáze jednotky výsledek.
+Pokud je operace vyhodnocena serverem pomocí SQL EF Core prostřednictvím SQL, určí se jednotka výsledku databáze.
 
-Tady je příklad použití ProjNet4GeoAPI k výpočtu vzdálenost mezi dvěma měst.
+Tady je příklad použití ProjNet4GeoAPI k výpočtu vzdálenosti mezi dvěma městy.
 
 ``` csharp
 static class GeometryExtensions
 {
-    static readonly IGeometryServices _geometryServices = NtsGeometryServices.Instance;
-    static readonly ICoordinateSystemServices _coordinateSystemServices
+    static readonly CoordinateSystemServices _coordinateSystemServices
         = new CoordinateSystemServices(
             new CoordinateSystemFactory(),
             new CoordinateTransformationFactory(),
@@ -123,7 +122,7 @@ static class GeometryExtensions
             {
                 // Coordinate systems:
 
-                // (3857 and 4326 included automatically)
+                [4326] = GeographicCoordinateSystem.WGS84.WKT,
 
                 // This coordinate system covers the area of our data.
                 // Different data requires a different coordinate system.
@@ -153,15 +152,37 @@ static class GeometryExtensions
                 "
             });
 
-    public static IGeometry ProjectTo(this IGeometry geometry, int srid)
+    public static Geometry ProjectTo(this Geometry geometry, int srid)
     {
-        var geometryFactory = _geometryServices.CreateGeometryFactory(srid);
         var transformation = _coordinateSystemServices.CreateTransformation(geometry.SRID, srid);
 
-        return GeometryTransform.TransformGeometry(
-            geometryFactory,
-            geometry,
-            transformation.MathTransform);
+        var result = geometry.Copy();
+        result.Apply(new MathTransformFilter(transformation.MathTransform));
+
+        return result;
+    }
+
+    class MathTransformFilter : ICoordinateSequenceFilter
+    {
+        readonly MathTransform _transform;
+
+        public MathTransformFilter(MathTransform transform)
+            => _transform = transform;
+
+        public bool Done => false;
+        public bool GeometryChanged => true;
+
+        public void Filter(CoordinateSequence seq, int i)
+        {
+            var result = _transform.Transform(
+                new[]
+                {
+                    seq.GetOrdinate(i, Ordinate.X),
+                    seq.GetOrdinate(i, Ordinate.Y)
+                });
+            seq.SetOrdinate(i, Ordinate.X, result[0]);
+            seq.SetOrdinate(i, Ordinate.Y, result[1]);
+        }
     }
 }
 ```
@@ -175,7 +196,7 @@ var distance = seattle.ProjectTo(2855).Distance(redmond.ProjectTo(2855));
 
 ## <a name="querying-data"></a>Dotazování na data
 
-V technologii LINQ ny Klienty metody a vlastnosti, které jsou k dispozici jako funkce databáze bude do kódu SQL. Například jsou přeloženy metody vzdálenosti a obsahuje následující dotazy. V tabulce na konci tohoto článku jsou uvedeny podporované členy podle různých zprostředkovatelů EF Core.
+V jazyce LINQ budou metody a vlastnosti NTS dostupné jako databázové funkce přeloženy do jazyka SQL. Například vzdálenost a obsahuje metody jsou přeloženy v následujících dotazech. Tabulka na konci tohoto článku ukazuje, kteří členové jsou podporováni různými poskytovateli EF Core.
 
 ``` csharp
 var nearestCity = db.Cities
@@ -188,30 +209,30 @@ var currentCountry = db.Countries
 
 ## <a name="sql-server"></a>SQL Server
 
-Pokud používáte systém SQL Server, existují některé další věci, které byste měli vědět.
+Pokud používáte SQL Server, máte k dispozici několik dalších věcí, o kterých byste měli vědět.
 
-### <a name="geography-or-geometry"></a>Zeměpisné oblasti nebo geometrie
+### <a name="geography-or-geometry"></a>Zeměpisná nebo geometrie
 
-Ve výchozím nastavení, prostorová vlastností se mapují na `geography` sloupce v systému SQL Server. Chcete-li použít `geometry`, [nakonfigurovat typ sloupce](xref:core/modeling/relational/data-types) ve vašem modelu.
+Ve výchozím nastavení jsou prostorové vlastnosti namapovány na `geography` sloupce v SQL Server. Pokud chcete `geometry`použít, nakonfigurujte v modelu [typ sloupce](xref:core/modeling/relational/data-types) .
 
-### <a name="geography-polygon-rings"></a>Zeměpisné oblasti prstence mnohoúhelníku
+### <a name="geography-polygon-rings"></a>Geografické kroužky mnohoúhelníků
 
-Při použití `geography` typ sloupce, SQL Server vyžaduje další požadavky na vnější prstenec (nebo prostředí) a vnitřní okruhů (nebo děr). Vnější prstenec musí být orientovaný proti směru hodinových ručiček a vnitřní prstenci po směru hodinových ručiček. Směřuje ověří to před odesláním hodnoty do databáze.
+Při použití `geography` typu sloupce SQL Server ukládá další požadavky na vnější prstenec (nebo kostru) a vnitřní prstence (nebo díry). Vnější prstenec musí být orientovaný proti směru hodinových ručiček a vnitřní prstence po směru hodinových ručiček. NTS ho před odesláním hodnot do databáze ověří.
 
-### <a name="fullglobe"></a>Objekt FullGlobe
+### <a name="fullglobe"></a>FullGlobe
 
-Systém SQL Server má nestandardní geometrie typ pro reprezentaci úplné světě při použití `geography` typ sloupce. Má také způsob, jak reprezentaci mnohoúhelníky založené na celé zeměkouli (bez vnější prstenec). Ani jeden z těchto podporovaných chny Zarážky.
+SQL Server má nestandardní typ geometrie, který představuje úplný glóbus při použití `geography` typu sloupce. Má také způsob, jak znázornit mnohoúhelníky na základě plného světa (bez vnějšího okruhu). Ani jedna z těchto možností není podporována nástrojem NTS.
 
 > [!WARNING]
-> Objekt FullGlobe a na jejím základě mnohoúhelníky chny Zarážky nejsou podporovány.
+> FullGlobe a mnohoúhelníky, které jsou na nich založené, nejsou podporovány NTS.
 
 ## <a name="sqlite"></a>SQLite
 
-Zde jsou některé další informace k těm, kteří používají SQLite.
+Zde jsou některé další informace pro ty, které používají SQLite.
 
 ### <a name="installing-spatialite"></a>Instalace SpatiaLite
 
-Na Windows nativní mod_spatialite knihovny je distribuován jako závislost balíčku NuGet. Jiné platformy je nutné nainstalovat samostatně. To se obvykle provádí pomocí Správce balíčků softwaru. Můžete například použít APT na Ubuntu a Homebrew v systému MacOS.
+V systému Windows je nativní knihovna mod_spatialite distribuována jako závislost balíčku NuGet. Jiné platformy je potřeba nainstalovat samostatně. To se obvykle provádí pomocí Správce balíčků softwaru. Například můžete použít APT v Ubuntu a homebrew na MacOS.
 
 ``` sh
 # Ubuntu
@@ -223,7 +244,7 @@ brew install libspatialite
 
 ### <a name="configuring-srid"></a>Konfigurace SRID
 
-Sloupce v SpatiaLite, třeba zadat SRID na sloupec. Výchozí hodnota je SRID `0`. Zadejte jiný SRID ForSqliteHasSrid metodou.
+V SpatiaLite musí sloupce určovat SRID na sloupec. Výchozí SRID je `0`. Určete jiný SRID pomocí metody ForSqliteHasSrid.
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
@@ -232,7 +253,7 @@ modelBuilder.Entity<City>().Property(c => c.Location)
 
 ### <a name="dimension"></a>Rozměr
 
-Podobně jako u SRID, dimenze sloupec (nebo souřadnice) je také zadaný jako součást sloupci. Jsou výchozí souřadnice X a Y. povolit další souřadnice (Z a M) ForSqliteHasDimension metodou.
+Podobně jako u SRID je jako součást sloupce zadána také dimenze sloupce (nebo souřadnice). Výchozí souřadnice jsou X a Y. Povolte další souřadnice (Z a M) pomocí metody ForSqliteHasDimension.
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
@@ -241,74 +262,74 @@ modelBuilder.Entity<City>().Property(c => c.Location)
 
 ## <a name="translated-operations"></a>Přeložené operace
 
-Tato tabulka uvádí, které členy chny Zarážky jsou přeloženy do SQL od každého poskytovatele EF Core.
+Tato tabulka uvádí, které NTS členové jsou přeloženi do jazyka SQL každým poskytovatelem EF Core.
 
-NetTopologySuite | SQL Server (Geometrie) | SQL Server (geography) | SQLite | Npgsql
+NetTopologySuite | SQL Server (geometrie) | SQL Server (geografie) | SQLite | Npgsql
 --- |:---:|:---:|:---:|:---:
-Geometry.Area | ✔ | ✔ | ✔ | ✔
-Geometry.AsBinary() | ✔ | ✔ | ✔ | ✔
-Geometry.AsText() | ✔ | ✔ | ✔ | ✔
-Geometry.Boundary | ✔ | | ✔ | ✔
-Geometry.Buffer(double) | ✔ | ✔ | ✔ | ✔
-Geometry.Buffer (double, int). | | | ✔
-Geometry.Centroid | ✔ | | ✔ | ✔
-Geometry.Contains(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.ConvexHull() | ✔ | ✔ | ✔ | ✔
-Geometry.CoveredBy(Geometry) | | | ✔ | ✔
-Geometry.Covers(Geometry) | | | ✔ | ✔
-Geometry.Crosses(Geometry) | ✔ | | ✔ | ✔
-Geometry.Difference(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.Dimension | ✔ | ✔ | ✔ | ✔
-Geometry.Disjoint(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.Distance(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.Envelope | ✔ | | ✔ | ✔
-Geometry.EqualsExact(Geometry) | | | | ✔
-Geometry.EqualsTopologically(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.GeometryType | ✔ | ✔ | ✔ | ✔
-Geometry.GetGeometryN(int) | ✔ | | ✔ | ✔
-Geometry.InteriorPoint | ✔ | | ✔
-Geometry.Intersection(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.Intersects(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.IsEmpty | ✔ | ✔ | ✔ | ✔
-Geometry.IsSimple | ✔ | | ✔ | ✔
-Geometry.IsValid | ✔ | ✔ | ✔ | ✔
-Geometry.IsWithinDistance (geometrie, double) | ✔ | | ✔
-Geometry.Length | ✔ | ✔ | ✔ | ✔
-Geometry.NumGeometries | ✔ | ✔ | ✔ | ✔
-Geometry.NumPoints | ✔ | ✔ | ✔ | ✔
-Geometry.OgcGeometryType | ✔ | ✔ | ✔
-Geometry.Overlaps(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.PointOnSurface | ✔ | | ✔ | ✔
-Geometry.Relate (geometrie, string) | ✔ | | ✔ | ✔
-Geometry.Reverse() | | | ✔ | ✔
-Geometry.SRID | ✔ | ✔ | ✔ | ✔
-Geometry.SymmetricDifference(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.ToBinary() | ✔ | ✔ | ✔ | ✔
-Geometry.ToText() | ✔ | ✔ | ✔ | ✔
-Geometry.Touches(Geometry) | ✔ | | ✔ | ✔
-Geometry.Union() | | | ✔
-Geometry.Union(Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry.Within(Geometry) | ✔ | ✔ | ✔ | ✔
-GeometryCollection.Count | ✔ | ✔ | ✔ | ✔
+Geometrie. Area | ✔ | ✔ | ✔ | ✔
+Geometry. AsBinary () | ✔ | ✔ | ✔ | ✔
+Geometry. AsText () | ✔ | ✔ | ✔ | ✔
+Geometrie. hranice | ✔ | | ✔ | ✔
+Geometry. Buffer (Double) | ✔ | ✔ | ✔ | ✔
+Geometry. Buffer (Double, int) | | | ✔
+Geometrie. těžiště | ✔ | | ✔ | ✔
+Geometrie. Contains (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometry. ConvexHull () | ✔ | ✔ | ✔ | ✔
+Geometry. CoveredBy (geometrie) | | | ✔ | ✔
+Geometry. pokrývání (geometrie) | | | ✔ | ✔
+Geometrie. křížení (geometrie) | ✔ | | ✔ | ✔
+Geometry. rozdíl (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. Dimension | ✔ | ✔ | ✔ | ✔
+Geometrie. unkloub (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. Distance (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. obálky | ✔ | | ✔ | ✔
+Geometry. EqualsExact (geometrie) | | | | ✔
+Geometry. EqualsTopologically (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. GeometryType | ✔ | ✔ | ✔ | ✔
+Geometry. GetGeometryN (int) | ✔ | | ✔ | ✔
+Geometrie. InteriorPoint | ✔ | | ✔
+Geometry. proprůsečík (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. INTERSECTY (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. Empty | ✔ | ✔ | ✔ | ✔
+Geometrie. zjednodušená | ✔ | | ✔ | ✔
+Geometrie. IsValid | ✔ | ✔ | ✔ | ✔
+Geometry. IsWithinDistance (geometrie, Double) | ✔ | | ✔
+Geometrie. Length | ✔ | ✔ | ✔ | ✔
+Geometrie. NumGeometries | ✔ | ✔ | ✔ | ✔
+Geometrie. NumPoints | ✔ | ✔ | ✔ | ✔
+Geometrie. OgcGeometryType | ✔ | ✔ | ✔
+Geometrie. překryvy (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. PointOnSurface | ✔ | | ✔ | ✔
+Geometry. propojovat (geometrie, String) | ✔ | | ✔ | ✔
+Geometry. Reverse () | | | ✔ | ✔
+Geometrie. SRID | ✔ | ✔ | ✔ | ✔
+Geometry. SymmetricDifference (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometry. ToBinary () | ✔ | ✔ | ✔ | ✔
+Geometry. ToText () | ✔ | ✔ | ✔ | ✔
+Geometrie. touchs (geometrie) | ✔ | | ✔ | ✔
+Geometry. Union () | | | ✔
+Geometry. Union (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometrie. uvnitř (geometrie) | ✔ | ✔ | ✔ | ✔
+Geometriecollection. Count | ✔ | ✔ | ✔ | ✔
 GeometryCollection [int] | ✔ | ✔ | ✔ | ✔
-LineString.Count | ✔ | ✔ | ✔ | ✔
-LineString.EndPoint | ✔ | ✔ | ✔ | ✔
-LineString.GetPointN(int) | ✔ | ✔ | ✔ | ✔
-LineString.IsClosed | ✔ | ✔ | ✔ | ✔
-LineString.IsRing | ✔ | | ✔ | ✔
-LineString.StartPoint | ✔ | ✔ | ✔ | ✔
-MultiLineString.IsClosed | ✔ | ✔ | ✔ | ✔
-Point.M | ✔ | ✔ | ✔ | ✔
-Point.X | ✔ | ✔ | ✔ | ✔
-Point.Y | ✔ | ✔ | ✔ | ✔
-Point.Z | ✔ | ✔ | ✔ | ✔
-Polygon.ExteriorRing | ✔ | ✔ | ✔ | ✔
-Polygon.GetInteriorRingN(int) | ✔ | ✔ | ✔ | ✔
-Polygon.NumInteriorRings | ✔ | ✔ | ✔ | ✔
+LineString. Count | ✔ | ✔ | ✔ | ✔
+LineString. EndPoint | ✔ | ✔ | ✔ | ✔
+LineString. GetPointN (int) | ✔ | ✔ | ✔ | ✔
+LineString. uzavřeno | ✔ | ✔ | ✔ | ✔
+LineString. pozvonění | ✔ | | ✔ | ✔
+LineString. StartPoint | ✔ | ✔ | ✔ | ✔
+MultiLineString. uzavřeno | ✔ | ✔ | ✔ | ✔
+Point. M | ✔ | ✔ | ✔ | ✔
+Point. X | ✔ | ✔ | ✔ | ✔
+Point. Y | ✔ | ✔ | ✔ | ✔
+Point. Z | ✔ | ✔ | ✔ | ✔
+Mnohoúhelník. ExteriorRing | ✔ | ✔ | ✔ | ✔
+Mnohoúhelník. GetInteriorRingN (int) | ✔ | ✔ | ✔ | ✔
+Mnohoúhelník. NumInteriorRings | ✔ | ✔ | ✔ | ✔
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Prostorová Data v systému SQL Server](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
+* [Prostorová data v SQL Server](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [Domovská stránka SpatiaLite](https://www.gaia-gis.it/fossil/libspatialite)
-* [Prostorový dokumentaci Npgsql](http://www.npgsql.org/efcore/mapping/nts.html)
-* [Dokumentace ke službě PostGIS](http://postgis.net/documentation/)
+* [Npgsql prostorová dokumentace](http://www.npgsql.org/efcore/mapping/nts.html)
+* [Dokumentace k PostGIS](http://postgis.net/documentation/)

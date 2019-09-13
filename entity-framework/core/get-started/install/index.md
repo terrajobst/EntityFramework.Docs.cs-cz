@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: db1b83a9222e00a5e226a134085b18247b31f29a
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 62194d1db4efcdaed53ca0e14f160315f8e3cf03
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306487"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921761"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
@@ -19,9 +19,9 @@ ms.locfileid: "68306487"
 
 * Můžete například použít EF Core pro vývoj aplikací, které cílí na .NET Core. Sestavování aplikací .NET Core vyžaduje [.NET Core SDK](https://dotnet.microsoft.com/download). Volitelně můžete také použít vývojové prostředí, jako je Visual Studio, Visual Studio pro Mac nebo Visual Studio Code. Další informace najdete v [Začínáme pomocí .NET Core](/dotnet/core/get-started).
 
-* EF Core můžete použít k vývoji aplikací, které cílí na .NET Framework 4.6.1 nebo novější ve Windows pomocí sady Visual Studio. Doporučuje se nejnovější verze sady Visual Studio. Pokud chcete použít starší verzi, jako je například Visual Studio 2015, je třeba upgradovat [klienta NuGet na verzi 3.6.0](https://www.nuget.org/downloads) , aby fungoval s knihovnami .NET Standard 2,0.
+* EF Core můžete použít k vývoji aplikací, které cílí na .NET Framework 4.6.1 nebo novější ve Windows pomocí sady Visual Studio. Doporučuje se nejnovější verze sady [Visual Studio](https://visualstudio.microsoft.com/vs) . Pokud chcete použít starší verzi, jako je například Visual Studio 2015, je třeba upgradovat [klienta NuGet na verzi 3.6.0](https://www.nuget.org/downloads) , aby fungoval s knihovnami .NET Standard 2,0.
 
-* EF Core lze spustit na jiných implementacích rozhraní .NET, jako je Xamarin a .NET Native. V praxi ale tyto implementace mají omezení za běhu, což může mít vliv na to, jak dobře EF Core fungují ve vaší aplikaci. Další informace najdete v tématu [implementace rozhraní .NET podporované nástrojem EF Core](xref:core/platforms/index).
+* EF Core lze spustit na jiných implementacích rozhraní .NET, jako je [Xamarin](https://dotnet.microsoft.com/apps/xamarin) a .NET Native. V praxi ale tyto implementace mají omezení za běhu, což může mít vliv na to, jak dobře EF Core fungují ve vaší aplikaci. Další informace najdete v tématu [implementace rozhraní .NET podporované nástrojem EF Core](xref:core/platforms/index).
 
 * Nakonec různí poskytovatelé databáze můžou vyžadovat konkrétní verze databázového stroje, implementace .NET nebo operační systémy. Ujistěte se, že je k dispozici [poskytovatel databáze EF Core](xref:core/providers/index) , který podporuje správné prostředí pro vaši aplikaci.
 
@@ -33,7 +33,7 @@ Pokud vytváříte aplikaci ASP.NET Core, nemusíte instalovat poskytovatele v p
 
 Chcete-li nainstalovat nebo aktualizovat balíčky NuGet, můžete použít rozhraní příkazového řádku (CLI) .NET Core, dialogové okno Správce balíčků sady Visual Studio nebo konzolu správce sady Visual Studio.
 
-### <a name="net-core-cli"></a>.NET Core CLI
+### <a name="net-core-cli"></a>Rozhraní příkazového řádku .NET Core
 
 * Chcete-li nainstalovat nebo aktualizovat poskytovatele služby EF Core SQL Server, použijte následující příkaz .NET Core CLI z příkazového řádku operačního systému:
 

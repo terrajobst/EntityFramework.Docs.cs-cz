@@ -1,66 +1,66 @@
 ---
-title: Načítají se související Data – EF Core
+title: Načítají se související data – EF Core.
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 590d16902329ffb3fff8026f8dfdcfc887f6dea3
-ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
+ms.openlocfilehash: 4bf9598f9b7e74c2835d3926215de9a7ef4e6f96
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/29/2019
-ms.locfileid: "64873195"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921794"
 ---
-# <a name="loading-related-data"></a>Načítání souvisejících dat
+# <a name="loading-related-data"></a>Načítají se související data.
 
-Entity Framework Core umožňuje načtení souvisejících entit pomocí vlastnosti navigace v modelu. Existují tři běžné modely O/RM umožňují načíst související data.
-* **Předběžné načítání** znamená, že je související data načtená z databáze jako součást počátečního dotazu.
-* **Explicitní načtení** znamená, že související explicitní načtení dat z databáze později.
-* **Opožděné načtení** znamená, že související transparentně načtení dat z databáze při přístupu k navigační vlastnost.
+Entity Framework Core umožňuje v modelu použít navigační vlastnosti pro načtení souvisejících entit. Existují tři běžné vzory O/RM, které slouží k načtení souvisejících dat.
+* **Eager načítání** znamená, že související data jsou načtena z databáze jako součást počátečního dotazu.
+* **Explicitní načítání** znamená, že související data jsou explicitně načtena z databáze později.
+* **Opožděné načítání** znamená, že související data jsou transparentně načítána z databáze, pokud je k ní přistupovaná vlastnost navigace.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
 
-## <a name="eager-loading"></a>Předběžné načítání
+## <a name="eager-loading"></a>Eager načítání
 
-Můžete použít `Include` metodu pro určení související data mají být zahrnuty ve výsledcích dotazu. V následujícím příkladu, blogy, které jsou vráceny ve výsledcích mají jejich `Posts` vlastnost naplní souvisejících příspěvků.
+Pomocí `Include` metody můžete určit související data, která mají být součástí výsledků dotazu. V následujícím příkladu budou Blogy, které jsou vráceny ve výsledcích, mít svou `Posts` vlastnost naplněnou souvisejícími příspěvky.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleInclude)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#SingleInclude)]
 
 > [!TIP]  
-> Entity Framework Core se automaticky opravit navigační vlastnosti s jinými entitami, které byly dříve načtena do instance kontextu. Takže i v případě, že není explicitně zahrnout data pro navigační vlastnost, vlastnost pořád naplněný, pokud některé nebo všechny související entity byly dříve načteny.
+> Entity Framework Core bude automaticky opravovat navigační vlastnosti pro všechny další entity, které byly dříve načteny do instance kontextu. Takže i když nebudete explicitně vkládat data pro navigační vlastnost, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
 
 
-Můžou obsahovat související data z více vztahů v jediném dotazu.
+V jednom dotazu můžete zahrnout související data z několika vztahů.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleIncludes)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleIncludes)]
 
-### <a name="including-multiple-levels"></a>Více úrovní
+### <a name="including-multiple-levels"></a>Zahrnutí více úrovní
 
-Můžete procházet hierarchii prostřednictvím relace zahrnout související data s využitím více úrovní `ThenInclude` metody. Následující příklad načte všechny blogy, jejich souvisejících příspěvků a Autor každý příspěvek.
+Můžete přejít k podrobnostem na základě vztahů, abyste zahrnuli více úrovní souvisejících `ThenInclude` dat pomocí metody. Následující příklad načte všechny Blogy, jejich související příspěvky a autora každého příspěvku.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#SingleThenInclude)]
 
 > [!NOTE]  
-> Aktuální verze sady Visual Studio nabízí možnosti dokončení nesprávný kód a může způsobit správné výrazy označen příznakem chyby syntaxe při použití `ThenInclude` za navigační vlastnost kolekce. Toto je příznakem chyby IntelliSense sledovány v https://github.com/dotnet/roslyn/issues/8237. Je bezpečné ignorovat tyto chyby syntaxe detekováno falešné jako kód je správný a může být zkompilován úspěšně. 
+> Aktuální verze sady Visual Studio nabízejí nesprávné možnosti doplňování kódu a mohou způsobit, že správné výrazy budou označeny chybami syntaxe při použití `ThenInclude` metody po navigační vlastnosti kolekce. Toto je příznak chyby technologie IntelliSense sledované na adrese https://github.com/dotnet/roslyn/issues/8237. Tyto chyby syntaxe spurious je bezpečné ignorovat, pokud je kód správný a je možné ho zkompilovat úspěšně. 
 
-Můžete zřetězit více volání `ThenInclude` pokračovat, včetně dalších úrovní související data.
+Můžete zřetězit více volání, aby `ThenInclude` bylo možné pokračovat včetně dalších úrovní souvisejících dat.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleThenIncludes)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleThenIncludes)]
 
-Můžete kombinovat, abyste mohli zahrnout související data z více úrovní a více kořenových adresářů ve stejném dotazu.
+To všechno můžete zkombinovat, chcete-li zahrnout související data z více úrovní a více kořenů ve stejném dotazu.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-Můžete chtít zahrnout více souvisejících entit pro jeden z entity, které je zahrnuto. Třeba při dotazování `Blogs`, zahrnete `Posts` a poté chcete provést oba `Author` a `Tags` z `Posts`. Chcete-li to provést, musíte zadat jednotlivé obsahovat počínaje kořenovou cestu. Například `Blog -> Posts -> Author` a `Blog -> Posts -> Tags`. To neznamená, že se zobrazí redundantní spojení; ve většině případů bude EF konsolidovat spojení při generování SQL.
+Možná budete chtít zahrnout několik souvisejících entit pro jednu z zahrnutých entit. Například při `Blogs`dotazování zahrnete `Author` `Posts` a potom chcete zahrnout `Tags` i z `Posts`. Chcete-li to provést, je třeba zadat každou cestu zahrnutí počínaje kořenovým adresářem. Například `Blog -> Posts -> Author` a `Blog -> Posts -> Tags`. To neznamená, že budete mít redundantní spojení. ve většině případů bude EF konsolidovat spojení při generování SQL.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
-### <a name="include-on-derived-types"></a>Umístit na odvozené typy
+### <a name="include-on-derived-types"></a>Zahrnout do odvozených typů
 
-Můžete zahrnout související data z navigaci definovat jen pro odvozený typ pomocí `Include` a `ThenInclude`. 
+Můžete zahrnout související data z navigace definovaná pouze pro odvozený typ pomocí `Include` a. `ThenInclude` 
 
-Daný následující model:
+S ohledem na následující model:
 
 ```csharp
 public class SchoolContext : DbContext
@@ -94,64 +94,64 @@ public class School
 }
 ```
 
-Obsah `School` navigaci ve všech uživatelů, kteří studenty lze například načíst pomocí několika způsoby:
+`School` Obsah navigace všech uživatelů, kteří jsou studenti, se dá eagerly načíst pomocí několika vzorů:
 
-- pomocí přetypování
+- použití přetypování
   ```csharp
   context.People.Include(person => ((Student)person).School).ToList()
   ```
 
-- pomocí `as` – operátor
+- operátor `as` using
   ```csharp
   context.People.Include(person => (person as Student).School).ToList()
   ```
 
-- pomocí přetížení `Include` , která přebírá parametr typu `string`
+- použití přetížení `Include` , které přijímá parametr typu`string`
   ```csharp
   context.People.Include("School").ToList()
   ```
 
-### <a name="ignored-includes"></a>Ignorovat zahrnuje
+### <a name="ignored-includes"></a>Ignorované zahrnutí
 
-Pokud změníte dotaz tak, aby by již nevracelo instancí typu entity, které se začnou dotazu, operátory zahrnout ignorovány.
+Pokud změníte dotaz tak, že již nadále nevrátí instance typu entity, na kterém dotaz začal, jsou operátory include ignorovány.
 
-V následujícím příkladu je na základě operátory zahrnout `Blog`, ale pak `Select` operátor se používá ke změně dotaz, který vrací anonymního typu. V takovém případě operátory zahrnout nemají žádný vliv.
+V následujícím příkladu jsou operátory include založeny na `Blog`, ale `Select` operátor se používá ke změně dotazu na vrácení anonymního typu. V takovém případě nejsou operátory include nijak ovlivněny.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IgnoredInclude)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#IgnoredInclude)]
 
-Ve výchozím nastavení, se budou protokolovat EF Core upozornění při operátory jsou ignorovány. Zobrazit [protokolování](../miscellaneous/logging.md) pro další informace o prohlížení uložit výstup protokolování. Můžete změnit chování při zahrnutí operátor ignorován provést operaci throw nebo Neprovádět žádnou akci. To se provádí při nastavování možnosti pro váš kontext – obvykle v `DbContext.OnConfiguring`, nebo v `Startup.cs` Pokud používáte ASP.NET Core.
+Ve výchozím nastavení EF Core zaznamená upozornění, když budou operátory include ignorovány. Další informace o zobrazení výstupu protokolování najdete v tématu [protokolování](../miscellaneous/logging.md) . Chování můžete změnit při ignorování operátoru include pro vyvolání nebo provedení akce. To se provádí při nastavování možností pro váš kontext – obvykle v `DbContext.OnConfiguring`nebo v `Startup.cs` případě, že používáte ASP.NET Core.
 
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
 
-## <a name="explicit-loading"></a>explicitní načtení
-
-> [!NOTE]  
-> Tato funkce byla zavedená v EF Core 1.1.
-
-Můžete explicitně načíst navigační vlastnost via `DbContext.Entry(...)` rozhraní API.
-
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#Eager)]
-
-Navigační vlastnost můžete také explicitně načíst spuštěním samostatného dotaz, který vrátí související entity. Pokud je povoleno sledování změn, pak při načítání entity, EF Core automaticky nastavit vlastnosti navigace entitiy nově načíst k odkazování na všechny entity již načtena a nastavit vlastnosti navigace entit již načtena jako reference nově načtení entity.
-
-### <a name="querying-related-entities"></a>Dotazování na související entity
-
-Můžete také získat dotaz LINQ, který představuje obsah navigační vlastnost.
-
-To umožňuje provádění akcí, například spuštění agregační operátor souvisejícími entitami bez jejich načtení do paměti.
-
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryAggregate)]
-
-Můžete také filtrovat, které související entity jsou načtena do paměti.
-
-[!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryFiltered)]
-
-## <a name="lazy-loading"></a>Opožděné načtení
+## <a name="explicit-loading"></a>explicitní načítání
 
 > [!NOTE]  
-> Tato funkce byla zavedená v EF Core 2.1.
+> Tato funkce byla představena v EF Core 1,1.
 
-Po instalaci je nejjednodušší způsob, jak pomocí opožděné načtení [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) balíček a jeho povolení voláním `UseLazyLoadingProxies`. Příklad:
+Můžete explicitně načíst navigační vlastnost prostřednictvím `DbContext.Entry(...)` rozhraní API.
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#Eager)]
+
+Můžete také explicitně načíst vlastnost navigace spuštěním samostatného dotazu, který vrací související entity. Pokud je povoleno sledování změn, pak při načítání entity EF Core automaticky nastaví navigační vlastnosti nově načtených entity, aby odkazovaly na jakékoli již načtené entity, a nastavili navigační vlastnosti již načtených entit tak, aby odkazovaly na nově načtená entita
+
+### <a name="querying-related-entities"></a>Dotazování souvisejících entit
+
+Můžete také získat dotaz LINQ, který představuje obsah vlastnosti navigace.
+
+To umožňuje provádět akce, jako je například spuštění agregačního operátoru nad souvisejícími entitami bez jejich načtení do paměti.
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#NavQueryAggregate)]
+
+Můžete také filtrovat, které související entity jsou načteny do paměti.
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#NavQueryFiltered)]
+
+## <a name="lazy-loading"></a>opožděné načítání
+
+> [!NOTE]  
+> Tato funkce byla představena v EF Core 2,1.
+
+Nejjednodušším způsobem, jak použít opožděné načítání, je nainstalovat balíček [Microsoft. EntityFrameworkCore. proxy](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) a povolit mu volání `UseLazyLoadingProxies`. Příklad:
 ```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
@@ -164,7 +164,7 @@ Nebo při použití AddDbContext:
     b => b.UseLazyLoadingProxies()
           .UseSqlServer(myConnectionString));
 ```
-EF Core se povolit opožděné načtení pro navigační vlastnost, která může být přepsána – to znamená, musí být `virtual` a na třídu, která je možné zdědit z. Například v následující entity `Post.Blog` a `Blog.Posts` navigační vlastnosti budou opožděné načtení.
+EF Core pak povolí opožděné načítání pro jakoukoliv navigační vlastnost, která může být přepsána – to znamená, že `virtual` musí být a na třídě, která může být děděna z. Například v následujících entitách `Post.Blog` budou vlastnosti navigace a `Blog.Posts` aplikace opožděně načteny.
 ```csharp
 public class Blog
 {
@@ -183,9 +183,9 @@ public class Post
     public virtual Blog Blog { get; set; }
 }
 ```
-### <a name="lazy-loading-without-proxies"></a>Opožděné načtení bez proxy servery
+### <a name="lazy-loading-without-proxies"></a>Opožděné načítání bez proxy serverů
 
-Opožděné načtení proxy servery fungují tak, že vkládá `ILazyLoader` služby do entity, jak je popsáno v [konstruktory typů entit](../modeling/constructors.md). Příklad:
+Opožděné načítání proxy serverů funguje tak, že `ILazyLoader` službu vloží do entity, jak je popsáno v tématu [konstruktory typu entity](../modeling/constructors.md). Příklad:
 ```csharp
 public class Blog
 {
@@ -238,7 +238,7 @@ public class Post
     }
 }
 ```
-To nevyžaduje, aby typy entit, aby se dědila z a navigačních vlastností pro virtuální a umožní instancí entit, které jsou vytvořené pomocí `new` opožděné načtení jednou připojené do kontextu. To ale vyžaduje odkaz na `ILazyLoader` služba, která je definována v [Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) balíčku. Tento balíček obsahuje minimální sadu typů tak, aby se velmi malý vliv v ji. Pokud chcete úplně vyhnout v závislosti na všechny balíčky EF Core v typech entit, je však možné vložit `ILazyLoader.Load` metoda jako delegát. Příklad:
+To nevyžaduje dědění typů entit nebo vlastností navigace jako virtuálních a umožňuje, aby se instance entit vytvořily s `new` opožděným načtením, a to po připojení k kontextu. Nicméně vyžaduje odkaz na `ILazyLoader` službu, která je definována v balíčku [Microsoft. EntityFrameworkCore. Abstracts](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) . Tento balíček obsahuje minimální sadu typů, aby v závislosti na tom byl velmi malý vliv. Pokud se však chcete zcela vyhnout v závislosti na EF Core balíčky v typech entit, je možné `ILazyLoader.Load` metodu vložit jako delegáta. Příklad:
 ```csharp
 public class Blog
 {
@@ -291,7 +291,7 @@ public class Post
     }
 }
 ```
-Kód výše používá `Load` metodu rozšíření k trochu čisticí využitím delegáta:
+Výše uvedený kód používá `Load` metodu rozšíření k použití delegáta bitového čističe:
 ```csharp
 public static class PocoLoadingExtensions
 {
@@ -309,17 +309,17 @@ public static class PocoLoadingExtensions
 }
 ```
 > [!NOTE]  
-> Parametr konstruktoru pro opožděné načtení delegáta se musí volat "lazyLoader". Konfigurace, aby používala jiný název než to je plánovaná pro budoucí verzi.
+> Parametr konstruktoru pro delegáta opožděného načítání musí být nazvaný "lazyLoader". Konfigurace, která má použít jiný název než toto je plánována v budoucí verzi.
 
-## <a name="related-data-and-serialization"></a>Serializace a souvisejících dat
+## <a name="related-data-and-serialization"></a>Související data a serializace
 
-Protože EF Core se automaticky opravit navigačních vlastností můžete skončit s cykly v grafu objektu. Například načítání blogu a jeho souvisejících příspěvků výsledkem bude objekt blogu, který odkazuje na kolekci příspěvků. Každá z těchto míst bude mít odkaz na blogu.
+Vzhledem k tomu, že EF Core bude automaticky opravovat navigační vlastnosti, můžete v grafu objektů končit cykly. Například načtení blogu a jeho souvisejících příspěvků bude mít za následek blogový objekt, který odkazuje na kolekci příspěvků. Každá z těchto příspěvků bude mít odkaz zpátky na blog.
 
-Některé architektury serializace neumožňují takové cykly. Například Json.NET vyvolá následující výjimku, pokud dochází k zacyklení.
+Některé serializace rozhraní tyto cykly nepovolují. Json.NET například vyvolá následující výjimku, pokud dojde k cyklu.
 
-> Newtonsoft.Json.JsonSerializationException: Vlastní odkazující na zjištěna pro vlastnost "Blogu" typu "MyApplication.Models.Blog" smyčka.
+> Newtonsoft. JSON. JsonSerializationException: Zjistila se smyčka s odkazem na vlastnost ' blog ' typu ' MyApplication. Models. blog '.
 
-Pokud používáte ASP.NET Core, můžete nakonfigurovat Json.NET ignorovat cykly, které najde v grafu objektů. To se provádí v `ConfigureServices(...)` metoda ve `Startup.cs`.
+Pokud používáte ASP.NET Core, můžete Json.NET nakonfigurovat tak, aby ignorovala cykly, které najde v grafu objektů. To se provádí v `ConfigureServices(...)` metodě v. `Startup.cs`
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -335,4 +335,4 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Další možností je jedna z vlastností navigace s uspořádání `[JsonIgnore]` atribut, který dává pokyn k neprocházejí přes této navigační vlastnosti při serializaci Json.NET.
+Další možností je vyjednat jednu z navigačních vlastností s `[JsonIgnore]` atributem, který instruuje JSON.NET, že při serializaci nebude procházet tuto vlastnost navigace.

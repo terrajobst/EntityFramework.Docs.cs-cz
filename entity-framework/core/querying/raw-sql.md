@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 91592ea9f7c73f10446993282c1874c852000871
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 7a0df6fb656be58103971f45b9e12e9f1383311f
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306546"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921718"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
@@ -22,7 +22,7 @@ Entity Framework Core umožňuje vyřadit z provozu nezpracované dotazy SQL př
 
 Metodu rozšíření *z tabulek* můžete použít k zahájení dotazu LINQ na základě nezpracovaného dotazu SQL.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var blogs = context.Blogs
     .FromSql("SELECT * FROM dbo.Blogs")
@@ -31,7 +31,7 @@ var blogs = context.Blogs
 
 Nezpracované dotazy SQL lze použít ke spuštění uložené procedury.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var blogs = context.Blogs
     .FromSql("EXECUTE dbo.GetMostPopularBlogs")
@@ -44,7 +44,7 @@ Stejně jako u libovolného rozhraní API, které podporuje SQL, je důležité 
 
 Následující příklad předává jeden parametr uložené proceduře. I když to může vypadat `String.Format` jako syntaxe, zadaná hodnota je zabalena v parametru a vygenerovaný název parametru vložený, `{0}` kde byl zadán zástupný symbol.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var user = "johndoe";
 
@@ -55,7 +55,7 @@ var blogs = context.Blogs
 
 Jedná se o stejný dotaz, ale používá syntaxi řetězcové interpolace, která je podporovaná v EF Core 2,0 a novějších verzích:
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var user = "johndoe";
 
@@ -66,7 +66,7 @@ var blogs = context.Blogs
 
 Můžete také vytvořit DbParameter a dodat ji jako hodnotu parametru:
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var user = new SqlParameter("user", "johndoe");
 
@@ -77,7 +77,7 @@ var blogs = context.Blogs
 
 To umožňuje použít pojmenované parametry v řetězci dotazu SQL, což je užitečné, pokud má uložená procedura volitelné parametry:
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var user = new SqlParameter("user", "johndoe");
 
@@ -92,7 +92,7 @@ Pokud je možné dotaz SQL sestavit v databázi, můžete vytvořit počátečn�
 
 V následujícím příkladu se používá nezpracovaný dotaz SQL, který se vybere z funkce vracející tabulku (TVF), a pak se na něj vytvoří pomocí LINQ k filtrování a řazení.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var searchTerm = ".NET";
 
@@ -109,7 +109,7 @@ Dotazy, které používají `FromSql()` přesná stejná pravidla sledování zm
 
 V následujícím příkladu je použit nezpracovaný dotaz SQL, který se vybere z funkce vracející tabulku (TVF), a potom zakáže sledování změn s voláním. AsNoTracking():
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var searchTerm = ".NET";
 
@@ -123,7 +123,7 @@ var blogs = context.Query<SearchBlogsDto>()
 
 `Include()` Metodu lze použít k zahrnutí souvisejících dat, stejně jako u jakéhokoli jiného dotazu LINQ:
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var searchTerm = ".NET";
 

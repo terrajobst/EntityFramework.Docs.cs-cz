@@ -1,91 +1,91 @@
 ---
-title: Tabulka návrháře rozdělení - EF6
+title: Rozdělení tabulky návrháře – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-ms.openlocfilehash: 8b0ca6778a06ed43b1365d2e5969ff15948f8004
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490691"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921780"
 ---
-# <a name="designer-table-splitting"></a>Tabulka návrháře rozdělení
-Tento návod ukazuje, jak mapovat více typů entit na jedné tabulky tak, že upravíte model se Návrhář Entity Framework (EF designeru).
+# <a name="designer-table-splitting"></a>Rozdělení tabulky návrháře
+Tento návod ukazuje, jak namapovat více typů entit na jednu tabulku úpravou modelu pomocí Entity Framework Designer (EF Designer).
 
-Jeden z důvodů, proč můžete chtít použít tabulku rozdělení je zpoždění načítání některé vlastnosti, při použití opožděné načtení pro načtení objektů. Vlastnosti, které mohou obsahovat velmi velké množství dat do samostatné entity a načíst jenom ji v případě potřeby můžete oddělit.
+Jedním z důvodů, proč můžete chtít použít rozdělování tabulky, je zpoždění načítání některých vlastností při použití opožděného načítání pro načtení vašich objektů. Vlastnosti, které mohou obsahovat velmi velké množství dat, můžete oddělit do samostatné entity a v případě potřeby je načíst.
 
-Následující obrázek znázorňuje hlavní windows, které se používají při práci s EF designeru.
+Následující obrázek ukazuje hlavní okna, která se používají při práci s návrhářem EF.
 
-![EF designeru](~/ef6/media/efdesigner.png)
+![Návrhář EF](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>Požadavky
 
 K dokončení toho návodu budete potřebovat:
 
-- Nejnovější verzi sady Visual Studio.
-- [Ukázkové databáze školy](~/ef6/resources/school-database.md).
+- Poslední verze sady Visual Studio.
+- [Ukázková databáze školy](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
 Tento návod používá Visual Studio 2012.
 
--   Otevřít Visual Studio 2012.
--   Na **souboru** nabídky, přejděte k **nový**a potom klikněte na tlačítko **projektu**.
--   V levém podokně klikněte na tlačítko Visual C\#a pak vyberte šablonu Konzolová aplikace.
--   Zadejte **TableSplittingSample** jako název projektu a klikněte na tlačítko **OK**.
+-   Otevřete Visual Studio 2012.
+-   V nabídce **soubor** přejděte na příkaz **Nový**a klikněte na **projekt**.
+-   V levém podokně klikněte na položku Visual C\#a pak vyberte šablonu Konzolová aplikace.
+-   Jako název projektu zadejte **TableSplittingSample** a klikněte na **OK**.
 
-## <a name="create-a-model-based-on-the-school-database"></a>Vytvořit Model založený na databáze školy
+## <a name="create-a-model-based-on-the-school-database"></a>Vytvoření modelu založeného na školní databázi
 
--   Klikněte pravým tlačítkem na název projektu v Průzkumníku řešení, přejděte na **přidat**a potom klikněte na tlačítko **nová položka**.
--   Vyberte **Data** v levé nabídce a pak vyberte **datový Model Entity ADO.NET** v podokně šablon.
--   Zadejte **TableSplittingModel.edmx** pro název souboru a pak klikněte na tlačítko **přidat**.
--   V dialogovém okně Výběr obsahu modelu vyberte **Generovat z databáze**a potom klikněte na tlačítko **Další.**
--   Klikněte na tlačítko nové připojení. V dialogovém okně Vlastnosti připojení zadat název serveru (například **(localdb)\\mssqllocaldb**), vyberte metodu ověřování, zadejte **School** pro název databáze a pak Klikněte na tlačítko **OK**.
-    Dialogové okno Vybrat datové připojení se aktualizuje se nastavení připojení databáze.
--   V dialogovém okně Zvolte vaše databázové objekty Rozbalit **tabulky** uzlu a kontrolu **osoba** tabulky. Tím se přidá do zadané tabulky **School** modelu.
--   Klikněte na tlačítko **Dokončit**.
+-   Klikněte pravým tlačítkem myši na název projektu v Průzkumník řešení, přejděte na **Přidat**a klikněte na **Nová položka**.
+-   V nabídce vlevo vyberte **data** a v podokně šablony vyberte **ADO.NET model EDM (Entity Data Model)** .
+-   Jako název souboru zadejte **TableSplittingModel. edmx** a pak klikněte na **Přidat**.
+-   V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další.**
+-   Klikněte na nové připojení. V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB)\\mssqllocaldb**), vyberte metodu ověřování, jako název databáze zadejte **School** a pak klikněte na **OK**.
+    Dialogové okno zvolit datové připojení je aktualizováno nastavením připojení k databázi.
+-   V dialogovém okně zvolit objekty databáze rozložte uzel **tabulky** a ověřte tabulku **Person** . Tím se přidá zadaná tabulka do **školního** modelu.
+-   Klikněte na tlačítko **Dokončit**.
 
-V návrháři entit, které poskytuje návrhové ploše pro úpravy váš model, se zobrazí. Všechny objekty, které jste vybrali v **zvolte vaše databázové objekty** dialogové okno se přidají do modelu.
+Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu. Do modelu jsou přidány všechny objekty, které jste vybrali v dialogovém okně **zvolit objekty** databáze.
 
-## <a name="map-two-entities-to-a-single-table"></a>Dvě entity, které mapují na jedné tabulky
+## <a name="map-two-entities-to-a-single-table"></a>Mapování dvou entit na jednu tabulku
 
-V této části se rozdělí **osoba** entity do dvou entit a jejich namapování na jednu tabulku.
+V této části budete entitu **osoba** rozdělit do dvou entit a pak je namapovat na jednu tabulku.
 
 > [!NOTE]
-> **Osoba** entita neobsahuje žádné vlastnosti, které mohou obsahovat velké množství dat; používá se jenom jako příklad.
+> Entita **osoby** neobsahuje žádné vlastnosti, které by mohly obsahovat velké množství dat. slouží pouze jako příklad.
 
--   Klikněte pravým tlačítkem na prázdnou oblast návrhové plochy, přejděte na **přidat nový**a klikněte na tlačítko **Entity**.
-    **Novou entitu** zobrazí se dialogové okno.
--   Typ **HireInfo** pro **název Entity** a **PersonID** pro **vlastnost Key** název.
--   Klikněte na tlačítko **OK**.
--   Nový typ entity se vytvoří a zobrazí na návrhové ploše.
--   Vyberte **HireDate** vlastnost **osoba** typu entity a stiskněte klávesu **Ctrl + X** klíče.
--   Vyberte **HireInfo** entity a stiskněte klávesu **Ctrl + V** klíče.
--   Vytvoření přidružení mezi **osoba** a **HireInfo**. Chcete-li to provést, klikněte pravým tlačítkem na prázdnou oblast návrhové plochy, přejděte na **přidat nový**a klikněte na tlačítko **přidružení**.
--   **Přidat přidružení** zobrazí se dialogové okno. **PersonHireInfo** ve výchozím nastavení je zadaný název.
--   Zadejte násobnost **1(One)** na obou stranách relace.
+-   Klikněte pravým tlačítkem myši na prázdnou oblast návrhové plochy, přejděte na **Přidat nový**a klikněte na **entita**.
+    Zobrazí se dialogové okno **nová entita** .
+-   Jako **název entity** zadejte **HireInfo** a pro název **Klíčové vlastnosti** **PersonID** .
+-   Klikněte na tlačítko **OK**.
+-   Vytvoří se nový typ entity, který se zobrazí na návrhové ploše.
+-   Vyberte vlastnost **ZaměstnánOd** typu entity **osoba** a stiskněte klávesy **CTRL + X** .
+-   Vyberte entitu **HireInfo** a stiskněte klávesy **CTRL + V** .
+-   Vytvořte přidružení mezi **osobami** a **HireInfo**. Provedete to tak, že kliknete pravým tlačítkem myši na prázdnou oblast návrhové plochy, najeďte na **Přidat nový**a kliknete na **asociace**.
+-   Zobrazí se dialogové okno **Přidat přidružení** . Ve výchozím nastavení je zadán název **PersonHireInfo** .
+-   Zadejte násobnost **1 (jedna)** na obou koncích relace.
 -   Stisknutím klávesy **OK**.
 
-Vyžaduje další krok **podrobnosti mapování** okna. Pokud toto okno nelze zobrazit, klikněte pravým tlačítkem na návrhové ploše a vyberte **podrobnosti mapování**.
+Další krok vyžaduje okno **Podrobnosti** mapování. Pokud toto okno nevidíte, klikněte pravým tlačítkem myši na návrhovou plochu a vyberte **mapování podrobností**.
 
--   Vyberte **HireInfo** typu entity a klikněte na tlačítko **&lt;přidat tabulku nebo zobrazení&gt;** v **podrobnosti mapování** okna.
--   Vyberte **osoba** z **&lt;přidat tabulku nebo zobrazení&gt;** pole rozevíracího seznamu. Seznam obsahuje tabulky nebo zobrazení pro které je možné mapovat vybrané entity.
-    Příslušné vlastnosti by měly být namapované ve výchozím nastavení.
+-   Vyberte typ entity **HireInfo** a v okně **Podrobnosti**  **&lt;&gt;** mapováníkliknětenaPřidattabulkunebozobrazení. 
+-    V rozevíracím seznamu **&gt;přidat pole tabulky nebo zobrazení vyberte osoba. &lt;** Seznam obsahuje tabulky nebo zobrazení, do kterých lze mapovat vybranou entitu.
+    Ve výchozím nastavení by měly být namapované odpovídající vlastnosti.
 
     ![Mapování](~/ef6/media/mapping.png)
 
--   Vyberte **PersonHireInfo** přidružení na návrhové ploše.
--   Klikněte pravým tlačítkem na přidružení na návrhové ploše a vyberte **vlastnosti**.
--   V **vlastnosti** okna, vyberte **referenční omezení** vlastnosti a klikněte na tlačítko se třemi tečkami.
--   Vyberte **osoba** z **hlavní** rozevíracího seznamu.
+-   Vyberte přidružení **PersonHireInfo** na návrhové ploše.
+-   Na návrhové ploše klikněte pravým tlačítkem na přidružení a vyberte **vlastnosti**.
+-   V okně **vlastnosti** vyberte vlastnost **referenčních omezení** a klikněte na tlačítko se třemi tečkami.
+-   V rozevíracím seznamu **hlavní objekty** vyberte **osoba** .
 -   Stisknutím klávesy **OK**.
 
- 
+ 
 
 ## <a name="use-the-model"></a>Použití modelu
 
--   Vložte následující kód do metody Main.
+-   Do metody Main vložte následující kód.
 
 ``` csharp
     using (var context = new SchoolEntities())
@@ -120,18 +120,18 @@ Vyžaduje další krok **podrobnosti mapování** okna. Pokud toto okno nelze zo
             existingPerson.LastName, hireInfo.HireDate);
     }
 ```
--   Kompilace a spuštění aplikace.
+-   Zkompilujte a spusťte aplikaci.
 
-Následující příkazy T-SQL, které byly spuštěny před **School** databáze jako výsledek spuštění této aplikace. 
+V důsledku spuštění této aplikace byly v databázi **School** provedeny následující příkazy jazyka T-SQL. 
 
--   Následující **vložit** se spustil v důsledku spuštění kontextu. SaveChanges() a kombinuje data z **osoba** a **HireInfo** entity
+-   Následující **vložení** bylo provedeno jako výsledek spuštěného kontextu. SaveChanges () a kombinuje data z entit **Person** a **HireInfo**
 
     ![Insert](~/ef6/media/insert.png)
 
--   Následující **vyberte** se spustil v důsledku spuštění kontextu. People.FirstOrDefault() a vybere pouze sloupce mapovat na **osoby**
+-   Následující **příkaz SELECT** byl proveden jako výsledek spuštěného kontextu. Lidi. FirstOrDefault () a vybere pouze sloupce namapované na **osobu**
 
-    ![Vyberte možnost 1](~/ef6/media/select1.png)
+    ![Vyberte 1](~/ef6/media/select1.png)
 
--   Následující **vyberte** byl proveden v důsledku přístup k existingPerson.Instructor vlastnost navigace a vybere pouze sloupce, které jsou namapované na **HireInfo**
+-   Následující **příkaz SELECT** byl proveden jako výsledek přístupu k navigační vlastnosti ExistingPerson. instruktor a vybere pouze sloupce namapované na **HireInfo** .
 
-    ![Vyberte 2](~/ef6/media/select2.png)
+    ![Vybrat 2](~/ef6/media/select2.png)
