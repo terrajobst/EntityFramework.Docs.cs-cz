@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 884cc6611b986fb213d99d3d2fc69d7bebe34aa2
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 10a0f0edc5f98baea26b1a5b9c0aa869b1df01af
+ms.sourcegitcommit: df181e201365c20610ba56dcd5c5ed30cfda00c2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565327"
+ms.lasthandoff: 09/15/2019
+ms.locfileid: "70997847"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Přerušující změny zahrnuté v EF Core 3,0 (aktuálně ve verzi Preview)
 
@@ -908,7 +908,7 @@ Tato změna byla provedena, aby se nepoužívalo stejné pole pro dvě vlastnost
 **Hrozeb**
 
 Vlastnosti pouze polí musí být pojmenovány stejně jako pole, na které jsou namapována.
-V novější verzi EF Core 3,0 plánujeme znovu povolit explicitní konfiguraci názvu pole, který se liší od názvu vlastnosti:
+V budoucí verzi EF Core po 3,0 plánujeme znovu povolit explicitní konfiguraci názvu pole, který se liší od názvu vlastnosti (viz téma věnované problému [#15307](https://github.com/aspnet/EntityFrameworkCore/issues/15307)):
 
 ```C#
 modelBuilder
@@ -1489,7 +1489,7 @@ Tuto změnu provedeme, protože [SQL Server 2008 už není podporovaným produkt
 
 **Hrozeb**
 
-Doporučujeme aktualizovat na novější verzi SQL Server nebo pomocí vyšší úrovně kompatibility, aby byl vygenerovaný SQL podporován. To znamená, že pokud to nemůžete udělat, [komentář k problému](https://github.com/aspnet/EntityFrameworkCore/issues/16400) s sledováním najdete v podrobnostech. Toto rozhodnutí můžeme znovu navštívit na základě zpětné vazby.
+Doporučujeme aktualizovat na novější verzi SQL Server nebo pomocí vyšší úrovně kompatibility, aby byl vygenerovaný SQL podporován. To znamená, že pokud to nemůžete udělat, [komentář k problému s sledováním](https://github.com/aspnet/EntityFrameworkCore/issues/16400) najdete v podrobnostech. Toto rozhodnutí můžeme znovu navštívit na základě zpětné vazby.
 
 <a name="xinfo"></a>
 
@@ -1647,7 +1647,7 @@ Náš balíček jsme aktualizovali tak, aby byl závislý na verzi 2.0.0.
 
 **Hrozeb**
 
-SQLitePCL. Raw 2.0.0 verze obsahuje některé zásadní změny. Podrobnosti najdete v poznámkách k [verzi](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) .
+SQLitePCL. Raw 2.0.0 verze obsahuje některé zásadní změny. Podrobnosti najdete v [poznámkách k verzi](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) .
 
 <a name="NetTopologySuite"></a>
 
@@ -1671,7 +1671,7 @@ Náš balíček jsme aktualizovali tak, aby byl závislý na verzi 2.0.0.
 
 **Hrozeb**
 
-NetTopologySuite verze 2.0.0 obsahuje některé průlomové změny. Podrobnosti najdete v poznámkách k [verzi](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) .
+NetTopologySuite verze 2.0.0 obsahuje některé průlomové změny. Podrobnosti najdete v [poznámkách k verzi](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) .
 
 <a name="mersa"></a>
 
