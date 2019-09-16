@@ -4,21 +4,17 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 10a0f0edc5f98baea26b1a5b9c0aa869b1df01af
-ms.sourcegitcommit: df181e201365c20610ba56dcd5c5ed30cfda00c2
+ms.openlocfilehash: 04487291f24bb702dad4b497c34234afdd5e3c9a
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/15/2019
-ms.locfileid: "70997847"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005589"
 ---
-# <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>Přerušující změny zahrnuté v EF Core 3,0 (aktuálně ve verzi Preview)
-
-> [!IMPORTANT]
-> Počítejte s tím, že sady funkcí a plány budoucích verzí se vždycky mění, a i když se pokusíme tuto stránku uchovávat v aktuálním stavu, nemusí se po celou dobu projevit naše nejnovější plány.
-
-Následující změny rozhraní API a chování mají možnost rušit aplikace vyvinuté pro EF Core 2.2. x při jejich upgradu na 3.0.0.
+# <a name="breaking-changes-included-in-ef-core-30"></a>Přerušující změny zahrnuté v EF Core 3,0
+Následující změny rozhraní API a chování mají možnost rušit existující aplikace při jejich upgradu na 3.0.0.
 Změny, které očekáváme jenom o to, aby ovlivnili pouze poskytovatele databází, jsou popsané v části [změny zprostředkovatele](../../providers/provider-log.md).
-Přerušení nových funkcí zavedených z jedné verze 3,0 Preview do jiné 3,0 verze Preview zde nejsou dokumentovány.
+Přerušení z jedné verze 3,0 Preview do jiné 3,0 Preview nejsou popsané tady.
 
 ## <a name="summary"></a>Souhrn
 
