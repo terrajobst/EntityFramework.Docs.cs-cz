@@ -12,10 +12,10 @@
 
 ### [Co je nového](core/what-is-new/index.md)
 #### [Plán](core/what-is-new/roadmap.md)
-#### [EF Core 3.0 (ve verzi Preview)](core/what-is-new/ef-core-3.0/index.md)
+#### [EF Core 3.0 (nejnovější vydaná verze)](core/what-is-new/ef-core-3.0/index.md)
 ##### [Nové funkce](core/what-is-new/ef-core-3.0/features.md)
 ##### [Změny způsobující chyby](core/what-is-new/ef-core-3.0/breaking-changes.md)
-#### [EF Core 2.2 (nejnovější vydaná verze)](core/what-is-new/ef-core-2.2.md)
+#### [EF Core 2.2](core/what-is-new/ef-core-2.2.md)
 #### [EF Core 2.1](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0](core/what-is-new/ef-core-2.0.md)
 #### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)

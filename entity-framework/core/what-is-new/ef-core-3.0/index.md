@@ -1,23 +1,19 @@
 ---
-title: Novinky v EF Core 3.0 – EF Core
+title: Co je nového v EF Core 3,0-EF Core
 author: divega
 ms.date: 02/19/2019
 ms.assetid: 8C90C074-0A5B-4567-AF79-799B7BC78062
 uid: core/what-is-new/ef-core-3.0/index
-ms.openlocfilehash: 9490b0377a383e3ea7c7e70da33799b25e04395a
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 611689b23bfea7e4597466129b2a0e5d4afb6d96
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463390"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005578"
 ---
-# <a name="what-is-new-in-ef-core-30-currently-in-preview"></a><span data-ttu-id="eabd9-102">Novinky v EF Core 3.0 (aktuálně ve verzi preview)</span><span class="sxs-lookup"><span data-stu-id="eabd9-102">What is new in EF Core 3.0 (currently in preview)</span></span>
+# <a name="what-is-new-in-ef-core-30"></a><span data-ttu-id="e41d6-102">Co je nového v EF Core 3,0</span><span class="sxs-lookup"><span data-stu-id="e41d6-102">What is new in EF Core 3.0</span></span>
 
-> [!IMPORTANT]
-> <span data-ttu-id="eabd9-103">Mějte prosím na paměti, že sady funkcí a plány budoucích verzí se vždy mohou změnit a přestože se snažíme se zachovat aktuální, nemusí odrážet naše nejnovější plány vůbec na této stránce vyprší.</span><span class="sxs-lookup"><span data-stu-id="eabd9-103">Please note that the feature sets and schedules of future releases are always subject to change, and although we will try to keep this page up to date, it may not reflect our latest plans at all times.</span></span>
+<span data-ttu-id="e41d6-103">EF Core 3,0 je k dispozici jako [balíčky NuGet v NuGet.org](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/).</span><span class="sxs-lookup"><span data-stu-id="e41d6-103">EF Core 3.0 is available as [NuGet packages in nuget.org](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/).</span></span> 
 
-<span data-ttu-id="eabd9-104">EF Core 3.0 je momentálně ve vývoji a k dispozici jako [ve verzi preview balíčky publikována do Galerie NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/).</span><span class="sxs-lookup"><span data-stu-id="eabd9-104">EF Core 3.0 is currently under development and available as [preview packages published to the NuGet Gallery](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/).</span></span> 
+<span data-ttu-id="e41d6-104">Obsahuje [nové funkce](xref:core/what-is-new/ef-core-3.0/features) a zásadní [změny](xref:core/what-is-new/ef-core-3.0/breaking-changes).</span><span class="sxs-lookup"><span data-stu-id="e41d6-104">It contains [new features](xref:core/what-is-new/ef-core-3.0/features) and [breaking changes](xref:core/what-is-new/ef-core-3.0/breaking-changes).</span></span> 
 
-<span data-ttu-id="eabd9-105">Aktuální verze Preview EF Core 3.0 obsahovat jenom menší vylepšení a [rozbíjející změny v](xref:core/what-is-new/ef-core-3.0/breaking-changes) jsme se rozhodli při přípravě na zbývající 3.0 díla.</span><span class="sxs-lookup"><span data-stu-id="eabd9-105">Current previews of EF Core 3.0 only include minor improvements and [breaking changes](xref:core/what-is-new/ef-core-3.0/breaking-changes) we have made in preparation for the rest of the 3.0 work.</span></span> 
-
-<span data-ttu-id="eabd9-106">Po sobě jdoucích předběžné verze bude obsahovat více [plánované funkce pro EF Core 3.0](xref:core/what-is-new/ef-core-3.0/features).</span><span class="sxs-lookup"><span data-stu-id="eabd9-106">Successive preview releases will contain more of [the features planned for EF Core 3.0](xref:core/what-is-new/ef-core-3.0/features).</span></span>

@@ -4,60 +4,83 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: d61fa884f4669daa220ffc96ae59dd63518e6d5a
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 528733d6eec33de2c9538541a6ed5be704b9d433
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921678"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005559"
 ---
-# <a name="new-features-included-in-ef-core-30-currently-in-preview"></a><span data-ttu-id="6c5a6-102">Nové funkce, které jsou součástí EF Core 3,0 (aktuálně ve verzi Preview)</span><span class="sxs-lookup"><span data-stu-id="6c5a6-102">New features included in EF Core 3.0 (currently in preview)</span></span>
+# <a name="new-features-included-in-ef-core-30"></a><span data-ttu-id="bf049-102">Nové funkce, které jsou součástí EF Core 3,0</span><span class="sxs-lookup"><span data-stu-id="bf049-102">New features included in EF Core 3.0</span></span>
 
-> [!IMPORTANT]
-> <span data-ttu-id="6c5a6-103">Počítejte s tím, že sady funkcí a plány budoucích verzí se vždycky mění, a i když se pokusíme tuto stránku uchovávat v aktuálním stavu, nemusí se po celou dobu projevit naše nejnovější plány.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-103">Please note that the feature sets and schedules of future releases are always subject to change, and although we will try to keep this page up to date, it may not reflect our latest plans at all times.</span></span>
+<span data-ttu-id="bf049-103">Následující seznam obsahuje hlavní nové funkce, které jsou plánovány pro EF Core 3,0.</span><span class="sxs-lookup"><span data-stu-id="bf049-103">The following list includes the major new features planned for EF Core 3.0.</span></span>
 
-<span data-ttu-id="6c5a6-104">Následující seznam obsahuje hlavní nové funkce, které jsou plánovány pro EF Core 3,0.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-104">The following list includes the major new features planned for EF Core 3.0.</span></span>
-<span data-ttu-id="6c5a6-105">Většina těchto funkcí není součástí aktuální verze Preview, ale bude k dispozici v průběhu vývoje směrem k RTM.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-105">Most of these features are not included in the current preview, but will become available as we make progress towards RTM.</span></span>
+<span data-ttu-id="bf049-104">EF Core 3,0 je hlavní vydání a obsahuje také mnoho podstatných [změn](xref:core/what-is-new/ef-core-3.0/breaking-changes), což jsou vylepšení rozhraní API, která mohou mít negativní dopad na existující aplikace.</span><span class="sxs-lookup"><span data-stu-id="bf049-104">EF Core 3.0 is a major release and also contains numerous [breaking changes](xref:core/what-is-new/ef-core-3.0/breaking-changes), which are API improvements that may have negative impact on existing applications.</span></span>  
 
-<span data-ttu-id="6c5a6-106">Důvodem je to, že na začátku vydání se zaměřujeme na implementaci plánovaných [nejnovějších změn](xref:core/what-is-new/ef-core-3.0/breaking-changes).</span><span class="sxs-lookup"><span data-stu-id="6c5a6-106">The reason is that at the beginning of the release we are focusing on implementing planned [breaking changes](xref:core/what-is-new/ef-core-3.0/breaking-changes).</span></span>
-<span data-ttu-id="6c5a6-107">Mnohé z těchto nejnovějších změn jsou vylepšení EF Core vlastními.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-107">Many of these breaking changes are improvements to EF Core on their own.</span></span>
-<span data-ttu-id="6c5a6-108">K odblokování dalších vylepšení je potřeba řada dalších.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-108">Many others are required to unblock further improvements.</span></span> 
+## <a name="linq-improvements"></a><span data-ttu-id="bf049-105">Vylepšení LINQ</span><span class="sxs-lookup"><span data-stu-id="bf049-105">LINQ improvements</span></span> 
 
-<span data-ttu-id="6c5a6-109">Úplný seznam oprav chyb a vylepšení, které probíhají, najdete [v našem sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc).</span><span class="sxs-lookup"><span data-stu-id="6c5a6-109">For a complete list of bug fixes and enhancements underway, you can see [this query in our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc).</span></span>
+<span data-ttu-id="bf049-106">LINQ umožňuje psát databázové dotazy bez nutnosti opustit svůj jazyk a využít bohatých informací o typech k tomu, aby nabízel IntelliSense a kontrolu typu při kompilaci.</span><span class="sxs-lookup"><span data-stu-id="bf049-106">LINQ enables you to write database queries without leaving your language of choice, taking advantage of rich type information to offer IntelliSense and compile-time type checking.</span></span>
+<span data-ttu-id="bf049-107">Ale LINQ také umožňuje napsat neomezený počet složitých dotazů, které obsahují libovolné výrazy (volání metod nebo operace).</span><span class="sxs-lookup"><span data-stu-id="bf049-107">But LINQ also enables you to write an unlimited number of complicated queries containing arbitrary expressions (method calls or operations).</span></span>
+<span data-ttu-id="bf049-108">Zpracování všech těchto kombinací vždy bylo významnou výzvou pro poskytovatele LINQ.</span><span class="sxs-lookup"><span data-stu-id="bf049-108">Handling all those combinations has always been a significant challenge for LINQ providers.</span></span>
+<span data-ttu-id="bf049-109">V EF Core 3,0 jsme přepsali naši implementaci LINQ tak, aby povolovala překlady dalších výrazů do SQL, aby bylo možné ve více případech generovat efektivní dotazy, aby nedocházelo k nezjistitelným dotazům, aby bylo možné postupně zavést nové dotazy. schopnosti a výkon improvementswithout přerušují stávající aplikace a poskytovatele dat.</span><span class="sxs-lookup"><span data-stu-id="bf049-109">In EF Core 3.0, we've rewritten our LINQ implementation to enable translating more expressions into SQL, to generate efficient queries in more cases, to prevent inefficient queries from going undetected, and to make it easier for us to gradually introduce new query capabilities and performance improvementswithout breaking existing applications and data providers.</span></span>
 
-## <a name="linq-improvements"></a><span data-ttu-id="6c5a6-110">Vylepšení LINQ</span><span class="sxs-lookup"><span data-stu-id="6c5a6-110">LINQ improvements</span></span> 
+### <a name="client-evaluation"></a><span data-ttu-id="bf049-110">Vyhodnocení klientů</span><span class="sxs-lookup"><span data-stu-id="bf049-110">Client evaluation</span></span>
 
-[<span data-ttu-id="6c5a6-111">Sledování problému #12795</span><span class="sxs-lookup"><span data-stu-id="6c5a6-111">Tracking Issue #12795</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+<span data-ttu-id="bf049-111">Hlavní změna v EF Core 3,0 musí dělat s tím, jak zpracovává výrazy LINQ, které nejde přeložit na SQL nebo parametry:</span><span class="sxs-lookup"><span data-stu-id="bf049-111">The main design change in EF Core 3.0 has to do with how it handles LINQ expressions that it cannot translate to SQL or parameters:</span></span>
 
-<span data-ttu-id="6c5a6-112">Práce na této funkci začala, ale není součástí aktuální verze Preview.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-112">Work on this feature has started but it isn't included in the current preview.</span></span>
+<span data-ttu-id="bf049-112">V prvních několika verzích EF Core jednoduše zjistili, jaké části dotazu by mohly být přeloženy do SQL a aby se na klientovi spustil zbytek dotazu.</span><span class="sxs-lookup"><span data-stu-id="bf049-112">In the first few versions, EF Core simply figured out what portions of a query could be translated to SQL, and executed the rest of the query on the client.</span></span>
+<span data-ttu-id="bf049-113">Tento typ spuštění na straně klienta může být v některých situacích žádoucí, ale v mnoha dalších případech může docházet k neefektivním dotazům.</span><span class="sxs-lookup"><span data-stu-id="bf049-113">This type of client-side execution can be desirable in some situations, but in many other cases it can result in inefficient queries.</span></span>
+<span data-ttu-id="bf049-114">Například pokud EF Core 2,2 nemohl převést predikát ve `Where()` volání, provedl příkaz SQL bez filtru, přečte všechny řádky z databáze a pak je vyfiltruje v paměti.</span><span class="sxs-lookup"><span data-stu-id="bf049-114">For example, if EF Core 2.2 couldn't translate a predicate in a `Where()` call, it executed a SQL statement without a filter, read all all the rows from the database, and then filtered them in-memory.</span></span>
+<span data-ttu-id="bf049-115">To může být přijatelné, pokud databáze obsahuje malý počet řádků, ale může způsobit významné problémy s výkonem nebo i selhání aplikace, pokud databáze obsahuje velké číslo nebo řádky.</span><span class="sxs-lookup"><span data-stu-id="bf049-115">That may be acceptable if the database contains a small number of rows, but can result in significant performance issues or even application failure if the database contains a large number or rows.</span></span>
+<span data-ttu-id="bf049-116">V EF Core 3,0 jsme omezili Hodnocení klientů jenom na projekci nejvyšší úrovně (poslední volání do `Select()`).</span><span class="sxs-lookup"><span data-stu-id="bf049-116">In EF Core 3.0 we have restricted client evaluation to only happen on the top-level projection (the last call to `Select()`).</span></span>
+<span data-ttu-id="bf049-117">Když EF Core 3,0 detekuje výrazy, které nelze přeložit nikde jinde v dotazu, vyvolá výjimku za běhu.</span><span class="sxs-lookup"><span data-stu-id="bf049-117">When EF Core 3.0 detects expressions that cannot be translated anywhere else in the query, it throws a runtime exception.</span></span>
 
-<span data-ttu-id="6c5a6-113">LINQ umožňuje psát databázové dotazy bez nutnosti opustit svůj jazyk a využít bohatých informací o typech k získání IntelliSense a kontrole typu při kompilaci.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-113">LINQ enables you to write database queries without leaving your language of choice, taking advantage of rich type information to get IntelliSense and compile-time type checking.</span></span>
-<span data-ttu-id="6c5a6-114">Ale LINQ také umožňuje napsat neomezený počet složitých dotazů a který má vždycky pro poskytovatele LINQ velmi velkou výzvu.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-114">But LINQ also enables you to write an unlimited number of complicated queries, and that has always been a huge challenge for LINQ providers.</span></span>
-<span data-ttu-id="6c5a6-115">V prvních několika verzích EF Core jsme vyřešili, které části dotazu by mohly být přeložené do SQL, a pak tím, že se zbytek dotazu spustí v paměti na klientovi.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-115">In the first few versions of EF Core, we solved that in part by figuring out what portions of a query could be translated to SQL, and then by allowing the rest of the query to execute in memory on the client.</span></span>
-<span data-ttu-id="6c5a6-116">Toto spuštění na straně klienta může být v některých situacích žádoucí, ale v mnoha dalších případech může dojít k neefektivním dotazům, které nemusí být identifikované, dokud se aplikace nasadí do produkčního prostředí.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-116">This client-side execution can be desirable in some situations, but in many other cases it can result in inefficient queries that may not be identified until an application is deployed to production.</span></span>
-<span data-ttu-id="6c5a6-117">V EF Core 3,0 plánujeme, abychom provedli velmi snadné změny v tom, jak naše implementace LINQ funguje a jak ji testujeme.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-117">In EF Core 3.0, we're planning to make profound changes to how our LINQ implementation works, and how we test it.</span></span>
-<span data-ttu-id="6c5a6-118">Cílem je zvýšit robustnost (například aby se zabránilo neúmyslnému dotazování ve verzích oprav), aby se povolilo překládání dalších výrazů do SQL, aby se vytvořily efektivní dotazy ve více případech a aby nedocházelo k nezjistitelným dotazům.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-118">The goals are to make it more robust (for example, to avoid breaking queries in patch releases), to enable translating more expressions correctly into SQL, to generate efficient queries in more cases, and to prevent inefficient queries from going undetected.</span></span>
+## <a name="cosmos-db-support"></a><span data-ttu-id="bf049-118">Podpora Cosmos DB</span><span class="sxs-lookup"><span data-stu-id="bf049-118">Cosmos DB support</span></span> 
 
-## <a name="cosmos-db-support"></a><span data-ttu-id="6c5a6-119">Podpora Cosmos DB</span><span class="sxs-lookup"><span data-stu-id="6c5a6-119">Cosmos DB support</span></span> 
+<span data-ttu-id="bf049-119">Poskytovatel Cosmos DB pro EF Core umožňuje vývojářům, kteří znají model programu EF, snadno cílit Azure Cosmos DB jako databázi aplikace.</span><span class="sxs-lookup"><span data-stu-id="bf049-119">The Cosmos DB provider for EF Core enables developers familiar with the EF programing model to easily target Azure Cosmos DB as an application database.</span></span>
+<span data-ttu-id="bf049-120">Cílem je udělat si některé z výhod Cosmos DB, jako je globální distribuce, "Always On", pružná škálovatelnost a nízká latence, dokonce i přístup k vývojářům v rozhraní .NET.</span><span class="sxs-lookup"><span data-stu-id="bf049-120">The goal is to make some of the advantages of Cosmos DB, like global distribution, "always on" availability, elastic scalability, and low latency, even more accessible to .NET developers.</span></span>
+<span data-ttu-id="bf049-121">Zprostředkovatel povolí většinu funkcí EF Core, jako je automatické sledování změn, LINQ a převod hodnot, s rozhraním SQL API v Cosmos DB.</span><span class="sxs-lookup"><span data-stu-id="bf049-121">The provider will enable most EF Core features, like automatic change tracking, LINQ, and value conversions, against the SQL API in Cosmos DB.</span></span>
 
-[<span data-ttu-id="6c5a6-120">Sledování problému #8443</span><span class="sxs-lookup"><span data-stu-id="6c5a6-120">Tracking Issue #8443</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/8443)
+## <a name="c-80-support"></a><span data-ttu-id="bf049-122">C#podpora 8,0</span><span class="sxs-lookup"><span data-stu-id="bf049-122">C# 8.0 support</span></span>
 
-<span data-ttu-id="6c5a6-121">Tato funkce je součástí aktuální verze Preview, ale ještě není dokončená.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-121">This feature is included in the current preview, but isn't complete yet.</span></span> 
+<span data-ttu-id="bf049-123">EF Core 3,0 využívá výhod některých nových funkcí v C# 8,0:</span><span class="sxs-lookup"><span data-stu-id="bf049-123">EF Core 3.0 takes advantage of some of the new features in C# 8.0:</span></span>
 
-<span data-ttu-id="6c5a6-122">Pracujeme na poskytovateli Cosmos DB pro EF Core, aby mohli vývojáři, kteří znají model programu EF, snadno cílit Azure Cosmos DB jako databázi aplikace.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-122">We're working on a Cosmos DB provider for EF Core, to enable developers familiar with the EF programing model to easily target Azure Cosmos DB as an application database.</span></span>
-<span data-ttu-id="6c5a6-123">Cílem je udělat si některé z výhod Cosmos DB, jako je globální distribuce, "Always On", pružná škálovatelnost a nízká latence, dokonce i přístup k vývojářům v rozhraní .NET.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-123">The goal is to make some of the advantages of Cosmos DB, like global distribution, "always on" availability, elastic scalability, and low latency, even more accessible to .NET developers.</span></span>
-<span data-ttu-id="6c5a6-124">Zprostředkovatel povolí většinu funkcí EF Core, jako je automatické sledování změn, LINQ a převod hodnot, s rozhraním SQL API v Cosmos DB.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-124">The provider will enable most EF Core features, like automatic change tracking, LINQ, and value conversions, against the SQL API in Cosmos DB.</span></span>
-<span data-ttu-id="6c5a6-125">Tuto snahu jsme zahájili před EF Core 2,2 a [provedli jsme několik verzí Preview, které poskytovatel nabízí](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).</span><span class="sxs-lookup"><span data-stu-id="6c5a6-125">We started this effort before EF Core 2.2, and [we have made some preview versions of the provider available](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).</span></span>
-<span data-ttu-id="6c5a6-126">Novým plánem je pokračovat ve vývoji poskytovatele vedle EF Core 3,0.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-126">The new plan is to continue developing the provider alongside EF Core 3.0.</span></span> 
+### <a name="asynchronous-streams"></a><span data-ttu-id="bf049-124">Asynchronní proudy</span><span class="sxs-lookup"><span data-stu-id="bf049-124">Asynchronous streams</span></span>
 
-## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a><span data-ttu-id="6c5a6-127">Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-127">Dependent entities sharing the table with the principal are now optional</span></span>
+<span data-ttu-id="bf049-125">Výsledky asynchronního dotazu jsou nyní zpřístupněny pomocí nového `IAsyncEnumerable<T>` standardního rozhraní a lze je spotřebovat pomocí. `await foreach`</span><span class="sxs-lookup"><span data-stu-id="bf049-125">Asynchronous query results are now exposed using the new standard `IAsyncEnumerable<T>` interface and can be consumed using `await foreach`.</span></span>
 
-[<span data-ttu-id="6c5a6-128">Sledování problému #9005</span><span class="sxs-lookup"><span data-stu-id="6c5a6-128">Tracking Issue #9005</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+``` csharp
+var orders = 
+  from o in context.Orders
+  where o.Status == OrderStatus.Pending
+  select o;
 
-<span data-ttu-id="6c5a6-129">Tato funkce bude zavedena ve verzi EF Core 3,0-Preview 4.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-129">This feature will be introduced in EF Core 3.0-preview 4.</span></span>
+await foreach(var o in orders)
+{
+  Proccess(o);
+} 
+```
 
-<span data-ttu-id="6c5a6-130">Vezměte v úvahu následující model:</span><span class="sxs-lookup"><span data-stu-id="6c5a6-130">Consider the following model:</span></span>
-```C#
+### <a name="nullable-reference-types"></a><span data-ttu-id="bf049-126">Odkazové typy s možnou hodnotou null</span><span class="sxs-lookup"><span data-stu-id="bf049-126">Nullable reference types</span></span> 
+
+<span data-ttu-id="bf049-127">Pokud je tato nová funkce ve vašem kódu povolená, EF Core může mít důvod k hodnotě null vlastností refrence typů (buď primitivních typů jako řetězcové nebo navigační vlastnosti), aby se rozhodla hodnota null sloupců a relací v databázi.</span><span class="sxs-lookup"><span data-stu-id="bf049-127">When this new feature is enabled in your code, EF Core can reason about the nullability of properties of refrence types (either of primitive types like string or navigation properties) to decide the nullability of columns and relationships in the database.</span></span>
+
+## <a name="interception"></a><span data-ttu-id="bf049-128">Zachycení</span><span class="sxs-lookup"><span data-stu-id="bf049-128">Interception</span></span>
+
+<span data-ttu-id="bf049-129">Nové rozhraní API zachycení v EF Core 3,0 umožňuje programově a úpravu výsledku databázových operací nízké úrovně, ke kterým dochází jako součást běžné operace EF Core, jako je například otevření připojení, transakce initating a provádění příkazů.</span><span class="sxs-lookup"><span data-stu-id="bf049-129">The new interception API in EF Core 3.0 allows programatically observing and modifying the outcome of low-level database operations that occur as part of the normal operation of EF Core, such as opening connections, initating transactions, and executing commands.</span></span> 
+
+## <a name="reverse-engineering-of-database-views"></a><span data-ttu-id="bf049-130">Zpětná analýza zobrazení databáze</span><span class="sxs-lookup"><span data-stu-id="bf049-130">Reverse engineering of database views</span></span>
+
+<span data-ttu-id="bf049-131">Typy entit bez klíčů (dříve označované jako [typy dotazů](xref:core/modeling/query-types)) reprezentují data, která je možné číst z databáze, ale nelze je aktualizovat.</span><span class="sxs-lookup"><span data-stu-id="bf049-131">Entity types without keys (previously known as [query types](xref:core/modeling/query-types)) represent data that can be read from the database, but cannot be updated.</span></span>
+<span data-ttu-id="bf049-132">Tato vlastnost nabízí vynikající možnosti mapování zobrazení databáze ve většině scénářů, takže jsme při zpětné analýze zobrazení databáze automatizováni vytváření typů entit bez použití klíčů.</span><span class="sxs-lookup"><span data-stu-id="bf049-132">This characteristic makes them an excellent fit for mapping database views in most scenarios, so we automated the creation of entity types without keys when reverse engineering database views.</span></span>
+
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a><span data-ttu-id="bf049-133">Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.</span><span class="sxs-lookup"><span data-stu-id="bf049-133">Dependent entities sharing the table with the principal are now optional</span></span>
+
+<span data-ttu-id="bf049-134">Počínaje EF Core 3,0, pokud `OrderDetails` je `Order` vlastněná nebo explicitně namapovaná na stejnou tabulku, bude možné přidat `Order` bez `OrderDetails` a všechny `OrderDetails` vlastnosti, s výjimkou, že primární klíč bude namapován na sloupce s možnou hodnotou null.</span><span class="sxs-lookup"><span data-stu-id="bf049-134">Starting with EF Core 3.0, if `OrderDetails` is owned by `Order` or explicitly mapped to the same table, it will be possible to add an `Order` without an `OrderDetails` and all of the `OrderDetails` properties, except the primary key will be mapped to nullable columns.</span></span>
+
+<span data-ttu-id="bf049-135">Při dotazování se EF Core nastaví `OrderDetails` na `null` , pokud některá z jejích požadovaných vlastností nemá hodnotu, nebo pokud se kromě primárního `null`klíče a všech vlastností nevyžadují žádné vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="bf049-135">When querying, EF Core will set `OrderDetails` to `null` if any of its required properties doesn't have a value, or if it has no required properties besides the primary key and all properties are `null`.</span></span>
+
+``` csharp
 public class Order
 {
     public int Id { get; set; }
@@ -73,40 +96,17 @@ public class OrderDetails
 }
 ```
 
-<span data-ttu-id="6c5a6-131">Počínaje EF Core 3,0, pokud `OrderDetails` je `Order` vlastněná nebo explicitně namapovaná na stejnou tabulku, bude možné přidat `Order` bez `OrderDetails` a všechny `OrderDetails` vlastnosti, s výjimkou, že primární klíč bude namapován na sloupce s možnou hodnotou null.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-131">Starting with EF Core 3.0, if `OrderDetails` is owned by `Order` or explicitly mapped to the same table, it will be possible to add an `Order` without an `OrderDetails` and all of the `OrderDetails` properties, except the primary key will be mapped to nullable columns.</span></span>
+## <a name="ef-63-on-net-core"></a><span data-ttu-id="bf049-136">EF 6,3 pro .NET Core</span><span class="sxs-lookup"><span data-stu-id="bf049-136">EF 6.3 on .NET Core</span></span>
 
-<span data-ttu-id="6c5a6-132">Při dotazování se EF Core nastaví `OrderDetails` na `null` , pokud některá z jejích požadovaných vlastností nemá hodnotu, nebo pokud se kromě primárního `null`klíče a všech vlastností nevyžadují žádné vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-132">When querying, EF Core will set `OrderDetails` to `null` if any of its required properties doesn't have a value, or if it has no required properties besides the primary key and all properties are `null`.</span></span>
+<span data-ttu-id="bf049-137">Chápeme, že mnoho existujících aplikací používá předchozí verze EF a že je bude EF Core jenom k tomu, aby využila výhody .NET Core, může někdy vyžadovat značné úsilí.</span><span class="sxs-lookup"><span data-stu-id="bf049-137">We understand that many existing applications use previous versions of EF, and that porting them to EF Core only to take advantage of .NET Core can sometimes require a significant effort.</span></span>
+<span data-ttu-id="bf049-138">Z tohoto důvodu jsme povolili použití verze newewst EF 6 v .NET Core 3,0.</span><span class="sxs-lookup"><span data-stu-id="bf049-138">For that reason, we have enabled the newewst version of EF 6 to run on .NET Core 3.0.</span></span>
+<span data-ttu-id="bf049-139">Existují určitá omezení, například:</span><span class="sxs-lookup"><span data-stu-id="bf049-139">There are some limitations, for example:</span></span>
+- <span data-ttu-id="bf049-140">Pro práci na .NET Core se vyžadují Noví poskytovatelé.</span><span class="sxs-lookup"><span data-stu-id="bf049-140">New providers are required to work on .NET Core</span></span>
+- <span data-ttu-id="bf049-141">Prostorová podpora v SQL Server nebude povolena.</span><span class="sxs-lookup"><span data-stu-id="bf049-141">Spatial support with SQL Server won't be enabled</span></span>
 
-## <a name="c-80-support"></a><span data-ttu-id="6c5a6-133">C#podpora 8,0</span><span class="sxs-lookup"><span data-stu-id="6c5a6-133">C# 8.0 support</span></span>
+## <a name="postponed-features"></a><span data-ttu-id="bf049-142">Odložené funkce</span><span class="sxs-lookup"><span data-stu-id="bf049-142">Postponed features</span></span>
 
-<span data-ttu-id="6c5a6-134">[Sledování problému #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
-[sledování problému #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)</span><span class="sxs-lookup"><span data-stu-id="6c5a6-134">[Tracking Issue #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
-[Tracking Issue #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)</span></span>
+<span data-ttu-id="bf049-143">Některé funkce původně plánované pro EF Core 3,0 byly odloženy do budoucích verzí:</span><span class="sxs-lookup"><span data-stu-id="bf049-143">Some features originally planned for EF Core 3.0 were postponed to future releases:</span></span> 
 
-<span data-ttu-id="6c5a6-135">Práce na této funkci začala, ale není součástí aktuální verze Preview.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-135">Work on this feature has started but it isn't included in the current preview.</span></span>
-
-<span data-ttu-id="6c5a6-136">Chceme, aby naši zákazníci využili výhod některých [nových funkcí v C# 8,0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) , jako jsou asynchronní streamy (včetně `await foreach`) a typy s možnou hodnotou null při použití EF Core.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-136">We want our customers to take advantage of some of the [new features coming in C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) like async streams (including `await foreach`) and nullable reference types while using EF Core.</span></span>
-
-## <a name="reverse-engineering-of-database-views"></a><span data-ttu-id="6c5a6-137">Zpětná analýza zobrazení databáze</span><span class="sxs-lookup"><span data-stu-id="6c5a6-137">Reverse engineering of database views</span></span>
-
-[<span data-ttu-id="6c5a6-138">Sledování problému #1679</span><span class="sxs-lookup"><span data-stu-id="6c5a6-138">Tracking Issue #1679</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/1679)
-
-<span data-ttu-id="6c5a6-139">Tato funkce není součástí aktuální verze Preview.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-139">This feature isn't included in the current preview.</span></span>
-
-<span data-ttu-id="6c5a6-140">[Typy dotazů](xref:core/modeling/query-types), představené v EF Core 2,1 a považované za typy entit bez klíčů v EF Core 3,0, reprezentují data, která je možné číst z databáze, ale nelze je aktualizovat.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-140">[Query types](xref:core/modeling/query-types), introduced in EF Core 2.1 and considered entity types without keys in EF Core 3.0, represent data that can be read from the database, but cannot be updated.</span></span>
-<span data-ttu-id="6c5a6-141">Tato vlastnost je ve většině scénářů vhodná pro zobrazení databáze, takže při zpětné analýze zobrazení databáze plánujeme automatizaci vytváření typů entit bez použití klíčů.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-141">This characteristic makes them an excellent fit for database views in most scenarios, so we plan to automate the creation of entity types without keys when reverse engineering database views.</span></span>
-
-## <a name="ef-63-on-net-core"></a><span data-ttu-id="6c5a6-142">EF 6,3 pro .NET Core</span><span class="sxs-lookup"><span data-stu-id="6c5a6-142">EF 6.3 on .NET Core</span></span>
-
-[<span data-ttu-id="6c5a6-143">Sledování problému EF6 # 271</span><span class="sxs-lookup"><span data-stu-id="6c5a6-143">Tracking Issue EF6#271</span></span>](https://github.com/aspnet/EntityFramework6/issues/271)
-
-<span data-ttu-id="6c5a6-144">Práce na této funkci začala, ale není součástí aktuální verze Preview.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-144">Work on this feature has started but it isn't included in the current preview.</span></span> 
-
-<span data-ttu-id="6c5a6-145">Chápeme, že mnoho existujících aplikací používá předchozí verze EF a že je bude EF Core jenom k tomu, aby využila výhody .NET Core, může někdy vyžadovat značné úsilí.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-145">We understand that many existing applications use previous versions of EF, and that porting them to EF Core only to take advantage of .NET Core can sometimes require a significant effort.</span></span>
-<span data-ttu-id="6c5a6-146">Z tohoto důvodu budeme přizpůsobovat další verzi EF 6, která bude běžet v .NET Core 3,0.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-146">For that reason, we will be adapting the next version of EF 6 to run on .NET Core 3.0.</span></span>
-<span data-ttu-id="6c5a6-147">Provedeme to, abychom usnadnili přenos stávajících aplikací s minimálními změnami.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-147">We are doing this to facilitate porting existing applications with minimal changes.</span></span>
-<span data-ttu-id="6c5a6-148">Existují určitá omezení.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-148">There are going to be some limitations.</span></span> <span data-ttu-id="6c5a6-149">Příklad:</span><span class="sxs-lookup"><span data-stu-id="6c5a6-149">For example:</span></span>
-- <span data-ttu-id="6c5a6-150">Bude vyžadovat, aby noví poskytovatelé pracovali s dalšími databázemi kromě zahrnuté podpory SQL Server podpoře .NET Core.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-150">It will require new providers to work with other databases besides the included SQL Server support on .NET Core</span></span>
-- <span data-ttu-id="6c5a6-151">Prostorová podpora v SQL Server nebude povolena.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-151">Spatial support with SQL Server won't be enabled</span></span>
-
-<span data-ttu-id="6c5a6-152">Všimněte si také, že v tomto okamžiku nejsou plánovány žádné nové funkce pro EF 6.</span><span class="sxs-lookup"><span data-stu-id="6c5a6-152">Note also that there are no new features planned for EF 6 at this point.</span></span>
+- <span data-ttu-id="bf049-144">Možnost ingore části modelu v migracích, které jsou sledovány [#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725).</span><span class="sxs-lookup"><span data-stu-id="bf049-144">Ability to ingore parts of a model in migrations, tracked by [#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725).</span></span>
+- <span data-ttu-id="bf049-145">Entity kontejneru objektů a dat, které jsou sledovány dvěma samostatnými problémy: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) o entitách Shared type a [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) o podpoře mapování indexovaných vlastností.</span><span class="sxs-lookup"><span data-stu-id="bf049-145">Property bag entities, tracked by two separate issues: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) about shared-type entities and [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) about indexed property mapping support.</span></span>
