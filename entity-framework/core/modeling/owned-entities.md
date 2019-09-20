@@ -1,129 +1,147 @@
 ---
-title: Vlastněné typy entit – EF Core
+title: Vlastní typy entit – EF Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: b2d72b08de79939904bf4e726c695440c906a8aa
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: f69bae2de28156876e0aa57376b5dfac053adb9c
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333786"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149135"
 ---
 # <a name="owned-entity-types"></a>Vlastněné typy entit
 
 >[!NOTE]
-> Tato funkce je v EF Core 2.0 nová.
+> Tato funkce je v EF Core 2,0 novinkou.
 
-EF Core umožňuje modelu typy entit, které může vyskytovat vždy jen u vlastnosti navigace z ostatních typů entit. Toto nastavení se nazývá _vlastněné typy entit_. Entita obsahující typ vlastnictví entity je jeho _vlastníka_.
+EF Core umožňuje modelovat typy entit, které se mohou u vlastností navigace u jiných typů entit vyskytovat pouze někdy. Ty se nazývají _vlastněné typy entit_. Entita obsahující typ entity, která je vlastníkem, je jeho _vlastník_.
+
+Vlastněné entity jsou v podstatě součástí vlastníka a nemůže existovat bez nich, jsou koncepčně podobné [agregacím](https://martinfowler.com/bliki/DDD_Aggregate.html).
 
 ## <a name="explicit-configuration"></a>Explicitní konfigurace
 
-Vlastní entity, které typy jsou nikdy součástí pomocí EF Core modelu konvencí. Můžete použít `OwnsOne` metoda ve `OnModelCreating` nebo typ s poznámkami `OwnedAttribute` (novinka v EF Core 2.1) ke konfiguraci typu jako typ vlastnictví.
+Vlastní typy entit nejsou nikdy zahrnuty EF Core v modelu podle konvence. Můžete použít `OwnsOne` metodu v `OnModelCreating` nebo `OwnedAttribute` opatřit poznámkami k typu (novinkou v EF Core 2,1) ke konfiguraci typu jako vlastněný typ.
 
-V tomto příkladu `StreetAddress` je typ s žádnou vlastnost identity. Jako vlastnost typu pořadí slouží k určení dodací adresu pro konkrétní objednávku.
+V tomto příkladu `StreetAddress` je typ bez vlastnosti identity. Slouží jako vlastnost typu objednávky k určení dodací adresy pro konkrétní objednávku.
 
-Můžeme použít `OwnedAttribute` považovat za vlastnictví entity při odkazování z jiného typu entity:
+V případě, že `OwnedAttribute` je odkazováno z jiného typu entity, můžeme použít k tomu, aby ho považoval jako vlastněné entity:
 
 [!code-csharp[StreetAddress](../../../samples/core/Modeling/OwnedEntities/StreetAddress.cs?name=StreetAddress)]
 
 [!code-csharp[Order](../../../samples/core/Modeling/OwnedEntities/Order.cs?name=Order)]
 
-Je také možné použít `OwnsOne` metoda ve `OnModelCreating` určit, že `ShippingAddress` vlastností je vlastní Entity `Order` typu entity a v případě potřeby nakonfigurujte další charakteristiky.
+Je `OwnsOne` také možné použít metodu v `OnModelCreating` k určení toho, že vlastnost je `ShippingAddress` vlastněná entita `Order` typu entity a v případě potřeby konfiguruje další omezující vlastnosti.
 
 [!code-csharp[OwnsOne](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOne)]
 
-Pokud `ShippingAddress` vlastnost je v privátní `Order` typ, můžete použít verze řetězce `OwnsOne` metody:
+Pokud je `Order`vlastnostsoukromá v typu, můžete použít řetězcovou verzi `OwnsOne` metody: `ShippingAddress`
 
 [!code-csharp[OwnsOneString](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneString)]
 
-Zobrazit [úplný ukázkový projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) pro širší kontext. 
+Podívejte se na [úplný ukázkový projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) pro další kontext. 
 
 ## <a name="implicit-keys"></a>Implicitní klíče
 
-Vlastněné typy nakonfigurovanou `OwnsOne` nebo zjištěný prostřednictvím navigační odkaz vždy mít relaci s vlastníkem, proto nepotřebují vlastní hodnoty klíče, jako jsou jedinečné hodnoty cizího klíče. V předchozím příkladu `StreetAddress` typ není nutné definovat vlastnost klíče.  
+Vlastněné typy nakonfigurované `OwnsOne` nebo zjištěné prostřednictvím navigační navigace mají vždy relaci 1:1 s vlastníkem, proto nepotřebují vlastní hodnoty klíče, protože hodnoty cizích klíčů jsou jedinečné. V předchozím příkladu `StreetAddress` typ nepotřebuje definovat klíčovou vlastnost.  
 
-Chcete-li pochopit, jak EF Core sleduje tyto objekty, je vhodné popřemýšlet, primární klíč je vytvořen jako [stínové vlastnosti](xref:core/modeling/shadow-properties) pro typ vlastnictví. Hodnota klíče instance typu vlastnictví budou stejné jako hodnotu klíče vlastníka instance.
+Aby bylo možné pochopit, jak EF Core tyto objekty sledovat, je užitečné vědět, že je primární klíč vytvořen jako [vlastnost Shadow](xref:core/modeling/shadow-properties) pro vlastněný typ. Hodnota klíče instance typu, který je vlastníkem, bude stejná jako hodnota klíče instance vlastníka.
 
-## <a name="collections-of-owned-types"></a>Vlastněné typy kolekcí
+## <a name="collections-of-owned-types"></a>Kolekce vlastněných typů
 
->[!NOTE]
-> Tato funkce je nového v EF Core 2.2.
+> [!NOTE]
+> Tato funkce je v EF Core 2,2 novinkou.
 
-Ke konfiguraci kolekce vlastněné typy `OwnsMany` byste měli použít ve `OnModelCreating`. Ale primární klíč se nenakonfigurují podle konvence, proto musí být zadané explicitně přímo. Je běžné použití komplexní klíče u těchto typů entit začlenění cizí klíč pro vlastníka a dalších jedinečnou vlastnost, která může také být ve stavu stínové:
+Chcete-li konfigurovat kolekci vlastněných typů `OwnsMany` , `OnModelCreating`použijte v.
+
+Vlastněné typy potřebují primární klíč. Pokud v typu .NET nejsou k dispozici žádné dobré vlastnosti kandidátů, EF Core se může pokusit vytvořit. Pokud jsou však vlastní typy definovány prostřednictvím kolekce, není třeba pouze vytvořit vlastnost Shadow, která bude fungovat jako cizí klíč, a primární klíč vlastněné instance, jak to máme: pro `OwnsOne`je možné použít více vlastněných instancí typu pro Každý vlastník, a proto klíč vlastníka nestačí poskytnout jedinečnou identitu pro každou vlastní instanci.
+
+Mezi ně patří tyto dvě nejjednodušší řešení:
+- Definování náhradního primárního klíče pro novou vlastnost nezávisle na cizím klíči, který odkazuje na vlastníka. Obsažené hodnoty by musely být jedinečné ve všech vlastníkech (např. Pokud nadřazený {1} objekt má {1}podřízenou {2} {1}položku), takže tato hodnota nemá žádný z těchto významů. Vzhledem k tomu, že cizí klíč není součástí primárního klíče, lze jeho hodnoty změnit, takže byste mohli přesunout podřízenou položku z jedné nadřazené položky do druhé, ale obvykle to vzroste s sémantikou agregace.
+- Použití cizího klíče a další vlastnosti jako složeného klíče. Hodnota další vlastnosti teď musí být pro {1} danou nadřazenou položku jedinečná (takže pokud nadřazený objekt {1,1} má {2} podřízenou položku, může mít podřízený objekt {2,1}i podřízenou položku). Vytvořením části cizího klíče v primárním klíči se vztah mezi vlastníkem a vlastněnou entitou stane neproměnlivým a bude lépe odrážet agregovanou sémantiku. To je to, co EF Core ve výchozím nastavení.
+
+V tomto příkladu použijeme `Distributor` třídu:
+
+[!code-csharp[Distributor](../../../samples/core/Modeling/OwnedEntities/Distributor.cs?name=Distributor)]
+
+Ve výchozím nastavení `("DistributorId", "Id")` bude primární klíč použitý pro daný typ, na který `ShippingCenters` odkazuje vlastnost navigace, v `"DistributorId"` případě, kde je `"Id"` hodnota FK a `int` je jedinečná.
+
+Konfigurace jiného volání `HasKey`PK:
 
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
-## <a name="mapping-owned-types-with-table-splitting"></a>Mapování vlastní typy s rozdělení tabulky
+> [!NOTE]
+> Předtím, než `WithOwner()` metoda EF Core 3,0 neexistuje, by mělo být toto volání odebráno.
 
-Při používání relační databáze, podle úmluvy odkazu, který vlastní typy jsou namapovány na stejnou tabulku jako vlastník. To vyžaduje, aby rozdělení tabulky ve dvou: některé sloupce se použije k uložení dat vlastníka a některé sloupce se použije k ukládání dat vlastní entity. Toto je běžné funkce označuje jako rozdělení tabulky.
+## <a name="mapping-owned-types-with-table-splitting"></a>Mapování vlastněných typů s dělením tabulky
 
-> [!TIP]
-> Vlastněné typy uloženého s rozdělení tabulky je možné použít jak komplexní typy, které se používají v EF6 podobně.
+Při použití relačních databází jsou ve výchozím nastavení vlastní typy odkazů namapovány na stejnou tabulku jako vlastník. To vyžaduje rozdělení tabulky ve dvou případech: některé sloupce budou použity k uložení dat vlastníka a některé sloupce budou použity k uložení dat vlastněné entity. Jedná se o běžnou funkci známou jako [rozdělení tabulky](table-splitting.md).
 
-Podle konvence EF Core bude název sloupce databáze pro vlastnosti typu vlastnictví entity podle vzoru _Navigation_OwnedEntityProperty_. Proto `StreetAddress` vlastnosti se zobrazí v tabulce "Orders" s názvy "ShippingAddress_Street" a "ShippingAddress_City".
+Ve výchozím nastavení EF Core pojmenuje sloupce databáze pro vlastnosti typu entity, které patří do vzoru _Navigation_OwnedEntityProperty_. Proto se `StreetAddress` vlastnosti zobrazí v tabulce Orders s názvy ' ShippingAddress_Street ' a ' ShippingAddress_City '.
 
-Můžete připojit `HasColumnName` metoda přejmenovat tyto sloupce:
+K přejmenování těchto sloupců `HasColumnName` lze použít metodu:
 
 [!code-csharp[ColumnNames](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=ColumnNames)]
 
-## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>Sdílení stejného typu .NET mezi několika typy vlastnictví
+## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>Sdílení stejného typu .NET mezi více vlastněných typů
 
-Typ vlastnictví entity může být stejného typu .NET jako jiný typ vlastnictví entity, proto, že typ formátu .NET nemusí být dost informací k identifikaci typu vlastnictví.
+Vlastněný typ entity může být stejného typu .NET jako jiný vlastněný typ entity, proto typ .NET nemusí být dostatečně k identifikaci vlastněné typu.
 
-V těchto případech se vlastnost k vlastní entitě odkazující od vlastníka se stane _definování navigace_ typu vlastnictví entity. Z pohledu EF Core definující navigace je součástí identity typu vedle typ formátu .NET.   
+V těchto případech se vlastnost ukazující z vlastníka na vlastní entitu staly _definováním navigace_ typu vlastněné entity. Z perspektivy EF Core je definování navigace součástí identity typu spolu s typem .NET.   
 
-Například ve třídě následující `ShippingAddress` a `BillingAddress` jsou stejného typu .NET `StreetAddress`:
+Například v následující třídě `ShippingAddress` a `BillingAddress` jsou oba stejného typu `StreetAddress`.NET:
 
 [!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
 
-Chcete-li pochopit, jak bude EF Core rozlišovat sledované instancí těchto objektů, může být vhodné popřemýšlet, že se definující navigace stala součástí klíče instance u hodnoty klíče vlastníka a typ .NET vlastnictví.
+Aby bylo možné pochopit, jak EF Core odlišuje sledované instance těchto objektů, může být užitečné vzít v úvahu, že definující navigace se stane součástí klíče instance spolu s hodnotou klíče vlastníka a typu .NET vlastněných typů.
 
-## <a name="nested-owned-types"></a>Vnořené typy vlastnictví
+## <a name="nested-owned-types"></a>Vnořené vlastní typy
 
-V tomto příkladu `OrderDetails` vlastní `BillingAddress` a `ShippingAddress`, které jsou obě `StreetAddress` typy. Potom `OrderDetails` není ve vlastnictví `DetailedOrder` typu.
+V tomto příkladu `OrderDetails` vlastní `BillingAddress` a `ShippingAddress`, které jsou oba `StreetAddress` typy. Pak `OrderDetails` vlastní`DetailedOrder` typ.
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/OwnedEntities/DetailedOrder.cs?name=DetailedOrder)]
 
 [!code-csharp[OrderStatus](../../../samples/core/Modeling/OwnedEntities/OrderStatus.cs?name=OrderStatus)]
 
-Kromě vnořené typy vlastnictví vlastní typ, který může odkazovat regulární entity, vlastní entity je na závislé straně může být vlastníkem nebo jiné entity. Tato možnost nastaví v EF6 vlastněné typy entit kromě komplexní typy.
+Kromě vnořených vlastněných typů může vlastněný typ odkazovat na běžnou entitu, může to být buď vlastník, nebo jiná entita, pokud je vlastněná entita na závislé straně. Tato schopnost nastavuje vlastní typy entit od složitých typů v EF6.
 
 [!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
 
-Je možné řetězec `OwnsOne` metoda fluent volání ke konfiguraci tohoto modelu:
+Je možné zřetězit `OwnsOne` metodu v rámci volání Fluent pro konfiguraci tohoto modelu:
 
 [!code-csharp[OwnsOneNested](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneNested)]
 
-Je také možné dosáhnout stejnou věc, kterou pomocí `OwnedAttribute` u obou `OrderDetails` a `StreetAdress`.
+Všimněte si `WithOwner` volání, které se používá ke konfiguraci navigační vlastnosti odkazující zpátky na vlastníka.
 
-## <a name="storing-owned-types-in-separate-tables"></a>Ukládání vlastní typy v samostatných tabulkách
+Výsledek lze dosáhnout pomocí `OwnedAttribute` obou `OrderDetails` i `StreetAdress`.
 
-Na rozdíl od komplexní typy EF6, také mohou být vlastněné typy uloženy do samostatné tabulky od vlastníka. Aby bylo možné přepsat vytváření názvů, který mapuje typ vlastnictví na stejnou tabulku jako vlastník, můžete jednoduše zavoláte `ToTable` a zadejte jiný název tabulky. Následující příklad provede mapování `OrderDetails` a jeho dvou adres do samostatné tabulky z `DetailedOrder`:
+## <a name="storing-owned-types-in-separate-tables"></a>Ukládání vlastněných typů do samostatných tabulek
+
+I na rozdíl od EF6 složitých typů mohou být vlastněné typy uloženy v samostatné tabulce od vlastníka. Aby bylo možné přepsat konvenci, která mapuje vlastní typ na stejnou tabulku jako vlastník, můžete jednoduše zavolat `ToTable` a zadat jiný název tabulky. Následující příklad bude mapovat `OrderDetails` a jeho dvě adresy na samostatnou tabulku z: `DetailedOrder`
 
 [!code-csharp[OwnsOneTable](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneTable)]
 
-## <a name="querying-owned-types"></a>Zjišťují se vlastněné typy
+## <a name="querying-owned-types"></a>Dotazování na vlastní typy
 
-Při dotazování na vlastníka vlastněné typy budou zahrnuty ve výchozím nastavení. Není nutné používat `Include` metoda, i když vlastněné typy jsou uložené v samostatné tabulce. Na základě modelu před popsané, následující dotaz zobrazí `Order`, `OrderDetails` a dva vlastní `StreetAddresses` z databáze:
+Při dotazování vlastníka budou ve výchozím nastavení zahrnuty vlastněné typy. Není nutné používat `Include` metodu, a to ani v případě, že vlastní typy jsou uloženy v samostatné tabulce. V závislosti na modelu popsaném dříve bude následující dotaz získávat `Order` `OrderDetails` a dvě vlastněná `StreetAddresses` z databáze:
 
 [!code-csharp[DetailedOrderQuery](../../../samples/core/Modeling/OwnedEntities/Program.cs?name=DetailedOrderQuery)]
 
 ## <a name="limitations"></a>Omezení
 
-Některé z těchto omezení jsou základem pro jak vlastněné pracovní typy entit, ale jiná omezení, že můžeme být schopen odebrat v budoucích verzích jsou:
+Některá z těchto omezení jsou zásadní pro to, jak vlastní typy entit fungují, ale některé jiné jsou omezení, která v budoucích verzích může být možné odebrat:
 
 ### <a name="by-design-restrictions"></a>Omezení podle návrhu
-- Nelze vytvořit `DbSet<T>` pro typ vlastnictví
-- Nejde volat `Entity<T>()` s typem vlastnictví na `ModelBuilder`
+- Nemůžete vytvořit `DbSet<T>` pro vlastněný typ.
+- Nelze volat `Entity<T>()` s vlastníkem typu na`ModelBuilder`
 
 ### <a name="current-shortcomings"></a>Aktuální nedostatky
-- Hierarchie dědičnosti, které zahrnují vlastněné typy entit nejsou podporovány.
-- Navigační odkaz pro vlastní typy entit nemůže mít hodnotu null, pokud jsou explicitně namapované na samostatnou tabulku od vlastníka
-- Instance vlastněné typy entit nemůže je sdílet více vlastníky (to je dobře známé scénář pro hodnotu objekty, které nelze implementovat s využitím vlastněné typy entit)
+- Hierarchie dědičnosti, které zahrnují vlastní typy entit, se nepodporují.
+- Referenční navigace na vlastní typy entit nemůžou mít hodnotu null, pokud nejsou explicitně namapované na samostatnou tabulku od vlastníka.
+- Instance typů vlastněných entit nemůže sdílet více vlastníků (Toto je známý scénář pro objekty hodnot, které není možné implementovat pomocí vlastněných typů entit).
 
 ### <a name="shortcomings-in-previous-versions"></a>Nedostatky v předchozích verzích
-- V EF Core 2.0 navigaci na, který vlastní typy entit se nedá deklarovat v typy odvozené entit, pokud vlastnictví entity jsou explicitně namapovány na samostatnou tabulku z hierarchie vlastníka. Toto omezení byl odebrán v EF Core 2.1
-- V EF Core 2.0 a 2.1 pouze referenční podporovaly navigaci na vlastní typy. Toto omezení byl odebrán v EF Core 2.2
+- V EF Core 2,0 nemůže být navigace na vlastní typy entit deklarována v odvozených typech entit, pokud vlastněné entity nejsou explicitně mapovány na samostatnou tabulku z hierarchie Owner. Toto omezení se odebralo v EF Core 2,1.
+- V EF Core 2,0 a 2,1 jsou podporovány pouze navigační odkazy na vlastní typy. Toto omezení se odebralo v EF Core 2,2.

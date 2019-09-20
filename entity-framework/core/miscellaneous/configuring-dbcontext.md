@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: ddabf825ef23c2ec07efcde390df7d0cf48db33c
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 734acad86e364abbfd1522fe79d4a847b1acfb52
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306513"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149035"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
@@ -191,6 +191,5 @@ Pomocí injektáže závislostí lze dosáhnout toho, že buď zaregistrujete ko
 
 ## <a name="more-reading"></a>Další čtení
 
-* Další informace o použití EF s ASP.NET Core najdete [v Začínáme ASP.NET Core](../get-started/aspnetcore/index.md) .
 * Přečtěte si [Injektáže závislostí](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) , kde se dozvíte víc o používání di.
 * Další informace najdete v tématu [testování](testing/index.md) .

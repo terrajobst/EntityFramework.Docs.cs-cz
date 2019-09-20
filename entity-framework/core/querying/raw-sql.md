@@ -4,16 +4,16 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 7a0df6fb656be58103971f45b9e12e9f1383311f
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: b0c9ba1bb452e47e8348d000e3f7b88cc2730d8e
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921718"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149311"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
-Entity Framework Core umožňuje vyřadit z provozu nezpracované dotazy SQL při práci s relační databází. To může být užitečné v případě, že dotaz, který chcete provést, nelze vyjádřit pomocí LINQ, nebo pokud použití dotazu LINQ má za následek neefektivní dotazy SQL. Nezpracované dotazy SQL mohou vracet typy entit nebo, počínaje EF Core 2,1, [typy dotazů](xref:core/modeling/query-types) , které jsou součástí vašeho modelu.
+Entity Framework Core umožňuje vyřadit z provozu nezpracované dotazy SQL při práci s relační databází. To může být užitečné v případě, že dotaz, který chcete provést, nelze vyjádřit pomocí LINQ, nebo pokud použití dotazu LINQ má za následek neefektivní dotazy SQL. Nezpracované dotazy SQL mohou vracet typy entit nebo, počínaje EF Core 2,1, [typy entit bez klíčů](xref:core/modeling/keyless-entity-types) , které jsou součástí vašeho modelu.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.

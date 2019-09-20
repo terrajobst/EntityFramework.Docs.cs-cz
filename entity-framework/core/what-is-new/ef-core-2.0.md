@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 28b2180e898b91d233b590b1639674a464f8c679
-ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
+ms.openlocfilehash: 781578d9de05895cdbc777aa53c3f6d6f9777869
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/04/2019
-ms.locfileid: "70271424"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149077"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nové funkce v EF Core 2,0
 
@@ -36,7 +36,7 @@ Další informace o této funkci najdete v [části rozdělení tabulky](xref:co
 
 ### <a name="owned-types"></a>Vlastněné typy
 
-Vlastněný typ entity může sdílet stejný typ CLR s jiným vlastněným typem entity, ale vzhledem k tomu, že nemůže být identifikován pouze typem CLR, musí být k němu navigace z jiného typu entity. Entita obsahující definici navigace je vlastníkem. Při dotazování vlastníka budou ve výchozím nastavení zahrnuty vlastněné typy.
+Vlastněný typ entity může sdílet stejný typ .NET s jiným vlastněným typem entity, ale vzhledem k tomu, že jej nelze identifikovat pouze pomocí typu .NET, musí být k němu navigace z jiného typu entity. Entita obsahující definici navigace je vlastníkem. Při dotazování vlastníka budou ve výchozím nastavení zahrnuty vlastněné typy.
 
 Podle konvence se vytvoří stínový primární klíč pro vlastní typ a namapuje se na stejnou tabulku jako vlastník pomocí rozdělení tabulky. To umožňuje použít vlastněné typy podobně jako složité typy používané v EF6:
 

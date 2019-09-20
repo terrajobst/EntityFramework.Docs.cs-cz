@@ -1,43 +1,43 @@
 ---
-title: Novinky v EF Core 2.1 – EF Core
+title: Co je nového v EF Core 2,1-EF Core
 author: divega
 ms.date: 02/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: 16600ccbb1194d584fae15671118d9c046f1f637
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: 5f97015f0228387574e3a19fb20cae1bdb403410
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333860"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149171"
 ---
-# <a name="new-features-in-ef-core-21"></a>Novinky v EF Core 2.1
+# <a name="new-features-in-ef-core-21"></a>Nové funkce v EF Core 2,1
 
-Kromě řadu oprav chyb a malé vylepšení funkčnosti a výkonu EF Core 2.1 obsahuje některé zajímavé nové funkce:
+Kromě množství oprav chyb a malých funkčních a výkonných vylepšení EF Core 2,1 obsahuje i některé přesvědčivé nové funkce:
 
-## <a name="lazy-loading"></a>Opožděné načtení
-EF Core teď obsahuje stavební bloky potřebné pro každého, kdo k vytváření tříd entit, které můžete načíst jejich vlastnosti navigace na vyžádání. Vytvořili jsme také nový balíček, Microsoft.EntityFrameworkCore.Proxies, která využívá tyto stavební bloky k vytvoření proxy opožděné načtení třídy na základě minimálně upravit tříd entit (například třídy s virtuální navigační vlastnosti).
+## <a name="lazy-loading"></a>opožděné načítání
+EF Core nyní obsahuje potřebné stavební bloky pro kohokoli, aby mohli vytvářet třídy entit, které mohou načíst své navigační vlastnosti na vyžádání. Vytvořili jsme také nový balíček Microsoft. EntityFrameworkCore. proxy, který využívá tyto stavební bloky k vytvoření opožděného načítání tříd proxy na základě minimálních upravených tříd entit (například třídy s vlastnostmi virtuální navigace).
 
-Přečtěte si [věnované opožděné načtení](xref:core/querying/related-data#lazy-loading) Další informace o tomto tématu.
+Další informace o tomto tématu najdete v [části o opožděném načítání](xref:core/querying/related-data#lazy-loading) .
 
-## <a name="parameters-in-entity-constructors"></a>Parametry v konstruktorech entity
-Jako jeden z požadovaných stavební bloky pro opožděné načtení jsme povolili vytvoření entity, které přijímají parametry v jejich konstruktory. Parametry můžete použít k vložení hodnoty vlastností, opožděné načtení delegátů a služeb.
+## <a name="parameters-in-entity-constructors"></a>Parametry v konstruktorech entit
+Jako jeden z požadovaných stavebních bloků pro opožděné načítání jsme povolili vytváření entit, které přijímají parametry ve svých konstruktorech. Parametry můžete použít k vložení hodnot vlastností, delegátů opožděného načítání a služeb.
 
-Čtení [věnované entity konstruktor s parametry](xref:core/modeling/constructors) Další informace o tomto tématu.
+Další informace o tomto tématu najdete [v části v konstruktoru entity s parametry](xref:core/modeling/constructors) .
 
 ## <a name="value-conversions"></a>Převody hodnot
-Až doteď EF Core namapovat pouze vlastnosti typů nativně podporuje základní zprostředkovatel databáze. Hodnoty byly zkopírovány vpřed a zpět mezi sloupci a vlastnosti bez jakékoli transformace. Od verze EF Core 2.1, převody hodnot lze použít k transformaci hodnoty získané ze sloupců, než tato nastavení použijí do vlastností a naopak. Máme několik převodů, které se dají nastavit podle konvence, podle potřeby, jakož i rozhraní API explicitní konfigurace, které umožňuje zaregistrovat vlastní převody mezi sloupci a vlastnosti. Zde jsou některé aplikace tuto funkci:
+Až do této chvíle EF Core možné mapovat vlastnosti typů nativně podporovaných příslušným zprostředkovatelem databáze. Hodnoty byly zkopírovány zpátky mezi sloupci a vlastnostmi bez jakékoli transformace. Počínaje EF Core 2,1 je možné použít převody hodnot k transformaci hodnot získaných ze sloupců předtím, než se použijí na vlastnosti, a naopak. Máme spoustu převodů, které může podle potřeby použít konvence, a také explicitní rozhraní API pro konfiguraci, které umožňuje registraci vlastních převodů mezi sloupci a vlastnostmi. Některé aplikace této funkce jsou:
 
-- Ukládání výčty jako řetězce
-- Mapování typu unsigned integer s SQL serverem
+- Ukládání výčtů jako řetězců
+- Mapování celých čísel bez znaménka pomocí SQL Server
 - Automatické šifrování a dešifrování hodnot vlastností
 
-Přečtěte si [věnované převody hodnot](xref:core/modeling/value-conversions) Další informace o tomto tématu.  
+Další informace o tomto tématu najdete [v části věnované převodům hodnot](xref:core/modeling/value-conversions) .  
 
-## <a name="linq-groupby-translation"></a>LINQ GroupBy translation
-Dříve než ve verzi 2.1 v EF Core – operátor GroupBy LINQ vždy vyhodnocována v paměti. Nyní podporujeme překladu klauzule GROUP BY jazyka SQL ve nejběžnější případy.
+## <a name="linq-groupby-translation"></a>Překlad LINQ GroupBy
+Před verzí 2,1 je v EF Core operátor GroupBy LINQ vždy vyhodnocen v paměti. Nyní podporujeme překlad do klauzule SQL GROUP BY ve většině běžných případů.
 
-Tento příklad ukazuje dotaz s GroupBy slouží k výpočtu různých agregační funkce:
+Tento příklad ukazuje dotaz pomocí GroupBy, který slouží k výpočtu různých agregačních funkcí:
 
 ``` csharp
 var query = context.Orders
@@ -62,29 +62,29 @@ FROM [Orders] AS [o]
 GROUP BY [o].[CustomerId], [o].[EmployeeId];
 ```
 
-## <a name="data-seeding"></a>Předvyplnění dat
-V nové verzi je možné poskytnout počátečních dat k naplnění databáze. Na rozdíl od v EF6, předvyplnění dat je přidružena k typu entity jako součást konfigurace modelu. Pak můžete automaticky výpočetní migrace EF Core co vložit, aktualizovat nebo odstranit operací nutné použít při upgradu databáze na novou verzi modelu.
+## <a name="data-seeding"></a>Osazení dat
+V nové verzi bude možné zadat počáteční data k naplnění databáze. Na rozdíl od EF6 jsou data osazení přidružena k typu entity jako součást konfigurace modelu. Pak EF Core migrace může automaticky vypočítat, které operace vložení, aktualizace nebo odstranění se musí použít při upgradu databáze na novou verzi modelu.
 
-Jako příklad, můžete nakonfigurovat počáteční data pro příspěvek ve `OnModelCreating`:
+Jako příklad můžete použít ke konfiguraci počátečních dat pro příspěvek v `OnModelCreating`:
 
 ``` csharp
 modelBuilder.Entity<Post>().HasData(new Post{ Id = 1, Text = "Hello World!" });
 ```
 
-Čtení [věnované předvyplnění dat](xref:core/modeling/data-seeding) Další informace o tomto tématu.  
+Další informace o tomto tématu najdete v [části popisující osazení dat](xref:core/modeling/data-seeding) .  
 
 ## <a name="query-types"></a>Typy dotazů
-Model, pomocí EF Core teď může obsahovat typy dotazů. Na rozdíl od typy entit, typy dotazů není definována zasílají klíče mají a nelze vložit, odstranit nebo aktualizovat (to znamená, že jsou jen pro čtení), ale mohou být vráceny přímo pomocí dotazů. Mezi scénáře použití pro typy dotazů, patří:
+EF Core model teď může zahrnovat typy dotazů. Na rozdíl od typů entit nejsou v typech dotazů definovány klíče a nelze je vkládat, odstraňovat ani aktualizovat (to znamená, že jsou jen pro čtení), ale mohou být vráceny přímo pomocí dotazů. Mezi scénáře použití pro typy dotazů patří:
 
 - Mapování na zobrazení bez primárních klíčů
-- Mapování tabulek bez primárních klíčů
+- Mapování na tabulky bez primárních klíčů
 - Mapování na dotazy definované v modelu
-- Slouží jako návratový typ pro `FromSql()` dotazy
+- Obsluha jako návratový typ pro `FromSql()` dotazy
 
-Čtení [části na typy dotazů](xref:core/modeling/query-types) Další informace o tomto tématu.
+Další informace o tomto tématu najdete [v části o typech dotazů](xref:core/modeling/keyless-entity-types) .
 
 ## <a name="include-for-derived-types"></a>Zahrnout pro odvozené typy
-Bude nyní specifikovat navigační vlastnosti definována pouze na odvozené typy při psaní výrazů pro `Include` metody. Pro verzi silného typu `Include`, podporujeme používání explicitní přetypování nebo `as` operátor. Také teď podporují odkazování na název navigační vlastnosti definované v odvozených typů ve verzi řetězec `Include`:
+Při zápisu výrazů pro `Include` metodu nyní bude možné zadat navigační vlastnosti, které jsou definovány pro odvozené typy. Pro verzi `Include`silného typu podporujeme buď použití explicitního přetypování, `as` nebo operátoru. Nyní podporujeme odkazy na názvy navigačních vlastností definovaných u odvozených typů v řetězcové verzi `Include`:
 
 ``` csharp
 var option1 = context.People.Include(p => ((Student)p).School);
@@ -92,38 +92,38 @@ var option2 = context.People.Include(p => (p as Student).School);
 var option3 = context.People.Include("School");
 ```
 
-Čtení [věnované zahrnout u odvozených typů](xref:core/querying/related-data#include-on-derived-types) Další informace o tomto tématu.
+Další informace o tomto tématu najdete v [části Zahrnutí s odvozenými typy](xref:core/querying/related-data#include-on-derived-types) .
 
-## <a name="systemtransactions-support"></a>Podpora System.Transactions
-Přidali jsme možnost pro práci s System.Transactions funkce, jako je objekt TransactionScope. To bude fungovat na rozhraní .NET Framework a .NET Core, při použití poskytovatelé databází, které ho podporují.
+## <a name="systemtransactions-support"></a>Podpora System. Transactions
+Přidali jsme možnost pracovat s funkcemi System. Transactions, jako je například objekt TransactionScope. Tato akce bude fungovat jak pro .NET Framework, tak pro .NET Core při použití poskytovatelů databáze, kteří ho podporují.
 
-Čtení [věnované System.Transactions](xref:core/saving/transactions#using-systemtransactions) Další informace o tomto tématu.
+Další informace o tomto tématu najdete [v části na stránce System. Transactions](xref:core/saving/transactions#using-systemtransactions) .
 
-## <a name="better-column-ordering-in-initial-migration"></a>Lepší pořadí sloupců v počáteční migraci
-Na základě názorů zákazníků, aktualizovali jsme migrace se zpočátku vygenerovat sloupce tabulky ve stejném pořadí, protože vlastnosti jsou deklarovány ve třídách. Všimněte si, že EF Core nelze změnit pořadí při přidání nových členů po vytvoření počátečního tabulky.
+## <a name="better-column-ordering-in-initial-migration"></a>Lepší řazení sloupců při počáteční migraci
+Na základě zpětné vazby od zákazníků jsme aktualizovali migrace na počáteční generování sloupců pro tabulky ve stejném pořadí jako vlastnosti deklarované ve třídách. Všimněte si, že EF Core nemůže změnit pořadí při přidání nových členů po počátečním vytvoření tabulky.
 
-## <a name="optimization-of-correlated-subqueries"></a>Optimalizace korelační poddotazů
-Vylepšili jsme naše překladu dotazu, aby se zabránilo spouštění "N + 1" dotazy SQL v mnoha běžných scénářů, ve kterých využití vlastnost navigace v projekci vede k spojování dat z dotazu kořenové s daty z korelační poddotazu. Optimalizace vyžaduje ukládání do vyrovnávací paměti výsledky poddotazu a je potřeba se, že změníte dotaz k vyjádření výslovného souhlasu nové chování.
+## <a name="optimization-of-correlated-subqueries"></a>Optimalizace korelačních poddotazů
+Vylepšili jsme naše překlady dotazů tak, aby nedocházelo k provádění dotazů SQL N + 1 v mnoha běžných scénářích, ve kterých použití navigační vlastnosti v projekci vede k propojení dat z kořenového dotazu s daty z korelačního poddotazu. Optimalizace vyžaduje ukládání výsledků z poddotazu do vyrovnávací paměti, a vyžadujeme, abyste dotaz upravili, aby se zavedlo nové chování.
 
-Například následující dotaz obvykle převedeny do jednoho dotazu pro zákazníky, a navíc N (kde "N" je počet zákazníků vrátil) samostatné dotazy pro objednávky:
+Příklad: následující dotaz normálně je přeložen do jednoho dotazu pro zákazníky, plus N (kde "N" je počet vrácených zákazníků) samostatné dotazy pro objednávky:
 
 ``` csharp
 var query = context.Customers.Select(
     c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount));
 ```
 
-Zahrnutím `ToList()` na správném místě, určujete, že ukládání do vyrovnávací paměti je vhodný pro objednávky, které umožňují optimalizace:
+Zahrnutím `ToList()` na správné místo označíte, že ukládání do vyrovnávací paměti je vhodné pro objednávky, které umožňují optimalizaci:
 
 ``` csharp
 var query = context.Customers.Select(
     c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount).ToList());
 ```
 
-Všimněte si, že tento dotaz se přeložit na pouze dva dotazy SQL: Jeden pro zákazníky a další příkaz za objednávky.
+Všimněte si, že tento dotaz bude přeložen pouze na dva dotazy SQL: Jednu pro zákazníky a druhou pro objednávky.
 
-## <a name="owned-attribute"></a>Atribut [vlastní]
+## <a name="owned-attribute"></a>[Vlastněno] – atribut
 
-Nyní je možné nakonfigurovat [vlastněné typy entit](xref:core/modeling/owned-entities) jednoduše anotací typu s `[Owned]` a pak zajistit, owner entity se přidá do modelu:
+Je teď možné nakonfigurovat [vlastní typy entit](xref:core/modeling/owned-entities) tak, že jednoduše přiřadíte typ s `[Owned]` a pak zajistíte, aby se do modelu přidala entita vlastníka:
 
 ``` csharp
 [Owned]
@@ -140,31 +140,31 @@ public class Order
 }
 ```
 
-## <a name="command-line-tool-dotnet-ef-included-in-net-core-sdk"></a>Nástroj příkazového řádku dotnet-ef zahrnutý v sadě SDK .NET Core
+## <a name="command-line-tool-dotnet-ef-included-in-net-core-sdk"></a>Nástroj příkazového řádku dotnet-EF zahrnutý v .NET Core SDK
 
-_Dotnet ef_ příkazy jsou teď součástí sady .NET Core SDK, proto už bude nutné použít DotNetCliToolReference v projektu mohli používat migrace nebo scaffold DbContext z existující databáze.
+Příkazy _dotnet-EF_ jsou nyní součástí .NET Core SDK, proto již nebude nutné používat DotNetCliToolReference v projektu, aby bylo možné použít migrace nebo pro vytvoření uživatelského rozhraní DbContext z existující databáze.
 
-Naleznete v části [instalace nástrojů](xref:core/miscellaneous/cli/dotnet#installing-the-tools) podrobné informace o tom, jak povolit nástroje příkazového řádku pro různé verze sady SDK .NET Core a EF Core.
+Další podrobnosti o tom, jak povolit nástroje příkazového řádku pro různé verze .NET Core SDK a EF Core, najdete v části věnované [instalaci nástrojů](xref:core/miscellaneous/cli/dotnet#installing-the-tools) .
 
-## <a name="microsoftentityframeworkcoreabstractions-package"></a>Microsoft.EntityFrameworkCore.Abstractions balíčku
-Nový balíček obsahuje atributy a rozhraní, které můžete použít ve vašich projektech, aby bylo možné EF Core funkce bez nutnosti přepínat závislost na EF Core jako celek. Například atribut [vlastněno] a ILazyLoader interface jsou umístěny zde.
+## <a name="microsoftentityframeworkcoreabstractions-package"></a>Balíček Microsoft. EntityFrameworkCore. Abstractions
+Nový balíček obsahuje atributy a rozhraní, které můžete ve svých projektech použít k detekci EF Corech funkcí, aniž byste museli pracovat s EF Core jako celek. Například atribut [vlastněno] a rozhraní ILazyLoader jsou umístěny zde.
 
 ## <a name="state-change-events"></a>Události změny stavu
 
-Nové `Tracked` a `StateChanged` události na `ChangeTracker` můžete použít pro zapsání logiku, která reaguje na entity zadávání uvolněn objekt DbContext nebo změnit jejich stav.
+Nové `Tracked` události `StateChanged` asedajípoužítkzápisulogiky,kteráreagujenaentity,kterévstupujídoDbContextneboměníjejichstav.`ChangeTracker`
 
-## <a name="raw-sql-parameter-analyzer"></a>Nezpracovaná analyzátoru parametr SQL
+## <a name="raw-sql-parameter-analyzer"></a>Nezpracovaný analyzátor parametrů SQL
 
-Nový analyzátor kódu je součástí EF Core, který zjistí potenciálně nebezpečná použití rozhraní API nezpracovaná SQL, jako je třeba `FromSql` nebo `ExecuteSqlCommand`. Například následující dotaz, zobrazí se upozornění protože _minAge_ není s parametry:
+K dispozici je nový analyzátor kódu EF Core, který detekuje potenciálně nebezpečná použití našich nezpracovaných rozhraní API, `FromSql` jako `ExecuteSqlCommand`je například nebo. Například pro následující dotaz se zobrazí upozornění, protože _minAge_ není parametrizované:
 
 ``` csharp
 var sql = $"SELECT * FROM People WHERE Age > {minAge}";
 var query = context.People.FromSql(sql);
 ```
 
-## <a name="database-provider-compatibility"></a>Zprostředkovatel kompatibility databáze
+## <a name="database-provider-compatibility"></a>Kompatibilita poskytovatele databáze
 
-Doporučuje se, že používáte EF Core 2.1 s poskytovateli, které byly aktualizovány nebo alespoň testovat pro práci s EF Core 2.1.
+Doporučujeme použít EF Core 2,1 s poskytovateli, kteří byli aktualizováni nebo alespoň testováni pro práci s EF Core 2,1.
 
 > [!TIP]
-> Pokud zjistíte všechny neočekávané nekompatibility ani žádnou vydat v nových funkcí nebo pokud máte nějakou zpětnou vazbu, oznamte ji pomocí [naše sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues/new).
+> Pokud v nových funkcích zjistíte jakoukoli neočekávanou nekompatibilitu nebo nějaký problém, nebo pokud na ně máte svůj názor, ohlaste ji prosím pomocí [sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues/new).

@@ -5,28 +5,28 @@ ms.author: bricelam
 ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: 6e61d2ebcf5ada365dcdb264bc371199574e12fa
-ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
+ms.openlocfilehash: 775a929982b9f4fb10aad9cd43bbb555ce632ad1
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56459182"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149020"
 ---
 # <a name="reverse-engineering"></a>Zpětná analýza
 
-Zpětná analýza je proces generování uživatelského rozhraní entity typu třídy a třídy DbContext na základě schématu databáze. Je možné provádět pomocí `Scaffold-DbContext` příkaz nástroje EF Core Package Manageru konzoly (PMC) nebo `dotnet ef dbcontext scaffold` příkaz nástroje .NET rozhraní příkazového řádku (CLI).
+Zpětná analýza je proces třídy typu entity vytváření uživatelského rozhraní a třída DbContext založená na schématu databáze. Dá se provést pomocí `Scaffold-DbContext` EF Core příkazu nástroje PMC (Správce balíčků správce) `dotnet ef dbcontext scaffold` nebo příkazu rozhraní příkazového řádku (CLI) rozhraní .NET.
 
-## <a name="installing"></a>Instalace
+## <a name="installing"></a>Instalují
 
-Před zpětné analýzy, budete muset nainstalovat buď [PMC nástroje](xref:core/miscellaneous/cli/powershell) (pouze Visual Studio) nebo [nástroje rozhraní příkazového řádku](xref:core/miscellaneous/cli/dotnet). Zobrazit odkazy na podrobnosti.
+Před zpětnou metodologií budete muset nainstalovat buď [nástroje PMC](xref:core/miscellaneous/cli/powershell) (pouze Visual Studio), nebo nástroje rozhraní příkazového [řádku](xref:core/miscellaneous/cli/dotnet). Podrobnosti najdete v tématu odkazy.
 
-Budete také muset nainstalovat odpovídající [poskytovatele databáze](xref:core/providers/index) pro schéma databáze, kterou chcete provést zpětnou analýzu.
+Také budete muset nainstalovat vhodného [poskytovatele databáze](xref:core/providers/index) pro schéma databáze, u kterého chcete provést zpětnou analýzu.
 
 ## <a name="connection-string"></a>Připojovací řetězec
 
-Prvním argumentem příkazu je připojovací řetězec k databázi. Nástroje použije tento připojovací řetězec k načtení schématu databáze.
+První argument příkazu je připojovací řetězec k databázi. Nástroje použijí tento připojovací řetězec ke čtení schématu databáze.
 
-Jak poptávka a escape připojovací řetězec, závisí na jaké prostředí používáte ke spuštění příkazu. V dokumentaci pro vaše prostředí pro konkrétní. Například, prostředí PowerShell vyžaduje, abyste řídicí `$` znaků, ale ne `\`.
+Způsob uvozovek a řídicího řetězce závisí na tom, jaké prostředí používáte ke spuštění příkazu. Konkrétní informace najdete v dokumentaci ke svému prostředí. Například prostředí PowerShell vyžaduje, abyste `$` znak vyhnuli, ale ne. `\`
 
 ``` powershell
 Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer
@@ -36,50 +36,50 @@ Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' 
 dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-### <a name="configuration-and-user-secrets"></a>Konfigurace a tajných klíčů uživatelů
+### <a name="configuration-and-user-secrets"></a>Konfigurace a tajné klíče uživatele
 
-Pokud máte projekt ASP.NET Core, můžete použít `Name=<connection-string>` syntaxe získat připojovací řetězec z konfigurace.
+Pokud máte projekt ASP.NET Core, můžete použít `Name=<connection-string>` syntaxi ke čtení připojovacího řetězce z konfigurace.
 
-Tento postup funguje dobře [nástroj tajný klíč správce](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager) uchovávat toto heslo databáze odděleně od vašeho základu kódu.
+Tato funkce dobře funguje s [nástrojem Správce tajných klíčů](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager) , aby vaše heslo databáze bylo oddělené od základu kódu.
 
 ``` Console
 dotnet user-secrets set ConnectionStrings.Chinook "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook"
 dotnet ef dbcontext scaffold Name=Chinook Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-## <a name="provider-name"></a>Název poskytovatele
+## <a name="provider-name"></a>Název zprostředkovatele
 
 Druhým argumentem je název poskytovatele. Název zprostředkovatele je obvykle stejný jako název balíčku NuGet poskytovatele.
 
-## <a name="specifying-tables"></a>Určení tabulky
+## <a name="specifying-tables"></a>Určení tabulek
 
-Všechny tabulky ve schématu databáze jsou zpětně analyzovány na typy entit ve výchozím nastavení. Můžete omezit, které tabulky jsou zpětně navržené tak, že zadáte schémat a tabulek.
+Všechny tabulky ve schématu databáze jsou ve výchozím nastavení zpětně analyzovány do typů entit. Můžete omezit, které tabulky budou zpětně analyzovány zadáním schémat a tabulek.
 
-`-Schemas` Parametr v konzole PMC a `--schema` možnost v rozhraní příkazového řádku je možné zahrnout každá tabulka v rámci schématu.
+Parametr v PMC `--schema` a možnost v rozhraní příkazového řádku lze použít k zahrnutí všech tabulek v rámci schématu. `-Schemas`
 
-`-Tables` (PMC) a `--table` (CLI) umožňuje zahrnout konkrétní tabulky.
+`-Tables`(PMC) a `--table` (CLI) lze použít k zahrnutí specifických tabulek.
 
-Zahrnout více tabulek v konzole PMC, použijte pole.
+Chcete-li do PMC zahrnout více tabulek, použijte pole.
 
 ``` powershell
 Scaffold-DbContext ... -Tables Artist, Album
 ```
 
-Chcete-li zahrnout více tabulek v rozhraní příkazového řádku, zadejte možnost více než jednou.
+Chcete-li v rozhraní příkazového řádku zahrnout více tabulek, určete možnost několikrát.
 
 ``` Console
 dotnet ef dbcontext scaffold ... --table Artist --table Album
 ```
 
-## <a name="preserving-names"></a>Zachování názvy
+## <a name="preserving-names"></a>Zachování názvů
 
-Názvy tabulek a sloupců tak, aby lépe odpovídaly zásady vytváření názvů .NET pro typy a vlastnosti jsou oprava ve výchozím nastavení. Zadání `-UseDatabaseNames` přepínače v konzole PMC nebo `--use-database-names` možnost v rozhraní příkazového řádku se zakázat toto chování zachovat původní názvy databází co největší míře. Neplatné identifikátory rozhraní .NET stále opravíme a syntetizovaný názvy jako vlastnosti navigace se stále odpovídat zásady vytváření názvů .NET.
+Názvy tabulek a sloupců jsou pevně nastavené tak, aby lépe odpovídaly konvencím názvů .NET pro typy a vlastnosti ve výchozím nastavení. Když zadáte `--use-database-names` přepínač v PMC nebo v rozhraní příkazového řádku, zakážete tím toto chování s původními názvy databází co nejvíce. `-UseDatabaseNames` Neplatné identifikátory .NET budou pořád opravené a syntetizované názvy, jako jsou vlastnosti navigace, budou pořád odpovídat konvencím vytváření názvů .NET.
 
 ## <a name="fluent-api-or-data-annotations"></a>Rozhraní Fluent API nebo datové poznámky
 
-Typy entit jsou nakonfigurované pomocí rozhraní Fluent API ve výchozím nastavení. Zadejte `-DataAnnotations` (PMC) nebo `--data-annotations` (CLI) pro náhradní použití anotací dat, pokud je to možné.
+Typy entit se ve výchozím nastavení konfigurují pomocí rozhraní API Fluent. Pokud `-DataAnnotations` je to možné, `--data-annotations` zadejte (PMC) nebo (CLI), aby se místo toho používaly datové poznámky.
 
-Například pomocí rozhraní Fluent API bude generování uživatelského rozhraní toto:
+Například při použití rozhraní Fluent API dojde k následujícímu generování uživatelského rozhraní:
 
 ``` csharp
 entity.Property(e => e.Title)
@@ -87,7 +87,7 @@ entity.Property(e => e.Title)
     .HasMaxLength(160);
 ```
 
-Při používání datových poznámek bude generování uživatelského rozhraní toto:
+Když použijete datové poznámky, vytvoří se toto uživatelské rozhraní:
 
 ``` csharp
 [Required]
@@ -97,13 +97,13 @@ public string Title { get; set; }
 
 ## <a name="dbcontext-name"></a>Název DbContext
 
-Název vygenerované třídy DbContext bude název databáze doplněny *kontextu* ve výchozím nastavení. Pokud chcete zadat jinou, použijte `-Context` v konzole PMC a `--context` v rozhraní příkazového řádku.
+Název třídy DbContext ve vygenerovaném *obsahu* bude ve výchozím nastavení názvem databáze s příponou. Chcete-li zadat jiný než jeden `-Context` , použijte v `--context` PMC a v rozhraní příkazového řádku.
 
 ## <a name="directories-and-namespaces"></a>Adresáře a obory názvů
 
-Entity třídy a třídy DbContext jsou automaticky do kořenového adresáře projektu a použijte výchozí obor názvů projektu. Lze určit adresář, kde tříd jsou automaticky pomocí `-OutputDir` (PMC) nebo `--output-dir` (rozhraní příkazového řádku). Obor názvů bude kořenového oboru názvů a názvů jakéhokoliv podadresáře v kořenovém adresáři projektu.
+Třídy entit a třída DbContext jsou vygenerované do kořenového adresáře projektu a používají výchozí obor názvů projektu. Můžete zadat adresář, ve kterém jsou třídy vygenerované pomocí `-OutputDir` (PMC) nebo `--output-dir` (CLI). Obor názvů bude kořenový obor názvů a názvy všech podadresářů v kořenovém adresáři projektu.
 
-Můžete také použít `-ContextDir` (PMC) a `--context-dir` (CLI) do samostatných adresáře z tříd entit typu scaffold třídy DbContext.
+Můžete také použít `-ContextDir` (PMC) a `--context-dir` (CLI) pro generování uživatelského rozhraní třídy DbContext do samostatného adresáře z tříd typu entity.
 
 ``` powershell
 Scaffold-DbContext ... -ContextDir Data -OutputDir Models
@@ -115,37 +115,35 @@ dotnet ef dbcontext scaffold ... --context-dir Data --output-dir Models
 
 ## <a name="how-it-works"></a>Jak to funguje
 
-Zpětná analýza začne schématu databáze pro čtení. Načte informace o tabulky, sloupce, omezení a indexy.
+Zpětná analýza začíná čtením schématu databáze. Čte informace o tabulkách, sloupcích, omezeních a indexech.
 
-V dalším kroku použije informace o schématu pro vytvoření modelu EF Core. Tabulky se používají k vytvoření typů entit; sloupce se použijí k vytvoření vlastnosti; a cizí klíče slouží k vytvoření relací.
+V dalším kroku se pomocí informací o schématu vytvoří model EF Core. Tabulky slouží k vytváření typů entit. sloupce slouží k vytváření vlastností; a k vytváření relací se používají cizí klíče.
 
-Nakonec model se používá ke generování kódu. Chcete-li znovu vytvořit stejný model z vaší aplikace jsou automaticky generovaný odpovídající entity typu třídy, rozhraní Fluent API a data poznámky.
+Nakonec se model používá ke generování kódu. Odpovídající třídy typů entit, rozhraní Fluent API a datové poznámky jsou vygenerované z důvodu opětovného vytvoření stejného modelu z vaší aplikace.
 
 ## <a name="what-doesnt-work"></a>Co nefunguje
 
-Ne vše, co o modelu lze znázornit pomocí schématu databáze. Například informace o **hierarchie dědičnosti**, **vlastní typy**, a **tabulky rozdělení** nejsou k dispozici ve schématu databáze. Z toho důvodu tyto konstrukce nikdy se vrátíte zpět inženýrství.
+Ne vše o modelu lze znázornit pomocí schématu databáze. Například informace o [**hierarchiích dědičnosti**](../modeling/inheritance.md), [**vlastněných typech**](../modeling/owned-entities.md)a [**rozdělení tabulky**](../modeling/table-splitting.md) nejsou k dispozici ve schématu databáze. Z tohoto důvodu tyto konstrukce nebudou nikdy zpětně analyzovány.
 
-Kromě toho **některé typy sloupců** nemusí být podporována zprostředkovatelem EF Core. Tyto sloupce nebudou zahrnuty v modelu.
+Kromě toho poskytovatel EF Core nemusí podporovat **některé typy sloupců** . Tyto sloupce nebudou zahrnuty do modelu.
 
-EF Core vyžaduje, aby každý typ entity klíč. Tabulky, není však nutné nastavit primární klíč. **Tabulky s primárním klíčem** jsou aktuálně není zpětnou analýzou.
-
-Můžete definovat **tokeny souběžnosti** v modelu EF Core dvě uživatelům zabránit v aktualizaci stejné entity ve stejnou dobu. Některé databáze mají speciální typ pro reprezentaci tohoto typu sloupce (například rowversion v systému SQL Server) v takovém případě lze zrušit jsme pracovníkovi tyto informace; však další tokeny souběžnosti nesmí být zpětná analýza.
+V EF Coreovém modelu můžete definovat [**tokeny souběžnosti**](../modeling/concurrency.md), aby se uživatelé nemohli současně aktualizovat stejnou entitu. Některé databáze mají speciální typ, který představuje tento typ sloupce (například rowversion v SQL Server). v takovém případě můžeme tyto informace zpětně analyzovat; jiné tokeny souběžnosti však nebudou zpětně analyzovány.
 
 ## <a name="customizing-the-model"></a>Přizpůsobení modelu
 
-Kód vygenerovaný EF Core je váš kód. Můžete ho změnit. To se znovu vygeneruje jenom Pokud znovu provést zpětnou analýzu stejného modelu. Automaticky generovaný kód představuje *jeden* model, který můžete použít pro přístup k databázi, ale určitě není *pouze* model, který lze použít.
+Kód vygenerovaný EF Core je váš kód. Nebojte se změnit. Bude znovu vygenerována pouze v případě, že znovu budete provádět zpětnou analýzu stejného modelu. Generovaný kód reprezentuje *jeden* model, který se dá použít pro přístup k databázi, ale není to *jediný* model, který se dá použít.
 
-Upravte entity typu třídy a třídy DbContext podle vašich potřeb. Můžete například přejmenovat typy a vlastnosti, zavést hierarchie dědičnosti nebo rozdělení tabulky do více entit. Jedinečné indexy, nevyužité pořadí a navigačních vlastností, volitelné Skalární vlastnosti a omezení názvů můžete také odebrat z modelu.
+Přizpůsobte třídy typu entity a třídu DbContext tak, aby vyhovovala vašim potřebám. Například se můžete rozhodnout přejmenovat typy a vlastnosti, zavést Hierarchie dědičnosti nebo rozdělit tabulku do více entit. Z modelu můžete také odebrat nejedinečné indexy, nepoužívané sekvence a navigační vlastnosti, volitelné skalární vlastnosti a názvy omezení.
 
-Můžete také přidat další konstruktorů, metod, vlastností, atd. pomocí jiné částečné třídy v samostatném souboru. Tento postup funguje i v případě, že máte v úmyslu znovu provést zpětnou analýzu modelu.
+Můžete také přidat další konstruktory, metody, vlastnosti atd. použití jiné částečné třídy v samostatném souboru. Tento přístup funguje i v případě, že máte v úmyslu provést zpětnou analýzu modelu.
 
 ## <a name="updating-the-model"></a>Aktualizace modelu
 
-Po provedení změn v databázi, budete muset aktualizovat tak, aby odrážela tyto změny modelu EF Core. Pokud jsou jednoduché změny databáze, může být nejjednodušší jenom ručně provést změny modelu EF Core. Třeba přejmenování tabulky nebo sloupce, odebráním sloupce nebo aktualizace sloupce typu jsou jednoduché změny v kódu.
+Po provedení změn v databázi bude pravděpodobně nutné aktualizovat model EF Core, aby odrážel tyto změny. Pokud se databáze změní na jednoduchá, může být nejjednodušší pouze ručně provést změny v modelu EF Core. Například přejmenování tabulky nebo sloupce, odebrání sloupce nebo aktualizace typu sloupce jsou triviální změny v kódu.
 
-Další významné změny, ale nejsou jako snadno vytvořit ručně. Jednou z běžných pracovních postupů je provést zpětnou analýzu model z databáze, znovu pomocí `-Force` (PMC) nebo `--force` (CLI) k přepsání existujícího modelu aktualizované sadou.
+Důležitější změny se ale nedají snadno provést ručně. Jedním z běžných pracovních postupů je provést zpětnou analýzu modelu z databáze znovu `-Force` pomocí (PMC) `--force` nebo (CLI) a přepsat existující model pomocí aktualizovaného typu.
 
-Další běžně požadovaných funkcí je schopnost aktualizace modelu z databáze při zachování vlastního nastavení, jako je přejmenování, hierarchie typů, atd. Použít problém [#831](https://github.com/aspnet/EntityFrameworkCore/issues/831) sledovat průběh této funkce.
+Další běžně vyžadovaná funkce je možnost aktualizovat model z databáze a přitom zachovat přizpůsobení jako přejmenování, hierarchií typů atd. Průběh této funkce můžete sledovat pomocí [#831](https://github.com/aspnet/EntityFrameworkCore/issues/831) problému.
 
 > [!WARNING]
-> Pokud zpětné analýze modelu z databáze znovu, budou ztraceny všechny změny, které jste provedli v souborech.
+> Pokud znovu provedete zpětnou analýzu modelu z databáze, všechny změny, které jste provedli v souborech, budou ztraceny.

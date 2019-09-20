@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 04487291f24bb702dad4b497c34234afdd5e3c9a
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.openlocfilehash: 1f63593631017a61c39ccab9216adbc4663700e7
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005589"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71148906"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Přerušující změny zahrnuté v EF Core 3,0
 Následující změny rozhraní API a chování mají možnost rušit existující aplikace při jejich upgradu na 3.0.0.
@@ -420,7 +420,7 @@ Tato změna je představena ve verzi EF Core 3,0-Preview 3.
 
 **Staré chování**
 
-Před EF Core 3,0 byly [typy dotazů](xref:core/modeling/query-types) prostředkem pro dotazování na data, která nedefinují primární klíč strukturovaným způsobem.
+Před EF Core 3,0 byly [typy dotazů](xref:core/modeling/keyless-entity-types) prostředkem pro dotazování na data, která nedefinují primární klíč strukturovaným způsobem.
 To znamená, že typ dotazu byl použit pro mapování typů entit bez klíčů (pravděpodobnější z pohledu, ale také z tabulky), zatímco byl použit regulární typ entity, když byl klíč k dispozici (pravděpodobnější z tabulky, ale případně z pohledu).
 
 **Nové chování**
@@ -873,7 +873,7 @@ Tato změna je představena ve verzi EF Core 3,0-Preview 4.
 
 **Staré chování**
 
-Před EF Core 3,0 může být vlastnost určena hodnotou řetězce a v případě, že v typu CLR nebyla nalezena žádná vlastnost s tímto názvem, EF Core by se pokusila ji porovnat s polem pomocí pravidel konvence.
+Před EF Core 3,0 může být vlastnost určena hodnotou řetězce a v případě, že v typu .NET nebyla nalezena žádná vlastnost s tímto názvem, EF Core by se pokusila ji porovnat s polem pomocí pravidel konvence.
 ```C#
 private class Blog
 {

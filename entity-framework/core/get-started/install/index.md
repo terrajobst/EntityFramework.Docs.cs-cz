@@ -4,22 +4,22 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 62194d1db4efcdaed53ca0e14f160315f8e3cf03
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: eb808dd9d9b1b214947524cd83999f67be9cc0ff
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921761"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149070"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
 ## <a name="prerequisites"></a>Požadavky
 
-* EF Core je knihovna [.NET Standard 2,0](/dotnet/standard/net-standard) . Proto EF Core vyžaduje implementaci rozhraní .NET, která podporuje spuštění .NET Standard 2,0. Na EF Core můžou být taky odkazovány jinými knihovnami .NET Standard 2,0. 
+* EF Core je knihovna [.NET Standard 2,1](/dotnet/standard/net-standard) . Proto EF Core vyžaduje implementaci rozhraní .NET, která podporuje spuštění .NET Standard 2,1. Na EF Core můžou být taky odkazovány jinými knihovnami .NET Standard 2,1. 
 
 * Můžete například použít EF Core pro vývoj aplikací, které cílí na .NET Core. Sestavování aplikací .NET Core vyžaduje [.NET Core SDK](https://dotnet.microsoft.com/download). Volitelně můžete také použít vývojové prostředí, jako je Visual Studio, Visual Studio pro Mac nebo Visual Studio Code. Další informace najdete v [Začínáme pomocí .NET Core](/dotnet/core/get-started).
 
-* EF Core můžete použít k vývoji aplikací, které cílí na .NET Framework 4.6.1 nebo novější ve Windows pomocí sady Visual Studio. Doporučuje se nejnovější verze sady [Visual Studio](https://visualstudio.microsoft.com/vs) . Pokud chcete použít starší verzi, jako je například Visual Studio 2015, je třeba upgradovat [klienta NuGet na verzi 3.6.0](https://www.nuget.org/downloads) , aby fungoval s knihovnami .NET Standard 2,0.
+* Můžete použít EF Core pro vývoj aplikací v systému Windows pomocí sady Visual Studio. Doporučuje se nejnovější verze sady [Visual Studio](https://visualstudio.microsoft.com/vs) .
 
 * EF Core lze spustit na jiných implementacích rozhraní .NET, jako je [Xamarin](https://dotnet.microsoft.com/apps/xamarin) a .NET Native. V praxi ale tyto implementace mají omezení za běhu, což může mít vliv na to, jak dobře EF Core fungují ve vaší aplikaci. Další informace najdete v tématu [implementace rozhraní .NET podporované nástrojem EF Core](xref:core/platforms/index).
 
@@ -133,16 +133,3 @@ Pro ASP.NET Core aplikace je tento balíček zahrnutý automaticky.
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     ```
 
-* Aplikace, které cílí na .NET Framework, můžou potřebovat změny pro práci s knihovnami .NET Standard 2,0:
-
-  * Upravte soubor projektu a ujistěte se, že se v počáteční skupině vlastností zobrazuje následující položka:
-
-    ``` xml
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    ```
-
-  * V případě testovacích projektů se ujistěte také, že je k dispozici následující položka:
-
-    ``` xml
-    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-    ```

@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: 528733d6eec33de2c9538541a6ed5be704b9d433
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.openlocfilehash: d938f17daecd5031147951d0018602c5635de41d
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005559"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149104"
 ---
 # <a name="new-features-included-in-ef-core-30"></a>Nové funkce, které jsou součástí EF Core 3,0
 
@@ -57,7 +57,7 @@ var orders =
 
 await foreach(var o in orders)
 {
-  Proccess(o);
+  Process(o);
 } 
 ```
 
@@ -71,7 +71,7 @@ Nové rozhraní API zachycení v EF Core 3,0 umožňuje programově a úpravu v�
 
 ## <a name="reverse-engineering-of-database-views"></a>Zpětná analýza zobrazení databáze
 
-Typy entit bez klíčů (dříve označované jako [typy dotazů](xref:core/modeling/query-types)) reprezentují data, která je možné číst z databáze, ale nelze je aktualizovat.
+Typy entit bez klíčů (dříve označované jako [typy dotazů](xref:core/modeling/keyless-entity-types)) reprezentují data, která je možné číst z databáze, ale nelze je aktualizovat.
 Tato vlastnost nabízí vynikající možnosti mapování zobrazení databáze ve většině scénářů, takže jsme při zpětné analýze zobrazení databáze automatizováni vytváření typů entit bez použití klíčů.
 
 ## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.
@@ -108,5 +108,5 @@ Existují určitá omezení, například:
 
 Některé funkce původně plánované pro EF Core 3,0 byly odloženy do budoucích verzí: 
 
-- Možnost ingore části modelu v migracích, které jsou sledovány [#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725).
-- Entity kontejneru objektů a dat, které jsou sledovány dvěma samostatnými problémy: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) o entitách Shared type a [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) o podpoře mapování indexovaných vlastností.
+- Možnost ingore části modelu v migracích, které jsou sledovány jako [#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725).
+- Entity kontejneru objektů a dat, které se sledují jako dva samostatné problémy: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) o entitách Shared type a [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) o podpoře mapování indexovaných vlastností.

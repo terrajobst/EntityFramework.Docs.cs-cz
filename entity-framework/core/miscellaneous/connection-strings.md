@@ -4,20 +4,20 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: c306f9ca7a51fc9e3db18e883fd44f56dd1a3cb4
-ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
+ms.openlocfilehash: ed89d6d09b15b0dea7fd8bc3ff3e3f631495ecb7
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2019
-ms.locfileid: "68286451"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149111"
 ---
 # <a name="connection-strings"></a>Připojovací řetězce
 
-Většina poskytovatelů databáze vyžadují určitou formu připojovací řetězec pro připojení k databázi. Někdy tento připojovací řetězec obsahuje citlivé informace, které je potřeba chránit. Také budete muset změnit připojovací řetězec při přesunu mezi prostředími, jako je vývoj, testování a produkční aplikace.
+Většina poskytovatelů databáze vyžaduje pro připojení k databázi nějakou formu připojovacího řetězce. Někdy tento připojovací řetězec obsahuje citlivé informace, které je třeba chránit. Je také možné, že budete muset změnit připojovací řetězec při přesunu aplikace mezi prostředími, jako je vývoj, testování a produkce.
 
-## <a name="net-framework-applications"></a>Aplikace rozhraní .NET framework
+## <a name="winforms--wpf-applications"></a>Technologie WinForms & aplikací WPF
 
-Aplikace rozhraní .NET framework, jako je například WinForms, WPF, konzoly a technologii ASP.NET 4 mají Řetězcový vzorek vyzkoušená a otestovaná připojení. Připojovací řetězec, měli byste přidat do souboru App.config aplikace (Web.config Pokud používáte ASP.NET). Pokud váš připojovací řetězec obsahuje citlivé informace, jako je například uživatelské jméno a heslo, budete moci chránit obsah pomocí souboru konfigurace [Protected Configuration](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration).
+Aplikace WinForms, WPF a ASP.NET 4 mají vyzkoušený a testovaný vzor připojovacího řetězce. Připojovací řetězec by měl být přidán do souboru App. config aplikace (Web. config, pokud používáte ASP.NET). Pokud váš připojovací řetězec obsahuje citlivé informace, jako je uživatelské jméno a heslo, můžete chránit obsah konfiguračního souboru pomocí [nástroje Správce tajných klíčů](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager).
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -31,9 +31,9 @@ Aplikace rozhraní .NET framework, jako je například WinForms, WPF, konzoly a 
 ```
 
 > [!TIP]  
-> `providerName` Nastavení není vyžadován na EF Core připojovací řetězce, která je uložená v souboru App.config, protože poskytovatel databáze se konfiguruje prostřednictvím kódu.
+> Toto `providerName` nastavení není vyžadováno u EF Core připojovacích řetězců uložených v souboru App. config, protože poskytovatel databáze je nakonfigurován prostřednictvím kódu.
 
-Pak si můžete přečíst, připojovací řetězec pomocí `ConfigurationManager` rozhraní API v objektu context `OnConfiguring` metody. Budete muset přidat odkaz na `System.Configuration` sestavení rozhraní framework bude moct pomocí tohoto rozhraní API.
+Pak můžete přečíst připojovací řetězec pomocí `ConfigurationManager` rozhraní API v `OnConfiguring` metodě vašeho kontextu. Je možné, že budete muset přidat odkaz na `System.Configuration` sestavení rozhraní, abyste mohli používat toto rozhraní API.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -50,7 +50,7 @@ public class BloggingContext : DbContext
 
 ## <a name="universal-windows-platform-uwp"></a>Univerzální platforma Windows (UPW)
 
-Připojovací řetězce v aplikaci pro UPW se obvykle SQLite připojení, které právě Určuje místní název souboru. Obvykle neobsahují citlivé informace a není potřeba změnit, protože je aplikace nasazená. V důsledku toho tyto řetězce připojení, se obvykle dají zůstat v kódu, jak je znázorněno níže. Pokud budete chtít přesunout mimo kód, pak UPW podporuje koncept nastavení, najdete v článku [nastavení aplikace část dokumentace k UPW](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data) podrobnosti.
+Připojovací řetězce v aplikaci UWP jsou obvykle připojení SQLite, které pouze určuje místní název souboru. Obvykle neobsahují citlivé informace a nemusejí být měněny při nasazení aplikace. V takovém případě jsou tyto připojovací řetězce obvykle v kódu ponechány, jak je znázorněno níže. Pokud si přejete přesunout je mimo kód, UWP pro něj podporuje koncept nastavení. Podrobnosti najdete v [části nastavení aplikace v dokumentaci UWP](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data) .
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -67,7 +67,7 @@ public class BloggingContext : DbContext
 
 ## <a name="aspnet-core"></a>ASP.NET Core
 
-V ASP.NET Core je velmi flexibilní systém konfigurace, a připojovací řetězec může být uložen v `appsettings.json`, proměnné prostředí, úložiště tajných kódů uživatele nebo jiného zdroje konfigurace. Najdete v článku [konfigurační oddíl dokumentace k ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html) další podrobnosti. Následující příklad ukazuje připojovacím řetězcem, který je uložen v `appsettings.json`.
+V ASP.NET Core je konfigurační systém velmi flexibilní a připojovací řetězec mohl být uložen v proměnné prostředí, `appsettings.json`v úložišti tajného klíče uživatele nebo v jiném zdroji konfigurace. Další podrobnosti najdete v [části věnované konfiguraci v dokumentaci k ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html) . Následující příklad ukazuje připojovací řetězec uložený v `appsettings.json`.
 
 ``` json
 {
@@ -77,7 +77,7 @@ V ASP.NET Core je velmi flexibilní systém konfigurace, a připojovací řetěz
 }
 ```
 
-Kontext je typicky nakonfigurován v `Startup.cs` připojovacím řetězcem, který je čten z konfigurace. Poznámka: `GetConnectionString()` metoda hledá hodnotu konfigurace, jehož klíč je `ConnectionStrings:<connection string name>`. Je potřeba importovat [Microsoft.Extensions.Configuration](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration) obor názvů, aby používali tuto metodu rozšíření.
+Kontext je obvykle nakonfigurovaný v `Startup.cs` rámci s připojovacím řetězcem čteným z konfigurace. Všimněte si `GetConnectionString()` , že metoda hledá hodnotu konfigurace, jejíž klíč `ConnectionStrings:<connection string name>`je. Chcete-li použít tuto metodu rozšíření, je nutné importovat obor názvů [Microsoft. Extensions. Configuration](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration) .
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
