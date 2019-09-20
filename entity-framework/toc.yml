@@ -1,0 +1,549 @@
+- name: Entity Framework
+  href: index.md
+  items:
+    - name: Porovnání EF Core a EF6
+      href: efcore-and-ef6/index.md
+      items:
+        - name: EF6 a EF Core ve stejné aplikaci
+          href: efcore-and-ef6/side-by-side.md
+        - name: Přenesení z EF6 do EF Core
+          href: efcore-and-ef6/porting/index.md
+          items:
+            - name: Ověření požadavků
+              href: efcore-and-ef6/porting/ensure-requirements.md
+            - name: Přenesení modelu na bázi EDMX
+              href: efcore-and-ef6/porting/port-edmx.md
+            - name: Přenesení modelu na bázi kódu
+              href: efcore-and-ef6/porting/port-code.md
+    - name: Entity Framework Core
+      href: core/index.md
+      items:
+        - name: Co je nového
+          href: core/what-is-new/index.md
+          items:
+            - name: Plán
+              href: core/what-is-new/roadmap.md
+            - name: EF Core 3.0 (nejnovější vydaná verze)
+              href: core/what-is-new/ef-core-3.0/index.md
+              items:
+                - name: Nové funkce
+                  href: core/what-is-new/ef-core-3.0/features.md
+                - name: Změny způsobující chyby
+                  href: core/what-is-new/ef-core-3.0/breaking-changes.md
+            - name: EF Core 2.2
+              href: core/what-is-new/ef-core-2.2.md
+            - name: EF Core 2.1
+              href: core/what-is-new/ef-core-2.1.md
+            - name: EF Core 2.0
+              href: core/what-is-new/ef-core-2.0.md
+            - name: EF Core 1.1
+              href: core/what-is-new/ef-core-1.1.md
+            - name: EF Core 1.0
+              href: core/what-is-new/ef-core-1.0.md
+            - name: Upgrade z předchozích verzí
+              items:
+                - name: Z verze 1.0 RC1 na RC2
+                  href: core/miscellaneous/rc1-rc2-upgrade.md
+                - name: Z verze 1.0 RC2 na RTM
+                  href: core/miscellaneous/rc2-rtm-upgrade.md
+                - name: Z verze 1.x na 2.0
+                  href: core/miscellaneous/1x-2x-upgrade.md
+        - name: Začínáme
+          href: core/get-started/index.md
+          items:
+            - name: Instalace EF Core
+              href: core/get-started/install/index.md
+            - name: ⤤ Kurz o ASP.NET Core
+              href: /aspnet/core/data/ef-rp/intro
+        - name: Základy
+          items:
+            - name: Připojovací řetězce
+              href: core/miscellaneous/connection-strings.md
+            - name: protokolování
+              href: core/miscellaneous/logging.md
+            - name: Odolnost připojení
+              href: core/miscellaneous/connection-resiliency.md
+            - name: Testování
+              href: core/miscellaneous/testing/index.md
+              items:
+                - name: Testování s SQLite
+                  href: core/miscellaneous/testing/sqlite.md
+                - name: Testování s InMemory
+                  href: core/miscellaneous/testing/in-memory.md
+            - name: Konfigurace DbContext
+              href: core/miscellaneous/configuring-dbcontext.md
+        - name: Vytvoření modelu
+          href: core/modeling/index.md
+          items:
+            - name: Zahrnutí a vyloučení typů
+              href: core/modeling/included-types.md
+            - name: Zahrnutí a vyloučení vlastností
+              href: core/modeling/included-properties.md
+            - name: Klíče (primární)
+              href: core/modeling/keys.md
+            - name: Vygenerované hodnoty
+              href: core/modeling/generated-properties.md
+            - name: Požadované a volitelné vlastnosti
+              href: core/modeling/required-optional.md
+            - name: Maximální délka
+              href: core/modeling/max-length.md
+            - name: Tokeny souběžnosti
+              href: core/modeling/concurrency.md
+            - name: Stínové vlastnosti
+              href: core/modeling/shadow-properties.md
+            - name: Relace
+              href: core/modeling/relationships.md
+            - name: Indexy
+              href: core/modeling/indexes.md
+            - name: Alternativní klíče
+              href: core/modeling/alternate-keys.md
+            - name: Dědičnost
+              href: core/modeling/inheritance.md
+            - name: Pomocná pole
+              href: core/modeling/backing-field.md
+            - name: Převody hodnot
+              href: core/modeling/value-conversions.md
+            - name: Předvyplnění dat
+              href: core/modeling/data-seeding.md
+            - name: Konstruktory typů entit
+              href: core/modeling/constructors.md
+            - name: Dělení tabulky
+              href: core/modeling/table-splitting.md
+            - name: Vlastněné typy entit
+              href: core/modeling/owned-entities.md
+            - name: Typy entit bez klíčů
+              href: core/modeling/keyless-entity-types.md
+            - name: Střídání modelů pomocí stejného DbContext
+              href: core/modeling/dynamic-model.md
+            - name: Prostorová data (GIS)
+              href: core/modeling/spatial.md
+            - name: Modelování relační databáze
+              href: core/modeling/relational/index.md
+              items:
+                - name: Mapování tabulek
+                  href: core/modeling/relational/tables.md
+                - name: Mapování sloupců
+                  href: core/modeling/relational/columns.md
+                - name: Datové typy
+                  href: core/modeling/relational/data-types.md
+                - name: Primární klíče
+                  href: core/modeling/relational/primary-keys.md
+                - name: Výchozí schéma
+                  href: core/modeling/relational/default-schema.md
+                - name: Vypočítané sloupce
+                  href: core/modeling/relational/computed-columns.md
+                - name: Sekvence
+                  href: core/modeling/relational/sequences.md
+                - name: Výchozí hodnoty
+                  href: core/modeling/relational/default-values.md
+                - name: Indexy
+                  href: core/modeling/relational/indexes.md
+                - name: Omezení cizího klíče
+                  href: core/modeling/relational/fk-constraints.md
+                - name: Alternativní klíče (jedinečná omezení)
+                  href: core/modeling/relational/unique-constraints.md
+                - name: Dědičnost (relační databáze)
+                  href: core/modeling/relational/inheritance.md
+        - name: Správa schémat databází
+          href: core/managing-schemas/index.md
+          items:
+            - name: Migrace
+              href: core/managing-schemas/migrations/index.md
+              items:
+                - name: Týmová prostředí
+                  href: core/managing-schemas/migrations/teams.md
+                - name: Vlastní operace
+                  href: core/managing-schemas/migrations/operations.md
+                - name: Použití samostatného projektu
+                  href: core/managing-schemas/migrations/projects.md
+                - name: Více poskytovatelů
+                  href: core/managing-schemas/migrations/providers.md
+                - name: Vlastní tabulka historie
+                  href: core/managing-schemas/migrations/history-table.md
+            - name: Vytvoření a přemístění rozhraní API
+              href: core/managing-schemas/ensure-created.md
+            - name: Zpětná analýza (generování uživatelského rozhraní)
+              href: core/managing-schemas/scaffolding.md
+        - name: Dotazování na data
+          href: core/querying/index.md
+          items:
+            - name: Základní dotaz
+              href: core/querying/basic.md
+            - name: Načítání souvisejících dat
+              href: core/querying/related-data.md
+            - name: Vyhodnocení klienta vs. serveru
+              href: core/querying/client-eval.md
+            - name: Sledování vs. nesledování
+              href: core/querying/tracking.md
+            - name: Nezpracované dotazy SQL
+              href: core/querying/raw-sql.md
+            - name: Asynchronní dotazy
+              href: core/querying/async.md
+            - name: Jak funguje dotaz
+              href: core/querying/overview.md
+            - name: Globální filtry dotazů
+              href: core/querying/filters.md
+            - name: Značky dotazů
+              href: core/querying/tags.md
+        - name: Ukládání dat
+          href: core/saving/index.md
+          items:
+            - name: Základní uložení
+              href: core/saving/basic.md
+            - name: Související data
+              href: core/saving/related-data.md
+            - name: Kaskádové odstranění
+              href: core/saving/cascade-delete.md
+            - name: Konflikty souběžnosti
+              href: core/saving/concurrency.md
+            - name: Transakce
+              href: core/saving/transactions.md
+            - name: Asynchronní ukládání
+              href: core/saving/async.md
+            - name: Odpojené entity
+              href: core/saving/disconnected-entities.md
+            - name: Explicitní hodnoty pro generované vlastnosti
+              href: core/saving/explicit-values-generated-properties.md
+        - name: Podporovaná implementace .NET
+          href: core/platforms/index.md
+        - name: Poskytovatelé databází
+          href: core/providers/index.md
+          items:
+            - name: Microsoft SQL Server
+              href: core/providers/sql-server/index.md
+              items:
+                - name: Paměťově optimalizované tabulky
+                  href: core/providers/sql-server/memory-optimized-tables.md
+            - name: SQLite
+              href: core/providers/sqlite/index.md
+              items:
+                - name: Omezení SQLite
+                  href: core/providers/sqlite/limitations.md
+            - name: Cosmos
+              href: core/providers/cosmos/index.md
+              items:
+                - name: Práce s nestrukturovanými daty
+                  href: core/providers/cosmos/unstructured-data.md
+                - name: Omezení Cosmosu
+                  href: core/providers/cosmos/limitations.md
+            - name: InMemory (pro testování)
+              href: core/providers/in-memory/index.md
+            - name: Vytvoření poskytovatele databáze
+              href: core/providers/writing-a-provider.md
+            - name: Změny s dopadem na poskytovatele
+              href: core/providers/provider-log.md
+        - name: Nástroje a rozšíření
+          href: core/extensions/index.md
+        - name: "Referenční dokumentace pro použití v\_příkazovém řádku"
+          href: core/miscellaneous/cli/index.md
+          items:
+            - name: Konzola Správce balíčků (Visual Studio)
+              href: core/miscellaneous/cli/powershell.md
+            - name: Rozhraní příkazového řádku .NET Core
+              href: core/miscellaneous/cli/dotnet.md
+            - name: Vytváření DbContext v době návrhu
+              href: core/miscellaneous/cli/dbcontext-creation.md
+            - name: Služby v době návrhu
+              href: core/miscellaneous/cli/services.md
+        - name: ⤤ Referenční dokumentace k rozhraním API EF Core
+          href: 'https://docs.microsoft.com/dotnet/api/?view=efcore-2.1'
+    - name: Entity Framework 6
+      href: ef6/index.md
+      items:
+        - name: Co je nového
+          href: ef6/what-is-new/index.md
+          items:
+            - name: Předchozí verze
+              href: ef6/what-is-new/past-releases.md
+            - name: Upgrade na EF6
+              href: ef6/what-is-new/upgrading-to-ef6.md
+            - name: Verze sady Visual Studio
+              href: ef6/what-is-new/visual-studio.md
+        - name: Začínáme
+          href: ef6/get-started.md
+        - name: Základy
+          href: ef6/fundamentals/index.md
+          items:
+            - name: Jak získat Entity Framework
+              href: ef6/fundamentals/install.md
+            - name: Práce s DbContext
+              href: ef6/fundamentals/working-with-dbcontext.md
+            - name: Principy relací
+              href: ef6/fundamentals/relationships.md
+            - name: Asynchronní dotaz a ukládání
+              href: ef6/fundamentals/async.md
+            - name: Konfigurace
+              items:
+                - name: Založená na kódu
+                  href: ef6/fundamentals/configuring/code-based.md
+                - name: Konfigurační soubor
+                  href: ef6/fundamentals/configuring/config-file.md
+                - name: Připojovací řetězce
+                  href: ef6/fundamentals/configuring/connection-strings.md
+                - name: Řešení závislostí
+                  href: ef6/fundamentals/configuring/dependency-resolution.md
+            - name: Správa připojení
+              href: ef6/fundamentals/connection-management.md
+            - name: Odolnost připojení
+              items:
+                - name: Logika pro opakování
+                  href: ef6/fundamentals/connection-resiliency/retry-logic.md
+                - name: Selhání potvrzení transakce
+                  href: ef6/fundamentals/connection-resiliency/commit-failures.md
+            - name: Datové vazby
+              items:
+                - name: WinForms
+                  href: ef6/fundamentals/databinding/winforms.md
+                - name: WPF
+                  href: ef6/fundamentals/databinding/wpf.md
+            - name: Odpojené entity
+              href: ef6/fundamentals/disconnected-entities/index.md
+              items:
+                - name: Entity s vlastním sledováním
+                  href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
+                  items:
+                    - name: Názorný postup
+                      href: ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md
+            - name: Protokolování a zachytávání
+              href: ef6/fundamentals/logging-and-interception.md
+            - name: Výkon
+              items:
+                - name: Důležité informace o výkonu (dokument white paper)
+                  href: ef6/fundamentals/performance/perf-whitepaper.md
+                - name: Použití technologie NGEN
+                  href: ef6/fundamentals/performance/ngen.md
+                - name: Použití předem vygenerovaných zobrazení
+                  href: ef6/fundamentals/performance/pre-generated-views.md
+            - name: Poskytovatelé
+              href: ef6/fundamentals/providers/index.md
+              items:
+                - name: Model zprostředkovatele EF6
+                  href: ef6/fundamentals/providers/provider-model.md
+                - name: Prostorová podpora mezi zprostředkovateli
+                  href: ef6/fundamentals/providers/spatial-support.md
+            - name: Použití proxy serverů
+              href: ef6/fundamentals/proxies.md
+            - name: Testování v EF6
+              items:
+                - name: Použití napodobování
+                  href: ef6/fundamentals/testing/mocking.md
+                - name: Psaní vlastních testovacích dvojníků
+                  href: ef6/fundamentals/testing/writing-test-doubles.md
+                - name: Testovatelnost v EF4 (článek)
+                  href: ef6/fundamentals/testing/testability-article.md
+        - name: Vytvoření modelu
+          href: ef6/modeling/index.md
+          items:
+            - name: Použití přístupu Code First
+              items:
+                - name: Pracovní postupy
+                  items:
+                    - name: S novou databází
+                      href: ef6/modeling/code-first/workflows/new-database.md
+                    - name: Se stávající databází
+                      href: ef6/modeling/code-first/workflows/existing-database.md
+                - name: Datové poznámky
+                  href: ef6/modeling/code-first/data-annotations.md
+                - name: Objekty DbSet
+                  href: ef6/modeling/code-first/dbsets.md
+                - name: Datové typy
+                  items:
+                    - name: Výčty
+                      href: ef6/modeling/code-first/data-types/enums.md
+                    - name: Spatial
+                      href: ef6/modeling/code-first/data-types/spatial.md
+                - name: Konvence
+                  items:
+                    - name: Integrované konvence
+                      href: ef6/modeling/code-first/conventions/built-in.md
+                    - name: Vlastní konvence
+                      href: ef6/modeling/code-first/conventions/custom.md
+                    - name: Modelové konvence
+                      href: ef6/modeling/code-first/conventions/model.md
+                - name: Plynulá konfigurace
+                  items:
+                    - name: Relace
+                      href: ef6/modeling/code-first/fluent/relationships.md
+                    - name: Typy a vlastnosti
+                      href: ef6/modeling/code-first/fluent/types-and-properties.md
+                    - name: Použití ve Visual Basicu
+                      href: ef6/modeling/code-first/fluent/vb.md
+                    - name: Mapování uložených procedur
+                      href: ef6/modeling/code-first/fluent/cud-stored-procedures.md
+                - name: Migrace
+                  href: ef6/modeling/code-first/migrations/index.md
+                  items:
+                    - name: Automatické migrace
+                      href: ef6/modeling/code-first/migrations/automatic.md
+                    - name: Práce se stávajícími databázemi
+                      href: ef6/modeling/code-first/migrations/existing-database.md
+                    - name: Přizpůsobení historie migrací
+                      href: ef6/modeling/code-first/migrations/history-customization.md
+                    - name: Použití Migrate.exe
+                      href: ef6/modeling/code-first/migrations/migrate-exe.md
+                    - name: Migrace v týmových prostředích
+                      href: ef6/modeling/code-first/migrations/teams.md
+            - name: Použití EF Designeru
+              items:
+                - name: Pracovní postupy
+                  items:
+                    - name: Model-First
+                      href: ef6/modeling/designer/workflows/model-first.md
+                    - name: Database-First
+                      href: ef6/modeling/designer/workflows/database-first.md
+                - name: Typy dat
+                  items:
+                    - name: Komplexní typy
+                      href: ef6/modeling/designer/data-types/complex-types.md
+                    - name: Výčty
+                      href: ef6/modeling/designer/data-types/enums.md
+                    - name: Spatial
+                      href: ef6/modeling/designer/data-types/spatial.md
+                - name: Mapování dělení
+                  items:
+                    - name: Dělení entity
+                      href: ef6/modeling/designer/entity-splitting.md
+                    - name: Dělení tabulky
+                      href: ef6/modeling/designer/table-splitting.md
+                - name: Mapování dědičností
+                  items:
+                    - name: Tabulka za hierarchii
+                      href: ef6/modeling/designer/inheritance/tph.md
+                    - name: Tabulka za typ
+                      href: ef6/modeling/designer/inheritance/tpt.md
+                - name: Mapování uložených procedur
+                  items:
+                    - name: Dotazy
+                      href: ef6/modeling/designer/stored-procedures/query.md
+                    - name: Aktualizace
+                      href: ef6/modeling/designer/stored-procedures/cud.md
+                - name: Mapování relací
+                  href: ef6/modeling/designer/relationships.md
+                - name: Více diagramů
+                  href: ef6/modeling/designer/multiple-diagrams.md
+                - name: Výběr verze modulu runtime
+                  href: ef6/modeling/designer/select-runtime-version.md
+                - name: Vytvoření kódu
+                  href: ef6/modeling/designer/codegen/index.md
+                  items:
+                    - name: Starší ObjectContext
+                      href: ef6/modeling/designer/codegen/legacy-objectcontext.md
+                - name: Upřesnit
+                  items:
+                    - name: Formát souboru EDMX
+                      items:
+                        - name: Specifikace CSDL
+                          href: ef6/modeling/designer/advanced/edmx/csdl-spec.md
+                        - name: Specifikace MSL
+                          href: ef6/modeling/designer/advanced/edmx/msl-spec.md
+                        - name: Specifikace SSDL
+                          href: ef6/modeling/designer/advanced/edmx/ssdl-spec.md
+                    - name: Definice dotazu
+                      href: ef6/modeling/designer/advanced/defining-query.md
+                    - name: Více sad výsledků
+                      href: ef6/modeling/designer/advanced/multiple-result-sets.md
+                    - name: Funkce vracející tabulku
+                      href: ef6/modeling/designer/advanced/tvfs.md
+                - name: Klávesové zkratky
+                  href: ef6/modeling/designer/keyboard-shortcuts.md
+        - name: Dotazování na data
+          href: ef6/querying/index.md
+          items:
+            - name: Load – metoda
+              href: ef6/querying/load-method.md
+            - name: Místní data
+              href: ef6/querying/local-data.md
+            - name: Dotazy se sledováním a bez sledování
+              href: ef6/querying/no-tracking.md
+            - name: Použití nezpracovaných dotazů SQL
+              href: ef6/querying/raw-sql.md
+            - name: Dotazy na související data
+              href: ef6/querying/related-data.md
+        - name: Ukládání dat
+          href: ef6/saving/index.md
+          items:
+            - name: Sledování změn
+              items:
+                - name: Automatické zjišťování změn
+                  href: ef6/saving/change-tracking/auto-detect-changes.md
+                - name: Stav entity
+                  href: ef6/saving/change-tracking/entity-state.md
+                - name: Hodnoty vlastností
+                  href: ef6/saving/change-tracking/property-values.md
+            - name: Zpracování konfliktů souběžnosti
+              href: ef6/saving/concurrency.md
+            - name: Použití transakcí
+              href: ef6/saving/transactions.md
+            - name: Ověřování dat
+              href: ef6/saving/validation.md
+        - name: Další prostředky
+          href: ef6/resources/index.md
+          items:
+            - name: Blogy
+              href: ef6/resources/blogs.md
+            - name: Případové studie
+              href: ef6/resources/case-studies.md
+            - name: Přispět
+              href: ef6/resources/contribute.md
+            - name: Získání nápovědy
+              href: ef6/resources/get-help.md
+            - name: Slovníček
+              href: ef6/resources/glossary.md
+            - name: Ukázková školní databáze
+              href: ef6/resources/school-database.md
+            - name: Nástroje a rozšíření
+              href: ef6/resources/tools.md
+            - name: Licence
+              items:
+                - name: EF5
+                  items:
+                    - name: Čínština (zjednodušená)
+                      href: ef6/resources/licenses/ef5/chs.md
+                    - name: Čínština (tradiční)
+                      href: ef6/resources/licenses/ef5/cht.md
+                    - name: Němčina
+                      href: ef6/resources/licenses/ef5/deu.md
+                    - name: Angličtina
+                      href: ef6/resources/licenses/ef5/enu.md
+                    - name: Španělština
+                      href: ef6/resources/licenses/ef5/esn.md
+                    - name: Francouzština
+                      href: ef6/resources/licenses/ef5/fra.md
+                    - name: Italština
+                      href: ef6/resources/licenses/ef5/ita.md
+                    - name: Japonština
+                      href: ef6/resources/licenses/ef5/jpn.md
+                    - name: Korejština
+                      href: ef6/resources/licenses/ef5/kor.md
+                    - name: Ruština
+                      href: ef6/resources/licenses/ef5/rus.md
+                - name: EF6
+                  items:
+                    - name: Předběžná verze
+                      items:
+                        - name: Alfa
+                          href: ef6/resources/licenses/ef6/prerelease/alpha.md
+                        - name: Beta – Release Candidate
+                          href: ef6/resources/licenses/ef6/prerelease/beta-rc.md
+                    - name: Čínština (zjednodušená)
+                      href: ef6/resources/licenses/ef6/chs.md
+                    - name: Čínština (tradiční)
+                      href: ef6/resources/licenses/ef6/cht.md
+                    - name: Němčina
+                      href: ef6/resources/licenses/ef6/deu.md
+                    - name: Angličtina
+                      href: ef6/resources/licenses/ef6/enu.md
+                    - name: Španělština
+                      href: ef6/resources/licenses/ef6/esn.md
+                    - name: Francouzština
+                      href: ef6/resources/licenses/ef6/fra.md
+                    - name: Italština
+                      href: ef6/resources/licenses/ef6/ita.md
+                    - name: Japonština
+                      href: ef6/resources/licenses/ef6/jpn.md
+                    - name: Korejština
+                      href: ef6/resources/licenses/ef6/kor.md
+                    - name: Ruština
+                      href: ef6/resources/licenses/ef6/rus.md
+        - name: ⤤ Referenční dokumentace k rozhraním API EF6
+          href: 'https://docs.microsoft.com/dotnet/api/?view=entity-framework-6.2.0'
