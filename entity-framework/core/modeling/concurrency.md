@@ -4,54 +4,54 @@ author: rowanmiller
 ms.date: 03/03/2018
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
-ms.openlocfilehash: 0051d416544a11385f99d36e45843c5b20725af7
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: db768c1de99000be91d33764ccd3c3924237f8bb
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994223"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197462"
 ---
-# <a name="concurrency-tokens"></a><span data-ttu-id="1f872-102">Tokeny souběžnosti</span><span class="sxs-lookup"><span data-stu-id="1f872-102">Concurrency Tokens</span></span>
+# <a name="concurrency-tokens"></a><span data-ttu-id="2f973-102">Tokeny souběžnosti</span><span class="sxs-lookup"><span data-stu-id="2f973-102">Concurrency Tokens</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="1f872-103">Tato stránka dokumenty konfigurace tokeny souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="1f872-103">This page documents how to configure concurrency tokens.</span></span> <span data-ttu-id="1f872-104">Zobrazit [zpracování konfliktů souběžnosti](../saving/concurrency.md) podrobné vysvětlení toho, jak funguje řízení souběžnosti na EF Core a příklady toho, jak zpracování konfliktů souběžnosti v aplikaci.</span><span class="sxs-lookup"><span data-stu-id="1f872-104">See [Handling Concurrency Conflicts](../saving/concurrency.md) for a detailed explanation of how concurrency control works on EF Core and examples of how to handle concurrency conflicts in your application.</span></span>
+> <span data-ttu-id="2f973-103">Na této stránce jsou dokumenty, jak nakonfigurovat tokeny souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f973-103">This page documents how to configure concurrency tokens.</span></span> <span data-ttu-id="2f973-104">Podrobné vysvětlení toho, jak řízení souběžnosti funguje na EF Core a příklady, jak zpracovávat konflikty souběžnosti ve vaší aplikaci, najdete v tématu [zpracování konfliktů](../saving/concurrency.md) souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f973-104">See [Handling Concurrency Conflicts](../saving/concurrency.md) for a detailed explanation of how concurrency control works on EF Core and examples of how to handle concurrency conflicts in your application.</span></span>
 
-<span data-ttu-id="1f872-105">Implementace optimistického řízení souběžnosti se používají nakonfigurovaných jako tokeny souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="1f872-105">Properties configured as concurrency tokens are used to implement optimistic concurrency control.</span></span>
+<span data-ttu-id="2f973-105">Vlastnosti konfigurované jako tokeny souběžnosti slouží k implementaci optimistického řízení souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f973-105">Properties configured as concurrency tokens are used to implement optimistic concurrency control.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="1f872-106">Konvence</span><span class="sxs-lookup"><span data-stu-id="1f872-106">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="2f973-106">Konvence</span><span class="sxs-lookup"><span data-stu-id="2f973-106">Conventions</span></span>
 
-<span data-ttu-id="1f872-107">Podle konvence jsou vlastnosti nakonfigurovány jako tokeny souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="1f872-107">By convention, properties are never configured as concurrency tokens.</span></span>
+<span data-ttu-id="2f973-107">Podle konvence se vlastnosti nikdy nekonfigurují jako tokeny souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f973-107">By convention, properties are never configured as concurrency tokens.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="1f872-108">Datové poznámky</span><span class="sxs-lookup"><span data-stu-id="1f872-108">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="2f973-108">Datové poznámky</span><span class="sxs-lookup"><span data-stu-id="2f973-108">Data Annotations</span></span>
 
-<span data-ttu-id="1f872-109">Datové poznámky můžete nakonfigurovat vlastnosti jako tokenem souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="1f872-109">You can use the Data Annotations to configure a property as a concurrency token.</span></span>
+<span data-ttu-id="2f973-109">Můžete použít datové poznámky ke konfiguraci vlastnosti jako tokenu souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f973-109">You can use the Data Annotations to configure a property as a concurrency token.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Concurrency.cs#ConfigureConcurrencyAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs#ConfigureConcurrencyAnnotations)]
 
-## <a name="fluent-api"></a><span data-ttu-id="1f872-110">Rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="1f872-110">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="2f973-110">Rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="2f973-110">Fluent API</span></span>
 
-<span data-ttu-id="1f872-111">Rozhraní Fluent API můžete nakonfigurovat vlastnosti jako tokenem souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="1f872-111">You can use the Fluent API to configure a property as a concurrency token.</span></span>
+<span data-ttu-id="2f973-111">Rozhraní Fluent API můžete použít ke konfiguraci vlastnosti jako tokenu souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f973-111">You can use the Fluent API to configure a property as a concurrency token.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Concurrency.cs#ConfigureConcurrencyFluent)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs#ConfigureConcurrencyFluent)]
 
-## <a name="timestamprow-version"></a><span data-ttu-id="1f872-112">Časové razítko a klíče řádku verze</span><span class="sxs-lookup"><span data-stu-id="1f872-112">Timestamp/row version</span></span>
+## <a name="timestamprow-version"></a><span data-ttu-id="2f973-112">Časové razítko nebo verze řádku</span><span class="sxs-lookup"><span data-stu-id="2f973-112">Timestamp/row version</span></span>
 
-<span data-ttu-id="1f872-113">Časové razítko je vlastnost, pokud nová hodnota je generován databází pokaždé, když se vloží nebo aktualizuje řádek.</span><span class="sxs-lookup"><span data-stu-id="1f872-113">A timestamp is a property where a new value is generated by the database every time a row is inserted or updated.</span></span> <span data-ttu-id="1f872-114">Vlastnost je také považováno za tokenem souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="1f872-114">The property is also treated as a concurrency token.</span></span> <span data-ttu-id="1f872-115">Tím se zajistí, že výjimky se zobrazí, když se někdo jiný změnil řádek, který se pokoušíte aktualizovat, protože jste se dotázali data.</span><span class="sxs-lookup"><span data-stu-id="1f872-115">This ensures you will get an exception if anyone else has modified a row that you are trying to update since you queried for the data.</span></span>
+<span data-ttu-id="2f973-113">Časové razítko je vlastnost, ve které databáze generuje novou hodnotu při každém vložení nebo aktualizaci řádku.</span><span class="sxs-lookup"><span data-stu-id="2f973-113">A timestamp is a property where a new value is generated by the database every time a row is inserted or updated.</span></span> <span data-ttu-id="2f973-114">Vlastnost je také zpracována jako token souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f973-114">The property is also treated as a concurrency token.</span></span> <span data-ttu-id="2f973-115">Tím zajistíte výjimku, pokud někdo jiný změnil řádek, který se pokoušíte aktualizovat, protože jste se dostali k datům.</span><span class="sxs-lookup"><span data-stu-id="2f973-115">This ensures you will get an exception if anyone else has modified a row that you are trying to update since you queried for the data.</span></span>
 
-<span data-ttu-id="1f872-116">Až si zprostředkovatele databáze používá jak toho dosáhnout je.</span><span class="sxs-lookup"><span data-stu-id="1f872-116">How this is achieved is up to the database provider being used.</span></span> <span data-ttu-id="1f872-117">Pro SQL Server, se obvykle používá časové razítko na *byte []* nastavit vlastnost, která bude jako *ROWVERSION* sloupec v databázi.</span><span class="sxs-lookup"><span data-stu-id="1f872-117">For SQL Server, timestamp is usually used on a *byte[]* property, which will be setup as a *ROWVERSION* column in the database.</span></span>
+<span data-ttu-id="2f973-116">Způsob, jakým je dosaženo, je až pro používaného poskytovatele databáze.</span><span class="sxs-lookup"><span data-stu-id="2f973-116">How this is achieved is up to the database provider being used.</span></span> <span data-ttu-id="2f973-117">Pro SQL Server se časové razítko obvykle používá u vlastnosti *Byte []* , která bude nastavená jako sloupec *rowversion* v databázi.</span><span class="sxs-lookup"><span data-stu-id="2f973-117">For SQL Server, timestamp is usually used on a *byte[]* property, which will be setup as a *ROWVERSION* column in the database.</span></span>
 
-### <a name="conventions"></a><span data-ttu-id="1f872-118">Konvence</span><span class="sxs-lookup"><span data-stu-id="1f872-118">Conventions</span></span>
+### <a name="conventions"></a><span data-ttu-id="2f973-118">Konvence</span><span class="sxs-lookup"><span data-stu-id="2f973-118">Conventions</span></span>
 
-<span data-ttu-id="1f872-119">Podle konvence jsou vlastnosti nakonfigurovány jako časová razítka.</span><span class="sxs-lookup"><span data-stu-id="1f872-119">By convention, properties are never configured as timestamps.</span></span>
+<span data-ttu-id="2f973-119">Podle konvence se vlastnosti nikdy nekonfigurují jako časová razítka.</span><span class="sxs-lookup"><span data-stu-id="2f973-119">By convention, properties are never configured as timestamps.</span></span>
 
-### <a name="data-annotations"></a><span data-ttu-id="1f872-120">Datové poznámky</span><span class="sxs-lookup"><span data-stu-id="1f872-120">Data Annotations</span></span>
+### <a name="data-annotations"></a><span data-ttu-id="2f973-120">Datové poznámky</span><span class="sxs-lookup"><span data-stu-id="2f973-120">Data Annotations</span></span>
 
-<span data-ttu-id="1f872-121">Datové poznámky můžete nakonfigurovat vlastnosti jako časové razítko.</span><span class="sxs-lookup"><span data-stu-id="1f872-121">You can use Data Annotations to configure a property as a timestamp.</span></span>
+<span data-ttu-id="2f973-121">Pomocí datových poznámek můžete nastavit vlastnost jako časové razítko.</span><span class="sxs-lookup"><span data-stu-id="2f973-121">You can use Data Annotations to configure a property as a timestamp.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Timestamp.cs#ConfigureTimestampAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs#ConfigureTimestampAnnotations)]
 
-### <a name="fluent-api"></a><span data-ttu-id="1f872-122">Rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="1f872-122">Fluent API</span></span>
+### <a name="fluent-api"></a><span data-ttu-id="2f973-122">Rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="2f973-122">Fluent API</span></span>
 
-<span data-ttu-id="1f872-123">Rozhraní Fluent API můžete nakonfigurovat vlastnosti jako časové razítko.</span><span class="sxs-lookup"><span data-stu-id="1f872-123">You can use the Fluent API to configure a property as a timestamp.</span></span>
+<span data-ttu-id="2f973-123">Rozhraní Fluent API můžete použít ke konfiguraci vlastnosti jako časového razítka.</span><span class="sxs-lookup"><span data-stu-id="2f973-123">You can use the Fluent API to configure a property as a timestamp.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Timestamp.cs#ConfigureTimestampFluent)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Timestamp.cs#ConfigureTimestampFluent)]

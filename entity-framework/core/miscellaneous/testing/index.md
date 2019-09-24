@@ -1,20 +1,20 @@
 ---
-title: Testovat komponenty pomocí Entity Frameworku – EF Core
+title: Testování součástí pomocí EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 1603be0c-69bc-4dd9-9a08-3d0129cdc6c1
 uid: core/miscellaneous/testing/index
-ms.openlocfilehash: fc751b9053c337e4911f4016b65b370d1276046b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a946387718546f14e1485b4093e6c8046188f62d
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997834"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197489"
 ---
-# <a name="testing"></a><span data-ttu-id="d489f-102">Testování</span><span class="sxs-lookup"><span data-stu-id="d489f-102">Testing</span></span>
+# <a name="testing-components-using-ef-core"></a><span data-ttu-id="8b9ac-102">Testování součástí pomocí EF Core</span><span class="sxs-lookup"><span data-stu-id="8b9ac-102">Testing components using EF Core</span></span>
 
-<span data-ttu-id="d489f-103">Můžete testovat komponenty pomocí nějakého nástroje, které se blíží připojení k databázi skutečné bez režie skutečné databáze vstupně-výstupních operací.</span><span class="sxs-lookup"><span data-stu-id="d489f-103">You may want to test components using something that approximates connecting to the real database, without the overhead of actual database I/O operations.</span></span>
+<span data-ttu-id="8b9ac-103">Můžete chtít testovat komponenty pomocí něčeho, co se blíží skutečnému připojení k reálné databázi bez režie skutečných vstupně-výstupních operací databáze.</span><span class="sxs-lookup"><span data-stu-id="8b9ac-103">You may want to test components using something that approximates connecting to the real database, without the overhead of actual database I/O operations.</span></span>
 
-<span data-ttu-id="d489f-104">Jak to udělat dvěma způsoby:</span><span class="sxs-lookup"><span data-stu-id="d489f-104">There are two main options for doing this:</span></span>
- * <span data-ttu-id="d489f-105">[Režimu in-memory SQLite](sqlite.md) díky kterému lze vytvářet efektivní testování poskytovatele, který se chová jako relační databáze.</span><span class="sxs-lookup"><span data-stu-id="d489f-105">[SQLite in-memory mode](sqlite.md) allows you to write efficient tests against a provider that behaves like a relational database.</span></span>
- * <span data-ttu-id="d489f-106">[Zprostředkovatel InMemory](in-memory.md) je jednoduchý zprostředkovatel, který má minimální závislosti, ale vždy se nechová stejně jako relační databáze.</span><span class="sxs-lookup"><span data-stu-id="d489f-106">[The InMemory provider](in-memory.md) is a lightweight provider that has minimal dependencies, but does not always behave like a relational database.</span></span>
+<span data-ttu-id="8b9ac-104">K dispozici jsou dvě hlavní možnosti:</span><span class="sxs-lookup"><span data-stu-id="8b9ac-104">There are two main options for doing this:</span></span>
+ * <span data-ttu-id="8b9ac-105">[V režimu v paměti](sqlite.md) je možné zapisovat efektivní testy pro poskytovatele, který se chová jako relační databáze.</span><span class="sxs-lookup"><span data-stu-id="8b9ac-105">[SQLite in-memory mode](sqlite.md) allows you to write efficient tests against a provider that behaves like a relational database.</span></span>
+ * <span data-ttu-id="8b9ac-106">[Poskytovatel inMemory](in-memory.md) je jednoduchý zprostředkovatel, který má minimální závislosti, ale nemusí se vždy chovat jako relační databáze.</span><span class="sxs-lookup"><span data-stu-id="8b9ac-106">[The InMemory provider](in-memory.md) is a lightweight provider that has minimal dependencies, but does not always behave like a relational database.</span></span>
