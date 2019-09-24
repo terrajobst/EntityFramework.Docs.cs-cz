@@ -1,29 +1,29 @@
 ---
-title: Přehled – EF Core
+title: Přehled Entity Framework Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: 0e35a2b3f89c92b717b8e05c8fa3ae5af5ce8fd3
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: 0107a520e5a698eaf76426b63c6f784392559167
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333782"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196974"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
-Entity Framework (EF) Core je odlehčený, rozšiřitelné, [opensourcových](https://github.com/aspnet/EntityFrameworkCore) a multiplatformní verze oblíbených dat Entity Framework přístup k technologii.
+Jádro Entity Framework (EF) je odlehčená, rozšiřitelná, [Open zdrojová](https://github.com/aspnet/EntityFrameworkCore) a verze pro různé platformy, která je oblíbená entity Frameworká technologie pro přístup k datům.
 
-EF Core může sloužit jako objektově relační Mapovač (O/RM), umožňuje vývojářům .NET pracovat s databází s použitím objektů .NET a eliminují pro většinu kódu přístupu k datům je obvykle potřeba psát.
+EF Core může sloužit jako relační Mapovač (O/RM), což umožňuje vývojářům rozhraní .NET pracovat s databází pomocí objektů .NET a eliminovat nutnost většiny kódu přístupu k datům, které obvykle potřebují napsat.
 
-EF Core podporuje mnoho databázových strojů, naleznete v tématu [poskytovatelé databází](providers/index.md) podrobnosti.
+EF Core podporuje mnoho databázových strojů, další informace najdete v tématu [poskytovatelé databází](providers/index.md) .
 
 ## <a name="the-model"></a>Model
 
-Přístup k datům s EF Core se provádí pomocí modelu. Model se skládá z tříd entit a objekt kontextu, který reprezentuje relaci s databází, umožňuje dotazování a uložit data. Zobrazit [vytváření modelu](modeling/index.md) Další informace.
+Při použití EF Core se přístup k datům provádí pomocí modelu. Model je tvořen třídami entit a kontextový objekt, který představuje relaci s databází, a umožňuje vám dotazování a ukládání dat. Další informace najdete v tématu [Vytvoření modelu](modeling/index.md) .
 
-Můžete generovat model z existující databáze, předat kód modelu pro vyhledání databáze, nebo použijte [migrace EF](managing-schemas/migrations/index.md) vytvoření databáze z modelu a pak ho můžete vyvíjet s modelu mění v průběhu času.
+Můžete vygenerovat model z existující databáze, kód pro psaní rukou modelu, který odpovídá vaší databázi, nebo použít [migrace EF](managing-schemas/migrations/index.md) k vytvoření databáze z modelu a pak ji vyvíjet jako změny modelu v průběhu času.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -65,7 +65,7 @@ namespace Intro
 
 ## <a name="querying"></a>Dotazování
 
-Instance třídy entity načtou z databáze pomocí Language Integrated Query (LINQ). Zobrazit [dotazování na Data](querying/index.md) Další informace.
+Instance tříd vaší entity se načítají z databáze pomocí jazyka LINQ (Language Integrated Query). Další informace najdete v tématu [dotazování na data](querying/index.md) .
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -79,7 +79,7 @@ using (var db = new BloggingContext())
 
 ## <a name="saving-data"></a>Ukládání dat
 
-Data je vytvořit, odstranit a upravit v databázi pomocí instance třídy entity. Zobrazit [ukládání dat](saving/index.md) Další informace.
+Data se vytvářejí, odstraňují a upravují v databázi s použitím instancí tříd vaší entity. Další informace najdete v tématu [ukládání dat](saving/index.md) .
 
 ``` csharp
 using (var db = new BloggingContext())
@@ -92,5 +92,5 @@ using (var db = new BloggingContext())
 
 ## <a name="next-steps"></a>Další kroky
 
-Úvodní kurzy najdete na stránce [Začínáme s Entity Framework Core](get-started/index.md).
+Úvodní kurzy najdete v tématu [Začínáme s Entity Framework Core](get-started/index.md).
 

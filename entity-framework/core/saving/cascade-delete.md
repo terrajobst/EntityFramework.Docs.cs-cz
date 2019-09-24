@@ -1,82 +1,82 @@
 ---
-title: Odstranění – EF Core v kaskádě
+title: Kaskádové odstranění – EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 15b7e69676ef9aeb70121fcec404c34a17e5e2bb
-ms.sourcegitcommit: 8d04a2ad98036f32ca70c77ce3040c5edb1cdf82
+ms.openlocfilehash: ec04de4eab2a28e3aa81ff27accef4fc11c83995
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44384836"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197789"
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
-Kaskádové odstranění se běžně používá v, řečeno terminologií databáze k popisu znakem, který umožňuje odstranění řádku pro automatickou aktivaci odstranění související řádky. Úzce související pojem také popsaná v EF Core odstranit chování je automatické odstranění podřízené entity, když jeho vztah k nadřazené bylo porušeno – to se běžně označuje jako "odstraňování osamocené položky".
+Kaskádové odstraňování se často používá v terminologii databáze k popisu charakteristiky, která umožňuje odstranění řádku automaticky aktivovat odstranění souvisejících řádků. Úzce související pojem, který je pokrytý EF Core odstranění chování je automatické odstranění podřízené entity, pokud je relace vůči nadřazenému objektu nadřazená – to se obvykle označuje jako "odstranění osamocení".
 
-EF Core implementuje několik různých odstranit chování a umožňuje konfigurovat chování odstranění jednotlivých vztahů. EF Core také implementuje vytváření názvů, který automaticky nakonfiguruje odstranit užitečné výchozí chování pro každou relaci na základě [requiredness relace](../modeling/relationships.md#required-and-optional-relationships).
+EF Core implementuje několik různých chování při odstraňování a umožňuje konfiguraci chování při odstraňování jednotlivých vztahů. EF Core také implementuje konvence, které automaticky nakonfigurují užitečné výchozí chování při odstraňování každého vztahu na základě [požadované hodnoty vztahu](../modeling/relationships.md#required-and-optional-relationships).
 
-## <a name="delete-behaviors"></a>Odstranit chování
-Odstranit chování, které jsou definovány v *DeleteBehavior* enumerátor typu a mohou být předány *elementy OnDelete* fluent API pro ovládací prvek, zda odstranění objektu zabezpečení/nadřazená entita nebo severing z vztah k entity závislé/podřízený by měl mít vedlejší účinek v závislé/podřízené entity.
+## <a name="delete-behaviors"></a>Chování při odstranění
+Chování při odstranění jsou definovaná v typu enumerátoru *DeleteBehavior* a dají se předat rozhraní API pro *odstranění* Fluent, které určuje, jestli se má odstranit objekt zabezpečení nebo nadřazená entita nebo závažnost vztahu k závislým/podřízeným entitám. mají vedlejší efekt na závislých nebo podřízených entitách.
 
-Existují tři akce, které EF můžete provést, když je odstraněn objekt zabezpečení/nadřazená entita nebo porušeno vztah podřízený:
-* Podřízené rolích dependent je možné odstranit.
-* Podřízené hodnoty cizího klíče můžete nastavit na hodnotu null
-* Podřízené zůstane beze změny
+Existují tři akce, které EF může provést při odstranění objektu zabezpečení nebo nadřazené entity nebo při jeho vztahu k podřízenému objektu:
+* Podřízená/závislá je možné odstranit.
+* Hodnoty cizího klíče dítěte mohou být nastaveny na hodnotu null.
+* Podřízená položka zůstane beze změny.
 
 > [!NOTE]  
-> Odstranit chování nakonfigurovaném v modelu EF Core platí pouze při instančního objektu entity se odstraní pomocí EF Core a entity, které závislé jsou načtena do paměti (to znamená pro sledované závislosti). Odpovídající chování cascade musí být, že má instalační program v databázi pro zajištění dat, která není sledována kontextu použité potřebné akce. Pokud použijete k vytvoření databáze EF Core, bude toto chování cascade nastavení za vás.
+> Chování při odstranění, které je nakonfigurované v modelu EF Core, se použije jenom v případě, že je primární entita Odstraněná pomocí EF Core a závislé entity se načtou do paměti (tj. pro sledované závislé položky). V databázi musí být nastavené odpovídající chování funkce Cascade, aby se zajistilo, že data, která nejsou sledována kontextem, jsou použita potřebná akce. Pokud k vytvoření databáze použijete EF Core, bude chování kaskádového nastavení pro vás.
 
-Pro druhý výše uvedenou akci nastavení hodnoty cizího klíče na hodnotu null není platná, pokud není cizí klíč s možnou hodnotou Null. (Je ekvivalentní povinný vztah cizího klíče nepřipouštějící.) V těchto případech EF Core sleduje, že vlastnost cizího klíče byl označen jako null dokud se nazývá SaveChanges, kdy je vyvolána výjimka, protože změny nelze nastavit jako trvalý do databáze. Toto je podobný získávání porušení omezení z databáze.
+U druhé akce výše nastavení hodnota cizího klíče na hodnotu null není platné, pokud cizí klíč nemůže mít hodnotu null. (Cizí klíč, který nemůže mít hodnotu null, je ekvivalentní k požadované relaci.) V těchto případech EF Core sleduje, že vlastnost cizího klíče byla označena jako null, dokud není volána metoda SaveChanges, přičemž v této době je vyvolána výjimka, protože změnu nelze trvale uložit do databáze. To je podobné jako získání porušení omezení z databáze.
 
-Existují čtyři odstranit chování, jak je uvedeno v následujících tabulkách.
+Existují čtyři chování při odstranění, jak je uvedeno v následujících tabulkách.
 
 ### <a name="optional-relationships"></a>Volitelné relace
-Pro volitelné relace (s možnou hodnotou Null cizí klíč) ji _je_ možné uložit cizího klíče hodnotu null, což vede k následujících efektů:
+U volitelných vztahů (cizí klíč s možnou hodnotou null) _je_ možné uložit hodnotu cizího klíče s hodnotou null, která má za následek následující důsledky:
 
-| Název chování               | Vliv na závislé a podřízené v paměti    | Vliv na závislé/podřízené databáze  |
+| Název chování               | Vliv na závislé nebo podřízené objekty v paměti    | Vliv na závislé nebo podřízené v databázi  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
-| **Kaskádové**                 | Odstranění entit                   | Odstranění entit                   |
-| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Žádné                                   |
-| **SetNull**                 | Vlastnosti cizího klíče jsou nastaveny na hodnotu null | Vlastnosti cizího klíče jsou nastaveny na hodnotu null |
-| **omezení**                | Žádné                                   | Žádné                                   |
+| **Nášejí**                 | Entity jsou odstraněny                   | Entity jsou odstraněny                   |
+| **ClientSetNull** Výchozí | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Žádné                                   |
+| **SetNull**                 | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. |
+| **Omezit**                | Žádné                                   | Žádné                                   |
 
-### <a name="required-relationships"></a>Požadovaná relace
-Požadovaná relace (neumožňující cizí klíč) je _není_ možné uložit cizího klíče hodnotu null, což vede k následujících efektů:
+### <a name="required-relationships"></a>Požadované relace
+Pro požadované relace (cizí klíč, který nesmí mít hodnotu null), _není_ možné uložit hodnotu cizího klíče s hodnotou null, která má za následek následující důsledky:
 
-| Název chování         | Vliv na závislé a podřízené v paměti | Vliv na závislé/podřízené databáze |
+| Název chování         | Vliv na závislé nebo podřízené objekty v paměti | Vliv na závislé nebo podřízené v databázi |
 |:----------------------|:------------------------------------|:--------------------------------------|
-| **Kaskádové** (výchozí) | Odstranění entit                | Odstranění entit                  |
-| **ClientSetNull**     | Vyvolá SaveChanges                  | Žádné                                  |
-| **SetNull**           | Vyvolá SaveChanges                  | Vyvolá SaveChanges                    |
-| **omezení**          | Žádné                                | Žádné                                  |
+| **Kaskádová** Výchozí | Entity jsou odstraněny                | Entity jsou odstraněny                  |
+| **ClientSetNull**     | SaveChanges vyvolá                  | Žádné                                  |
+| **SetNull**           | SaveChanges vyvolá                  | SaveChanges vyvolá                    |
+| **Omezit**          | Žádné                                | Žádné                                  |
 
-V tabulkách výše *žádný* může vést k narušení omezení. Například pokud se entita hlavní/podřízený se odstraní, ale chcete-li změnit cizí klíč závislé/podřízený nebyla provedena žádná akce, poté databázi pravděpodobně vyvolá na SaveChanges z důvodu narušení omezení pro cizí.
+V tabulkách uvedených výše může *žádný* z nich dojít k porušení omezení. Například pokud je odstraněna objekt hlavní/podřízená entita, ale není provedena žádná akce pro změnu cizího klíče závislého nebo podřízeného objektu, databáze pravděpodobně vyvolá operaci SaveChanges z důvodu narušení cizího omezení.
 
-Na vysoké úrovni:
-* Pokud máte entity, které nemohou existovat bez nadřazených a EF postará za odstranění podřízené objekty automaticky a pak použijte *Cascade*.
-  * Entity, které nemohou existovat bez nadřazené obvykle provést pomocí požadované vztahů, pro kterou *Cascade* je výchozí nastavení.
-* Pokud máte entity, které může nebo nemusí být nadřazenou položku a EF, která se stará o nulling si cizí klíč pro vás a pak použijte *ClientSetNull*
-  * Entity, které mohou existovat bez nadřazené obvykle provést použít volitelný vztahů, pro kterou *ClientSetNull* je výchozí nastavení.
-  * Pokud chcete databázi taky zkusit šíření hodnoty null k cizím klíčům podřízené i když není načten podřízené entity, pak použijte *SetNull*. Mějte však na paměti, že databáze musí podporovat to a konfigurace databáze tímto způsobem může způsobit další omezení, která v praxi často nepraktické tuto možnost. To je důvod, proč *SetNull* není výchozí.
-* Pokud nechcete, aby EF Core pro nikdy automaticky odstranit entitu nebo hodnota null, cizí klíč automaticky, a následné použití *omezit*. Upozorňujeme, že to vyžaduje, aby váš kód synchronizaci podřízených entit a jejich hodnoty cizího klíče ručně jinak omezení výjimky budou vyvolány.
+Na nejvyšší úrovni:
+* Pokud máte entity, které nemůžou existovat bez nadřazeného objektu, a chcete, aby se EF postaral o automatické odstranění podřízených objektů, použijte *kaskády*.
+  * Entity, které nemohou existovat bez nadřazeného objektu obvykle využívají požadované relace, pro které je výchozí hodnota *Cascade* .
+* Pokud máte entity, které mohou nebo nemusí mít nadřazenou položku a chcete, aby EF postaral o vynulování cizího klíče za vás, pak použijte *ClientSetNull*
+  * Entity, které mohou existovat bez nadřazeného objektu obvykle využívají volitelné vztahy, pro které je výchozí hodnota *ClientSetNull* .
+  * Pokud chcete, aby se databáze také pokusila rozšířit hodnoty null na podřízené cizí klíče i v případě, že není načtena podřízená entita, použijte *SetNull*. Uvědomte si však, že databáze musí podporovat tuto databázi, a pokud ji nakonfigurujete takto, může to mít za následek i jiná omezení, což v praxi často tuto možnost způsobuje nepraktické. To je důvod, proč *SetNull* není výchozí.
+* Pokud nechcete, aby EF Core nikdy odstranit entitu automaticky, nebo vynulování cizího klíče automaticky vyprší, použijte možnost *omezit*. Všimněte si, že to vyžaduje, aby váš kód zachoval podřízené entity a jejich hodnoty cizího klíče v synchronizaci ručně, jinak budou vyvolány výjimky omezení.
 
 > [!NOTE]
-> V EF Core, na rozdíl od EF6 kaskádové účinky neproběhne okamžitě, ale místo toho pouze když je volána metoda SaveChanges.
+> V EF Core na rozdíl od EF6 se kaskádové efekty okamžitě neprojeví, ale pouze v případě, že je volána metoda SaveChanges.
 
 > [!NOTE]  
-> **Změny v EF Core 2.0:** v předchozích verzích *omezit* by způsobilo volitelné vlastnosti cizího klíče v sledované závislé můžou být nastavena na hodnotu null a je výchozí chování pro volitelné relací při odstranění. V EF Core 2.0 *ClientSetNull* byl zaveden k reprezentaci tohoto chování a začal na výchozí hodnoty pro nepovinný vztahy. Chování *omezit* byla upravena nikdy mít žádné vedlejší účinky na závislých položek.
+> **Změny v EF Core 2,0:** V předchozích verzích by *omezení* způsobilo, že volitelné vlastnosti cizího klíče ve sledovaných závislých entitách budou nastaveny na hodnotu null a bylo výchozím chováním při odstraňování volitelných vztahů. V EF Core 2,0 byla zavedena *ClientSetNull* , která představuje toto chování a stala se výchozími pro volitelné relace. Chování *omezení* bylo upraveno tak, aby na závislých entitách nikdy neměly žádné vedlejší účinky.
 
-## <a name="entity-deletion-examples"></a>Příklady odstranění entity
+## <a name="entity-deletion-examples"></a>Příklady odstranění entit
 
-Následující kód je součástí [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , který je možné stáhnout a spustit. Vzorek ukazuje, co se stane pro každou chování při odstraňování u povinných a volitelných relací při odstranění nadřazená entita.
+Níže uvedený kód je součástí [ukázky](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , kterou je možné stáhnout a spustit. Ukázka ukazuje, co se stane pro každé chování při odstraňování volitelných i požadovaných relací při odstranění nadřazené entity.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
-Projděme si každý variace pochopit, co se děje.
+Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade požadované nebo volitelné vztah
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Cascade s povinným nebo volitelným vztahem
 
 ```
   After loading entities:
@@ -100,12 +100,12 @@ Projděme si každý variace pochopit, co se děje.
       Post '2' is in state Detached with FK '1' and no reference to a blog.
 ```
 
-* Blog je označený jako odstraněný
-* Příspěvky zpočátku zůstat Unchanged, protože cascades neproběhne až do SaveChanges
-* SaveChanges odešle odstraní závislé položky a podřízené položky (příspěvků) a potom objekt zabezpečení/nadřazený (blog)
-* Po uložení se všechny entity odpojit, protože nyní z databáze byla odstraněna
+* Blog je označený jako odstraněný.
+* Příspěvky zpočátku zůstávají beze změny, protože kaskády neprobíhá, dokud SaveChanges neproběhne.
+* SaveChanges odesílá odstranění pro závislé položky i podřízené objekty (příspěvky) a pak hlavní/nadřazený (blog).
+* Po uložení se všechny entity odpojí od chvíle, kdy byly z databáze odstraněny.
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull nebo DeleteBehavior.SetNull s povinný vztah
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s požadovanou relací
 
 ```
   After loading entities:
@@ -124,11 +124,11 @@ Projděme si každý variace pochopit, co se děje.
   SaveChanges threw DbUpdateException: Cannot insert the value NULL into column 'BlogId', table 'EFSaving.CascadeDelete.dbo.Posts'; column does not allow nulls. UPDATE fails. The statement has been terminated.
 ```
 
-* Blog je označený jako odstraněný
-* Příspěvky zpočátku zůstat Unchanged, protože cascades neproběhne až do SaveChanges
-* SaveChanges, pokusí se nastavit příspěvek cizího klíče na hodnotu null, ale to se nezdaří, protože není FK s možnou hodnotou Null
+* Blog je označený jako odstraněný.
+* Příspěvky zpočátku zůstávají beze změny, protože kaskády neprobíhá, dokud SaveChanges neproběhne.
+* Metoda SaveChanges se pokusí nastavit hodnotu post FK na null, ale to se nepovede, protože hodnota FK nemůže mít hodnotu null.
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull nebo DeleteBehavior.SetNull s volitelný vztah
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s volitelným vztahem
 
 ```
   After loading entities:
@@ -152,13 +152,13 @@ Projděme si každý variace pochopit, co se děje.
       Post '2' is in state Unchanged with FK 'null' and no reference to a blog.
 ```
 
-* Blog je označený jako odstraněný
-* Příspěvky zpočátku zůstat Unchanged, protože cascades neproběhne až do SaveChanges
-* Pokusy o SaveChanges FK obě položky závislé na/podřízené prvky (příspěvků) nastaví na hodnotu null před odstraněním objektu zabezpečení/nadřazený (blog)
-* Po uložení objektu zabezpečení/nadřazený (blog) je odstraněn, ale závislé položky a podřízené objekty (příspěvků) jsou stále sledována.
-* Sledované závislé položky a podřízené objekty (příspěvků) teď obsahují hodnoty null cizího klíče a jejich odkaz na odstraněný objekt zabezpečení/nadřazený (blog) byla odebrána.
+* Blog je označený jako odstraněný.
+* Příspěvky zpočátku zůstávají beze změny, protože kaskády neprobíhá, dokud SaveChanges neproběhne.
+* Při pokusu o použití metody SaveChanges se před odstraněním objektu zabezpečení nebo nadřazené položky (blog) nastaví FK (post) na hodnotu null.
+* Po uložení se objekt zabezpečení nebo nadřazený prvek (blog) odstraní, ale závislé objekty a podřízené položky (příspěvky) jsou pořád sledovány.
+* Sledované závislé položky/podřízené položky (příspěvky) nyní mají hodnoty neprázdných CK a jejich odkaz na odstraněný objekt zabezpečení nebo nadřazený objekt (blog) byl odebrán.
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict požadované nebo volitelné vztah
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. restrict s povinným nebo volitelným vztahem
 
 ```
   After loading entities:
@@ -175,19 +175,19 @@ Projděme si každý variace pochopit, co se děje.
   SaveChanges threw InvalidOperationException: The association between entity types 'Blog' and 'Post' has been severed but the foreign key for this relationship cannot be set to null. If the dependent entity should be deleted, then setup the relationship to use cascade deletes.
 ```
 
-* Blog je označený jako odstraněný
-* Příspěvky zpočátku zůstat Unchanged, protože cascades neproběhne až do SaveChanges
-* Protože *omezit* říká EF automaticky nastavit cizího klíče na hodnotu null, zůstane jinou hodnotu než null a SaveChanges vyvolá bez uložení
+* Blog je označený jako odstraněný.
+* Příspěvky zpočátku zůstávají beze změny, protože kaskády neprobíhá, dokud SaveChanges neproběhne.
+* Vzhledem k tomu, že příkaz *restrict* instruuje EF k automatickému nastavení hodnoty FK na hodnotu null, zůstává nenulová a možnost SaveChanges vyvolá bez uložení.
 
-## <a name="delete-orphans-examples"></a>Odstranit příklady osamocené položky
+## <a name="delete-orphans-examples"></a>Odstranit osamocené příklady
 
-Následující kód je součástí [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/) , který je možné stáhnout a spustit. Vzorek ukazuje, co se stane pro každou chování při odstraňování u povinných a volitelných relací při porušeno vztah nadřazeného/instanční objekt a jeho podřízené objekty/dependents. V tomto příkladu je vztah porušeno odebráním závislé položky a podřízené objekty (příspěvků) z navigační vlastnost kolekce na objekt zabezpečení/nadřazený (blog). Chování je však stejný Pokud odkaz z závislé/podřízený na objekt zabezpečení/nadřazený prvek je místo toho vynulovanými navýšení kapacity.
+Níže uvedený kód je součástí [ukázky](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , kterou je možné stáhnout a spustit. Ukázka ukazuje, co se stane pro každé chování při odstraňování volitelných i požadovaných vztahů, pokud je v relaci mezi nadřazeným objektem, hlavním prvkem a jeho podřízenými a závislými prvky vážně. V tomto příkladu je relace závažná odebráním závislých a podřízených prvků (příspěvků) z navigační vlastnosti kolekce na objektu hlavní nebo nadřazené (blog). Chování je však stejné, pokud je odkaz z závislého nebo podřízeného objektu na objekt zabezpečení nebo nadřazený je namísto hodnoty null.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 
-Projděme si každý variace pochopit, co se děje.
+Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior.Cascade požadované nebo volitelné vztah
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Cascade s povinným nebo volitelným vztahem
 
 ```
   After loading entities:
@@ -210,12 +210,12 @@ Projděme si každý variace pochopit, co se děje.
       Post '2' is in state Detached with FK '1' and no reference to a blog.
 ```
 
-* Příspěvky jsou označeny jako změněno, protože severing vztah způsobily FK být označený jako null
-  * Pokud FK není s možnou hodnotou Null, pak skutečnou hodnotu nedojde ke změně i v případě, že je označena jako hodnota null
-* SaveChanges odešle odstraní pro závislé položky a podřízené položky (příspěvků)
-* Po uložení, jsou závislé položky a podřízené objekty (příspěvků) odpojit, protože nyní z databáze byla odstraněna
+* Příspěvky jsou označeny jako upravené, protože závažnost vztahu způsobila, že hodnota FK je označena jako null.
+  * Pokud hodnota FK není null, skutečná hodnota se nemění, i když je označena jako null.
+* SaveChanges odesílá odstranění pro závislé objekty/podřízené položky (příspěvky).
+* Po uložení se závislé položky nebo podřízené položky (příspěvky) odpojí od okamžiku odstranění z databáze.
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull nebo DeleteBehavior.SetNull s povinný vztah
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s požadovanou relací
 
 ```
   After loading entities:
@@ -234,11 +234,11 @@ Projděme si každý variace pochopit, co se děje.
   SaveChanges threw DbUpdateException: Cannot insert the value NULL into column 'BlogId', table 'EFSaving.CascadeDelete.dbo.Posts'; column does not allow nulls. UPDATE fails. The statement has been terminated.
 ```
 
-* Příspěvky jsou označeny jako změněno, protože severing vztah způsobily FK být označený jako null
-  * Pokud FK není s možnou hodnotou Null, pak skutečnou hodnotu nedojde ke změně i v případě, že je označena jako hodnota null
-* SaveChanges, pokusí se nastavit příspěvek cizího klíče na hodnotu null, ale to se nezdaří, protože není FK s možnou hodnotou Null
+* Příspěvky jsou označeny jako upravené, protože závažnost vztahu způsobila, že hodnota FK je označena jako null.
+  * Pokud hodnota FK není null, skutečná hodnota se nemění, i když je označena jako null.
+* Metoda SaveChanges se pokusí nastavit hodnotu post FK na null, ale to se nepovede, protože hodnota FK nemůže mít hodnotu null.
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull nebo DeleteBehavior.SetNull s volitelný vztah
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s volitelným vztahem
 
 ```
   After loading entities:
@@ -261,12 +261,12 @@ Projděme si každý variace pochopit, co se děje.
       Post '2' is in state Unchanged with FK 'null' and no reference to a blog.
 ```
 
-* Příspěvky jsou označeny jako změněno, protože severing vztah způsobily FK být označený jako null
-  * Pokud FK není s možnou hodnotou Null, pak skutečnou hodnotu nedojde ke změně i v případě, že je označena jako hodnota null
-* SaveChanges FK obě položky závislé na/podřízené prvky (příspěvků) nastaví na hodnotu null
-* Po uložení, závislé položky a podřízené objekty (příspěvků) teď obsahují hodnoty null cizího klíče a jejich odkaz na odstraněný objekt zabezpečení/nadřazený (blog) byla odebrána.
+* Příspěvky jsou označeny jako upravené, protože závažnost vztahu způsobila, že hodnota FK je označena jako null.
+  * Pokud hodnota FK není null, skutečná hodnota se nemění, i když je označena jako null.
+* SaveChanges nastaví FK pro závislé objekty nebo podřízené objekty (post) na hodnotu null.
+* Po uložení budou mít následníci/podřízené (příspěvky) nyní hodnoty neprázdných hodnot FK a jejich odkaz na odstraněný objekt zabezpečení nebo nadřazený objekt (blog) byl odebrán.
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior.Restrict požadované nebo volitelné vztah
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. restrict s povinným nebo volitelným vztahem
 
 ```
   After loading entities:
@@ -283,13 +283,13 @@ Projděme si každý variace pochopit, co se děje.
   SaveChanges threw InvalidOperationException: The association between entity types 'Blog' and 'Post' has been severed but the foreign key for this relationship cannot be set to null. If the dependent entity should be deleted, then setup the relationship to use cascade deletes.
 ```
 
-* Příspěvky jsou označeny jako změněno, protože severing vztah způsobily FK být označený jako null
-  * Pokud FK není s možnou hodnotou Null, pak skutečnou hodnotu nedojde ke změně i v případě, že je označena jako hodnota null
-* Protože *omezit* říká EF automaticky nastavit cizího klíče na hodnotu null, zůstane jinou hodnotu než null a SaveChanges vyvolá bez uložení
+* Příspěvky jsou označeny jako upravené, protože závažnost vztahu způsobila, že hodnota FK je označena jako null.
+  * Pokud hodnota FK není null, skutečná hodnota se nemění, i když je označena jako null.
+* Vzhledem k tomu, že příkaz *restrict* instruuje EF k automatickému nastavení hodnoty FK na hodnotu null, zůstává nenulová a možnost SaveChanges vyvolá bez uložení.
 
-## <a name="cascading-to-untracked-entities"></a>Kaskádová šablona Nesledované entity
+## <a name="cascading-to-untracked-entities"></a>Kaskádové k nesledovaným entitám
 
-Při volání *SaveChanges*, kaskádové odstranění pravidla se použijí pro všechny entity, které jsou sledovány kontextu. Toto je situace, ve všech příkladů uvedených výše, což je důvod, proč SQL se vygeneroval se odstranit objekt zabezpečení/nadřazený (blog) a všechny závislé položky a podřízené objekty (příspěvků):
+Při volání *metody SaveChanges*budou pravidla pro odstranění kaskádových pravidel použita u všech entit, které jsou sledovány v kontextu. Jedná se o situaci ve všech výše uvedených příkladech, což je důvod, proč byl vygenerován SQL, aby odstranil hlavní nebo nadřazený objekt (blog) a všechny závislé prvky/podřízené položky (příspěvky):
 
 ```sql
     DELETE FROM [Posts] WHERE [PostId] = 1
@@ -297,10 +297,10 @@ Při volání *SaveChanges*, kaskádové odstranění pravidla se použijí pro 
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Pokud pouze pro objekt zabezpečení je načteno – například když se provede dotaz pro blog bez `Include(b => b.Posts)` Pokud chcete také zahrnout příspěvky – potom SaveChanges vygeneruje jenom SQL se odstranit objekt zabezpečení/nadřazený prvek:
+Pokud je načtený pouze objekt zabezpečení (například když je vytvořen dotaz na blogu) bez `Include(b => b.Posts)` příkazu pro zahrnutí příspěvků – potom SaveChanges vygeneruje pouze SQL pro odstranění objektu zabezpečení nebo nadřazené položky:
 
 ```sql
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Závislé položky a podřízené objekty (příspěvků) budou odstraněny, pouze pokud databáze nemá odpovídající chování cascade nakonfigurovaném. Pokud použijete k vytvoření databáze EF, bude toto chování cascade nastavení za vás.
+Závislé objekty a podřízené položky (příspěvky) se odstraní pouze v případě, že má databáze nakonfigurované odpovídající chování kaskádového chování. Pokud k vytvoření databáze použijete EF, toto chování kaskádové instalace bude nastaveno za vás.

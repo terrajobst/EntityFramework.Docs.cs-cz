@@ -1,40 +1,68 @@
 ---
-title: Vytváření DbContext v době návrhu – EF Core
+title: Vytváření DbContext při návrhu – EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 10/27/2017
+ms.date: 09/16/2019
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: 66fec7605b6ac2da0af1e801f8a1dca0789aea35
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f83d4b16227d114a1cac1514667484a908fea4ac
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993715"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197572"
 ---
 <a name="design-time-dbcontext-creation"></a>Vytváření DbContext v době návrhu
 ==============================
-Některé příkazy EF Core Tools (například [migrace][1] příkazy) vyžadují odvozené `DbContext` instance má být vytvořen v době návrhu, aby bylo možné získat podrobnosti o vaší aplikace typy entit a jak jsou mapovány na schéma databáze. Ve většině případů je žádoucí, který `DbContext` tím vytvořený nakonfigurovat podobným způsobem, jak by být [nakonfigurované v době běhu][2].
+Některé příkazy EF Core nástrojů (například příkazy [migrace][1] ) vyžadují, aby se v době návrhu vytvořila `DbContext` odvozená instance, aby se shromáždily podrobnosti o typech entit aplikace a jak se mapují ke schématu databáze. Ve většině případů je žádoucí, aby byl vytvořen `DbContext` tak, aby byl nakonfigurován podobným způsobem, jak by byl [nakonfigurován v době běhu][2].
 
-Existují různé způsoby nástroje pokusu o vytvoření `DbContext`:
+Existují různé způsoby, jak se nástroje pokoušejí vytvořit `DbContext`:
 
 <a name="from-application-services"></a>Z aplikačních služeb
 -------------------------
-Pokud je váš projekt po spuštění aplikace ASP.NET Core, nástroje, pokuste se získat objekt DbContext z vaší aplikace poskytovatele služeb.
+Pokud váš projekt po spuštění používá [webového hostitele ASP.NET Core][3] nebo [obecného hostitele .NET Core][4], nástroj se pokusí získat objekt DbContext od poskytovatele služeb aplikace.
 
-Nástroje se nejprve pokusí získat poskytovatele služeb vyvoláním `Program.BuildWebHost()` a přístup k `IWebHost.Services` vlastnost.
+Nástroje se nejdřív pokusí získat poskytovatele `Program.CreateHostBuilder()`služby vyvoláním, voláním `Build()`a přístupem `Services` k vlastnosti.
+
+``` csharp
+public class Program
+{
+    public static void Main(string[] args)
+        => CreateHostBuilder(args).Build().Run();
+
+    // EF Core uses this method at design time to access the DbContext
+    public static IHostBuilder CreateHostBuilder(string[] args)
+        => Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(
+                webBuilder => webBuilder.UseStartup<Startup>());
+}
+
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+        => services.AddDbContext<ApplicationDbContext>();
+}
+
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
+}
+```
 
 > [!NOTE]
-> Když vytvoříte novou aplikaci ASP.NET Core 2.0, je standardní součástí tohoto připojení. V předchozích verzích EF Core a ASP.NET Core, nástroje zkusit vyvolat `Startup.ConfigureServices` přímo, aby bylo možné získat aplikace poskytovatele služeb, ale tento model už fungování aplikace ASP.NET Core 2.0. Pokud provádíte upgrade aplikace ASP.NET Core 1.x do 2.0, můžete si [upravit vaše `Program` třídy mají nový tvar][3].
+> Při vytváření nové aplikace ASP.NET Core je tento zavěšení součástí standardně.
 
-`DbContext` Samostatně a všechny závislosti ve svých konstruktorech musí být zaregistrovaní jako služby ve zprostředkovateli služby vaší aplikace. Toho lze snadno dosáhnout tím, že [konstruktoru na `DbContext` , která přijímá instanci `DbContextOptions<TContext>` jako argument][4] a použití [`AddDbContext<TContext>` –Metoda][5].
+`DbContext` Samotný a všechny závislosti v konstruktoru musí být registrovány jako služby v poskytovateli služeb aplikace. To lze snadno dosáhnout tím [ `DbContext` , že máte konstruktor na objektu, který převezme instanci `DbContextOptions<TContext>` ][5] [ `AddDbContext<TContext>` ][6]jako argument a pomocí metody.
 
-<a name="using-a-constructor-with-no-parameters"></a>Pomocí konstruktoru bez parametrů
+<a name="using-a-constructor-with-no-parameters"></a>Použití konstruktoru bez parametrů
 --------------------------------------
-Pokud objekt DbContext nelze získat z aplikace poskytovatele služeb, nástrojů Hledat odvozený `DbContext` typu v projektu. Pak se pokusí vytvořit instanci pomocí konstruktoru bez parametrů. To může být výchozí konstruktor, pokud `DbContext` je nakonfigurovaný nástrojem [`OnConfiguring`][6] metody.
+Pokud DbContext nelze získat od poskytovatele služby Application Service, nástroje hledají odvozený `DbContext` typ v rámci projektu. Pak se pokusí vytvořit instanci pomocí konstruktoru bez parametrů. To může být výchozí konstruktor, pokud `DbContext` je nakonfigurován [`OnConfiguring`][7] pomocí metody.
 
-<a name="from-a-design-time-factory"></a>Od objektu factory návrhu
+<a name="from-a-design-time-factory"></a>Z továrny v době návrhu
 --------------------------
-Můžete také říct, nástroje pro vytváření vaší DbContext implementací `IDesignTimeDbContextFactory<TContext>` rozhraní: Pokud implementující toto rozhraní se nachází buď stejném projektu jako odvozený `DbContext` nebo v projektu po spuštění aplikace, můžete obejít nástroje Další způsoby vytváření DbContext a použijte příslušný objekt pro vytváření návrhu místo.
+Můžete také sdělit nástroje, jak vytvořit DbContext implementací `IDesignTimeDbContextFactory<TContext>` rozhraní: Pokud třída implementující toto rozhraní je nalezena v jednom projektu jako odvozená `DbContext` nebo v projektu po spuštění aplikace, nástroje vycházejí z dalších způsobů vytvoření DbContext a místo toho používají továrnu v době návrhu.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -57,14 +85,15 @@ namespace MyProject
 ```
 
 > [!NOTE]
-> `args` Parametr se aktuálně nepoužívá. Je [problém][7] možnost zadat argumenty návrhu z nástrojů pro sledování.
+> `args` Parametr je aktuálně nepoužit. Existuje [problém][8] sledující možnost zadat argumenty pro dobu návrhu z nástrojů.
 
-Objekt pro vytváření návrhu může být obzvláště užitečné, pokud je potřeba nakonfigurovat uvolněn objekt DbContext odlišně pro návrhové než v době běhu, pokud `DbContext` konstruktoru přijímá další parametry nejsou registrovány v DI, pokud nepoužíváte DI vůbec nebo, pokud u některých z důvodu nechcete mít `BuildWebHost` metodu v aplikaci ASP.NET Core `Main` třídy.
+Továrna v době návrhu může být obzvláště užitečná, pokud je třeba nakonfigurovat DbContext jinak než v době návrhu, a to v případě, že `DbContext` konstruktor přebírá další parametry nejsou registrovány v di, pokud nepoužíváte di, nebo pokud pro některé důvod, proč nemusíte mít `BuildWebHost` metodu ve `Main` třídě ASP.NET Core vaší aplikace.
 
   [1]: xref:core/managing-schemas/migrations/index
   [2]: xref:core/miscellaneous/configuring-dbcontext
-  [3]: https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/#update-main-method-in-programcs
-  [4]: xref:core/miscellaneous/configuring-dbcontext#constructor-argument
-  [5]: xref:core/miscellaneous/configuring-dbcontext#using-dbcontext-with-dependency-injection
-  [6]: xref:core/miscellaneous/configuring-dbcontext#onconfiguring
-  [7]: https://github.com/aspnet/EntityFrameworkCore/issues/8332
+  [3]: /aspnet/core/fundamentals/host/web-host
+  [4]: /aspnet/core/fundamentals/host/generic-host
+  [5]: xref:core/miscellaneous/configuring-dbcontext#constructor-argument
+  [6]: xref:core/miscellaneous/configuring-dbcontext#using-dbcontext-with-dependency-injection
+  [7]: xref:core/miscellaneous/configuring-dbcontext#onconfiguring
+  [8]: https://github.com/aspnet/EntityFrameworkCore/issues/8332

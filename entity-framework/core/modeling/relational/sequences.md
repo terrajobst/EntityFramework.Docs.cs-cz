@@ -1,36 +1,36 @@
 ---
-title: Pořadí – EF Core
+title: Sekvence – EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 94f81a92-3c72-4e14-912a-f99310374e42
 uid: core/modeling/relational/sequences
-ms.openlocfilehash: eb9d9896966af0ad6b778047a1ed6af7358e8eb2
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: ce02b9840e58102a60c1d8eacf6810365104d7d7
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994513"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196906"
 ---
 # <a name="sequences"></a>Sekvence
 
 > [!NOTE]  
-> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
+> Konfigurace v této části platí pro relační databáze obecně. Metody rozšíření zobrazené tady budou k dispozici při instalaci zprostředkovatele relační databáze (z důvodu sdíleného balíčku *Microsoft. EntityFrameworkCore. relační* ).
 
-Sekvence generuje sekvenční číselných hodnot v databázi. Sekvence nejsou spojeny s konkrétní tabulky.
+Sekvence generuje sekvenční číselné hodnoty v databázi. Sekvence nejsou spojeny s konkrétní tabulkou.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence nejsou pořadí zavedené v modelu.
+Podle konvence nejsou sekvence do modelu zavedeny.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Pořadí použití anotací dat nelze konfigurovat.
+Nelze konfigurovat sekvenci pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
 Rozhraní Fluent API můžete použít k vytvoření sekvence v modelu.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/Sequence.cs?highlight=7)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/Sequence.cs?highlight=7)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -50,9 +50,9 @@ public class Order
 }
 ```
 
-Můžete také nakonfigurovat další aspekty pořadí, například jeho schématu, počáteční hodnotu a přírůstku.
+Můžete také nakonfigurovat další aspekt sekvence, například její schéma, počáteční hodnotu a přírůstek.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/SequenceConfigured.cs?highlight=7,8,9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/SequenceConfigured.cs?highlight=7,8,9)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -67,9 +67,9 @@ class MyContext : DbContext
 }
 ```
 
-Jakmile se zavedl až sekvenci, můžete ke generování hodnoty pro vlastnosti v modelu. Například můžete použít [výchozí hodnoty](default-values.md) vložíte následující hodnotu ze sekvence.
+Po zavedení sekvence je můžete použít ke generování hodnot vlastností v modelu. Můžete například použít [výchozí hodnoty](default-values.md) pro vložení další hodnoty z sekvence.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/SequenceUsed.cs?highlight=11,12,13)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/SequenceUsed.cs?highlight=11,12,13)] -->
 ``` csharp
 class MyContext : DbContext
 {

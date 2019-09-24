@@ -1,30 +1,30 @@
 ---
-title: Mapování tabulek – EF Core
+title: Mapování tabulky – EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c807aa4c-7845-443d-b8d0-bfc9b42691a3
 uid: core/modeling/relational/tables
-ms.openlocfilehash: 32c5e3cc0e498005ce8e6be1f1ee7e8ddf9b510d
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 62dce317b901bc862b3c7d20ed1d176805bb24dd
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994134"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196967"
 ---
 # <a name="table-mapping"></a>Mapování tabulek
 
 > [!NOTE]  
-> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
+> Konfigurace v této části platí pro relační databáze obecně. Metody rozšíření zobrazené tady budou k dispozici při instalaci zprostředkovatele relační databáze (z důvodu sdíleného balíčku *Microsoft. EntityFrameworkCore. relační* ).
 
-Mapování tabulek identifikuje, jaká data tabulky by měl posílat dotaz z a uloženy v databázi.
+Mapování tabulky určuje, která data tabulky by se měla dotazovat a Uložit do databáze.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence, každá entita nastaví se pro mapování na tabulku s názvem, který `DbSet<TEntity>` vlastnost, která zveřejňuje entity v kontextu odvozené. Pokud ne `DbSet<TEntity>` je zahrnuté pro danou entitu, se používá název třídy.
+Podle konvence se Každá entita nastaví tak, aby se namapovala na tabulku se stejným názvem, `DbSet<TEntity>` jako má vlastnost, která zpřístupňuje entitu v odvozeném kontextu. Pokud pro danou entitu nenízahrnuto,použijesenázevtřídy.`DbSet<TEntity>`
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Vám pomůže anotacemi dat konfigurace, která se mapuje typ tabulky.
+K nakonfigurování tabulky, na kterou je typ mapován, můžete použít datové poznámky.
 
 ``` csharp
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,7 +38,7 @@ public class Blog
 }
 ```
 
-Můžete také určit schématu, který patří tabulky.
+Můžete také zadat schéma, do kterého tabulka patří.
 
 ``` csharp
 [Table("blogs", Schema = "blogging")]
@@ -51,7 +51,7 @@ public class Blog
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít ke konfiguraci, která se mapuje typ tabulka.
+Rozhraní Fluent API můžete použít ke konfiguraci tabulky, na kterou se typ mapuje.
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -75,9 +75,9 @@ public class Blog
 }
 ```
 
-Můžete také určit schématu, který patří tabulky.
+Můžete také zadat schéma, do kterého tabulka patří.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/TableAndSchema.cs?highlight=2)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/TableAndSchema.cs?highlight=2)] -->
 ``` csharp
         modelBuilder.Entity<Blog>()
             .ToTable("blogs", schema: "blogging");

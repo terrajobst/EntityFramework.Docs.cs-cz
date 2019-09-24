@@ -1,36 +1,36 @@
 ---
-title: Vypočítané sloupce – EF Core
+title: Počítané sloupce – EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e9d81f06-805d-45c9-97c2-3546df654829
 uid: core/modeling/relational/computed-columns
-ms.openlocfilehash: b88efdf69e5100e4eff55f3a41925d2d8e7c3178
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: da106c94698a202744d7cd465aa84d0d72802833
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993950"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197229"
 ---
 # <a name="computed-columns"></a>Vypočítané sloupce
 
 > [!NOTE]  
-> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
+> Konfigurace v této části platí pro relační databáze obecně. Metody rozšíření zobrazené tady budou k dispozici při instalaci zprostředkovatele relační databáze (z důvodu sdíleného balíčku *Microsoft. EntityFrameworkCore. relační* ).
 
-Počítaný sloupec je sloupec, jehož hodnota je vypočítána v databázi. Počítaný sloupec můžete použít jiné sloupce v tabulce k výpočtu jeho hodnotu.
+Vypočítaný sloupec je sloupec, jehož hodnota je vypočítána v databázi. Vypočítaný sloupec může použít jiné sloupce v tabulce k výpočtu jeho hodnoty.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence nejsou počítané sloupce vytvořené v modelu.
+Podle konvence se v modelu nevytvoří počítané sloupce.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-S anotacemi dat nelze konfigurovat vypočítané sloupce.
+U počítaných sloupců nelze konfigurovat datové poznámky.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít k určení, že vlastnost by měla být mapována k počítanému sloupci.
+Rozhraní Fluent API můžete použít k určení, že vlastnost by měla být namapována na vypočítaný sloupec.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/ComputedColumn.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/ComputedColumn.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {

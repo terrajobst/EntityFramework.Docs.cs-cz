@@ -4,52 +4,52 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 4c50d6694c6678678c0af8defe2601abee923af1
-ms.sourcegitcommit: 5f11a5fa5d2cde81a4e4d0d5c3a60aa74b83cbd4
+ms.openlocfilehash: ff12c4e7ace1f1b9e503cb2353bcdd53efd87cce
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54226189"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197893"
 ---
 # <a name="using-transactions"></a>Použití transakcí
 
-Transakce povolit několika databázových operací zpracování atomic způsobem. Pokud je transakce potvrzena, všechny operace úspěšně použita pro databázi. Pokud transakce je vrácena zpět, žádná z operací se použijí k databázi.
+Transakce umožňují zpracovávat několik databázových operací atomovou způsobem. Pokud je transakce potvrzena, budou všechny operace v databázi úspěšně provedeny. Pokud se transakce vrátí zpět, v databázi se nepoužije žádná operace.
 
 > [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Transactions/) na Githubu.
+> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Transactions/) na Githubu.
 
-## <a name="default-transaction-behavior"></a>Výchozí chování při transakci
+## <a name="default-transaction-behavior"></a>Výchozí chování transakce
 
-Ve výchozím nastavení, pokud poskytovatel databáze podporuje transakce, všechny změny v jednom volání do `SaveChanges()` se použijí v transakci. Pokud selžou i všechny změny, transakce se zrušila a žádná ze změn, jsou použita pro databázi. To znamená, že `SaveChanges()` je zaručeno, že buď zcela úspěšná, nebo ponechat databázi ponechat beze změny, pokud dojde k chybě.
+Ve výchozím nastavení platí, že pokud poskytovatel databáze podporuje transakce, všechny změny v jednom volání `SaveChanges()` na jsou v transakci aplikovány. Pokud se kterákoli z změn nezdaří, transakce se vrátí zpět a v databázi se nepoužije žádná změna. To znamená, `SaveChanges()` že je zaručená buď úplná úspěch, nebo ponechat databázi nezměněnou, pokud dojde k chybě.
 
-Pro většinu aplikací toto výchozí chování je dostačující. By měl pouze ručně řídit transakce, pokud požadavcích aplikace považují za nezbytné.
+U většiny aplikací je toto výchozí chování dostatečné. Transakce byste měli řídit jenom v případě, že požadavky vaší aplikace považují za nezbytné.
 
 ## <a name="controlling-transactions"></a>Řízení transakcí
 
-Můžete použít `DbContext.Database` rozhraní API, chcete-li začít, potvrzení a vrácení zpět transakcí. Následující příklad ukazuje dva `SaveChanges()` operace a LINQ dotaz provádí v rámci jedné transakce.
+K zahájení, potvrzení `DbContext.Database` a vrácení transakcí můžete použít rozhraní API. Následující příklad ukazuje dvě `SaveChanges()` operace a dotaz LINQ spouštěný v rámci jedné transakce.
 
-Ne všichni poskytovatelé databáze podporu transakcí. Někteří poskytovatelé může vyvolat nebo no-op při transakci volání rozhraní API.
+Ne všichni poskytovatelé databáze podporují transakce. Někteří zprostředkovatelé mohou vyvolat nebo no-op při volání rozhraní API pro transakce.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
 
-## <a name="cross-context-transaction-relational-databases-only"></a>Mezi kontextu transakce (pouze pro relační databáze)
+## <a name="cross-context-transaction-relational-databases-only"></a>Transakce křížového kontextu (pouze relační databáze)
 
-Můžete také sdílet transakce napříč několika instancemi kontextu. Tato funkce je dostupná jenom při použití zprostředkovatele relační databáze, protože vyžaduje použití `DbTransaction` a `DbConnection`, které jsou potřebné k relačním databázím.
+Můžete také sdílet transakce napříč několika instancemi kontextu. Tato funkce je k dispozici pouze při použití poskytovatele relační databáze, protože vyžaduje použití `DbTransaction` a `DbConnection`, které jsou specifické pro relační databáze.
 
-Sdílet transakce, kontexty musí sdílet i `DbConnection` a `DbTransaction`.
+Chcete-li sdílet transakci, kontexty musí sdílet `DbConnection` `DbTransaction`a a.
 
-### <a name="allow-connection-to-be-externally-provided"></a>Povolit připojení k externě zadat
+### <a name="allow-connection-to-be-externally-provided"></a>Umožnění externě dostupného připojení
 
-Sdílení `DbConnection` vyžaduje možnost předávání připojení kontextu při jeho vytváření.
+Sdílení a `DbConnection` vyžaduje možnost předat připojení do kontextu při jeho vytváření.
 
-Nejjednodušší způsob, jak povolit `DbConnection` externě poskytnout, je přestat používat `DbContext.OnConfiguring` metoda konfigurace kontextu a externě vytvoření `DbContextOptions` a předat je do konstruktoru kontextu.
+Nejjednodušší způsob `DbConnection` , jak se dá externě poskytnout, je zastavit `DbContext.OnConfiguring` použití metody ke konfiguraci kontextu a externě vytvořit `DbContextOptions` a předat do konstruktoru kontextu.
 
 > [!TIP]  
-> `DbContextOptionsBuilder` je rozhraní API, které jste použili v `DbContext.OnConfiguring` konfigurace kontextu, se teď chystáte externě ho použít k vytvoření `DbContextOptions`.
+> `DbContextOptionsBuilder`je rozhraní API, které jste `DbContext.OnConfiguring` použili při konfiguraci kontextu, teď ho budete používat externě k vytvoření. `DbContextOptions`
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
 
-Alternativou je můžete dál používat `DbContext.OnConfiguring`, ale přijmout `DbConnection` , který se uloží a použije v `DbContext.OnConfiguring`.
+Alternativou je použití `DbContext.OnConfiguring`, ale `DbConnection` přijetí a potvrzení, které je uloženo a pak použito v `DbContext.OnConfiguring`.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -70,38 +70,38 @@ public class BloggingContext : DbContext
 }
 ```
 
-### <a name="share-connection-and-transaction"></a>Připojení sdílené složky a transakce
+### <a name="share-connection-and-transaction"></a>Sdílet připojení a transakci
 
-Nyní můžete vytvořit více instancí kontextu, které sdílejí stejné připojení. Potom použijte `DbContext.Database.UseTransaction(DbTransaction)` rozhraní API k zařazení i kontextech v rámci jedné transakce.
+Nyní můžete vytvořit více instancí kontextu, které sdílejí stejné připojení. Pak použijte `DbContext.Database.UseTransaction(DbTransaction)` rozhraní API k zařazení kontextů do stejné transakce.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
 
-## <a name="using-external-dbtransactions-relational-databases-only"></a>Pomocí externích DbTransactions (pouze pro relační databáze)
+## <a name="using-external-dbtransactions-relational-databases-only"></a>Použití externích DbTransactions (jenom relační databáze)
 
-Pokud používáte více technologií přístupu k datům získat přístup k relační databázi, můžete sdílet transakce mezi operací provedených metodou tyto různé technologie.
+Pokud pro přístup k relační databázi používáte více technologií pro přístup k datům, může být vhodné sdílet transakci mezi operacemi prováděnými těmito různými technologiemi.
 
-Následující příklad ukazuje, jak provádět operace Sqlclienta ADO.NET a Entity Framework Core operace v rámci jedné transakce.
+Následující příklad ukazuje, jak provést operaci ADO.NET SqlClient a operaci Entity Framework Core ve stejné transakci.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
 
-## <a name="using-systemtransactions"></a>Using System.Transactions
+## <a name="using-systemtransactions"></a>Použití System. Transactions
 
 > [!NOTE]  
-> Tato funkce je nového v EF Core 2.1.
+> Tato funkce je v EF Core 2,1 novinkou.
 
-Je možné použít okolí transakce, pokud je potřeba koordinovat napříč větší rozsah.
+Je možné použít ambientní transakce, pokud potřebujete koordinovat větší rozsah.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
 
-Je také možné zařazení v explicitní transakci.
+Je také možné zařadit do explicitní transakce.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
 
-### <a name="limitations-of-systemtransactions"></a>Omezení objektu System.Transactions  
+### <a name="limitations-of-systemtransactions"></a>Omezení pro System. Transactions  
 
-1. EF Core využívá databázi zprostředkovatele pro implementaci podpory System.Transactions. I když je podpora je celkem běžné patří poskytovatelů služeb ADO.NET pro rozhraní .NET Framework, rozhraní API pouze byl nedávno přidán do .NET Core a proto není tak rozsáhlou podporu. Pokud poskytovatel neimplementuje podporu pro System.Transactions, je možné, že volání těchto rozhraní API se zcela ignorovat. SqlClient pro .NET Core nepodporuje z 2.1 a vyšší. SqlClient pro .NET Core 2.0 vyvolá výjimku, pokud se pokusíte použít funkci. 
+1. EF Core spoléhá na to, že poskytovatelé databáze implementují podporu pro System. Transactions. I když je podpora poměrně častá mezi poskytovateli ADO.NET pro .NET Framework, rozhraní API se v poslední době přidalo do .NET Core, takže podpora není tak širší. Pokud zprostředkovatel neimplementuje podporu pro System. Transactions, je možné, že volání těchto rozhraní API budou zcela ignorována. SqlClient pro .NET Core ho podporuje od verze 2,1 a vyšší. SqlClient pro .NET Core 2,0 vyvolá výjimku, pokud se pokusíte funkci použít. 
 
    > [!IMPORTANT]  
-   > Doporučujeme, abyste otestovali, že rozhraní API správné chování u svého poskytovatele předtím, než byste spoléhat pro správu transakce. Jste vyzváni ke kontaktování funkce maintainer poskytovatele databáze, pokud tomu tak není. 
+   > Doporučujeme, abyste před tím, než se spoléháte na správu transakcí, správně spolupracovali s vaším poskytovatelem. Pokud ne, doporučujeme, abyste se obrátili na údržbu poskytovatele databáze. 
 
-2. Od verze 2.1, implementace System.Transactions v .NET Core nezahrnuje podporu pro distribuované transakce, takže nemůže používat `TransactionScope` nebo `CommittableTransaction` koordinovat transakce napříč několika správci prostředků. 
+2. Od verze 2,1 implementace System. Transactions v rozhraní .NET Core nezahrnuje podporu distribuovaných transakcí, proto nemůžete použít `TransactionScope` nebo `CommittableTransaction` pro koordinaci transakcí napříč více správci prostředků. 

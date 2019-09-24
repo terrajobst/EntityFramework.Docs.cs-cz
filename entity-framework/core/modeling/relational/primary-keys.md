@@ -4,33 +4,33 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c78f8f42-564a-45a4-aca7-3ede9f7ed2bc
 uid: core/modeling/relational/primary-keys
-ms.openlocfilehash: 916f3adbcd08cb1037c7fbf68e99630feb321a61
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: bdb31964d717c64bddc28e7f1ce55b261e285a9b
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998065"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196948"
 ---
 # <a name="primary-keys"></a>Primární klíče
 
 > [!NOTE]  
-> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
+> Konfigurace v této části platí pro relační databáze obecně. Metody rozšíření zobrazené tady budou k dispozici při instalaci zprostředkovatele relační databáze (z důvodu sdíleného balíčku *Microsoft. EntityFrameworkCore. relační* ).
 
-Omezení primárního klíče se používá pro klíč každého typu entity.
+Pro klíč každého typu entity se zavádí omezení primárního klíče.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence, bude mít primární klíč v databázi `PK_<type name>`.
+Podle konvence se primární klíč v databázi jmenuje `PK_<type name>`.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Žádné konkrétní aspekty relační databáze primární klíč lze konfigurovat pomocí datových poznámek.
+Žádné relační databázové aspekty primárního klíče nelze konfigurovat pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít ke konfiguraci název omezení primárního klíče v databázi.
+Rozhraní Fluent API můžete použít ke konfiguraci názvu omezení primárního klíče v databázi.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/KeyName.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/KeyName.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {

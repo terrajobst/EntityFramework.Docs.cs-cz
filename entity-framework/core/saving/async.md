@@ -4,20 +4,20 @@ author: rowanmiller
 ms.date: 01/24/2017
 ms.assetid: b64a606e-ecd9-4807-829a-b6ec05ade33f
 uid: core/saving/async
-ms.openlocfilehash: 6f482a77300ff2930953686751a579b022bf6f77
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0823b86f0579dd3e42f6bd2aebfb433d3cbe00ab
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997279"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197816"
 ---
 # <a name="asynchronous-saving"></a>Asynchronní ukládání
 
-Asynchronní ukládání se vyhnete blokování vlákna, zatímco se změny jsou zapsány do databáze. To může být užitečné, aby se zabránilo zmrazení uživatelského rozhraní tlustá klientské aplikace. Asynchronní operace může také zvýšit propustnost ve webové aplikaci, ve kterém můžete vlákno uvolnit pro ostatní žádosti o služby, zatímco se dokončují operace databáze. Další informace najdete v tématu [asynchronní programování v jazyce C#](https://docs.microsoft.com/dotnet/csharp/async).
+Asynchronní ukládání zabraňuje blokování vlákna během zápisu změn do databáze. To může být užitečné, aby nedocházelo k zamrznutí uživatelského rozhraní aplikace silného klienta. Asynchronní operace mohou také zvýšit propustnost ve webové aplikaci, kde může být vlákno uvolněno pro obsluhu dalších požadavků v době, kdy se operace databáze dokončí. Další informace naleznete v tématu [asynchronní programování v C# ](https://docs.microsoft.com/dotnet/csharp/async).
 
 > [!WARNING]  
-> EF Core nepodporuje více paralelních operací běží na stejné instance kontextu. Vždy můžete čekat pro operaci dokončit před zahájením další operaci. To se obvykle provádí pomocí `await` – klíčové slovo na každou asynchronní operaci.
+> EF Core nepodporuje více paralelních operací spuštěných ve stejné instanci kontextu. Před zahájením další operace byste vždy měli počkat na dokončení operace. To se obvykle provádí pomocí `await` klíčového slova pro každou asynchronní operaci.
 
-Entity Framework Core poskytuje `DbContext.SaveChangesAsync()` asynchronní alternativa k `DbContext.SaveChanges()`.
+Entity Framework Core poskytuje `DbContext.SaveChangesAsync()` jako asynchronní alternativu k `DbContext.SaveChanges()`.
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Async/Sample.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Saving/Async/Sample.cs#Sample)]

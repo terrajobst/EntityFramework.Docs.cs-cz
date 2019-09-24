@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 1f63593631017a61c39ccab9216adbc4663700e7
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: f7c241159c689d4648b2778b53e50c22f580deb0
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71148906"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197921"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Přerušující změny zahrnuté v EF Core 3,0
 Následující změny rozhraní API a chování mají možnost rušit existující aplikace při jejich upgradu na 3.0.0.
-Změny, které očekáváme jenom o to, aby ovlivnili pouze poskytovatele databází, jsou popsané v části [změny zprostředkovatele](../../providers/provider-log.md).
+Změny, které očekáváme jenom o to, aby ovlivnili pouze poskytovatele databází, jsou popsané v části [změny zprostředkovatele](xref:core/providers/provider-log).
 Přerušení z jedné verze 3,0 Preview do jiné 3,0 Preview nejsou popsané tady.
 
 ## <a name="summary"></a>Souhrn
@@ -23,6 +23,7 @@ Přerušení z jedné verze 3,0 Preview do jiné 3,0 Preview nejsou popsané tad
 | [Dotazy LINQ již nejsou vyhodnocovány na klientovi.](#linq-queries-are-no-longer-evaluated-on-the-client)         | Vysoká       |
 | [EF Core 3,0 cíle .NET Standard 2,1 místo .NET Standard 2,0](#netstandard21) | Vysoká      |
 | [EF Core nástroj příkazového řádku dotnet EF již není součástí .NET Core SDK](#dotnet-ef) | Vysoká      |
+| [DetectChanges respektuje hodnoty klíčů generované úložištěm.](#dc) | Vysoká      |
 | [Z tabulek, ExecuteSql a ExecuteSqlAsync byly přejmenovány.](#fromsql) | Vysoká      |
 | [Typy dotazů jsou konsolidovány s typy entit](#qt) | Vysoká      |
 | [Entity Framework Core už není součástí sdílené ASP.NET Core architektury.](#no-longer) | Střední      |
@@ -37,7 +38,6 @@ Přerušení z jedné verze 3,0 Preview do jiné 3,0 Preview nejsou popsané tad
 | [Metody Z tabulek se dají zadat jenom v kořenech dotazů.](#fromsql) | Nízká      |
 | [~~Provádění dotazu se protokoluje na úrovni ladění~~ . Vrátit](#qe) | Nízká      |
 | [Dočasné hodnoty klíčů už nejsou nastavené na instance entit.](#tkv) | Nízká      |
-| [DetectChanges respektuje hodnoty klíčů generované úložištěm.](#dc) | Nízká      |
 | [Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.](#de) | Nízká      |
 | [Všechny entity sdílející tabulku se sloupcem souběžného tokenu musí být namapovány na vlastnost.](#aes) | Nízká      |
 | [Zděděné vlastnosti z nemapovaných typů jsou nyní namapovány na jeden sloupec pro všechny odvozené typy.](#ip) | Nízká      |
@@ -69,6 +69,7 @@ Přerušení z jedné verze 3,0 Preview do jiné 3,0 Preview nejsou popsané tad
 | [SQLitePCL. Raw aktualizováno na verzi 2.0.0](#SQLitePCL) | Nízká      |
 | [NetTopologySuite aktualizace na verzi 2.0.0](#NetTopologySuite) | Nízká      |
 | [Je nutné nakonfigurovat více dvojznačných relací odkazujících na sebe.](#mersa) | Nízká      |
+| [DbFunction. Schema má hodnotu null nebo je prázdný řetězec, který nakonfiguruje, aby byl ve výchozím schématu modelu.](#udf-empty-string) | Nízká      |
 
 ### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Dotazy LINQ již nejsou vyhodnocovány na klientovi.
 
@@ -174,7 +175,7 @@ Tato změna nám umožňuje distribuovat a aktualizovat `dotnet ef` jako běžn�
 Aby bylo možné spravovat migrace nebo uživatelské rozhraní a `DbContext`, nainstalujte `dotnet-ef` nástroj jako globální nástroj:
 
   ``` console
-    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+    $ dotnet tool install --global dotnet-ef
   ```
 
 Můžete také získat místní nástroj při obnovování závislostí projektu, který deklaruje jako závislost nástrojů pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
@@ -1714,4 +1715,39 @@ modelBuilder
      .Entity<User>()
      .HasOne(e => e.UpdatedBy)
      .WithMany();
+```
+
+<a name="udf-empty-string"></a>
+### <a name="dbfunctionschema-being-null-or-empty-string-configures-it-to-be-in-models-default-schema"></a>DbFunction. Schema má hodnotu null nebo je prázdný řetězec, který nakonfiguruje, aby byl ve výchozím schématu modelu.
+
+[Sledování problému #12757](https://github.com/aspnet/EntityFrameworkCore/issues/12757)
+
+Tato změna je představena ve verzi EF Core 3,0-Preview 7.
+
+**Staré chování**
+
+DbFunction nakonfigurovaný se schématem jako prázdný řetězec byl považován za vestavěnou funkci bez schématu. Například následující kód bude mapovat `DatePart` funkci CLR na `DATEPART` vestavěnou funkci na SQLServer.
+
+```C#
+[DbFunction("DATEPART", Schema = "")]
+public static int? DatePart(string datePartArg, DateTime? date) => throw new Exception();
+
+```
+
+**Nové chování**
+
+Všechna mapování DbFunction se považují za namapovaná na uživatelsky definované funkce. Proto je prázdná hodnota řetězce vložena do výchozího schématu pro model. To může být schéma, které je explicitně nakonfigurované `modelBuilder.HasDefaultSchema()` přes `dbo` rozhraní Fluent API, nebo jinak.
+
+**Proč**
+
+Dříve prázdné schéma bylo způsobem, jak se zacházet s touto funkcí, ale tato funkce je k dispozici pouze pro SqlServer, kde předdefinované funkce nepatří do žádného schématu.
+
+**Hrozeb**
+
+Nakonfigurujte převod DbFunction ručně, abyste ho namapovali na vestavěnou funkci.
+
+```C#
+modelBuilder
+    .HasDbFunction(typeof(MyContext).GetMethod(nameof(MyContext.DatePart)))
+    .HasTranslation(args => SqlFunctionExpression.Create("DatePart", args, typeof(int?), null));
 ```

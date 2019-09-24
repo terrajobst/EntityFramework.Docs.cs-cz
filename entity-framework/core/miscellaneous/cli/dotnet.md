@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 0278353640ea242df9e6ee5278c9dda78bfd341b
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 910136871cce5818b8e70a012e5132259b66e4c1
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565268"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197590"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenční informace k nástrojům pro Entity Framework Core – .NET CLI
 
@@ -33,7 +33,7 @@ Postup instalace závisí na typu a verzi projektu:
 * `dotnet ef`musí být nainstalovaný jako globální nebo místní nástroj. Většina vývojářů se `dotnet ef` nainstaluje jako globální nástroj pomocí následujícího příkazu:
 
   ``` console
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   ```
 
   Můžete použít `dotnet ef` také jako místní nástroj. Chcete-li jej použít jako místní nástroj, obnovte závislosti projektu, který deklaruje jako závislost nástrojů pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
@@ -131,7 +131,7 @@ Před použitím těchto nástrojů možná budete muset vytvořit projekt po sp
 
 ### <a name="target-project-and-startup-project"></a>Cílový projekt a projekt po spuštění
 
-Příkazy odkazují na *projekt* a na spouštěný *projekt*.
+Příkazy odkazují na *projekt* a na *spouštěný projekt*.
 
 * *Projekt* je také označován jako *cílový projekt* , protože je tam, kde příkazy přidávají nebo odebírají soubory. Ve výchozím nastavení je projekt v aktuálním adresáři cílovým projektem. Můžete určit jiný projekt jako cílový projekt pomocí <nobr>`--project`</nobr> možnosti.
 

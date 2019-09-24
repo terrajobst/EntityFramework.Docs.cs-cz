@@ -4,60 +4,87 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 0a996403afdbe076b1690c98eeb305b40c4d1f4a
-ms.sourcegitcommit: 109a16478de498b65717a6e09be243647e217fb3
+ms.openlocfilehash: 6a8499f9f0220087e76f2e0b3a75ce551c4ddb80
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/10/2019
-ms.locfileid: "55985571"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197502"
 ---
-# <a name="logging"></a>Protokolování
+# <a name="logging"></a>protokolování
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging) na Githubu.
 
-## <a name="aspnet-core-applications"></a>Aplikace ASP.NET Core
+## <a name="aspnet-core-applications"></a>ASP.NET Core aplikací
 
-EF Core mechanismy protokolování ASP.NET Core integruje automaticky pokaždé, když `AddDbContext` nebo `AddDbContextPool` se používá. Proto při použití technologie ASP.NET Core, protokolování by měla být nastavená způsobem popsaným v [dokumentace k ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).
+EF Core se automaticky integruje s mechanismy protokolování ASP.NET Core při `AddDbContext` každém `AddDbContextPool` použití nebo. Při použití ASP.NET Core by proto mělo být protokolování nakonfigurované, jak je popsáno v [dokumentaci k ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).
 
 ## <a name="other-applications"></a>Další aplikace
 
-EF Core protokolování aktuálně vyžaduje implementaci třídy ILoggerFactory, která sama o sobě nakonfigurovanou ILoggerProvider jeden nebo více. Běžné poskytovatele se dodávají v následujících balíčků:
+EF Core protokolování vyžaduje ILoggerFactory, který je sám nakonfigurovaný s jedním nebo více zprostředkovateli protokolování. Mezi běžné poskytovatele se dodává následující balíčky:
 
-* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): Jednoduchý konzolový protokolovače.
-* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Podporuje Azure App Services "Diagnostické protokoly" a 'Protokolování datového proudu' funkce.
-* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Protokoluje události do ladicího programu Sledování pomocí System.Diagnostics.Debug.WriteLine().
-* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Protokoluje události do protokolu událostí Windows.
-* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): Podporuje EventSource/naslouchacího procesu událostí.
-* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Pro naslouchací proces trasování pomocí System.Diagnostics.TraceSource.TraceEvent() ukládá do protokolu.
+* [Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): Jednoduchý protokolovací nástroj konzoly.
+* [Microsoft. Extensions. Logging. AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Podporuje funkce Azure App Services ' diagnostické protokoly ' a ' log Stream '.
+* [Microsoft. Extensions. Logging. Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Protokoluje monitorování ladicího programu pomocí System. Diagnostics. Debug. WriteLine ().
+* [Microsoft. Extensions. Logging. EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Protokoluje protokol událostí systému Windows.
+* [Microsoft. Extensions. Logging. EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): Podporuje EventSource/naslouchacího procesu událostí.
+* [Microsoft. Extensions. Logging. TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Protokoluje naslouchací proces trasování pomocí `System.Diagnostics.TraceSource.TraceEvent()`.
 
-> [!NOTE]
-> Následující kód používá ukázkový `ConsoleLoggerProvider` konstruktor, který bylo vyřazeno ve verzi 2.2. Správné nahrazení pro zastaralý protokolování rozhraní API bude k dispozici ve verzi 3.0. Do té doby se můžete bezpečně ignorovat a tato upozornění už nezobrazovala.
+Po instalaci příslušných balíčků by aplikace měla vytvořit singleton nebo globální instanci třídy LoggerFactory. Například pomocí protokolovacího nástroje konzoly:
 
-Po instalaci příslušné balíčky, aplikace by měl vytvořit instanci typu singleton nebo globální LoggerFactory. Například použití protokolovací nástroj konzoly:
+# <a name="version-30tabv3"></a>[Verze 3,0](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#DefineLoggerFactory)]
 
-Potom by měly být zaregistrovány tuto instanci typu singleton nebo globální s EF Core na `DbContextOptionsBuilder`. Příklad:
+# <a name="version-2xtabv2"></a>[Verze 2. x](#tab/v2)
+
+> [!NOTE]
+> Následující ukázka kódu používá `ConsoleLoggerProvider` konstruktor, který byl zastaralý ve verzi 2,2 a nahrazen v 3,0. Při použití 2,2 je bezpečné ignorovat a potlačit upozornění.
+
+``` csharp
+public static readonly LoggerFactory MyLoggerFactory
+    = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
+```
+
+***
+
+Tato instance typu Singleton/Global by měla být registrována s EF Core `DbContextOptionsBuilder`v. Příklad:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#RegisterLoggerFactory)]
 
 > [!WARNING]
-> Je velmi důležité, že aplikace nevytvářejte novou implementaci třídy ILoggerFactory instanci pro všechny instance kontextu. To způsobí nevrácení paměti a slabým výkonem.
+> Je velmi důležité, aby aplikace nevytvářely novou instanci ILoggerFactory pro každou instanci kontextu. Výsledkem bude nevracení paměti a špatný výkon.
 
-## <a name="filtering-what-is-logged"></a>Co je protokolováno filtrování
+## <a name="filtering-what-is-logged"></a>Filtrování, co je protokolováno
 
-> [!NOTE]
-> Následující kód používá ukázkový `ConsoleLoggerProvider` konstruktor, který bylo vyřazeno ve verzi 2.2. Správné nahrazení pro zastaralý protokolování rozhraní API bude k dispozici ve verzi 3.0. Do té doby se můžete bezpečně ignorovat a tato upozornění už nezobrazovala.
+Aplikace může řídit, co se protokoluje, konfigurací filtru v ILoggerProvider. Příklad:
 
-Nejjednodušší způsob, jak filtrovat, co se do protokolu zapíše se při registraci ILoggerProvider jeho konfiguraci. Příklad:
+# <a name="version-30tabv3"></a>[Verze 3,0](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContextWithFiltering.cs#DefineLoggerFactory)]
 
-V tomto příkladu je filtrovaná vrátí pouze zprávy v protokolu:
- * v kategorii 'Microsoft.EntityFrameworkCore.Database.Command.
- * na úrovni "Informační"
+# <a name="version-2xtabv2"></a>[Verze 2. x](#tab/v2)
 
-Pro jádro EF Core protokolovač kategorie jsou definovány v `DbLoggerCategory` třídy usnadňují vyhledání kategorie, ale tyto přeložit na jednoduché řetězce.
+> [!NOTE]
+> Následující ukázka kódu používá `ConsoleLoggerProvider` konstruktor, který byl zastaralý ve verzi 2,2 a nahrazen v 3,0. Při použití 2,2 je bezpečné ignorovat a potlačit upozornění.
 
-Další informace o základní infrastruktuře protokolování najdete v [dokumentace k ASP.NET Core protokolování](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).
+``` csharp
+public static readonly LoggerFactory MyLoggerFactory
+    = new LoggerFactory(new[]
+    {
+        new ConsoleLoggerProvider((category, level)
+            => category == DbLoggerCategory.Database.Command.Name
+               && level == LogLevel.Information, true)
+    });
+```
+
+***
+
+V tomto příkladu je protokol filtrován tak, aby vracel pouze zprávy:
+ * v kategorii Microsoft. EntityFrameworkCore. Database. Command
+ * na úrovni Information
+
+Pro EF Core jsou ve `DbLoggerCategory` třídě definovány kategorie protokolovacích nástrojů, které usnadňují hledání kategorií, ale tyto jsou vyřešeny na jednoduché řetězce.
+
+Další podrobnosti o základní infrastruktuře protokolování najdete v [dokumentaci k protokolování ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).

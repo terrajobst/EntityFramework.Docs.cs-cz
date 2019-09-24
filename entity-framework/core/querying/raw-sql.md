@@ -4,28 +4,28 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: b0c9ba1bb452e47e8348d000e3f7b88cc2730d8e
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: ebec5775770c0f1e297eaaf35bf644c605a69afc
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149311"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197770"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
-Entity Framework Core umožňuje vyřadit z provozu nezpracované dotazy SQL při práci s relační databází. To může být užitečné v případě, že dotaz, který chcete provést, nelze vyjádřit pomocí LINQ, nebo pokud použití dotazu LINQ má za následek neefektivní dotazy SQL. Nezpracované dotazy SQL mohou vracet typy entit nebo, počínaje EF Core 2,1, [typy entit bez klíčů](xref:core/modeling/keyless-entity-types) , které jsou součástí vašeho modelu.
+Entity Framework Core umožňuje vyřadit z provozu nezpracované dotazy SQL při práci s relační databází. To může být užitečné v případě, že dotaz, který chcete provést, nelze vyjádřit pomocí LINQ, nebo pokud použití dotazu LINQ má za následek neefektivní dotaz SQL. Nezpracované dotazy SQL mohou vracet běžné typy entit nebo [typy entit bez klíčů](xref:core/modeling/keyless-entity-types) , které jsou součástí vašeho modelu.
 
 > [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
+> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying/Querying/RawSQL/Sample.cs) na Githubu.
 
 ## <a name="basic-raw-sql-queries"></a>Základní nezpracované dotazy SQL
 
-Metodu rozšíření *z tabulek* můžete použít k zahájení dotazu LINQ na základě nezpracovaného dotazu SQL.
+Můžete použít `FromSqlRaw` metodu rozšíření k zahájení dotazu LINQ na základě nezpracovaného dotazu SQL.
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var blogs = context.Blogs
-    .FromSql("SELECT * FROM dbo.Blogs")
+    .FromSqlRaw("SELECT * FROM dbo.Blogs")
     .ToList();
 ```
 
@@ -34,44 +34,53 @@ Nezpracované dotazy SQL lze použít ke spuštění uložené procedury.
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var blogs = context.Blogs
-    .FromSql("EXECUTE dbo.GetMostPopularBlogs")
+    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogs")
     .ToList();
 ```
 
 ## <a name="passing-parameters"></a>Předávání parametrů
 
-Stejně jako u libovolného rozhraní API, které podporuje SQL, je důležité parametrizovat libovolný vstup uživatele, aby chránil proti útoku prostřednictvím injektáže SQL. Do řetězce dotazu SQL můžete zahrnout zástupné symboly parametrů a pak zadat hodnoty parametrů jako další argumenty. Všechny hodnoty parametrů, které zadáte, budou automaticky převedeny `DbParameter`na.
+> [!WARNING]
+> **Vždy používat parametrizace pro nezpracované dotazy SQL**
+>
+> Při zavádění jakýchkoli uživatelsky zadaných hodnot do nezpracovaného dotazu SQL je nutné dbát na to, aby se zabránilo útokům prostřednictvím injektáže SQL. Kromě ověření, že tyto hodnoty neobsahují neplatné znaky, vždy použijte Parametrizace, který odesílá hodnoty oddělené od textu SQL.
+>
+> Konkrétně nikdy nepředávejte zřetězený nebo interpolující řetězec (`$""`) s neověřenými uživatelem poskytnutými hodnotami do `FromSqlRaw` nebo `ExecuteSqlRaw`. Metody `FromSqlInterpolated` a`ExecuteSqlInterpolated` umožňují použití syntaxe řetězcové interpolace způsobem, který chrání před útoky prostřednictvím injektáže SQL.
 
-Následující příklad předává jeden parametr uložené proceduře. I když to může vypadat `String.Format` jako syntaxe, zadaná hodnota je zabalena v parametru a vygenerovaný název parametru vložený, `{0}` kde byl zadán zástupný symbol.
-
-<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
-``` csharp
-var user = "johndoe";
-
-var blogs = context.Blogs
-    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser {0}", user)
-    .ToList();
-```
-
-Jedná se o stejný dotaz, ale používá syntaxi řetězcové interpolace, která je podporovaná v EF Core 2,0 a novějších verzích:
+Následující příklad předává jeden parametr uložené proceduře zahrnutím zástupného symbolu parametru do řetězce dotazu SQL a zadáním dalšího argumentu. Přestože to může vypadat jako `String.Format` syntaxe, zadaná hodnota je zabalena `DbParameter` v a a vygenerovaný název `{0}` parametru vložený, kde byl zadán zástupný symbol.
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var user = "johndoe";
 
 var blogs = context.Blogs
-    .FromSql($"EXECUTE dbo.GetMostPopularBlogsForUser {user}")
+    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogsForUser {0}", user)
     .ToList();
 ```
 
-Můžete také vytvořit DbParameter a dodat ji jako hodnotu parametru:
+Jako alternativu k `FromSqlRaw`, můžete použít `FromSqlInterpolated` , který umožňuje bezpečné použití řetězcové interpolace. Stejně jako v předchozím příkladu je hodnota převedena na `DbParameter` a, proto není ohrožena vložením SQL:
+
+> [!NOTE]
+> Před verzí 3,0 `FromSqlRaw` a `FromSqlInterpolated` byly dvě přetížení s názvem `FromSql`. Další podrobnosti najdete v [části předchozí verze](#previous-versions) .
+
+
+<!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
+``` csharp
+var user = "johndoe";
+
+var blogs = context.Blogs
+    .FromSqlInterpolated($"EXECUTE dbo.GetMostPopularBlogsForUser {user}")
+    .ToList();
+```
+
+Můžete také vytvořit DbParameter a dodat ji jako hodnotu parametru. Vzhledem k tomu, že je použit běžný zástupný symbol parametru SQL, nikoli zástupný `FromSqlRaw` symbol řetězce, lze bezpečně použít:
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var user = new SqlParameter("user", "johndoe");
 
 var blogs = context.Blogs
-    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
+    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
     .ToList();
 ```
 
@@ -82,7 +91,7 @@ To umožňuje použít pojmenované parametry v řetězci dotazu SQL, což je u�
 var user = new SqlParameter("user", "johndoe");
 
 var blogs = context.Blogs
-    .FromSql("EXECUTE dbo.GetMostPopularBlogs @filterByUser=@user", user)
+    .FromSqlRaw("EXECUTE dbo.GetMostPopularBlogs @filterByUser=@user", user)
     .ToList();
 ```
 
@@ -97,60 +106,72 @@ V následujícím příkladu se používá nezpracovaný dotaz SQL, který se vy
 var searchTerm = ".NET";
 
 var blogs = context.Blogs
-    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .FromSqlInterpolated($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
     .Where(b => b.Rating > 3)
     .OrderByDescending(b => b.Rating)
     .ToList();
 ```
 
+Tím se vytvoří následující dotaz SQL:
+
+``` sql
+SELECT [b].[Id], [b].[Name], [b].[Rating]
+        FROM (
+            SELECT * FROM dbo.SearchBlogs(@p0)
+        ) AS b
+        WHERE b."Rating" > 3
+        ORDER BY b."Rating" DESC
+```
+
 ## <a name="change-tracking"></a>Sledování změn
 
-Dotazy, které používají `FromSql()` přesná stejná pravidla sledování změn jako všechny ostatní dotazy LINQ v EF Core. Například pokud se jedná o typy entit dotazování, výsledky budou ve výchozím nastavení sledovány.  
+Dotazy, které používají `FromSql` metody, dodržují stejná pravidla sledování změn jako jakýkoli jiný dotaz LINQ v EF Core. Například pokud se jedná o typy entit dotazování, výsledky budou ve výchozím nastavení sledovány.
 
-V následujícím příkladu je použit nezpracovaný dotaz SQL, který se vybere z funkce vracející tabulku (TVF), a potom zakáže sledování změn s voláním. AsNoTracking():
+V následujícím příkladu je použit nezpracovaný dotaz SQL, který se vybere z funkce vracející tabulku (TVF), a potom zakáže sledování změn voláním `AsNoTracking`:
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var searchTerm = ".NET";
 
 var blogs = context.Query<SearchBlogsDto>()
-    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .FromSqlInterpolated($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
     .AsNoTracking()
     .ToList();
 ```
 
 ## <a name="including-related-data"></a>Včetně souvisejících dat
 
-`Include()` Metodu lze použít k zahrnutí souvisejících dat, stejně jako u jakéhokoli jiného dotazu LINQ:
+`Include` Metodu lze použít k zahrnutí souvisejících dat, stejně jako u jakéhokoli jiného dotazu LINQ:
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
 var searchTerm = ".NET";
 
 var blogs = context.Blogs
-    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .FromSqlInterpolated($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
     .Include(b => b.Posts)
     .ToList();
 ```
+
+Všimněte si, že to vyžaduje, aby byl nezpracovaný dotaz SQL sestavitelný; nebude to zejména fungovat s voláními uložených procedur. V části [omezení](#limitations)si přečtěte poznámky k možnosti vytváření.
 
 ## <a name="limitations"></a>Omezení
 
 Při použití nezpracovaných dotazů SQL je potřeba vědět o několika omezeních:
 
-* Dotaz SQL musí vracet data pro všechny vlastnosti entity nebo typu dotazu.
+* Dotaz SQL musí vracet data pro všechny vlastnosti typu entity.
 
 * Názvy sloupců v sadě výsledků se musí shodovat s názvy sloupců, na které jsou vlastnosti namapovány. Všimněte si, že se liší od EF6, kde bylo mapování vlastností nebo sloupců pro nezpracované dotazy SQL ignorováno a názvy sloupců sady výsledků musely odpovídat názvům vlastností.
 
 * Dotaz SQL nemůže obsahovat související data. V mnoha případech však můžete vytvořit dotaz nad dotazem pomocí `Include` operátoru, který vrátí související data (viz [zahrnutí souvisejících dat](#including-related-data)).
 
-* `SELECT`příkazy předané do této metody by obecně měly být sestavitelné: Pokud EF Core potřebuje vyhodnotit další operátory pro dotazování na serveru (například převést operátory LINQ použité po `FromSql`), bude zadaný SQL považován za poddotaz. To znamená, že předaný SQL by neměl obsahovat žádné znaky ani možnosti, které nejsou platné pro poddotaz, například:
+* `SELECT`příkazy předané do této metody by obecně měly být sestavitelné: Pokud EF Core potřebuje vyhodnotit další operátory pro dotazování na serveru (například převést operátory LINQ použité po `FromSql` metodách), bude zadaný SQL považován za poddotaz. To znamená, že předaný SQL by neměl obsahovat žádné znaky ani možnosti, které nejsou platné pro poddotaz, například:
   * koncový středník
   * Na SQL Server, na koncové doporučení na úrovni dotazu (například `OPTION (HASH JOIN)`)
   * V SQL Server, `ORDER BY` klauzule, která není doprovázena `OFFSET 0` `SELECT` klauzulí nebo `TOP 100 PERCENT` v klauzuli
 
-* Příkazy jazyka SQL jiné `SELECT` než jsou rozpoznány automaticky jako nevyhovující. V důsledku toho jsou všechny výsledky uložených procedur vždycky vraceny klientovi a všechny operátory LINQ použité po `FromSql` jsou vyhodnocovány v paměti.
+* Všimněte si, že SQL Server nepovoluje sestavování prostřednictvím volání uložených procedur, takže případný pokus o použití dalších operátorů dotazu na takové volání způsobí neplatnost SQL. Operátory dotazů lze zavést po `AsEnumerable()` vyhodnocení klientů.
 
-> [!WARNING]  
-> **Vždy používat parametrizace pro nezpracované dotazy SQL:** Kromě ověřování vstupu uživatele vždy použijte parametrizace pro všechny hodnoty používané v nezpracovaných dotazech nebo příkazech jazyka SQL. Rozhraní API, která přijímají Nezpracovaný řetězec `FromSql` SQL `ExecuteSqlCommand` jako a umožňují snadné předání hodnot jako parametrů. Přetížení `FromSql` a`ExecuteSqlCommand` přijímající FormattableString také umožňují použití syntaxe řetězcové interpolace způsobem, který pomáhá chránit před útoky prostřednictvím injektáže SQL. 
-> 
-> Pokud používáte zřetězení řetězců nebo interpolace k dynamickému sestavení jakékoli části řetězce dotazu nebo předání vstupu uživatele k příkazům nebo uloženým procedurám, které mohou spustit tyto vstupy jako dynamické SQL, pak zodpovídáte za ověření jakéhokoli vstupu na Chraňte proti útokům prostřednictvím injektáže SQL.
+# <a name="previous-versions"></a>Předchozí verze
+
+EF Core verze 2,2 a starší obsahovala dvě přetížení s názvem `FromSql` , která se chovají stejným způsobem jako novější `FromSqlRaw` a `FromSqlInterpolated`. To usnadňuje náhodné volání metody nezpracovaného řetězce, pokud by záměr byl zavolat metodu interpolované řetězce a druhým způsobem. To může vést k tomu, že dotazy nejsou parametrizované, pokud by měly být.

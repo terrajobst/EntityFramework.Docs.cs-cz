@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: 775a929982b9f4fb10aad9cd43bbb555ce632ad1
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: afe2c865305ade93dd10c8838b80c8b4177e7e8e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149020"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197197"
 ---
 # <a name="reverse-engineering"></a>Zpětná analýza
 
@@ -121,13 +121,12 @@ V dalším kroku se pomocí informací o schématu vytvoří model EF Core. Tabu
 
 Nakonec se model používá ke generování kódu. Odpovídající třídy typů entit, rozhraní Fluent API a datové poznámky jsou vygenerované z důvodu opětovného vytvoření stejného modelu z vaší aplikace.
 
-## <a name="what-doesnt-work"></a>Co nefunguje
+## <a name="limitations"></a>Omezení
 
-Ne vše o modelu lze znázornit pomocí schématu databáze. Například informace o [**hierarchiích dědičnosti**](../modeling/inheritance.md), [**vlastněných typech**](../modeling/owned-entities.md)a [**rozdělení tabulky**](../modeling/table-splitting.md) nejsou k dispozici ve schématu databáze. Z tohoto důvodu tyto konstrukce nebudou nikdy zpětně analyzovány.
-
-Kromě toho poskytovatel EF Core nemusí podporovat **některé typy sloupců** . Tyto sloupce nebudou zahrnuty do modelu.
-
-V EF Coreovém modelu můžete definovat [**tokeny souběžnosti**](../modeling/concurrency.md), aby se uživatelé nemohli současně aktualizovat stejnou entitu. Některé databáze mají speciální typ, který představuje tento typ sloupce (například rowversion v SQL Server). v takovém případě můžeme tyto informace zpětně analyzovat; jiné tokeny souběžnosti však nebudou zpětně analyzovány.
+* Ne vše o modelu lze znázornit pomocí schématu databáze. Například informace o [**hierarchiích dědičnosti**](../modeling/inheritance.md), [**vlastněných typech**](../modeling/owned-entities.md)a [**rozdělení tabulky**](../modeling/table-splitting.md) nejsou k dispozici ve schématu databáze. Z tohoto důvodu tyto konstrukce nebudou nikdy zpětně analyzovány.
+* Kromě toho poskytovatel EF Core nemusí podporovat **některé typy sloupců** . Tyto sloupce nebudou zahrnuty do modelu.
+* V EF Coreovém modelu můžete definovat [**tokeny souběžnosti**](../modeling/concurrency.md), aby se uživatelé nemohli současně aktualizovat stejnou entitu. Některé databáze mají speciální typ, který představuje tento typ sloupce (například rowversion v SQL Server). v takovém případě můžeme tyto informace zpětně analyzovat; jiné tokeny souběžnosti však nebudou zpětně analyzovány.
+* [Funkce C# referenčního typu s možnou hodnotou null](/dotnet/csharp/tutorials/nullable-reference-types) není v současné době v zpětné analýze podporovaná: EF Core vždy generuje C# kód, který předpokládá, že funkce je zakázána. Například textové sloupce s možnou hodnotou null budou vygenerované jako vlastnost s typem `string` , ne `string?`, pomocí rozhraní Fluent API nebo datových poznámek, které slouží ke konfiguraci, jestli je vlastnost požadovaná nebo ne. Můžete upravit generovaný kód a nahradit je poznámkami, které C# mají hodnotu null. Podpora generování uživatelského rozhraní pro typy odkazů s možnou hodnotou null je sledována pomocí [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problému.
 
 ## <a name="customizing-the-model"></a>Přizpůsobení modelu
 

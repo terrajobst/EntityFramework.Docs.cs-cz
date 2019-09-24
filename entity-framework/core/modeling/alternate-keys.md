@@ -4,27 +4,27 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8a5931d4-b480-4298-af36-0e29d74a37c0
 uid: core/modeling/alternate-keys
-ms.openlocfilehash: b26d8bc1630af9e811d9c4e7da850a618bc8042e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 87df5d174a1db12fb3ab763ac76c3b863a83087e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996968"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197471"
 ---
 # <a name="alternate-keys"></a>Alternativní klíče
 
-Alternativní klíče slouží jako alternativní jedinečný identifikátor pro každou instanci entity kromě primární klíč. Alternativní klíče můžete použít jako cíl relace. Při používání relační databáze mapuje koncept jedinečný index nebo omezení na sloupce alternativního klíče a jeden nebo více omezení cizího klíče, které odkazují na sloupce.
+Alternativní klíč slouží jako alternativní jedinečný identifikátor pro každou instanci entity kromě primárního klíče. Alternativní klíče lze použít jako cíl relace. Při použití relační databáze se tato mapa mapuje na koncept jedinečného indexu nebo omezení pro sloupce nebo sloupce alternativních klíčů a jedno nebo více omezení cizího klíče, které odkazují na sloupce.
 
 > [!TIP]  
-> Pokud chcete vynutit jedinečnosti sloupce, pak je třeba jedinečný index místo alternativního klíče, přečtěte si téma [indexy](indexes.md). V EF alternativní klíče poskytnout více funkcí než jedinečné indexy, protože slouží jako cíl cizího klíče.
+> Pokud chcete vymáhat jedinečnost sloupce a chcete místo alternativního klíče vyhovět jedinečným indexům, přečtěte si téma [indexy](indexes.md). V EF poskytují alternativní klíče větší funkce než jedinečné indexy, protože je lze použít jako cíl cizího klíče.
 
-Alternativní klíče jsou obvykle vložena za vás v případě potřeby a není potřeba nakonfigurovat ručně. Zobrazit [konvence](#conventions) další podrobnosti.
+V případě potřeby jsou obvykle zavedeny alternativní klíče a není nutné je ručně konfigurovat. Další podrobnosti najdete v tématu věnovaném [konvencím](#conventions) .
 
 ## <a name="conventions"></a>Konvence
 
-Podle úmluvy je zavedená alternativního klíče pro vás při určování vlastnost, která není primární klíč jako cíl vztahu.
+Podle konvence se pro vás zavádí alternativní klíč, pokud identifikujete vlastnost, která není primárním klíčem, jako cíl relace.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/AlternateKey.cs?highlight=12)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/AlternateKey.cs?highlight=12)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -66,9 +66,9 @@ Alternativní klíče nelze konfigurovat pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít ke konfiguraci jedné vlastnosti alternativního klíče.
+Pomocí rozhraní Fluent API můžete nakonfigurovat jednu vlastnost jako alternativní klíč.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeySingle.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeySingle.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -90,9 +90,9 @@ class Car
 }
 ```
 
-Můžete také použít rozhraní Fluent API nakonfigurovat několik vlastností tak, aby alternativního klíče (označované jako složený klíč alternativní).
+Rozhraní Fluent API můžete použít také ke konfiguraci více vlastností, aby byl alternativním klíčem (označovaným jako složený alternativní klíč).
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeyComposite.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeyComposite.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {

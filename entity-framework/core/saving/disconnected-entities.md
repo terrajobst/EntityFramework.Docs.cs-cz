@@ -5,136 +5,136 @@ ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 51367d2619b1943c300f8954123f70b909ad96e7
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 070f2ad396ec21858096c29413ac80bdf8547328
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994396"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197807"
 ---
 # <a name="disconnected-entities"></a>Odpojené entity
 
-DbContext instance bude automaticky sledovat entity, které vrátil z databáze. Změny provedené v těchto entit bude detekován pak, když je volána metoda SaveChanges a aktualizuje databázi podle potřeby. Zobrazit [základní Uložit](basic.md) a [souvisejících dat](related-data.md) podrobnosti.
+Instance DbContext bude automaticky sledovat entity vracené z databáze. Změny provedené u těchto entit budou zjištěny při volání metody SaveChanges a databáze bude aktualizována podle potřeby. Podrobnosti najdete v tématu základní informace o [uložení](basic.md) a [související data](related-data.md) .
 
-Ale někdy entity jsou dotazovat pomocí jedné instance kontextu a uložit pomocí jiné instance. Této situaci často dochází v "odpojené" scénářů, jako je webová aplikace, kde entity, které jsou dotazovat, může odeslat klientovi, upravit, odeslat zpět na server v požadavku a pak uloží. V takovém případě kontextu druhé instance musí zjistit, zda jsou nové entity (by měl být vložen) nebo stávající (třeba aktualizovat).
+Někdy se ale entity dotazují pomocí jedné instance kontextu a pak se ukládají pomocí jiné instance. K tomu často dochází v případě "odpojených" scénářů, jako je například webová aplikace, ve které se tyto entity odesílají do klienta, které se odešlou do klienta, změnili, odeslali zpátky na server v žádosti a pak se uložil. V takovém případě musí druhá instance kontextu zjistit, jestli jsou entity nové (měly by být vložené) nebo existující (by se měly aktualizovat).
 
 > [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/) na Githubu.
+> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) na Githubu.
 
 > [!TIP]
-> EF Core můžete sledovat pouze jeden výskyt jakákoli entita s danou hodnotu primárního klíče. Nejlepší způsob, jak tento vyhnete, problém, je použít krátkodobou kontext pro každou jednotku pracovní, tak, že kontext začíná prázdný, obsahuje entit připojený, uloží tyto entity a kontext je uvolněn a zahodí.
+> EF Core může sledovat jenom jednu instanci libovolné entity s daným hodnotou primárního klíče. Nejlepším způsobem, jak se tomuto problému vyhnout, je použití krátkodobého kontextu pro každou jednotku, aby byl kontext spuštěný, a obsahuje entity, které jsou k němu připojené, ukládají tyto entity a pak je tento kontext vyřazený a zahozený.
 
-## <a name="identifying-new-entities"></a>Určení nové entity
+## <a name="identifying-new-entities"></a>Identifikace nových entit
 
-### <a name="client-identifies-new-entities"></a>Klient identifikuje nové entity
+### <a name="client-identifies-new-entities"></a>Klient identifikuje nové entity.
 
-Nejjednodušším případě řešit je, když klient informuje server, zda je nový nebo existující entity. Například často požadavek na vložení nové entity se liší od požadavek na aktualizaci existující entity.
+Nejjednodušší případ, který se má řešit, je, že klient informuje server, jestli je entita nová nebo existující. Například požadavek na vložení nové entity se liší od žádosti o aktualizaci existující entity.
 
-Zbytek tohoto oddílu popisuje případy kde je třeba určit jiným způsobem, jestli se má vložit nebo aktualizovat.
+Zbývající část této části popisuje případy, kdy je potřeba určit nějaký jiný způsob, jak vkládat nebo aktualizovat.
 
-### <a name="with-auto-generated-keys"></a>Pomocí automaticky generovaného klíče
+### <a name="with-auto-generated-keys"></a>S automaticky generovanými klíči
 
-Hodnota automaticky generovaného klíče lze často určit, zda entita musí přidají nebo aktualizují. Pokud klíč není nastavený (to znamená, stále má CLR výchozí hodnotu null, nula, atd.), pak musí být nové entity a potřebuje vkládání. Na druhé straně Pokud byla nastavena hodnota klíče, potom musí mít už dříve uložil a teď se musí aktualizovat. Jinými slovy Pokud klíč má hodnotu a pak entity byla dotazována může odeslat klientovi a má teď vrátit aktualizovat.
+Hodnota automaticky generovaného klíče se dá často použít k určení, jestli se entita musí vložit nebo aktualizovat. Pokud klíč nebyl nastaven (to znamená, že má stále výchozí hodnotu CLR null, nula atd.), musí být entita nová a musí vložit. Na druhé straně, pokud je hodnota klíče nastavená, musí se už dřív Uložit a teď je potřeba aktualizovat. Jinými slovy, pokud má klíč hodnotu, pak byla entita dotazována, odeslána klientovi a nyní se vrátila k aktualizaci.
 
-Je snadné vyhledávat nenastavené klíč, pokud známý typ entity:
+Pokud je typ entity znám, je snadné kontrolovat nenastavené klíče:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewSimple)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewSimple)]
 
-EF má však také integrované způsob, jak to provést u každého typu entity a typ klíče:
+EF má však také vestavěný způsob, jak to provést pro libovolný typ entity a typ klíče:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewGeneral)]
-
-> [!TIP]  
-> Jsou nastavené klíče jako entity jsou sledovány v kontextech, i v případě, že entita je ve stavu Added. To pomáhá při procházení grafu entit a rozhodování o tom, co dělat s každou, například při použití rozhraní API TrackGraph. Hodnota klíče byste měli použít pouze ve tak, jak je znázorněno zde _před_ jakékoli volání ke sledování entity.
-
-### <a name="with-other-keys"></a>Pomocí dalších klíčů
-
-Některé mechanismus je potřeba k identifikaci nových entit nejsou automaticky generované hodnoty klíče. Existují dva hlavní přístupy k tomuto:
- * Dotaz pro entitu
- * Předání příznaku z klienta
-
-Dotaz pro entitu, použijte metodu Find:
-
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewQuery)]
-
-Jde nad rámec tohoto dokumentu chcete zobrazit celý kód pro předání příznaku z klienta. Ve webové aplikaci obvykle to znamená různých požadavků pro různé akce, nebo předávání některých stavu v požadavku a extrahování v kontroleru.
-
-## <a name="saving-single-entities"></a>Uložení jednotlivých entit
-
-Pokud se označuje, zda insert nebo update je potřeba, pak přidat nebo aktualizovat dá správně:
-
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertAndUpdateSingleEntity)]
-
-Ale pokud entita používá automaticky generovaný hodnoty klíče, pak metody Update slouží pro oba případy:
-
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntity)]
-
-Metoda Update obvykle označuje entity pro aktualizaci, nelze vložit. Nicméně pokud entita obsahuje automaticky generovaný klíč a byla nastavena žádná hodnota klíče, pak entity se místo toho automaticky označen pro vložení.
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewGeneral)]
 
 > [!TIP]  
-> Toto chování byla zavedená v EF Core 2.0. Pro starší verze je vždy nutné explicitně zvolte Přidat nebo aktualizovat.
+> Klíče jsou nastaveny, jakmile jsou entity sledovány kontextem, a to i v případě, že je entita ve stavu přidáno. To pomáhá při procházení grafu entit a rozhodování o tom, co dělat s každým, například při použití rozhraní TrackGraph API. Hodnota klíče by měla být použita pouze způsobem, který je zde zobrazen, _předtím, než_ bude provedeno volání ke sledování entity.
 
-Pokud subjektem není pomocí automaticky generovaného klíče, pak aplikace musíte rozhodnout, jestli mají vložit nebo aktualizovat entity: Příklad:
+### <a name="with-other-keys"></a>S jinými klíči
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
+K identifikaci nových entit je potřeba nějaký jiný mechanismus, když se klíčové hodnoty negenerují automaticky. Existují dva obecné přístupy:
+ * Dotaz na entitu
+ * Předat příznak z klienta
 
-Jsou zde uvedené kroky:
-* Přidat hledání vrátí hodnotu null, pak databáze již neobsahuje blog s tímto ID, takže označujeme je jako označte ji pro vložení.
-* Vrátí-li najít entitu, pak existuje v databázi a kontext nyní sleduje existující entity
-  * Potom použijeme SetValues k nastavení hodnot pro všechny vlastnosti v této entitě na ty, které pocházejí z klienta.
-  * Volání SetValues označí entita, která má být aktualizována podle potřeby.
+Chcete-li zadat dotaz na entitu, stačí použít metodu Find:
+
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewQuery)]
+
+Je nad rámec tohoto dokumentu, aby zobrazoval úplný kód pro předání příznaku z klienta. Ve webové aplikaci to obvykle znamená, že různé požadavky na různé akce nebo předání nějakého stavu v žádosti a jejich extrakce v řadiči.
+
+## <a name="saving-single-entities"></a>Ukládání jednoduchých entit
+
+Je-li známo, zda je vyžadováno vložení nebo aktualizace, lze použít buď možnost Přidat nebo aktualizovat, a to odpovídajícím způsobem:
+
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertAndUpdateSingleEntity)]
+
+Pokud však entita používá automaticky generované hodnoty klíčů, může být metoda aktualizace použita v obou případech:
+
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntity)]
+
+Metoda aktualizace obvykle označí entitu pro aktualizaci, nikoli INSERT. Pokud však entita obsahuje automaticky generovaný klíč a nebyla nastavena žádná hodnota klíče, je entita namísto toho automaticky označena pro vložení.
 
 > [!TIP]  
-> SetValues pouze označíte jako změny vlastností, které mají různé hodnoty na hodnoty v sledované entity. To znamená, že při odeslání aktualizace, budou aktualizovány pouze sloupce, které se ve skutečnosti změnily. (A pokud se nic nezměnilo, pak žádná aktualizace se budou odesílat vůbec.)
+> Toto chování bylo zavedeno v EF Core 2,0. V dřívějších verzích je vždycky nutné explicitně zvolit možnost Přidat nebo aktualizovat.
+
+Pokud entita nepoužívá automaticky generované klíče, musí se aplikace rozhodnout, jestli má být entita vložená nebo aktualizovaná: Příklad:
+
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
+
+Postup najdete tady:
+* Pokud funkce Find vrátí hodnotu null, databáze již neobsahuje blog s tímto ID, proto zavolejte metodu Add, kterou označíte pro vložení.
+* Pokud funkce Find vrátí entitu, pak v databázi existuje a kontext teď sleduje existující entitu.
+  * Pak pomocí vlastností SetValue nastavíme hodnoty všech vlastností u této entity na ty, které pocházejí z klienta.
+  * Volání NastavitHodnotu označí entitu, která se má aktualizovat podle potřeby.
+
+> [!TIP]  
+> SetValues bude označovat jenom jako změněné vlastnosti, které mají jiné hodnoty jako ty ve sledované entitě. To znamená, že při odeslání aktualizace se aktualizují pouze sloupce, které se skutečně změnily. (A pokud se nic nezměnilo, nepošle se vůbec žádná aktualizace.)
 
 ## <a name="working-with-graphs"></a>Práce s grafy
 
-### <a name="identity-resolution"></a>Rozlišení identity
+### <a name="identity-resolution"></a>Překlad identity
 
-Jak bylo uvedeno výše, EF Core můžete sledovat pouze jeden výskyt jakákoli entita s danou hodnotu primárního klíče. Při práci s grafy by měl vytvoří graf v ideálním případě tak, že tento invariantní zachovaný a kontextu má být použita pro pouze jednu jednotku pracovní. Pokud graf obsahuje duplicitní hodnoty, pak bude potřeba zpracovat grafu před odesláním do EF provést konsolidaci více instancí do jedné. Toto video asi triviální kde instance mají konfliktní hodnoty a vztahy, tak konsolidace duplicitní položky by mělo být provedeno co nejdříve v kanálu aplikace, aby řešení konfliktů.
+Jak je uvedeno výše, EF Core může sledovat jenom jednu instanci libovolné entity s daným hodnotou primárního klíče. Při práci s grafy by se graf měl ideálně vytvořit tak, že se zachová tato invariantní a kontext by měl být použit pouze pro jednu jednotku v práci. Pokud graf obsahuje duplicity, pak bude nutné zpracovat graf před jeho odesláním do EF, aby bylo možné konsolidovat více instancí do jednoho. Nemusí se jednat o triviální, kde mají instance konfliktní hodnoty a relace, takže by se měly v kanálu aplikace co nejdřív dělat konsolidace duplicit, aby se zabránilo řešení konfliktů.
 
 ### <a name="all-newall-existing-entities"></a>Všechny nové/všechny existující entity
 
-Příklad práci s grafy je vkládání nebo aktualizaci blogu společně s jeho kolekce přidružené příspěvky. Pokud by měl být vložen všechny entity v grafu nebo by měly být aktualizovány všechny, pak proces je stejné jako nastavení popsané výše pro jednotlivé entity. Například graf blogů a příspěvky vytvořené tímto způsobem:
+Příkladem práce s grafy je vložení nebo aktualizace blogu spolu s kolekcí přidružených příspěvků. Pokud by měly být všechny entity v grafu vložené nebo by se měly aktualizovat všechny, pak je tento proces stejný, jak je popsáno výše u jednotlivých entit. Například graf blogů a příspěvků vytvořených takto:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#CreateBlogAndPosts)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#CreateBlogAndPosts)]
 
-můžete vložit tímto způsobem:
+může být vložena takto:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertGraph)]
 
-Volání přidat označí blogu a všechny příspěvky, které má být vložen.
+Volání metody Add bude označovat blog a všechny příspěvky, které mají být vloženy.
 
-Podobně pokud potřebujete aktualizovat všechny entity v grafu, pak aktualizací je možné:
+Podobně platí, že pokud je potřeba aktualizovat všechny entity v grafu, můžete použít aktualizaci:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#UpdateGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#UpdateGraph)]
 
-Aktualizovat budou označeny v blogu a všech jeho příspěvků.
+Blog a všechny jeho příspěvky budou označeny jako aktualizované.
 
-### <a name="mix-of-new-and-existing-entities"></a>Kombinace nová a existující entity
+### <a name="mix-of-new-and-existing-entities"></a>Kombinace nových a stávajících entit
 
-Pomocí automaticky generovaného klíče můžete aktualizace znovu použijí pro vkládání a aktualizace, i v případě, že graf obsahuje entity, které vyžadují vkládání i těch, které vyžadují aktualizaci:
+U automaticky generovaných klíčů se dá aktualizace znovu použít pro vložení i aktualizace i v případě, že graf obsahuje kombinaci entit, které vyžadují vložení a ty, které vyžadují aktualizaci:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateGraph)]
 
-Aktualizace označí entitu v grafu, blogu nebo příspěvek pro vložení, pokud nemá sadu klíč-hodnota, zatímco jiné entity jsou označeny pro aktualizaci.
+Aktualizace označí každou entitu v grafu, blogu nebo příspěvku, pokud nemá nastavenou hodnotu klíče, zatímco všechny ostatní entity jsou označené k aktualizaci.
 
-Jako dříve, kdy se nepoužívá automaticky generovaného klíče dotazu a nějaké zpracování je možné:
+Stejně jako dřív, pokud nepoužíváte automaticky generované klíče, je možné použít dotaz a některé zpracování:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateGraphWithFind)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateGraphWithFind)]
 
 ## <a name="handling-deletes"></a>Zpracování odstranění
 
-Odstranění může být velmi obtížné zpracovat od často neexistence entity znamená, že je nutné ji odstranit. Jeden způsob, jak to vyřešit, je použití "obnovitelné odstranění" tak, aby entita je označen jako odstraněný místo ve skutečnosti odstraňuje. Odstraní se pak stane stejný jako aktualizace. Obnovitelné odstranění je možné implementovat pomocí [dotazování filtry](xref:core/querying/filters).
+Odstranění může být obtížné zvládnout, protože často absence entity znamená, že by se mělo odstranit. Jedním ze způsobů, jak se toho vypořádat, je použít "obnovitelné odstranění" tak, aby se entita označila jako Odstraněná, a ne skutečně odstranit. Odstranění se pak bude shodovat s aktualizacemi. Obnovitelné odstranění lze implementovat pomocí [filtrů dotazů](xref:core/querying/filters).
 
-Pro true odstraní běžným postupem je použití rozšíření vzorku dotazu provádět, co je v podstatě rozdíl grafu Příklad:
+Pro skutečný způsob odstranění je běžným vzorem použití rozšíření vzoru dotazu k provedení toho, co je v podstatě rozdíl v grafu. Příklad:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
 
 ## <a name="trackgraph"></a>TrackGraph
 
-Interně, přidat, připojit a aktualizace pomocí procházení graf rozhodnutí provedli pro každou entitu v tom, jestli ho musí být označené jako přidanou (Chcete-li vložit), Modified (Chcete-li aktualizovat), Unchanged (Neprovádět žádnou akci), nebo odstraněné (Chcete-li odstranit). Tento mechanismus je zveřejněný prostřednictvím rozhraní API TrackGraph. Například předpokládejme, že když klient odešle zpět graf entit nastaví některá příznak u každé entity označující, jak ji by měl být zpracována. TrackGraph je pak možné zpracovat tento příznak:
+Interně, přidejte, připojte a aktualizujte použít graf-prochází se stanovením pro každou entitu jako na to, jestli by měla být označená jako přidaná (pro vložení), upravená (k aktualizaci), beze změny (nedělat nic) nebo smazána (k odstranění). Tento mechanismus se zveřejňuje prostřednictvím rozhraní TrackGraph API. Předpokládejme například, že když klient pošle zpátky graf entit, nastaví u každé entity příznak, který označuje, jak by se měl zpracovat. TrackGraph se pak dá použít ke zpracování tohoto příznaku:
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#TrackGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#TrackGraph)]
 
-Příznaky se zobrazují pouze jako součást entity pro zjednodušení tento příklad. Obvykle příznaků by být součástí objekt DTO nebo jiný stav zahrnutý v požadavku.
+Příznaky jsou zobrazeny pouze jako součást entity pro zjednodušení příkladu. Příznaky by byly typicky součástí DTO nebo nějakého jiného stavu zahrnutého v žádosti.

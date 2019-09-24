@@ -1,33 +1,33 @@
 ---
-title: Zahrnutí a vyloučení typů – EF Core
+title: Zahrnutí & s výjimkou typů – EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: cbe6935e-2679-4b77-8914-a8d772240cf1
 uid: core/modeling/included-types
-ms.openlocfilehash: f533b24312af37634ce4957e43c39ce776bf0bf0
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: ca83b1c432bdf4853dba81e12ec4a739bc8218dc
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929794"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197374"
 ---
 # <a name="including--excluding-types"></a>Zahrnutí a vyloučení typů
 
-Včetně typu modelu znamená, že EF má metadata o typ, který se pokusí o čtení a zápis instance z/do databáze.
+Zahrnutí typu v modelu znamená, že EF má metadata o tomto typu a pokusí se číst a zapisovat instance z/do databáze.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence, typy, které jsou vystaveny `DbSet` vlastnosti na kontext jsou součástí modelu. Kromě toho, typy, které jsou uvedeny v `OnModelCreating` metody jsou zahrnuté také. A konečně všechny typy, které se nacházejí ve rekurzivně zkoumání navigační vlastnosti zjištěných typů jsou taky součástí modelu.
+Podle konvence jsou typy, které jsou `DbSet` vystaveny ve vlastnostech v kontextu, zahrnuty v modelu. Kromě toho jsou zahrnuty i typy, které jsou `OnModelCreating` uvedeny v metodě. Nakonec všechny typy, které jsou nalezeny rekurzivním zkoumáním navigačních vlastností zjištěných typů, jsou také zahrnuty v modelu.
 
-**Například v následující ukázce kódu zjištěny všechny tři typy:**
+**Například v následujícím kódu se objevují všechny tři typy:**
 
-* `Blog` protože je zpřístupněná `DbSet` vlastnost pro daný kontext
+* `Blog`protože je zveřejněn ve `DbSet` vlastnosti v kontextu
 
-* `Post` protože je zjištěna prostřednictvím `Blog.Posts` navigační vlastnost
+* `Post`protože je zjištěna prostřednictvím `Blog.Posts` navigační vlastnosti
 
-* `AuditEntry` vzhledem k tomu, že je uvedený v `OnModelCreating`
+* `AuditEntry`protože je uveden v`OnModelCreating`
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/IncludedTypes.cs?highlight=3,7,16)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/IncludedTypes.cs?highlight=3,7,16)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -66,12 +66,12 @@ public class AuditEntry
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Anotací dat můžete použít k vyloučení typu z modelu.
+K vyloučení typu z modelu můžete použít datové poznámky.
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/IgnoreType.cs?highlight=20)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/IgnoreType.cs?highlight=20)]
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
 Rozhraní Fluent API můžete použít k vyloučení typu z modelu.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/IgnoreType.cs?highlight=12)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IgnoreType.cs?highlight=12)]

@@ -4,32 +4,32 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 2d0a2abc554f5f115479f886ca3f9f4f01b80b5b
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: a7fb19f9c86d1768967d172c006eb5d894254e0c
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452277"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196941"
 ---
 # <a name="inheritance-relational-database"></a>Dědičnost (relační databáze)
 
 > [!NOTE]  
-> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
+> Konfigurace v této části platí pro relační databáze obecně. Metody rozšíření zobrazené tady budou k dispozici při instalaci zprostředkovatele relační databáze (z důvodu sdíleného balíčku *Microsoft. EntityFrameworkCore. relační* ).
 
-Dědičnost v modelu EF slouží k řízení, jak je reprezentovaná dědičnosti tříd entit v databázi.
+Dědičnost v modelu EF se používá k řízení způsobu reprezentace dědičnosti tříd entit v databázi.
 
 > [!NOTE]  
-> V současné době pouze vzor na hierarchii tabulky (TPH) je implementované v EF Core. Za typ tabulky (TPT), jako jsou jiné běžné vzory a -za konkrétní – typ tabulky (TPC) ještě nejsou k dispozici.
+> V současné době je v EF Core implementován pouze vzor Table-per-Hierarchy (TPH). Další běžné vzorce, jako je například tabulka na typ (TPT) a tabulka-podle konkrétního typu (TPC), ještě nejsou k dispozici.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence se namapují dědičnosti pomocí vzoru za hierarchii tabulky (TPH). TPH používá jednu tabulku pro ukládání dat pro všechny typy v hierarchii. Sloupec diskriminátoru se používá k identifikaci typu každý řádek představuje.
+Podle konvence se dědičnost mapuje pomocí vzoru Table-per-Hierarchy (TPH). K ukládání dat pro všechny typy v hierarchii používá typ TPH jednu tabulku. Sloupec diskriminátoru slouží k identifikaci typu, který každý řádek představuje.
 
-EF Core bude pouze nastavení dědičnosti, dvou nebo více zděděných typů je explicitně zahrnuta v modelu (viz [dědičnosti](../inheritance.md) další podrobnosti).
+EF Core bude dědění nastavení pouze v případě, že jsou do modelu explicitně zahrnuty dva nebo více děděných typů (další podrobnosti naleznete v tématu [Dědičnost](../inheritance.md) ).
 
-Tady je příklad ukazující scénář jednoduché dědičnosti a data uložená v tabulce relační databáze pomocí vzoru TPH. *Diskriminátoru* typu, který identifikuje sloupce *blogu* je uložen v jednotlivých řádcích.
+Níže je příklad znázorňující jednoduchý scénář dědičnosti a data uložená v relační tabulce databáze pomocí vzoru TPH. Sloupec *diskriminátor* určuje, který typ *blogu* je uložený v každém řádku.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/Samples/InheritanceDbSets.cs)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/InheritanceDbSets.cs)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -52,17 +52,17 @@ public class RssBlog : Blog
 ![obrázek](_static/inheritance-tph-data.png)
 
 >[!NOTE]
-> Sloupce databáze se automaticky stane s možnou hodnotou Null podle potřeby při použití TPH mapování.
+> Sloupce databáze se při použití mapování typu TPH automaticky v případě potřeby nepovolují s možnou hodnotou null.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Datové poznámky nelze použít ke konfiguraci dědičnosti.
+Ke konfiguraci dědičnosti nelze použít datové poznámky.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít ke konfiguraci názvu a typu sloupec diskriminátoru a hodnoty, které se používají k identifikaci jednotlivých typů v hierarchii.
+Rozhraní Fluent API můžete použít ke konfiguraci názvu a typu sloupce diskriminátoru a hodnot, které se používají k identifikaci každého typu v hierarchii.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -89,9 +89,9 @@ public class RssBlog : Blog
 }
 ```
 
-## <a name="configuring-the-discriminator-property"></a>Konfigurace vlastnost diskriminátoru
+## <a name="configuring-the-discriminator-property"></a>Konfigurace vlastnosti diskriminátoru
 
-Ve výše uvedených příkladech diskriminátor vytvoří jako [stínové vlastnosti](xref:core/modeling/shadow-properties) na základní entitu v hierarchii. Protože je vlastnost v modelu, můžete ji nakonfigurovat, stejně jako ostatní vlastnosti. Chcete-li například nastavit maximální délky, pokud výchozí podle úmluvy diskriminátoru se používá:
+V předchozích příkladech je diskriminátor vytvořen jako [vlastnost Shadow](xref:core/modeling/shadow-properties) v základní entitě hierarchie. Vzhledem k tomu, že se jedná o vlastnost v modelu, lze ji nakonfigurovat stejně jako jiné vlastnosti. Například pro nastavení maximální délky při použití výchozího diskriminátoru podle konvence:
 
 ```C#
 modelBuilder.Entity<Blog>()
@@ -99,7 +99,7 @@ modelBuilder.Entity<Blog>()
     .HasMaxLength(200);
 ```
 
-Diskriminátor lze také mapovat na skutečné vlastnosti CLR ve vaší entitě. Příklad:
+Diskriminátor lze také namapovat na skutečnou vlastnost CLR v entitě. Příklad:
 ```C#
 class MyContext : DbContext
 {
@@ -125,7 +125,7 @@ public class RssBlog : Blog
 }
 ```
 
-Kombinace těchto dvou věcí společně je možné namapovat na reálném vlastnost diskriminátoru i ho nakonfigurovat:
+Kombinování těchto dvou věcí je možné namapovat mezi diskriminátory na skutečnou vlastnost a nakonfigurovat ji:
 ```C#
 modelBuilder.Entity<Blog>(b =>
 {

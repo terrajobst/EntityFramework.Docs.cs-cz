@@ -4,33 +4,33 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e541366a-130f-47dd-9997-1b110a11febe
 uid: core/modeling/relational/default-values
-ms.openlocfilehash: 341f243ddddc345bb4236e5c34f814694b71e32a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0d3613606f21a78e22cfe0ee752ea982a6a17f93
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996249"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196982"
 ---
 # <a name="default-values"></a>Výchozí hodnoty
 
 > [!NOTE]  
-> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
+> Konfigurace v této části platí pro relační databáze obecně. Metody rozšíření zobrazené tady budou k dispozici při instalaci zprostředkovatele relační databáze (z důvodu sdíleného balíčku *Microsoft. EntityFrameworkCore. relační* ).
 
-Výchozí hodnota pro sloupec je hodnota, která bude vložen, pokud se vloží nový řádek, ale není zadaná žádná hodnota pro sloupec.
+Výchozí hodnota sloupce je hodnota, která bude vložena při vložení nového řádku, ale pro sloupec není zadána žádná hodnota.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence není nakonfigurovaný výchozí hodnotu.
+Podle konvence není výchozí hodnota nakonfigurovaná.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Nelze nastavit výchozí hodnotu pomocí datových poznámek.
+Výchozí hodnotu nelze nastavit pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete zadat výchozí hodnotu pro vlastnost.
+Rozhraní Fluent API můžete použít k určení výchozí hodnoty pro vlastnost.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValue.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/DefaultValue.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -52,9 +52,9 @@ public class Blog
 }
 ```
 
-Můžete také zadat fragment SQL, který se používá k výpočtu výchozí hodnotu.
+Můžete také zadat fragment SQL, který se použije k výpočtu výchozí hodnoty.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultValueSql.cs?highlight=9)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/DefaultValueSql.cs?highlight=9)] -->
 ``` csharp
 class MyContext : DbContext
 {

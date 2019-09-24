@@ -4,33 +4,33 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e6e58473-9f5e-4a1f-ac0f-b87d2cbb667e
 uid: core/modeling/relational/default-schema
-ms.openlocfilehash: 800551bbadd0a9e8b5eb7070a8ccf6ed2407e3d2
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: ae903ed7200859430aecc55073651236759bc6ce
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995363"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197127"
 ---
 # <a name="default-schema"></a>Výchozí schéma
 
 > [!NOTE]  
-> Obecně se vztahuje k relačním databázím konfigurace v této části. Metody rozšíření je vidět tady bude k dispozici při instalaci poskytovatele relační databáze (z důvodu sdílený *Microsoft.EntityFrameworkCore.Relational* balíček).
+> Konfigurace v této části platí pro relační databáze obecně. Metody rozšíření zobrazené tady budou k dispozici při instalaci zprostředkovatele relační databáze (z důvodu sdíleného balíčku *Microsoft. EntityFrameworkCore. relační* ).
 
-Výchozí schéma je schéma databáze, které objekty se vytvoří v, pokud schéma není pro daný objekt explicitně nakonfigurovat.
+Výchozím schématem je schéma databáze, ve kterém budou objekty vytvořeny, pokud není pro daný objekt explicitně nakonfigurováno schéma.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence poskytovatele databáze zvolí nejvhodnější výchozí schéma. Například se bude používat Microsoft SQL Server `dbo` schématu a SQLite nebudeme používat schéma (protože schémata nejsou podporovány v SQLite).
+Podle konvence poskytovatel databáze zvolí nejvhodnější výchozí schéma. Například Microsoft SQL Server použije `dbo` schéma a SQLite nepoužije schéma (vzhledem k tomu, že schémata nejsou v SQLite podporovaná).
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-Nelze nastavit výchozí schéma používání datových poznámek.
+Výchozí schéma nelze nastavit pomocí datových poznámek.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Rozhraní Fluent API můžete použít k určení výchozí schéma.
+Rozhraní Fluent API můžete použít k určení výchozího schématu.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/DefaultSchema.cs?highlight=7)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/DefaultSchema.cs?highlight=7)] -->
 ``` csharp
 class MyContext : DbContext
 {
