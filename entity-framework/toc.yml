@@ -1,33 +1,32 @@
 - name: Entity Framework
   href: index.md
   items:
-    - name: Porovnání EF Core a EF6
-      href: efcore-and-ef6/index.md
+    - name: EF Core a EF6
       items:
-        - name: EF6 a EF Core ve stejné aplikaci
-          href: efcore-and-ef6/side-by-side.md
+        - name: Porovnání EF Core a EF6
+          href: efcore-and-ef6/index.md
         - name: Přenesení z EF6 do EF Core
-          href: efcore-and-ef6/porting/index.md
           items:
-            - name: Ověření požadavků
-              href: efcore-and-ef6/porting/ensure-requirements.md
+            - name: Přehled
+              href: efcore-and-ef6/porting/index.md
             - name: Přenesení modelu na bázi EDMX
               href: efcore-and-ef6/porting/port-edmx.md
             - name: Přenesení modelu na bázi kódu
               href: efcore-and-ef6/porting/port-code.md
+        - name: Použití EF6 a EF Core ve stejné aplikaci
+          href: efcore-and-ef6/side-by-side.md
     - name: Entity Framework Core
-      href: core/index.md
       items:
+        - name: Přehled
+          href: core/index.md
         - name: Co je nového
-          href: core/what-is-new/index.md
           items:
-            - name: Plán
-              href: core/what-is-new/roadmap.md
-            - name: EF Core 3.0 (nejnovější vydaná verze)
-              href: core/what-is-new/ef-core-3.0/index.md
+            - name: Přehled
+              href: core/what-is-new/index.md
+            - name: EF Core 3.0
               items:
                 - name: Nové funkce
-                  href: core/what-is-new/ef-core-3.0/features.md
+                  href: core/what-is-new/ef-core-3.0/index.md
                 - name: Změny způsobující chyby
                   href: core/what-is-new/ef-core-3.0/breaking-changes.md
             - name: EF Core 2.2
@@ -49,8 +48,9 @@
                 - name: Z verze 1.x na 2.0
                   href: core/miscellaneous/1x-2x-upgrade.md
         - name: Začínáme
-          href: core/get-started/index.md
           items:
+            - name: Kurz o EF Core
+              href: core/get-started/index.md
             - name: Instalace EF Core
               href: core/get-started/install/index.md
             - name: ⤤ Kurz o ASP.NET Core
@@ -64,17 +64,21 @@
             - name: Odolnost připojení
               href: core/miscellaneous/connection-resiliency.md
             - name: Testování
-              href: core/miscellaneous/testing/index.md
               items:
+                - name: Přehled
+                  href: core/miscellaneous/testing/index.md
                 - name: Testování s SQLite
                   href: core/miscellaneous/testing/sqlite.md
                 - name: Testování s InMemory
                   href: core/miscellaneous/testing/in-memory.md
             - name: Konfigurace DbContext
               href: core/miscellaneous/configuring-dbcontext.md
+            - name: Odkazové typy s možnou hodnotou null
+              href: core/miscellaneous/nullable-reference-types.md
         - name: Vytvoření modelu
-          href: core/modeling/index.md
           items:
+            - name: Přehled
+              href: core/modeling/index.md
             - name: Zahrnutí a vyloučení typů
               href: core/modeling/included-types.md
             - name: Zahrnutí a vyloučení vlastností
@@ -118,8 +122,9 @@
             - name: Prostorová data (GIS)
               href: core/modeling/spatial.md
             - name: Modelování relační databáze
-              href: core/modeling/relational/index.md
               items:
+                - name: Přehled
+                  href: core/modeling/relational/index.md
                 - name: Mapování tabulek
                   href: core/modeling/relational/tables.md
                 - name: Mapování sloupců
@@ -145,11 +150,13 @@
                 - name: Dědičnost (relační databáze)
                   href: core/modeling/relational/inheritance.md
         - name: Správa schémat databází
-          href: core/managing-schemas/index.md
           items:
+            - name: Přehled
+              href: core/managing-schemas/index.md
             - name: Migrace
-              href: core/managing-schemas/migrations/index.md
               items:
+                - name: Přehled
+                  href: core/managing-schemas/migrations/index.md
                 - name: Týmová prostředí
                   href: core/managing-schemas/migrations/teams.md
                 - name: Vlastní operace
@@ -165,8 +172,9 @@
             - name: Zpětná analýza (generování uživatelského rozhraní)
               href: core/managing-schemas/scaffolding.md
         - name: Dotazování na data
-          href: core/querying/index.md
           items:
+            - name: Přehled
+              href: core/querying/index.md
             - name: Základní dotaz
               href: core/querying/basic.md
             - name: Načítání souvisejících dat
@@ -186,8 +194,9 @@
             - name: Značky dotazů
               href: core/querying/tags.md
         - name: Ukládání dat
-          href: core/saving/index.md
           items:
+            - name: Přehled
+              href: core/saving/index.md
             - name: Základní uložení
               href: core/saving/basic.md
             - name: Související data
@@ -207,21 +216,25 @@
         - name: Podporovaná implementace .NET
           href: core/platforms/index.md
         - name: Poskytovatelé databází
-          href: core/providers/index.md
           items:
+            - name: Přehled
+              href: core/providers/index.md
             - name: Microsoft SQL Server
-              href: core/providers/sql-server/index.md
               items:
+                - name: Přehled
+                  href: core/providers/sql-server/index.md
                 - name: Paměťově optimalizované tabulky
                   href: core/providers/sql-server/memory-optimized-tables.md
             - name: SQLite
-              href: core/providers/sqlite/index.md
               items:
+                - name: Přehled
+                  href: core/providers/sqlite/index.md
                 - name: Omezení SQLite
                   href: core/providers/sqlite/limitations.md
             - name: Cosmos
-              href: core/providers/cosmos/index.md
               items:
+                - name: Přehled
+                  href: core/providers/cosmos/index.md
                 - name: Práce s nestrukturovanými daty
                   href: core/providers/cosmos/unstructured-data.md
                 - name: Omezení Cosmosu
@@ -235,8 +248,9 @@
         - name: Nástroje a rozšíření
           href: core/extensions/index.md
         - name: "Referenční dokumentace pro použití v\_příkazovém řádku"
-          href: core/miscellaneous/cli/index.md
           items:
+            - name: Přehled
+              href: core/miscellaneous/cli/index.md
             - name: Konzola Správce balíčků (Visual Studio)
               href: core/miscellaneous/cli/powershell.md
             - name: Rozhraní příkazového řádku .NET Core
@@ -248,11 +262,13 @@
         - name: ⤤ Referenční dokumentace k rozhraním API EF Core
           href: 'https://docs.microsoft.com/dotnet/api/?view=efcore-2.1'
     - name: Entity Framework 6
-      href: ef6/index.md
       items:
+        - name: Přehled
+          href: ef6/index.md
         - name: Co je nového
-          href: ef6/what-is-new/index.md
           items:
+            - name: Přehled
+              href: ef6/what-is-new/index.md
             - name: Předchozí verze
               href: ef6/what-is-new/past-releases.md
             - name: Upgrade na EF6
@@ -262,7 +278,6 @@
         - name: Začínáme
           href: ef6/get-started.md
         - name: Základy
-          href: ef6/fundamentals/index.md
           items:
             - name: Jak získat Entity Framework
               href: ef6/fundamentals/install.md
@@ -297,11 +312,13 @@
                 - name: WPF
                   href: ef6/fundamentals/databinding/wpf.md
             - name: Odpojené entity
-              href: ef6/fundamentals/disconnected-entities/index.md
               items:
+                - name: Přehled
+                  href: ef6/fundamentals/disconnected-entities/index.md
                 - name: Entity s vlastním sledováním
-                  href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
                   items:
+                    - name: Přehled
+                      href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
                     - name: Názorný postup
                       href: ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md
             - name: Protokolování a zachytávání
@@ -315,8 +332,9 @@
                 - name: Použití předem vygenerovaných zobrazení
                   href: ef6/fundamentals/performance/pre-generated-views.md
             - name: Poskytovatelé
-              href: ef6/fundamentals/providers/index.md
               items:
+                - name: Přehled
+                  href: ef6/fundamentals/providers/index.md
                 - name: Model zprostředkovatele EF6
                   href: ef6/fundamentals/providers/provider-model.md
                 - name: Prostorová podpora mezi zprostředkovateli
@@ -332,8 +350,9 @@
                 - name: Testovatelnost v EF4 (článek)
                   href: ef6/fundamentals/testing/testability-article.md
         - name: Vytvoření modelu
-          href: ef6/modeling/index.md
           items:
+            - name: Přehled
+              href: ef6/modeling/index.md
             - name: Použití přístupu Code First
               items:
                 - name: Pracovní postupy
@@ -371,8 +390,9 @@
                     - name: Mapování uložených procedur
                       href: ef6/modeling/code-first/fluent/cud-stored-procedures.md
                 - name: Migrace
-                  href: ef6/modeling/code-first/migrations/index.md
                   items:
+                    - name: Přehled
+                      href: ef6/modeling/code-first/migrations/index.md
                     - name: Automatické migrace
                       href: ef6/modeling/code-first/migrations/automatic.md
                     - name: Práce se stávajícími databázemi
@@ -424,8 +444,9 @@
                 - name: Výběr verze modulu runtime
                   href: ef6/modeling/designer/select-runtime-version.md
                 - name: Vytvoření kódu
-                  href: ef6/modeling/designer/codegen/index.md
                   items:
+                    - name: Přehled
+                      href: ef6/modeling/designer/codegen/index.md
                     - name: Starší ObjectContext
                       href: ef6/modeling/designer/codegen/legacy-objectcontext.md
                 - name: Upřesnit
@@ -447,8 +468,9 @@
                 - name: Klávesové zkratky
                   href: ef6/modeling/designer/keyboard-shortcuts.md
         - name: Dotazování na data
-          href: ef6/querying/index.md
           items:
+            - name: Přehled
+              href: ef6/querying/index.md
             - name: Load – metoda
               href: ef6/querying/load-method.md
             - name: Místní data
@@ -460,8 +482,9 @@
             - name: Dotazy na související data
               href: ef6/querying/related-data.md
         - name: Ukládání dat
-          href: ef6/saving/index.md
           items:
+            - name: Přehled
+              href: ef6/saving/index.md
             - name: Sledování změn
               items:
                 - name: Automatické zjišťování změn
@@ -477,7 +500,6 @@
             - name: Ověřování dat
               href: ef6/saving/validation.md
         - name: Další prostředky
-          href: ef6/resources/index.md
           items:
             - name: Blogy
               href: ef6/resources/blogs.md
