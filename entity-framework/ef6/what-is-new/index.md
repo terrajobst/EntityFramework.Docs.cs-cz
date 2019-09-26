@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: bb7038764644682c2149a8a500f342804d01f3d2
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: c49f4cba0066d1e218f11c3959d96f9cafa913f4
+ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198035"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71266785"
 ---
 # <a name="whats-new-in-ef6"></a>Co je nového v EF6
 
@@ -23,6 +23,7 @@ Modul runtime EF 6.3.0 byl vydán do NuGet v září 2019. Hlavním cílem této
 
 - Podpora pro .NET Core 3,0
   - Balíček EntityFramework se teď zaměřuje .NET Standard 2,1, kromě .NET Framework 4. x.
+  - To znamená, že EF 6,3 je platforma pro víc platforem a je podporovaná na jiných operačních systémech než Windows, jako je Linux a macOS.
   - Příkazy migrace byly přepsány, aby vytvářely mimo proces a pracovaly s projekty ve stylu sady SDK.
 - Podpora SQL Server HierarchyId
 - Vylepšená kompatibilita s Roslyn a NuGet PackageReference
@@ -37,12 +38,12 @@ Toto omezení můžete obejít tak, že přidáte soubor EDMX a generované tř�
 Propojené soubory budou vypadat jako v souboru projektu:
 
 ``` csproj 
-&lt;ItemGroup&gt;
-  &lt;EntityDeploy Include="..\EdmxDesignHost\Entities.edmx" Link="Model\Entities.edmx" /&gt;
-  &lt;Compile Include="..\EdmxDesignHost\Entities.Context.cs" Link="Model\Entities.Context.cs" /&gt;
-  &lt;Compile Include="..\EdmxDesignHost\Thing.cs" Link="Model\Thing.cs" /&gt;
-  &lt;Compile Include="..\EdmxDesignHost\Person.cs" Link="Model\Person.cs" /&gt;
-&lt;/ItemGroup&gt;
+<ItemGroup>
+  <EntityDeploy Include="..\EdmxDesignHost\Entities.edmx" Link="Model\Entities.edmx" />
+  <Compile Include="..\EdmxDesignHost\Entities.Context.cs" Link="Model\Entities.Context.cs" />
+  <Compile Include="..\EdmxDesignHost\Thing.cs" Link="Model\Thing.cs" />
+  <Compile Include="..\EdmxDesignHost\Person.cs" Link="Model\Person.cs" />
+</ItemGroup>
 ```
 
 Všimněte si, že soubor EDMX je propojený s akcí sestavení EntityDeploy. Jedná se o speciální úlohu MSBuild (teď zahrnutou v balíčku EF 6,3), která postará o přidání modelu EF do cílového sestavení jako vložené prostředky (nebo jejich zkopírování jako soubory ve výstupní složce v závislosti na nastavení zpracování artefaktu metadat v EDMX). Další podrobnosti o tom, jak toto nastavení získat, najdete v našem [příkladu pro edmx .NET Core Sample](https://aka.ms/EdmxDotNetCoreSample).
