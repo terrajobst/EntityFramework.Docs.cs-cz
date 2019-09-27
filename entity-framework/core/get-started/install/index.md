@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: eb808dd9d9b1b214947524cd83999f67be9cc0ff
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 7bdedf563b7d919ba334db79af73c3eed3ba4129
+ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149070"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317584"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
@@ -17,7 +17,7 @@ ms.locfileid: "71149070"
 
 * EF Core je knihovna [.NET Standard 2,1](/dotnet/standard/net-standard) . Proto EF Core vyžaduje implementaci rozhraní .NET, která podporuje spuštění .NET Standard 2,1. Na EF Core můžou být taky odkazovány jinými knihovnami .NET Standard 2,1. 
 
-* Můžete například použít EF Core pro vývoj aplikací, které cílí na .NET Core. Sestavování aplikací .NET Core vyžaduje [.NET Core SDK](https://dotnet.microsoft.com/download). Volitelně můžete také použít vývojové prostředí, jako je Visual Studio, Visual Studio pro Mac nebo Visual Studio Code. Další informace najdete v [Začínáme pomocí .NET Core](/dotnet/core/get-started).
+* Můžete například použít EF Core pro vývoj aplikací, které cílí na .NET Core. Sestavování aplikací .NET Core vyžaduje [.NET Core SDK](https://dotnet.microsoft.com/download). Volitelně můžete také použít vývojové prostředí, jako je [Visual Studio](https://visualstudio.microsoft.com/vs), [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac)nebo [Visual Studio Code](https://code.visualstudio.com). Další informace najdete v [Začínáme pomocí .NET Core](/dotnet/core/get-started).
 
 * Můžete použít EF Core pro vývoj aplikací v systému Windows pomocí sady Visual Studio. Doporučuje se nejnovější verze sady [Visual Studio](https://visualstudio.microsoft.com/vs) .
 
@@ -33,7 +33,7 @@ Pokud vytváříte aplikaci ASP.NET Core, nemusíte instalovat poskytovatele v p
 
 Chcete-li nainstalovat nebo aktualizovat balíčky NuGet, můžete použít rozhraní příkazového řádku (CLI) .NET Core, dialogové okno Správce balíčků sady Visual Studio nebo konzolu správce sady Visual Studio.
 
-### <a name="net-core-cli"></a>Rozhraní příkazového řádku .NET Core
+### <a name="net-core-cli"></a>.NET Core CLI
 
 * Chcete-li nainstalovat nebo aktualizovat poskytovatele služby EF Core SQL Server, použijte následující příkaz .NET Core CLI z příkazového řádku operačního systému:
 

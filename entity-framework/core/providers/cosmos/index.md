@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 09/12/2019
 ms.assetid: 28264681-4486-4891-888c-be5e4ade24f1
 uid: core/providers/cosmos/index
-ms.openlocfilehash: c753bb71089c91cbb26b970cddd118645fb18d56
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 683436aa485d2fef9aa8bf6c6ff02b00dfeb28cf
+ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150819"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317566"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Poskytovatel EF Core Azure Cosmos DB
 
@@ -34,7 +34,9 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 > [!TIP]  
 > Ukázku tohoto článku můžete zobrazit [na GitHubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).
 
-Podobně jako u jiných poskytovatelů je prvním krokem volání `UseCosmos`:[!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
+Podobně jako u jiných poskytovatelů je prvním krokem volání `UseCosmos`:
+
+[!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
 > Koncový bod a klíč se tady pevně zakódované pro jednoduchost, ale v produkční aplikaci by se měly [ukládat securily](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager) .
@@ -45,7 +47,9 @@ V tomto příkladu `Order` je jednoduchá entita s odkazem na [vlastní typ](../
 
 [!code-csharp[StreetAddress](../../../../samples/core/Cosmos/ModelBuilding/StreetAddress.cs?name=StreetAddress)]
 
-Ukládání a quering dat se řídí normálním vzorem EF:[!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
+Ukládání a quering dat se řídí normálním vzorem EF:
+
+[!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
 > Volání `EnsureCreated` je nezbytné pro vytvoření požadovaných kolekcí a vložení [počátečních dat](../../modeling/data-seeding.md) , pokud jsou uvedena v modelu. Měla `EnsureCreated` by být však volána pouze během nasazení, nikoli v normálním provozu, protože může způsobit problémy s výkonem.
