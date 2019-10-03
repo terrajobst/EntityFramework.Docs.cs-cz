@@ -1,96 +1,98 @@
 ---
-title: Návrháře CUD uložených procedur komponentami TableAdapter-EF6
+title: CUD uložené procedury návrháře – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 35a00aa817c8643352c517c233977efd49e3baac
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: bdb0df969c33d5ad3f103bfa9af6002c9c2bb9b3
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489554"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813551"
 ---
-# <a name="designer-cud-stored-procedures"></a>Návrháře CUD uložené procedury
-Tento podrobný návod ukazují, jak vytvořit mapování\\vložení, aktualizace a odstranění (vytvoření) operace typu entity na uložené procedury pomocí návrháře Entity Framework (EF designeru).  Ve výchozím nastavení Entity Framework automaticky generuje příkazů SQL pro operace vytvoření, ale můžete také namapovat uložených procedur na těchto operací.  
+# <a name="designer-cud-stored-procedures"></a>CUD uložené procedury návrháře
 
-Všimněte si, že Code First nepodporuje mapování uložené procedury nebo funkce. Pomocí metody System.Data.Entity.DbSet.SqlQuery však můžete volat uložené procedury nebo funkce. Příklad:
+V tomto podrobném návodu se dozvíte, jak namapovat operace CREATE @ no__t-0insert, Update a Delete (CUD) typu entity na uložené procedury pomocí Entity Framework Designer (EF Designer).  Ve výchozím nastavení Entity Framework automaticky generuje příkazy SQL pro operace CUD, ale můžete také namapovat uložené procedury na tyto operace.  
+
+Všimněte si, že Code First nepodporuje mapování na uložené procedury nebo funkce. Uložené procedury nebo funkce však můžete volat pomocí metody System. data. entity. Negenerickými. SqlQuery. Příklad:
+
 ``` csharp
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]");
 ```
 
-## <a name="considerations-when-mapping-the-cud-operations-to-stored-procedures"></a>Důležité informace o mapování CUD operace na uložené procedury
+## <a name="considerations-when-mapping-the-cud-operations-to-stored-procedures"></a>Předpoklady při mapování operací CUD na uložené procedury
 
-Při mapování CUD operace na uložené procedury, platí následující aspekty: 
+Při mapování operací CUD na uložené procedury platí následující požadavky:
 
--   Při jedné z operací CUD mapování uložené procedury, namapujte všechny z nich. Pokud není mapování všech třech umístěních, nenamapované operace se nezdaří, pokud jsou provedeny a **UpdateException** bude vyvolána výjimka.
--   Každý parametr uložené procedury musí být namapovaný na vlastnosti entity.
--   Pokud server vygeneruje hodnotu primárního klíče pro vložený řádek, je nutné mapovat tato hodnota zpět na vlastnost klíče entity. V následujícím příkladu **InsertPerson** uloženou proceduru vrátí nově vytvořený primární klíč v rámci uložené procedury sada výsledků dotazu. Primární klíč je namapována na klíč entity (**PersonID**) pomocí **&lt;přidat výsledných vazeb&gt;** funkce EF designeru.
--   Volání uložené procedury jsou namapované 1:1 s entitami v konceptuálním modelu. Například pokud se rozhodnete implementovat hierarchie dědičnosti v konceptuálním modelu a pak mapování vytvoření uložené procedury pro **nadřazené** (základní) a **podřízené** (odvozené) entity, uložení **Podřízené** změny bude volat pouze **podřízené**uživatele uložených procedur, nebude spustí **nadřazené**uživatele uložené procedury volání.
+- Pokud mapujete jednu z operací CUD na uloženou proceduru, namapujte na ni všechny. Pokud nemapujete všechny tři, nemapované operace selžou, pokud se spustí, a vyvolá **UpdateException** will.
+- Všechny parametry uložené procedury je nutné namapovat na vlastnosti entity.
+- Pokud server vygeneruje hodnotu primárního klíče pro vložený řádek, musíte tuto hodnotu namapovat zpátky na klíčovou vlastnost entity. V následujícím příkladu vrátí procedura **InsertPerson** stored nově vytvořený primární klíč jako součást sady výsledků uložených procedur. Primární klíč je namapován na klíč entity (**PersonID**) pomocí **vazeb výsledku &lt;Add @ no__t-3** feature v Návrháři EF.
+- Volání uložených procedur jsou namapována 1:1 s entitami v koncepčním modelu. Například Pokud implementujete hierarchii dědičnosti v koncepčním modelu a poté namapujete uložené procedury CUD pro **nadřazený objekt** (základní) a **podřízené** (odvozené) entity, uložení **podřízených** změn bude volat pouze **podřízený**element. s uložené procedury nebudou aktivovat volání uložených procedur **nadřazené**procedury.
 
 ## <a name="prerequisites"></a>Požadavky
 
 K dokončení toho návodu budete potřebovat:
 
-- Nejnovější verzi sady Visual Studio.
-- [Ukázkové databáze školy](~/ef6/resources/school-database.md).
+- Poslední verze sady Visual Studio.
+- [Ukázková databáze školy](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
--   Otevřít Visual Studio 2012.
--   Vyberte **souboru -&gt; nové –&gt; projektu**
--   V levém podokně klikněte na tlačítko **Visual C\#** a pak vyberte **konzoly** šablony.
--   Zadejte **CUDSProcsSample** jako název.
--   Vyberte **OK**.
+- Otevřete Visual Studio 2012.
+- Vybrat **soubor-&gt; nový-&gt; projekt**
+- V levém podokně klikněte na položku **Visual C @ no__t-1**a potom vyberte šablonu **konzoly** .
+- Do pole název zadejte **CUDSProcsSample** AS.
+- Vyberte **OK**.
 
 ## <a name="create-a-model"></a>Vytvoření modelu
 
--   Klikněte pravým tlačítkem na název projektu v Průzkumníku řešení a vyberte **Add -&gt; nová položka**.
--   Vyberte **Data** v levé nabídce a pak vyberte **datový Model Entity ADO.NET** v podokně šablon.
--   Zadejte **CUDSProcs.edmx** pro název souboru a pak klikněte na tlačítko **přidat**.
--   V dialogovém okně Výběr obsahu modelu vyberte **Generovat z databáze**a potom klikněte na tlačítko **Další**.
--   Klikněte na tlačítko **nové připojení**. V dialogovém okně Vlastnosti připojení zadat název serveru (například **(localdb)\\mssqllocaldb**), vyberte metodu ověřování, zadejte **School** pro název databáze a pak Klikněte na tlačítko **OK**.
-    Dialogové okno Vybrat datové připojení se aktualizuje se nastavení připojení databáze.
--   V okně Zvolte vaše databázové objekty dialogovém okně **tabulky** uzlu, vyberte **osoba** tabulky.
--   Také vybrat následující uložené procedury v části **uložené procedury a funkce** uzlu: **DeletePerson**, **InsertPerson**, a **UpdatePerson** . 
--   Od verze Visual Studio 2012 EF designeru podporuje hromadný import uložených procedur. **Importovat vybrané uložených procedur a funkcí do entity model** je ve výchozím nastavení zaškrtnuto. Protože v tomto příkladu budeme mít uložené procedury, které vložit, aktualizovat a odstranit typy entit, nechcete, aby importovat jsme se zrušit zaškrtnutí tohoto políčka. 
+- Klikněte pravým tlačítkem myši na název projektu v Průzkumník řešení a vyberte možnost **Přidat-&gt; nová položka**.
+- V nabídce vlevo vyberte **data** a v podokně šablony vyberte **ADO.NET model EDM (Entity Data Model)** .
+- Jako název souboru zadejte **CUDSProcs. edmx** a pak klikněte na **Přidat**.
+- V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další**.
+- Klikněte na **nové připojení**. V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB)\\mssqllocaldb**), vyberte metodu ověřování, jako název databáze zadejte **School** a pak klikněte na **OK**.
+    Dialogové okno zvolit datové připojení je aktualizováno nastavením připojení k databázi.
+- V dialogovém okně zvolte objekty databáze pod **tabulkami** node vyberte tabulku **osoba** .
+- V uzlu **uložené procedury a funkce** vyberte také následující uložené procedury: **DeletePerson**, **InsertPerson**a **UpdatePerson**.
+- Počínaje sadou Visual Studio 2012 Návrhář EF podporuje hromadný import uložených procedur. Ve výchozím nastavení je zaškrtnuto políčko **Importovat vybrané uložené procedury a funkce do modelu entity** . Vzhledem k tomu, že v tomto příkladu máme uložené procedury, které vkládají, aktualizují a odstraňují typy entit, nechcete je naimportovat a zruší zaškrtnutí tohoto políčka.
 
-    ![Importovat S Procs](~/ef6/media/importsprocs.jpg)
+    ![Importovat S – procs](~/ef6/media/importsprocs.jpg)
 
--   Klikněte na tlačítko **Dokončit**.
-    EF designeru, která poskytuje návrhové ploše pro úpravy váš model, se zobrazí.
+- Klikněte na tlačítko **Dokončit**.
+    Zobrazí se Návrhář EF, který poskytuje návrhovou plochu pro úpravu vašeho modelu.
 
-## <a name="map-the-person-entity-to-stored-procedures"></a>Mapa entita osoba, která má uložené procedury
+## <a name="map-the-person-entity-to-stored-procedures"></a>Mapování entity Person na uložené procedury
 
--   Klikněte pravým tlačítkem myši **osoba** typu entity a vyberte **mapování uložené procedury**.
--   Mapování uložené procedury joinkind **podrobnosti mapování** okna.
--   Klikněte na tlačítko  **&lt;vyberte Vložit funkci&gt;**.
-    Pole stane rozevíracího seznamu uložených procedur v modelu úložiště, který je možné mapovat na typy entit v konceptuálním modelu.
-    Vyberte **InsertPerson** z rozevíracího seznamu.
--   Zobrazí se výchozí mapování mezi parametry uložené procedury a vlastností entity. Všimněte si, že šipky označují směr mapování: vlastnost hodnot pro parametry uložené procedury.
--   Klikněte na tlačítko  **&lt;přidat vazbu výsledek&gt;**.
--   Typ **NewPersonID**, název parametru vrácené **InsertPerson** uložené procedury. Zajistěte, aby zadejte počáteční ani koncové mezery.
--   Stisknutím klávesy **zadejte**.
--   Ve výchozím nastavení **NewPersonID** je namapována na klíč entity **PersonID**. Všimněte si, že šipka označuje směr mapování: pro vlastnost není zadána hodnota ve sloupci výsledků.
+- Klikněte pravým tlačítkem na typ **osoba**@no__t – 1entity a vyberte **mapování uložených procedur**.
+- Mapování uložených procedur se zobrazí v **podrobnostech mapování** window.
+- Klikněte na **@no__t – 1Select Vložit funkci @ no__t-2**.
+    Pole se zobrazí v rozevíracím seznamu uložených procedur v modelu úložiště, které lze namapovat na typy entit v koncepčním modelu.
+    V rozevíracím seznamu vyberte **InsertPerson** from.
+- Zobrazí se výchozí mapování mezi parametry uložené procedury a vlastnostmi entity. Všimněte si, že šipky označují směr mapování: Hodnoty vlastností jsou dodány parametrům uložené procedury.
+- Klikněte na **@no__t – vazba výsledku 1Add @ no__t-2**.
+- Zadejte **NewPersonID**, název parametru vráceného procedurou **InsertPerson** stored. Nezapomeňte zadat počáteční ani koncové mezery.
+- Stiskněte klávesu **ENTER**.
+- Ve výchozím nastavení je **NewPersonID** Is mapována na klíč entity **PersonID**. Všimněte si, že šipka indikuje směr mapování: Do vlastnosti je zadána hodnota sloupce výsledek.
 
-    ![Podrobnosti mapování](~/ef6/media/mappingdetails.png)
+    ![Mapování podrobností](~/ef6/media/mappingdetails.png)
 
--   Klikněte na tlačítko **&lt;vyberte funkce aktualizace&gt;** a vyberte **UpdatePerson** v rozevíracím seznamu rozevíracího seznamu.
--   Zobrazí se výchozí mapování mezi parametry uložené procedury a vlastností entity.
--   Klikněte na tlačítko **&lt;vyberte funkce Odstranit&gt;** a vyberte **DeletePerson** v rozevíracím seznamu rozevíracího seznamu.
--   Zobrazí se výchozí mapování mezi parametry uložené procedury a vlastností entity.
+- Klikněte na **@no__t – 1Select Update – funkce @ no__t-2** And vyberte **UpdatePerson** from výsledného rozevíracího seznamu.
+- Zobrazí se výchozí mapování mezi parametry uložené procedury a vlastnostmi entity.
+- Klikněte na **&lt;Select odstranit funkci @ no__t-2** And vyberte **DeletePerson** from výsledného rozevíracího seznamu.
+- Zobrazí se výchozí mapování mezi parametry uložené procedury a vlastnostmi entity.
 
-Vložení, aktualizace a odstranění operace **osoba** typ entity jsou teď namapovaných na uložené procedury.
+Operace vložení, aktualizace a odstranění **osoby**typu  entity jsou nyní namapovány na uložené procedury.
 
-Pokud chcete povolit souběžnost kontroly při aktualizaci nebo odstranění entity s uloženými procedurami, použijte jednu z následujících možností:
+Pokud chcete povolit kontrolu souběžnosti při aktualizaci nebo odstranění entity s uloženými procedurami, použijte jednu z následujících možností:
 
--   Použití **výstup** parametr a vrátit tak počet ovlivněné řádky z uložené procedury a kontrolu **parametr ovlivněných řádků** zaškrtávací políčko vedle názvu parametru. Pokud vrácená hodnota je nula, při volání operace [ **OptimisticConcurrencyException** ](https://msdn.microsoft.com/library/system.data.optimisticconcurrencyexception.aspx) bude vyvolána výjimka.
--   Zkontrolujte **použít původní hodnota** zaškrtávací políčko vedle vlastnosti, která chcete použít pro kontrolu souběžnosti. Při pokusu o aktualizaci, použije se hodnota vlastnosti, která byla původně načtena z databáze při zápis dat zpět do databáze. Pokud hodnota neodpovídá hodnotě v databázi, **OptimisticConcurrencyException** bude vyvolána výjimka.
+- Použijte **výstupní** parametr pro vrácení počtu ovlivněných řádků z uložené procedury a zaškrtnutí **parametru ovlivněné řádky** checkbox vedle názvu parametru. Pokud je vrácená hodnota nula, když je operace volána, vyvolá se  [**OptimisticConcurrencyException**](https://msdn.microsoft.com/library/system.data.optimisticconcurrencyexception.aspx) will.
+- Zaškrtněte políčko **použít původní hodnotu** vedle vlastnosti, kterou chcete použít pro kontrolu souběžnosti. Při pokusu o aktualizaci se při zápisu dat zpět do databáze použije hodnota vlastnosti, která byla původně načtena z databáze. Pokud hodnota neodpovídá hodnotě v databázi, vyvolá se **OptimisticConcurrencyException** will.
 
 ## <a name="use-the-model"></a>Použití modelu
 
-Otevřít **Program.cs** souboru, kde **hlavní** je definována metoda. Přidejte následující kód do funkce Main.
+Otevřete soubor **program.cs** , kde je definována metoda **Main** . Do funkce Main přidejte následující kód.
 
-Kód vytvoří novou **osoba** pak aktualizuje objekt objektu a nakonec odstraní objekt.         
+Kód vytvoří nový objekt **Person** a pak objekt aktualizuje a nakonec objekt odstraní.
 
 ``` csharp
     using (var context = new SchoolEntities())
@@ -140,17 +142,18 @@ Kód vytvoří novou **osoba** pak aktualizuje objekt objektu a nakonec odstran�
     }
 ```
 
--   Kompilace a spuštění aplikace. Program vygeneruje následující výstup *
-    >[!NOTE]
-> PersonID je automaticky vytvořen serveru, pravděpodobně se zobrazí jiné číslo *
+- Zkompilujte a spusťte aplikaci. Program vytvoří následující výstup *
 
-```
+> [!NOTE]
+> PersonID se automaticky generuje serverem, takže se pravděpodobně zobrazí jiné číslo *
+
+``` Output
 Added Robyn Martin to the context.
 Before SaveChanges, the PersonID is: 0
 After SaveChanges, the PersonID is: 51
 A person with PersonID 51 was deleted.
 ```
 
-Při práci s verzí sady Visual Studio Ultimate, vám pomůže nástroj Intellitrace v ladicím programu naleznete v tématu příkazy SQL, které se provádějí.
+Pokud pracujete s konečnou verzí sady Visual Studio, můžete použít IntelliTrace s ladicím programem k zobrazení příkazů SQL, které se spustí.
 
-![Intellitrace](~/ef6/media/intellitrace.png)
+![IntelliTrace](~/ef6/media/intellitrace.png)

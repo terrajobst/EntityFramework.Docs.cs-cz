@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 1222f10811914f65822a49e18522c287ece12174
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 42e59b47f569ef6fcf72fc5bd5f94d3e9d807a24
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306490"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813573"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>Upgrade aplikací z předchozích verzí na EF Core 2,0
 
@@ -94,19 +94,19 @@ Poskytovatelé SQL Server a SQLite jsou dodány týmem EF a verze 2,0 budou k di
 
 Poznámka: tyto změny by neměly mít vliv na většinu kódu aplikace.
 
-ID událostí pro zprávy odeslané do [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs) se změnila v 2,0. Identifikátory událostí jsou teď v rámci EF Core kódu jedinečné. Tyto zprávy se teď také řídí standardním vzorem pro strukturované protokolování, které používá, například MVC.
+ID událostí pro zprávy odeslané do [ILogger](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.ilogger) se změnila v 2,0. Identifikátory událostí jsou teď v rámci EF Core kódu jedinečné. Tyto zprávy se teď také řídí standardním vzorem pro strukturované protokolování, které používá, například MVC.
 
-Změnily se také kategorie protokolovacího nástroje. K dispozici je teď známá sada kategorií, ke které se dostanete prostřednictvím [DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs).
+Změnily se také kategorie protokolovacího nástroje. K dispozici je teď známá sada kategorií, ke které se dostanete prostřednictvím [DbLoggerCategory](https://github.com/aspnet/EntityFrameworkCore/blob/rel/2.0.0/src/EFCore/DbLoggerCategory.cs).
 
-Události [DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) nyní používají stejné názvy ID události jako odpovídající `ILogger` zprávy. Datové části událostí jsou všechny nominální typy odvozené z [EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs).
+Události [DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) nyní používají stejné názvy ID události jako odpovídající `ILogger` zprávy. Datové části událostí jsou všechny nominální typy odvozené z [EventData](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.eventdata).
 
-ID událostí, typy datových částí a kategorie jsou zdokumentovány v [CoreEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/CoreEventId.cs) a třídách [RelationalEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore.Relational/Diagnostics/RelationalEventId.cs) .
+ID událostí, typy datových částí a kategorie jsou zdokumentovány v [CoreEventId](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.coreeventid) a třídách [RelationalEventId](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.relationaleventid) .
 
 ID se také přesunula z Microsoft. EntityFrameworkCore. Infrastructure na nový obor názvů Microsoft. EntityFrameworkCore. Diagnostics.
 
 ## <a name="ef-core-relational-metadata-api-changes"></a>EF Core změny v rozhraní API relačních metadat
 
-EF Core 2,0 teď pro každého jiného zprostředkovatele vytvoří jiný [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) . To je obvykle transparentní pro aplikaci. Usnadnili jsme tak zjednodušení rozhraní API na nižší úrovni tak, aby jakýkoliv přístup k _běžným koncepcím relačních metadat_ byl vždy proveden prostřednictvím volání `.Relational` namísto `.SqlServer`, `.Sqlite`atd. Například kód 1.1. x podobný tomuto:
+EF Core 2,0 teď pro každého jiného zprostředkovatele vytvoří jiný [IModel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.imodel) . To je obvykle transparentní pro aplikaci. Usnadnili jsme tak zjednodušení rozhraní API na nižší úrovni tak, aby jakýkoliv přístup k _běžným koncepcím relačních metadat_ byl vždy proveden prostřednictvím volání `.Relational` namísto `.SqlServer`, `.Sqlite`atd. Například kód 1.1. x podobný tomuto:
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;
@@ -145,13 +145,13 @@ Tím se vytvoří nebo použije databáze s názvem "MyDatabase". Pokud `UseInMe
 
 ## <a name="read-only-api-changes"></a>Změny rozhraní API jen pro čtení
 
-`IsReadOnlyBeforeSave`, `IsReadOnlyAfterSave`a `IsStoreGeneratedAlways` byly zastaralé a nahrazeny [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39) a [AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55). Toto chování platí pro libovolnou vlastnost (nikoli pouze vlastnosti generované úložištěm) a určuje, jak má být hodnota vlastnosti použita při vložení do řádku databáze (`BeforeSaveBehavior`) nebo při aktualizaci stávajícího řádku databáze (`AfterSaveBehavior`).
+`IsReadOnlyBeforeSave`, `IsReadOnlyAfterSave`a `IsStoreGeneratedAlways` byly zastaralé a nahrazeny [BeforeSaveBehavior](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.iproperty.beforesavebehavior) a [AfterSaveBehavior](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.iproperty.aftersavebehavior). Toto chování platí pro libovolnou vlastnost (nikoli pouze vlastnosti generované úložištěm) a určuje, jak má být hodnota vlastnosti použita při vložení do řádku databáze (`BeforeSaveBehavior`) nebo při aktualizaci stávajícího řádku databáze (`AfterSaveBehavior`).
 
-Vlastnosti označené jako [ValueGenerated. OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (například pro počítané sloupce) budou ve výchozím nastavení ignorovat všechny hodnoty aktuálně nastavené u vlastnosti. To znamená, že hodnota generovaná úložištěm bude vždycky získaná bez ohledu na to, jestli se pro sledovanou entitu nastavila nebo změnila nějaká hodnota. To lze změnit nastavením jiného `Before\AfterSaveBehavior`.
+Vlastnosti označené jako [ValueGenerated. OnAddOrUpdate](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.valuegenerated) (například pro počítané sloupce) budou ve výchozím nastavení ignorovat všechny hodnoty aktuálně nastavené u vlastnosti. To znamená, že hodnota generovaná úložištěm bude vždycky získaná bez ohledu na to, jestli se pro sledovanou entitu nastavila nebo změnila nějaká hodnota. To lze změnit nastavením jiného `Before\AfterSaveBehavior`.
 
 ## <a name="new-clientsetnull-delete-behavior"></a>Nové chování při odstraňování ClientSetNull
 
-V předchozích verzích měla [DeleteBehavior. restrict](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs) chování pro entity sledované kontextem, který je více uzavřenou `SetNull` shodnou sémantikou. V EF Core 2,0 byl pro volitelné `ClientSetNull` relace zaveden nové chování jako výchozí. Toto chování má `SetNull` sémantiku pro sledované entity a `Restrict` chování pro databáze vytvořené pomocí EF Core. V našem prostředí se jedná o nejpravděpodobnější/užitečné chování sledovaných entit a databáze. `DeleteBehavior.Restrict`se teď u sledovaných entit dodrží při nastavení pro volitelné vztahy.
+V předchozích verzích měla [DeleteBehavior. restrict](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.deletebehavior) chování pro entity sledované kontextem, který je více uzavřenou `SetNull` shodnou sémantikou. V EF Core 2,0 byl pro volitelné `ClientSetNull` relace zaveden nové chování jako výchozí. Toto chování má `SetNull` sémantiku pro sledované entity a `Restrict` chování pro databáze vytvořené pomocí EF Core. V našem prostředí se jedná o nejpravděpodobnější/užitečné chování sledovaných entit a databáze. `DeleteBehavior.Restrict`se teď u sledovaných entit dodrží při nastavení pro volitelné vztahy.
 
 ## <a name="provider-design-time-packages-removed"></a>Odebrané balíčky pro dobu návrhu zprostředkovatele
 

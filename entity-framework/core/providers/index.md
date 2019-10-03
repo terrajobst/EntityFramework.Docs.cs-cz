@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 02/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/providers/index
-ms.openlocfilehash: 096d68f814e279bd224dfc50111d6576ab5eb223
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: db06906e6af518a27a21f30b12d722ce06e9bd52
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149236"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813512"
 ---
 # <a name="database-providers"></a>Poskytovatelé databází
 
@@ -44,27 +44,23 @@ Entity Framework Core mají přístup k mnoha různým databázím prostřednict
 | [Devart.Data.SQLite.EFCore](https://www.nuget.org/packages/Devart.Data.SQLite.EFCore/)                               | SQLite 3 onwards           | [DevArt](https://www.devart.com/)                                             | Hrazen                 | [doc](https://www.devart.com/dotconnect/sqlite/docs/)                                                                                                                                             |
 | [Devart.Data.MySql.EFCore](https://www.nuget.org/packages/Devart.Data.MySql.EFCore/)                                 | MySQL 5 a vyšší            | [DevArt](https://www.devart.com/)                                             | Hrazen                 | [doc](https://www.devart.com/dotconnect/mysql/docs/)                                                                                                                                              |
 
-## <a name="future-providers"></a>Budoucí poskytovatelé
-
-### <a name="cosmos-db"></a>Databáze Cosmos
-
-Vyvíjíme poskytovatele EF Core pro rozhraní SQL API v Cosmos DB.
-Toto je první dokončený poskytovatel databáze orientovaný na dokument a studium z tohoto cvičení bude informovat o vylepšení návrhu budoucích vydání EF Core a případně jiných nerelačních zprostředkovatelů.
-Verze Preview je k dispozici v [galerii NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos).
-
 ## <a name="adding-a-database-provider-to-your-application"></a>Přidání poskytovatele databáze do aplikace
 
-Většina poskytovatelů databáze pro EF Core se distribuuje jako balíčky NuGet. To znamená, že je možné je nainstalovat `dotnet` pomocí nástroje na příkazovém řádku:
+Většina poskytovatelů databáze pro EF Core je distribuována jako balíčky NuGet a lze ji nainstalovat následujícím způsobem:
+
+# <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ``` console
 dotnet add package provider_package_name
 ```
 
-Nebo v aplikaci Visual Studio pomocí konzoly Správce balíčků NuGet:
+# <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 install-package provider_package_name
 ```
+
+***
 
 Po instalaci nakonfigurujete poskytovatele v `DbContext`, a to buď `OnConfiguring` v metodě, nebo v `AddDbContext` metodě, pokud používáte kontejner pro vkládání závislostí.
 Například následující řádek konfiguruje poskytovatele SQL Server s předaným připojovacím řetězcem:

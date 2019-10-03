@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: ebec5775770c0f1e297eaaf35bf644c605a69afc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: d8f52edfdf4bd7776ab8d81185c867cbfd7bcf44
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197770"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813600"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
 
@@ -62,7 +62,6 @@ Jako alternativu k `FromSqlRaw`, můžete použít `FromSqlInterpolated` , kter�
 
 > [!NOTE]
 > Před verzí 3,0 `FromSqlRaw` a `FromSqlInterpolated` byly dvě přetížení s názvem `FromSql`. Další podrobnosti najdete v [části předchozí verze](#previous-versions) .
-
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -172,6 +171,6 @@ Při použití nezpracovaných dotazů SQL je potřeba vědět o několika omeze
 
 * Všimněte si, že SQL Server nepovoluje sestavování prostřednictvím volání uložených procedur, takže případný pokus o použití dalších operátorů dotazu na takové volání způsobí neplatnost SQL. Operátory dotazů lze zavést po `AsEnumerable()` vyhodnocení klientů.
 
-# <a name="previous-versions"></a>Předchozí verze
+## <a name="previous-versions"></a>Předchozí verze
 
 EF Core verze 2,2 a starší obsahovala dvě přetížení s názvem `FromSql` , která se chovají stejným způsobem jako novější `FromSqlRaw` a `FromSqlInterpolated`. To usnadňuje náhodné volání metody nezpracovaného řetězce, pokud by záměr byl zavolat metodu interpolované řetězce a druhým způsobem. To může vést k tomu, že dotazy nejsou parametrizované, pokud by měly být.

@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 09/12/2019
 ms.assetid: 28264681-4486-4891-888c-be5e4ade24f1
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 683436aa485d2fef9aa8bf6c6ff02b00dfeb28cf
-ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
+ms.openlocfilehash: 96686256bb93f5828bb21fed167eb57812806390
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71317566"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813548"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Poskytovatel EF Core Azure Cosmos DB
 
@@ -25,9 +25,19 @@ Před čtením této části se důrazně doporučuje seznámení s [Azure Cosmo
 
 Nainstalujte [balíček NuGet Microsoft. EntityFrameworkCore. Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).
 
+# <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+
+``` console
+dotnet add package Microsoft.EntityFrameworkCore.Cosmos
+```
+
+# <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Cosmos
 ```
+
+***
 
 ## <a name="get-started"></a>Začínáme
 
