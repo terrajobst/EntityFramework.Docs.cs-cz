@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 0dd4c5c4aa1a5d241fb48abf1372a678d0f7a7a3
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: f7f04efa8fb8ebc1eb06f256b8ccbd3110af47ab
+ms.sourcegitcommit: 705e898b4684e639a57c787fb45c932a27650c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813623"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71934887"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Přerušující změny zahrnuté v EF Core 3,0
 Následující změny rozhraní API a chování mají možnost rušit existující aplikace při jejich upgradu na 3.0.0.
@@ -27,6 +27,7 @@ Změny, které očekáváme jenom o to, aby ovlivnili pouze poskytovatele datab�
 | [Typy dotazů jsou konsolidovány s typy entit](#qt) | Vysoká      |
 | [Entity Framework Core už není součástí sdílené ASP.NET Core architektury.](#no-longer) | Střední      |
 | [Odstranění kaskádových operací se teď ve výchozím nastavení provádí hned.](#cascade) | Střední      |
+| [Eager načítání souvisejících entit se teď děje v jednom dotazu.](#eager-loading-single-query) | Střední      |
 | [DeleteBehavior. restrict má sémantiku čištění.](#deletebehavior) | Střední      |
 | [Změnilo se konfigurační rozhraní API pro vztahy vlastněných typů.](#config) | Střední      |
 | [Každá vlastnost používá nezávislou generaci celočíselného klíče v paměti.](#each) | Střední      |
@@ -34,6 +35,7 @@ Změny, které očekáváme jenom o to, aby ovlivnili pouze poskytovatele datab�
 | [Změny rozhraní API pro metadata](#metadata-api-changes) | Střední      |
 | [Změny rozhraní API pro konkrétního zprostředkovatele](#provider) | Střední      |
 | [UseRowNumberForPaging se odebral.](#urn) | Střední      |
+| [Metoda Z tabulek při použití s uloženou procedurou nemůže být složená.](#fromsqlsproc) | Střední      |
 | [Metody Z tabulek se dají zadat jenom v kořenech dotazů.](#fromsql) | Nízká      |
 | [~~Provádění dotazu se protokoluje na úrovni ladění~~ . Vrátit](#qe) | Nízká      |
 | [Dočasné hodnoty klíčů už nejsou nastavené na instance entit.](#tkv) | Nízká      |
@@ -210,6 +212,35 @@ To může vést k tomu, že dotazy nejsou parametrizované, pokud by měly být.
 
 Přepněte na použití nových názvů metod.
 
+<a name="fromsqlsproc"></a>
+### <a name="fromsql-method-when-used-with-stored-procedure-cannot-be-composed"></a>Metoda Z tabulek při použití s uloženou procedurou nemůže být složená.
+
+[Sledování problému #15392](https://github.com/aspnet/EntityFrameworkCore/issues/15392)
+
+**Staré chování**
+
+Před EF Core 3,0 se metoda Z tabulek pokusila zjistit, zda je možné sestavit předaný SQL. Vyvolalo se hodnocení klienta, pokud SQL bylo bez možnosti složení, jako je uložená procedura. Následující dotaz fungoval spuštěním uložené procedury na serveru a provedením FirstOrDefault na straně klienta.
+
+```C#
+context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").FirstOrDefault();
+```
+
+**Nové chování**
+
+Počínaje EF Core 3,0 se EF Core nepokusí analyzovat SQL. Takže pokud vytváříte po FromSqlRaw/FromSqlInterpolated, pak EF Core vytvoří příkaz SQL, který by způsobil dotaz sub. Takže pokud používáte uloženou proceduru se složením, zobrazí se výjimka pro neplatnou syntaxi SQL.
+
+**Proč**
+
+EF Core 3,0 nepodporuje automatické hodnocení klienta, protože to bylo náchylné k chybám, jak je vysvětleno [zde](#linq-queries-are-no-longer-evaluated-on-the-client).
+
+**Zmírnění**
+
+Pokud používáte uloženou proceduru v FromSqlRaw/FromSqlInterpolated, znamená to, že se na ni nelze založit, takže můžete přidat __AsEnumerable/AsAsyncEnumerable__ hned po volání metody z tabulek, aby se zabránilo jakémukoli složení na straně serveru.
+
+```C#
+context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").AsEnumerable().FirstOrDefault();
+```
+
 <a name="fromsql"></a>
 
 ### <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>Metody Z tabulek se dají zadat jenom v kořenech dotazů.
@@ -366,6 +397,29 @@ Příklad:
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
+<a name="eager-loading-single-query"></a>
+### <a name="eager-loading-of-related-entities-now-happens-in-a-single-query"></a>Eager načítání souvisejících entit se teď děje v jednom dotazu.
+
+[Sledování problému #18022](https://github.com/aspnet/EntityFrameworkCore/issues/18022)
+
+**Staré chování**
+
+Před 3,0 se eagerly načítání kolekcí pomocí operátorů `Include` způsobilo generování více dotazů v relační databázi, jednu pro každý typ související entity.
+
+**Nové chování**
+
+Počínaje 3,0 EF Core generuje jediný dotaz s spojeními relačních databází.
+
+**Proč**
+
+Vydání více dotazů pro implementaci jednoho dotazu LINQ způsobilo velký počet problémů, včetně negativního výkonu, protože bylo nutné použít více databázových převodů, a problémy s integritou dat v případě, že každý dotaz může sledovat jiný stav databáze.
+
+**Hrozeb**
+
+I když se nejedná o zásadní změnu, může to mít výrazný vliv na výkon aplikace, když jeden dotaz obsahuje velký počet operátorů `Include` v navigaci kolekcí. [Podívejte se na tento komentář](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-537219137) , kde najdete další informace a rychlé psaní dotazů.
+
+**
+
 <a name="deletebehavior"></a>
 ### <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior. restrict má sémantiku čištění.
 
