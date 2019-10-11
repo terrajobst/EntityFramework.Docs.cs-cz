@@ -1,50 +1,50 @@
 ---
-title: Kód nejprve k existující databázi - EF6
+title: Code First existující databáze – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: f05420beb3dff2d632151fcbf48986b0d9cd18ff
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 61980bbd1f236f496a9d4fd92aa52264f1454615
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490607"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182619"
 ---
-# <a name="code-first-to-an-existing-database"></a>Kód nejprve ke stávající databázi
-Tato videa a podrobný návod poskytuje úvod k vývoji Code First cílení na existující databázi. Kód nejprve umožňuje definovat model pomocí jazyka C\# nebo VB.Net třídy. Volitelně další konfigurace je možné provádět pomocí atributů ve třídách a vlastnostech nebo s použitím rozhraní API fluent.
+# <a name="code-first-to-an-existing-database"></a>Code First do existující databáze
+Toto video a podrobný návod vám poskytnou Úvod do Code First vývoje cílící na stávající databázi. Code First umožňuje definovat model pomocí tříd C @ no__t-0 nebo VB.Net. Volitelně můžete provést další konfiguraci pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
 
-## <a name="watch-the-video"></a>Podívejte se na video
-Toto video je [nyní k dispozici na webu Channel 9](http://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-).
+## <a name="watch-the-video"></a>Přehrát video
+Toto video je [teď k dispozici na Channel 9](https://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-).
 
 ## <a name="pre-requisites"></a>Předpoklady
 
-Budete muset mít **Visual Studio 2012** nebo **Visual Studio 2013** nainstalované k dokončení tohoto návodu.
+Abyste mohli dokončit tento návod, budete muset mít nainstalovanou **aplikaci Visual Studio 2012** nebo **Visual Studio 2013** .
 
-Budete také potřebovat verze **6.1** (nebo novější) z **Entity Framework Tools for Visual Studio** nainstalované. Zobrazit [získat Entity Framework](~/ef6/fundamentals/install.md) informace o instalaci nejnovější verze Entity Framework Tools.
+Budete také potřebovat verzi **6,1** (nebo novější) Entity Framework Tools nainstalované sady **Visual Studio** . Informace o instalaci nejnovější verze Entity Framework Tools najdete v tématu věnovaném [získání Entity Framework](~/ef6/fundamentals/install.md) .
 
-## <a name="1-create-an-existing-database"></a>1. Vytvořit existující databáze
+## <a name="1-create-an-existing-database"></a>1. Vytvoření existující databáze
 
-Obvykle Pokud cílíte na existující databázi, které se už vytvořili, ale v tomto návodu budeme potřebovat vytvořit databázi pro přístup k.
+Když cílíte na existující databázi, bude už vytvořená, ale pro tento návod musíme pro přístup vytvořit databázi.
 
-Pojďme tedy vygenerovala databáze.
+Pojďme dopředu a vygenerovat databázi.
 
 -   Otevřít Visual Studio
--   **Zobrazení –&gt; Průzkumníka serveru**
--   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
--   Pokud nejsou připojeni k databázi z **Průzkumníka serveru** předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat
+-   **Zobrazení-&gt; Průzkumník serveru**
+-   Klikněte pravým tlačítkem na **datová připojení – &gt; Přidat připojení...**
+-   Pokud jste se k databázi nepřipojili z **Průzkumník serveru** před tím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat
 
-    ![Vyberte zdroj dat](~/ef6/media/selectdatasource.png)
+    ![Vybrat zdroj dat](~/ef6/media/selectdatasource.png)
 
--   Připojte se k instanci LocalDB a zadejte **blogovací** jako název databáze
+-   Připojte se k instanci LocalDB a jako název databáze zadejte **blog** .
 
-    ![LocalDB připojení](~/ef6/media/localdbconnection.png)
+    ![Připojení LocalDB](~/ef6/media/localdbconnection.png)
 
--   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
+-   Vyberte **OK** a zobrazí se dotaz, jestli chcete vytvořit novou databázi, a pak vyberte **Ano** .
 
-    ![Vytvoření dialogového okna databáze](~/ef6/media/createdatabasedialog.png)
+    ![Dialogové okno vytvořit databázi](~/ef6/media/createdatabasedialog.png)
 
--   Nové databáze se teď budou zobrazovat v Průzkumníku serveru, klikněte pravým tlačítkem myši na něj a vyberte **nový dotaz**
--   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
+-   Nová databáze se nyní zobrazí v Průzkumník serveru, klikněte na ni pravým tlačítkem myši a vyberte **Nový dotaz** .
+-   Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .
 
 ``` SQL
 CREATE TABLE [dbo].[Blogs] (
@@ -72,41 +72,41 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 
 ## <a name="2-create-the-application"></a>2. Vytvoření aplikace
 
-Pro zjednodušení budeme vytvářet základní Konzolová aplikace, které používá Code First pro přístup k datům:
+Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům:
 
 -   Otevřít Visual Studio
--   **Soubor –&gt; nové –&gt; projektu...**
--   Vyberte **Windows** v levé nabídce a **konzolové aplikace**
--   Zadejte **CodeFirstExistingDatabaseSample** jako název
--   Vyberte **OK**
+-   **Soubor-&gt; nový-&gt; projekt...**
+-   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
+-   Jako název zadejte **CodeFirstExistingDatabaseSample** .
+-   Vybrat **OK**
 
- 
+ 
 
-## <a name="3-reverse-engineer-model"></a>3. Zpětná analýza modelu
+## <a name="3-reverse-engineer-model"></a>3. Model zpětného analýz
 
-My budeme používat Entity Framework Tools for Visual Studio nám generování počátečního kódu pro mapovat do databáze. Tyto nástroje jsou prostě generuje kód, který můžete také zadat ručně Pokud dáváte přednost.
+Využijeme Entity Framework Tools pro Visual Studio, abychom nám pomohli vygenerovat nějaký počáteční kód pro mapování na databázi. Tyto nástroje právě generují kód, který můžete zadat také v případě, že dáváte přednost.
 
--   **Projekt –&gt; přidat novou položku...**
--   Vyberte **Data** v levé nabídce a potom **datový Model Entity ADO.NET**
--   Zadejte **BloggingContext** jako název a klikněte na **OK**
--   Tím se spustí **Průvodce datovým modelem Entity**
--   Vyberte **Code First z databáze** a klikněte na tlačítko **další**
+-   **Projekt-&gt; Přidat novou položku...**
+-   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
+-   Jako název zadejte **BloggingContext** a klikněte na **OK** .
+-   Spustí se **průvodce model EDM (Entity Data Model)** .
+-   Vyberte **Code First z databáze** a klikněte na **Další** .
 
-    ![Průvodce jeden CFE](~/ef6/media/wizardonecfe.png)
+    ![Průvodce One CFE](~/ef6/media/wizardonecfe.png)
 
--   Vyberte připojení k databázi vytvořené v první části a klikněte na tlačítko **další**
+-   Vyberte připojení k databázi, kterou jste vytvořili v první části, a klikněte na **Další** .
 
-    ![Průvodce dvě CFE](~/ef6/media/wizardtwocfe.png)
+    ![Průvodce – dva CFE](~/ef6/media/wizardtwocfe.png)
 
--   Klikněte na zaškrtávací políčko vedle položky **tabulky** importovat všechny tabulky a klikněte na tlačítko **dokončit**
+-   Kliknutím na zaškrtávací políčko vedle **tabulky** naimportujte všechny tabulky a klikněte na **Dokončit** .
 
-    ![Průvodce tři CFE](~/ef6/media/wizardthreecfe.png)
+    ![Průvodce třemi CFE](~/ef6/media/wizardthreecfe.png)
 
-Po dokončení procesu zpětné analýzy, počet položek, které se byly přidány do projektu, můžeme podívejte se na co je přidán.
+Po dokončení procesu zpětného analýz se do projektu přidají několik položek, které se podívejme na to, co se přidalo.
 
 ### <a name="configuration-file"></a>Konfigurační soubor
 
-Soubor App.config se přidala do projektu, tento soubor obsahuje připojovací řetězec k existující databázi.
+Do projektu byl přidán soubor App. config, tento soubor obsahuje připojovací řetězec k existující databázi.
 
 ``` xml
 <connectionStrings>
@@ -117,12 +117,12 @@ Soubor App.config se přidala do projektu, tento soubor obsahuje připojovací �
 </connectionStrings>
 ```
 
-*Můžete si všimnout některými jinými nastaveními v konfiguračním souboru příliš, jedná se o výchozí nastavení EF, které v Code First k vytváření databází. Protože jsme v naší aplikaci jsou mapování k existující databázi tato nastavení se bude ignorovat.*
+@no__t – 0You'll Všimněte si i některých dalších nastavení v konfiguračním souboru, jedná se o výchozí nastavení EF, které sděluje Code First, kde vytvořit databáze. Vzhledem k tomu, že jsme provedli mapování na existující databázi, tato nastavení budou v naší aplikaci ignorována. *
 
-### <a name="derived-context"></a>Odvozené kontextu
+### <a name="derived-context"></a>Odvozený kontext
 
-A **BloggingContext** třídy je přidaný do projektu. Kontext představuje relaci s databází, což nám pro dotazování a uložit data.
-Poskytuje kontext **DbSet&lt;TEntity&gt;**  pro každý typ v náš model. Uvidíte také, že volá výchozí konstruktor, konstruktor základní třídy pomocí **název =** syntaxe. To říká Code First, že připojovací řetězec má použít pro tento kontext by měly být načteny z konfiguračního souboru.
+Do projektu se přidala třída **BloggingContext** . Kontext představuje relaci s databází a umožňuje nám dotazovat se na data a ukládat je.
+Kontext zveřejňuje **negenerickými @ no__t-1TEntity @ no__t-2** pro každý typ v našem modelu. Všimněte si také, že výchozí konstruktor volá základní konstruktor pomocí syntaxe **Name =** . To oznamuje Code First, že připojovací řetězec, který se má použít pro tento kontext, by měl být načten z konfiguračního souboru.
 
 ``` csharp
 public partial class BloggingContext : DbContext
@@ -141,11 +141,11 @@ public partial class BloggingContext : DbContext
     }
 ```
 
-*Vždycky byste měli použít **název =** syntaxe při použití připojovacího řetězce v konfiguračním souboru. Tím se zajistí, že pokud se připojovací řetězec není k dispozici pak Entity Framework vyvolá místo vytvoření nové databáze podle konvence.*
+*You by měla při použití připojovacího řetězce v konfiguračním souboru vždycky používat syntaxi **Name =** . Tím se zajistí, že pokud není k dispozici připojovací řetězec, Entity Framework místo vytvoření nové databáze podle konvence vyvolala.*
 
 ### <a name="model-classes"></a>Třídy modelu
 
-A konečně **blogu** a **příspěvek** třídy také byly přidány do projektu. Jedná se o domény třídy, které tvoří náš model. Zobrazí se vám Data poznámky u tříd a zadejte konfiguraci kde Code First konvence by odpovídaly struktuře existující databázi. Například, zobrazí se vám **StringLength** Poznámka **Blog.Name** a **Blog.Url** vzhledem k tomu, že má maximální délku **200** v databáze (Code First výchozí hodnota je určený maximální délka podporována zprostředkovatelem databáze - **nvarchar(max)** v systému SQL Server).
+Nakonec byly do projektu přidány také třídy **blog** a **příspěvek** . Jedná se o třídy domény, které tvoří náš model. V případě, že se konvence Code First neshodují se strukturou existující databáze, uvidíte datové poznámky použité na třídy. Například se zobrazí anotace **StringLength** na **blog.Name** a **blogu. URL** , protože v databázi mají maximální délku **200** (Code First výchozí hodnota je použití maximun podporovaného poskytovatelem databáze). **nvarchar (max)** v SQL Server).
 
 ``` csharp
 public partial class Blog
@@ -167,9 +167,9 @@ public partial class Blog
 }
 ```
 
-## <a name="4-reading--writing-data"></a>4. Čtení a zápis dat
+## <a name="4-reading--writing-data"></a>4. Čtení & zápisu dat
 
-Když teď máme modelu je čas ho používat pro přístup k nějaká data. Implementace **hlavní** metoda ve **Program.cs** jak je znázorněno níže. Tento kód vytvoří novou instanci třídy náš kontext a použije ho k vložení nového **blogu**. Potom použije LINQ dotaz pro načtení všech **blogy** z databáze, seřazené podle abecedy podle **Title**.
+Teď, když máme model, je čas ho použít pro přístup k některým datům. Implementujte metodu **Main** v **program.cs** , jak je znázorněno níže. Tento kód vytvoří novou instanci našeho kontextu a pak ho použije k vložení nového **blogu**. Pak použije dotaz LINQ k načtení všech **blogů** z databáze seřazené abecedně podle **názvu**.
 
 ``` csharp
 class Program
@@ -204,9 +204,9 @@ class Program
 }
 ```
 
-Teď můžete aplikaci spustit a otestování.
+Nyní můžete spustit aplikaci a otestovat ji.
 
-```
+```console
 Enter a name for a new Blog: ADO.NET Blog
 All blogs in the database:
 .NET Framework Blog
@@ -214,15 +214,15 @@ ADO.NET Blog
 The Visual Studio Blog
 Press any key to exit...
 ```
- 
-## <a name="what-if-my-database-changes"></a>Co když Moje databáze změní?
+ 
+## <a name="what-if-my-database-changes"></a>Co když se změní moje databáze?
 
-Code First pro Průvodce databáze je určena ke generování počáteční bod sadu tříd, které pak můžete upravit a změnit. Pokud se změní schéma databáze můžete ručně upravit třídy nebo provádět jiné zpětné analýzy, přepsat třídy.
+Průvodce Code First k databázi je navržený tak, aby vygeneroval počáteční sadu tříd, které pak můžete upravit a upravit. Pokud se vaše schéma databáze změní, můžete buď ručně upravit třídy, nebo provést jinou zpětnou analýzu pro přepsání tříd.
 
-## <a name="using-code-first-migrations-to-an-existing-database"></a>Pomocí migrace Code First k existující databázi
+## <a name="using-code-first-migrations-to-an-existing-database"></a>Použití Migrace Code First do existující databáze
 
-Pokud chcete použít migrace Code First s existující databázi, přečtěte si téma [migrace Code First k existující databázi](~/ef6/modeling/code-first/migrations/existing-database.md).
+Pokud chcete použít Migrace Code First s existující databází, přečtěte si téma [migrace Code First do existující databáze](~/ef6/modeling/code-first/migrations/existing-database.md).
 
 ## <a name="summary"></a>Souhrn
 
-V tomto názorném postupu jsme se podívali na vývoji Code First pomocí stávající databáze. Provést zpětnou analýzu sadu tříd, které namapované k databázi a může použít k ukládání a načítání dat jsme použili Entity Framework Tools for Visual Studio.
+V tomto návodu jsme se podívali na Code First vývoje pomocí existující databáze. V sadě Visual Studio jsme použili Entity Framework Tools pro zpětnou analýzu sady tříd, které jsou namapované na databázi, a dají se použít k ukládání a načítání dat.

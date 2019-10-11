@@ -1,101 +1,101 @@
 ---
-title: Migrace Code First s existující databází - EF6
+title: Migrace Code First s existující databází – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
-ms.openlocfilehash: 77370ec7d922b8324b924a0b4aca3e58f5ec6066
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: eb7948eafb1322cabcf69b47bd5411f762fe8498
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490568"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182586"
 ---
-# <a name="code-first-migrations-with-an-existing-database"></a>Migrace Code First s existující databáze
+# <a name="code-first-migrations-with-an-existing-database"></a>Migrace Code First s existující databází
 > [!NOTE]
-> **EF4.3 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 4.1. Pokud používáte starší verzi, některé nebo všechny informace neplatí.
+> **EF 4.3 a vyšší pouze** – funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 4,1. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.
 
-Tento článek se týká pomocí migrace Code First s existující databázi, který nebyl vytvořen poskytovatelem Entity Framework.
+Tento článek popisuje použití Migrace Code First se stávající databází, kterou vytvořila aplikace Entity Framework.
 
 > [!NOTE]
-> Tento článek předpokládá, že víte, jak pomocí migrace Code First v základní scénáře. Pokud ne, pak budete muset přečíst [migrace Code First](~/ef6/modeling/code-first/migrations/index.md) než budete pokračovat.
+> V tomto článku se dozvíte, jak používat Migrace Code First v základních scénářích. Pokud to neuděláte, budete muset před pokračováním přečíst [migrace Code First](~/ef6/modeling/code-first/migrations/index.md) .
 
 ## <a name="screencasts"></a>Screencasty
 
-Pokud byste raději přehrát záznam dění na monitoru než v tomto článku, následující dvě videa zahrnují obsah jako v tomto článku.
+Pokud místo toho chcete sledovat záznam dění na záznamovém počítači, než je tento článek přečetl, následující dvě videa se týkají stejného obsahu jako tento článek.
 
-### <a name="video-one-migrations---under-the-hood"></a>Video jeden: "Migrace - pod pokličkou"
+### <a name="video-one-migrations---under-the-hood"></a>Video One: "Migrace – pod digestoř"
 
-[Tento záznam dění na monitoru](http://channel9.msdn.com/blogs/ef/migrations-under-the-hood) vysvětluje, jak migrace sleduje a používá informace o modelu ke zjištění změny modelu.
+[Tento záznam dění](https://channel9.msdn.com/blogs/ef/migrations-under-the-hood) popisuje, jak migrace sleduje a používá informace o modelu pro detekci změn modelu.
 
-### <a name="video-two-migrations---existing-databases"></a>Dvě videa: "Migrace – existující databáze"
+### <a name="video-two-migrations---existing-databases"></a>Video dvě: Migrace – existující databáze
 
-Stavíme na koncepty z předchozí video [tento záznam dění na monitoru](http://channel9.msdn.com/blogs/ef/migrations-existing-databases) dozvíte, jak povolit a používat migrace s existující databázi.
+[Tento záznam dění](https://channel9.msdn.com/blogs/ef/migrations-existing-databases) na základě konceptů z předchozího videa se zabývá tím, jak povolit a používat migrace pomocí existující databáze.
 
 ## <a name="step-1-create-a-model"></a>Krok 1: Vytvoření modelu
 
-Prvním krokem bude vytvoření modelu Code First, zaměřuje na existující databázi. [Code First pro existující databázi](~/ef6/modeling/code-first/workflows/existing-database.md) téma obsahuje podrobné informace o tom, jak to provést.
+Prvním krokem je vytvoření modelu Code First, který cílí na stávající databázi. Podrobné pokyny k tomu, jak to provést, najdete v tématu [Code First do existující databáze](~/ef6/modeling/code-first/workflows/existing-database.md) .
 
 >[!NOTE]
-> Je důležité, abyste před provedením jakýchkoli změn do modelu, které by vyžadovaly změny schématu databáze postupujte podle zbývajících kroků v tomto tématu. Následující kroky vyžadují modelu, který má být synchronizovaná se schématem databáze.
+> Před provedením změn v modelu, které by vyžadovaly změny ve schématu databáze, je důležité postupovat podle zbývajících kroků v tomto tématu. Následující kroky vyžadují, aby byl model synchronizovaný se schématem databáze.
 
-## <a name="step-2-enable-migrations"></a>Krok 2: Povolení migrace
+## <a name="step-2-enable-migrations"></a>Krok 2: Povolit migrace
 
-Dalším krokem je povolení migrace. Můžete to provést spuštěním **povolení migrace** příkazu v konzole Správce balíčků.
+Dalším krokem je povolení migrací. To můžete provést spuštěním příkazu **Povolit – migrace** v konzole správce balíčků.
 
-Tento příkaz se vytvořte složku ve vašem řešení, volá se, migrace a vložit jednu třídu dovnitř označuje konfigurace. Třídu konfigurace je, kde konfigurujete migrace pro vaši aplikaci, můžete zjistit další informace se dozvíte v [migrace Code First](~/ef6/modeling/code-first/migrations/index.md) tématu.
+Tento příkaz vytvoří ve vašem řešení složku s názvem migrace a v rámci ní vloží jednu třídu s názvem konfigurace. Konfigurační třída je místo, kde můžete nakonfigurovat migrace pro vaši aplikaci. Další informace najdete v tématu [migrace Code First](~/ef6/modeling/code-first/migrations/index.md) .
 
-## <a name="step-3-add-an-initial-migration"></a>Krok 3: Přidání počáteční migraci
+## <a name="step-3-add-an-initial-migration"></a>Krok 3: Přidání počáteční migrace
 
-Po migrace byly vytvořeny a použity k místní databázi, můžete také použít změní na ostatní databáze. Například vaše místní databáze může být testovací databázi a nakonec můžete také změny se projeví na provozní databázi a/nebo jinými vývojáři testovací databáze. Existují dvě možnosti pro tento krok a ten, který by měl vybrat závisí, zda schéma případné další databáze, je prázdný nebo aktuálně odpovídá schématu místní databáze.
+Po vytvoření a použití migrace do místní databáze můžete také tyto změny použít v jiných databázích. Například vaše místní databáze může být testovací databáze a nakonec můžete chtít použít změny také v provozní databázi a v jiných vývojářích testovacích databází. Pro tento krok jsou k dispozici dvě možnosti a ten, který byste měli vybrat, závisí na tom, jestli je schéma všech ostatních databází prázdné nebo aktuálně odpovídá schématu místní databáze.
 
--   **Jedna možnost: Použijte stávající schéma jako výchozí bod.** Tento postup byste měli použít při další databáze, které migrace se použijí pro v budoucnu budou mít stejné schéma jako aktuálně má vaše místní databáze. To můžete použít například, pokud vaše místní testovací databáze aktuálně odpovídá v1 vaši produkční databázi a se později použijí tyto migrace aktualizovat vaši produkční databázi na v2.
--   **Možnost 2: Použití prázdnou databázi jako počáteční bod.** Tento postup byste měli použít, když ostatní databáze, které migrace se použijí k budoucímu jsou prázdné (nebo ještě neexistuje). To můžete použít například, pokud začít vyvíjet svoji aplikaci pomocí testovací databázi, ale bez použití migrace a budete později chtít vytvořit produkční databáze od začátku.
+-   @no__t – 0Option jednu z těchto akcí: Jako výchozí bod použijte existující schéma. ** Tento postup byste měli použít, pokud budou další databáze, na které se migrace budou v budoucnu použity, mít stejné schéma jako vaše místní databáze v současné době. Můžete to například použít, pokud místní testovací databáze aktuálně odpovídá v1 vaší provozní databáze a později použijete tyto migrace k aktualizaci provozní databáze na v2.
+-   @no__t – 0Option dvě: Jako výchozí bod použijte prázdnou databázi. ** Tento postup byste měli použít, pokud budou další databáze, na které se migrace použijí, v budoucnu prázdné (nebo ještě neexistují). To můžete použít například v případě, že jste začali vyvíjet aplikaci pomocí testovací databáze, ale bez použití migrace a později budete chtít vytvořit provozní databázi od začátku.
 
-### <a name="option-one-use-existing-schema-as-a-starting-point"></a>Jedna možnost: Používejte stávající schéma jako počáteční bod
+### <a name="option-one-use-existing-schema-as-a-starting-point"></a>Možnost jedna: Použít existující schéma jako výchozí bod
 
-Migrace Code First pomocí snímku model uložených v nejnovější migrace zjišťuje změny modelu (zjistíte podrobné informace najdete v [migrace Code First v prostředích Team](~/ef6/modeling/code-first/migrations/teams.md)). Vzhledem k tomu, že budeme předpokládat, že databáze již mít schéma aktuálního modelu, vygenerujeme migrace (no-op) do prázdné, která má aktuální model jako snímek.
+Migrace Code First používá snímek modelu, který je uložený v nejnovější migraci, aby zjistil změny modelu (podrobné informace najdete v [migrace Code First v týmových prostředích](~/ef6/modeling/code-first/migrations/teams.md)). Vzhledem k tomu, že předpokládáme, že databáze již mají schéma aktuálního modelu, vytvoříme prázdnou migraci (No-OP), která má aktuální model jako snímek.
 
-1.  Spustit **přidat migrace InitialCreate – IgnoreChanges** příkazu v konzole Správce balíčků. Tím se vytvoří prázdný migrace současného modelu jako snímek.
-2.  Spustit **aktualizace databáze** příkazu v konzole Správce balíčků. Tato operace provede určité InitialCreate migrace do databáze. Protože skutečné migrace neobsahuje žádné změny, bude jednoduše přidat řádek \_ \_MigrationsHistory tabulky určující, že se tato migrace už používá.
+1.  Spusťte příkaz **Add-Migration InitialCreate-IgnoreChanges** v konzole správce balíčků. Tím se vytvoří prázdná migrace s aktuálním modelem jako snímek.
+2.  Spusťte příkaz **Update-Database** v konzole správce balíčků. Tím se použije migrace InitialCreate na databázi. Vzhledem k tomu, že skutečná migrace neobsahuje žádné změny, jednoduše přidá řádek do tabulky \_ @ no__t-1MigrationsHistory, což znamená, že tato migrace již byla použita.
 
-### <a name="option-two-use-empty-database-as-a-starting-point"></a>Možnost 2: Jako výchozí bod použijte prázdnou databázi
+### <a name="option-two-use-empty-database-as-a-starting-point"></a>Možnost dvě: Jako výchozí bod použít prázdnou databázi
 
-V tomto scénáři musíte migrace budete moci vytvořit celé databáze od začátku – včetně tabulek, které jsou již přítomny v místní databázi. My budeme generovat migrace do InitialCreate, který obsahuje logiku pro vytvoření existující schématu. Potom uděláme naší stávající databázi vypadají této migrace se už používá.
+V tomto scénáři potřebujeme migrace, aby bylo možné vytvořit celou databázi úplně od začátku – včetně tabulek, které jsou již obsaženy v naší místní databázi. Chystáme se vygenerovat migraci InitialCreate, která obsahuje logiku pro vytvoření existujícího schématu. Naše existující databáze pak bude vypadat jako tato migrace již byla použita.
 
-1.  Spustit **přidat migrace InitialCreate** příkazu v konzole Správce balíčků. Tím se vytvoří migrace k vytvoření existující schématu.
-2.  Okomentujte veškerý kód v metodě nahoru nově vytvořený migrace. To vám umožní nám "" migrace do místní databáze bez pokusu o znovu vytvořit všechny tabulky atd., které již existují.
-3.  Spustit **aktualizace databáze** příkazu v konzole Správce balíčků. Tato operace provede určité InitialCreate migrace do databáze. Od skutečné migrace neobsahuje změny (protože jsme dočasně opatřený komentáři je), se jednoduše přidejte řádek \_ \_MigrationsHistory tabulky určující, že se tato migrace už používá.
-4.  Zrušit komentář kód v metodě nahoru. To znamená, že při použití této migrace u budoucích databází, schéma, které již existoval v místní databázi vytvořené pomocí migrace.
+1.  Spusťte příkaz **Add-Migration InitialCreate** v konzole správce balíčků. Tím se vytvoří migrace pro vytvoření existujícího schématu.
+2.  Odkomentujte veškerý kód v metodě up nově vytvořené migrace. To nám umožní použít migraci na místní databázi bez nutnosti znovu vytvořit všechny tabulky atd., které už existují.
+3.  Spusťte příkaz **Update-Database** v konzole správce balíčků. Tím se použije migrace InitialCreate na databázi. Vzhledem k tomu, že skutečná migrace neobsahuje žádné změny (protože jsme je dočasně odhlásili), jednoduše přidá řádek do tabulky \_ @ no__t-1MigrationsHistory, která značí, že tato migrace již byla použita.
+4.  Zruší komentář kódu v metodě up. To znamená, že když se tato migrace použije v budoucích databázích, vytvoří se v rámci migrace schéma, které už existovalo v místní databázi.
 
-## <a name="things-to-be-aware-of"></a>Co je potřeba mít na paměti
+## <a name="things-to-be-aware-of"></a>Co je potřeba vědět o
 
-Existuje několik věcí, které je potřeba mít na paměti při použití migrace na existující databázi.
+K dispozici je několik věcí, které je potřeba vzít v úvahu při použití migrace na stávající databázi.
 
-### <a name="defaultcalculated-names-may-not-match-existing-schema"></a>Vypočítá/výchozí názvy nemusí odpovídat existujícím schématu
+### <a name="defaultcalculated-names-may-not-match-existing-schema"></a>Výchozí/počítaný název nemusí odpovídat existujícímu schématu.
 
-Migrace explicitně určuje názvy sloupců a tabulek, když ji vygeneruje uživatelské rozhraní migrace. Existují však ostatních databázových objektů, které migrace vypočítává výchozí název, při použití migrace. To zahrnuje indexy a omezení cizího klíče. Při cílení na stávajícím schématu, tyto počítané názvy nemusí odpovídat, co skutečně existuje v databázi.
+Migrace explicitně specifikuje názvy pro sloupce a tabulky, když dojde k jejich vygenerování. Existují však i další databázové objekty, které migrace při použití migrace vypočítá výchozí název. To zahrnuje indexy a omezení cizího klíče. Při cílení na stávající schéma nemusí tyto počítané názvy odpovídat, co ve vaší databázi skutečně existuje.
 
-Tady je několik příkladů, když je třeba tomu věnovat pozornost:
+Tady je několik příkladů, kdy je potřeba mít na paměti tyto informace:
 
-**Pokud jste použili "jedna možnost: jako výchozí bod použijte existující schéma" z kroku 3:**
+@no__t – 0If jste použili možnost One: Použít existující schéma jako výchozí bod z kroku 3: **
 
--   Pokud budoucí změny v modelu nevyžaduje změnu nebo jeden z databázových objektů, které je pojmenované jinak vyřadit, musíte změnit automaticky generovaný migraci zadejte správný název. Migrace rozhraní API obsahovat nepovinný parametr název, který umožňuje udělat.
-    Například existující schéma může obsahovat tabulku příspěvek se BlogId sloupec cizího klíče, který má index s názvem IndexFk\_BlogId. Ale ve výchozím nastavení migrace by uživatel očekával tento index s názvem IX\_BlogId. Pokud změníte model, který má za následek odstranění tohoto indexu, musíte změnit automaticky generovaný DropIndex volání k určení IndexFk\_BlogId název.
+-   Pokud budoucí změny v modelu vyžadují změnu nebo odstranění jednoho z databázových objektů, které jsou pojmenovány jinak, bude nutné změnit vygenerované migrace do systému zadáním správného názvu. Rozhraní API migrace mají volitelný parametr názvu, který vám to umožňuje.
+    Vaše existující schéma může mít například tabulku post se sloupcem cizího klíče BlogId, která má index s názvem IndexFk @ no__t-0BlogId. Ve výchozím nastavení však migrace očekává, že tento index bude pojmenován na IX @ no__t-0BlogId. Pokud provedete změnu modelu, který má za následek vyřazení tohoto indexu, budete muset změnit vygenerované DropIndex volání a zadat název IndexFk @ no__t-0BlogId.
 
-**Pokud jste použili "možnost 2: použití prázdnou databázi jako výchozí bod" z kroku 3:**
+@no__t – 0If jste použili možnost 2: Použít prázdnou databázi jako výchozí bod z kroku 3: **
 
--   Chcete spustit metodu nižší počáteční migraci (který se vrátí k prázdnou databázi) na místní databázi může selhat, protože se pokusí migrace vyřaďte indexy a omezení cizího klíče pomocí správné názvy. Jen to bude mít vliv na vaše místní databáze od jiných databází se vytvoří úplně od začátku pomocí metody nahoru počáteční migraci.
-    Pokud chcete přejít na nižší verzi vaší stávající místní databázi pro prázdný stav je nejjednodušší provést ručně, buď ve vyřazení databáze nebo vyřadit všechny tabulky. Po tomto počáteční přechod na starší verzi, které všechny objekty databáze se znovu vytvoří s výchozími názvy proto tento problém nebude k dispozici samotné znovu.
--   Pokud budoucí změny v modelu nevyžaduje změnu nebo jeden z databázových objektů, které je pojmenované jinak vyřadit, to nebude fungovat na vaší stávající místní databázi – protože názvy nebudou odpovídat výchozí hodnoty. Však bude fungovat s databázemi, které byly vytvořeny 'od začátku' vzhledem k tomu, že se mají používat výchozí názvy zvolí migrace.
-    Může tyto změny provést ručně ve vaší stávající místní databázi, nebo zvažte, jestli by migrace znovu vytvořit databázi úplně od začátku – stejně jako ji na jiné počítače.
--   Vytvořené metodou nahoru počáteční migraci databáze se mohou poněkud lišit z místní databáze od počítaných výchozí názvy pro indexy a použije omezení cizího klíče. Můžete také skončit s další indexy jako migrace ve výchozím nastavení vytvoří indexy na sloupce cizích klíčů – to nemusí být případ v místní databázi.
+-   Pokus o spuštění metody snížení počáteční migrace (tj. návrat k prázdné databázi) proti místní databázi může selhat, protože migrace se pokusí vyřadit indexy a omezení cizího klíče pomocí nesprávných názvů. To bude mít vliv jenom na vaši místní databázi, protože jiné databáze se vytvoří od začátku pomocí metody počáteční migrace.
+    Chcete-li downgradovat stávající místní databázi do prázdného stavu, je nejjednodušší to provést ručně, a to tak, že databázi vyřadíte nebo vyřadíte všechny tabulky. Po počátečním downgradu se všechny objekty databáze znovu vytvoří s výchozími názvy, takže se tento problém neprojeví znovu.
+-   Pokud budoucí změny v modelu vyžadují změnu nebo odstranění jednoho z databázových objektů, které jsou pojmenovány jinak, nebude tato akce fungovat na stávající místní databázi – protože názvy nebudou odpovídat výchozím hodnotám. Bude ale fungovat s databázemi vytvořenými od začátku, protože budou používat výchozí názvy zvolené migracemi.
+    Tyto změny můžete provést buď ručně v místní existující databázi, nebo můžete zvážit, že se databáze znovu vytvoří od začátku – stejně jako na jiných počítačích.
+-   Databáze vytvořené pomocí metody up počáteční migrace se můžou mírně lišit od místní databáze, protože se použijí počítané výchozí názvy pro indexy a omezení cizího klíče. Kromě toho může dokončit i další indexy, protože migrace vytvoří ve výchozím nastavení indexy pro sloupce cizího klíče – to ale nemusí být v původní místní databázi.
 
-### <a name="not-all-database-objects-are-represented-in-the-model"></a>Ne všechny databázové objekty jsou reprezentovány v modelu
+### <a name="not-all-database-objects-are-represented-in-the-model"></a>V modelu nejsou reprezentovány všechny objekty databáze.
 
-Databázové objekty, které nejsou součástí modelu nesmí být zpracovány migrace. To může zahrnovat zobrazení, uložené procedury, oprávnění, tabulky, které nejsou součástí modelu, další indexy, atd.
+Objekty databáze, které nejsou součástí vašeho modelu, nebudou zajišťovat migrace. To může zahrnovat zobrazení, uložené procedury, oprávnění, tabulky, které nejsou součástí modelu, další indexy atd.
 
-Tady je několik příkladů, když je třeba tomu věnovat pozornost:
+Tady je několik příkladů, kdy je potřeba mít na paměti tyto informace:
 
--   Bez ohledu na to, možnost jste vybrali v kroku 3 Pokud budoucí změny v modelu nevyžaduje změnu nebo vyřadit tyto další objekty migrace nebude vědět o provedení těchto změn. Například pokud je sloupec, který obsahuje další index ho vyřadit, migrace nebude vědět o drop index. Je potřeba ručně přidat vygenerované migrace.
--   Pokud jste použili "možnost 2: použijte prázdnou databázi jako výchozí bod", tyto další objekty se nevytvoří metodou nahoru počáteční migraci.
-    Můžete upravit nahoru a dolů metody postará se o tyto další objekty, pokud si přejete. Pro objekty, které nativně nepodporují v rozhraní API migrace – například zobrazení – můžete použít [Sql](https://msdn.microsoft.com/library/system.data.entity.migrations.dbmigration.sql.aspx) způsob spuštění nezpracovaná SQL k vytvoření/drop je.
+-   Bez ohledu na možnost, kterou jste zvolili v části "krok 3", pokud budoucí změny v modelu vyžadují změnu nebo odstranění těchto dalších objektů, nebudete při provádění těchto změn potřebovat migrace. Pokud například vyřadíte sloupec, který obsahuje další index, migrace nevědí, že se index vyřadí. Tento postup bude nutné přidat do vygenerované migrace ručně.
+-   Pokud jste použili možnost 2: Jako výchozí bod použijte prázdnou databázi. tyto další objekty nebudou vytvořeny metodou up počáteční migrace.
+    V případě potřeby můžete upravit metody nahoru a dolů a pořídit tyto další objekty. Pro objekty, které nejsou nativně podporované v rozhraní API pro migraci, jako jsou například zobrazení – můžete použít metodu [SQL](https://msdn.microsoft.com/library/system.data.entity.migrations.dbmigration.sql.aspx) ke spuštění nezpracovaných SQL pro jejich vytvoření nebo přesunutí.

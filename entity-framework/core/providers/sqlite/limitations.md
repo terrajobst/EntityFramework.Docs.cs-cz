@@ -1,40 +1,40 @@
 ---
-title: Databázi SQLite poskytovatele – omezení – EF Core
+title: Zprostředkovatel databáze SQLite – omezení – EF Core
 author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
-ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
+ms.openlocfilehash: 2f80dc195265787318ac4925dd937da45ffad011
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394802"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72179774"
 ---
-# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core Database Provider Limitations
+# <a name="sqlite-ef-core-database-provider-limitations"></a>Omezení zprostředkovatele databáze EF Core SQLite
 
-Zprostředkovatel SQLite má několik omezení migrace. Většina těchto omezení jsou výsledkem omezení v podkladové databázový stroj SQLite a nejsou specifická pro EF.
+Zprostředkovatel SQLite má několik omezení migrace. Většina těchto omezení je výsledkem omezení v podkladovém databázovém stroji SQLite a není specifická pro EF.
 
 ## <a name="modeling-limitations"></a>Omezení modelování
 
-Společná knihovna relační (sdílené poskytovateli rozhraní Entity Framework relační databáze) definuje rozhraní API pro modelování koncepty, které jsou společné pro většinu relačních databázových strojů. Několik těchto konceptů nejsou podporována zprostředkovatelem SQLite.
+Společná relační knihovna (sdílená poskytovateli relačních databází Entity Framework) definuje rozhraní API pro koncepty modelování, které jsou společné pro většinu relačních databázových strojů. Zprostředkovatel SQLite nepodporuje několik těchto konceptů.
 
 * Schémata
 * Sekvence
 * Vypočítané sloupce
 
-## <a name="query-limitations"></a>Omezení dotazu
+## <a name="query-limitations"></a>Omezení dotazů
 
-SQLite nenabízí nativní podporu následujících datových typů. EF Core může číst a zapisovat hodnoty těchto typů a dotazování na rovnost (`where e.Property == value`) je také podpora. Další operace, jako jsou však porovnání a řazení se vyžaduje vyhodnocení na straně klienta.
+SQLite netivně podporuje následující datové typy. EF Core mohou číst a zapisovat hodnoty těchto typů a dotazování na rovnost (`where e.Property == value`) je také podporováno. Jiné operace, například porovnání a řazení, budou vyžadovat vyhodnocení u klienta.
 
 * DateTimeOffset
-* Desetinné číslo
+* Decimal
 * TimeSpan
 * UInt64
 
-Místo `DateTimeOffset`, doporučujeme použít hodnoty data a času. Při zpracování více časových pásem, doporučujeme převod hodnoty na standard UTC před uložením a pak převod zpátky na odpovídající časové pásmo.
+Místo `DateTimeOffset` doporučujeme použít hodnoty DateTime. Při zpracování několika časových pásem doporučujeme před uložením a převodem zpět na příslušné časové pásmo převést hodnoty na čas UTC.
 
-`Decimal` Typ poskytuje vysokou úroveň přesnosti. Pokud nepotřebujete tuto úroveň přesnosti, však doporučujeme místo toho použít double. Můžete použít [převaděč hodnoty](../../modeling/value-conversions.md) nadále používat desetinné ve třídách.
+Typ `Decimal` poskytuje vysokou úroveň přesnosti. Pokud ale tuto úroveň přesnosti nepotřebujete, doporučujeme místo toho použít Double. Pomocí [převaděče hodnot](../../modeling/value-conversions.md) můžete v třídách dál používat desetinné číslo.
 
 ``` csharp
 modelBuilder.Entity<MyEntity>()
@@ -44,9 +44,9 @@ modelBuilder.Entity<MyEntity>()
 
 ## <a name="migrations-limitations"></a>Omezení migrace
 
-Databázový stroj SQLite nepodporuje počet operací schématu, které podporuje většinu dalších relačních databází. Pokud se pokusíte použít některé z nepodporované operace databáze SQLite o `NotSupportedException` bude vyvolána výjimka.
+Databázový stroj SQLite nepodporuje řadu operací schématu, které jsou podporovány většinou ostatních relačních databází. Pokud se pokusíte použít jednu z nepodporovaných operací na databázi SQLite, bude vyvolána `NotSupportedException`.
 
-| Operace            | Podporuje? | Vyžaduje verzi |
+| Operace            | Doložen? | Vyžaduje verzi |
 |:---------------------|:-----------|:-----------------|
 | AddColumn            | ✔          | 1.0              |
 | AddForeignKey        | ✗          |                  |
@@ -54,26 +54,26 @@ Databázový stroj SQLite nepodporuje počet operací schématu, které podporuj
 | AddUniqueConstraint  | ✗          |                  |
 | AlterColumn          | ✗          |                  |
 | CreateIndex          | ✔          | 1.0              |
-| CreateTable          | ✔          | 1.0              |
+| Vytvořit          | ✔          | 1.0              |
 | DropColumn           | ✗          |                  |
 | DropForeignKey       | ✗          |                  |
 | DropIndex            | ✔          | 1.0              |
 | DropPrimaryKey       | ✗          |                  |
-| DropTable            | ✔          | 1.0              |
+| DROPS            | ✔          | 1.0              |
 | DropUniqueConstraint | ✗          |                  |
 | RenameColumn         | ✔          | 2.2.2            |
 | RenameIndex          | ✔          | 2.1              |
-| RenameTable          | ✔          | 1.0              |
-| EnsureSchema         | ✔ (no-op)  | 2.0              |
-| DropSchema           | ✔ (no-op)  | 2.0              |
-| Insert               | ✔          | 2.0              |
+| Přejmenovat          | ✔          | 1.0              |
+| EnsureSchema         | ✔ (No-OP)  | 2.0              |
+| DropSchema           | ✔ (No-OP)  | 2.0              |
+| Vložit               | ✔          | 2.0              |
 | Aktualizace               | ✔          | 2.0              |
-| Odstranit               | ✔          | 2.0              |
+| Odstranění               | ✔          | 2.0              |
 
-## <a name="migrations-limitations-workaround"></a>Alternativní řešení omezení migrace
+## <a name="migrations-limitations-workaround"></a>Omezení migrace – alternativní řešení
 
-Můžete vyřešit některé z těchto omezení ručně napsáním kódu v vaše migrace provést tabulku znovu sestavit. Tabulka opětovné sestavení zahrnuje přejmenování existující tabulky, vytvářet nové tabulky, kopírování dat do nové tabulky a vyřazení staré tabulky. Budete muset použít `Sql(string)` možností, jak provést některé z těchto kroků.
+Některá tato omezení můžete vyřešit ručním psaním kódu v migracích k provedení opětovného sestavení tabulky. Sestavování tabulky zahrnuje přejmenování existující tabulky, vytvoření nové tabulky, zkopírování dat do nové tabulky a vyřazení staré tabulky. K provedení některých z těchto kroků budete muset použít metodu `Sql(string)`.
 
-Zobrazit [provádění jiné typy o změny schématu tabulky](http://sqlite.org/lang_altertable.html#otheralter) v další podrobnosti naleznete v dokumentaci SQLite.
+Další podrobnosti najdete v dokumentaci k [jinému druhu změn schématu tabulky](https://sqlite.org/lang_altertable.html#otheralter) v dokumentaci k sqlite.
 
-V budoucnu EF může podporovat některé z těchto operací pomocí přístupu tabulku znovu sestavit na pozadí. Je možné [sledování této funkce v našem projektu z Githubu](https://github.com/aspnet/EntityFrameworkCore/issues/329).
+V budoucnu může EF podporovat některé z těchto operací pomocí přístupu k opakovanému sestavení tabulky v rámci pokrývání. [Tuto funkci můžete sledovat v našem projektu GitHubu](https://github.com/aspnet/EntityFrameworkCore/issues/329).

@@ -4,25 +4,25 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: d93be5c2b727d8fbaddd103f8f367c699ae80a7c
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 588dee012039ce5ecc83f0ecf263a4ea6ca38c29
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921646"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181989"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Sledování vs. Žádné dotazy pro sledování
 
-Chování při sledování Určuje, jestli Entity Framework Core v nástroji pro sledování změn budou uchovávat informace o instanci entity. Pokud je entita sledována, budou všechny změny zjištěné v entitě trvale uchovány v databázi `SaveChanges()`. Entity Framework Core budou také opravovat navigační vlastnosti mezi entitami získanými z sledovacího dotazu a entit, které byly dříve načteny do instance DbContext.
+Chování při sledování Určuje, jestli Entity Framework Core v nástroji pro sledování změn budou uchovávat informace o instanci entity. Pokud je entita sledována, budou všechny změny zjištěné v entitě trvale uchovány v databázi během `SaveChanges()`. Entity Framework Core budou také opravovat navigační vlastnosti mezi entitami získanými z sledovacího dotazu a entit, které byly dříve načteny do instance DbContext.
 
 > [!TIP]  
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
 
 ## <a name="tracking-queries"></a>Sledování dotazů
 
-Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit. To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny zachovat `SaveChanges()`.
+Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit. To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny trvale `SaveChanges()`.
 
-V následujícím příkladu bude v průběhu `SaveChanges()`aplikace zjištěna změna hodnocení blogů a jejich uchování v databázi.
+V následujícím příkladu bude v průběhu `SaveChanges()` zjištěna změna v hodnocení blogů a bude uložena do databáze.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
@@ -63,11 +63,11 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> Žádné sledovací dotazy stále neprovádějí rozlišení identity v rámci spuštěného dotazu. Pokud sada výsledků obsahuje stejnou entitu vícekrát, bude pro každý výskyt v sadě výsledků vrácena stejná instance třídy entity. Slabé odkazy se však používají k udržení přehledu o entitách, které již byly vráceny. Pokud předchozí výsledek se stejnou identitou přejde mimo rozsah a spustí se uvolňování paměti, můžete získat novou instanci entity. Další informace najdete v tématu [Jak funguje dotaz](overview.md).
+> Žádné sledovací dotazy stále neprovádějí rozlišení identity v rámci spuštěného dotazu. Pokud sada výsledků obsahuje stejnou entitu vícekrát, bude pro každý výskyt v sadě výsledků vrácena stejná instance třídy entity. Slabé odkazy se však používají k udržení přehledu o entitách, které již byly vráceny. Pokud předchozí výsledek se stejnou identitou přejde mimo rozsah a spustí se uvolňování paměti, můžete získat novou instanci entity. Další informace najdete v tématu [Jak funguje dotaz](xref:core/querying/how-query-works).
 
 ## <a name="tracking-and-projections"></a>Sledování a projekce
 
-I v případě, že typ výsledku dotazu není typ entity, pokud výsledek obsahuje typy entit, které budou ve výchozím nastavení sledovány. V následujícím dotazu, který vrací anonymní typ, se budou sledovat instance `Blog` v sadě výsledků.
+I v případě, že typ výsledku dotazu není typ entity, pokud výsledek obsahuje typy entit, které budou ve výchozím nastavení sledovány. V následujícím dotazu, který vrací anonymní typ, budou sledovány instance `Blog` v sadě výsledků.
 
 <!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
 ``` csharp

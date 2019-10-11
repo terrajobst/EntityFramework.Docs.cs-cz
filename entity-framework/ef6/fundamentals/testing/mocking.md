@@ -1,51 +1,51 @@
 ---
-title: Ve Visual Basicu s napodobování framework – EF6
+title: Testování s napodobnou architekturou – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bd66a638-d245-44d4-8e71-b9c6cb335cc7
-ms.openlocfilehash: 3d39b41018beb70b72105dfb2fe4d61afc0b0525
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 790e077c5b30c4a68a96b3c1a99b40893b2bbe55
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319202"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181563"
 ---
-# <a name="testing-with-a-mocking-framework"></a>Testování s napodobování framework
+# <a name="testing-with-a-mocking-framework"></a>Testování pomocí makety architektury
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Při psaní testů pro vaše aplikace je často žádoucí vyhnout se dosažení databáze.  Entity Framework umožňuje dosáhnout vytvořením kontextu – chování definované testování – která používá data v paměti.  
+Při psaní testů pro aplikaci je často žádoucí vyhnout se tomu, aby se databáze mohla zacházet.  Entity Framework vám umožňuje dosáhnout toho, že vytvoří kontext – s chováním definovanými testy, které využívá data v paměti.  
 
-## <a name="options-for-creating-test-doubles"></a>Možnosti pro vytvoření testu zdvojnásobí  
+## <a name="options-for-creating-test-doubles"></a>Možnosti pro vytváření dvojitých hodnot testu  
 
-Existují dva různé přístupy, které lze použít k vytvoření v paměti verze kontextu.  
+Existují dva různé přístupy, které lze použít k vytvoření verze vašeho kontextu v paměti.  
 
-- **Vytvoření vlastního testu zdvojnásobí** – tento postup zahrnuje zápis vlastní implementaci kontextu a DbSets v paměti. To vám přináší značnou kontroly nad jak třídy chovat, ale může zahrnovat zápis a vlastnící přiměřené kódu.  
-- **Napodobování rozhraní framework použít k vytvoření testu zdvojnásobí** – využívá napodobování architekturu (například Moq) může mít v paměti implementace kontextu a sady pro vás vytvořili dynamicky za běhu.  
+- **Vytvořte si vlastní test Doubles** – tento přístup zahrnuje zápis vlastní implementace v paměti vašeho kontextu a DbSets. Díky tomu máte spoustu kontroly nad tím, jak se třídy chovají, ale mohou zahrnovat psaní a vlastnictví přiměřeného kódu.  
+- **Použijte napodobnou architekturu k vytvoření dvojitých testů** – pomocí napodobení rozhraní (například MOQ), můžete mít implementace kontextu v paměti a sady se vytvoří dynamicky za běhu za vás.  
 
-V tomto článku se postará o s využitím napodobování architektury. Vytvoření vlastního testu zdvojnásobí naleznete v tématu [testování se váš vlastní testování hodnot datového typu Double](writing-test-doubles.md).  
+Tento článek se zabývat používáním napodobné architektury. Pro vytvoření vlastního testu dvakrát se podívejte na [testování s vlastními dvojitými testy](writing-test-doubles.md).  
 
-Demonstruje použití EF s napodobování framework budeme používat Moq. Nejjednodušší způsob, jak získat Moq je instalace [Moq balíčku od Nugetu](http://nuget.org/packages/Moq/).  
+K demonstraci použití EF s napodobnou architekturou budeme používat MOQ. Nejjednodušší způsob, jak získat MOQ, je instalace [balíčku MOQ z NuGet](https://nuget.org/packages/Moq/).  
 
-## <a name="testing-with-pre-ef6-versions"></a>Ve Visual Basicu s EF6 předběžné verze  
+## <a name="testing-with-pre-ef6-versions"></a>Testování s EF6 verzemi  
 
-Scénáře uvedené v tomto článku je závislá na několik změn, které jsme provedli DbSet v EF6. Ve Visual Basicu s EF5 a starší verze najdete v části [testování s kontextem falešné](http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/).  
+Scénář uvedený v tomto článku závisí na některých změnách, které jsme provedli v Negenerickými v EF6. Pro testování pomocí EF5 a starší verze se podívejte na [testování s falešným kontextem](https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/).  
 
-## <a name="limitations-of-ef-in-memory-test-doubles"></a>Omezení hodnot datového typu Double EF test v paměti  
+## <a name="limitations-of-ef-in-memory-test-doubles"></a>Omezení pro dvojité testy v paměti EF  
 
-V paměti testu zdvojnásobí může být dobrým způsobem, jak poskytnout bitů vaší aplikace, které používají EF úrovně pokrytí testování částí. Ale při tomto postupu použijete LINQ to Objects k provádění dotazů na data v paměti. Výsledkem může být odlišné chování než pomocí EF pro zprostředkovatele LINQ (LINQ to Entities) ke dotazy SQL, který běží na vaší databázi.  
+Dvojitá přesnost testu paměti může být dobrým způsobem, jak poskytnout jednotkové pokrytí na úrovni testování bitů vaší aplikace, které používají EF. Nicméně když to uděláte, budete používat LINQ to Objects k provádění dotazů na data v paměti. Výsledkem může být odlišné chování než použití zprostředkovatele LINQ (LINQ to Entities) EF k překladu dotazů na SQL, které se spouští proti vaší databázi.  
 
-Příkladem takových rozdíl načítá související data. Pokud vytvoříte sérii blogů, které mají související příspěvky, pak při používání dat v paměti související příspěvky se vždy načteno pro každý Blog. Ale při spuštění pro databázi data pouze se načtou Pokud použijete metodu zahrnout.  
+Jedním z příkladů takového rozdílu je načítání souvisejících dat. Pokud vytvoříte řadu blogů, které mají všechny související příspěvky, pak při použití dat v paměti budou související příspěvky vždy načteny pro každý blog. Při spuštění na databázi však budou data načtena pouze v případě, že použijete metodu include.  
 
-Z tohoto důvodu se doporučuje vždy zahrnovat určitou úroveň začátku do konce testování (navíc k testování částí) pro zajištění vaší aplikace pracuje správně proti databázi.  
+Z tohoto důvodu se doporučuje vždy zahrnout určitou úroveň komplexního testování (kromě testů jednotek), abyste zajistili správné fungování aplikace proti databázi.  
 
-## <a name="following-along-with-this-article"></a>Následující spolu se v tomto článku  
+## <a name="following-along-with-this-article"></a>Následující článek spolu s tímto článkem  
 
-Tento článek obsahuje kompletní kód výpisů, které můžete zkopírovat do sady Visual Studio chcete postup sledovat, pokud chcete. Je nejjednodušší vytvořit **projekt testu jednotek** a budete potřebovat k cíli **rozhraní .NET Framework 4.5** dokončete oddíly, které použít operátory async.  
+Tento článek obsahuje kompletní výpisy kódu, které můžete zkopírovat do sady Visual Studio, abyste mohli postupovat podle toho, co chcete. Je nejjednodušší vytvořit **projekt testování částí** a vy budete muset cílit **.NET Framework 4,5** , abyste dokončili oddíly, které používají async.  
 
-## <a name="the-ef-model"></a>EF modelu  
+## <a name="the-ef-model"></a>Model EF  
 
-Chceme otestovat služba využívá EF modelu tvořené BloggingContext a třídy blogu a příspěvku. Tento kód může být vygenerováno EF designeru nebo modelu Code First.  
+Služba, kterou budeme testovat, používá model EF, který se skládá z BloggingContext a třídy blog a post. Tento kód byl pravděpodobně vygenerován návrhářem EF nebo se jedná o Code First model.  
 
 ``` csharp
 using System.Collections.Generic;
@@ -80,11 +80,11 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="virtual-dbset-properties-with-ef-designer"></a>Vlastnosti virtuální DbSet s EF designeru  
+### <a name="virtual-dbset-properties-with-ef-designer"></a>Vlastnosti Virtual Negenerickými s nástrojem EF Designer  
 
-Všimněte si, že vlastnosti DbSet na kontextu, jsou označeny jako virtuální. To vám umožní napodobování framework odvodit z našich kontextu a přepsání těchto vlastností s imitaci implementací.  
+Všimněte si, že vlastnosti Negenerickými v kontextu jsou označeny jako virtuální. To umožní, aby se napodobující rozhraní dědilo z našeho kontextu a přepsalo tyto vlastnosti s napodobnou implementací.  
 
-Pokud používáte Code First, pak tříd můžete upravovat přímo. Pokud používáte EF designeru pak bude nutné upravit šablonu T4, která generuje váš kontext. Otevřete \<název_modelu\>. Context.TT souboru, která je vnořená v rámci které souboru edmx, najít následující fragment kódu a přidejte do virtual – klíčové slovo, jak je znázorněno.  
+Pokud používáte Code First pak můžete třídy upravit přímo. Pokud používáte návrháře EF, budete muset upravit šablonu T4, která generuje váš kontext. Otevřete \<model_name @ no__t-1. Soubor Context.tt, který je vnořen do souboru EDMX, vyhledejte následující fragment kódu a přidejte do klíčového slova Virtual, jak je znázorněno na obrázku.  
 
 ``` csharp
 public string DbSet(EntitySet entitySet)
@@ -98,9 +98,9 @@ public string DbSet(EntitySet entitySet)
 }
 ```  
 
-## <a name="service-to-be-tested"></a>Služba má být testována  
+## <a name="service-to-be-tested"></a>Služba, která se má testovat  
 
-K předvedení testování s čísly typu Double test v paměti budeme psát několik testů pro BlogService. Služba je schopná vytvořit nové blogy (AddBlog) a vrací všechny blogy seřazené podle názvu (GetAllBlogs). Kromě GetAllBlogs poskytujeme také metodu, která asynchronně získá všechny blogy seřazené podle názvu (GetAllBlogsAsync).  
+K předvedení testování s dvojitými pokusy o testování v paměti budeme psát několik testů pro BlogService. Služba umožňuje vytvářet nové Blogy (AddBlog) a vracet všechny Blogy seřazené podle názvu (GetAllBlogs). Kromě GetAllBlogs jsme také poskytli metodu, která asynchronně získá všechny Blogy seřazené podle názvu (GetAllBlogsAsync).  
 
 ``` csharp
 using System.Collections.Generic;
@@ -148,9 +148,9 @@ namespace TestingDemo
 }
 ```  
 
-## <a name="testing-non-query-scenarios"></a>Scénáře testování bez dotazů  
+## <a name="testing-non-query-scenarios"></a>Testování scénářů nesouvisejících s dotazy  
 
-To je všechno, co musíme udělat pro začátek testování metody bez dotazů. Následující testovací Moq používá k vytvoření kontextu. Pak vytvoří DbSet\<blogu\> a sváže má být vrácena z vlastnosti blogy kontextu. V dalším kroku kontext slouží k vytvoření nové BlogService, které se pak použije k vytvoření nového blogu – AddBlog metodou. Nakonec test ověří, zda služba přidání nového blogu a volána metoda SaveChanges pro daný kontext.  
+To je všechno, co musíme udělat pro spuštění testování jiných metod než dotazů. Následující test používá MOQ k vytvoření kontextu. Potom vytvoří Negenerickými @ no__t-0Blog @ no__t-1 a vodiče, aby se vrátily z vlastnosti Blogy daného kontextu. V dalším kroku se pomocí tohoto kontextu vytvoří nový BlogService, který se pak použije k vytvoření nového blogu – pomocí metody AddBlog. Nakonec test ověří, že služba přidala nový blog v kontextu, který se nazývá SaveChanges.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -180,11 +180,11 @@ namespace TestingDemo
 }
 ```  
 
-## <a name="testing-query-scenarios"></a>Scénáře testování dotazů  
+## <a name="testing-query-scenarios"></a>Testování scénářů dotazů  
 
-Aby bylo možné provádět dotazy proti testovacím DbSet double musíme nastavit implementace IQueryable. Prvním krokem je vytvoření některá data v paměti – používáme seznam\<blogu\>. V dalším kroku vytvoříme kontextu a DBSet\<blogu\> potom nastavit IQueryable implementace DbSet – právě jste delegováno na poskytovateli LINQ to Objects, která funguje s seznamu\<T\>.  
+Aby bylo možné provádět dotazy proti Negenerickými testu, musíme nastavit implementaci rozhraní IQueryable. Prvním krokem je vytvoření některých dat v paměti – používáme seznam @ no__t-0Blog @ no__t-1. V dalším kroku vytvoříme kontext a Negenerickými @ no__t-0Blog @ no__t-1 a potom rozvedete implementaci IQueryable pro Negenerickými – tím pouze delegujete poskytovatel LINQ to Objects, který funguje se seznamem @ no__t-2T @ no__t-3.  
 
-Pak můžeme vytvořit BlogService podle našich testu zdvojnásobí a ujistěte se, že data, která jsme získat zpět z GetAllBlogs je seřazen podle názvu.  
+Pak můžeme vytvořit BlogService na základě našich testů a zajistit, aby se data, která vrátíme z GetAllBlogs, objednala podle názvu.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -229,17 +229,17 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="testing-with-async-queries"></a>Testování s asynchronní dotazy
+### <a name="testing-with-async-queries"></a>Testování pomocí asynchronních dotazů
 
-Entity Framework 6 zavedl sadu rozšiřujících metod, které slouží k asynchronně spustí dotaz. Příklady těchto metod: ToListAsync FirstAsync, ForEachAsync, atd.  
+Entity Framework 6 představil sadu rozšiřujících metod, které lze použít k asynchronnímu provedení dotazu. Mezi příklady těchto metod patří ToListAsync, FirstAsync, ForEachAsync atd.  
 
-Protože Entity Framework dotazy využívají LINQ, rozšiřující metody jsou definovány na IQueryable a IEnumerable. Ale protože jsou určeny pouze pro použití s Entity Framework můžete obdržet následující chybu při pokusu o jejich použití v dotazu LINQ, který není dotaz rozhraní Entity Framework:
+Vzhledem k tomu, že Entity Framework dotazy využívají technologii LINQ, jsou metody rozšíření definovány v rozhraních IQueryable a IEnumerable. Protože jsou však určeny pouze pro použití s Entity Framework při pokusu o použití v dotazu LINQ, který není Entity Framework dotazem, se může zobrazit následující chyba:
 
-> Zdroj IQueryable neimplementuje IDbAsyncEnumerable{0}. Pouze zdroje, které implementují IDbAsyncEnumerable lze použít pro asynchronní operace Entity Framework. Další podrobnosti najdete v tématu [ http://go.microsoft.com/fwlink/?LinkId=287068 ](https://go.microsoft.com/fwlink/?LinkId=287068).  
+> Zdroj IQueryable neimplementuje IDbAsyncEnumerable @ no__t-0. Pro Entity Framework asynchronní operace lze použít pouze zdroje, které implementují IDbAsyncEnumerable. Další podrobnosti najdete [http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068).  
 
-Zatímco asynchronní metody se podporují jenom při spouštění dotazu EF, můžete chtít použít při spuštění proti v paměti testování double DbSet v testu jednotek.  
+Zatímco asynchronní metody jsou podporovány pouze při spuštění proti dotazu EF, je vhodné je použít v testu jednotky při spuštění proti Negenerickými testu v paměti.  
 
-Pokud chcete používat asynchronní metody potřebujeme vytvořit DbAsyncQueryProvider v paměti pro zpracování asynchronního dotazu. Zatímco by bylo možné nastavit poskytovatele dotazů pomocí Moq, je snazší vytvářet double provádění testů v kódu. Kód pro tuto implementaci vypadá takto:  
+Aby bylo možné použít asynchronní metody, musíme pro zpracování asynchronního dotazu vytvořit DbAsyncQueryProvider v paměti. I když by bylo možné nastavit poskytovatele dotazu pomocí MOQ, je mnohem snazší vytvořit test dvojitou implementaci v kódu. Kód pro tuto implementaci je následující:  
 
 ``` csharp
 using System.Collections.Generic;
@@ -349,7 +349,7 @@ namespace TestingDemo
 }
 ```  
 
-Když teď máme poskytovatele asynchronního dotazu jsme pro naši novou metodu GetAllBlogsAsync napsat Jednotkový test.  
+Teď, když máme asynchronního zprostředkovatele dotazů, můžeme napsat testování částí pro naši novou metodu GetAllBlogsAsync.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;

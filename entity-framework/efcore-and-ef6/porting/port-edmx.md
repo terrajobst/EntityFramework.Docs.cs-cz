@@ -1,15 +1,15 @@
 ---
-title: Přenos z EF6 do EF Coreho portu založeného na modelu EDMX
+title: Přenos z EF6 do EF Core-portový model založený na EDMX – EF
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 63003709-f1ec-4bdc-8083-65a60c4826d2
 uid: efcore-and-ef6/porting/port-edmx
-ms.openlocfilehash: a1c978e141f47a39fff59eb5fc417a63afd37b04
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: f0bb06dc687aaa774981d97daadc55f00fbd527e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71148988"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182066"
 ---
 # <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>Přenos EF6 modelu založeného na EDMX do EF Core
 
@@ -17,7 +17,7 @@ EF Core nepodporuje formát souboru EDMX pro modely. Nejlepší možností pro p
 
 ## <a name="install-ef-core-nuget-packages"></a>Nainstalovat EF Core balíčky NuGet
 
-Nainstalujte balíček `Microsoft.EntityFrameworkCore.Tools` NuGet.
+Nainstalujte balíček NuGet `Microsoft.EntityFrameworkCore.Tools`.
 
 ## <a name="regenerate-the-model"></a>Znovu vygenerovat model
 

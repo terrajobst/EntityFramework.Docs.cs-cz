@@ -1,55 +1,55 @@
 ---
-title: Funkce vracející tabulku (Tvf) - EF6
+title: Funkce vracející tabulku (TVF) – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: f019c97b-87b0-4e93-98f4-2c539f77b2dc
-ms.openlocfilehash: 34aebd8f5f2c3b43c80e21c1a17a386597596c05
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 35684196dcd7b708a8feeb1eca3096e8d4e555ec
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283950"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182526"
 ---
-# <a name="table-valued-functions-tvfs"></a>Funkce vracející tabulku (Tvf)
+# <a name="table-valued-functions-tvfs"></a>Funkce vracející tabulku (TVF)
 > [!NOTE]
-> **EF5 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 5. Pokud používáte starší verzi, některé nebo všechny informace neplatí.
+> **EF5 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 5. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.
 
-Videa a podrobný návod ukazuje, jak mapovat funkce vracející tabulku (Tvf) pomocí Entity Framework Designer. Také ukazuje, jak volat z LINQ dotaz TVF.
+Video a podrobný návod vám ukáže, jak pomocí Entity Framework Designer namapovat funkce vracející tabulku (TVF). Také ukazuje, jak volat TVF z dotazu LINQ.
 
-Tvf jsou v tuto chvíli podporuje jenom v databázi prvního pracovního postupu.
+TVF se v tuto chvíli podporují jenom v pracovním postupu Database First.
 
-Podpora TVF byla zavedena v rozhraní Entity Framework verze 5. Všimněte si, že chcete používat nové funkce, jako jsou funkce vracející tabulku, výčty a prostorové typy, které musí cílit na .NET Framework 4.5. Visual Studio 2012 cílí na rozhraní .NET 4.5 ve výchozím nastavení.
+Podpora TVF byla představena ve verzi Entity Framework 5. Všimněte si, že pokud chcete použít nové funkce, jako jsou funkce vracející tabulku, výčty a prostorové typy, musíte cílit .NET Framework 4,5. Visual Studio 2012 cílí na .NET 4,5 ve výchozím nastavení.
 
-Tvf jsou velmi podobné pro uložené procedury s jedním klíčovým rozdílem: výsledek TVF je složení. To znamená, že výsledky z TVF lze použít v dotazu LINQ, zatímco výsledky uložené procedury nelze.
+TVF jsou velmi podobné uloženým procedurám s jedním klíčovým rozdílem: výsledek TVF je sestavitelný. To znamená, že výsledky z TVF lze použít v dotazu LINQ, zatímco výsledky uložené procedury nemohou.
 
-## <a name="watch-the-video"></a>Podívejte se na video
+## <a name="watch-the-video"></a>Přehrát video
 
-**Přednášející:**: Julia Kornich
+**Prezentující**: Helena Kornich
 
 [WMV](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
-K dokončení tohoto návodu, budete muset:
+K dokončení tohoto návodu budete potřebovat:
 
-- Nainstalujte [databáze školy](~/ef6/resources/school-database.md).
+- Nainstalujte [školní databázi](~/ef6/resources/school-database.md).
 
-- Nejnovější verze sady Visual Studio
+- Máte novější verzi sady Visual Studio
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
 1.  Otevřít Visual Studio
-2.  Na **souboru** nabídky, přejděte k **nový**a potom klikněte na tlačítko **projektu**
-3.  V levém podokně klikněte na tlačítko **Visual C\#** a pak vyberte **konzoly** šablony
-4.  Zadejte **TVF** jako název projektu a klikněte na tlačítko **OK**
+2.  V nabídce **soubor** přejděte na příkaz **Nový**a potom klikněte na **projekt** .
+3.  V levém podokně klikněte na položku **Visual C @ no__t-1**a potom vyberte šablonu **konzoly** .
+4.  Jako název projektu zadejte **TVF** a klikněte na **OK** .
 
-## <a name="add-a-tvf-to-the-database"></a>Přidat do databáze TVF
+## <a name="add-a-tvf-to-the-database"></a>Přidání TVF do databáze
 
--   Vyberte **zobrazení –&gt; Průzkumník objektů systému SQL Server**
--   Pokud není v seznamu serverů LocalDB: klikněte pravým tlačítkem na **systému SQL Server** a vyberte **přidat SQL Server** použijte výchozí **ověřování Windows** pro připojení k serveru LocalDB
+-   Vyberte **zobrazení-&gt; Průzkumník objektů systému SQL Server**
+-   Pokud LocalDB není v seznamu serverů: Klikněte pravým tlačítkem na **SQL Server** a vyberte **Přidat SQL Server** pro připojení k serveru LocalDB použijte výchozí **ověřování systému Windows** .
 -   Rozbalte uzel LocalDB
--   V uzlu databáze, klikněte pravým tlačítkem na uzel databáze školy a vyberte **nový dotaz...**
--   V editoru jazyka T-SQL, vložte následující definice funkce TVF
+-   V uzlu databáze klikněte pravým tlačítkem myši na uzel školní databáze a vyberte **Nový dotaz...**
+-   V editoru T-SQL vložte následující definici TVF
 
 ``` SQL
 CREATE FUNCTION [dbo].[GetStudentGradesForCourse]
@@ -67,29 +67,29 @@ RETURN
     WHERE  CourseID = @CourseID
 ```
 
--   Klikněte pravým tlačítkem myši na editor T-SQL a vyberte **spouštění**
--   Funkce GetStudentGradesForCourse se přidá do databáze školy
+-   Klikněte pravým tlačítkem myši v editoru T-SQL a vyberte **Spustit** .
+-   Funkce GetStudentGradesForCourse se přidá do školní databáze.
 
- 
+ 
 
 ## <a name="create-a-model"></a>Vytvoření modelu
 
-1.  Klikněte pravým tlačítkem na název projektu v Průzkumníku řešení, přejděte na **přidat**a potom klikněte na tlačítko **nová položka**
-2.  Vyberte **Data** v levé nabídce a pak vyberte **datový Model Entity ADO.NET** v **šablony** podokno
-3.  Zadejte **TVFModel.edmx** pro název souboru a pak klikněte na tlačítko **přidat**
-4.  V dialogovém okně Výběr obsahu modelu vyberte **Generovat z databáze**a potom klikněte na tlačítko **další**
-5.  Klikněte na tlačítko **nové připojení** Enter **(localdb)\\mssqllocaldb** v textu názvu serveru pole zadejte **School** databázi pojmenujte kliknutím **OK**
-6.  V okně Zvolte vaše databázové objekty dialogovém okně **tabulky** uzlu, vyberte **osoba**, **StudentGrade**, a **kurzu** tabulky
-7.  Vyberte **GetStudentGradesForCourse** funkce umístěna ve složce **uložené procedury a funkce** uzel vědomí, že spuštění pomocí sady Visual Studio 2012, v návrháři entit umožňuje import služby batch Uložené procedury a funkce
-8.  Klikněte na tlačítko **dokončit**
-9.  V návrháři entit, které poskytuje návrhové ploše pro úpravy váš model, se zobrazí. Všechny objekty, které jste vybrali v **zvolte vaše databázové objekty** dialogové okno se přidají do modelu.
-10. Ve výchozím nastavení bude tvar výsledku každý importovaný uloženou proceduru nebo funkci automaticky stane nový komplexní typ v modelu entity. Chceme, aby k mapování výsledky funkce GetStudentGradesForCourse StudentGrade entity, ale: klikněte pravým tlačítkem na návrhové ploše a vyberte **prohlížeč modelu** v modelu prohlížeče, vyberte **importované funkce**a potom dvakrát klikněte **GetStudentGradesForCourse** funkce v upravit funkce Import dialogu **entity** a zvolte **StudentGrade**
+1.  Klikněte pravým tlačítkem myši na název projektu v Průzkumník řešení, přejděte na **Přidat**a klikněte na **Nová položka** .
+2.  V nabídce vlevo vyberte **data** a v podokně **šablony** vyberte **ADO.NET model EDM (Entity Data Model)** .
+3.  Jako název souboru zadejte **TVFModel. edmx** a pak klikněte na **Přidat** .
+4.  V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další** .
+5.  Klikněte na **nové připojení** ENTER **(LocalDB) \\mssqllocaldb** do textového pole název serveru zadejte **School** for název databáze klikněte na **OK** .
+6.  V dialogovém okně zvolte objekty databáze pod **tabulkami** Node vyberte **osoba**, **StudentGrade**a **kurz** tables
+7.  Vyberte funkci **GetStudentGradesForCourse** , která se nachází pod **uloženými procedurami a funkcemi** node poznámkami, která začíná sadou Visual Studio 2012, Entity Designer umožňuje Batch importovat uložené procedury a funkce.
+8.  Klikněte na **Dokončit** .
+9.  Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu. Do modelu jsou přidány všechny objekty, které jste vybrali v poli **zvolit objekty databáze** dialog.
+10. Ve výchozím nastavení se tvar výsledku každé importované uložené procedury nebo funkce automaticky změní na nový komplexní typ v modelu entity. Ale chceme namapovat výsledky funkce GetStudentGradesForCourse na entitu StudentGrade: Klikněte pravým tlačítkem myši na návrhovou plochu a vyberte možnost **prohlížeč modelů** v prohlížeči modelů, vyberte **Import funkcí**a pak dvakrát klikněte na funkci **GetStudentGradesForCourse** v dialogovém okně Upravit import funkce. Vyberte **entity** . @no__t – 4and zvolit **StudentGrade**
 
-## <a name="persist-and-retrieve-data"></a>Zachovat a načtení dat
+## <a name="persist-and-retrieve-data"></a>Zachovat a načíst data
 
-Otevřete soubor, ve kterém je definována metoda Main. Přidejte následující kód do funkce Main.
+Otevřete soubor, kde je definována metoda Main. Do funkce Main přidejte následující kód.
 
-Následující kód ukazuje, jak vytvořit dotaz, který používá funkci vracející tabulku. Výsledky dotazu projekty do anonymního typu, který obsahuje související název kurzu a související studentům na podnikové úrovni větší nebo rovna hodnotě 3.5.
+Následující kód ukazuje, jak vytvořit dotaz, který používá funkci vracející tabulku. Dotaz projektuje výsledky do anonymního typu, který obsahuje související název kurzu a související studenty se stupněm větším nebo rovnou 3,5.
 
 ``` csharp
 using (var context = new SchoolEntities())
@@ -117,13 +117,13 @@ using (var context = new SchoolEntities())
 }
 ```
 
-Kompilace a spuštění aplikace. Program vygeneruje následující výstup:
+Zkompilujte a spusťte aplikaci. Program vytvoří následující výstup:
 
-```
+```console
 Couse: Microeconomics, Student: Arturo Anand
 Couse: Microeconomics, Student: Carson Bryant
 ```
 
 ## <a name="summary"></a>Souhrn
 
-V tomto názorném postupu jsme se podívali na tom, jak mapovat funkce vracející tabulku (Tvf) pomocí Entity Framework Designer. To jsme si rovněž ukázali jak volat z LINQ dotaz TVF.
+V tomto návodu jsme se podívali na to, jak pomocí Entity Framework Designer namapovat funkce vracející tabulku (TVF). Také ukazuje, jak volat TVF z dotazu LINQ.

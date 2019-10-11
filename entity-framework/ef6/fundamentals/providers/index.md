@@ -1,55 +1,55 @@
 ---
-title: Entity Framework poskytovatelé - EF6
+title: Entity Framework Zprostředkovatelé – EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: f6e34d1273bd1004ce9d1610ce3613068088eb5e
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: bf07296503e4bb5d1e13f5f6f29e7118cbbde61d
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668736"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181687"
 ---
-# <a name="entity-framework-6-providers"></a>Zprostředkovatelé Entity Framework 6
+# <a name="entity-framework-6-providers"></a>Poskytovatelé Entity Framework 6
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.
 
-Rozhraní Entity Framework je nyní vyvíjených v licenci open source a EF6 a nad nebude odeslaná jako součást rozhraní .NET Framework. To má mnoho výhod, ale také vyžaduje, že EF poskytovatelé znovu sestavit na EF6 sestavení. To znamená, že EF poskytovatelů pro EF5 a pod nebudou fungovat s EF6, dokud se po opětovném sestavení.
+Entity Framework se teď vyvíjí v rámci open-source licence a EF6 a výše se nedodává jako součást .NET Framework. Má spoustu výhod, ale také vyžaduje, aby se poskytovatelé EF znovu vytvořili proti EF6 sestavením. To znamená, že zprostředkovatelé EF pro EF5 a níže nebudou pracovat s EF6, dokud nebudou znovu sestaveny.
 
-## <a name="which-providers-are-available-for-ef6"></a>Poskytovatelů, kteří jsou k dispozici pro EF6?
+## <a name="which-providers-are-available-for-ef6"></a>Kteří poskytovatelé jsou k dispozici pro EF6?
 
-Víme o poskytovatele, který po opětovném sestavení pro EF6 patří:
+Poskytovatelé, o kterých jsme se znovu vytvořili pro EF6, obsahují tyto informace:
 
-*   **Microsoft SQL Server provider**
-    *   Od [Entity Framework otevřete základu zdrojového kódu](http://github.com/aspnet/EntityFramework6)
-    *   Dodán jako součást [balíček NuGet objektu EntityFramework](http://nuget.org/packages/EntityFramework)
-*   **Zprostředkovatel Microsoft SQL Server Compact Edition**
-    *   Od [Entity Framework otevřete základu zdrojového kódu](http://github.com/aspnet/EntityFramework6)
-    *   Součástí [balíček EntityFramework.SqlServerCompact NuGet](http://nuget.org/packages/EntityFramework.SqlServerCompact)
-*   [**Devart dotConnect zprostředkovatelů dat.**](http://www.devart.com/dotconnect/)
-    *   Existují poskytovatele třetí strany z [Devart](http://www.devart.com/) pro širokou škálu databází včetně Oracle, MySQL, PostgreSQL, SQLite, Salesforce, DB2 a SQL Server
-*   [**Poskytovatelé softwaru CData**](http://www.cdata.com/ado/)
-    *   Existují poskytovatele třetí strany z [CData softwaru](http://www.cdata.com/ado/) pro širokou škálu úložišť dat, včetně Salesforce, Azure Table Storage, MySql a mnoho dalších
-*   **Firebird poskytovatele**
+*   **Poskytovatel Microsoft SQL Server**
+    *   Sestaveno z [Entity Framework základ kódu Open Source](https://github.com/aspnet/EntityFramework6)
+    *   Dodává se jako součást [balíčku NuGet EntityFramework](https://nuget.org/packages/EntityFramework) .
+*   **Poskytovatel edice Microsoft SQL Server Compact**
+    *   Sestaveno z [Entity Framework základ kódu Open Source](https://github.com/aspnet/EntityFramework6)
+    *   Dodává se v [balíčku NuGet EntityFramework. SqlServerCompact.](https://nuget.org/packages/EntityFramework.SqlServerCompact)
+*   [**Devart dotConnect – poskytovatelé dat**](https://www.devart.com/dotconnect/)
+    *   Existují poskytovatelé třetích stran od [Devart](https://www.devart.com/) pro nejrůznější databáze, mezi které patří Oracle, MySQL, PostgreSQL, SQLite, SALESFORCE, DB2 a SQL Server
+*   [**CData poskytovatelé softwaru**](https://www.cdata.com/ado/)
+    *   Existují poskytovatelé třetích stran od [CDATA softwaru](https://www.cdata.com/ado/) pro nejrůznější úložiště dat, včetně Salesforce, Azure Table Storage, MySQL a spousty dalších.
+*   **Poskytovatel Firebird**
     *   K dispozici jako [balíček NuGet](https://www.nuget.org/packages/EntityFramework.Firebird/)
-*   **Visual Fox Pro provider**
+*   **Poskytovatel Visual Fox pro**
     *   K dispozici jako [balíček NuGet](https://www.nuget.org/packages/VFPEntityFrameworkProvider2/)
 *   **MySQL**
-    *   [MySQL Connector/NET pro Entity Framework](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html)
+    *   [Konektor MySQL/síť pro Entity Framework](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html)
 *   **PostgreSQL**
-    *   Je k dispozici jako Npgsql [balíček NuGet](https://www.nuget.org/packages/EntityFramework6.Npgsql/)
+    *   Npgsql je k dispozici jako [balíček NuGet](https://www.nuget.org/packages/EntityFramework6.Npgsql/) .
 *   **Oracle**
-    *   Je k dispozici jako ODP.NET [balíček NuGet](https://www.nuget.org/packages/Oracle.ManagedDataAccess.EntityFramework/)
+    *   ODP.NET je k dispozici jako [balíček NuGet](https://www.nuget.org/packages/Oracle.ManagedDataAccess.EntityFramework/) .
 
-Všimněte si, že zařazení v tomto seznamu nenaznačuje, že úroveň funkce nebo podporu pro daného zprostředkovatele, pouze to, že sestavení pro EF6 byl zpřístupněn.
+Všimněte si, že zahrnutí do tohoto seznamu neindikuje úroveň funkčnosti nebo podpory pro daného zprostředkovatele, ale k dispozici je pouze sestavení pro EF6.
 
-## <a name="registering-ef-providers"></a>Registrace zprostředkovatele EF
+## <a name="registering-ef-providers"></a>Registrace zprostředkovatelů EF
 
-Od zprostředkovatele Entity Framework 6 EF lze registrovat pomocí konfigurace buď založený na kódu nebo v konfiguračním souboru aplikace.
+Počínaje Entity Framework 6 je možné zaregistrovat poskytovatele EF buď pomocí konfigurace založené na kódu, nebo v konfiguračním souboru aplikace.
 
 ### <a name="config-file-registration"></a>Registrace konfiguračního souboru
 
-Registrace poskytovatele EF v souboru app.config nebo web.config má následující formát:
+Registrace poskytovatele EF v App. config nebo Web. config má následující formát:
 
 
 ``` xml
@@ -60,15 +60,15 @@ Registrace poskytovatele EF v souboru app.config nebo web.config má následují
     </entityFramework>
 ```
 
-Všimněte si, že často poskytovateli EF při instalaci z NuGet, pak balíček NuGet automaticky přidá tuto registraci do konfiguračního souboru. Pokud balíček NuGet nainstalovat do projektu, který není spouštěný projekt pro vaši aplikaci, budete muset zkopírujte registrace do konfiguračního souboru pro spouštěný projekt.
+Počítejte s tím, že pokud je zprostředkovatel EF nainstalovaný z NuGet, pak balíček NuGet tuto registraci automaticky přidá do konfiguračního souboru. Pokud nainstalujete balíček NuGet do projektu, který není spouštěným projektem aplikace, může být nutné zkopírovat registraci do konfiguračního souboru pro svůj projekt po spuštění.
 
-"InvariantName" v tomto registraci je stejný neutrální název používaný k identifikaci poskytovatele ADO.NET. To lze nalézt jako atribut "Výchozí" v registraci DbProviderFactories a jako atribut "providerName" v registraci řetězec připojení. Výchozí název položky používat také být součástí dokumentace pro zprostředkovatele. Příklady invariantní názvů, které jsou "System.Data.SqlClient" pro SQL Server a "System.Data.SqlServerCe.4.0" pro SQL Server Compact.
+V této registraci je "název" "invariantní" stejný neutrální název, který slouží k identifikaci poskytovatele ADO.NET. To lze najít jako "neutrální" atribut v registraci DbProviderFactories a jako atribut "providerName" v registraci připojovacího řetězce. Invariantní název, který se má použít, by měl být také zahrnut v dokumentaci pro poskytovatele. Příklady neutrálních názvů jsou "System. data. SqlClient" pro SQL Server a "System. data. SqlServerCe. 4.0" pro SQL Server Compact.
 
-"Type" v tomto registraci je název kvalifikovaný pro sestavení typu poskytovatele, který je odvozen od "System.Data.Entity.Core.Common.DbProviderServices". Řetězec, který má použít pro SQL Compact je například "System.Data.Entity.SqlServerCompact.SqlCeProviderServices EntityFramework.SqlServerCompact". Typ použití zde by měl být součástí dokumentace pro zprostředkovatele.
+"Type" v této registraci je kvalifikovaný název sestavení typu zprostředkovatele, který je odvozený od "System. data. entity. Core. Common. DbProviderServices". Například řetězec, který se má použít pro SQL Compact, je "System. data. entity. SqlServerCompact. SqlCeProviderServices, EntityFramework. SqlServerCompact". Typ, který se má použít tady, by měl být zahrnut v dokumentaci pro poskytovatele.
 
-### <a name="code-based-registration"></a>Registrace na úrovni kódu
+### <a name="code-based-registration"></a>Registrace na základě kódu
 
-Od verze Entity Framework 6 celou aplikaci konfigurace pro EF můžete zadat v kódu. Úplné podrobnosti najdete v tématu  _[Entity Framework Code-Based konfigurace](https://msdn.microsoft.com/data/jj680699)_. Obvyklým způsobem zaregistrovat poskytovatele EF pomocí konfigurace založená na kódu je vytvořte novou třídu, která je odvozena z System.Data.Entity.DbConfiguration a jeho následné uložení do stejného sestavení jako vaší třídy DbContext. Vaše třída DbConfiguration by pak zaregistrujte poskytovatele 've svém konstruktoru. Například k registraci SQL Compact poskytovatele DbConfiguration třídy vypadá takto:
+Od Entity Framework 6 se konfigurace pro EF v rámci aplikace může zadat v kódu. Úplné podrobnosti najdete v tématu _[Entity Framework konfigurace na základě kódu](https://msdn.microsoft.com/data/jj680699)_ . Běžný způsob, jak zaregistrovat poskytovatele EF pomocí konfigurace založené na kódu, je vytvořit novou třídu, která je odvozena z třídy System. data. entity. DbConfiguration a umístit ji do stejného sestavení jako třídu DbContext. Vaše třída DbConfiguration by potom měla zaregistrovat poskytovatele ve svém konstruktoru. Chcete-li například zaregistrovat poskytovatele SQL Compact, třída DbConfiguration bude vypadat takto:
 
 ``` csharp
     public class MyConfiguration : DbConfiguration
@@ -82,14 +82,14 @@ Od verze Entity Framework 6 celou aplikaci konfigurace pro EF můžete zadat v k
     }
 ```
 
-V tomto kódu "SqlCeProviderServices.ProviderInvariantName" je v zájmu usnadnění pro SQL Server Compact výchozí název zprostředkovatele řetězec ("System.Data.SqlServerCe.4.0") a SqlCeProviderServices.Instance vrátí instanci typu singleton SQL Compact EF zprostředkovatele.
+V tomto kódu "SqlCeProviderServices. ProviderInvariantName" je pohodlí pro řetězec neutrálního názvu poskytovatele SQL Server Compact ("System. data. SqlServerCe. 4.0") a SqlCeProviderServices. instance vrací instanci typu Singleton služby SQL Compact. Zprostředkovatel EF
 
-## <a name="what-if-the-provider-i-need-isnt-available"></a>Co když se poskytovatel budu potřebovat není k dispozici?
+## <a name="what-if-the-provider-i-need-isnt-available"></a>Co když není potřebný poskytovatel k dispozici?
 
-Pokud se k dispozici v předchozích verzích sady EF, pak doporučujeme obraťte se na vlastníka poskytovatele a požádejte ho, chcete-li vytvořit ve verzi EF6. Měli byste zahrnout odkaz na [dokumentaci podle modelu poskytovatele EF6](~/ef6/fundamentals/providers/provider-model.md).
+Pokud je poskytovatel k dispozici pro předchozí verze EF, doporučujeme, abyste se obrátili na vlastníka poskytovatele a požádejte ho, aby vytvořil verzi EF6. Měli byste zahrnout odkaz na [dokumentaci pro model poskytovatele EF6](~/ef6/fundamentals/providers/provider-model.md).
 
-## <a name="can-i-write-a-provider-myself"></a>Můžete mi psát zprostředkovatele vlastní?
+## <a name="can-i-write-a-provider-myself"></a>Můžu poskytovatele napsat sami?
 
-Je určitě možné vytvořit poskytovatele EF, sami sebe i když by neměly být zahrnuté triviální podniku. Výše uvedený odkaz o podle modelu poskytovatele EF6 je dobrým začátkem. Vám může být také vhodné k použití tohoto kódu pro zprostředkovatele SQL Server a SQL CE součástí [EF opensourcových codebase](https://github.com/aspnet/EntityFramework6) jako výchozí bod nebo odkaz.
+Je sice možné vytvořit poskytovatele EF sami, přestože by neměl být považován za triviální podnik. Výše uvedený odkaz o modelu poskytovatele EF6 je dobrým místem, kde začít. Může být také užitečné použít kód pro SQL Server a poskytovatele SQL CE, který je součástí [základu kódu open source v EF](https://github.com/aspnet/EntityFramework6) jako výchozí bod nebo pro referenci.
 
-Všimněte si, že počínaje EF6 poskytovateli EF je menší těsně spjat s podkladového zprostředkovatele ADO.NET. Díky tomu je snazší psát poskytovatele EF aniž byste museli napsat nebo zabalovat třídy rozhraní ADO.NET.
+Všimněte si, že počínaje EF6 je poskytovatel EF méně těsně spojený s podkladovým poskytovatelem ADO.NET. To usnadňuje psaní poskytovatele EF bez nutnosti psát nebo zabalit třídy ADO.NET.

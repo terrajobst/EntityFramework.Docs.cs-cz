@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 026df735473e31f1c1463c1fbc6f46c4fd6dfd4f
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921725"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181381"
 ---
 # <a name="spatial-data"></a>Prostorová data
 
@@ -32,7 +32,7 @@ Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreS
 
 ## <a name="reverse-engineering"></a>Zpětná analýza
 
-Prostorové balíčky NuGet také umožňují modely [zpětné analýzy](../managing-schemas/scaffolding.md) s prostorovými vlastnostmi, ale ***před*** spuštěním `Scaffold-DbContext` `dotnet ef dbcontext scaffold`nástroje je potřeba balíček nainstalovat. Pokud to neuděláte, zobrazí se upozornění týkající se nehledání mapování typů pro sloupce a sloupce se přeskočí.
+Prostorové balíčky NuGet také umožňují modely [zpětné analýzy](../managing-schemas/scaffolding.md) s prostorovými vlastnostmi, ale ***před*** spuštěním `Scaffold-DbContext` nebo `dotnet ef dbcontext scaffold` je potřeba balíček nainstalovat. Pokud to neuděláte, zobrazí se upozornění týkající se nehledání mapování typů pro sloupce a sloupce se přeskočí.
 
 ## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
 
@@ -46,7 +46,7 @@ optionsBuilder.UseSqlServer(
     x => x.UseNetTopologySuite());
 ```
 
-Existuje několik prostorových datových typů. Typ, který použijete, závisí na typech tvarů, které chcete zapnout. Tady je hierarchie typů NTS, které můžete použít pro vlastnosti v modelu. Nacházejí se v rámci `NetTopologySuite.Geometries` oboru názvů.
+Existuje několik prostorových datových typů. Typ, který použijete, závisí na typech tvarů, které chcete zapnout. Tady je hierarchie typů NTS, které můžete použít pro vlastnosti v modelu. Nacházejí se v oboru názvů `NetTopologySuite.Geometries`.
 
 * Geometrie
   * Vyberte
@@ -62,7 +62,7 @@ Existuje několik prostorových datových typů. Typ, který použijete, závis�
 
 Použití typu základní geometrie umožňuje, aby byl jakýkoli typ obrazce určen vlastností.
 
-Následující třídy entit se dají použít k mapování tabulek v [ukázkové databázi World World Imports](http://go.microsoft.com/fwlink/?LinkID=800630).
+Následující třídy entit se dají použít k mapování tabulek v [ukázkové databázi World World Imports](https://go.microsoft.com/fwlink/?LinkID=800630).
 
 ``` csharp
 [Table("Cities", Schema = "Application"))]
@@ -101,7 +101,7 @@ var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
 
 ### <a name="longitude-and-latitude"></a>Zeměpisná délka a zeměpisná šířka
 
-Souřadnice v NTS jsou vyhledané v hodnotách X a Y. Aby představoval zeměpisnou délku a zeměpisnou šířku, použijte X pro zeměpisnou délku a Y pro zeměpisnou šířku. Všimněte si, že se jedná o `latitude, longitude` **zpětnou** hodnotu ve formátu, ve kterém tyto hodnoty obvykle vidíte.
+Souřadnice v NTS jsou vyhledané v hodnotách X a Y. Aby představoval zeměpisnou délku a zeměpisnou šířku, použijte X pro zeměpisnou délku a Y pro zeměpisnou šířku. Všimněte si, že se jedná o **zpětnou** hodnotu z formátu `latitude, longitude`, ve kterém tyto hodnoty obvykle vidíte.
 
 ### <a name="srid-ignored-during-client-operations"></a>SRID se během operací klienta ignorovat.
 
@@ -213,15 +213,15 @@ Pokud používáte SQL Server, máte k dispozici několik dalších věcí, o kt
 
 ### <a name="geography-or-geometry"></a>Zeměpisná nebo geometrie
 
-Ve výchozím nastavení jsou prostorové vlastnosti namapovány na `geography` sloupce v SQL Server. Pokud chcete `geometry`použít, nakonfigurujte v modelu [typ sloupce](xref:core/modeling/relational/data-types) .
+Ve výchozím nastavení jsou prostorové vlastnosti namapovány na sloupce `geography` v SQL Server. Pokud chcete použít `geometry`, nakonfigurujte v modelu [typ sloupce](xref:core/modeling/relational/data-types) .
 
 ### <a name="geography-polygon-rings"></a>Geografické kroužky mnohoúhelníků
 
-Při použití `geography` typu sloupce SQL Server ukládá další požadavky na vnější prstenec (nebo kostru) a vnitřní prstence (nebo díry). Vnější prstenec musí být orientovaný proti směru hodinových ručiček a vnitřní prstence po směru hodinových ručiček. NTS ho před odesláním hodnot do databáze ověří.
+Při použití typu sloupce `geography` SQL Server ukládá další požadavky na vnější prstenec (nebo prostředí) a vnitřní prstence (nebo díry). Vnější prstenec musí být orientovaný proti směru hodinových ručiček a vnitřní prstence po směru hodinových ručiček. NTS ho před odesláním hodnot do databáze ověří.
 
 ### <a name="fullglobe"></a>FullGlobe
 
-SQL Server má nestandardní typ geometrie, který představuje úplný glóbus při použití `geography` typu sloupce. Má také způsob, jak znázornit mnohoúhelníky na základě plného světa (bez vnějšího okruhu). Ani jedna z těchto možností není podporována nástrojem NTS.
+SQL Server má nestandardní typ geometrie, který představuje úplný glóbus při použití typu sloupce `geography`. Má také způsob, jak znázornit mnohoúhelníky na základě plného světa (bez vnějšího okruhu). Ani jedna z těchto možností není podporována nástrojem NTS.
 
 > [!WARNING]
 > FullGlobe a mnohoúhelníky, které jsou na nich založené, nejsou podporovány NTS.
@@ -331,5 +331,5 @@ Mnohoúhelník. NumInteriorRings | ✔ | ✔ | ✔ | ✔
 
 * [Prostorová data v SQL Server](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [Domovská stránka SpatiaLite](https://www.gaia-gis.it/fossil/libspatialite)
-* [Npgsql prostorová dokumentace](http://www.npgsql.org/efcore/mapping/nts.html)
-* [Dokumentace k PostGIS](http://postgis.net/documentation/)
+* [Npgsql prostorová dokumentace](https://www.npgsql.org/efcore/mapping/nts.html)
+* [Dokumentace k PostGIS](https://postgis.net/documentation/)

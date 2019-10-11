@@ -1,16 +1,16 @@
 ---
-title: Porovnání Entity Framework 6 a Entity Framework Core
+title: Porovnání Entity Framework 6 a Entity Framework Core-EF
 description: Poskytuje pokyny k výběru mezi Entity Framework 6 a Entity Framework Core.
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 3d2f72e64e6846d2d8bb6d4d507e04090287114d
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 9fe4905de5bd81fce083d620724b7fad4c6dd11b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198020"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182056"
 ---
 # <a name="compare-ef-core--ef6"></a>Porovnání EF Core a EF6
 
@@ -64,7 +64,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | Formát modelu: EDMX (XML)                              | Ano      |                                       |
 | Vytvořit model z databáze: Příkazový řádek              | Ano      | 1.0                                   |
 | Vytvořit model z databáze: Průvodce VS                 | Ano      |                                       |
-| Aktualizovat model z databáze                            | Částečné  |                                       |
+| Aktualizovat model z databáze                            | Částečně  |                                       |
 | Filtry globálních dotazů                                  |          | 2.0                                   |
 | Rozdělení tabulky                                       | Ano      | 2.0                                   |
 | Rozdělování entit                                      | Ano      |                                       |

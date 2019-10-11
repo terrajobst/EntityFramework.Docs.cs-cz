@@ -3,12 +3,12 @@ title: Protokolování a zachycení databázových operací – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: be32ed114269543ac36b256a202e0494d466e4f7
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 35b0284a5ad8b2b732f074589bd458d243312575
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306536"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181654"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>Protokolování a zachycení databázových operací
 > [!NOTE]
@@ -171,7 +171,7 @@ SELECT * from ThisTableIsMissing
 
 V případě asynchronních příkazů, kde je úloha zrušena, může být výsledkem chyba s výjimkou, protože se jedná o to, co nadřízený poskytovatel ADO.NET často provádí při pokusu o zrušení. Pokud k tomu nedojde a úloha se zruší čistě, bude výstup vypadat přibližně takto:  
 
-```  
+```console
 update Blogs set Title = 'No' where Id = -1
 -- Executing asynchronously at 5/13/2013 10:21:10 AM
 -- Canceled in 1 ms
@@ -244,7 +244,7 @@ public class MyDbConfiguration : DbConfiguration
 
 Tento nový DatabaseLogFormatter se teď použije jako soubor Anytime Database. log. Takže spuštění kódu z části 1 teď má za následek následující výstup:  
 
-```  
+```console
 Context 'BlogContext' is executing command 'SELECT TOP (1) [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title]FROM [dbo].[Blogs] AS [Extent1]WHERE (N'One Unicorn' = [Extent1].[Title]) AND ([Extent1].[Title] IS NOT NULL)'
 Context 'BlogContext' is executing command 'SELECT [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title], [Extent1].[BlogId] AS [BlogId]FROM [dbo].[Posts] AS [Extent1]WHERE [Extent1].[BlogId] = @EntityKeyValue1'
 Context 'BlogContext' is executing command 'update [dbo].[Posts]set [Title] = @0where ([Id] = @1)'
@@ -261,11 +261,11 @@ Kód zachycení je sestaven kolem konceptu rozhraní zachycení. Tato rozhraní 
 
 ### <a name="the-interception-context"></a>Kontext zachycení  
 
-V případě metod, které jsou definovány v jakémkoli rozhraní pro zachycování, je zřejmé, že každé volání je uděleno objekt typu DbInterceptionContext nebo nějaký typ odvozený z tohoto typu\<, jako je například DbCommandInterceptionContext\>. Tento objekt obsahuje kontextové informace o akci, kterou EF vezme. Například pokud je akce prováděna jménem DbContext, pak DbContext je součástí DbInterceptionContext. Podobně pro příkazy, které jsou spouštěny asynchronně, je příznak-Async nastaven na DbCommandInterceptionContext.  
+V případě metod, které jsou definovány v jakémkoli rozhraní zachytávací, je zřejmé, že každé volání je předané objektu typu DbInterceptionContext nebo nějaký typ odvozený z tohoto typu, jako je například DbCommandInterceptionContext @ no__t-0 @ no__t-1. Tento objekt obsahuje kontextové informace o akci, kterou EF vezme. Například pokud je akce prováděna jménem DbContext, pak DbContext je součástí DbInterceptionContext. Podobně pro příkazy, které jsou spouštěny asynchronně, je příznak-Async nastaven na DbCommandInterceptionContext.  
 
 ### <a name="result-handling"></a>Zpracování výsledku  
 
-Třída DbCommandInterceptionContext\< \> obsahuje vlastnosti nazvané výsledek, OriginalResult, výjimka a OriginalException. Tyto vlastnosti jsou nastaveny na hodnotu null/nula pro volání metod zachycení, které jsou volány před spuštěním operace – to znamená pro... Spouštění metod. Pokud je operace spuštěná a úspěšná, pak se výsledek a OriginalResult nastaví na výsledek operace. Tyto hodnoty lze následně pozorovat v metodách zachycení, které jsou volány po provedení operace – to znamená na... Spouštěné metody. Podobně platí, že pokud operace vyvolá, budou nastaveny vlastnosti Exception a OriginalException.  
+Třída DbCommandInterceptionContext @ no__t-0 @ no__t-1 obsahuje vlastnosti nazvané výsledek, OriginalResult, výjimka a OriginalException. Tyto vlastnosti jsou nastaveny na hodnotu null/nula pro volání metod zachycení, které jsou volány před spuštěním operace – to znamená pro... Spouštění metod. Pokud je operace spuštěná a úspěšná, pak se výsledek a OriginalResult nastaví na výsledek operace. Tyto hodnoty lze následně pozorovat v metodách zachycení, které jsou volány po provedení operace – to znamená na... Spouštěné metody. Podobně platí, že pokud operace vyvolá, budou nastaveny vlastnosti Exception a OriginalException.  
 
 #### <a name="suppressing-execution"></a>Potlačení provádění  
 
@@ -299,7 +299,7 @@ Zachycení lze také registrovat na úrovni aplikačních domén pomocí mechani
 
 ### <a name="example-logging-to-nlog"></a>Příklad: Protokolování do NLog  
 
-Pojďme to všechno dohromady do příkladu, který používá IDbCommandInterceptor a [nLOG](http://nlog-project.org/) k:  
+Pojďme to všechno dohromady do příkladu, který používá IDbCommandInterceptor a [nLOG](https://nlog-project.org/) k:  
 
 - Zaprotokoluje upozornění pro všechny příkazy, které se provedly bez asynchronního zpracování.  
 - Zaznamená chybu pro jakýkoli příkaz, který vyvolá při spuštění.  

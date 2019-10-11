@@ -1,19 +1,19 @@
 ---
-title: Návrhář dotazu uložených procedur komponentami TableAdapter-EF6
+title: Dotazy na uložené procedury v Návrháři – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-ms.openlocfilehash: 04478ea1c8cd43a7ba4ee788e464992af3de7f64
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 2e0092b526278597e8477d47eeb642598647bb91
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283898"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182473"
 ---
-# <a name="designer-query-stored-procedures"></a>Návrhář dotazu uložené procedury
-Tento podrobný návod ukazují, jak použít Návrhář Entity Framework (EF designeru) k importu uložené procedury do modelu a poté zavolejte importované uložené procedury k načtení výsledků. 
+# <a name="designer-query-stored-procedures"></a>Uložené procedury dotazu návrháře
+Tento podrobný návod ukazuje, jak použít Entity Framework Designer (EF Designer) k importu uložených procedur do modelu a následnému volání importovaných uložených procedur pro načtení výsledků. 
 
-Všimněte si, že Code First nepodporuje mapování uložené procedury nebo funkce. Pomocí metody System.Data.Entity.DbSet.SqlQuery však můžete volat uložené procedury nebo funkce. Příklad:
+Všimněte si, že Code First nepodporuje mapování na uložené procedury nebo funkce. Uložené procedury nebo funkce však můžete volat pomocí metody System. data. entity. Negenerickými. SqlQuery. Příklad:
 ``` csharp
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 ```
@@ -22,48 +22,48 @@ var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 
 K dokončení toho návodu budete potřebovat:
 
-- Nejnovější verzi sady Visual Studio.
-- [Ukázkové databáze školy](~/ef6/resources/school-database.md).
+- Poslední verze sady Visual Studio.
+- [Ukázková databáze školy](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
--   Otevřít Visual Studio 2012.
--   Vyberte **souboru -&gt; nové –&gt; projektu**
--   V levém podokně klikněte na tlačítko **Visual C\#** a pak vyberte **konzoly** šablony.
--   Zadejte **EFwithSProcsSample** jako název.
--   Vyberte **OK**.
+-   Otevřete Visual Studio 2012.
+-   Vybrat **soubor-&gt; nový-&gt; projekt**
+-   V levém podokně klikněte na položku **Visual C @ no__t-1**a potom vyberte šablonu **konzoly** .
+-   Do pole název zadejte **EFwithSProcsSample** AS.
+-   Vyberte **OK**.
 
 ## <a name="create-a-model"></a>Vytvoření modelu
 
--   Klikněte pravým tlačítkem na projekt v Průzkumníku řešení a vyberte **Add -&gt; nová položka**.
--   Vyberte **Data** v levé nabídce a pak vyberte **datový Model Entity ADO.NET** v podokně šablon.
--   Zadejte **EFwithSProcsModel.edmx** pro název souboru a pak klikněte na tlačítko **přidat**.
--   V dialogovém okně Výběr obsahu modelu vyberte **Generovat z databáze**a potom klikněte na tlačítko **Další**.
--   Klikněte na tlačítko **nové připojení**.  
-    V dialogovém okně Vlastnosti připojení zadat název serveru (například **(localdb)\\mssqllocaldb**), vyberte metodu ověřování, zadejte **School** pro název databáze a pak Klikněte na tlačítko **OK**.  
-    Dialogové okno Vybrat datové připojení se aktualizuje se nastavení připojení databáze.
--   V dialogovém okně Zvolte vaše databázové objekty, zkontrolujte, **tabulky** zaškrtávací políčko, chcete-li vybrat všechny tabulky.  
-    Také vybrat následující uložené procedury v části **uložené procedury a funkce** uzlu: **GetStudentGrades** a **GetDepartmentName**. 
+-   Klikněte pravým tlačítkem na projekt v Průzkumník řešení a vyberte **Přidat-&gt; novou položku**.
+-   V nabídce vlevo vyberte **data** a v podokně šablony vyberte **ADO.NET model EDM (Entity Data Model)** .
+-   Jako název souboru zadejte **EFwithSProcsModel. edmx** a pak klikněte na **Přidat**.
+-   V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další**.
+-   Klikněte na **nové připojení**.  
+    V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB) \\mssqllocaldb**), vyberte metodu ověřování, zadejte **School** for název databáze a pak klikněte na tlačítko **OK**.  
+    Dialogové okno zvolit datové připojení je aktualizováno nastavením připojení k databázi.
+-   V dialogovém okně zvolte objekty databáze zaškrtněte v **tabulkách** checkbox, aby se vybraly všechny tabulky.  
+    V uzlu **uložené procedury a funkce** vyberte také následující uložené procedury: **GetStudentGrades** a **getdepartment**. 
 
-    ![Importovat](~/ef6/media/import.jpg)
+    ![Import](~/ef6/media/import.jpg)
 
-    *Od verze Visual Studio 2012 EF designeru podporuje hromadný import uložených procedur. **Importovat vybrané uložených procedur a funkcí do modelu theentity** je ve výchozím nastavení zaškrtnuto.*
--   Klikněte na tlačítko **Dokončit**.
+    @no__t – 0Starting s Visual Studiem 2012 Návrhář EF podporuje hromadný import uložených procedur. Ve výchozím nastavení je zaškrtnuté políčko **Importovat vybrané uložené procedury a funkce do modelu theentity** . *
+-   Klikněte na tlačítko **Dokončit**.
 
-Ve výchozím nastavení bude tvar výsledek každého importované uloženou proceduru nebo funkci, která vrátí více než jeden sloupec automaticky stane nový komplexní typ. V tomto příkladu chceme mapování výsledky **GetStudentGrades** funkce **StudentGrade** entity a výsledky **GetDepartmentName** k **žádný** (**žádný** je výchozí hodnota).
+Ve výchozím nastavení se obrazec výsledek u každé importované uložené procedury nebo funkce, která vrací více než jeden sloupec, automaticky změní na nový komplexní typ. V tomto příkladu chceme namapovat výsledky **GetStudentGrades** funkce na entitu **StudentGrade** a výsledky třídy **getdepartment** na **none** (**žádná** je výchozí hodnota).
 
-Pro importované funkce vrátit typ entity sloupců vrácený odpovídající uložené procedury musí přesně odpovídat Skalární vlastnosti typu vrácenou entitu. Importovaná funkce může vrátit také kolekce jednoduché typy, komplexních typů nebo žádnou hodnotu.
+Pro import funkce, který vrátí typ entity, se sloupce vrácené odpovídající uloženou procedurou musí přesně shodovat s skalárními vlastnostmi vráceného typu entity. Import funkce může také vracet kolekce jednoduchých typů, komplexních typů nebo žádná hodnota.
 
--   Klikněte pravým tlačítkem na návrhové ploše a vyberte **prohlížeč modelu**.
--   V **prohlížeč modelu**vyberte **importované funkce**a potom dvakrát klikněte **GetStudentGrades** funkce.
--   V dialogovém okně upravit importované funkce vyberte **entity** a zvolte **StudentGrade**.  
-    ***Importované funkce je sestavitelné** zaškrtávacího políčka v horní části **importované funkce** dialogové okno vám umožní mapovat složení funkcí. Pokud zaškrtnete toto políčko, zobrazí se pouze sestavitelný funkce (funkce vracející tabulku) v **uložená procedura nebo název funkce** rozevíracího seznamu. Pokud toto políčko nezaškrtávejte, v seznamu zobrazí pouze bez možnosti složení funkcí.*
+-   Klikněte pravým tlačítkem myši na návrhovou plochu a vyberte možnost **prohlížeč modelů**.
+-   V **prohlížeči modelů**vyberte **importy funkcí**a potom poklikejte na funkci **GetStudentGrades** .
+-   V dialogovém okně Upravit import funkce vyberte **entity** And zvolte **StudentGrade**.  
+    *The **funkce Import je** zaškrtávací políčko v horní části dialogového okna **importy funkcí** vám umožní mapovat na sestavitelnou funkci. Pokud toto políčko zaškrtnete, zobrazí se v rozevíracím seznamu **název uložené procedury nebo funkce** pouze funkce s možností složení (funkce vracející tabulku). Pokud toto políčko nezaškrtnete, v seznamu se zobrazí pouze funkce bez možnosti složení.*
 
 ## <a name="use-the-model"></a>Použití modelu
 
-Otevřít **Program.cs** souboru, kde **hlavní** je definována metoda. Přidejte následující kód do funkce Main.
+Otevřete soubor **program.cs** , kde je definována metoda **Main** . Do funkce Main přidejte následující kód.
 
-Kód volá dvě uložené procedury: **GetStudentGrades** (vrátí **StudentGrades** pro zadaný rozbočovač *StudentId*) a **GetDepartmentName** (vrátí název oddělení ve výstupní parametr).  
+Kód volá dva uložené procedury: **GetStudentGrades** (vrátí **StudentGrades** pro zadané *StudentID*) a název- **oddělení** (vrátí název oddělení v parametru Output).  
 
 ``` csharp
     using (SchoolEntities context = new SchoolEntities())
@@ -87,9 +87,9 @@ Kód volá dvě uložené procedury: **GetStudentGrades** (vrátí **StudentGrad
     }
 ```
 
-Kompilace a spuštění aplikace. Program vygeneruje následující výstup:
+Zkompilujte a spusťte aplikaci. Program vytvoří následující výstup:
 
-```
+```console
 StudentID: 2
 Student grade: 4.00
 StudentID: 2
@@ -100,4 +100,4 @@ The department name is Engineering
 <a name="output-parameters"></a>Výstupní parametry
 -----------------
 
-Pokud se používají výstupních parametrů, jejich hodnoty nebudou dostupné, dokud nebude mít zcela načíst výsledky. Je to z důvodu základní chování DbDataReader naleznete v tématu [načítání dat pomocí čtečky dat](https://go.microsoft.com/fwlink/?LinkID=398589) další podrobnosti.
+Pokud se používají výstupní parametry, jejich hodnoty nebudou k dispozici, dokud nebudou výsledky zcela načteny. Důvodem je základní chování DbDataReader. Další informace najdete v tématu [načtení dat pomocí objektu DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) .

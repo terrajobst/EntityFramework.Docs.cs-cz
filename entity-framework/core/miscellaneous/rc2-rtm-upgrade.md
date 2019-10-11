@@ -1,49 +1,49 @@
 ---
-title: Upgrade z EF Core 1.0 RC2 na RTM – EF Core
+title: Upgrade z verze EF Core 1,0 RC2 na RTM-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 1b95b2ab1943dfb541b3a7c873cff3cb4c16d9c1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e7f121d18931e26e7b5d11842da6da4a9b789efe
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998316"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181364"
 ---
-# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Upgrade z EF Core 1.0 RC2 na RTM
+# <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>Upgrade z verze EF Core 1,0 RC2 na RTM
 
-Tento článek obsahuje pokyny pro přesouvání aplikace sestavené s balíčky RC2 nastavená na 1.0.0 RTM.
+Tento článek poskytuje pokyny pro přesunutí aplikace vytvořené s balíčky RC2 do 1.0.0 RTM.
 
 ## <a name="package-versions"></a>Verze balíčku
 
-Názvy balíčků na nejvyšší úrovni, která by obvykle instalují do aplikace neliší RC2 a verze RTM.
+Názvy balíčků nejvyšší úrovně, které byste obvykle nainstalovali do aplikace, se mezi verzemi RC2 a RTM nezměnily.
 
-**Je třeba nainstalované balíčky s upgradem na verzi RTM verze:**
+**Je nutné upgradovat nainstalované balíčky na verzi RTM:**
 
-* Balíčky runtime (například `Microsoft.EntityFrameworkCore.SqlServer`) změnil z `1.0.0-rc2-final` k `1.0.0`.
+* Běhové balíčky (například `Microsoft.EntityFrameworkCore.SqlServer`) se změnily z `1.0.0-rc2-final` na `1.0.0`.
 
-* `Microsoft.EntityFrameworkCore.Tools` Balíčku změnil z `1.0.0-preview1-final` k `1.0.0-preview2-final`. Všimněte si, že nástroje je stále předběžné verze.
+* Balíček `Microsoft.EntityFrameworkCore.Tools` se změnil z `1.0.0-preview1-final` na `1.0.0-preview2-final`. Všimněte si, že nástroj je stále předběžnou verzí.
 
-## <a name="existing-migrations-may-need-maxlength-added"></a>Existující migrace může být nutné přidat maxLength
+## <a name="existing-migrations-may-need-maxlength-added"></a>Existující migrace můžou vyžadovat přidání maxLength.
 
-Ve verzi RC2, definice sloupců v migraci vypadal `table.Column<string>(nullable: true)` a délka sloupce byla vyhledána v některá metadata uložíme v kódu na migraci. Ve verzi RTM, délka je teď součástí automaticky generovaný kód `table.Column<string>(maxLength: 450, nullable: true)`.
+V rámci RC2 se definice sloupce v migraci jako `table.Column<string>(nullable: true)` a délka sloupce vyhledala v některých metadatech, které ukládáme do kódu na pozadí migrace. Ve verzi RTM je tato délka obsažená ve vygenerovaném kódu `table.Column<string>(maxLength: 450, nullable: true)`.
 
-Všechny existující migrace, které byly automaticky před použitím RTM nebude mít `maxLength` zadaný argument. To znamená, že se použije maximální délka podporována databází (`nvarchar(max)` na SQL serveru). To může být u některých sloupců, ale sloupce, které jsou součástí klíče, cizí klíč nebo index musí být aktualizováno, aby zahrnovalo maximální délku. Podle konvence je 450 maximální počet znaků použitý pro klíče, cizí klíče a indexovaných sloupců. Pokud jste nakonfigurovali explicitně délku v modelu, měli byste použít delší místo.
+U všech existujících migrací, které byly vygenerované před použitím RTM, nebude mít zadaný argument `maxLength`. To znamená, že se použije maximální délka podporovaná databází (`nvarchar(max)` v SQL Server). To může být pro některé sloupce jemné, ale sloupce, které jsou součástí klíče, cizího klíče nebo indexu, se musí aktualizovat tak, aby zahrnovaly maximální délku. Podle konvence je 450 maximální délka používané pro klíče, cizí klíče a indexované sloupce. Pokud jste v modelu explicitně nakonfigurovali délku, měli byste místo toho použít tuto délku.
 
 **ASP.NET Identity**
 
-Tato změna ovlivní projekty, které používají ASP.NET Identity a byly vytvořeny z předprodukčním-RTM šablony projektu. Šablona projektu zahrnuje migraci použít k vytvoření databáze. Tato migrace je nutné upravit k určení maximální délce `256` pro tyto sloupce.
+Tato změna ovlivní projekty, které používají ASP.NET Identity a byly vytvořeny ze šablony projektu před verzí RTM. Šablona projektu zahrnuje migraci použitou k vytvoření databáze. Tato migrace musí být upravena, aby určovala maximální délku `256` pro následující sloupce.
 
 *  **AspNetRoles**
 
-    * Název
+    * Name
 
     * NormalizedName
 
 *  **AspNetUsers**
 
-   * E-mailu
+   * Email
 
    * NormalizedEmail
 
@@ -51,13 +51,15 @@ Tato změna ovlivní projekty, které používají ASP.NET Identity a byly vytvo
 
    * UserName
 
-K provedení této změny bude dojít k následující výjimce při použití u počáteční migraci databáze.
+Tato změna způsobí při použití prvotní migrace na databázi následující výjimku.
 
-    System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+```console
+System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+```
 
-## <a name="net-core-remove-imports-in-projectjson"></a>.NET core: Odebere "importy" v souboru project.json
+## <a name="net-core-remove-imports-in-projectjson"></a>.NET Core: Odebrat importy v Project. JSON
 
-Pokud se zaměřujete na .NET Core RC2, je potřeba přidat `imports` k souboru project.json jako dočasným řešením pro některý ze EF Core závislosti, které nepodporují .NET Standard. Ty nyní je možné odebrat.
+Pokud jste se rozhodli .NET Core s verzí RC2, je nutné přidat `imports` do Project. JSON jako dočasné řešení pro některé závislosti EF Core, které nepodporují .NET Standard. Teď je můžete odebrat.
 
 ``` json
 {
@@ -70,17 +72,19 @@ Pokud se zaměřujete na .NET Core RC2, je potřeba přidat `imports` k souboru 
 ```
 
 > [!NOTE]  
-> Od verze 1.0 RTM, [.NET Core SDK](https://www.microsoft.com/net/download/core) už nepodporuje `project.json` nebo vývoj aplikací .NET Core pomocí sady Visual Studio 2015. Doporučujeme [migrace z project.json na csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Pokud používáte Visual Studio, doporučujeme je upgradovat na [Visual Studio 2017](https://www.visualstudio.com/downloads/).
+> Od verze 1,0 RTM již [.NET Core SDK](https://www.microsoft.com/net/download/core) nadále nepodporují `project.json` ani vývoj aplikací .NET Core pomocí sady Visual Studio 2015. Doporučujeme [migrovat z Project. JSON na csproj](https://docs.microsoft.com/dotnet/articles/core/migration/). Pokud používáte aplikaci Visual Studio, doporučujeme upgradovat na [Visual Studio 2017](https://www.visualstudio.com/downloads/).
 
-## <a name="uwp-add-binding-redirects"></a>UPW: Přidat přesměrování vazby
+## <a name="uwp-add-binding-redirects"></a>PODPORUJÍ Přidat přesměrování vazby
 
-Došlo k pokusu o spuštění EF příkazy na univerzální platformu Windows (UPW) výsledky projekty s následující chybou:
+Když se pokusíte spustit příkazy EF v projektech Univerzální platforma Windows (UWP), dojde k následující chybě:
 
-    System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```console
+System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```
 
-Budete muset ručně přidat přesměrování vazby do projektu UPW. Vytvořte soubor s názvem `App.config` v projektu kořenová složka a přidání přesměrování verze sestavení správná.
+Je nutné ručně přidat přesměrování vazby do projektu UWP. V kořenové složce projektu vytvořte soubor s názvem `App.config` a přidejte přesměrování do správné verze sestavení.
 
-``` xml
+```xml
 <configuration>
  <runtime>
    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">

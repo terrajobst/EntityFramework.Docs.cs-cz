@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 6d75b229-cc79-4d08-88cd-3a1c1b24d88f
 uid: core/miscellaneous/rc1-rc2-upgrade
-ms.openlocfilehash: 5300fe459ec2b8ab9bb573c7284b009249071d65
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 887b7cd539b9c0f5a680398f5039757420228710
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306457"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181278"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>Upgrade z verze EF Core 1,0 RC1 na 1,0 RC2
 
@@ -17,7 +17,7 @@ Tento článek poskytuje pokyny pro přesunutí aplikace vytvořené s balíčky
 
 ## <a name="package-names-and-versions"></a>Názvy a verze balíčků
 
-Mezi RC1 a RC2 jsme změnili z "Entity Framework 7" na "Entity Framework Core". Další informace o důvodech změny v [tomto příspěvku získáte Scott Hanselman](http://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx). Z důvodu této změny se naše názvy balíčků změnily `EntityFramework.*` z `Microsoft.EntityFrameworkCore.*` na a z `7.0.0-rc1-final` verze na `1.0.0-rc2-final` (nebo `1.0.0-preview1-final` pro nástroje).
+Mezi RC1 a RC2 jsme změnili z "Entity Framework 7" na "Entity Framework Core". Další informace o důvodech změny v [tomto příspěvku získáte Scott Hanselman](https://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx). Z důvodu této změny se naše názvy balíčků změnily z `EntityFramework.*` na `Microsoft.EntityFrameworkCore.*` a naší verze z `7.0.0-rc1-final` na `1.0.0-rc2-final` (nebo `1.0.0-preview1-final` pro nástroje).
 
 **Bude nutné úplně odebrat balíčky RC1 a pak nainstalovat RC2.** Zde je mapování pro některé běžné balíčky.
 
@@ -35,13 +35,13 @@ Mezi RC1 a RC2 jsme změnili z "Entity Framework 7" na "Entity Framework Core". 
 
 ## <a name="namespaces"></a>Jmenné prostory
 
-Společně s názvy balíčků se obory názvů `Microsoft.Data.Entity.*` změnily z na `Microsoft.EntityFrameworkCore.*`. Tuto změnu můžete zpracovat pomocí rutiny Find/nahraďte `using Microsoft.Data.Entity`. `using Microsoft.EntityFrameworkCore`
+Společně s názvy balíčků se obory názvů změnily z `Microsoft.Data.Entity.*` na `Microsoft.EntityFrameworkCore.*`. Tuto změnu můžete zpracovat pomocí rutiny Find/nahrazování `using Microsoft.Data.Entity` s `using Microsoft.EntityFrameworkCore`.
 
 ## <a name="table-naming-convention-changes"></a>Změny v konvenci vytváření názvů tabulek
 
-Významnou změnou funkčnosti, kterou jsme zavedli v RC2, bylo použití názvu `DbSet<TEntity>` vlastnosti pro danou entitu, jako je název tabulky, na kterou se mapuje, nikoli jenom jako název třídy. Můžete si přečíst další informace o této změně v [souvisejícím problému s oznámením](https://github.com/aspnet/Announcements/issues/167).
+Významnou změnou funkčnosti, kterou jsme zavedli v RC2, bylo použití názvu vlastnosti `DbSet<TEntity>` pro danou entitě jako názvu tabulky, na kterou se mapuje, místo pouze názvu třídy. Můžete si přečíst další informace o této změně v [souvisejícím problému s oznámením](https://github.com/aspnet/Announcements/issues/167).
 
-Pro existující aplikace RC1 doporučujeme na začátek `OnModelCreating` metody přidat následující kód, abyste zachovali strategii vytváření názvů RC1:
+Pro existující aplikace RC1 doporučujeme přidat následující kód na začátek metody @no__t 0, abyste zachovali strategii vytváření názvů RC1:
 
 ``` csharp
 foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -54,7 +54,7 @@ Pokud chcete přijmout novou strategii vytváření názvů, doporučujeme, abys
 
 ## <a name="adddbcontext--startupcs-changes-aspnet-core-projects-only"></a>Změny AddDbContext/Startup.cs (pouze projekty ASP.NET Core)
 
-V RC1 jste museli přidat Entity Framework Services do poskytovatele aplikační služby – v `Startup.ConfigureServices(...)`:
+V RC1 jste museli přidat Entity Framework Services k poskytovateli aplikační služby – v `Startup.ConfigureServices(...)`:
 
 ``` csharp
 services.AddEntityFramework()
@@ -63,7 +63,7 @@ services.AddEntityFramework()
     options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 ```
 
-V RC2 můžete odebrat volání `AddEntityFramework()`metody, `AddSqlServer()`, atd.:
+V RC2 můžete odebrat volání `AddEntityFramework()`, `AddSqlServer()` atd.:
 
 ``` csharp
 services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,7 +81,7 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 ## <a name="passing-in-an-iserviceprovider"></a>Předání do objektu IServiceProvider
 
-Pokud máte kód RC1, který předává `IServiceProvider` do kontextu, byl nyní přesunut do `DbContextOptions`, nikoli jako parametr samostatného konstruktoru. Použijte `DbContextOptionsBuilder.UseInternalServiceProvider(...)` k nastavení poskytovatele služeb.
+Pokud máte kód RC1, který předává `IServiceProvider` do kontextu, byl nyní přesunut do `DbContextOptions`, ale nejedná se o samostatný parametr konstruktoru. Pro nastavení poskytovatele služby použijte `DbContextOptionsBuilder.UseInternalServiceProvider(...)`.
 
 ### <a name="testing"></a>Testování
 
@@ -89,7 +89,7 @@ Nejběžnějším scénářem je řídit obor databáze inMemory při testován�
 
 ### <a name="resolving-internal-services-from-application-service-provider-aspnet-core-projects-only"></a>Rozpoznávání interních služeb od poskytovatele aplikačních služeb (pouze projekty ASP.NET Core)
 
-Pokud máte aplikaci ASP.NET Core a chcete, aby EF vyřešil interní služby od poskytovatele aplikační služby, existuje přetížení `AddDbContext` , které vám umožní tuto konfiguraci provést:
+Pokud máte aplikaci ASP.NET Core a chcete, aby EF vyřešil interní služby od poskytovatele aplikační služby, existuje přetížení `AddDbContext`, které vám umožní tuto konfiguraci provést:
 
 ``` csharp
 services.AddEntityFrameworkSqlServer()
@@ -103,9 +103,9 @@ services.AddEntityFrameworkSqlServer()
 
 ## <a name="dnx-commands--net-cli-aspnet-core-projects-only"></a>Příkazy DNX = > rozhraní .NET CLI (pouze projekty ASP.NET Core)
 
-Pokud jste dříve použili `dnx ef` příkazy pro projekty ASP.NET 5, byly nyní přesunuty na `dotnet ef` příkazy. Stejná syntaxe příkazu se pořád používá. Můžete použít `dotnet ef --help` pro informace o syntaxi.
+Pokud jste dřív použili příkazy `dnx ef` pro projekty ASP.NET 5, teď se přesunuly na příkazy `dotnet ef`. Stejná syntaxe příkazu se pořád používá. Pro informace o syntaxi můžete použít `dotnet ef --help`.
 
-Způsob registrace příkazů se změnil v RC2, protože DNX nahrazuje rozhraní .NET CLI. Příkazy jsou nyní registrovány v `tools` části v `project.json`:
+Způsob registrace příkazů se změnil v RC2, protože DNX nahrazuje rozhraní .NET CLI. Příkazy jsou nyní registrovány v části `tools` v `project.json`:
 
 ``` json
 "tools": {
@@ -120,7 +120,7 @@ Způsob registrace příkazů se změnil v RC2, protože DNX nahrazuje rozhraní
 ```
 
 > [!TIP]  
-> Pokud používáte aplikaci Visual Studio, můžete nyní použít konzolu Správce balíčků ke spuštění příkazů EF pro ASP.NET Core projekty (to se v RC1 nepodporuje). K tomu je stále potřeba zaregistrovat příkazy v `tools` části. `project.json`
+> Pokud používáte aplikaci Visual Studio, můžete nyní použít konzolu Správce balíčků ke spuštění příkazů EF pro ASP.NET Core projekty (to se v RC1 nepodporuje). K tomu je stále potřeba zaregistrovat příkazy v části `tools` `project.json`.
 
 ## <a name="package-manager-commands-require-powershell-5"></a>Příkazy správce balíčků vyžadují PowerShell 5.
 

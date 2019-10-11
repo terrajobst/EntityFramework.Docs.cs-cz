@@ -1,15 +1,15 @@
 ---
-title: Nové funkce v Entity Framework Core 3,0
+title: Nové funkce v Entity Framework Core 3,0 – EF Core
 author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/index
-ms.openlocfilehash: ce53d0fa21acfd52dc5e8b37911202cab02f00c8
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: ccfb8259c70cf8706a06eb3b22b9541224c3b9bb
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813464"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182074"
 ---
 # <a name="new-features-in-entity-framework-core-30"></a>Nové funkce v Entity Framework Core 3,0
 
@@ -31,7 +31,7 @@ Nejdůležitější změnou návrhu je udělat, jak zpracováváme LINQ výrazy,
 V předchozích verzích EF Core identifikovaly, které části dotazu by mohly být přeloženy na SQL, a spustilo zbytek dotazu na klientovi.
 Tento typ spuštění na straně klienta je v některých situacích žádoucí, ale v mnoha dalších případech může docházet k neefektivním dotazům.
 
-Například pokud EF Core 2,2 nemohl přeložit predikát ve `Where()` volání, provedl příkaz SQL bez filtru, přenesl z databáze všechny řádky a pak je vyfiltroval v paměti:
+Například pokud EF Core 2,2 nemohl převést predikát v volání `Where()`, provedl příkaz SQL bez filtru, přenesl z databáze všechny řádky a pak je vyfiltroval v paměti:
 
 ``` csharp
 var specialCustomers = 
@@ -41,7 +41,7 @@ var specialCustomers =
 
 To může být přijatelné, pokud databáze obsahuje malý počet řádků, ale může způsobit významné problémy s výkonem nebo i selhání aplikace, pokud databáze obsahuje velké číslo nebo řádky.
 
-V EF Core 3,0 jsme omezili Hodnocení klientů jenom na projekci nejvyšší úrovně (v podstatě na poslední volání `Select()`).
+V EF Core 3,0 jsme omezili Hodnocení klientů jenom na projekci nejvyšší úrovně (v podstatě poslední volání `Select()`).
 Když EF Core 3,0 detekuje výrazy, které nelze přeložit nikde jinde v dotazu, vyvolá výjimku za běhu.
 
 Aby vývojáři mohli vyhodnotit podmínku predikátu na klientovi jako v předchozím příkladu, je teď potřeba explicitně přepínat vyhodnocení dotazu na LINQ to Objects: 
@@ -58,7 +58,7 @@ Další podrobnosti o tom, jak to může ovlivnit existující aplikace, najdete
 
 ### <a name="single-sql-statement-per-linq-query"></a>Jeden příkaz SQL na dotaz LINQ
 
-Dalším aspektem návrhu, který se významně změnil v 3,0, je, že nyní vždy generujeme jeden příkaz SQL na dotaz LINQ. V předchozích verzích jsme v určitých případech vygenerovali několik příkazů SQL, jako je třeba překládat `Include()` volání na vlastnosti navigace kolekce a překládat dotazy, které za určité vzory používají poddotazy. I když je to v některých případech pohodlné a pro `Include()` it i pomoc při Vyhněte se posílání redundantních dat po drátě, implementace byla složitá, což vedlo k nějakým mimořádně neefektivnímu chování (N + 1 dotazů) a v situacích, ve kterých se data vrácená mezi více dotazy mohou být nekonzistentní.
+Dalším aspektem návrhu, který se významně změnil v 3,0, je, že nyní vždy generujeme jeden příkaz SQL na dotaz LINQ. V předchozích verzích jsme v určitých případech vygenerovali několik příkazů SQL, třeba překládat volání `Include()` u vlastností navigace kolekce a překládat dotazy, které za určitých vzorů používají poddotazy. I když je to v některých případech pohodlné a u `Include()` i tak, že se i tak nepomohlo odesílat redundantní data po drátě, implementace byla složitá a výsledkem je některé mimořádně neefektivní chování (N + 1 dotazů) a existují situace, kdy data vráceno mezi více dotazy může být nekonzistentní.
 
 Podobně jako u hodnocení klienta, pokud EF Core 3,0 nemůže přeložit dotaz LINQ na jeden příkaz jazyka SQL, vyvolá výjimku za běhu. Ale nastavili jsme EF Core schopné přeložit mnoho běžných vzorů, které se používají ke generování několika dotazů na jeden dotaz s spojeními.
 
@@ -74,7 +74,7 @@ EF Core 3,0 využívá několik [nových funkcí v C# 8,0](https://docs.microsof
 
 ### <a name="asynchronous-streams"></a>Asynchronní proudy
 
-Výsledky asynchronního dotazu jsou nyní zpřístupněny pomocí nového `IAsyncEnumerable<T>` standardního rozhraní a lze je spotřebovat pomocí. `await foreach`
+Výsledky asynchronního dotazu jsou nyní zpřístupněny pomocí nového standardního rozhraní @no__t 0 a lze je spotřebovat pomocí `await foreach`.
 
 ``` csharp
 var orders = 
@@ -92,9 +92,9 @@ Další podrobnosti najdete [v tématu asynchronní C# datové proudy v dokument
 
 ### <a name="nullable-reference-types"></a>Odkazové typy s možnou hodnotou null 
 
-Pokud je tato nová funkce ve vašem kódu povolená, EF Core prověřuje vlastnost s hodnotou null vlastností typu odkazu a použije ji pro odpovídající sloupce a relace v databázi: vlastnosti odkazů na typy, které neumožňují hodnotu null, se považují za, jako kdyby měly `[Required]` atribut datové poznámky
+Pokud je tato nová funkce ve vašem kódu povolená, EF Core prověřuje vlastnost s hodnotou null vlastností typu odkazu a použije ji pro odpovídající sloupce a relace v databázi: vlastnosti odkazů na typy, které neumožňují hodnotu null, se považují za, jako kdyby měly @no__ atribut datové poznámky t-0
 
-Například v následující třídě jsou vlastnosti označené jako typ `string?` konfigurovány jako volitelné, zatímco `string` budou nakonfigurovány jako povinné:
+Například v následující třídě je vlastnost označena jako typ `string?` konfigurovaná jako volitelná, zatímco `string` bude konfigurována podle potřeby:
 
 ``` csharp
 public class Customer
@@ -114,7 +114,7 @@ Nové rozhraní API zachycení v EF Core 3,0 umožňuje, aby se vlastní logika 
 
 Podobně jako funkce zachycení, které existovaly v EF 6, můžou zachytit operace zachycení operací před nebo po nich. Pokud je zachytíte předtím, než k nim dojde, můžete provést překonání a zadat alternativní výsledky z logiky zachycení. 
 
-Například pro manipulaci s textem příkazu můžete vytvořit `IDbCommandInterceptor`:
+Pokud například chcete manipulovat s textem příkazu, můžete vytvořit `IDbCommandInterceptor`:
 
 ``` csharp 
 public class HintCommandInterceptor : DbCommandInterceptor
@@ -131,7 +131,7 @@ public class HintCommandInterceptor : DbCommandInterceptor
 }
 ``` 
 
-A zaregistrujte ji `DbContext`:
+A zaregistrujte ji do svého @ no__t-0:
 
 ``` csharp
 services.AddDbContext(b => b
@@ -169,9 +169,9 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.
 
-Počínaje EF Core 3,0, pokud `OrderDetails` je `Order` vlastněná nebo explicitně namapovaná na stejnou tabulku, bude možné přidat `Order` bez `OrderDetails` a všechny `OrderDetails` vlastnosti, s výjimkou, že primární klíč bude namapován na sloupce s možnou hodnotou null.
+Od EF Core 3,0 platí, že pokud `OrderDetails` vlastní `Order` nebo explicitně namapované na stejnou tabulku, bude možné přidat `Order` bez `OrderDetails` a všech vlastností `OrderDetails`, s výjimkou, že primární klíč bude mapován na sloupce s možnou hodnotou null.
 
-Při dotazování se EF Core nastaví `OrderDetails` na `null` , pokud některá z jejích požadovaných vlastností nemá hodnotu, nebo pokud se kromě primárního `null`klíče a všech vlastností nevyžadují žádné vlastnosti.
+Při dotazování se EF Core nastaví `OrderDetails` na `null`, pokud některá z jejích požadovaných vlastností nemá hodnotu, nebo pokud se kromě primárního klíče nevyžadují žádné vlastnosti `null`.
 
 ``` csharp
 public class Order

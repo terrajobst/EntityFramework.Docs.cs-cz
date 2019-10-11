@@ -3,63 +3,63 @@ title: Database First – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: c81025fe7c3ad6398f003f7be2a3f9f072eec327
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: d40cff4ddccf43a394ef4f244653372a5a89b05a
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284080"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182453"
 ---
-# <a name="database-first"></a>První databáze
-Tato videa a podrobný návod poskytuje úvod do databáze první vývoj pomocí rozhraní Entity Framework. Nejprve lze provést zpětnou analýzu modelu z existující databáze. Modelu je uložen v souboru EDMX (s příponou edmx) a může se zobrazit a upravit v Návrháři Entity Framework. Třídy, které budete moct používat ve vaší aplikaci se automaticky vygenerují ze souboru EDMX.
+# <a name="database-first"></a>Database First
+Toto video a podrobný návod vám poskytnou Úvod do Database Firstho vývoje pomocí Entity Framework. Database First umožňuje zpětně analyzovat model z existující databáze. Model je uložen v souboru EDMX (. edmx rozšíření) a lze jej zobrazit a upravit v Entity Framework Designer. Třídy, ve kterých pracujete ve vaší aplikaci, jsou automaticky generovány ze souboru EDMX.
 
-## <a name="watch-the-video"></a>Podívejte se na video
-Toto video obsahuje úvod do databáze první vývoj pomocí rozhraní Entity Framework. Nejprve lze provést zpětnou analýzu modelu z existující databáze. Modelu je uložen v souboru EDMX (s příponou edmx) a může se zobrazit a upravit v Návrháři Entity Framework. Třídy, které budete moct používat ve vaší aplikaci se automaticky vygenerují ze souboru EDMX.
+## <a name="watch-the-video"></a>Přehrát video
+Toto video představuje úvod do Database First vývoje pomocí Entity Framework. Database First umožňuje zpětně analyzovat model z existující databáze. Model je uložen v souboru EDMX (. edmx rozšíření) a lze jej zobrazit a upravit v Entity Framework Designer. Třídy, ve kterých pracujete ve vaší aplikaci, jsou automaticky generovány ze souboru EDMX.
 
-**Přednášející:**: [Rowan Miller](http://romiller.com/)
+**Prezentující**: [Rowan Miller](https://romiller.com/)
 
 **Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
-Budete muset mít alespoň Visual Studio 2010 nebo Visual Studio 2012 nainstalovat k dokončení tohoto návodu.
+Abyste mohli dokončit tento návod, budete muset mít nainstalovanou aspoň Visual Studio 2010 nebo Visual Studio 2012.
 
-Pokud používáte Visual Studio 2010, musíte také mít [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalované.
+Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .
 
- 
+ 
 
-## <a name="1-create-an-existing-database"></a>1. Vytvořit existující databáze
+## <a name="1-create-an-existing-database"></a>1. Vytvoření existující databáze
 
-Obvykle Pokud cílíte na existující databázi, které se už vytvořili, ale v tomto návodu budeme potřebovat vytvořit databázi pro přístup k.
+Když cílíte na existující databázi, bude už vytvořená, ale pro tento návod musíme pro přístup vytvořit databázi.
 
-Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio, které jste nainstalovali:
+Databázový server, který je nainstalovaný se sadou Visual Studio, se liší v závislosti na verzi sady Visual Studio, kterou jste nainstalovali:
 
--   Pokud používáte Visual Studio 2010 vytvoříte databázi SQL Express.
--   Pokud používáte sadu Visual Studio 2012 pak vytvoříte [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) databáze.
+-   Pokud používáte Visual Studio 2010, budete vytvářet databázi SQL Express.
+-   Pokud používáte Visual Studio 2012, budete vytvářet databázi [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) .
 
- 
+ 
 
-Pojďme tedy vygenerovala databáze.
+Pojďme dopředu a vygenerovat databázi.
 
 -   Otevřít Visual Studio
--   **Zobrazení –&gt; Průzkumníka serveru**
--   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
--   Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat jako zdroj dat Microsoft SQL Server
+-   **Zobrazení-&gt; Průzkumník serveru**
+-   Klikněte pravým tlačítkem na **datová připojení – &gt; Přidat připojení...**
+-   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat Microsoft SQL Server jako zdroj dat
 
-    ![Vyberte zdroj dat](~/ef6/media/selectdatasource.png)
+    ![Vybrat zdroj dat](~/ef6/media/selectdatasource.png)
 
--   Připojení k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali a zadejte **DatabaseFirst.Blogging** jako název databáze
+-   Připojte se buď k LocalDB nebo SQL Express v závislosti na tom, který z nich jste nainstalovali, a jako název databáze zadejte **DatabaseFirst. blog.**
 
     ![Připojení SQL Express DF](~/ef6/media/sqlexpressconnectiondf.png)
 
     ![Připojení LocalDB DF](~/ef6/media/localdbconnectiondf.png)
 
--   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
+-   Vyberte **OK** a zobrazí se dotaz, jestli chcete vytvořit novou databázi, a pak vyberte **Ano** .
 
-    ![Vytvoření dialogového okna databáze](~/ef6/media/createdatabasedialog.png)
+    ![Dialogové okno vytvořit databázi](~/ef6/media/createdatabasedialog.png)
 
--   Nové databáze se teď budou zobrazovat v Průzkumníku serveru, klikněte pravým tlačítkem myši na něj a vyberte **nový dotaz**
--   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
+-   Nová databáze se nyní zobrazí v Průzkumník serveru, klikněte na ni pravým tlačítkem myši a vyberte **Nový dotaz** .
+-   Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .
 
 ``` SQL
 CREATE TABLE [dbo].[Blogs] (
@@ -81,75 +81,75 @@ CREATE TABLE [dbo].[Posts] (
 
 ## <a name="2-create-the-application"></a>2. Vytvoření aplikace
 
-Pro zjednodušení budeme vytvářet základní Konzolová aplikace, která používá databázi první přístup k datům:
+Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Database First k provádění přístupu k datům:
 
 -   Otevřít Visual Studio
--   **Soubor –&gt; nové –&gt; projektu...**
--   Vyberte **Windows** v levé nabídce a **konzolové aplikace**
--   Zadejte **DatabaseFirstSample** jako název
--   Vyberte **OK**
+-   **Soubor-&gt; nový-&gt; projekt...**
+-   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
+-   Jako název zadejte **DatabaseFirstSample** .
+-   Vybrat **OK**
 
- 
+ 
 
-## <a name="3-reverse-engineer-model"></a>3. Zpětná analýza modelu
+## <a name="3-reverse-engineer-model"></a>3. Model zpětného analýz
 
-My budeme používat Entity Framework Designer, která je součástí sady Visual Studio, k vytvoření našeho modelu.
+Budeme používat Entity Framework Designer, který je součástí sady Visual Studio, a vytvořit náš model.
 
--   **Projekt –&gt; přidat novou položku...**
--   Vyberte **Data** v levé nabídce a potom **datový Model Entity ADO.NET**
--   Zadejte **BloggingModel** jako název a klikněte na **OK**
--   Tím se spustí **Průvodce datovým modelem Entity**
--   Vyberte **Generovat z databáze** a klikněte na tlačítko **další**
+-   **Projekt-&gt; Přidat novou položku...**
+-   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
+-   Jako název zadejte **BloggingModel** a klikněte na **OK** .
+-   Spustí se **průvodce model EDM (Entity Data Model)** .
+-   Vyberte **Generovat z databáze** a klikněte na **Další** .
 
     ![Krok 1 Průvodce](~/ef6/media/wizardstep1.png)
 
--   Vyberte připojení k databázi vytvořené v první části, zadejte **BloggingContext** jako název připojovacího řetězce a klikněte na tlačítko **další**
+-   Vyberte připojení k databázi, kterou jste vytvořili v první části, jako název připojovacího řetězce zadejte **BloggingContext** a klikněte na **Další** .
 
     ![Krok 2 Průvodce](~/ef6/media/wizardstep2.png)
 
--   Klikněte na zaškrtávací políčko vedle "Tables" k importu všech tabulek a klikněte na tlačítko 'Dokončit'
+-   Kliknutím na zaškrtávací políčko vedle tabulky naimportujete všechny tabulky a kliknete na Dokončit.
 
     ![Krok 3 Průvodce](~/ef6/media/wizardstep3.png)
 
- 
+ 
 
-Po dokončení procesu zpětné analýzy nový model je přidána do projektu a zpřístupnili k zobrazení v Návrháři Entity Framework. Soubor App.config má také byla přidána do projektu s podrobnostmi o připojení pro databázi.
+Po dokončení procesu zpětného zpracování se do projektu přidá nový model, který jste otevřeli, abyste mohli zobrazit Entity Framework Designer. Do projektu byl také přidán soubor App. config s podrobnostmi o připojení pro databázi.
 
-![Počáteční modelu](~/ef6/media/modelinitial.png)
+![Počáteční model](~/ef6/media/modelinitial.png)
 
-### <a name="additional-steps-in-visual-studio-2010"></a>Další kroky v sadě Visual Studio 2010
+### <a name="additional-steps-in-visual-studio-2010"></a>Další kroky v aplikaci Visual Studio 2010
 
-Pokud pracujete v sadě Visual Studio 2010 existují některé další kroky, které je potřeba provést upgrade na nejnovější verzi rozhraní Entity Framework. Upgrade je důležité, protože poskytuje přístup k vylepšení plochy rozhraní API, který je jednodušší použít, a také nejnovější opravy chyb.
+Pokud pracujete v aplikaci Visual Studio 2010, je nutné provést další kroky k upgradu na nejnovější verzi Entity Framework. Upgrade je důležitý, protože poskytuje přístup k vylepšenému povrchu rozhraní API, který je mnohem jednodušší, a také o nejnovějších opravách chyb.
 
-Nejprve, potřebujeme načíst nejnovější verzi rozhraní Entity Framework z NuGet.
+Nejdřív potřebujeme získat nejnovější verzi Entity Framework z NuGetu.
 
--   **Project –&gt; spravovat balíčky NuGet... ** 
-     *Pokud nemáte k dispozici **spravovat balíčky NuGet... ** možnost byste měli nainstalovat [nejnovější verze Nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
--   Vyberte **Online** kartu
--   Vyberte **EntityFramework** balíčku
--   Klikněte na tlačítko **instalace**
+-   **Projekt – &gt; spravovat balíčky NuGet...** 
+    ,*Pokud nemáte balíčky pro **správu NuGet...** , měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .*
+-   Vyberte **online** kartu.
+-   Výběr balíčku **EntityFramework**
+-   Klikněte na **nainstalovat** .
 
-Dále musíme Prohodit náš model se vygenerovat kód, který využívá rozhraní API DbContext, která byla zavedena v novějších verzích rozhraní Entity Framework.
+Dále je potřeba prohodit náš model a vygenerovat kód, který využívá rozhraní DbContext API, které bylo představeno v novějších verzích Entity Framework.
 
--   Klikněte pravým tlačítkem na prázdné místo modelu v EF designeru a vyberte **přidat položku generování kódu...**
--   Vyberte **Online šablon** v levé nabídce a vyhledejte **DbContext**
--   Vyberte EF **5.x DbContext generátor pro jazyk C\#**, zadejte **BloggingModel** jako název a klikněte na **přidat**
+-   V Návrháři EF klikněte pravým tlačítkem na prázdný bod modelu a vyberte **Přidat položku pro generování kódu...**
+-   V nabídce vlevo vyberte **online šablony** a vyhledejte **DbContext** .
+-   Vyberte generátor EF **5. x DbContext pro jazyk C @ no__t-1**, jako název zadejte **BloggingModel** a klikněte na **Přidat** .
 
     ![Šablona DbContext](~/ef6/media/dbcontexttemplate.png)
 
- 
+ 
 
-## <a name="4-reading--writing-data"></a>4. Čtení a zápis dat
+## <a name="4-reading--writing-data"></a>4. Čtení & zápisu dat
 
-Když teď máme modelu je čas ho používat pro přístup k nějaká data. Třídy budeme používat k přístupu k datům se automaticky generují založeného na souboru EDMX.
+Teď, když máme model, je čas ho použít pro přístup k některým datům. Třídy, které použijeme pro přístup k datům, se pro vás automaticky generují na základě souboru EDMX.
 
-*Tento snímek obrazovky je z Visual Studio 2012, pokud používáte Visual Studio 2010 BloggingModel.tt a BloggingModel.Context.tt soubory přímo v rámci projektu budou místo vnořen v souladu s souboru EDMX.*
+*Tento snímek obrazovky je ze sady Visual Studio 2012, pokud používáte Visual Studio 2010 soubory BloggingModel.tt a BloggingModel.Context.tt budou přímo v rámci projektu, a ne jako vnořené do souboru EDMX.*
 
 ![Generované třídy DF](~/ef6/media/generatedclassesdf.png)
 
- 
+ 
 
-V souboru Program.cs implementujte metodu Main, jak je znázorněno níže. Tento kód vytvoří novou instanci třídy náš kontext a použije ho k vložení nového blogu. Pak používá dotaz LINQ k načtení všech blogy z databáze abecedně podle názvu.
+Implementujte metodu Main v Program.cs, jak je znázorněno níže. Tento kód vytvoří novou instanci našeho kontextu a pak ho použije k vložení nového blogu. Pak použije dotaz LINQ k načtení všech blogů z databáze seřazené abecedně podle názvu.
 
 ``` csharp
 class Program
@@ -184,24 +184,24 @@ class Program
 }
 ```
 
-Teď můžete aplikaci spustit a otestování.
+Nyní můžete spustit aplikaci a otestovat ji.
 
-```
+```console
 Enter a name for a new Blog: ADO.NET Blog
 All blogs in the database:
 ADO.NET Blog
 Press any key to exit...
 ```
- 
+ 
 
 ## <a name="5-dealing-with-database-changes"></a>5. Práce se změnami databáze
 
-Nyní je čas při provádění těchto změn, musíme také aktualizovat náš model tak, aby odrážela tyto změny udělat nějaké změny do našich schéma databáze.
+Teď je čas udělat nějaké změny ve schématu databáze, když tyto změny provedeme, abychom tyto změny provedli, i když aktualizujeme náš model.
 
-Prvním krokem je na něm provést nějaké změny schématu databáze. Chceme přidat tabulku uživatelů ve schématu.
+Prvním krokem je udělat změny ve schématu databáze. Přidáváme do schématu tabulku uživatelů.
 
--   Klikněte pravým tlačítkem na **DatabaseFirst.Blogging** databázi v Průzkumníku serveru a vyberte **nový dotaz**
--   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
+-   Klikněte pravým tlačítkem na databázi **DatabaseFirst. blogů** v Průzkumník serveru a vyberte **Nový dotaz** .
+-   Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .
 
 ``` SQL
 CREATE TABLE [dbo].[Users]
@@ -211,22 +211,22 @@ CREATE TABLE [dbo].[Users]
 )
 ```
 
-Teď, když se aktualizuje schéma, je čas k aktualizaci modelu s těmito změnami.
+Teď, když je schéma aktualizované, je čas aktualizovat model pomocí těchto změn.
 
--   Klikněte pravým tlačítkem na prázdné místo váš model v EF designeru a vyberte možnost "aktualizace modelu z databáze...", tím spustíte Průvodce aktualizací
--   Na kartě přidat Průvodce aktualizací zaškrtávací políčko vedle tabulky to znamená, že chceme přidat žádné nové tabulky ze schématu.
-    *Na kartě aktualizace se zobrazí veškeré stávající tabulky v modelu, který bude sloužit k změny během aktualizace. Odstranit záložky zobrazit žádné tabulky, které byly odebrány ze schématu a také se odebere z modelu jako součást aktualizace. Informace o těchto dvou karet je automaticky rozpoznán a je k dispozici, pouze k informačním účelům jakékoli nastavení nejde změnit.*
+-   Klikněte pravým tlačítkem myši na prázdný bod modelu v Návrháři EF a vyberte aktualizovat model z databáze.... tím se spustí Průvodce aktualizací.
+-   Na kartě Přidat v Průvodci aktualizací zaškrtněte políčko vedle pole tabulky, což znamená, že chceme do schématu přidat jakékoli nové tabulky.
+    karta aktualizace *The zobrazuje všechny existující tabulky v modelu, u kterých budou během aktualizace zkontrolovány změny. Karty odstranit zobrazují všechny tabulky, které byly odebrány ze schématu a budou také odebrány z modelu jako součást aktualizace. Informace na těchto dvou kartách se automaticky zjišťují a jsou dostupné jenom pro informativní účely, nemůžete změnit žádné nastavení.*
 
-    ![Aktualizovat Průvodce](~/ef6/media/refreshwizard.png)
+    ![Průvodce aktualizací](~/ef6/media/refreshwizard.png)
 
--   Klikněte na tlačítko Dokončit v Průvodci aktualizacemi
+-   V Průvodci aktualizací klikněte na Dokončit.
 
- 
+ 
 
-Model je teď aktualizovaný zahrnout nové entity uživatele, který se mapuje na tabulku uživatelů, kterou jsme přidali do databáze.
+Model se teď aktualizoval tak, aby zahrnoval novou entitu uživatele, která se mapuje na tabulku uživatelů, kterou jsme přidali do databáze.
 
-![Aktualizace modelu](~/ef6/media/modelupdated.png)
+![Model se aktualizoval](~/ef6/media/modelupdated.png)
 
 ## <a name="summary"></a>Souhrn
 
-V tomto návodu zvažovali jsme i první databáze vývoje, který nám umožnila vytvoření modelu v EF designeru založené na existující databázi. Potom jsme použili tohoto modelu číst a zapisovat data z databáze. Nakonec jsme aktualizovali tak, aby odrážely změny, které jsme provedli schéma databáze modelu.
+V tomto návodu jsme se podívali na Database First vývoj, což nám umožnilo vytvořit model v Návrháři EF na základě existující databáze. Pak jsme tento model použili ke čtení a zápisu dat z databáze. Nakonec jsme model aktualizovali tak, aby odrážel změny schématu databáze.

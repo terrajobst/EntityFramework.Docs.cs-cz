@@ -1,75 +1,68 @@
 ---
-title: Klient vs. Vyhodnocení serveru – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+title: Vyhodnocení klienta vs. Vyhodnocení serveru – EF Core
+author: smitpatel
+ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: cb207d9e1b1004a4084dd6fc66712183b5bdd5dc
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 3d70324f0b57a0ea9b165b5140a2154001c326f4
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921702"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181903"
 ---
-# <a name="client-vs-server-evaluation"></a>Klient vs. Vyhodnocení serveru
+# <a name="client-vs-server-evaluation"></a>Vyhodnocení klienta vs. serveru
 
-Entity Framework Core podporuje části dotazu vyhodnoceného na straně klienta a části, které se přidávají do databáze. Aby bylo možné zjistit, které části dotazu budou v databázi vyhodnocovány, je k poskytovateli databáze.
+Obecně platí, Entity Framework Core se pokusí vyhodnotit dotaz na serveru co nejvíce. EF Core převede části dotazu na parametry, které lze vyhodnotit na straně klienta. Zbytek dotazu (spolu s vygenerovanými parametry) se předávají poskytovateli databáze k určení ekvivalentního databázového dotazu, který se má na serveru vyhodnotit. EF Core podporuje částečné vyhodnocení klientů v projekci nejvyšší úrovně (v podstatě poslední volání `Select()`). Pokud se projekce nejvyšší úrovně v dotazu nedá přeložit na server, EF Core načte všechna požadovaná data ze serveru a vyhodnotí zbývající části dotazu na klientovi. Pokud EF Core detekuje výraz, na jakémkoli jiném místě než projekcí nejvyšší úrovně, které nelze přeložit na server, vyvolá výjimku za běhu. Podívejte se, [Jak dotaz funguje](xref:core/querying/how-query-works) pro pochopení, jak EF Core určuje, co se nedá přeložit na server.
 
-> [!TIP]  
+> [!NOTE]
+> Před verzí 3,0 Entity Framework Core podporované vyhodnocení klientů kdekoli v dotazu. Další informace najdete v [části předchozí verze](#previous-versions).
+
+## <a name="client-evaluation-in-the-top-level-projection"></a>Hodnocení klienta v projekci nejvyšší úrovně
+
+> [!TIP]
 > Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
 
-## <a name="client-evaluation"></a>Vyhodnocení klientů
+V následujícím příkladu se pomocná metoda používá ke standardizaci adres URL pro Blogy, které se vracejí z databáze SQL Server. Vzhledem k tomu, že poskytovatel SQL Server nemá žádné informace o tom, jak je tato metoda implementována, není možné ji přeložit do jazyka SQL. Všechny ostatní aspekty dotazu jsou vyhodnocovány v databázi, ale předávání vrácených `URL` prostřednictvím této metody je provedeno na klientovi.
 
-V následujícím příkladu je pomocná metoda použita ke standardizaci adres URL pro Blogy, které se vracejí z databáze SQL Server. Protože poskytovatel SQL Server nemá žádné informace o tom, jak je tato metoda implementována, není možné ji přeložit do jazyka SQL. Všechny ostatní aspekty dotazu jsou vyhodnocovány v databázi, ale předávání vrácených `URL` prostřednictvím této metody je provedeno na klientovi.
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientProjection)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs?highlight=6)] -->
-``` csharp
-var blogs = context.Blogs
-    .OrderByDescending(blog => blog.Rating)
-    .Select(blog => new
-    {
-        Id = blog.BlogId,
-        Url = StandardizeUrl(blog.Url)
-    })
-    .ToList();
-```
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientMethod)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
-``` csharp
-public static string StandardizeUrl(string url)
-{
-    url = url.ToLower();
+## <a name="unsupported-client-evaluation"></a>Nepodporované Hodnocení klientů
 
-    if (!url.StartsWith("http://"))
-    {
-        url = string.Concat("http://", url);
-    }
+I když je hodnocení klienta užitečné, může někdy způsobit špatný výkon. Vezměte v úvahu následující dotaz, ve kterém se nyní v filtru Where používá pomocná metoda. Vzhledem k tomu, že filtr nelze v databázi použít, je nutné do paměti načíst všechna data, aby bylo možné použít filtr na klientovi. Na základě filtru a množství dat na serveru může vyhodnocení klientů způsobit špatný výkon. Takže Entity Framework Core zablokuje takové vyhodnocení klientů a vyvolá výjimku za běhu.
 
-    return url;
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientWhere)]
 
-## <a name="client-evaluation-performance-issues"></a>Problémy s výkonem hodnocení klienta
+## <a name="explicit-client-evaluation"></a>Explicitní vyhodnocení klientů
 
-I když může být hodnocení klienta velmi užitečné, může v některých případech dojít k špatnému výkonu. Vezměte v úvahu následující dotaz, ve kterém se nyní ve filtru používá pomocná metoda. Vzhledem k tomu, že to nelze provést v databázi, jsou všechna data načtena do paměti a filtr je použit na straně klienta. V závislosti na množství dat a množství dat, která jsou odfiltrována, může to mít za následek špatný výkon.
+Je možné, že bude nutné vynutit vyhodnocení klienta explicitně v některých případech, například následujícím.
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
-``` csharp
-var blogs = context.Blogs
-    .Where(blog => StandardizeUrl(blog.Url).Contains("dotnet"))
-    .ToList();
-```
+- Množství dat je malé, takže hodnocení na klientovi nevede k obrovským snížení výkonu.
+- Použitý operátor LINQ nemá žádný překlad na straně serveru.
 
-## <a name="client-evaluation-logging"></a>Protokolování vyhodnocení klientů
+V takových případech se můžete explicitně vyjádřit k vyhodnocení klienta voláním metod, jako je `AsEnumerable` nebo `ToList` (`AsAsyncEnumerable` nebo `ToListAsync` pro Async). Při použití `AsEnumerable` byste streamování výsledků, ale použití `ToList` by způsobilo ukládání do vyrovnávací paměti vytvořením seznamu, který také využívá další paměť. I když se vytváří výčet několikrát, pak výsledky uložení do seznamu pomohou více, protože existuje pouze jeden dotaz na databázi. V závislosti na konkrétním použití byste měli vyhodnotit, která metoda je pro případ užitečnější.
 
-Ve výchozím nastavení EF Core zaznamená upozornění, když je provedeno vyhodnocení klienta. Další informace o zobrazení výstupu protokolování najdete v tématu [protokolování](../miscellaneous/logging.md) . 
+[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ExplicitClientEval)]
 
-## <a name="optional-behavior-throw-an-exception-for-client-evaluation"></a>Volitelné chování: vyvolejte výjimku pro vyhodnocení klienta.
+## <a name="potential-memory-leak-in-client-evaluation"></a>Potenciální nevracení paměti při vyhodnocování klienta
 
-Chování můžete změnit, když dojde k vyhodnocení klienta buď k vyvolání, nebo provedení akce. To se provádí při nastavování možností pro váš kontext – obvykle v `DbContext.OnConfiguring`nebo v `Startup.cs` případě, že používáte ASP.NET Core.
+Vzhledem k tomu, že překlad dotazů a kompilace jsou nákladné, EF Core ukládá do mezipaměti kompilovaný plán dotazů. Delegát v mezipaměti může používat klientský kód při hodnocení projekce na nejvyšší úrovni. EF Core generuje parametry pro části stromu vyhodnocené klientem a znovu použije plán dotazu nahrazením hodnot parametrů. Některé konstanty ve stromu výrazů ale nelze převést na parametry. Pokud delegát v mezipaměti obsahuje takové konstanty, pak tyto objekty nemůžou být shromážděny z paměti, protože jsou pořád odkazovány. Pokud takový objekt obsahuje DbContext nebo jiné služby, může to způsobit, že se využití paměti aplikace v průběhu času zvětšuje. Toto chování obvykle představuje znaménko nevracení paměti. EF Core vyvolá výjimku vždy, když dojde v rámci konstant typu, který nelze namapovat pomocí aktuálního poskytovatele databáze. Běžné příčiny a jejich řešení jsou následující:
 
-<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
-``` csharp
+- **Použití metody instance**: Při použití metod instance v projekci klienta obsahuje strom výrazu konstantu instance. Pokud vaše metoda nepoužívá žádná data z instance, zvažte vytvoření metody jako statické. Pokud potřebujete data instance v těle metody a pak předejte konkrétní data jako argument metody.
+- **Předání argumentů konstant do metody**: Tento případ se obvykle používá `this` v argumentu pro metodu klienta. Zvažte rozdělení argumentu do na více skalárních argumentů, které mohou být mapovány poskytovatelem databáze.
+- **Jiné konstanty**: Pokud je konstanta v jakémkoli jiném případě, můžete vyhodnotit, zda je konstanta potřebná ke zpracování. Pokud je nutné mít konstantu, nebo pokud nemůžete použít řešení z výše uvedených případů, vytvořte místní proměnnou pro uložení hodnoty a použijte místní proměnnou v dotazu. EF Core převede místní proměnnou na parametr.
+
+## <a name="previous-versions"></a>Předchozí verze
+
+Následující část se vztahuje na verze EF Core před 3,0.
+
+Starší verze EF Core podporovaly vyhodnocování klientů v jakékoli části dotazu – ne pouze projekce nejvyšší úrovně. To je důvod, proč se dotazy podobné těm, které jsou publikovány v [nepodporované části hodnocení klienta](#unsupported-client-evaluation) , správně pracovaly. Vzhledem k tomu, že toto chování může způsobit problémy s nevyřešeným výkonem, EF Core zaznamenalo upozornění hodnocení klienta. Další informace o zobrazení výstupu protokolování najdete v tématu [protokolování](xref:core/miscellaneous/logging).
+
+Volitelně EF Core možné změnit výchozí chování tak, aby buď vyvolalo výjimku, nebo neprováděli žádnou akci při hodnocení klienta (s výjimkou v projekci). Chování při vyvolání výjimky by se podobá chování v 3,0. Chcete-li změnit chování, je třeba nakonfigurovat upozornění při nastavování možností pro váš kontext – obvykle v `DbContext.OnConfiguring` nebo v `Startup.cs`, pokud používáte ASP.NET Core.
+
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
     optionsBuilder

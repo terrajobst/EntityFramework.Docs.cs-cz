@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 43b98c1f09a89f7e5451e28cbf2f78a2cb1040e5
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 0c9671eb77181d85cd493341cd1abf842d13fb0e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921769"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181273"
 ---
 # <a name="ef-core-tools--extensions"></a>Rozšíření & nástrojů pro EF Core
 
@@ -52,10 +52,10 @@ CatFactory je modul pro generování uživatelského rozhraní pro .NET Core, kt
 
 ### <a name="loresofts-entity-framework-core-generator"></a>Generátor Entity Framework Core LoreSoft
 
-Generátor Entity Framework Core (EFG) je .NET Core CLI nástroj, který může generovat EF Core modely z existující databáze, podobně jako `dotnet ef dbcontext scaffold`, ale také podporuje bezpečné [obnovení](https://efg.loresoft.com/en/latest/regeneration/) kódu prostřednictvím nahrazení oblastí nebo analýzou souborů mapování. Tento nástroj podporuje generování modelů zobrazení, ověřování a kódu mapovače objektů. 
+Generátor Entity Framework Core (EFG) je .NET Core CLI nástroj, který může generovat EF Core modely z existující databáze, podobně jako `dotnet ef dbcontext scaffold`, ale také podporuje bezpečné [obnovení](https://efg.loresoft.com/en/latest/regeneration/) kódu prostřednictvím nahrazení oblastí nebo analýzou mapovacích souborů. Tento nástroj podporuje generování modelů zobrazení, ověřování a kódu mapovače objektů. 
 
-[](http://www.loresoft.com/Generate-ASP-NET-Web-API)
-[Dokumentace k](https://efg.loresoft.com/en/latest/) kurzu
+[Kurz](https://www.loresoft.com/Generate-ASP-NET-Web-API)
+[dokumentace](https://efg.loresoft.com/en/latest/)
 
 ## <a name="extensions"></a>Rozšíření
 
@@ -160,8 +160,7 @@ Vysoce výkonná mezipaměť dotazů druhé úrovně pro EF Core.
 
 Rozšiřuje vaše DbContext o funkce, jako například: Zahrnutí filtru, auditování, ukládání do mezipaměti, budoucí dotaz, dávkové odstranění, dávkové aktualizace a další.
 
-[](https://entityframework-plus.net/)
-[Úložiště GitHub](https://github.com/zzzprojects/EntityFramework-Plus) webu
+[Web](https://entityframework-plus.net/)@no__t – 1[úložiště GitHubu](https://github.com/zzzprojects/EntityFramework-Plus)
 
 ### <a name="entity-framework-extensions"></a>Rozšíření Entity Framework
 

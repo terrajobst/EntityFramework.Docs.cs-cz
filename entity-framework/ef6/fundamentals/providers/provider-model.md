@@ -1,80 +1,80 @@
 ---
-title: Zprostředkovatel modelu Entity Framework 6 - EF6
+title: Model poskytovatele Entity Framework 6 – EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: 8cbf6f87e0936f374c3d8a0c15a0e1d9c828f764
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: 8bda3f51e8934f2add862c30e60f1185f068c515
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668749"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181614"
 ---
-# <a name="the-entity-framework-6-provider-model"></a>Zprostředkovatel modelu Entity Framework 6
+# <a name="the-entity-framework-6-provider-model"></a>Model poskytovatele Entity Framework 6
 
-Zprostředkovatel modelu Entity Framework umožňuje Entity Framework, který se má použít s různými typy databázového serveru. Například jeden zprostředkovatel může být zapojené do elektrické zásuvky umožňující EF, který se má použít pro Microsoft SQL Server, zatímco jiný zprostředkovatel může být připojeno do umožňující EF, který se má použít pro Microsoft SQL Server Compact Edition. Zprostředkovatelé pro EF6, která víme o můžete najít na [zprostředkovatele Entity Framework](~/ef6/fundamentals/providers/index.md) stránky.
+Model poskytovatele Entity Framework povoluje použití Entity Framework s různými typy databázového serveru. Například jeden poskytovatel může být napájen do sítě, aby bylo možné použít EF pro Microsoft SQL Server, zatímco jiný poskytovatel může být připojen do, aby bylo možné použít EF v Microsoft SQL Server Compact Edition. Poskytovatelé pro EF6, o kterých jsme se dozvěděli, najdete na stránce [poskytovatelé Entity Framework](~/ef6/fundamentals/providers/index.md) .
 
-Některé změny byly zapotřebí způsobu, jakým EF spolupracuje s poskytovateli umožňující EF se vydávají se na základě licence open source. Tyto změny vyžadují opětovné sestavení zprostředkovatelů EF proti sestavení EF6 spolu s novou mechanismy pro registraci poskytovatele.
+Byly vyžadovány určité změny, jak EF spolupracuje s poskytovateli, aby bylo možné vydat EF v rámci licence Open Source. Tyto změny vyžadují nové sestavení zprostředkovatelů EF proti sestavením EF6 spolu s novými mechanismy pro registraci zprostředkovatele.
 
-## <a name="rebuilding"></a>Opětovné sestavení
+## <a name="rebuilding"></a>Znovu sestavit
 
-S EF6 základní kód, který byl dřív součástí rozhraní .NET Framework se nyní dodává jako out-of-band (OOB) sestavení. Podrobnosti o tom, jak vytvářet aplikace využívající EF6 můžete najít na [aktualizace aplikací pro EF6](~/ef6/what-is-new/upgrading-to-ef6.md) stránky. Poskytovatelé budete muset znovu vytvořit pomocí následujících pokynů.
+EF6 je nyní součástí základního kódu, který byl dřív součástí .NET Framework, jako sestavení mimo pásmo (OOB). Podrobnosti o tom, jak sestavovat aplikace pro EF6, najdete na stránce [aktualizace aplikací pro EF6](~/ef6/what-is-new/upgrading-to-ef6.md) . V těchto pokynech bude také potřeba znovu sestavit poskytovatele.
 
-## <a name="provider-types-overview"></a>Přehled zprostředkovatele typů
+## <a name="provider-types-overview"></a>Přehled typů zprostředkovatelů
 
-Poskytovatele EF je ve skutečnosti kolekce specifickým pro zprostředkovatele služeb definované typy CLR, které tyto služby rozšířit z (pro základní třídu) nebo implementovat (pro rozhraní). Dva z těchto služeb jsou základní a nezbytné pro EF vůbec fungovat. Jiné jsou volitelné a pouze potřeba je implementovat, pokud konkrétní funkce jsou nezbytné a/nebo výchozí implementace těchto služeb nefunguje pro konkrétní databázový server, který se cílí.
+Zprostředkovatel EF je ve skutečnosti kolekce služeb specifických pro poskytovatele definovaných typy CLR, které tyto služby rozšířily (pro základní třídu) nebo implementující (pro rozhraní). Dvě z těchto služeb jsou zásadní a je nezbytné, aby EF fungovalo vůbec. Jiné jsou volitelné a je potřeba je implementovat jenom v případě, že je potřeba zadat konkrétní funkčnost a/nebo výchozí implementace těchto služeb nefungují pro konkrétní cílový databázový server.
 
-## <a name="fundamental-provider-types"></a>Základní poskytovatel typů
+## <a name="fundamental-provider-types"></a>Základní typy zprostředkovatelů
 
 ### <a name="dbproviderfactory"></a>DbProviderFactory
 
-EF závisí na typu odvozeného z [System.Data.Common.DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) pro provádění veškerý přístup nízké úrovně databáze. DbProviderFactory není ve skutečnosti součástí EF, ale místo toho je třída v rozhraní .NET Framework, která slouží jako vstupní bod pro poskytovatele ADO.NET, který je možné pomocí EF, jiné vstupně/RMS. Přitom nezáleží, nebo přímo prostřednictvím aplikace k získání instance připojení, příkazy, parametry a jiné technologie ADO.NET abstrakcí ve zprostředkovateli způsobem, který nezohledňuje. Další informace o DbProviderFactory najdete v [dokumentaci MSDN pro technologii ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
+EF závisí na typu odvozeném z typu [System. data. Common. DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) pro provádění všech přístupů k databázi nízké úrovně. DbProviderFactory není ve skutečnosti součástí EF, ale je to třída v .NET Framework, která slouží vstupnímu bodu pro poskytovatele ADO.NET, který může být použit v EF, jiné O/RMs nebo přímo aplikací pro získání instancí připojení, příkazů, parametrů a Další abstrakce ADO.NET ve zprostředkovateli nezávislá způsobem. Další informace o DbProviderFactory najdete v [dokumentaci MSDN pro ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
 
 ### <a name="dbproviderservices"></a>DbProviderServices
 
-EF závisí na typu odvozeného z DbProviderServices pro zajištění další funkce vyžadované EF nad funkce už poskytované zprostředkovateli ADO.NET. Ve starších verzích EF třída DbProviderServices byla součástí rozhraní .NET Framework a byla nalezena v oboru názvů System.Data.Common. Počínaje EF6 Tato třída je nyní součástí EntityFramework.dll a je v oboru názvů System.Data.Entity.Core.Common.
+EF závisí na typu odvozeném od DbProviderServices pro poskytování dalších funkcí požadovaných v EF nad funkčnost, kterou už poskytuje poskytovatel ADO.NET. Ve starších verzích EF byla třída DbProviderServices součástí .NET Framework a byla nalezena v oboru názvů System. data. Common. Počínaje EF6 Tato třída je teď součástí EntityFramework. dll a je v oboru názvů System. data. entity. Core. Common.
 
-Další informace o základních funkcích DbProviderServices implementace najdete na [MSDN](https://msdn.microsoft.com/library/ee789835.aspx). Mějte však na paměti, že k datu zápisu tyto informace není aktualizován pro EF6 i když většina koncepty jsou stále platné. Implementace systému SQL Server a SQL Server Compact DbProviderServices se také kontroluje do [základu kódu open source](https://github.com/aspnet/EntityFramework6/) a může sloužit jako užitečné odkazy pro jiné implementace.
+Další podrobnosti o základních funkcích implementace DbProviderServices najdete na [webu MSDN](https://msdn.microsoft.com/library/ee789835.aspx). Upozorňujeme však, že od doby psaní těchto informací není pro EF6 aktualizováno, i když je většina konceptů stále platná. SQL Server a SQL Server Compact implementace DbProviderServices jsou také vráceny do [Open Source základu kódu](https://github.com/aspnet/EntityFramework6/) a mohou sloužit jako užitečné odkazy pro jiné implementace.
 
-Ve starších verzích EF byl získán implementace DbProviderServices k použití přímo z poskytovatele ADO.NET. To bylo provedeno přetypování DbProviderFactory na IServiceProvider a voláním metody GetService. Tento zprostředkovatel EF těsně spjat s DbProviderFactory. Toto párování blokovat EF přesouvaných mimo rozhraní .NET Framework a proto pro EF6 tento určitou úzkou svázanost byla odebrána a implementace DbProviderServices je teď zaregistrovaný přímo v konfiguračním souboru aplikace nebo na úrovni kódu konfigurace, jak je popsáno podrobněji _registrace DbProviderServices_ níže v části.
+Ve starších verzích EF byla implementace DbProviderServices k použití získána přímo od poskytovatele ADO.NET. To bylo provedeno přetypováním DbProviderFactory na IServiceProvider a voláním metody GetService. Tím se úzce propojí poskytovatel EF s DbProviderFactory. Tento spojovací kód zablokoval EF z .NET Framework, a proto pro EF6 toto těsné spojení bylo odebráno a implementace DbProviderServices je nyní registrována přímo v konfiguračním souboru aplikace nebo v kódu na základě kódu. Konfigurace popsaná podrobněji v části _registrace DbProviderServices_
 
 ## <a name="additional-services"></a>Další služby
 
-Kromě základních služeb popsaných výše existují také mnoho dalších služeb používaných v EF které jsou vždy nebo někdy specifickým pro zprostředkovatele. Implementací DbProviderServices lze je zadat výchozí implementace specifickým pro zprostředkovatele z těchto služeb. Aplikace můžete také přepsat implementace těchto služeb nebo poskytnout implementace, pokud typ DbProviderServices neposkytuje výchozí. To je popsáno podrobněji _řešení dalšími službami_ níže v části.
+Kromě základních služeb popsaných výše je k dispozici také mnoho dalších služeb používaných v rámci EF, které jsou buď vždy, nebo někdy specifické pro konkrétního poskytovatele. Výchozí implementace těchto služeb pro konkrétního zprostředkovatele může poskytovat implementace DbProviderServices. Aplikace mohou také přepsat implementace těchto služeb nebo poskytovat implementace, když typ DbProviderServices neposkytuje výchozí hodnotu. Tato informace je podrobněji popsána v části _řešení dalších služeb_ níže.
 
-Typy další služby, které mohou být zprostředkovatele, abyste zprostředkovatele jsou uvedeny níže. Další podrobnosti o každém z těchto typů služeb najdete v dokumentaci k rozhraní API.
+Níže jsou uvedené další typy služeb, které poskytovatel může přijímat k poskytovateli. Další podrobnosti o jednotlivých typech služeb najdete v dokumentaci k rozhraní API.
 
 ### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
 
-Toto je volitelnou službu, která umožňuje poskytovateli implementovat opakování nebo jiné chování při spuštění dotazů a příkazů na databázi. Pokud je k dispozici žádná implementace, pak EF jednoduše spustí příkazy a šířit všechny výjimky vyvolané. Tato služba se pro SQL Server používá k poskytování zásady opakování, který je obzvláště užitečná při spouštění cloudové databázové servery, jako je například SQL Azure.
+Jedná se o volitelnou službu, která umožňuje zprostředkovateli implementovat opakované pokusy nebo jiné chování při spuštění dotazů a příkazů na databázi. Pokud není k dispozici žádná implementace, pak EF jednoduše provede příkazy a rozšíří všechny vyvolané výjimky. Pro SQL Server se tato služba používá k poskytnutí zásady opakování, která je obzvláště užitečná při spuštění na cloudových databázových serverech, jako je SQL Azure.
 
 ### <a name="idbconnectionfactory"></a>IDbConnectionFactory
 
-Toto je volitelnou službu, která umožňuje poskytovateli k vytváření objektů DbConnection podle konvence při pouze název databáze. Pamatujte, že zatímco tato služba dá vyřešit implementací DbProviderServices byla k dispozici od verze EF 4.1 a můžete také explicitně nastavit v konfiguračním souboru nebo v kódu. Zprostředkovatel se zobrazí pouze příležitost dobře se vyřešit tuto službu, pokud je registrován jako výchozího zprostředkovatele (naleznete v tématu _výchozího zprostředkovatele_ níže) a pokud nebyl nastaven výchozí objekt factory připojení, jinde.
+Toto je volitelná služba, která umožňuje poskytovateli vytvářet DbConnection objekty podle konvence, pokud je zadaný jenom název databáze. Všimněte si, že zatímco tuto službu je možné vyřešit pomocí implementace DbProviderServices, která je přítomna od EF 4,1 a lze ji také explicitně nastavit buď v konfiguračním souboru, nebo v kódu. Poskytovatel bude mít možnost tuto službu vyřešit jenom v případě, že je zaregistrovaná jako výchozí zprostředkovatel (viz _výchozí zprostředkovatel_ níže) a pokud výchozí objekt pro vytváření připojení není nastavený jinde.
 
 ### <a name="dbspatialservices"></a>DbSpatialServices
 
-Toto je volitelné služby, které umožňuje poskytovateli a přidat podporu pro typy prostorových zeměpisné oblasti a geometry. Implementace této služby je nutné zadat v pořadí pro aplikace pomocí EF prostorové typy. DbSptialServices se zobrazí výzva pro dvěma způsoby. První, specifickým pro zprostředkovatele prostorových služeb jsou požadovány pomocí objektu DbProviderInfo (obsahující invariantní vzhledem k názvu a manifestu token) jako klíč. Za druhé DbSpatialServices můžete požádat bez klíče. To se používá k překladu "globální prostorových poskytovatele", který se používá při vytváření samostatných DbGeography nebo DbGeometry typů.
+Toto jsou volitelné služby, které poskytovateli umožňují přidat podporu pro geografické a geometrické prostorové typy. Aby aplikace mohla používat EF s prostorovými typy, musí být dodána implementace této služby. DbSptialServices se vyzve dvěma způsoby. Nejprve jsou požadovány prostorové služby specifické pro poskytovatele pomocí objektu DbProviderInfo (který obsahuje neutrální název a token manifestu) jako klíč. Druhý DbSpatialServices může být požádán o bez klíče. Slouží k vyřešení "globálního poskytovatele prostorového přístupu", který se používá při vytváření samostatných typů DbGeography nebo DbGeometry.
 
 ### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
 
-Toto je volitelnou službu, která umožňuje migraci EF, který bude používán pro generování SQL použít při vytváření a úpravy databázových schématech Code First. Implementace je nutné pro podporu migrace. Pokud je k dispozici implementace pak také použije při vytváření databáze pomocí databáze inicializátory nebo Database.Create metody.
+Toto je volitelná služba, která umožňuje použití migrace EF pro generování SQL používaného při vytváření a úpravách schémat databáze Code First. Aby bylo možné podporovat migrace, je vyžadována implementace. Pokud je k dispozici implementace, bude použita také při vytváření databází pomocí inicializátorů databáze nebo metody Database. Create.
 
-### <a name="funcdbconnection-string-historycontextfactory"></a>Func<DbConnection, string, HistoryContextFactory>
+### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection, String, HistoryContextFactory >
 
-Toto je volitelnou službu, která umožňuje poskytovateli ke konfiguraci mapování HistoryContext k `__MigrationHistory` tabulky používané migrace EF. HistoryContext je první DbContext kódu a lze nakonfigurovat pomocí rozhraní fluent API pro běžné věci, jako je název tabulky a specifikace mapování sloupce změnit. Výchozí implementace této služby vrátil EF pro všemi zprostředkovateli může fungovat pro danou databázi serveru, pokud všechny výchozí sloupce a tabulky mapování podporovaných tímto poskytovatelem. V takovém případě zprostředkovatele není nutné poskytnout implementaci této služby.
+Toto je volitelná služba, která umožňuje poskytovateli nakonfigurovat mapování HistoryContext na tabulku `__MigrationHistory`, kterou používají migrace EF. HistoryContext je Code First DbContext a dá se nakonfigurovat pomocí normálního rozhraní API Fluent, aby se změnily položky, jako je název tabulky a specifikace mapování sloupců. Výchozí implementace této služby vracené EF pro všechny poskytovatele můžou fungovat pro daný databázový server, pokud jsou všechna výchozí mapování tabulek a sloupců podporovaná zprostředkovatelem. V takovém případě poskytovatel nemusí poskytovat implementaci této služby.
 
 ### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
 
-Toto je volitelnou službu pro získání správné DbProviderFactory ze zadaný objekt DbConnection. Výchozí implementace této služby vrátil EF pro všech zprostředkovatelů by měla fungovat pro všechny poskytovatele. Ale při spuštění v rozhraní .NET 4, DbProviderFactory není veřejně přístupná z jednoho pokud jeho DbConnections. Proto EF používá některé z heuristických metod k hledání registrovaných zprostředkovatelů pro vyhledání shody. Je možné, že pro někteří poskytovatelé tyto heuristiky selže a v takových situacích by mělo nabízet poskytovateli novou implementaci.
+Toto je volitelná služba pro získání správného DbProviderFactory z daného objektu DbConnection. Výchozí implementace této služby vracené EF pro všechny poskytovatele je určena pro práci pro všechny poskytovatele. Při spuštění v rozhraní .NET 4 ale DbProviderFactory není veřejně přístupný z jednoho, pokud jeho DbConnections. Proto EF používá některé heuristické metody k vyhledání shody s registrovanými zprostředkovateli. Je možné, že u některých zprostředkovatelů tyto heuristické služby selžou a v takových situacích by měl poskytovatel dodat novou implementaci.
 
 ## <a name="registering-dbproviderservices"></a>Registrace DbProviderServices
 
-Implementace DbProviderServices použití lze zaregistrovat, buď v konfiguračním souboru (app.config nebo web.config) nebo pomocí konfigurace založená na kódu vaší aplikace. V obou případech používá registraci poskytovatele "výchozím názvem" jako klíč. To umožňuje více poskytovatelů zaregistrované a použít v jedné aplikaci. Neutrální název použitý pro EF registrace je stejný jako výchozí název použitý pro registraci a připojovací řetězce zprostředkovatele ADO.NET. Například pro SQL Server výchozí název se používá "System.Data.SqlClient".
+Implementaci DbProviderServices k použití lze zaregistrovat buď v konfiguračním souboru aplikace (App. config nebo Web. config), nebo pomocí konfigurace založené na kódu. V obou případech registrace používá jako klíč "neutrální název" poskytovatele. To umožňuje, aby bylo více poskytovatelů registrováno a použito v jediné aplikaci. Neutrální název použitý pro registrace EF je stejný jako neutrální název použitý pro registraci poskytovatele ADO.NET a připojovací řetězce. Například pro SQL Server je použit neutrální název System. data. SqlClient.
 
 ### <a name="config-file-registration"></a>Registrace konfiguračního souboru
 
-Typ DbProviderServices má být použit se zaregistruje jako prvek poskytovatele v seznamu poskytovatelů entityFramework oddílu konfiguračního souboru aplikace. Příklad:
+Typ DbProviderServices, který se má použít, se zaregistruje jako element provider v seznamu zprostředkovatelů oddílu entityFramework konfiguračního souboru aplikace. Příklad:
 
 ``` xml
 <entityFramework>
@@ -84,11 +84,11 @@ Typ DbProviderServices má být použit se zaregistruje jako prvek poskytovatele
 </entityFramework>
 ```
 
-_Typ_ řetězec musí být název typu kvalifikovaného pro sestavení implementace DbProviderServices používat.
+Řetězec _typu_ musí být kvalifikovaný název typu sestavení DbProviderServices implementace, která se má použít.
 
-### <a name="code-based-registration"></a>Registrace na úrovni kódu
+### <a name="code-based-registration"></a>Registrace na základě kódu
 
-Počínaje EF6 poskytovatelé lze také zaregistrovat pomocí kódu. To umožňuje na EF poskytovatele, který se dá používat bez změny do konfiguračního souboru aplikace. Použití konfigurace založená na kód aplikace by měl vytvořit třídu DbConfiguration jak je popsáno v [dokumentaci založený na kódu konfigurační](https://msdn.com/data/jj680699). Konstruktor třídy DbConfiguration by měly volat pak SetProviderServices zaregistrujte poskytovatele EF. Příklad:
+Počínaje poskytovatelem EF6 lze také zaregistrovat pomocí kódu. To umožňuje, aby byl zprostředkovatel EF použit bez jakýchkoli změn konfiguračního souboru aplikace. Pro použití konfigurace na základě kódu by aplikace měla vytvořit třídu DbConfiguration, jak je popsáno v [dokumentaci konfigurace na základě kódu](https://msdn.com/data/jj680699). Konstruktor třídy DbConfiguration by pak měl volat SetProviderServices a zaregistrovat poskytovatele EF. Příklad:
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -102,9 +102,9 @@ public class MyConfiguration : DbConfiguration
 
 ## <a name="resolving-additional-services"></a>Řešení dalších služeb
 
-Jak je uvedeno výše v _poskytovatele typů přehled_ části, DbProviderServices třídy lze použít také k vyřešení dalších služeb. To je možné, protože implementuje DbProviderServices IDbDependencyResolver a každý registrovaný typ DbProviderServices se přidá jako "výchozí překladač". Mechanismus IDbDpendencyResolver je popsána podrobněji [řešení závislostí](~/ef6/fundamentals/configuring/dependency-resolution.md). Není však nutné koncepce všechny v téhle specifikaci k vyřešení dalších služeb ve zprostředkovateli.
+Jak je uvedeno výše v oddílu _Přehled typů zprostředkovatelů_ , lze také použít třídu DbProviderServices k vyřešení dalších služeb. To je možné, protože DbProviderServices implementuje IDbDependencyResolver a každý registrovaný typ DbProviderServices se přidá jako výchozí překladač. Mechanismus IDbDpendencyResolver je podrobněji popsán v tématu [řešení závislostí](~/ef6/fundamentals/configuring/dependency-resolution.md). Není ale nutné porozumět všem konceptům této specifikace, aby bylo možné vyřešit další služby ve zprostředkovateli.
 
-Nejběžnější způsob pro poskytovatelem a vyřešit dalších služeb je volat pro každou službu v konstruktoru třídy DbProviderServices DbProviderServices.AddDependencyResolver. Například SqlProviderServices (EF provider pro SQL Server) je podobný inicializaci kód:
+Nejběžnější způsob, jak pro poskytovatele přeložit další služby, je volat DbProviderServices. AddDependencyResolver pro každou službu v konstruktoru třídy DbProviderServices. Například SqlProviderServices (Provider EF pro SQL Server) má podobný kód jako při inicializaci:
 
 ``` csharp
 private SqlProviderServices()
@@ -129,12 +129,12 @@ private SqlProviderServices()
 }
 ```
 
-Tento konstruktor používá následující tříd pomocných rutin:
+Tento konstruktor používá následující pomocné třídy:
 
-*   SingletonDependencyResolver: poskytuje jednoduchý způsob, jak vyřešit deklarace služeb typu Singleton – to znamená, služby, pro které stejnou instanci je vrácena pokaždé, když, že je volat GetService. Přechodné služby jsou často registrován jako objekt pro vytváření jednotlivý prvek, který se použije pro vytvoření přechodné instancí na vyžádání.
-*   ExecutionStrategyResolver: překladače specifické pro vrácení IExecutionStrategy implementace.
+*   SingletonDependencyResolver: poskytuje jednoduchý způsob, jak přeložit služby typu Singleton – to znamená služby, pro které se stejná instance vrací pokaždé, když je volána metoda GetService. Přechodné služby se často registrují jako továrna s jedním objektem, který se použije k vytvoření přechodných instancí na vyžádání.
+*   ExecutionStrategyResolver: překladač určený k vrácení IExecutionStrategy implementací.
 
-Namísto použití DbProviderServices.AddDependencyResolver je také možné přepsat DbProviderServices.GetService a dalších služeb vyřešit přímo. Tato metoda bude volána, když EF potřebuje služba definovány dobou určitého typu a v některých případech se pro zadaný klíč. Metoda by měla vrátit služby, pokud můžete, nebo vrátit hodnotu null se odhlásit vrácení službu a místo toho bylo jiné třídy k jeho vyřešení. Například chcete-li vyřešit výchozí objekt pro vytváření připojení kódu v GetService může vypadat přibližně takto:
+Místo používání DbProviderServices. AddDependencyResolver je také možné přepsat DbProviderServices. GetService a přímo vyřešit další služby. Tato metoda bude volána, když EF potřebuje službu definovanou určitým typem a v některých případech pro daný klíč. Metoda by měla vrátit službu, pokud ji může, nebo vrátit hodnotu null, aby se odhlásila od vrácení služby, a místo toho povolit jinou třídu k jejímu vyřešení. Například pro vyřešení výchozího objektu pro vytváření připojení může kód v GetService vypadat přibližně takto:
 
 ``` csharp
 public override object GetService(Type type, object key)
@@ -147,19 +147,19 @@ public override object GetService(Type type, object key)
 }
 ```
 
-### <a name="registration-order"></a>Registrace pořadí
+### <a name="registration-order"></a>Objednávka registrace
 
-Když více implementací DbProviderServices zaregistrovaní v konfiguračním souboru aplikace budou přidány jako sekundární překladače v pořadí, ve kterém jsou uvedené. Protože překladače jsou vždy přidány na začátek řetězce sekundární překladače, to znamená, že poskytovatel na konci seznamu mít šanci vyřešit závislosti než ostatní. (To se může zdát trochu counter-intuitive zpočátku, ale dává smysl, pokud si představíte, přičemž každý poskytovatel ze seznamu a skládání nad existující poskytovatelé.)
+V případě, že je v konfiguračním souboru aplikace registrováno více implementací DbProviderServices, budou přidány jako sekundární překladače v pořadí, v jakém jsou uvedeny. Vzhledem k tomu, že překladače se vždy přidávají na začátek sekundárního řetězu překladu, znamená to, že poskytovatel na konci seznamu bude mít možnost vyřešit závislosti před ostatními. (To se může zdát, že je to pro vás málo intuitivní, ale dává smysl, pokud si představte převzetí každého poskytovatele ze seznamu a jeho skládání nad stávajícími poskytovateli.)
 
-Toto uspořádání obvykle nebude vadit, protože většina poskytovatele služeb jsou specifické pro zprostředkovatele a s klíči ve výchozí název zprostředkovatele. Ale pro služby, které nejsou označenými pomocí výchozí název zprostředkovatele nebo některé jiné specifickým pro zprostředkovatele klíč, který se vyřeší služby založené na tomto pořadí. Například pokud není explicitně nastavena jinak někde jinde, pak výchozí objekt pro vytváření připojení budou přicházet z nejvyšší zprostředkovatele v řetězci.
+Toto pořadí většinou nezáleží na tom, že většina služeb poskytovatele je specifická pro poskytovatele a je nastavená jako neutrální název zprostředkovatele. Pro služby, které nejsou nastavené podle neutrálního názvu poskytovatele nebo nějakého jiného klíče specifického pro poskytovatele, se služba vyřeší v závislosti na tomto pořadí. Pokud není třeba explicitně nastavené jinak v jiném místě, bude výchozí továrna připojení od nejvyššího poskytovatele v řetězu.
 
-## <a name="additional-config-file-registrations"></a>Další konfigurační soubor registrace
+## <a name="additional-config-file-registrations"></a>Další registrace konfiguračního souboru
 
-Je možné explicitně zaregistrovat některé další poskytovatele služeb bylo popsáno výše přímo v konfiguračním souboru aplikace. Když to se provádí registraci v konfiguračním souboru se použijí místo nic vrácený metodou GetService DbProviderServices implementace.
+Některé další služby poskytovatele popsané výše jsou možné explicitně zaregistrovat přímo v konfiguračním souboru aplikace. V případě, že se to provede, místo cokoli vrácené metodou GetService implementace DbProviderServices se použije registrace v konfiguračním souboru.
 
-### <a name="registering-the-default-connection-factory"></a>Registruje výchozí objekt pro vytváření připojení
+### <a name="registering-the-default-connection-factory"></a>Registrace výchozího objektu pro vytváření připojení
 
-Počínaje EF5 balíček EntityFramework NuGet automaticky registrovaný objekt factory připojení SQL Express nebo objekt factory LocalDb připojení v konfiguračním souboru.
+Počínaje EF5 balíček NuGet EntityFramework automaticky zaregistroval buď objekt pro vytváření připojení SQL Express, nebo objekt pro vytváření připojení LocalDb v konfiguračním souboru.
 
 Příklad:
 
@@ -169,48 +169,48 @@ Příklad:
 </entityFramework>
 ```
 
-_Typ_ je název typu kvalifikovaného pro sestavení pro objekt factory připojení výchozí musí implementovat IDbConnectionFactory.
+_Typ_ je kvalifikovaný název typu sestavení pro výchozí objekt pro vytváření připojení, který musí implementovat IDbConnectionFactory.
 
-Doporučuje se, že balíček NuGet zprostředkovatele nastavit tímto způsobem při instalaci výchozí objekt factory připojení. Zobrazit _balíčky NuGet pro poskytovatele_ níže.
+Doporučuje se, aby balíček NuGet poskytovatele při instalaci nastavil výchozí objekt pro vytváření připojení. Níže najdete _balíčky NuGet pro poskytovatele_ .
 
-## <a name="additional-ef6-provider-changes"></a>Další změny poskytovatele EF6
+## <a name="additional-ef6-provider-changes"></a>Další změny zprostředkovatele EF6
 
-### <a name="spatial-provider-changes"></a>Prostorový poskytovatel změny
+### <a name="spatial-provider-changes"></a>Změny prostorového poskytovatele
 
-Poskytovatelé, které podporují prostorové typy nyní musí implementovat některé další metody u tříd odvozených z DbSpatialDataReader:
+Poskytovatelé, kteří podporují prostorové typy, teď musí implementovat některé další metody pro třídy, které se odvozují z DbSpatialDataReader:
 
 *   `public abstract bool IsGeographyColumn(int ordinal)`
 *   `public abstract bool IsGeometryColumn(int ordinal)`
 
-Existují také nové asynchronní verze stávající metody, které se doporučují jako výchozí implementace delegovat na synchronní metody a proto se neprovedou asynchronně přepsání:
+K dispozici jsou také nové asynchronní verze stávajících metod, které jsou doporučeny pro přepsání jako výchozí implementace delegátů na synchronní metody, a proto neprovádět asynchronně:
 
 *   `public virtual Task<DbGeography> GetGeographyAsync(int ordinal, CancellationToken cancellationToken)`
 *   `public virtual Task<DbGeometry> GetGeometryAsync(int ordinal, CancellationToken cancellationToken)`
 
-### <a name="native-support-for-enumerablecontains"></a>Nativní podpora pro Enumerable.Contains
+### <a name="native-support-for-enumerablecontains"></a>Nativní podpora pro vyčíslitelné. obsahuje
 
-EF6 zavádí nový typ výrazu DbInExpression, který se přidal k řešení potíží s výkonem kolem užívání Enumerable.Contains v dotazech LINQ. Třída DbProviderManifest má novou virtuální metodou, SupportsInExpression, které je voláno rozhraním EF k určení, pokud zprostředkovatel zpracovává nový typ výrazu. Z důvodu kompatibility s existující implementace poskytovatele metoda vrátí hodnotu false. Toto vylepšení využít, poskytovatele EF6 přidat kód pro zpracování DbInExpression a přepsání SupportsInExpression vrátit hodnotu true. Instance DbInExpression lze vytvořit voláním metody DbExpressionBuilder.In. DbInExpression instance se skládá z DbExpression, obvykle představuje sloupci tabulky a seznam DbConstantExpression testování shody.
+EF6 zavádí nový typ výrazu DbInExpression, který byl přidán pro řešení problémů s výkonem kolem použití vyčíslitelné. obsahuje v dotazech LINQ. Třída DbProviderManifest má novou virtuální metodu SupportsInExpression, která je volána nástrojem EF k určení, zda zprostředkovatel zpracovává nový typ výrazu. Pro zajištění kompatibility s existujícími implementacemi poskytovatele vrátí metoda hodnotu false. Pro zvýšení výhod tohoto vylepšení může poskytovatel EF6 přidat kód pro zpracování DbInExpression a přepsání SupportsInExpression pro vrácení hodnoty true. Instance třídy DbInExpression může být vytvořena voláním metody DbExpressionBuilder.In. Instance DbInExpression se skládá z DbExpression, obvykle představuje sloupec tabulky, a seznam DbConstantExpression pro otestování shody.
 
 ## <a name="nuget-packages-for-providers"></a>Balíčky NuGet pro poskytovatele
 
-Jedním ze způsobů zpřístupnit poskytovatele EF6 je verze jako balíček NuGet. Pomocí balíčku NuGet má následující výhody:
+Jedním ze způsobů, jak poskytovatele EF6 zpřístupnit, je uvolnit ho jako balíček NuGet. Použití balíčku NuGet má následující výhody:
 
-*   Je snadno použitelný NuGet pro přidání registrace poskytovatele do konfiguračního souboru aplikace
-*   Další změny, které můžete provést do konfiguračního souboru k nastavení výchozí objekt pro vytváření připojení tak, aby provedené při vytváření připojení budou používat registrovaného zprostředkovatele
-*   Obslužné rutiny NuGet tak, aby zprostředkovatel EF6 by měly být nadále fungovat i po vydání nového balíčku EF přidání přesměrování vazeb
+*   K přidání registrace poskytovatele do konfiguračního souboru aplikace je snadné použít NuGet.
+*   V konfiguračním souboru je možné provést další změny pro nastavení výchozího objektu pro vytváření připojení, aby připojení vydaná konvencí používala registrovaného poskytovatele.
+*   NuGet zpracovává Přidání přesměrování vazby, aby měl poskytovatel EF6 i nadále fungovat i po uvolnění nového balíčku EF.
 
-Příkladem je EntityFramework.SqlServerCompact balíček, který je součástí [opensourcových codebase](http://github.com/aspnet/entityframework6). Tento balíček poskytuje dobré šablony pro vytváření balíčků NuGet EF zprostředkovatele.
+Příkladem je balíček EntityFramework. SqlServerCompact, který je součástí [kódu základu Open Source](https://github.com/aspnet/entityframework6). Tento balíček poskytuje dobrou šablonu pro vytváření balíčků NuGet pro poskytovatele EF.
 
-### <a name="powershell-commands"></a>Příkazy prostředí PowerShell
+### <a name="powershell-commands"></a>Příkazy PowerShellu
 
-Při instalaci balíčku EntityFramework NuGet registruje modul Powershellu, který obsahuje dva příkazy, které jsou velmi užitečné pro zprostředkovatele balíčky:
+Po nainstalování balíčku NuGet EntityFramework zaregistruje modul prostředí PowerShell, který obsahuje dva příkazy, které jsou velmi užitečné pro balíčky zprostředkovatele:
 
-*   Přidat EFProvider přidá novou entitu pro zprostředkovatele v konfiguračním souboru na cílový projekt a je zajištěno, že je na konci seznamu registrovaných zprostředkovatelů.
-*   Přidat EFDefaultConnectionFactory přidá nebo aktualizuje defaultConnectionFactory registrace v konfiguračním souboru na cílový projekt.
+*   Add-EFProvider přidá do konfiguračního souboru cílového projektu novou entitu pro poskytovatele a ověří, zda je na konci seznamu registrovaných zprostředkovatelů.
+*   Add-EFDefaultConnectionFactory buď přidá nebo aktualizuje registraci defaultConnectionFactory v konfiguračním souboru cílového projektu.
 
-Oba tyto příkazy se postará o přidání oddíl entityFramework do konfiguračního souboru a přidání kolekce poskytovatelů v případě potřeby.
+Oba tyto příkazy postarou o přidání oddílu entityFramework do konfiguračního souboru a přidání kolekce Providers v případě potřeby.
 
-Předpokládá se, že tyto příkazy volat z NuGet skript install.ps1. Například install.ps1 SQL Compact poskytovatele vypadá podobně jako tento:
+Je určeno, že tyto příkazy budou volány ze skriptu NuGet Install. ps1. Například instalace. ps1 pro poskytovatele SQL Compact vypadá nějak takto:
 
 ``` powershell
 param($installPath, $toolsPath, $package, $project)
@@ -218,15 +218,15 @@ Add-EFDefaultConnectionFactory $project 'System.Data.Entity.Infrastructure.SqlCe
 Add-EFProvider $project 'System.Data.SqlServerCe.4.0' 'System.Data.Entity.SqlServerCompact.SqlCeProviderServices, EntityFramework.SqlServerCompact'</pre>
 ```
 
-Další informace o těchto příkazech získáte pomocí get-help v okně konzoly Správce balíčků.
+Další informace o těchto příkazech lze získat pomocí příkazu Get-Help v okně konzoly Správce balíčků.
 
-## <a name="wrapping-providers"></a>Zabalení zprostředkovatelů
+## <a name="wrapping-providers"></a>Poskytovatelé zabalení
 
-Zabalení poskytovatele je poskytovatele EF a/nebo ADO.NET, která obaluje existujícího poskytovatele rozšíření s další funkce, jako je například profilace, nebo trasování funkce. Obtékání poskytovatelé mohou být registrovány běžným způsobem, ale často je vhodné nastavení poskytovatele obtékání za běhu zachycením řešení související poskytovatele služeb. Statické události OnLockingConfiguration DbConfiguration třídy lze použít k tomu.
+Poskytovatel pro zabalení je poskytovatel EF nebo ADO.NET, který zabalí stávajícího poskytovatele, aby ho rozšířil s jinými funkcemi, jako je například profilace nebo trasování. Poskytovatelé zabalení mohou být registrováni běžným způsobem, ale je často pohodlnější nastavit poskytovatele zabalení za běhu tím, že zachytí řešení služeb souvisejících s poskytovatelem. K tomu lze použít statickou událost OnLockingConfiguration třídy DbConfiguration.
 
-OnLockingConfiguration je volána po EF určil, kde budou všechny EF konfigurace domény aplikace získané, ale než se uzamkne pro použití. Při spuštění aplikace (před použitím EF) by měla aplikace zaregistrovat obslužnou rutinu události pro tuto událost. (Jsme zvažuje přidání podpory pro registraci této obslužné rutiny v konfiguračním souboru, ale ještě to není podporováno.) Proveďte volání ReplaceService pro každou službu, která musí být zabaleny by měla obslužná rutina události.  
+OnLockingConfiguration se volá poté, co EF určí, kde bude získána všechna konfigurace EF pro doménu aplikace, ale předtím, než bude uzamčena pro použití. Při spuštění aplikace (před použitím EF) by aplikace měla zaregistrovat obslužnou rutinu události pro tuto událost. (Zvažujeme přidání podpory pro registraci této obslužné rutiny v konfiguračním souboru, ale to ještě není podporováno.) Obslužná rutina události by pak měla zavolat ReplaceService pro každou službu, která musí být zabalená.  
 
-Například při zabalení IDbConnectionFactory a DbProviderService, by měly být zaregistrovány obslužnou rutinu podobný následujícímu:
+Například pro zabalení IDbConnectionFactory a DbProviderService by obslužná rutina něco podobného, měla by být registrována:
 
 ``` csharp
 DbConfiguration.OnLockingConfiguration +=
@@ -240,26 +240,26 @@ DbConfiguration.OnLockingConfiguration +=
     };
 ```
 
-Služby, který byl vyřešen a teď by měl být uzavřen společně s klíčem, který se použil při překladu služby jsou předány do obslužné rutiny. Obslužná rutina můžete zabalit tuto službu a nahraďte zabalené verze vrácený služby.
+Služba, která byla vyřešena a měla by nyní být zabalena spolu s klíčem, který byl použit k překladu služby, se předává obslužné rutině. Obslužná rutina pak může tuto službu zabalit a nahradit vrácenou službu obálkovou verzí.
 
-## <a name="resolving-a-dbproviderfactory-with-ef"></a>Řešení DbProviderFactory s EF
+## <a name="resolving-a-dbproviderfactory-with-ef"></a>Řešení DbProviderFactory pomocí EF
 
-DbProviderFactory je jeden z typů základní zprostředkovatel vyžadované EF, jak je popsáno v _poskytovatele typů přehled_ výše uvedené části. Které jsou už bylo zmíněno, není typem EF a registrace není obvykle jako součást konfigurace EF, ale místo toho je normální registrace zprostředkovatele ADO.NET v souboru machine.config nebo v konfiguračním souboru aplikace.
+DbProviderFactory je jedním ze základních typů poskytovatele, které vyžaduje EF, jak je popsáno výše v části _Přehled typů zprostředkovatelů_ . Jak už bylo zmíněno, není to typ EF a registrace obvykle není součástí konfigurace EF, ale je to místo normální registrace poskytovatele ADO.NET v souboru Machine. config nebo v konfiguračním souboru aplikace.
 
-Bez ohledu na toto EF dál používá svůj mechanismus rozlišení normální závislostí při hledání DbProviderFactory používat. Výchozí překladač používá normální registrace technologie ADO.NET v konfiguračních souborech a proto je obvykle transparentní. Z důvodu řešení normální závislostí se používá mechanismus, ale znamená, že IDbDependencyResolver lze vyřešit DbProviderFactory i v případě, že normální ADO.NET registraci nebylo provedeno.
+Navzdory tomu, že tento EF stále používá normální mechanismus rozlišení závislosti při hledání DbProviderFactory, který se má použít. Výchozí překladač používá pro konfigurační soubory normální registraci ADO.NET, takže je to obvykle transparentní. Z důvodu normálního mechanismu rozlišení závislosti se ale používá, že IDbDependencyResolver lze použít k překladu DbProviderFactory i v případě, že nebyla provedena normální registrace ADO.NET.
 
-Tímto způsobem řešení DbProviderFactory má vliv na několik:
+Řešení DbProviderFactory tímto způsobem má několik dopadů:
 
-*   Aplikace pomocí konfigurace založená na kódu můžete přidat volání ve své třídě DbConfiguration k registraci DbProviderFactory odpovídající. To je užitečné pro aplikace, které nechcete povolit (nebo nemůže) ujistěte se, použít všechny konfigurace souborové vůbec.
-*   Službě mohou být zabaleny nebo nahradit pomocí ReplaceService, jak je popsáno v _obtékání poskytovatelé_ výše uvedené části
-*   Implementace DbProviderServices teoreticky by se dala přeložit DbProviderFactory.
+*   Aplikace používající konfiguraci na základě kódu může přidat volání do své třídy DbConfiguration k registraci příslušného DbProviderFactory. To je užitečné hlavně u aplikací, které nechtějí (nebo nemůžou) používat jakoukoli konfiguraci založenou na souborech.
+*   Služba může být zabalená nebo nahrazená pomocí ReplaceService, jak je popsáno výše v části _poskytovatelé vybalení_ .
+*   Teoreticky by implementace DbProviderServices mohla vyřešit DbProviderFactory.
 
-Důležité si uvědomit o tom, jak žádnou z těchto akcí je, že se ovlivní pouze vyhledávání DbProviderFactory pomocí EF. Jiný kód bez EF stále očekávaným poskytovatele ADO.NET k registraci běžným způsobem a může selhat, pokud registrace nebyla nalezena. Z tohoto důvodu je obvykle vhodnější k běžným způsobem ADO.NET registraci DbProviderFactory.
+Důležité je vzít v vědomí, že při provádění kterékoli z těchto akcí budou mít vliv pouze na vyhledávání DbProviderFactory podle EF. Další kód, který není EF, může stále očekávat, že poskytovatel ADO.NET se má zaregistrovat v normálním způsobu, a pokud se registrace nenalezne, může selhat. Z tohoto důvodu je obvykle lepší zaregistrovat DbProviderFactory v normálním ADO.NETm způsobu.
 
 ### <a name="related-services"></a>Související služby
 
-Pokud EF se používá k překladu DbProviderFactory, pak by se měl také vyřešit IProviderInvariantName a IDbProviderFactoryResolver služby.
+Pokud je k vyřešení DbProviderFactory použit EF, pak by měl také vyřešit služby IProviderInvariantName a IDbProviderFactoryResolver.
 
-IProviderInvariantName je služba, která se používá k určení výchozí název zprostředkovatele pro daný typ DbProviderFactory. Výchozí implementace této služby používá registrace zprostředkovatele ADO.NET. To znamená, že pokud zprostředkovatele ADO.NET není zaregistrován běžným způsobem, protože probíhá DbProviderFactory řešení pomocí EF, pak bude také potřeba vyřešit tuto službu. Všimněte si, že se při použití metody DbConfiguration.SetProviderFactory překladač pro tuto službu automaticky přidá.
+IProviderInvariantName je služba, která se používá k určení neutrálního názvu poskytovatele pro daný typ DbProviderFactory. Výchozí implementace této služby používá registraci poskytovatele ADO.NET. To znamená, že pokud poskytovatel ADO.NET není zaregistrován v normálním způsobu, protože DbProviderFactory je vyřešen pomocí EF, bude také potřeba tuto službu vyřešit. Všimněte si, že překladač pro tuto službu je automaticky přidán při použití metody DbConfiguration. SetProviderFactory.
 
-Jak je popsáno v _poskytovatele typů přehled_ výše uvedené části, IDbProviderFactoryResolver slouží k získání správné DbProviderFactory z daný objekt DbConnection. Výchozí implementace této služby při spuštění v rozhraní .NET 4 používá registrace zprostředkovatele ADO.NET. To znamená, že pokud zprostředkovatele ADO.NET není zaregistrován běžným způsobem, protože probíhá DbProviderFactory řešení pomocí EF, pak bude také potřeba vyřešit tuto službu.
+Jak je popsáno v části _Přehled typů zprostředkovatelů_ , se IDbProviderFactoryResolver používá k získání správného DbProviderFactory z daného objektu DbConnection. Výchozí implementace této služby při spuštění v rozhraní .NET 4 používá registraci poskytovatele ADO.NET. To znamená, že pokud poskytovatel ADO.NET není zaregistrován v normálním způsobu, protože DbProviderFactory je vyřešen pomocí EF, bude také potřeba tuto službu vyřešit.

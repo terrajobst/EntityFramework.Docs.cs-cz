@@ -1,30 +1,30 @@
 ---
-title: Novinky v EF Core 2.2 – EF Core
+title: Co je nového v EF Core 2,2-EF Core
 author: divega
 ms.date: 11/14/2018
 ms.assetid: 998C04F3-676A-4FCF-8450-CFB0457B4198
 uid: core/what-is-new/ef-core-2.2
-ms.openlocfilehash: 79b4efc3aee23e19a9ea1deb6373b9984b77f886
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: 5fcf7c6dfb4d8cb7928ef974af6deb52df7c63eb
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688800"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181378"
 ---
-# <a name="new-features-in-ef-core-22"></a>Novinky v EF Core 2.2
+# <a name="new-features-in-ef-core-22"></a>Nové funkce v EF Core 2,2
 
 ## <a name="spatial-data-support"></a>Podpora prostorových dat
 
-Prostorová data slouží k reprezentaci fyzické umístění a tvar objektů.
-Velký počet databází můžete nativně ukládání, indexování a dotazovat prostorová data. Běžné scénáře zahrnují zadávání dotazů na objekty v daném vzdálenosti a testování, pokud je na dané místo obsahuje mnohoúhelníku.
-EF Core 2.2 teď podporuje práci s prostorovými daty z různých databází pomocí typů z [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) knihovny (NTS).
+Prostorová data lze použít k reprezentaci fyzického umístění a tvaru objektů.
+Mnoho databází může nativně ukládat, indexovat a dotazovat prostorová data. Mezi běžné scénáře patří dotazování pro objekty v dané vzdálenosti a testování, pokud mnohoúhelník obsahuje dané umístění.
+EF Core 2,2 teď podporuje práci s prostorovými daty z různých databází pomocí typů z knihovny [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) (NTS).
 
-Podpora prostorových dat je implementovaný jako řadu balíčky rozšíření specifické pro zprostředkovatele.
-Každá z těchto balíčků přispívá mapování pro typy chny Zarážky a metody a odpovídající prostorové typy a funkce v databázi.
-Taková rozšíření zprostředkovatele jsou teď dostupné pro [systému SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/), [SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/), a [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/) (z [Npgsql projektu](http://www.npgsql.org/)).
-Prostorové typy lze použít přímo s [zprostředkovatele v paměti EF Core](https://docs.microsoft.com/en-us/ef/core/providers/in-memory/) bez další rozšíření.
+Podpora prostorových dat je implementována jako řada balíčků rozšíření specifických pro daného poskytovatele.
+Každý z těchto balíčků přispívá k mapováním pro typy a metody NTS a odpovídající prostorové typy a funkce v databázi.
+Tato rozšíření poskytovatele jsou nyní k dispozici pro [SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/), [SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/)a [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/) (z [projektu Npgsql](https://www.npgsql.org/)).
+Prostorové typy lze použít přímo s [EF Core poskytovatelem v paměti](https://docs.microsoft.com/en-us/ef/core/providers/in-memory/) bez dalších rozšíření.
 
-Po instalaci poskytovatele rozšíření můžete přidat vlastnosti podporovaných typů pro entity. Příklad:
+Po instalaci rozšíření poskytovatele můžete do entit přidat vlastnosti podporovaných typů. Příklad:
 
 ``` csharp
 using NetTopologySuite.Geometries;
@@ -42,7 +42,7 @@ namespace MyApp
 }
 ``` 
 
-Potom můžete zachovat trvale entity s prostorovými daty formátu:
+Pak můžete zachovat entity s prostorovými daty:
 
 ``` csharp
 using (var context = new MyDbContext())
@@ -56,7 +56,7 @@ using (var context = new MyDbContext())
     context.SaveChanges();
 }
 ```
-A můžete spustit na základě prostorová data a operace databázové dotazy:
+A můžete spouštět databázové dotazy na základě prostorových dat a operací:
 
 ``` csharp
   var nearestFriends =
@@ -65,35 +65,35 @@ A můžete spustit na základě prostorová data a operace databázové dotazy:
       select f).Take(5).ToList();
 ```
 
-Další informace o této funkci najdete v tématu [prostorové typy dokumentaci](xref:core/modeling/spatial). 
+Další informace o této funkci naleznete v [dokumentaci prostorových typů](xref:core/modeling/spatial). 
 
-## <a name="collections-of-owned-entities"></a>Kolekce entit vlastněná podnikem
+## <a name="collections-of-owned-entities"></a>Kolekce vlastněných entit
 
-EF Core 2.0 přidali možnost modelu vlastnictví v 1: 1 přidružení.
-EF Core 2.2 rozšiřuje možnosti express vlastnictví na jednoho k několika přidružení.
-Vlastnictví pomáhá omezit, jak se používají entity.
+EF Core 2,0 přidali možnost modelování vlastnictví v přidruženích 1:1.
+EF Core 2,2 rozšiřuje vlastnictví na asociace 1: n.
+Vlastnictví pomáhá omezit způsob použití entit.
 
-Například vlastní entity:
-- Může objevit pouze v navigační vlastnosti z ostatních typů entit. 
-- Jsou automaticky načteny a lze sledovat pouze DbContext spolu s jejich vlastníka.
+Vlastními entitami například:
+- Dá se použít jenom u navigačních vlastností jiných typů entit. 
+- Jsou automaticky načteny a lze je sledovat pouze pomocí DbContext společně se svým vlastníkem.
 
-V relačních databázích vlastní kolekce se mapují k oddělení od vlastníka, stejně jako regulární přidružení jednoho k několika tabulek.
-Ale v dokumentu orientovaného databázích, plánujeme vnořit vlastnictví entity (ve vlastnictví kolekce nebo odkazů) ve stejném dokumentu jako vlastník.
+V relačních databázích jsou vlastněné kolekce namapovány na samostatné tabulky od vlastníka, stejně jako u běžných přidružení typu 1: n.
+V databázích orientovaných na dokumentu ale plánujeme vnořovat vlastněné entity (ve vlastních kolekcích nebo odkazech) v rámci stejného dokumentu jako vlastník.
 
-Po zavolání nové rozhraní API OwnsMany() můžete použít funkci:
+Funkci můžete použít voláním nového rozhraní API OwnsMany ():
 
 ``` csharp
 modelBuilder.Entity<Customer>().OwnsMany(c => c.Addresses);
 ```
 
-Další informace najdete v tématu [aktualizovat vlastnictví entity dokumentaci](xref:core/modeling/owned-entities#collections-of-owned-types).
+Další informace najdete v dokumentaci k [aktualizovaným vlastněným entitám](xref:core/modeling/owned-entities#collections-of-owned-types).
 
-## <a name="query-tags"></a>Značky dotazu
+## <a name="query-tags"></a>Značky dotazů
 
-Tato funkce usnadňuje korelace dotazů LINQ v kódu pomocí generovaného dotazů SQL, které jsou zachyceny v protokolech.
+Tato funkce zjednodušuje korelaci dotazů LINQ v kódu s generovanými dotazy SQL zaznamenanými v protokolech.
 
-Využijte výhod značky dotazu, přidávat poznámky k dotazu LINQ pomocí nové metody TagWith().
-Pomocí prostorových dotazů z předchozího příkladu:
+Chcete-li využít výhod značek dotazů, můžete pomocí nové metody TagWith () opatřit poznámkami dotaz LINQ.
+Použití prostorového dotazu z předchozího příkladu:
 
 ``` csharp
   var nearestFriends =
@@ -112,4 +112,4 @@ FROM [Friends] AS [f]
 ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 ```
 
-Další informace najdete v tématu [dotazu značky dokumentace](xref:core/querying/tags). 
+Další informace najdete v [dokumentaci značek dotazů](xref:core/querying/tags). 

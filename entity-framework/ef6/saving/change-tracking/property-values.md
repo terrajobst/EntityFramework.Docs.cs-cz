@@ -1,30 +1,30 @@
 ---
-title: Práce s hodnoty vlastností - EF6
+title: Práce s hodnotami vlastností – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
-ms.openlocfilehash: afde503bb4ed15fcf83a57053541cd5da8c89835
-ms.sourcegitcommit: 50521b4a2f71139e6a7210a69ac73da582ef46cf
+ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/27/2019
-ms.locfileid: "67416673"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182146"
 ---
 # <a name="working-with-property-values"></a>Práce s hodnotami vlastností
-Ve většině případů Entity Framework se postará o sledování stavu, původní hodnoty a aktuální hodnoty vlastností instance entity. Však může být někdy – například odpojená řešení – Pokud chcete zobrazit nebo pracovat s informací, které EF má o vlastnosti. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+V rámci většiny Entity Framework se postará o sledování stavu, původních hodnot a aktuálních hodnot vlastností vašich instancí entit. Mohou však existovat některé případy – například odpojené scénáře – kde chcete zobrazit nebo manipulovat s informacemi, které se týkají vlastností EF. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-Entity Framework uchovává informace o dvou hodnot pro každou vlastnost sledované entity. Aktuální hodnota je aktuální hodnota vlastnosti v entitě, protože název naznačuje. Původní hodnota je hodnota, která měla vlastnost entity se posílat dotaz z databáze nebo připojit ke kontextu.  
+Entity Framework sleduje dvě hodnoty pro každou vlastnost sledované entity. Aktuální hodnota je, jak název označuje aktuální hodnotu vlastnosti v entitě. Původní hodnota je hodnota, kterou vlastnost měla, když byla entita dotazována z databáze nebo připojena k tomuto kontextu.  
 
-Existují dva hlavní mechanismy pro práci s hodnotami vlastností:  
+Existují dva obecné mechanismy pro práci s hodnotami vlastností:  
 
-- Nejde získat hodnotu jedné vlastnosti způsobem silného typu pomocí metody vlastností.  
-- Hodnoty všech vlastností entity lze načíst do objektu DbPropertyValues. DbPropertyValues pak funguje jako objekt slovníku jako umožňuje číst a nastavovat hodnoty vlastností. Hodnoty v objektu DbPropertyValues lze nastavit z hodnot v jiném objektu DbPropertyValues nebo z hodnot v druhý objekt, jako je například jiná kopie entity nebo objekt pro přenos jednoduché dat (DTO).  
+- Hodnota jedné vlastnosti může být získána způsobem silného typu pomocí metody Property.  
+- Hodnoty všech vlastností entity lze číst do objektu DbPropertyValues. DbPropertyValues pak funguje jako objekt typu slovník, aby bylo možné hodnoty vlastností číst a nastavit. Hodnoty v objektu DbPropertyValues lze nastavit z hodnot v jiném objektu DbPropertyValues nebo z hodnot v některém jiném objektu, například jiné kopii entity nebo objektu jednoduchého přenosu dat (DTO).  
 
-Následující části popisují příklady použití obou výše uvedených mechanismů.  
+Následující části znázorňují příklady použití obou výše uvedených mechanismů.  
 
-## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>Získání a nastavení aktuální a původní hodnoty jednotlivých vlastností  
+## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>Získání a nastavení aktuální nebo původní hodnoty jednotlivých vlastností  
 
-Následující příklad ukazuje, jak můžete číst a poté nastavte novou hodnotu aktuální hodnota vlastnosti:  
+Níže uvedený příklad ukazuje, jak může být aktuální hodnota vlastnosti čtena a nastavena na novou hodnotu:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -45,17 +45,17 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Pomocí původní hodnota vlastnosti namísto vlastnosti CurrentValue čtena nebo nastavena na původní hodnotu.  
+Použijte vlastnost původní namísto vlastnosti CurrentValue ke čtení nebo nastavení původní hodnoty.  
 
-Všimněte si, že vrácená hodnota je zadán jako "object", když řetězec se používá k určení názvu vlastnosti. Pokud výraz lambda se používá na druhé straně silného typu vrácené hodnoty.  
+Všimněte si, že vrácená hodnota je zadána jako "Object", pokud je řetězec použit k zadání názvu vlastnosti. Na druhé straně vrácená hodnota je silného typu, pokud je použit výraz lambda.  
 
-Nastavení hodnoty vlastnosti tímto způsobem bude pouze označí vlastnost upravit, pokud je nová hodnota se liší od původní hodnoty.  
+Nastavením hodnoty vlastnosti se tato vlastnost označí jenom jako upravená, pokud se nová hodnota liší od původní hodnoty.  
 
-Pokud je hodnota vlastnosti nastavena tímto způsobem změn je automaticky rozpoznán i v případě, že AutoDetectChanges je vypnutý.  
+Když je nastavená hodnota vlastnosti tímto způsobem, je změna automaticky detekována i v případě, že je vypnutá funkce AutoDetectChanges.  
 
-## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>Získání a nastavení aktuální hodnota nemapovaných vlastnosti  
+## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>Získání a nastavení aktuální hodnoty nemapované vlastnosti  
 
-Aktuální hodnota vlastnosti, která není namapována na databázi lze také číst. Příklad nenamapované vlastnost může být na vlastnost RssLink na blogu. Tato hodnota může být vypočtena podle BlogId a proto nemusí být uloženy v databázi. Příklad:  
+Aktuální hodnota vlastnosti, která není mapována na databázi, může být také přečtena. Příkladem nemapované vlastnosti může být vlastnost RssLink na blogu. Tato hodnota se může vypočítat na základě BlogId, a proto se v databázi nemusí ukládat. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -69,9 +69,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Aktuální hodnota můžete také nastavit, pokud vlastnost zpřístupní setter.  
+Aktuální hodnotu lze nastavit také v případě, že vlastnost zpřístupňuje metodu setter.  
 
-Čtení hodnot nemapovaných vlastnosti je užitečná při provádění ověření Entity Framework nenamapované vlastností. Ze stejného důvodu může číst a nastavit pro vlastnosti entity, které nejsou aktuálně nesleduje podle kontextu aktuální hodnoty. Příklad:  
+Čtení hodnot nemapovaných vlastností je užitečné při provádění Entity Framework ověřování nemapovaných vlastností. Pro stejný důvod může být pro vlastnosti entit, které aktuálně nejsou sledovány kontextem, načteny a nastavené aktuální hodnoty. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -87,11 +87,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že původní hodnoty nejsou k dispozici pro nemapovaných vlastnosti nebo vlastnosti entity, které nejsou sledován správou kontextu.  
+Všimněte si, že původní hodnoty nejsou k dispozici pro nemapované vlastnosti nebo pro vlastnosti entit, které nejsou sledovány kontextem.  
 
-## <a name="checking-whether-a-property-is-marked-as-modified"></a>Kontroluje se, zda je vlastnost označena jako upravená  
+## <a name="checking-whether-a-property-is-marked-as-modified"></a>Kontroluje se, jestli je vlastnost označená jako upravená.  
 
-Následující příklad ukazuje, jak zkontrolovat, zda jednotlivé vlastnosti je označena jako upravená:  
+Následující příklad ukazuje, jak ověřit, zda je individuální vlastnost označena jako upravená:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -105,11 +105,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Hodnoty upravené vlastnosti jsou odesílány jako aktualizace do databáze, když je volána metoda SaveChanges.  
+Hodnoty změněných vlastností jsou odesílány jako aktualizace databáze při volání metody SaveChanges.  
 
-##  <a name="marking-a-property-as-modified"></a>Označení jako upravená vlastnost  
+##  <a name="marking-a-property-as-modified"></a>Označení vlastnosti jako upravené  
 
-Následující příklad ukazuje, jak vynutit individuální vlastnosti označit jako změny:  
+Následující příklad ukazuje, jak vynutit, aby byla jednotlivá vlastnost označena jako upravená:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -123,13 +123,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Označí vlastnost jako upravené vynutí aktualizaci se odesílají do databáze pro vlastnost při volání SaveChanges i v případě, že aktuální hodnota vlastnosti je stejný jako původní hodnotu.  
+Označení vlastnosti jako změněné vynutí, aby byla aktualizace odeslána do databáze pro vlastnost při volání metody SaveChanges i v případě, že aktuální hodnota vlastnosti je shodná s původní hodnotou.  
 
-Není aktuálně možné resetovat individuální vlastnosti nelze změnit poté, co byla označena jako upravená. To je něco, co jsme chcete podporovat v budoucí verzi.  
+V současné době není možné resetovat jednotlivé vlastnosti, aby se po označení jako změněné nezměnily. To je něco, co plánujeme podporovat v budoucí verzi.  
 
-## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>Čtení databáze hodnoty všech vlastností entity, aktuální a původní  
+## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>Čtení aktuálních, původních a databázových hodnot pro všechny vlastnosti entity  
 
-Následující příklad znázorňuje způsob čtení aktuálních hodnot, původní hodnoty a hodnoty ve skutečnosti v databázi pro všechny připojené vlastnosti entity.  
+Následující příklad ukazuje, jak číst aktuální hodnoty, původní hodnoty a hodnoty ve skutečnosti v databázi pro všechny mapované vlastnosti entity.  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -163,11 +163,11 @@ public static void PrintValues(DbPropertyValues values)
 }
 ```  
 
-Aktuální hodnoty jsou hodnoty, které aktuálně obsahuje vlastnosti entity. Původní hodnoty jsou hodnoty, které byla přečtena z databáze, pokud byla dotazována entity. Databáze hodnoty jsou hodnoty, jako jsou aktuálně uloženy v databázi. Získání hodnot v databázi je užitečné, když hodnoty v databázi mohl být změněn dotazu entity, jako je při souběžné upravit, pokud chcete databázi provedené jiným uživatelem.  
+Aktuální hodnoty jsou hodnoty, které vlastnosti entity aktuálně obsahují. Původní hodnoty jsou hodnoty, které byly načteny z databáze při dotazu na entitu. Hodnoty databáze jsou hodnoty, které jsou aktuálně uloženy v databázi. Získávání hodnot databáze je užitečné v případě, že se hodnoty v databázi změnily od doby, kdy byla entita dotazována, jako by byla souběžná úprava databáze provedena jiným uživatelem.  
 
-## <a name="setting-current-or-original-values-from-another-object"></a>Aktuální a původní hodnoty nastavení z jiného objektu  
+## <a name="setting-current-or-original-values-from-another-object"></a>Nastavení aktuálních nebo původních hodnot z jiného objektu  
 
-Aktuální a původní hodnoty sledované entity je možné aktualizovat tak, že zkopírujete hodnoty z jiného objektu. Příklad:  
+Aktuální nebo původní hodnoty sledované entity lze aktualizovat kopírováním hodnot z jiného objektu. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -196,9 +196,9 @@ public class BlogDto
 }
 ```  
 
-Spuštění výše uvedený kód bude vytisknout:  
+Po spuštění výše uvedeného kódu se vytiskne:  
 
-```  
+```console
 Current values:
 Property Id has value 1
 Property Name has value My Cool Blog
@@ -208,13 +208,13 @@ Property Id has value 1
 Property Name has value My Boring Blog
 ```  
 
-Tato technika se někdy používá při aktualizaci entity s hodnotami získanými z klienta v n vrstvou aplikaci nebo volání služby. Všimněte si, že objekt použitý nemusí být stejného typu jako entity tak dlouho, dokud má vlastnosti, jejichž názvy odpovídají těm entity. V předchozím příkladu instance BlogDTO slouží k aktualizaci původní hodnoty.  
+Tato technika se někdy používá při aktualizaci entity s hodnotami získanými z volání služby nebo klienta v n-vrstvé aplikaci. Všimněte si, že použitý objekt nemusí být stejného typu jako entita, pokud má vlastnosti, jejichž názvy odpovídají názvům entity. V předchozím příkladu se k aktualizaci původních hodnot používá instance BlogDTO.  
 
-Všimněte si, že pouze vlastnosti, které jsou nastaveny na různé hodnoty při kopírování z jiného objektu se označí jako upravená.  
+Všimněte si, že pouze vlastnosti, které jsou nastaveny na jiné hodnoty při kopírování z jiného objektu, budou označeny jako upravené.  
 
-## <a name="setting-current-or-original-values-from-a-dictionary"></a>Nastavení aktuální a původní hodnoty ze slovníku  
+## <a name="setting-current-or-original-values-from-a-dictionary"></a>Nastavení aktuálních nebo původních hodnot ze slovníku  
 
-Aktuální a původní hodnoty sledované entity je možné aktualizovat tak, že zkopírujete hodnoty ze slovníku nebo jiné datové struktury. Příklad:  
+Aktuální nebo původní hodnoty sledované entity lze aktualizovat kopírováním hodnot ze slovníku nebo jiné struktury dat. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -238,11 +238,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Vlastnost OriginalValues místo vlastnost CurrentValues nastavit původní hodnoty.  
+Pro nastavení původních hodnot použijte vlastnost OriginalValues namísto vlastnosti CurrentValues.  
 
-## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>Nastavení aktuální a původní hodnoty ze slovníku pomocí vlastnosti  
+## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>Nastavení aktuálních nebo původních hodnot ze slovníku pomocí vlastnosti  
 
-O alternativu k použití CurrentValues nebo OriginalValues, jak je znázorněno výše se má používat metoda vlastnosti k nastavení hodnoty jednotlivých vlastností. To může být vhodnější, pokud je nutné nastavit hodnoty komplexní vlastností. Příklad:  
+Alternativou k použití CurrentValues nebo OriginalValues, jak je znázorněno výše, je použít metodu Property k nastavení hodnoty jednotlivých vlastností. To může být vhodnější, pokud potřebujete nastavit hodnoty komplexních vlastností. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -266,11 +266,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-V příkladu výše komplexní vlastnosti jsou přistupovat pomocí tečkové názvy. Další možnosti pro přístup ke komplexní vlastnosti zobrazí dva oddíly dále v tomto tématu, konkrétně o komplexní vlastnosti.  
+V předchozím příkladu jsou k dispozici tyto vlastnosti pomocí teček s názvy. Další způsoby přístupu ke složitým vlastnostem najdete v těchto dvou částech dále v tomto tématu, konkrétně o složitých vlastnostech.  
 
-## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>Vytváří se Klonovaný objekt obsahující aktuální, původní nebo hodnot v databázi  
+## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>Vytvoření klonovaného objektu obsahujícího aktuální, původní nebo databázové hodnoty  
 
-DbPropertyValues objekt se vrátil ze CurrentValues OriginalValues, nebo je možné GetDatabaseValues naklonoval entitu. Tenhle klon. bude obsahovat hodnoty vlastnosti z objektu DbPropertyValues použitá k jeho vytvoření. Příklad:  
+Objekt DbPropertyValues vrácený z CurrentValues, OriginalValues nebo GetDatabaseValues lze použít k vytvoření klonu entity. Tento klon bude obsahovat hodnoty vlastností z objektu DbPropertyValues používaného k jeho vytvoření. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -281,13 +281,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že objekt se vrátil není entita a není sledována podle kontextu. Vrácený objekt také nemá žádné relace nastavena na jiné objekty.  
+Všimněte si, že vrácený objekt není entita a není sledován kontextem. Vrácený objekt také nemá žádné nastavené relace na jiné objekty.  
 
-Klonovaný objekt může být užitečné při řešení problémů souvisejících s souběžných aktualizací do databáze, zejména když uživatelského rozhraní, která zahrnuje datové vazby pro objekty určitého typu se používá.  
+Klonovaný objekt může být užitečný pro řešení problémů souvisejících s souběžnými aktualizacemi databáze, zejména v případě, že je použito uživatelské rozhraní, které zahrnuje datovou vazbu s objekty určitého typu.  
 
-## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Získání a nastavení aktuální a původní hodnoty komplexní vlastnosti  
+## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Získávání a nastavování aktuálních nebo původních hodnot komplexních vlastností  
 
-Hodnota celého komplexní objekt může být pro čtení a nastavte vlastnost metodou stejně jako může být pro primitivní vlastnost. Kromě toho můžete přejít ke čtení nebo nastavte vlastnosti tohoto objektu nebo vnořený objekt a komplexního objektu. Následuje několik příkladů:  
+Hodnota celého komplexního objektu může být čtena a nastavena pomocí metody vlastnosti stejně, jako by mohla být pro primitivní vlastnost. Kromě toho můžete přejít k podrobnostem o složitém objektu a číst nebo nastavovat vlastnosti daného objektu nebo dokonce i vnořený objekt. Následuje několik příkladů:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -334,13 +334,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Použijte vlastnost původní hodnota namísto CurrentValue vlastnosti pro získání nebo nastavení původní hodnotu.  
+K získání nebo nastavení původní hodnoty použijte vlastnost původní namísto vlastnosti CurrentValue.  
 
-Všimněte si, že vlastnost nebo metoda ComplexProperty umožňuje přístup ke komplexní vlastností. Metodu ComplexProperty však musí použít, pokud chcete přejít na komplexní objekt s další vlastnost nebo ComplexProperty volá.  
+Všimněte si, že vlastnost nebo metoda ComplexProperty lze použít pro přístup ke komplexní vlastnosti. Metoda ComplexProperty však musí být použita, pokud chcete přejít k podrobnostem objektu Complex pomocí dalších vlastností nebo volání ComplexProperty.  
 
-## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>Použití DbPropertyValues pro přístup ke komplexní vlastnosti  
+## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>Přístup k složitým vlastnostem pomocí DbPropertyValues  
 
-Když používáte CurrentValues, OriginalValues nebo GetDatabaseValues zobrazíte všechny aktuální původní nebo hodnot v databázi pro entitu, hodnoty žádné složité vlastností se vrátí jako vnořené objekty DbPropertyValues. Tyto vnořené objekty může potom použít k získání hodnoty komplexního objektu. Například následující metoda vytiskne hodnoty všech vlastností, včetně hodnot všech komplexní vlastnosti a komplexních vnořených vlastností.  
+Když použijete CurrentValues, OriginalValues nebo GetDatabaseValues k získání všech hodnot aktuální, původní nebo databáze pro entitu, hodnoty všech komplexních vlastností se vrátí jako vnořené objekty DbPropertyValues. Tyto vnořené objekty lze potom použít k získání hodnot komplexního objektu. Následující metoda například vytiskne hodnoty všech vlastností, včetně hodnot všech komplexních vlastností a vnořených komplexních vlastností.  
 
 ``` csharp
 public static void WritePropertyValues(string parentPropertyName, DbPropertyValues propertyValues)
@@ -362,7 +362,7 @@ public static void WritePropertyValues(string parentPropertyName, DbPropertyValu
 }
 ```  
 
-Který vytiskne všechny aktuální hodnoty vlastností metody by byla volána takto:  
+Chcete-li vytisknout všechny aktuální hodnoty vlastností, metoda bude volána takto:  
 
 ``` csharp
 using (var context = new BloggingContext())

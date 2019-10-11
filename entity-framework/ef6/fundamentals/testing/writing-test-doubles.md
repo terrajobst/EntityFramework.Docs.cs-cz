@@ -1,51 +1,51 @@
 ---
-title: Ve Visual Basicu s vlastním testu zdvojnásobí - EF6
+title: Testování s vlastním testem dvakrát – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 9db56e28cd89084fece36c3e5a2c1b4495991d01
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: 4631206ae26d364e92c932857fa1970804a7a335
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419728"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181417"
 ---
-# <a name="testing-with-your-own-test-doubles"></a>Testování s čísly typu Double vlastní test
+# <a name="testing-with-your-own-test-doubles"></a>Testování s vlastními dvojitými testy
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Při psaní testů pro vaše aplikace je často žádoucí vyhnout se dosažení databáze.  Entity Framework umožňuje dosáhnout vytvořením kontextu – chování definované testování – která používá data v paměti.  
+Při psaní testů pro aplikaci je často žádoucí vyhnout se tomu, aby se databáze mohla zacházet.  Entity Framework vám umožňuje dosáhnout toho, že vytvoří kontext – s chováním definovanými testy, které využívá data v paměti.  
 
-## <a name="options-for-creating-test-doubles"></a>Možnosti pro vytvoření testu zdvojnásobí  
+## <a name="options-for-creating-test-doubles"></a>Možnosti pro vytváření dvojitých hodnot testu  
 
-Existují dva různé přístupy, které lze použít k vytvoření v paměti verze kontextu.  
+Existují dva různé přístupy, které lze použít k vytvoření verze vašeho kontextu v paměti.  
 
-- **Vytvoření vlastního testu zdvojnásobí** – tento postup zahrnuje zápis vlastní implementaci kontextu a DbSets v paměti. To vám přináší značnou kontroly nad jak třídy chovat, ale může zahrnovat zápis a vlastnící přiměřené kódu.  
-- **Napodobování rozhraní framework použít k vytvoření testu zdvojnásobí** – využívá napodobování architekturu (například Moq) můžete mít v paměti implementace je kontext a sady pro vás vytvořili dynamicky za běhu.  
+- **Vytvořte si vlastní test Doubles** – tento přístup zahrnuje zápis vlastní implementace v paměti vašeho kontextu a DbSets. Díky tomu máte spoustu kontroly nad tím, jak se třídy chovají, ale mohou zahrnovat psaní a vlastnictví přiměřeného kódu.  
+- **Použijte napodobnou architekturu k vytvoření dvojitých testů** – pomocí napodobení rozhraní (například MOQ), můžete mít implementace kontextu v paměti a sady se vytvoří dynamicky za běhu za vás.  
 
-V tomto článku se bude zabývat vytváření vlastních testů double. Informace o použití napodobování framework naleznete v tématu [testování pomocí rozhraní napodobování](mocking.md).  
+Tento článek se zabývat vytvářením vlastního testu dvakrát. Informace o použití rozhraní pro návrhy viz testování s napodobnou [architekturou](mocking.md).  
 
-## <a name="testing-with-pre-ef6-versions"></a>Ve Visual Basicu s EF6 předběžné verze  
+## <a name="testing-with-pre-ef6-versions"></a>Testování s EF6 verzemi  
 
-Je kompatibilní s EF6 kódu uvedeného v tomto článku. Ve Visual Basicu s EF5 a starší verze najdete v části [testování s kontextem falešné](http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/).  
+Kód uvedený v tomto článku je kompatibilní s EF6. Pro testování pomocí EF5 a starší verze se podívejte na [testování s falešným kontextem](https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/).  
 
-## <a name="limitations-of-ef-in-memory-test-doubles"></a>Omezení hodnot datového typu Double EF test v paměti  
+## <a name="limitations-of-ef-in-memory-test-doubles"></a>Omezení pro dvojité testy v paměti EF  
 
-V paměti testu zdvojnásobí může být dobrým způsobem, jak poskytnout bitů vaší aplikace, které používají EF úrovně pokrytí testování částí. Ale při tomto postupu použijete LINQ to Objects k provádění dotazů na data v paměti. Výsledkem může být odlišné chování než pomocí EF pro zprostředkovatele LINQ (LINQ to Entities) ke dotazy SQL, který běží na vaší databázi.  
+Dvojitá přesnost testu paměti může být dobrým způsobem, jak poskytnout jednotkové pokrytí na úrovni testování bitů vaší aplikace, které používají EF. Nicméně když to uděláte, budete používat LINQ to Objects k provádění dotazů na data v paměti. Výsledkem může být odlišné chování než použití zprostředkovatele LINQ (LINQ to Entities) EF k překladu dotazů na SQL, které se spouští proti vaší databázi.  
 
-Příkladem takových rozdíl načítá související data. Pokud vytvoříte sérii blogů, které mají související příspěvky, pak při používání dat v paměti související příspěvky se vždy načteno pro každý Blog. Ale při spuštění pro databázi data pouze se načtou Pokud použijete metodu zahrnout.  
+Jedním z příkladů takového rozdílu je načítání souvisejících dat. Pokud vytvoříte řadu blogů, které mají všechny související příspěvky, pak při použití dat v paměti budou související příspěvky vždy načteny pro každý blog. Při spuštění na databázi však budou data načtena pouze v případě, že použijete metodu include.  
 
-Z tohoto důvodu se doporučuje vždy zahrnovat určitou úroveň začátku do konce testování (navíc k testování částí) pro zajištění vaší aplikace pracuje správně proti databázi.  
+Z tohoto důvodu se doporučuje vždy zahrnout určitou úroveň komplexního testování (kromě testů jednotek), abyste zajistili správné fungování aplikace proti databázi.  
 
-## <a name="following-along-with-this-article"></a>Následující spolu se v tomto článku  
+## <a name="following-along-with-this-article"></a>Následující článek spolu s tímto článkem  
 
-Tento článek obsahuje kompletní kód výpisů, které můžete zkopírovat do sady Visual Studio chcete postup sledovat, pokud chcete. Je nejjednodušší vytvořit **projekt testu jednotek** a budete potřebovat k cíli **rozhraní .NET Framework 4.5** dokončete oddíly, které použít operátory async.  
+Tento článek obsahuje kompletní výpisy kódu, které můžete zkopírovat do sady Visual Studio, abyste mohli postupovat podle toho, co chcete. Je nejjednodušší vytvořit **projekt testování částí** a vy budete muset cílit **.NET Framework 4,5** , abyste dokončili oddíly, které používají async.  
 
-## <a name="creating-a-context-interface"></a>Vytvoření rozhraní pro kontext  
+## <a name="creating-a-context-interface"></a>Vytvoření kontextu rozhraní  
 
-Vytvoříme si prohlédnout službu, která využívá EF testování modelu. Aby bylo možné nahradit náš kontext EF s verzí v paměti pro testování, budeme definovat rozhraní, které implementuje náš EF kontext (a v paměti double).
+Budeme se pohlížet na testování služby, která využívá model EF. Aby bylo možné nahradit náš kontext EF pomocí verze v paměti pro testování, definujeme rozhraní, které náš kontext EF (a Dvojitá paměť v paměti) provede implementaci.
 
-Na službu, kterou budeme testování dotazování a úpravy dat pomocí vlastnosti DbSet náš kontext a také volána metoda SaveChanges vložíte změny do databáze. Proto jsme zahrnutí těchto členů rozhraní.  
+Služba, kterou budeme testovat, bude dotazovat se na data a upravovat je pomocí vlastností Negenerickými našeho kontextu a volat metodu SaveChanges a doručovat změny do databáze. Proto do rozhraní patříme tyto členy.  
 
 ``` csharp
 using System.Data.Entity;
@@ -61,9 +61,9 @@ namespace TestingDemo
 }
 ```  
 
-## <a name="the-ef-model"></a>EF modelu  
+## <a name="the-ef-model"></a>Model EF  
 
-Chceme otestovat služba využívá EF modelu tvořené BloggingContext a třídy blogu a příspěvku. Tento kód může být vygenerováno EF designeru nebo modelu Code First.  
+Služba, kterou budeme testovat, používá model EF, který se skládá z BloggingContext a třídy blog a post. Tento kód byl pravděpodobně vygenerován návrhářem EF nebo se jedná o Code First model.  
 
 ``` csharp
 using System.Collections.Generic;
@@ -98,19 +98,19 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="implementing-the-context-interface-with-the-ef-designer"></a>Implementace rozhraní kontextu s EF designeru  
+### <a name="implementing-the-context-interface-with-the-ef-designer"></a>Implementace kontextu rozhraní s návrhářem EF  
 
 Všimněte si, že náš kontext implementuje rozhraní IBloggingContext.  
 
-Pokud používáte Code First můžete upravit kontext přímo k implementaci rozhraní. Pokud používáte EF designeru pak bude nutné upravit šablonu T4, která generuje váš kontext. Otevřete \<název_modelu\>. Context.TT souboru, která je vnořená v rámci které souboru edmx, vyhledejte následující fragment kódu a přidejte rozhraní, jak je znázorněno.  
+Pokud používáte Code First pak můžete upravit kontext přímo k implementaci rozhraní. Pokud používáte návrháře EF, budete muset upravit šablonu T4, která generuje váš kontext. Otevřete \<model_name @ no__t-1. Soubor Context.tt, který je vnořen do souboru EDMX, vyhledejte následující fragment kódu a přidejte ho do rozhraní, jak je znázorněno na obrázku.  
 
 ``` csharp  
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IBloggingContext
 ```  
 
-## <a name="service-to-be-tested"></a>Služba má být testována  
+## <a name="service-to-be-tested"></a>Služba, která se má testovat  
 
-K předvedení testování s čísly typu Double test v paměti budeme psát několik testů pro BlogService. Služba je schopná vytvořit nové blogy (AddBlog) a vrací všechny blogy seřazené podle názvu (GetAllBlogs). Kromě GetAllBlogs poskytujeme také metodu, která asynchronně získá všechny blogy seřazené podle názvu (GetAllBlogsAsync).  
+K předvedení testování s dvojitými pokusy o testování v paměti budeme psát několik testů pro BlogService. Služba umožňuje vytvářet nové Blogy (AddBlog) a vracet všechny Blogy seřazené podle názvu (GetAllBlogs). Kromě GetAllBlogs jsme také poskytli metodu, která asynchronně získá všechny Blogy seřazené podle názvu (GetAllBlogsAsync).  
 
 ``` csharp
 using System.Collections.Generic;
@@ -159,13 +159,13 @@ namespace TestingDemo
 }
 ```  
 
-<a name="creating-the-in-memory-test-doubles"/> ## Vytvoření testu v paměti zdvojnásobuje  
+<a name="creating-the-in-memory-test-doubles"/> # # vytváření dvojitých testů v paměti  
 
-Když teď máme skutečné modelu EF a služby, můžete použít, je čas vytvořit test v paměti double, můžeme použít pro testování. Vytvořili jsme TestContext test double pro náš kontext. V testu zdvojnásobí, kterou dostaneme k zvolte chování chceme, aby bylo možné podporovat testy budeme ke spuštění. V tomto příkladu jsme právě zachycení počet pokusů, které je volána metoda SaveChanges, ale může obsahovat libovolnou logiku, je potřeba ověřit scénář, který testujete.  
+Teď, když máme skutečný model EF a službu, která ho může používat, je čas vytvořit zdvojnásobení testu v paměti, které můžeme použít pro testování. Pro náš kontext jsme vytvořili TestContext test Double. V testu zdvojnásobme si, jak zvolit chování, které chceme, aby bylo možné podporovat testy, které budeme spouštět. V tomto příkladu právě zachycujete počet volání metody SaveChanges, ale můžete zahrnout jakoukoli logiku potřebnou k ověření scénáře, který testujete.  
 
-Vytvořili jsme také TestDbSet, poskytující DbSet implementace v paměti. Poskytujeme kompletní čerpat pro všechny metody v DbSet (s výjimkou najít), ale potřebujete implementovat členy, které budou používat testovací scénář.  
+Vytvořili jsme také TestDbSet, který poskytuje implementaci Negenerickými v paměti. K dispozici je kompletní implementace všech metod na Negenerickými (s výjimkou hledání), ale stačí pouze implementovat členy, které bude váš testovací scénář používat.  
 
-TestDbSet využívá některé infrastruktury třídy, které jsme zahrnuli zajistit, že asynchronní dotazy můžete zpracovávat.  
+TestDbSet využívá některé jiné třídy infrastruktury, které jsme zahrnuli k zajištění toho, aby bylo možné zpracovávat asynchronní dotazy.  
 
 ``` csharp
 using System;
@@ -372,9 +372,9 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="implementing-find"></a>Implementace hledání  
+### <a name="implementing-find"></a>Implementace Find  
 
-Metoda hledání je obtížné implementovat obecně. Pokud je potřeba testovat kód, který provádí použijte metodu najít, je nejjednodušší vytvořit test najít DbSet pro všechny typy entit, které potřebují podporu. Poté můžete napsat logiku k vyhledání konkrétního typu entity, jak je znázorněno níže.  
+Metodu Find je obtížné implementovat obecným způsobem. Pokud potřebujete testovat kód, který využívá metodu Find, je nejjednodušší vytvořit Negenerickými testu pro každý typ entity, který musí podporovat hledání. Pak můžete napsat logiku k vyhledání konkrétního typu entity, jak je znázorněno níže.  
 
 ``` csharp
 using System.Linq;
@@ -392,11 +392,11 @@ namespace TestingDemo
 }
 ```  
 
-## <a name="writing-some-tests"></a>Zápis některé testy  
+## <a name="writing-some-tests"></a>Zápis některých testů  
 
-To je všechno, co musíme udělat pro začátek testování. Následující test vytvoří TestContext a pak je služba založená na tomto kontextu. Služba potom slouží k vytvoření nového blogu – AddBlog metodou. Nakonec test ověří, zda služba přidání nového blogu k vlastnosti objektu context blogy a volána metoda SaveChanges pro daný kontext.  
+To je všechno, co musíme udělat k zahájení testování. Následující test vytvoří TestContext a pak službu na základě tohoto kontextu. Služba se pak použije k vytvoření nového blogu – pomocí metody AddBlog. Nakonec test ověří, že služba přidala nový blog do vlastnosti Blogy daného kontextu a v kontextu byla volána metoda SaveChanges.  
 
-Toto je jenom pro příklad druhy věcí, které můžete otestovat s dvojitou testu v paměti a můžeme upravit logiku testu zdvojnásobí a ověřování podle svých požadavků.  
+Toto je pouze příklad typů položek, které můžete testovat pomocí zdvojnásobení testu v paměti, a můžete upravit logiku podvojení testu a ověření, aby splňovalo vaše požadavky.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -424,7 +424,7 @@ namespace TestingDemo
 }
 ```  
 
-Tady je další příklad testu – tentokrát ten, který do searche zadá dotaz. Test začíná tím, že vytvoříte kontextu testu s daty v jeho Blogovém vlastnost – Všimněte si, že data nejsou v abecedním pořadí. Pak můžeme vytvořit BlogService na základě našich kontextu testu a ujistěte se, že data, která jsme získat zpět z GetAllBlogs je seřazen podle názvu.  
+Tady je další příklad testu – tentokrát, který provádí dotaz. Test začíná vytvořením kontextu testu s některými daty ve vlastnosti blogu – Všimněte si, že data nejsou v abecedním pořadí. Na základě našeho kontextu testování můžeme pak vytvořit BlogService a zajistit, aby se data, která vracíme z GetAllBlogs, objednala podle názvu.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -454,7 +454,7 @@ namespace TestingDemo
 }
 ```  
 
-A konečně, budeme psát jeden další test, který využívá naše asynchronní metody a zkontrolujte, že jsme součástí infrastruktury asynchronní [TestDbSet](#creating-the-in-memory-test-doubles) funguje.  
+Nakonec zapíšeme ještě jeden test, který používá naši asynchronní metodu k zajištění toho, že asynchronní infrastruktura, kterou jsme zahrnuli do [TestDbSet](#creating-the-in-memory-test-doubles) , funguje.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;

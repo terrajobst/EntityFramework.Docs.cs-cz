@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: ec04de4eab2a28e3aa81ff27accef4fc11c83995
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: af86383bad52c87d2874fa4f8eb247a656601312
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197789"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182015"
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -38,7 +38,7 @@ U volitelných vztahů (cizí klíč s možnou hodnotou null) _je_ možné ulož
 | Název chování               | Vliv na závislé nebo podřízené objekty v paměti    | Vliv na závislé nebo podřízené v databázi  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
 | **Nášejí**                 | Entity jsou odstraněny                   | Entity jsou odstraněny                   |
-| **ClientSetNull** Výchozí | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Žádné                                   |
+| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Žádné                                   |
 | **SetNull**                 | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. |
 | **Omezit**                | Žádné                                   | Žádné                                   |
 
@@ -47,7 +47,7 @@ Pro požadované relace (cizí klíč, který nesmí mít hodnotu null), _není_
 
 | Název chování         | Vliv na závislé nebo podřízené objekty v paměti | Vliv na závislé nebo podřízené v databázi |
 |:----------------------|:------------------------------------|:--------------------------------------|
-| **Kaskádová** Výchozí | Entity jsou odstraněny                | Entity jsou odstraněny                  |
+| **Kaskádová** (výchozí) | Entity jsou odstraněny                | Entity jsou odstraněny                  |
 | **ClientSetNull**     | SaveChanges vyvolá                  | Žádné                                  |
 | **SetNull**           | SaveChanges vyvolá                  | SaveChanges vyvolá                    |
 | **Omezit**          | Žádné                                | Žádné                                  |
@@ -78,7 +78,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Cascade s povinným nebo volitelným vztahem
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -107,7 +107,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s požadovanou relací
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -130,7 +130,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s volitelným vztahem
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -160,7 +160,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. restrict s povinným nebo volitelným vztahem
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -189,7 +189,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Cascade s povinným nebo volitelným vztahem
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -217,7 +217,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s požadovanou relací
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -240,7 +240,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s volitelným vztahem
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -268,7 +268,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. restrict s povinným nebo volitelným vztahem
 
-```
+```console
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -297,7 +297,7 @@ Při volání *metody SaveChanges*budou pravidla pro odstranění kaskádových 
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Pokud je načtený pouze objekt zabezpečení (například když je vytvořen dotaz na blogu) bez `Include(b => b.Posts)` příkazu pro zahrnutí příspěvků – potom SaveChanges vygeneruje pouze SQL pro odstranění objektu zabezpečení nebo nadřazené položky:
+Pokud je načtený pouze objekt zabezpečení (například když je proveden dotaz na blogu) bez `Include(b => b.Posts)` pro zahrnutí příspěvků, pak SaveChanges vygeneruje pouze SQL pro odstranění objektu zabezpečení nebo nadřazené položky:
 
 ```sql
     DELETE FROM [Blogs] WHERE [BlogId] = 1

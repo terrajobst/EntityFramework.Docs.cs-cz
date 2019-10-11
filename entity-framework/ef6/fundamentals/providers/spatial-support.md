@@ -1,59 +1,59 @@
 ---
-title: Podpora zprostředkovatele pro typy prostorových – EF6
+title: Podpora poskytovatele pro prostorové typy – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-ms.openlocfilehash: 9c00e82c663daec219fe649a8d889afcc81564f7
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 863f1b4551bd62160915eba90fee7ba6c49c169c
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022272"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181599"
 ---
-# <a name="provider-support-for-spatial-types"></a>Podpora zprostředkovatele pro prostorové typy
-Entity Framework podporuje práci s prostorovými daty formátu prostřednictvím DbGeography nebo DbGeometry tříd. Tyto třídy závisí na konkrétních databází funkce nabízené poskytovateli rozhraní Entity Framework. Ne všichni poskytovatelé podporu prostorových dat a ty, které se mají další požadavky, jako je například instalace sestavení prostorových typů. Další informace o podporu zprostředkovatele pro prostorové typy jsou uvedeny níže.  
+# <a name="provider-support-for-spatial-types"></a>Podpora poskytovatelů prostorových typů
+Entity Framework podporuje práci s prostorovými daty prostřednictvím tříd DbGeography nebo DbGeometry. Tyto třídy spoléhají na funkce specifické pro databázi, které nabízí poskytovatel Entity Framework. Ne všichni zprostředkovatelé podporují prostorová data a ty, které mohou mít další požadavky, jako je instalace sestavení prostorových typů. Další informace o podpoře poskytovatele pro prostorové typy jsou uvedené níže.  
 
-Dva postupy, jeden pro Code First, druhá pro první databázi nebo modelu první najdete další informace o tom, jak pomocí prostorové typy v aplikaci:  
+Další informace o tom, jak používat prostorové typy v aplikaci, najdete ve dvou návodech, jeden pro Code First, druhý pro Database First nebo Model First:  
 
-- [Prostorové datové typy v kódu nejprve](~/ef6/modeling/code-first/data-types/spatial.md)  
-- [Typy prostorových dat v EF designeru](~/ef6/modeling/designer/data-types/spatial.md)  
+- [Typy prostorových dat v Code First](~/ef6/modeling/code-first/data-types/spatial.md)  
+- [Typy prostorových dat v Návrháři EF](~/ef6/modeling/designer/data-types/spatial.md)  
 
-## <a name="ef-releases-that-support-spatial-types"></a>Verze EF, které podporují prostorové typy  
+## <a name="ef-releases-that-support-spatial-types"></a>Verze EF podporující prostorové typy  
 
-Podpora pro typy prostorových byla zavedena v EF5. Nicméně v EF5 prostorové typy jsou podporovány pouze pokud aplikace cílí a běží na rozhraní .NET 4.5.  
+Podpora prostorových typů byla představena v EF5. Nicméně v prostorových typech EF5 jsou podporovány pouze v případě, že je aplikace cílena a spuštěna v rozhraní .NET 4,5.  
 
-Počínaje EF6 prostorové typy jsou podporovány pro aplikace cílené na rozhraní .NET 4 a .NET 4.5.  
+Počínaje EF6 prostorovými typy jsou podporovány pro aplikace zaměřené na rozhraní .NET 4 i .NET 4,5.  
 
-## <a name="ef-providers-that-support-spatial-types"></a>EF poskytovatelé, které podporují prostorové typy  
+## <a name="ef-providers-that-support-spatial-types"></a>Zprostředkovatelé EF podporující prostorové typy  
 
 ### <a name="ef5"></a>EF5  
 
-Zprostředkovatelé rozhraní Entity Framework pro EF5, který jsme víme, že podpora prostorové typy jsou:  
+Poskytovatelé Entity Framework pro EF5, o kterých víte, že podporují prostorové typy:  
 
-- Zprostředkovatel Microsoft SQL Server  
-    - Tento zprostředkovatel je dodáván jako součást EF5.  
-    - Tento zprostředkovatel závisí na některé další knihovny nízké úrovně, které může být nutné nainstalovat – podrobnosti najdete níže.  
-- [Devart dotConnect pro Oracle](http://www.devart.com/dotconnect/oracle/)  
-    - Toto je zprostředkovatele třetí strany z Devart.  
+- Poskytovatel Microsoft SQL Server  
+    - Tento poskytovatel se dodává jako součást EF5.  
+    - Tento zprostředkovatel závisí na některých dalších knihovnách nízké úrovně, které můžou být potřeba nainstalovat – podrobnosti najdete níže.  
+- [Devart dotConnect pro Oracle](https://www.devart.com/dotconnect/oracle/)  
+    - Toto je zprostředkovatel třetí strany z Devart.  
 
-Pokud znáte EF5 poskytovatele, který podporuje prostorové typy pak prosím získejte v kontaktu a budeme rádi přidat do tohoto seznamu.  
+Pokud znáte poskytovatele EF5, který podporuje prostorové typy, kontaktujte prosím kontakt a my ho budeme moct přidat do tohoto seznamu.  
 
 ### <a name="ef6"></a>EF6  
 
-Zprostředkovatelé rozhraní Entity Framework pro EF6, který jsme víme, že podpora prostorové typy jsou:  
+Poskytovatelé Entity Framework pro EF6, o kterých víte, že podporují prostorové typy:  
 
-- Zprostředkovatel Microsoft SQL Server  
-    - Tento zprostředkovatel je dodáván jako součást EF6.  
-    - Tento zprostředkovatel závisí na některé další knihovny nízké úrovně, které může být nutné nainstalovat – podrobnosti najdete níže.  
-- [Devart dotConnect pro Oracle](http://www.devart.com/dotconnect/oracle/)  
-    - Toto je zprostředkovatele třetí strany z Devart.  
+- Poskytovatel Microsoft SQL Server  
+    - Tento poskytovatel se dodává jako součást EF6.  
+    - Tento zprostředkovatel závisí na některých dalších knihovnách nízké úrovně, které můžou být potřeba nainstalovat – podrobnosti najdete níže.  
+- [Devart dotConnect pro Oracle](https://www.devart.com/dotconnect/oracle/)  
+    - Toto je zprostředkovatel třetí strany z Devart.  
 
-Pokud znáte EF6 poskytovatele, který podporuje prostorové typy pak prosím získejte v kontaktu a budeme rádi přidat do tohoto seznamu.  
+Pokud znáte poskytovatele EF6, který podporuje prostorové typy, kontaktujte prosím kontakt a my ho budeme moct přidat do tohoto seznamu.  
 
-## <a name="prerequisites-for-spatial-types-with-microsoft-sql-server"></a>Požadavky na prostorové typy s Microsoft SQL Server  
+## <a name="prerequisites-for-spatial-types-with-microsoft-sql-server"></a>Předpoklady pro prostorové typy s Microsoft SQL Server  
 
-Prostorové podpory systému SQL Server závisí na typech nízké úrovně, SQL Server – konkrétní SqlGeography a SqlGeometry. Tyto typy v sestavení Microsoft.SqlServer.Types.dll za provozu a toto sestavení není dodán jako součást EF nebo jako součást rozhraní .NET Framework.  
+SQL Server prostorová podpora závisí na typech SQL Server SqlGeography a SqlGeometry specifických pro nižší úroveň. Tyto typy jsou živé v sestavení Microsoft. SqlServer. Types. dll a toto sestavení se nedodává jako součást EF nebo jako součást .NET Framework.  
 
-Při instalaci sady Visual Studio často také nainstaluje verzi systému SQL Server a bude se jednat o instalaci Microsoft.SqlServer.Types.dll.  
+Když je nainstalována aplikace Visual Studio, často také nainstaluje verzi SQL Server a bude obsahovat instalaci Microsoft. SqlServer. Types. dll.  
 
-Pokud SQL Server není nainstalován na počítači, ve které chcete použít prostorové typy nebo typy prostorových byly vyloučeny z instalace systému SQL Server, je potřeba je nainstalovat ručně. Typy lze nainstalovat pomocí `SQLSysClrTypes.msi`, která je součástí sady Microsoft SQL Server Feature Pack. Prostorové typy jsou specifické pro verzi, SQL Server, takže doporučujeme [vyhledejte "SQL Server Feature Pack"](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack) webu Microsoft Download Center, pak vyberte a stáhněte si možnost, která odpovídá verzi systému SQL Server budete používat.
+Pokud v počítači, kde chcete použít prostorové typy, není nainstalováno SQL Server, nebo pokud byly z instalace SQL Server vyloučeny prostorové typy, pak je budete muset nainstalovat ručně. Typy lze instalovat pomocí `SQLSysClrTypes.msi`, což je součást sady Microsoft SQL Server Feature Pack. Prostorové typy jsou SQL Server specifické pro verzi, proto doporučujeme [Vyhledat "SQL Server Feature Pack"](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack) na webu Microsoft Download Center a pak vybrat a stáhnout možnost, která odpovídá verzi SQL Server, kterou budete používat.

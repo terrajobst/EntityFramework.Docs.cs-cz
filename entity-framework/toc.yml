@@ -175,8 +175,6 @@
           items:
             - name: Přehled
               href: core/querying/index.md
-            - name: Základní dotaz
-              href: core/querying/basic.md
             - name: Načítání souvisejících dat
               href: core/querying/related-data.md
             - name: Vyhodnocení klienta vs. serveru
@@ -188,7 +186,7 @@
             - name: Asynchronní dotazy
               href: core/querying/async.md
             - name: Jak funguje dotaz
-              href: core/querying/overview.md
+              href: core/querying/how-query-works.md
             - name: Globální filtry dotazů
               href: core/querying/filters.md
             - name: Značky dotazů

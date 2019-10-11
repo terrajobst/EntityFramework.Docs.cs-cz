@@ -1,33 +1,33 @@
 ---
-title: Práce s odpojené entity - EF6
+title: Práce s odpojenými entitami – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: 11ca2a9a4161e02d32d98bf03dd4cf28545334b7
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: f1ce44e7b00ec4c60a81ed850ce5c9d866495e1b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022168"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181759"
 ---
-# <a name="working-with-disconnected-entities"></a>Práce s odpojené entity
-V aplikaci založené na rozhraní Entity Framework je zodpovědná za vyhledávání podpory změny se použily sledované entity třídy kontextu. Volá metodu SaveChanges nevyřeší změny sledované podle kontextu do databáze. Při práci s n vrstvé aplikace, objekty entity jsou obvykle upraveny odpojené od kontextu, a musíte rozhodnout, jak sledovat změny a sestavy tyto změny zpět do kontextu. Toto téma popisuje různé možnosti, které jsou k dispozici, pokud používá nástroj Entity Framework s entitami.   
+# <a name="working-with-disconnected-entities"></a>Práce s odpojenými entitami
+V aplikaci založené na Entity Framework je kontextová třída zodpovědná za zjištění změn použitých u sledovaných entit. Volání metody SaveChanges uchovává změny sledované kontextem databáze. Při práci s n-vrstvými aplikacemi jsou objekty entit obvykle měněny během odpojení od kontextu a Vy musíte rozhodnout, jak sledovat změny a ohlásit tyto změny zpět do kontextu. Toto téma popisuje různé možnosti, které jsou k dispozici při použití Entity Framework s odpojenými entitami.   
 
-## <a name="web-service-frameworks"></a>Webové služby platformy
+## <a name="web-service-frameworks"></a>Rozhraní webové služby
 
-Webové služby technologie obvykle podporují vzory, které lze použít k uchování změn na jednotlivých objektů odpojené. Například rozhraní ASP.NET Web API vám umožní na akce kontroleru kódu, které může zahrnovat volání do EF a zachová tak změny provedené na objekt v databázi. Ve skutečnosti webového rozhraní API nástroje v sadě Visual Studio usnadňuje generování uživatelského rozhraní kontroler Web API z vašeho modelu Entity Framework 6. Další informace najdete v tématu [pomocí rozhraní Web API s Entity Framework 6](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
+Technologie webových služeb obvykle podporují vzory, které lze použít k uchovávání změn v jednotlivých odpojených objektech. Například webové rozhraní API ASP.NET umožňuje kódu provádět akce kontroleru, které mohou zahrnovat volání do EF, aby trvaly změny objektu v databázi. Nástroje webového rozhraní API v aplikaci Visual Studio ve skutečnosti usnadňují vytvoření kontroleru webového rozhraní API z modelu Entity Framework 6. Další informace najdete v tématu [použití webového rozhraní API s Entity Framework 6](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/).   
 
-V minulosti byly několik dalších webových služeb technologií, která nabízí integraci s Entity Framework, jako je třeba [služeb WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) a [RIA Services](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
+V minulosti existovalo několik technologií webových služeb, které nabízejí integraci s Entity Framework, jako jsou [WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) a [RIA služby](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)).
 
-## <a name="low-level-ef-apis"></a>Rozhraní API nízké úrovně EF
+## <a name="low-level-ef-apis"></a>Rozhraní API EF nízké úrovně
 
-Pokud nechcete použít existující n vrstvého řešení, nebo pokud chcete přizpůsobit, co se stane v akci kontroleru služby webového rozhraní API, Entity Framework poskytuje rozhraní API, která umožní uplatnit změny provedené u odpojených úrovně. Další informace najdete v tématu [přidat, připojit a entity stavu](~/ef6/saving/change-tracking/entity-state.md).  
+Pokud nechcete používat existující n-vrstvé řešení, nebo pokud chcete přizpůsobit, co se stane uvnitř akce kontroleru v rámci služby webového rozhraní API, Entity Framework poskytuje rozhraní API, která umožňují aplikovat změny provedené na odpojené úrovni. Další informace najdete v tématu věnovaném [Přidání, připojení a stavu entity](~/ef6/saving/change-tracking/entity-state.md).  
 
-## <a name="self-tracking-entities"></a>Vlastní sledování entit  
+## <a name="self-tracking-entities"></a>Entity pro sledování sebe  
 
-Sledování změn pro libovolné grafy entit odpojené od kontextu EF je obtížné problém. Generování kódu entity Self-Tracking šablona byl jeden ze pokusy o jeho řešení. Tato šablona vygeneruje tříd entit, které obsahují logiku ke sledování změny provedené u odpojených úrovně jako stav v entitách, sami. Generuje sadu rozšiřujících metod na tyto změny použít na kontext se taky.
+Sledování změn u libovolných grafů entit během odpojení od kontextu EF je pevný problém. Jedním z pokusů o jeho řešení byla šablona generování kódu entit s automatickým sledováním. Tato šablona generuje třídy entit, které obsahují logiku pro sledování změn provedených na odpojené úrovni jako stav v entitách samotných. Pro použití těchto změn v kontextu je vygenerována také sada rozšiřujících metod.
 
-Tuto šablonu lze použít s modely vytvořené pomocí EF designeru, ale nelze použít s Code First modely. Další informace najdete v tématu [Self-Tracking entity](self-tracking-entities/index.md).  
+Tuto šablonu lze použít s modely vytvořenými pomocí návrháře EF, ale nelze je použít s Code Firstmi modely. Další informace najdete v tématu [entity pro sledování sebe](self-tracking-entities/index.md).  
 
 > [!IMPORTANT]
-> Už doporučujeme použít šablonu samoobslužného tracking entity. Pouze bude nadále být k dispozici pro podporu stávající aplikace. Pokud aplikace potřebuje pracovat s grafy odpojených entit, zvažte další možnosti, jako [organizovaným entity](http://trackableentities.github.io/), což je technologie, podobně jako u samoobslužného-Tracking-entit, které je více aktivně vyvíjen Komunita, nebo psaní vlastního kódu pomocí nízké úrovně rozhraní API pro sledování změn.
+> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například sledovací [entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastní kód s využitím rozhraní API pro sledování změn nízké úrovně.

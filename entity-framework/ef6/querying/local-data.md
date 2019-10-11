@@ -1,21 +1,21 @@
 ---
-title: Místní Data - EF6
+title: Místní data – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2eda668b-1e5d-487d-9a8c-0e3beef03fcb
-ms.openlocfilehash: 400b9e1337edac1b9fa4f0ec9e1384ca58aa2fbc
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: efd646348d8a18bbeed2d0a0e708d4d36eb26eac
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490451"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182433"
 ---
-# <a name="local-data"></a>Místní Data
-Spuštění dotazu LINQ přímo proti DbSet, bude vždy odesílat dotaz do databáze, ale přistupujete k datům, která je aktuálně v paměti pomocí vlastnosti DbSet.Local. Další informace, které sleduje EF dostanete také o entit pomocí metody DbContext.Entry a DbContext.ChangeTracker.Entries. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+# <a name="local-data"></a>Místní data
+Spuštění dotazu LINQ přímo proti Negenerickými vždy pošle dotaz do databáze, ale přístup k datům, která jsou aktuálně v paměti, můžete získat pomocí vlastnosti Negenerickými. Local. Přístup k základnímu EF informací získáte také tak, že sledujete své entity pomocí metod DbContext. entry a DbContext. ChangeTracker. Entries. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-## <a name="using-local-to-look-at-local-data"></a>Podívejte se na místní data pomocí místní  
+## <a name="using-local-to-look-at-local-data"></a>Použití místní k zobrazení místních dat  
 
-Místní vlastnost DbSet poskytuje snadný přístup k entitám sady, které jsou právě sledován správou kontextu a ještě nebyly označeny jako odstraněný. Přístup k místní vlastnost nikdy nezpůsobí dotaz k odeslání do databáze. To znamená, že se obvykle používá po dotaz už jsou hotové. Rozšiřující metoda zatížení lze použít k provedení dotazu tak, aby kontext sleduje výsledky. Příklad:  
+Místní vlastnost Negenerickými poskytuje jednoduchý přístup k entitám sady, které jsou aktuálně sledovány pomocí kontextu a nebyly označeny jako odstraněné. Přístup k místní vlastnosti nikdy nevede k odeslání dotazu do databáze. To znamená, že se obvykle používá poté, co byl dotaz již proveden. Metodu Load Extension lze použít k provedení dotazu, aby kontext sleduje výsledky. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -53,9 +53,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Kdybychom měli dva blogy v databázi – "ADO.NET Blog" BlogId 1 - a "The Visual Studio Blog" BlogId 2 očekávat následující výstup:  
+Pokud máme dva Blogy v databázi-' ADO.NET blog ' s BlogIdem 1 a blogem sady Visual Studio s BlogIdem 2 – můžeme očekávat následující výstup:  
 
-```  
+```console
 In Local:
 Found 0: My New Blog with state Added
 Found 2: The Visual Studio Blog with state Unchanged
@@ -67,19 +67,19 @@ Found 2: The Visual Studio Blog with state Unchanged
 
 To ukazuje tři body:  
 
-- Nového blogu "My nového blogu" je součástí místního shromažďování dat, i když ještě nebyly uloženy do databáze. Tento blog nemá primární klíč nula, protože databáze nebyla zatím nevygenerovaly skutečné klíč entity.  
-- V blogu ADO.NET není součástí místního shromažďování dat i v případě, že je stále sledována kontextu. Je to proto, že jsme odebrali z DbSet, a tím označit ji jako odstraněný.  
-- Při použití DbSet provést dotaz na blogu označená k odstranění (ADO.NET Blog) je zahrnut ve výsledcích a nového blogu (Moje nového blogu), které ještě nebyly uloženy do databáze není zahrnut ve výsledcích. Je to proto DbSet provádí dotaz na databázi a výsledky vrácené vždy odráží, co je v databázi.  
+- Nový blog "můj nový blog" je součástí místní kolekce, i když ještě nebyl uložen do databáze. Tento blog má primární klíč nula, protože databáze ještě negenerovala skutečný klíč pro entitu.  
+- Blog ADO.NET není zahrnutý v místní kolekci, i když je stále sledován pomocí kontextu. Důvodem je to, že jsme ho odebrali z Negenerickými a tím ho označíte jako odstraněný.  
+- Když se Negenerickými používá k provedení dotazu, je blog označený k odstranění (blog ADO.NET), který je součástí výsledků a nový blog (můj nový blog), který ještě nebyl uložen do databáze, není zahrnutý ve výsledcích. Důvodem je to, že Negenerickými provádí dotaz na databázi a vrácené výsledky vždycky odrážejí, co se nachází v databázi.  
 
-## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>Pomocí místní přidávat a odebírat entity z kontextu  
+## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>Použití místní k přidání a odebrání entit z kontextu  
 
-Vrátí místní vlastnosti na DbSet [kolekci ObservableCollection](https://msdn.microsoft.com/library/ms668604.aspx) s událostmi připojili tak, že stále synchronizovaná s obsahem kontextu. To znamená, že můžete přidat nebo odebrat z místního shromažďování dat nebo DbSet entity. Také znamená, že výsledkem dotazů, které přinášejí nové entity do kontextu bude místního shromažďování dat aktualizovány s těmito entitami. Příklad:  
+Místní vlastnost v Negenerickými vrací [kolekci ObservableCollection](https://msdn.microsoft.com/library/ms668604.aspx) s událostmi, které jsou zaelné tak, aby zůstaly synchronizované s obsahem kontextu. To znamená, že entity je možné přidat nebo odebrat buď z místní kolekce, nebo z Negenerickými. Také to znamená, že dotazy, které přinášejí nové entity do kontextu, budou mít za následek aktualizaci místní kolekce těmito entitami. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
 {
     // Load some posts from the database into the context
-    context.Posts.Where(p => p.Tags.Contains("entity-framework").Load();  
+    context.Posts.Where(p => p.Tags.Contains("entity-framework")).Load();  
 
     // Get the local collection and make some changes to it
     var localPosts = context.Posts.Local;
@@ -119,9 +119,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Za předpokladu, že jsme měli několik příspěvky označené 'entity framework' a 'asp.net"výstup může vypadat přibližně takto:  
+Za předpokladu, že máme několik příspěvků s příznakem "Entity-Framework" a "asp.net", může výstup vypadat přibližně takto:  
 
-```  
+```console
 In Local after entity-framework query:
 Found 3: EF Designer Basics with state Unchanged
 Found 5: EF Code First Basics with state Unchanged
@@ -137,25 +137,25 @@ Found 4: ASP.NET Beginners Guide with state Unchanged
 
 To ukazuje tři body:  
 
-- Nový příspěvek "Co je nového v EF", který byl přidán do místní kolekce bude sledován pomocí funkce kontextu, ve stavu Added. Je proto vloží do databáze když je volána metoda SaveChanges.  
-- Příspěvku, který byl odebrán z místní kolekce (Průvodce začátečníka EF) je nyní označen jako odstraněný v kontextu. Proto se odstraní z databáze když je volána metoda SaveChanges.  
-- Další příspěvek (Průvodce začátečníka technologie ASP.NET) načítají do kontextu s druhého dotazu se automaticky přidá do místní kolekce.  
+- Nový příspěvek "Co je nového v EF", který byl přidán do místní kolekce, se bude sledovat v kontextu ve stavu přidáno. V případě volání metody SaveChanges bude proto vložena do databáze.  
+- Příspěvek, který byl odebrán z místní kolekce (Příručka pro začátečníky), je teď v kontextu označený jako odstraněný. Z databáze proto bude při volání metody SaveChanges odstraněna.  
+- Další příspěvek (Příručka pro ASP.NET začátečník) načtený do kontextu s druhým dotazem se automaticky přidá do místní kolekce.  
 
-Jeden poslední věc, kterou si uvědomit o místní je, že, protože se jedná výkonu kolekci ObservableCollection není velmi vhodné pro velký počet entit. Proto pokud pracujete s tisíci entitami ve vaší místní nemusí být vhodné použít místní.  
+K tomu, abyste si poznamenali místní informace, je to, že vzhledem k tomu, že se jedná o kolekci ObservableCollection výkon, není Skvělé pro velký počet entit. Pokud tedy v kontextu pracujete s tisíci entit, nemusí být vhodné použít místní.  
 
-## <a name="using-local-for-wpf-data-binding"></a>Pomocí místní datové vazby WPF  
+## <a name="using-local-for-wpf-data-binding"></a>Použití místní pro datovou vazbu WPF  
 
-Místní vlastnosti na DbSet můžete použít přímo pro datové vazby v aplikaci WPF, protože je instance kolekci ObservableCollection. Jak je popsáno v předchozí části, to znamená, že bude automaticky zůstávat synchronizovaný s obsahem kontextu a obsahu kontextu bude automaticky Zůstaňte synchronizovaný s ním. Všimněte si, že potřebujete k předběžnému naplnění místní shromažďování dat pro něj být cokoliv, k vytvoření vazby, protože místní nikdy nezpůsobí databázového dotazu.  
+Místní vlastnost na Negenerickými lze použít přímo pro datovou vazbu v aplikaci WPF, protože se jedná o instanci kolekci ObservableCollection. Jak je popsáno v předchozích částech to znamená, že se automaticky synchronizuje s obsahem kontextu a obsah tohoto kontextu bude automaticky zůstat synchronizovaný s ním. Všimněte si, že je nutné předem naplnit místní kolekci daty, aby bylo možné navazovat vazby, protože místní nikdy nezpůsobí databázový dotaz.  
 
-Toto není vhodné místo jako úplnou ukázku datové vazby WPF, ale jsou klíčové prvky:  
+Nejedná se o vhodné místo pro úplnou ukázku datových vazeb WPF, ale klíčové prvky jsou:  
 
 - Nastavení zdroje vazby  
-- Vázat na místní vlastnost sady  
-- Naplnění místní pomocí dotazu do databáze.  
+- Navažte vazby na místní vlastnost vaší sady.  
+- Naplňte místní pomocí dotazu do databáze.  
 
-## <a name="wpf-binding-to-navigation-properties"></a>WPF vazby pro navigační vlastnosti  
+## <a name="wpf-binding-to-navigation-properties"></a>Vazba WPF na navigační vlastnosti  
 
-Pokud provádíte záznamů master/detail datové vazby, které může chcete svázat zobrazení podrobností pro navigační vlastnost jednoho z entit. Snadný způsob, jak provést tuto práci je použití ObservableCollection pro navigační vlastnost. Příklad:  
+Pokud provádíte datovou vazbu hlavního/podrobného data, můžete chtít svázat zobrazení podrobností s vlastností navigace jedné z entit. Snadný způsob, jak tuto práci udělat, je použít pro navigační vlastnost kolekci ObservableCollection. Příklad:  
 
 ``` csharp
 public class Blog
@@ -173,9 +173,9 @@ public class Blog
 }
 ```  
 
-## <a name="using-local-to-clean-up-entities-in-savechanges"></a>Pomocí místní vyčistit entity v SaveChanges  
+## <a name="using-local-to-clean-up-entities-in-savechanges"></a>Použití místní k vyčištění entit v SaveChanges  
 
-Ve většině případů entity odebrána z navigační vlastnost nebude označeno automaticky odstraněn v kontextu. Například pokud odeberete příspěvek objekt z kolekce Blog.Posts pak příspěvku, který nebude automaticky odstraněno při je volána metoda SaveChanges. Pokud je třeba ho odstraníme může musíte najít tyto nepropojená entity a označit je jako odstraněný před voláním SaveChanges nebo jako součást přepsané SaveChanges. Příklad:  
+Ve většině případů se entity odebrané z navigační vlastnosti nebudou automaticky označovat jako odstraněné v kontextu. Například odeberete-li objekt post z blogu. po volání metody SaveChanges nebude tento příspěvek automaticky odstraněn. Pokud ho potřebujete odstranit, možná budete muset najít tyto entity dangling a označit je jako odstraněné před voláním metody SaveChanges nebo jako součást přepsaného metody SaveChanges. Příklad:  
 
 ``` csharp
 public override int SaveChanges()
@@ -192,23 +192,23 @@ public override int SaveChanges()
 }
 ```  
 
-Výše uvedený kód místního shromažďování dat používá k nalezení všech příspěvků a značky, jež nemají odkaz blogu jako odstraněný. ToList – volání je nutné, protože jinak kolekce se upravil odebrat volání, když je zpracován. Ve většině případů další se můžete dotazovat přímo proti místní vlastnost bez použití ToList – první.  
+Výše uvedený kód používá místní kolekci k vyhledání všech příspěvků a označení, které nemají odkaz na blog jako odstraněný. Volání ToList – je požadováno, protože v opačném případě bude kolekce upravena voláním Remove během vytváření výčtu. Ve většině případů se můžete dotazovat přímo na místní vlastnost bez použití ToList – jako prvního.  
 
-## <a name="using-local-and-tobindinglist-for-windows-forms-data-binding"></a>Použití datových vazeb místní verzi a ToBindingList pro Windows Forms  
+## <a name="using-local-and-tobindinglist-for-windows-forms-data-binding"></a>Použití místních a ToBindingList pro datovou vazbu model Windows Forms  
 
-Windows Forms nepodporuje plnou věrností datové vazby pomocí kolekci ObservableCollection přímo. Nicméně stále můžete DbSet místní vlastnost pro vytváření datových vazeb získáte všechny výhody, které jsou popsané v předchozích částech. Toho můžete dosáhnout ToBindingList metodu rozšíření, která vytvoří [IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx) implementace se opírá o místní kolekci ObservableCollection.  
+Model Windows Forms nepodporuje přímou datovou vazbu pomocí kolekci ObservableCollection. K získání všech výhod popsaných v předchozích částech však stále můžete použít místní vlastnost Negenerickými pro datovou vazbu. Toho dosáhnete pomocí metody rozšíření ToBindingList, která vytvoří implementaci [IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx) , kterou zajišťuje místní kolekci ObservableCollection.  
 
-Toto není vhodné místo pro úplnou ukázku vazby dat formuláře Windows, ale jsou klíčové prvky:  
+Nejedná se o vhodné místo pro úplnou model Windows Forms ukázku datových vazeb, ale klíčové prvky jsou:  
 
-- Nastavit zdroj vazby objektu  
-- Vázat na místní vlastnost sady pomocí Local.ToBindingList()  
-- Naplnění místní pomocí dotazu do databáze  
+- Nastavení zdroje vazby objektu  
+- Vytvořte jeho svázání s místní vlastností vaší sady pomocí Local. ToBindingList ().  
+- Naplnit místní pomocí dotazu do databáze  
 
-## <a name="getting-detailed-information-about-tracked-entities"></a>Získání podrobných informací o sledované entity  
+## <a name="getting-detailed-information-about-tracked-entities"></a>Získání podrobných informací o sledovaných entitách  
 
-Mnoho příkladů v této sérii použít metodu vstupního vrácení DbEntityEntry instance entity. Tento objekt záznam pak funguje jako výchozí bod pro shromažďování informací o entitě, jako je například jejím aktuálním stavu, stejně jako pro provádění operací na entitu, jako je například explicitně načtení souvisejících entit.  
+Mnohé z příkladů v této sérii používají metodu entry k vrácení instance DbEntityEntry pro entitu. Tento objekt vstupu pak slouží jako výchozí bod pro shromažďování informací o entitě, jako je její aktuální stav, a také pro provádění operací na entitě, jako je například explicitní načtení související entity.  
 
-Položky metody vrací objekty DbEntityEntry pro mnoho nebo všechna entity, sledován správou kontextu. To umožňuje shromažďování informací nebo provádění operací na mnoho entit a nikoli pouze jedna položka. Příklad:  
+Metody záznamů vrací objekty DbEntityEntry pro mnoho nebo všechny entity, které jsou sledovány kontextem. Díky tomu můžete shromažďovat informace nebo provádět operace mnoha entit, a ne jenom jednu položku. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -265,7 +265,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Můžete si všimnout Představujeme Autor a čtečky třídy do příkladu – obě tyto třídy implementace rozhraní IPerson.  
+Všimnete si, že zavádíme třídu autora a čtenáře do příkladu – obě tyto třídy implementují rozhraní IPerson.  
 
 ``` csharp
 public class Author : IPerson
@@ -288,17 +288,17 @@ public interface IPerson
 }
 ```  
 
-Předpokládejme, že máme následující data v databázi:
+Řekněme, že v databázi máme následující data:
 
-Blog s BlogId = 1 a Name = "ADO.NET blogu.  
-Blog s BlogId = 2 a Name = "v blogu Visual Studio.  
-Blog s BlogId = 3 a Name = "Blog k .NET Framework.  
-Autor s AuthorId = 1 a Name = "Joe Bloggs.  
-Čtečka s ReaderId = 1 a Name = "John Doe"  
+Blog s BlogId = 1 a name = ' ADO.NET blog '  
+Blog s BlogId = 2 a name = ' blog sady Visual Studio '  
+Blog s BlogId = 3 a názvem = ' .NET Framework blog '  
+Autor s AuthorId = 1 a name = ' Jan Bloggs '  
+Čtecí modul s ReaderId = 1 a name = Jan Chvojková  
 
-Výstup spuštění kódu by byl:  
+Výstup z běhu kódu by byl:  
 
-```  
+```console
 All tracked entities:
 Found entity of type Blog with state Modified
 Found entity of type Blog with state Deleted
@@ -324,8 +324,8 @@ Found Person Jane Doe
 
 Tyto příklady ilustrují několik bodů:  
 
-- Položky metody vrací záznamy pro entity v všechny stavy, včetně odstraněno. Porovnejte tuto hodnotu na místní, která nezahrnuje odstranit entity.  
-- Záznamy pro všechny typy entit se vrátí, když se používá neobecnou metodu položky. Při použití metody obecných položek položky jsou vráceny pouze pro entity, které jsou instancemi obecného typu. To byl použit k získání položek pro všechny blogy výše. Používá se také k získání položek pro všechny entity, které implementují IPerson. Tento příklad ukazuje, že obecný typ nemusí být skutečný entity typu.  
-- LINQ na objekty je možné filtrovat vrácené výsledky. Byl použit nad najít entity libovolného typu, tak dlouho, dokud jejich úpravou.  
+- Metody záznamů vrací položky pro entity ve všech stavech, včetně odstranění. Porovnat tuto místní a vyloučí odstraněné entity.  
+- Položky pro všechny typy entit jsou vráceny při použití metody neobecného typu. Když je metoda obecných záznamů použita, vrátí se pouze pro entity, které jsou instancemi obecného typu. Výše se použila k získání položek pro všechny blogy. Byl také použit k získání položek pro všechny entity, které implementují IPerson. To ukazuje, že obecný typ nemusí být skutečný typ entity.  
+- LINQ to Objects lze použít k filtrování vrácených výsledků. Toto bylo použito výše pro vyhledání entit libovolného typu, pokud jsou upraveny.  
 
-Všimněte si, že instance DbEntityEntry vždy obsahují Entity jinou hodnotu než null. Vztah položek a zástupných procedur nejsou reprezentovány jako DbEntityEntry instance, není nutné k filtrování pro tyto.
+Všimněte si, že instance DbEntityEntry vždy obsahují entitu, která není null. Položky vztahů a zástupné procedury nejsou reprezentovány jako instance DbEntityEntry, takže je není nutné vyfiltrovat.

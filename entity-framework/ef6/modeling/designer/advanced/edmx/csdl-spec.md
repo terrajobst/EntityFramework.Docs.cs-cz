@@ -1,66 +1,66 @@
 ---
-title: Specifikace CSDL - EF6
+title: Specifikace CSDL – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: c54255f4-253f-49eb-bec8-ad7927ac2fa3
-ms.openlocfilehash: 438af83b8a1ad51ee8414341181412e950d0e117
-ms.sourcegitcommit: 29f928a6116771fe78f306846e6f2d45cbe8d1f4
+ms.openlocfilehash: 642e5977ecbbf0c474cac1ceae19d33a135aa875
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/01/2018
-ms.locfileid: "47460147"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182601"
 ---
 # <a name="csdl-specification"></a>Specifikace CSDL
-Konceptuální schéma definici jazyka (CSDL) je jazyk založený na formátu XML, který popisuje entity, vztahy a funkce, které tvoří konceptuálního modelu aplikace řízené daty. Entity Framework nebo WCF Data Services je možné tento koncepčního modelu. Metadata, která je popsána pomocí CSDL používá Entity Framework pro mapování entit a vztahů, které jsou definované v konceptuálním modelu na zdroji dat. Další informace najdete v tématu [specifikace SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md) a [specifikace MSL](~/ef6/modeling/designer/advanced/edmx/msl-spec.md).
+Jazyk CSDL (konceptuální schéma Definition Language) je jazyk založený na jazyce XML, který popisuje entity, vztahy a funkce tvořící koncepční model aplikace řízené daty. Tento koncepční model lze použít Entity Framework nebo WCF Data Services. Metadata popsaná pomocí CSDL používá Entity Framework k mapování entit a vztahů, které jsou definovány v koncepčním modelu na zdroj dat. Další informace najdete v tématu Specifikace [SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md) a [specifikace MSL](~/ef6/modeling/designer/advanced/edmx/msl-spec.md).
 
-Soubor CSDL je implementace Entity Framework modelu Entity Data Model.
+CSDL je Entity Framework implementace model EDM (Entity Data Model).
 
-V aplikaci Entity Framework koncepčního modelu metadat je načteno ze souboru .csdl (napsaného v CSDL) do instance System.Data.Metadata.Edm.EdmItemCollection a je přístupný pomocí metod v Třída System.Data.Metadata.Edm.MetadataWorkspace. Entity Framework používá metadata koncepčního modelu dotazy na koncepční model příkazů specifických pro zdroj dat převodu.
+V Entity Framework aplikaci jsou metadata konceptuálního modelu načtena ze souboru. csdl (napsaného v CSDL) do instance System. data. Metadata. Edm. EdmItemCollection a je přístupná pomocí metod v System. data. Metadata. Edm. MetadataWorkspace – třída Entity Framework používá metadata konceptuálního modelu k překladu dotazů na koncepční model na příkazy specifické pro zdroj dat.
 
-EF designeru ukládá informace o konceptuální model v souboru .edmx v době návrhu. V okamžiku sestavení Návrhář EF používá informace v souboru .edmx vytvořit soubor .csdl, který je potřeba pro Entity Framework za běhu.
+Návrhář EF ukládá informace o koncepčním modelu do souboru. edmx v době návrhu. V okamžiku sestavení používá Návrhář EF informace v souboru. edmx k vytvoření souboru. csdl, který je vyžadován Entity Framework za běhu.
 
-Verze CSDL jsou rozlišené pomocí obory názvů XML.
+Verze CSDL jsou odlišeny obory názvů XML.
 
-| Verze CSDL | Namespace XML                                |
+| Verze CSDL | Obor názvů XML                                |
 |:-------------|:---------------------------------------------|
-| Soubor CSDL v1      | http://schemas.microsoft.com/ado/2006/04/edm |
-| Soubor CSDL v2      | http://schemas.microsoft.com/ado/2008/09/edm |
-| Soubor CSDL v3      | http://schemas.microsoft.com/ado/2009/11/edm |
+| CSDL v1      | https://schemas.microsoft.com/ado/2006/04/edm |
+| CSDL v2      | https://schemas.microsoft.com/ado/2008/09/edm |
+| CSDL V3      | https://schemas.microsoft.com/ado/2009/11/edm |
 
- 
-## <a name="association-element-csdl"></a>Element Association (CSDL)
+ 
+## <a name="association-element-csdl"></a>Association – element (CSDL)
 
-**Přidružení** element definuje vztah mezi dvěma typy entit. Asociace musíte zadat typy entit, které jsou zahrnuty v relaci a možný počet typů entit na každém konci vztahu, který je označován jako násobnost. Násobnost zakončení přidružení může mít hodnotu jedna (1), žádný nebo jeden (0..1) nebo mnoho (\*). Tato informace zadána v dva podřízené elementy End.
+Element **Association** definuje vztah mezi dvěma typy entit. Přidružení musí určovat typy entit, které jsou součástí relace, a možný počet typů entit na každém konci relace, který se označuje jako násobnost. Násobnost elementu end přidružení může mít hodnotu jedna (1), 0 nebo 1 (0.. 1) nebo mnoho (\*). Tyto informace jsou zadány ve dvou podřízených elementech end.
 
-Instance typu entity na jednom konci asociace je přístupný prostřednictvím vlastnosti navigace nebo cizí klíče, pokud jsou zveřejněné na typ entity.
+Instance typu entity na jednom konci přidružení lze zpřístupnit prostřednictvím vlastností navigace nebo cizích klíčů, pokud jsou vystaveny na typu entity.
 
-V aplikaci, která představuje instance přidružení konkrétní přidružení mezi instancemi typů entit. Přidružení instance jsou logicky rozdělena do nastavení přidružení.
+V aplikaci instance přidružení představuje konkrétní přidružení mezi instancemi typů entit. Instance přidružení jsou logicky seskupeny v sadě přidružení.
 
-**Přidružení** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Association** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   End (přesně 2 prvky)
--   Elementu ReferentialConstraint (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   End (přesně 2 elementy)
+-   Elementu ReferentialConstraint (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **přidružení** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Association** .
 
-| Název atributu | Vyžaduje se | Hodnota                        |
+| Název atributu | Je povinné | Value                        |
 |:---------------|:------------|:-----------------------------|
-| **Jméno**       | Ano         | Název přidružení. |
+| **Název**       | Ano         | Název přidružení. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **přidružení** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Association** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **přidružení** element, který definuje **CustomerOrders** přidružení při cizí klíče dosud byl zpřístupněn na **zákazníka** a  **Pořadí** typy entit. **Násobnost** hodnoty pro každou **koncový** přidružení označuje tolik **objednávky** lze přidružit **zákazníka**, ale pouze jeden **zákazníka** je možné přidružit **pořadí**. Kromě toho **elementy OnDelete** element znamená, že všechny **objednávky** , která se vztahují ke konkrétní **zákazníka** a byla načtena do objektu ObjectContext se odstraní. Pokud **zákazníka** se odstraní.
+Následující příklad ukazuje element **Association** definující přidružení **CustomerOrders** v případě, že cizí klíče nebyly zveřejněny na typech entit **zákazníka** a **objednávky** . Hodnoty **násobnosti** pro každý **konec** přidružení označují, že mnoho **objednávek** může být přidruženo k **zákazníkovi**, ale k **objednávce**je možné přidružit pouze jednoho **zákazníka** . Kromě toho element **IsDeleted** označuje, že všechny **objednávky** , které souvisejí s konkrétním **zákazníkem** a byly načteny do objektu ObjectContext, budou odstraněny při odstranění **zákazníka** .
 
 ``` xml
  <Association Name="CustomerOrders">
@@ -70,9 +70,9 @@ Následující příklad ukazuje **přidružení** element, který definuje **Cu
    <End Type="ExampleModel.Order" Role="Order" Multiplicity="*" />
  </Association>
 ```
- 
+ 
 
-Následující příklad ukazuje **přidružení** element, který definuje **CustomerOrders** přidružení při cizí klíče mají byl zpřístupněn na **zákazníka** a  **Pořadí** typy entit. S vystavený cizí klíče, je vztah mezi entitami spravované pomocí **elementu ReferentialConstraint** elementu. Odpovídající prvek AssociationSetMapping není nutné mapovat tato přidružení ke zdroji dat.
+Následující příklad ukazuje element **Association** definující přidružení **CustomerOrders** , pokud byly cizí klíče vystaveny na typech entit **Zákazník** a **objednávka** . Při zpřístupnění cizích klíčů je vztah mezi entitami spravován pomocí elementu **elementu ReferentialConstraint** . Odpovídající element AssociationSetMapping není nutný k mapování tohoto přidružení ke zdroji dat.
 
 ``` xml
  <Association Name="CustomerOrders">
@@ -90,41 +90,41 @@ Následující příklad ukazuje **přidružení** element, který definuje **Cu
    </ReferentialConstraint>
  </Association>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="associationset-element-csdl"></a>Element AssociationSet (CSDL)
+## <a name="associationset-element-csdl"></a>AssociationSet – Element (CSDL)
 
-**AssociationSet** element v Konceptuální schéma definici jazyka (CSDL) je logický kontejner pro instance přiřazení stejného typu. Skupinu přidružení obsahuje definici pro seskupení přidružení instance tak, aby se lze mapovat na zdroj dat.  
+Element **AssociationSet** v jazyce CSDL (konceptuální schéma Definition Language) je logický kontejner pro instance přidružení stejného typu. Sada přidružení poskytuje definici pro seskupení instancí přidružení, aby bylo možné je namapovat na zdroj dat.  
 
-**AssociationSet** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **AssociationSet** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden prvků povolený)
--   End (vyžaduje právě dva elementy)
--   Elementů poznámky (nula nebo více prvků povolený)
+-   Dokumentace (povolené nula nebo jeden prvek)
+-   End (vyžaduje se přesně dva prvky)
+-   Prvky poznámky (povoleny nula nebo více prvků)
 
-**Přidružení** atribut určuje typ přidružení, které obsahuje sadu přidružení. Sady entit, které tvoří konce sady přidružení se zadaným přesně dva podřízené **End** elementy.
+Atribut **Association** určuje typ přidružení, které sada přidružení obsahuje. Sady entit, které tvoří konce sady přidružení, jsou zadány pomocí přesně dvou podřízených elementů **End** .
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **AssociationSet** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **AssociationSet** .
 
-| Název atributu  | Vyžaduje se | Hodnota                                                                                                                                                             |
+| Název atributu  | Je povinné | Value                                                                                                                                                             |
 |:----------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**        | Ano         | Název sady entit. Hodnota **název** atribut nemůže být stejná jako hodnota **přidružení** atribut.                                 |
-| **Přidružení** | Ano         | Plně kvalifikovaný název přidružení, na kterou přidružení nastavení obsahuje instance. Přidružení musí být ve stejném oboru názvů jako sada přidružení. |
+| **Název**        | Ano         | Název sady entit Hodnota atributu **Name** nemůže být stejná jako hodnota atributu **Association** .                                 |
+| **Přidružení** | Ano         | Plně kvalifikovaný název asociace, který sada přidružení obsahuje instance. Přidružení musí být ve stejném oboru názvů jako sada přidružení. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **AssociationSet** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **AssociationSet** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityContainer** element se dvěma **AssociationSet** prvky:
+Následující příklad ukazuje element **EntityContainer** se dvěma elementy **AssociationSet** :
 
 ``` xml
  <EntityContainer Name="BooksContainer" >
@@ -141,52 +141,52 @@ Následující příklad ukazuje **EntityContainer** element se dvěma **Associa
    </AssociationSet>
  </EntityContainer>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="collectiontype-element-csdl"></a>Element CollectionType (CSDL)
+## <a name="collectiontype-element-csdl"></a>CollectionType – element (CSDL)
 
-**CollectionType** element v Konceptuální schéma definici jazyka (CSDL) určuje, že parametr funkce nebo funkce, návratový typ je kolekce. **CollectionType** element může být podřízený element parametru nebo element ReturnType (funkce). Typ kolekce se dá nastavit pomocí **typ** atribut nebo jednu z následujících podřízených elementů:
+Element **CollectionType** v jazyce CSDL (konceptuální schéma Definition Language) určuje, že parametr funkce nebo návratový typ funkce je kolekce. Element **CollectionType** může být podřízeným elementem parametru nebo elementem ReturnType (Function). Typ kolekce lze zadat buď pomocí atributu **Type** , nebo jednoho z následujících podřízených elementů:
 
--   **Objekt CollectionType**
--   Hodnota referenceType
+-   **CollectionType**
+-   Hodnota ReferenceType
 -   RowType
--   Odkaz TypeRef
+-   Odkaz
 
 > [!NOTE]
-> Model neověří, pokud je zadán typ kolekce s oběma **typ** atribut a podřízený element.
+> Model nebude ověřen, pokud je zadán typ kolekce s atributem **typu** i s podřízeným prvkem.
 
- 
+ 
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **CollectionType** elementu. Všimněte si, že **DefaultValue**, **MaxLength**, **FixedLength**, **přesnost**, **škálování**,  **Kódování Unicode**, a **kolace** atributy platí pouze pro kolekce **EDMSimpleTypes**.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **CollectionType** . Všimněte si, že atributy **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**a **kolace** platí pouze pro kolekce **EDMSimpleTypes**.
 
-| Název atributu                                                          | Vyžaduje se | Hodnota                                                                                                                                                                                                                            |
+| Název atributu                                                          | Je povinné | Value                                                                                                                                                                                                                            |
 |:------------------------------------------------------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**                                                                | Ne          | Typ kolekce.                                                                                                                                                                                                      |
-| **S povolenou hodnotou Null**                                                            | Ne          | **Hodnota TRUE** (výchozí hodnota) nebo **False** v závislosti na tom, zda tato vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                 |
-| > V CSDL v1, musí mít vlastnost komplexní typ `Nullable="False"`. |             |                                                                                                                                                                                                                                  |
-| **Výchozí hodnota**                                                        | Ne          | Výchozí hodnota vlastnosti.                                                                                                                                                                                               |
-| **maxLength**                                                           | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                        |
-| **Hodnoty**                                                         | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnotu vlastnosti jako řetězec pevné délky.                                                                                                                           |
-| **Přesnost**                                                           | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                             |
-| **Škálování**                                                               | Ne          | Měřítko pro hodnotu vlastnosti.                                                                                                                                                                                                 |
-| **SRID**                                                                | Ne          | Odkaz na identifikátor spatial systému. Platí pouze pro vlastnosti prostorových typů.   Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx) |
-| **Unicode**                                                             | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnoty vlastnosti jako řetězec s kódováním Unicode.                                                                                                                                |
-| **Kolace**                                                           | Ne          | Řetězec, který určuje pořadí řazení, který se má použít ve zdroji dat.                                                                                                                                                    |
+| **Povoleno**                                                            | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                 |
+| > Ve službě CSDL V1 musí mít vlastnost komplexního typu `Nullable="False"`. |             |                                                                                                                                                                                                                                  |
+| **Hodnot**                                                        | Ne          | Výchozí hodnota vlastnosti                                                                                                                                                                                               |
+| **MaxLength**                                                           | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                        |
+| **FixedLength**                                                         | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                           |
+| **Číslic**                                                           | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                             |
+| **Kapacity**                                                               | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                 |
+| **SRID**                                                                | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů.   Další informace najdete v tématech [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx) . |
+| **Unicode**                                                             | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                                |
+| **Velké**                                                           | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                    |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **CollectionType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **CollectionType** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje funkce definované v modelu, která, která používá **CollectionType** elementu k určení, že funkce vrátí kolekci **osoba** typy entit (jako zadaný **ElementType** atributu).
+Následující příklad ukazuje funkci definovanou modelem, která používá element **CollectionType** k určení, že funkce vrací kolekci typů entit **Person** (jak je určeno atributem **ElementType** ).
 
 ``` xml
  <Function Name="LastNamesAfter">
@@ -201,9 +201,9 @@ Následující příklad ukazuje funkce definované v modelu, která, která pou
         </DefiningExpression>
  </Function>
 ```
- 
+ 
 
-Následující příklad ukazuje funkce definované v modelu, která používá **CollectionType** elementu k určení, že funkce vrátí kolekce řádků (jak je uvedeno v **RowType** element).
+Následující příklad ukazuje funkci definovanou modelem, která používá element **CollectionType** k určení, že funkce vrací kolekci řádků (jak je uvedeno v elementu **RowType** ).
 
 ``` xml
  <Function Name="LastNamesAfter">
@@ -223,9 +223,9 @@ Následující příklad ukazuje funkce definované v modelu, která používá 
    </DefiningExpression>
  </Function>
 ```
- 
+ 
 
-Následující příklad ukazuje funkce definované v modelu, která používá **CollectionType** elementu k určení, že funkce přijímá jako parametr kolekci **oddělení** typy entit.
+Následující příklad ukazuje funkci definovanou modelem, která používá element **CollectionType** k určení, že funkce přijímá jako parametr kolekce typů entit **oddělení** .
 
 ``` xml
  <Function Name="GetAvgBudget">
@@ -240,44 +240,44 @@ Následující příklad ukazuje funkce definované v modelu, která používá 
        </DefiningExpression>
  </Function>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="complextype-element-csdl"></a>Element ComplexType (CSDL)
+## <a name="complextype-element-csdl"></a>ComplexType – element (CSDL)
 
-A **ComplexType** element definuje datová struktura tvořený **EdmSimpleType** vlastnosti nebo jiné komplexní typy.  Komplexní typ může být vlastnost typu entity nebo jiného komplexního typu. Komplexní typ je podobný typ entity, komplexní typ definuje data. Existují však některé hlavní rozdíly mezi typy entit a komplexní typy:
+Element **complexType** definuje strukturu dat složenou z vlastností **EdmSimpleType** nebo jiných komplexních typů.  Komplexní typ může být vlastnost typu entity nebo jiného komplexního typu. Komplexní typ je podobný typu entity v tom, že komplexní typ definuje data. Existují však některé klíčové rozdíly mezi komplexními typy a typy entit:
 
--   Komplexní typy nemají identit (nebo klíče) a proto nemůže existovat nezávisle na sobě. Komplexní typy může existovat pouze jako typy entit nebo jiné komplexní typy vlastností.
--   Komplexní typy se nemůže podílet na přidružení. Ani end přidružení může být komplexní typ a proto nejde definovat navigační vlastnosti pro komplexní typy.
--   Vlastnost komplexní typ nemůže mít hodnotu null, i když Skalární vlastnosti složitého typu každý je možné nastavit na hodnotu null.
+-   Komplexní typy nemají identity (nebo klíče), a proto nemohou existovat nezávisle. Komplexní typy mohou existovat pouze jako vlastnosti typů entit nebo jiných komplexních typů.
+-   Komplexní typy se nemůžou účastnit přidružení. Ani konec přidružení může být komplexní typ, a proto nelze definovat vlastnosti navigace pro komplexní typy.
+-   Vlastnost komplexního typu nemůže mít hodnotu null, ačkoliv skalární vlastnosti komplexního typu mohou být nastaveny na hodnotu null.
 
-A **ComplexType** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **complexType** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Vlastnosti (nula nebo více prvků)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Vlastnost (nula nebo více prvků)
+-   Prvky poznámky (nula nebo více prvků)
 
-Následující tabulka popisuje atributy, které mohou být použity **ComplexType** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **complexType** .
 
-| Název atributu                                                                                                 | Vyžaduje se | Hodnota                                                                                                                                                                               |
+| Název atributu                                                                                                 | Je povinné | Value                                                                                                                                                                               |
 |:---------------------------------------------------------------------------------------------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Název                                                                                                           | Ano         | Název komplexního typu. Název komplexního typu nemůže být stejný jako název jiného komplexní typ, typ entity nebo přidružení, které je v rámci oboru modelu. |
-| BaseType                                                                                                       | Ne          | Název jiného komplexní typ, který je základním typem komplexní typ, který se zrovna definuje. <br/> [!NOTE]                                                                     |
-| > Tento atribut není platných CSDL v1. V této verzi nepodporuje dědičnosti pro komplexní typy. |             |                                                                                                                                                                                     |
-| Abstraktní                                                                                                       | Ne          | **Hodnota TRUE** nebo **False** (výchozí hodnota) v závislosti na tom, zda komplexní typ je typ abstraktní. <br/> [!NOTE]                                                                  |
-| > Tento atribut není platných CSDL v1. Komplexní typy v této verzi nemohou být abstraktní typy.         |             |                                                                                                                                                                                     |
+| Name                                                                                                           | Ano         | Název komplexního typu. Název komplexního typu nemůže být stejný jako název jiného komplexního typu, typu entity nebo asociace, který je v rámci oboru modelu. |
+| BaseType                                                                                                       | Ne          | Název jiného komplexního typu, který je základním typem komplexního typu, který je definován. <br/> [!NOTE]                                                                     |
+| > Tento atribut nelze použít v CSDL v1. Dědičnost pro komplexní typy není v této verzi podporována. |             |                                                                                                                                                                                     |
+| Abstraktní                                                                                                       | Ne          | **True** nebo **false** (výchozí hodnota) v závislosti na tom, zda je komplexní typ abstraktní typ. <br/> [!NOTE]                                                                  |
+| > Tento atribut nelze použít v CSDL v1. Komplexní typy v této verzi nemohou být abstraktní typy.         |             |                                                                                                                                                                                     |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **ComplexType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **complexType** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje komplexní typ, **adresu**, se **EdmSimpleType** vlastnosti **StreetAddress**, **Město**,  **StátNeboKraj**, **země**, a **PSČ**.
+Následující příklad ukazuje komplexní typ a **adresu**s vlastností **EdmSimpleType** **StreetAddress**, **City**, **StateOrProvince**, **Country**a **PostalCode**.
 
 ``` xml
  <ComplexType Name="Address" >
@@ -288,9 +288,9 @@ Následující příklad ukazuje komplexní typ, **adresu**, se **EdmSimpleType*
    <Property Type="String" Name="PostalCode" Nullable="false" />
  </ComplexType>
 ```
- 
+ 
 
-Chcete-li definovat komplexní typ **adresu** (výše) jako vlastnost typu entity, je třeba deklarovat typ vlastnosti v definici typu entity. Následující příklad ukazuje **adresu** vlastnost jako komplexní typ na typ entity (**vydavatele**):
+Chcete-li definovat **adresu** komplexního typu (výše) jako vlastnost typu entity, je nutné deklarovat typ vlastnosti v definici typu entity. Následující příklad ukazuje vlastnost **adresa** jako komplexní typ pro typ entity (**Vydavatel**):
 
 ``` xml
  <EntityType Name="Publisher">
@@ -304,26 +304,26 @@ Chcete-li definovat komplexní typ **adresu** (výše) jako vlastnost typu entit
                            FromRole="Publisher" ToRole="Book" />
      </EntityType>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="definingexpression-element-csdl"></a>Element DefiningExpression (CSDL)
+## <a name="definingexpression-element-csdl"></a>DefiningExpression – element (CSDL)
 
-**DefiningExpression** element v Konceptuální schéma definici jazyka (CSDL) obsahuje Entity SQL výraz, který definuje funkci v konceptuálním modelu.  
+Element **DefiningExpression** v jazyce CSDL (konceptuální schéma Definition Language) obsahuje výraz Entity SQL, který definuje funkci v koncepčním modelu.  
 
 > [!NOTE]
-> Pro účely ověření **DefiningExpression** element může obsahovat libovolný obsah. Nicméně, Entity Framework vyvolá výjimku za běhu Pokud **DefiningExpression** element neobsahuje platný Entity SQL.
+> Pro účely ověřování může element **DefiningExpression** obsahovat libovolný obsah. Nicméně Entity Framework vyvolá výjimku za běhu, pokud element **DefiningExpression** neobsahuje platný Entity SQL.
 
- 
+ 
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Libovolný počet atributů poznámky (vlastní atributy XML) lze na **DefiningExpression** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+Pro element **DefiningExpression** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad používá **DefiningExpression** prvek, který chcete definovat funkci, která vrátí počet roků, protože knize publikoval. Obsah **DefiningExpression** element je napsána v Entity SQL.
+Následující příklad používá element **DefiningExpression** k definování funkce, která vrátí počet roků od publikování knihy. Obsah elementu **DefiningExpression** je napsaný v Entity SQL.
 
 ``` xml
  <Function Name="GetYearsInPrint" ReturnType="Edm.Int32" >
@@ -333,37 +333,37 @@ Následující příklad používá **DefiningExpression** prvek, který chcete 
        </DefiningExpression>
      </Function>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="dependent-element-csdl"></a>Závislé – Element (CSDL)
+## <a name="dependent-element-csdl"></a>Závislý element (CSDL)
 
-**Závislé** element v Konceptuální schéma definici jazyka (CSDL) je podřízeným prvkem prvku elementu ReferentialConstraint a definuje závislé konec referenčního omezení. A **elementu ReferentialConstraint** element definuje funkci, která je podobná omezení referenční integrity v relační databázi. Stejným způsobem, že sloupec (nebo sloupce) z tabulky databáze může odkazovat na primární klíč z jiné tabulky lze vlastnost (nebo vlastnosti) typu entity odkazují na klíč entity, která jiný typ entity. Je volána typ entity, na který odkazuje *hlavní koncový* omezení. Typ entity, která odkazuje na konci instančního objektu je volána *závislé end* omezení. **PropertyRef** elementy se používají k určení klíče, které odkazují na konci instančního objektu.
+**Závislý** element v jazyce CSDL (konceptuální schéma Definition Language) je podřízeným elementem elementu elementu ReferentialConstraint a definuje závislý konec referenčního omezení. Element **elementu ReferentialConstraint** definuje funkčnost, která je podobná omezení referenční integrity v relační databázi. Stejným způsobem, že sloupec (nebo sloupce) z tabulky databáze může odkazovat na primární klíč jiné tabulky, může vlastnost (nebo vlastnosti) typu entity odkazovat na klíč entity jiného typu entity. Odkazovaný typ entity se nazývá *hlavní konec* omezení. Typ entity, který odkazuje na hlavní konec, se nazývá *závislý konec* omezení. Prvky **PropertyRef** slouží k určení, které klíče odkazují na hlavní element end.
 
-**Závislé** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+**Závislý** element může mít následující podřízené elementy (v uvedeném pořadí):
 
 -   PropertyRef (jeden nebo více prvků)
--   Elementů poznámky (nula nebo více prvků)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **závislé** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na **závislý** element.
 
-| Název atributu | Vyžaduje se | Hodnota                                                                |
+| Název atributu | Je povinné | Value                                                                |
 |:---------------|:------------|:---------------------------------------------------------------------|
-| **Role**       | Ano         | Název typu entity na závislé straně asociace. |
+| **Role**       | Ano         | Název typu entity na závislém konci přidružení. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **závislé** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro **závislý** element lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **elementu ReferentialConstraint** element se používá jako součást definice **PublishedBy** přidružení. **PublisherId** vlastnost **knihy** typ entity tvoří závislé konec referenčního omezení.
+Následující příklad ukazuje element **elementu ReferentialConstraint** , který se používá jako součást definice asociace **PublishedBy** . Vlastnost **PublisherId** typu entity **Book** vytváří závislý konec referenčního omezení.
 
 ``` xml
  <Association Name="PublishedBy">
@@ -380,27 +380,27 @@ Následující příklad ukazuje **elementu ReferentialConstraint** element se p
    </ReferentialConstraint>
  </Association>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="documentation-element-csdl"></a>Element Documentation (CSDL)
+## <a name="documentation-element-csdl"></a>Element dokumentace (CSDL)
 
-**Dokumentaci** element v Konceptuální schéma definici jazyka (CSDL) slouží k zadání informací o objektu, který je definován v nadřazeném elementu. V souboru .edmx při **dokumentaci** element je podřízeným prvkem elementu, který se zobrazí jako objekt na návrhové ploše návrháře EF (například entit, přidružení nebo vlastnost), obsah **dokumentace**  prvek se zobrazí v sadě Visual Studio **vlastnosti** okna pro objekt.
+Element **dokumentace** v jazyce CSDL (konceptuální schéma Definition Language) lze použít k poskytnutí informací o objektu, který je definován v nadřazeném elementu. V souboru. edmx, pokud je prvek **dokumentace** podřízenosti prvku, který se zobrazí jako objekt na návrhové ploše návrháře EF (například entita, asociace nebo vlastnost), obsah elementu **dokumentace** se zobrazí v Okno **vlastností** sady Visual Studio pro daný objekt.
 
-**Dokumentaci** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Prvek **dokumentace** může mít následující podřízené prvky (v uvedeném pořadí):
 
--   **Souhrn**: stručný popis nadřazeného elementu. (žádný nebo jeden element)
--   **LongDescription**: rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
--   Elementů poznámky. (nula nebo více prvků)
+-   **Souhrn**: Stručný popis nadřazeného elementu. (žádný nebo jeden element)
+-   **Longdescription**: Rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Libovolný počet atributů poznámky (vlastní atributy XML) lze na **dokumentaci** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+Pro prvek **dokumentace** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **dokumentaci** element jako podřízený prvek elementu EntityType. Následující fragment kódu byl v CSDL obsah edmx soubor, obsah **Souhrn** a **LongDescription** prvky objevuje v aplikaci Visual Studio **vlastnosti** okno po kliknutí na `Customer` typu entity.
+Následující příklad ukazuje prvek **dokumentace** jako podřízený prvek elementu EntityType. Pokud následující fragment kódu byl v obsahu CSDL souboru. edmx, obsah **souhrnu** a elementů **Longdescription** se zobrazí v okně **vlastnosti** sady Visual Studio, když kliknete na typ entity `Customer`.
 
 ``` xml
  <EntityType Name="Customer">
@@ -415,44 +415,44 @@ Následující příklad ukazuje **dokumentaci** element jako podřízený prvek
     <Property Type="String" Name="Name" Nullable="false" />
  </EntityType>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="end-element-csdl"></a>Element end (CSDL)
+## <a name="end-element-csdl"></a>End – element (CSDL)
 
-**End** element v Konceptuální schéma definici jazyka (CSDL) může být podřízeným prvkem elementu Association elementu nebo elementu AssociationSet. V každém případě role **End** element se liší a příslušné atributy se liší.
+**Koncovým** elementem v jazyce CSDL (koncepční schéma Definition Language) může být podřízeným prvkem elementu Association nebo elementu AssociationSet. V každém případě je role elementu **End** odlišná a příslušné atributy se liší.
 
-### <a name="end-element-as-a-child-of-the-association-element"></a>Koncový Element jako podřízený Element přidružení
+### <a name="end-element-as-a-child-of-the-association-element"></a>Ukončit element jako podřízený elementu přidružení
 
-**End** – element (jako podřízený objekt **přidružení** element) identifikuje typ entity na jednom konci asociace a počtu instancí typu entity, které mohou existovat za tímto účelem přidružení. Zakončení jsou definované jako součást přidružení; přidružení musí mít přesně dva elementy přidružení. Instance typu entity na jednom konci asociace lze přistupovat prostřednictvím vlastnosti navigace nebo cizí klíče, pokud jsou zveřejněné na typ entity.  
+Element **End** (jako podřízený prvek elementu **Association** ) identifikuje typ entity na jednom konci přidružení a počet instancí typu entity, které mohou existovat na konci přidružení. Zakončení přidružení jsou definována jako součást přidružení; přidružení musí mít přesně dvě zakončení přidružení. Instance typu entity na jednom konci přidružení lze zpřístupnit prostřednictvím vlastností navigace nebo cizích klíčů, pokud jsou vystaveny na typu entity.  
 
-**End** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **End** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Elementy OnDelete (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Při odstranění (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+#### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **End** prvku, když je podřízeným **přidružení** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízenou položkou elementu **Association** .
 
-| Název atributu   | Vyžaduje se | Hodnota                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Název atributu   | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                                              |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**         | Ano         | Název typu entity na jednom konci přidružení.                                                                                                                                                                                                                                                                                                                                                         |
-| **Role**         | Ne          | Název přidružení. Pokud není název zadán, použije se název typu entity na konci přidružení.                                                                                                                                                                                                                                                                                           |
-| **Násobnost** | Ano         | **1**, **0..1**, nebo **\*** v závislosti na počtu instancí typu entity, které mohou být na konci přidružení. <br/> **1** znamená tuto instanci typu přesně jedna entita existuje na konci přidružení. <br/> **0..1** udává, že existuje žádnou nebo jednou instancí typu entity na konci přidružení. <br/> **\*** Udává, že existuje žádného, jednoho nebo více instancí typu entity na konci přidružení. |
+| **Role**         | Ne          | Název zakončení přidružení. Pokud není zadaný žádný název, použije se název typu entity na konci přidružení.                                                                                                                                                                                                                                                                                           |
+| **Násobnost** | Ano         | **1**, **0.. 1**nebo **\*** v závislosti na počtu instancí typu entity, které mohou být na konci přidružení. <br/> **1** znamená, že na konci přidružení existuje přesně jedna instance typu entity. <br/> **0.. 1** znamená, že na konci přidružení existují žádné nebo jedna instance typu entity. <br/> **\*** označuje, že na konci přidružení existují žádné instance typu entity s hodnotou nula, jedna nebo více. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **End** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **End** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **přidružení** element, který definuje **CustomerOrders** přidružení. **Násobnost** hodnoty pro každou **koncový** přidružení označuje tolik **objednávky** lze přidružit **zákazníka**, ale pouze jeden **zákazníka** je možné přidružit **pořadí**. Kromě toho **elementy OnDelete** element znamená, že všechny **objednávky** , která se vztahují ke konkrétní **zákazníka** a, která byla načtena do objektu ObjectContext bude odstraněné if **zákazníka** se odstraní.
+Následující příklad ukazuje element **Association** , který definuje přidružení **CustomerOrders** . Hodnoty **násobnosti** pro každý **konec** přidružení označují, že mnoho **objednávek** může být přidruženo k **zákazníkovi**, ale k **objednávce**je možné přidružit pouze jednoho **zákazníka** . Kromě toho element **IsDeleted** označuje, že všechny **objednávky** , které se vztahují k určitému **zákazníkovi** a které byly načteny do objektu ObjectContext, budou odstraněny při odstranění **zákazníka** .
 
 ``` xml
  <Association Name="CustomerOrders">
@@ -462,41 +462,41 @@ Následující příklad ukazuje **přidružení** element, který definuje **Cu
    </End>
  </Association>
 ```
- 
+ 
 
-### <a name="end-element-as-a-child-of-the-associationset-element"></a>Koncový Element jako podřízený AssociationSet Element
+### <a name="end-element-as-a-child-of-the-associationset-element"></a>Ukončit element jako podřízený element elementu AssociationSet
 
-**End** jednom konci sady přidružení určuje element. **AssociationSet** element musí obsahovat dvě **End** elementy. Informace obsažené v **End** element je použít v mapování sada ke zdroji dat přidružení.
+Element **End** Určuje jeden konec sady přidružení. Element **AssociationSet** musí obsahovat dva elementy **End** . Informace obsažené v elementu **End** se používají v mapování sady přidružení na zdroj dat.
 
-**End** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **End** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
 > [!NOTE]
-> Elementů poznámky se musí vyskytovat za všechny ostatní podřízené prvky. Elementů poznámky jsou povolené jenom v CSDL v2 nebo novější.
+> Prvky poznámky se musí vyskytovat po všech ostatních podřízených prvcích. Prvky poznámek jsou povoleny pouze v CSDL v2 a novějších.
 
- 
+ 
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+#### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **End** prvku, když je podřízeným **AssociationSet** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízeným elementem elementu **AssociationSet** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                                                                 |
+| Název atributu | Je povinné | Value                                                                                                                                                                                                                 |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Objekt EntitySet**  | Ano         | Název **objektu EntitySet** element, který definuje jeden konec nadřazené **AssociationSet** elementu. **Objektu EntitySet** elementu musí být definován ve stejném kontejneru jako nadřazená entita **AssociationSet** elementu. |
-| **Role**       | Ne          | Název přidružení, nastavit konec. Pokud **Role** atribut není použit, název elementu end přidružení sady bude název sady entit.                                                                   |
+| **Sada**  | Ano         | Název elementu **EntitySet** , který definuje jeden element end nadřazeného elementu **AssociationSet** . Element **EntitySet** musí být definován ve stejném kontejneru entity jako nadřazený element **AssociationSet** . |
+| **Role**       | Ne          | Název zakončení sady přidružení Pokud se atribut **role** nepoužívá, název zakončení sady přidružení bude název sady entit.                                                                   |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **End** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **End** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityContainer** element se dvěma **AssociationSet** prvky, každého se dvěma **koncové** prvky:
+Následující příklad ukazuje element **EntityContainer** se dvěma elementy **AssociationSet** , z nichž každý má dva elementy **End** :
 
 ``` xml
  <EntityContainer Name="BooksContainer" >
@@ -513,44 +513,44 @@ Následující příklad ukazuje **EntityContainer** element se dvěma **Associa
    </AssociationSet>
  </EntityContainer>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="entitycontainer-element-csdl"></a>Element EntityContainer (CSDL)
+## <a name="entitycontainer-element-csdl"></a>EntityContainer – element (CSDL)
 
-**EntityContainer** prvek Konceptuální schéma definici jazyka (CSDL) je logický kontejner sady entit, sad přidružení nebo importované funkce. Kontejner entit koncepčního modelu mapuje na kontejner úložiště modelu entity pomocí elementu EntityContainerMapping. Struktura databáze popisuje kontejner úložiště modelu entity: sady entit popisují tabulky sad přidružení popisují omezení cizího klíče a importované funkce popisují uložené procedury v databázi.
+Element **EntityContainer** v jazyce CSDL (konceptuální schéma Definition Language) je logický kontejner pro sady entit, sady přidružení a importy funkcí. Kontejner entity koncepčního modelu se mapuje na kontejner entit modelu úložiště prostřednictvím elementu EntityContainerMapping. Kontejner entity modelu úložiště popisuje strukturu databáze: sady entit popisují tabulky, sady přidružení popisují omezení cizího klíče a importy funkcí popisují uložené procedury v databázi.
 
-**EntityContainer** element může mít nejvýše jedno dokumentace prvků. Pokud **dokumentaci** element je k dispozici, musí být všechny **objektu EntitySet**, **AssociationSet**, a **element FunctionImport** elementy.
+Element **EntityContainer** může mít nula nebo jeden prvek dokumentace. Pokud je přítomen prvek **dokumentace** , musí předcházet všechny elementy **EntitySet**, **AssociationSet**a **FunctionImport** .
 
-**EntityContainer** prvek může mít nula nebo více z následujících podřízených elementů (v uvedeném pořadí):
+Element **EntityContainer** může mít nula nebo více z následujících podřízených elementů (v uvedeném pořadí):
 
--   Objekt EntitySet
--   Element AssociationSet
--   Element FunctionImport
--   Elementů poznámky
+-   Sada
+-   Vlastností
+-   FunctionImport
+-   Prvky poznámky
 
-Můžete rozšířit **EntityContainer** prvek, který chcete zahrnout obsah jiné **EntityContainer** , který je v rámci stejného oboru názvů. Zahrnout obsah jiné **EntityContainer**, v referenčních **EntityContainer** elementu, nastavte hodnotu **rozšiřuje** atribut name  **EntityContainer** element, který chcete zahrnout. Všechny podřízené prvky prvku zahrnutou **EntityContainer** elementu, bude zacházeno jako podřízené prvky prvku odkazujícího **EntityContainer** elementu.
+Element **EntityContainer** můžete roztáhnout tak, aby zahrnoval obsah jiného **elementu EntityContainer** , který je ve stejném oboru názvů. Chcete-li zahrnout obsah jiného **elementu EntityContainer**, nastavte v odkazujícím elementu **EntityContainer** hodnotu atributu **extends** na název elementu **EntityContainer** , který chcete zahrnout. Všechny podřízené elementy vloženého elementu **EntityContainer** budou považovány za podřízené prvky odkazujícího elementu **EntityContainer** .
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **použití** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **using** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                           |
+| Název atributu | Je povinné | Value                                                           |
 |:---------------|:------------|:----------------------------------------------------------------|
-| **Jméno**       | Ano         | Název kontejneru entity.                               |
-| **Rozšiřuje**    | Ne          | Název jiný kontejner entity v rámci stejného oboru názvů. |
+| **Název**       | Ano         | Název kontejneru entity.                               |
+| **Nachází**    | Ne          | Název jiného kontejneru entity v rámci stejného oboru názvů. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **EntityContainer** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **EntityContainer** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityContainer** element, který definuje tři sad entit a sad přidružení dvě.
+Následující příklad ukazuje element **EntityContainer** , který definuje tři sady entit a dvě sady přidružení.
 
 ``` xml
  <EntityContainer Name="BooksContainer" >
@@ -567,45 +567,45 @@ Následující příklad ukazuje **EntityContainer** element, který definuje t�
    </AssociationSet>
  </EntityContainer>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="entityset-element-csdl"></a>Element EntitySet (CSDL)
+## <a name="entityset-element-csdl"></a>EntitySet – element (CSDL)
 
-**Objektu EntitySet** element v Konceptuální schéma definici jazyka je logický kontejner pro instance typu entity a instance typu, který je odvozený z tohoto typu entity. Vztah mezi typem entity a sady entit je obdobou vztah mezi řádek a tabulky v relační databázi. Stejně jako řádek typ entity, který definuje množinu souvisejících dat a jako tabulka, obsahuje sadu entit instance definice. Sadu entit poskytuje konstrukci pro tak, aby může být namapována na související datové struktury ve zdroji dat seskupení instancí typu entity.  
+Element **EntitySet** v jazyce koncepční definice schématu je logický kontejner pro instance typu entity a instance libovolného typu, který je odvozen z daného typu entity. Vztah mezi typem entity a sadou entit je podobný relaci mezi řádkem a tabulkou v relační databázi. Podobně jako u řádku typ entity definuje sadu souvisejících dat, podobně jako tabulka, sada entit obsahuje instance této definice. Sada entit poskytuje konstrukci pro seskupování instancí typů entit tak, aby mohly být mapovány na související datové struktury ve zdroji dat.  
 
-Může být definován více než jednu sadu entit pro typ konkrétní entity.
+Je možné definovat více než jednu sadu entit pro konkrétní typ entity.
 
 > [!NOTE]
-> EF designeru nepodporuje koncepčními modely, které obsahují více sad entit podle typu.
+> Návrhář EF nepodporuje koncepční modely, které obsahují více sad entit na typ.
 
- 
+ 
 
-**Objektu EntitySet** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **EntitySet** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Element Documentation (žádný nebo jeden prvků povolený)
--   Elementů poznámky (nula nebo více prvků povolený)
+-   Element dokumentace (povolené nula nebo jeden prvek)
+-   Prvky poznámky (povoleny nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **objektu EntitySet** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **EntitySet** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                    |
+| Název atributu | Je povinné | Value                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název sady entit.                                                              |
-| **Typ entity** | Ano         | Plně kvalifikovaný název typu entity, pro kterou sada entit obsahuje instance. |
+| **Název**       | Ano         | Název sady entit                                                              |
+| **Objektu** | Ano         | Plně kvalifikovaný název typu entity, pro který sada entit obsahuje instance. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **objektu EntitySet** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **EntitySet** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityContainer** element s tři **objektu EntitySet** prvky:
+Následující příklad ukazuje element **EntityContainer** se třemi elementy **EntitySet** :
 
 ``` xml
  <EntityContainer Name="BooksContainer" >
@@ -622,9 +622,9 @@ Následující příklad ukazuje **EntityContainer** element s tři **objektu En
    </AssociationSet>
  </EntityContainer>
 ```
- 
+ 
 
-Je možné definovat více sad entit podle typu (MEST). Následující příklad definuje kontejner služby entity se dvěma sadami entity pro **knihy** typ entity:
+Je možné definovat několik sad entit na typ (MEST). Následující příklad definuje kontejner entit se dvěma sadami entit pro typ entity **Book** :
 
 ``` xml
  <EntityContainer Name="BooksContainer" >
@@ -642,53 +642,53 @@ Je možné definovat více sad entit podle typu (MEST). Následující příklad
    </AssociationSet>
  </EntityContainer>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="entitytype-element-csdl"></a>Element EntityType (CSDL)
+## <a name="entitytype-element-csdl"></a>EntityType – element (CSDL)
 
-**EntityType** element reprezentuje strukturu nejvyšší úrovně konceptů, jako je například zákazník nebo pořadí, v konceptuálním modelu. Typ entity je šablona pro instance typů entit v aplikaci. Každá šablona obsahuje následující informace:
+Element **EntityType** reprezentuje strukturu konceptu nejvyšší úrovně, jako je například zákazník nebo objednávka, v koncepčním modelu. Typ entity je šablona pro instance typů entit v aplikaci. Každá šablona obsahuje následující informace:
 
--   Jedinečný název. (Povinné).
--   Klíč entity, který je definován jeden nebo více vlastností. (Povinné).
--   Vlastnosti obsahující data. (Volitelné).
--   Navigační vlastnosti, které umožňují navigace z jednoho konce asociace na druhém konci. (Volitelné).
+-   Jedinečný název. (Povinné.)
+-   Klíč entity, který je definován jednou nebo více vlastnostmi. (Povinné.)
+-   Vlastnosti pro obsahující data (Volitelné.)
+-   Navigační vlastnosti, které umožňují navigaci od jednoho konce přidružení k druhému konci. (Volitelné.)
 
-V aplikaci, která představuje instance typu entity na konkrétní objekt (například konkrétního zákazníka nebo pořadí). Každá instance typu entity musí mít jedinečné entity klíč v rámci sady entit.
+V aplikaci instance typu entity představuje konkrétní objekt (například konkrétního zákazníka nebo objednávky). Každá instance typu entity musí mít v sadě entit jedinečný klíč entity.
 
-Dvě instance typu entity se považovat za rovné pouze v případě, že jsou stejného typu a hodnoty jejich klíče entity jsou stejné.
+Dvě instance typu entity jsou považovány za rovné pouze v případě, že jsou stejného typu a hodnoty jejich klíčů entit jsou stejné.
 
-**EntityType** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **EntityType** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Klíč (žádný nebo jeden element)
--   Vlastnosti (nula nebo více prvků)
--   Objekt NavigationProperty (nula nebo více prvků)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Klíč (nula nebo jeden element)
+-   Vlastnost (nula nebo více prvků)
+-   NavigationProperty (nula nebo více prvků)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **EntityType** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntityType** .
 
-| Název atributu                                                                                                                                  | Vyžaduje se | Hodnota                                                                                            |
+| Název atributu                                                                                                                                  | Je povinné | Value                                                                                            |
 |:------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:-------------------------------------------------------------------------------------------------|
-| **Jméno**                                                                                                                                        | Ano         | Název typu entity.                                                                     |
-| **BaseType**                                                                                                                                    | Ne          | Název jiného typu entity, která je základní typ, který definuje typ entity.  |
-| **Abstraktní**                                                                                                                                    | Ne          | **Hodnota TRUE** nebo **False**, v závislosti na tom, jestli je typ entity abstraktní typ.                 |
-| **OpenType**                                                                                                                                    | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, zda typ entity je typu open entity. <br/> [!NOTE] |
-| > Tím **OpenType** atribut platí pouze pro typy entit, které jsou definovány v konceptuálních modelů, které se používají s využitím ADO.NET Data Services. |             |                                                                                                  |
+| **Název**                                                                                                                                        | Ano         | Název typu entity                                                                     |
+| **BaseType**                                                                                                                                    | Ne          | Název jiného typu entity, který je základním typem entity typu, který je definován.  |
+| **Výtah**                                                                                                                                    | Ne          | **Hodnota true** nebo **false**v závislosti na tom, zda je typ entity abstraktní typ.                 |
+| **OpenType**                                                                                                                                    | Ne          | **True** nebo **false** v závislosti na tom, zda je typ entity typ otevřené entity. <br/> [!NOTE] |
+| > Atributu **OpenType** platí pouze pro typy entit, které jsou definovány v koncepčních modelech, které jsou používány s Data Services ADO.NET. |             |                                                                                                  |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **EntityType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **EntityType** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityType** element s tři **vlastnost** elementy a dva **NavigationProperty** prvky:
+Následující příklad ukazuje element **EntityType** se třemi prvky **vlastností** a dvěma elementy **NavigationProperty** :
 
 ``` xml
  <EntityType Name="Book">
@@ -704,40 +704,40 @@ Následující příklad ukazuje **EntityType** element s tři **vlastnost** ele
                        FromRole="Book" ToRole="Author" />
  </EntityType>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="enumtype-element-csdl"></a>Element EnumType (CSDL)
+## <a name="enumtype-element-csdl"></a>EnumType – element (CSDL)
 
-**EnumType** představuje Výčtový typ elementu.
+Element **enumType** reprezentuje Výčtový typ.
 
-**EnumType** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **enumType** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
+-   Dokumentace (nula nebo jeden element)
 -   Člen (nula nebo více prvků)
--   Elementů poznámky (nula nebo více prvků)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **EnumType** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **enumType** .
 
-| Název atributu     | Vyžaduje se | Hodnota                                                                                                                                                                                         |
+| Název atributu     | Je povinné | Value                                                                                                                                                                                         |
 |:-------------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**           | Ano         | Název typu entity.                                                                                                                                                                  |
-| **IsFlags**        | Ne          | **Hodnota TRUE** nebo **False**, v závislosti na tom, zda typ výčtu může sloužit jako sada příznaků. Výchozí hodnota je **hodnotu False.**.                                                                     |
-| **UnderlyingType** | Ne          | **Edm.Byte**, **Edm.Int16**, **typem Edm.Int32**, **Edm.Int64** nebo **Edm.SByte** definování rozsahu hodnot typu.   Výchozí základní typ výčtu prvků je **typem Edm.Int32.**. |
+| **Název**           | Ano         | Název typu entity                                                                                                                                                                  |
+| **Příznak**        | Ne          | **Hodnota true** nebo **false**v závislosti na tom, zda lze typ výčtu použít jako sadu příznaků. Výchozí hodnota je **false.** .                                                                     |
+| **UnderlyingType** | Ne          | **EDM. Byte**, **EDM. Int16**, **EDM. Int32**, **EDM. Int64** nebo **EDM. SByte** definující rozsah hodnot typu.   Výchozí podkladový typ prvků výčtu je **EDM. Int32.** . |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **EnumType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **enumType** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EnumType** element s tři **člen** prvky:
+Následující příklad ukazuje element **enumType** se třemi prvky **členů** :
 
 ``` xml
  <EnumType Name="Color" IsFlags=”false” UnderlyingTyp=”Edm.Byte”>
@@ -746,43 +746,43 @@ Následující příklad ukazuje **EnumType** element s tři **člen** prvky:
    <Member Name="Blue" />
  </EntityType>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="function-element-csdl"></a>Element Function (CSDL)
+## <a name="function-element-csdl"></a>Function – Element (CSDL)
 
-**Funkce** element v Konceptuální schéma definici jazyka (CSDL) se používá k definování nebo deklarace funkcí v konceptuálním modelu. Funkce je definován pomocí DefiningExpression elementu.  
+Element **Function** v jazyce CSDL (konceptuální schéma Definition Language) se používá k definování nebo deklaraci funkcí v koncepčním modelu. Funkce je definována pomocí elementu DefiningExpression.  
 
-A **funkce** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Function** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
+-   Dokumentace (nula nebo jeden element)
 -   Parametr (nula nebo více prvků)
--   DefiningExpression (žádný nebo jeden element)
--   Vlastnost ReturnType (Function) (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   DefiningExpression (nula nebo jeden element)
+-   ReturnType (Function) (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-Návratová typ pro funkci musí být určen buď **ReturnType** elementu (Function) nebo **ReturnType** atribut (viz níže), ale ne obojí. Je to možné návratové typy jsou všechny EdmSimpleType, entity typu, komplexní typ, typ řádku, nebo Typ ref (nebo kolekce jednoho z těchto typů).
+Návratový typ pro funkci musí být zadán buď pomocí elementu **ReturnType** (Function), nebo atributu **ReturnType** (viz níže), ale nikoli obou. Možné návratové typy jsou jakékoli EdmSimpleType, typ entity, komplexní typ, typ řádku nebo typ ref (nebo kolekce jednoho z těchto typů).
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **funkce** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Function** .
 
-| Název atributu | Vyžaduje se | Hodnota                              |
+| Název atributu | Je povinné | Value                              |
 |:---------------|:------------|:-----------------------------------|
-| **Jméno**       | Ano         | Název funkce.          |
-| **Vlastnost ReturnType** | Ne          | Typ vrácené funkcí. |
+| **Název**       | Ano         | Název funkce          |
+| **ReturnType** | Ne          | Typ vrácený funkcí |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **funkce** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Function** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad používá **funkce** prvek, který chcete definovat funkci, která vrátí počet roků, protože byl přijat instruktorem.
+Následující příklad používá element **Function** k definování funkce, která vrátí počet roků od přijetí instruktora.
 
 ``` xml
  <Function Name="YearsSince" ReturnType="Edm.Int32">
@@ -792,46 +792,46 @@ Následující příklad používá **funkce** prvek, který chcete definovat fu
    </DefiningExpression>
  </Function>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="functionimport-element-csdl"></a>Element FunctionImport (CSDL)
+## <a name="functionimport-element-csdl"></a>FunctionImport – element (CSDL)
 
-**Element FunctionImport** prvek v Konceptuální schéma definici jazyka (CSDL) představuje funkci, která je definovaná ve zdroji dat, ale k dispozici pro objekty prostřednictvím konceptuálního modelu. Například funkce elementu v modelu úložiště slouží k reprezentaci uloženou proceduru v databázi. A **element FunctionImport** element v konceptuálním modelu představuje odpovídající funkce v aplikaci Entity Framework a je namapována na funkci úložiště modelu s použitím elementu FunctionImportMapping. Při volání funkce v aplikaci, spustit je odpovídající uložené procedury v databázi.
+Element **FunctionImport** v koncepčním definičním jazyce (CSDL) představuje funkci, která je definována ve zdroji dat, ale je k dispozici pro objekty prostřednictvím koncepčního modelu. Například prvek funkce v modelu úložiště lze použít k reprezentaci uložené procedury v databázi. Element **FunctionImport** v koncepčním modelu představuje odpovídající funkci v aplikaci Entity Framework a je mapována na funkci modelu úložiště pomocí elementu FunctionImportMapping. Když je funkce volána v aplikaci, odpovídající uložená procedura je spuštěna v databázi.
 
-**Element FunctionImport** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **FunctionImport** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden prvků povolený)
--   Parametr (nula nebo více prvků povolený)
--   Elementů poznámky (nula nebo více prvků povolený)
--   Vlastnost ReturnType (element FunctionImport) (nula nebo více prvků povolený)
+-   Dokumentace (povolené nula nebo jeden prvek)
+-   Parametr (povolený nula nebo více elementů)
+-   Prvky poznámky (povoleny nula nebo více prvků)
+-   ReturnType (FunctionImport) (povolené nula nebo více elementů)
 
-Jeden **parametr** element by měl být definován pro každý parametr, který přijímá funkce.
+Jeden prvek **parametru** by měl být definován pro každý parametr, který funkce přijímá.
 
-Návratová typ pro funkci musí být určen buď **ReturnType** – element (element FunctionImport) nebo **ReturnType** atribut (viz níže), ale ne obojí. Hodnota návratový typ musí být kolekce EdmSimpleType, EntityType nebo ComplexType.
+Návratový typ pro funkci musí být zadán buď pomocí elementu **ReturnType** (FunctionImport), nebo atributu **ReturnType** (viz níže), ale nikoli obou. Hodnota návratového typu musí být kolekce elementů EdmSimpleType, EntityType nebo ComplexType.
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **element FunctionImport** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **FunctionImport** .
 
-| Název atributu   | Vyžaduje se | Hodnota                                                                                                                                                                                                 |
+| Název atributu   | Je povinné | Value                                                                                                                                                                                                 |
 |:-----------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**         | Ano         | Název importované funkce.                                                                                                                                                                    |
-| **Vlastnost ReturnType**   | Ne          | Typ, který funkce vrátí. Tento atribut nepoužívejte, pokud funkce nevrací hodnotu. V opačném případě hodnota musí být kolekce ComplexType, EntityType nebo EDMSimpleType.        |
-| **Objekt EntitySet**    | Ne          | Pokud funkce vrátí kolekci entit typy, hodnota **objektu EntitySet** musí být sada entit, ke které patří do kolekce. V opačném případě **objektu EntitySet** atribut nesmí být použit. |
-| **IsComposable** | Ne          | Pokud je hodnota nastavena na hodnotu true, funkce je složení (funkce vracející tabulku) a lze použít v dotazu LINQ.  Výchozí hodnota je **false**.                                                           |
+| **Název**         | Ano         | Název importované funkce                                                                                                                                                                    |
+| **ReturnType**   | Ne          | Typ, který funkce vrátí. Nepoužívejte tento atribut, pokud funkce nevrátí hodnotu. V opačném případě musí být hodnotou kolekce ComplexType, EntityType nebo EDMSimpleType.        |
+| **Sada**    | Ne          | Pokud funkce vrátí kolekci typů entit, hodnota **objektu EntitySet** musí být sada entit, do které kolekce patří. V opačném případě nesmí být použit atribut **EntitySet** . |
+| **IsComposable** | Ne          | Pokud je hodnota nastavena na true, funkce je vytvořena (funkce vracející tabulku) a lze ji použít v dotazu LINQ.  Výchozí hodnota je **false**.                                                           |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **element FunctionImport** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **FunctionImport** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **element FunctionImport** element, který přijímá jeden parametr a vrátí kolekci typů entit:
+Následující příklad ukazuje element **FunctionImport** , který přijímá jeden parametr a vrací kolekci typů entit:
 
 ``` xml
  <FunctionImport Name="GetStudentGrades"
@@ -840,26 +840,26 @@ Následující příklad ukazuje **element FunctionImport** element, který při
         <Parameter Name="StudentID" Mode="In" Type="Int32" />
  </FunctionImport>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="key-element-csdl"></a>Klíčovým prvkem (CSDL)
+## <a name="key-element-csdl"></a>Key – element (CSDL)
 
-**Klíč** element je podřízeným prvkem elementu EntityType a definuje *klíč entity* (vlastnost nebo sadu vlastností typu entity, které určují identity). Vlastnosti, které tvoří klíč entity jsou vybrán v době návrhu. Hodnoty vlastnosti klíče entity musí jednoznačně identifikovat instanci entity typu v rámci entity nastavit v době běhu. Vlastnosti, které tvoří klíč entity, je třeba zvolit pro zajištění jedinečnosti instancí v sadu entit. **Klíč** element definuje klíč entity pomocí odkazu na jeden nebo více vlastností typu entity.
+**Klíčový** prvek je podřízený prvek elementu EntityType a definuje *klíč entity* (vlastnost nebo sadu vlastností typu entity, který určuje identitu). Vlastnosti, které tvoří klíč entity, se volí v době návrhu. Hodnoty vlastností klíče entity musí jedinečně určovat instanci typu entity v sadě entit za běhu. Pro zajištění jedinečnosti instancí v sadě entit by se měla zvolit vlastnosti, které tvoří klíč entity. **Klíčový** prvek definuje klíč entity odkazem na jednu nebo více vlastností typu entity.
 
-**Klíč** prvek může mít následujících podřízených elementů:
+**Klíčový** prvek může mít následující podřízené prvky:
 
 -   PropertyRef (jeden nebo více prvků)
--   Elementů poznámky (nula nebo více prvků)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Libovolný počet atributů poznámky (vlastní atributy XML) lze na **klíč** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+Pro **klíčový** element lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad definuje typ entity s názvem **knihy**. Klíč entity je definována odkazováním **ISBN** vlastnost typu entity.
+Následující příklad definuje typ entity s názvem **Book**. Klíč entity je definován pomocí odkazu na vlastnost **ISBN** typu entity.
 
 ``` xml
  <EntityType Name="Book">
@@ -875,11 +875,11 @@ Následující příklad definuje typ entity s názvem **knihy**. Klíč entity 
                        FromRole="Book" ToRole="Author" />
  </EntityType>
 ```
- 
+ 
 
-**ISBN** vlastnost je dobrou volbou pro klíč entity, protože mezinárodní čísla pro standardní knihy (ISBN) jednoznačně identifikuje knihy.
+Vlastnost **ISBN** je dobrou volbou pro klíč entity, protože mezinárodní číslo knihy (ISBN) jednoznačně identifikuje knihu.
 
-Následující příklad ukazuje typ entity (**Autor**), který má klíč entity, která se skládá ze dvou vlastností **název** a **adresu**.
+Následující příklad ukazuje typ entity (**Autor**), který má klíč entity, který se skládá ze dvou vlastností, **názvů** a **adres**.
 
 ``` xml
  <EntityType Name="Author">
@@ -893,35 +893,35 @@ Následující příklad ukazuje typ entity (**Autor**), který má klíč entit
                        FromRole="Author" ToRole="Book" />
  </EntityType>
 ```
- 
+ 
 
-Pomocí **název** a **adresu** entity klíč je vhodná volba, protože je nepravděpodobné, že za provozu na stejné adrese dvě autoři se stejným názvem. Nicméně tato volba pro klíč entity naprosto nezaručuje klíče jedinečné entity v sadě entit. Přidání vlastnosti, jako například **AuthorId**, který může použít k jednoznačné identifikaci Autor by v tomto případě doporučujeme.
+Použití **názvu** a **adresy** pro klíč entity je rozumnou volbou, protože dva autoři se stejným názvem pravděpodobně nebudou v provozu na stejné adrese. Tato volba pro klíč entity ale v sadě entit naprosto nezaručuje jedinečné klíče entit. V tomto případě se doporučuje přidat vlastnost, jako je například **AuthorID**, která se dá použít k jednoznačné identifikaci autora.
 
- 
+ 
 
-## <a name="member-element-csdl"></a>Člen – Element (CSDL)
+## <a name="member-element-csdl"></a>Element member (CSDL)
 
-**Člen** element je podřízeným prvkem elementu EnumType a definuje člen výčtového typu.
+**Členský** prvek je podřízeným prvkem prvku enumType a definuje člena výčtového typu.
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **element FunctionImport** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **FunctionImport** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                                    |
+| Název atributu | Je povinné | Value                                                                                                                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název člena.                                                                                                                                                                  |
-| **Hodnota**      | Ne          | Hodnota člena. Ve výchozím nastavení první člen má hodnotu 0 a hodnotu každé po sobě jdoucích čítač se zvyšuje o 1. Může existovat více členů se stejnými hodnotami. |
+| **Název**       | Ano         | Název člena.                                                                                                                                                                  |
+| **Hodnota**      | Ne          | Hodnota člena. Ve výchozím nastavení má první člen hodnotu 0 a hodnota každého úspěšného enumerátoru se zvýší o 1. Může existovat více členů se stejnými hodnotami. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **element FunctionImport** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **FunctionImport** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EnumType** element s tři **člen** prvky:
+Následující příklad ukazuje element **enumType** se třemi prvky **členů** :
 
 ``` xml
  <EnumType Name="Color">
@@ -930,44 +930,44 @@ Následující příklad ukazuje **EnumType** element s tři **člen** prvky:
    <Member Name="Blue" Value=”5”/>
  </EntityType>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="navigationproperty-element-csdl"></a>Element NavigationProperty (CSDL)
+## <a name="navigationproperty-element-csdl"></a>NavigationProperty – Element (CSDL)
 
-A **NavigationProperty** element definuje vlastnost navigace, který poskytuje odkaz na druhém konci přidružení. Na rozdíl od vlastnosti definované s elementem vlastností navigačních vlastností nedefinují tvar a vlastnosti dat. Poskytují způsob, jak procházet přidružení mezi dvěma typy entit.
+Element **NavigationProperty** definuje vlastnost navigace, která poskytuje odkaz na druhý konec přidružení. Na rozdíl od vlastností, které jsou definovány pomocí elementu Property, navigační vlastnosti nedefinují tvar a vlastnosti dat. Poskytují způsob, jak procházet přidružení mezi dvěma typy entit.
 
-Všimněte si, že jsou volitelné na oba typy entit na konci asociace navigační vlastnosti. Pokud definujete navigační vlastnost jednoho typu entity na konci asociace, není nutné definovat vlastnost navigace typu entity na druhém konci přidružení.
+Všimněte si, že navigační vlastnosti jsou volitelné na obou typech entit na konci přidružení. Definujete-li vlastnost navigace na jednom typu entity na konci přidružení, nemusíte definovat vlastnost navigace na typu entity na druhém konci přidružení.
 
-Datový typ vracený navigační vlastnost se určuje podle násobnost ukončení vzdálené přidružení. Předpokládejme například, vlastnost navigace, **OrdersNavProp**, existuje na **zákazníka** typu entity a přejde na více přidružení mezi **zákazníka** a  **Pořadí**. Protože ukončení vzdálené přidružení pro navigační vlastnost má násobnost mnoho (\*), jeho datový typ je kolekce (z **pořadí**). Podobně, pokud vlastnost navigace, **CustomerNavProp**, existuje na **pořadí** typ entity, jeho datový typ by **zákazníka** protože má násobnost vzdáleným koncem jedna (1).
+Datový typ vrácený navigační vlastností je určen násobností jeho vzdáleného zakončení přidružení. Předpokládejme například, že vlastnost navigace **OrdersNavProp**existuje v typu entity **zákazníka** a prochází přidružení 1:1 mezi **zákazníkem** a **objednávkou**. Vzhledem k tomu, že vzdálené zakončení přidružení pro navigační vlastnost má násobnost mnoho (\*), je jeho datovým typem kolekce ( **pořadí**). Podobně platí, že pokud v typu entity **objednávky** existuje navigační vlastnost **CustomerNavProp**, její datový typ by byl **zákazníkem** , protože násobnost vzdáleného elementu end je jedna (1).
 
-A **NavigationProperty** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **NavigationProperty** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **NavigationProperty** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **NavigationProperty** .
 
-| Název atributu   | Vyžaduje se | Hodnota                                                                                                                                                                                                                                            |
+| Název atributu   | Je povinné | Value                                                                                                                                                                                                                                            |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**         | Ano         | Název navigační vlastnosti.                                                                                                                                                                                                             |
-| **Relace** | Ano         | Název přidružení, které je v rámci oboru modelu.                                                                                                                                                                                |
-| **ToRole**       | Ano         | End přidružení, na které koncích navigace. Hodnota **ToRole** atribut musí být stejná jako hodnota některého **Role** atributy definovaného u jednoho z zakončení (definovaný v elementu AssociationEnd).       |
-| **FromRole**     | Ano         | Konec přidružení, ze kterého se spustí navigace. Hodnota **FromRole** atribut musí být stejná jako hodnota některého **Role** atributy definovaného u jednoho z zakončení (definovaný v elementu AssociationEnd). |
+| **Název**         | Ano         | Název navigační vlastnosti                                                                                                                                                                                                             |
+| **Vztah** | Ano         | Název asociace, který je v rámci oboru modelu.                                                                                                                                                                                |
+| **ToRole**       | Ano         | Konec přidružení, na kterém končí navigace. Hodnota atributu **ToRole** musí být stejná jako hodnota jednoho z atributů **role** definované v jednom z elementů Association (definovaných v elementu AssociationEnd).       |
+| **FromRole**     | Ano         | Konec přidružení, ze kterého začíná navigace. Hodnota atributu **FromRole** musí být stejná jako hodnota jednoho z atributů **role** definované v jednom z elementů Association (definovaných v elementu AssociationEnd). |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **NavigationProperty** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **NavigationProperty** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad definuje typ entity (**knihy**) s dvěma navigační vlastnosti (**PublishedBy** a **WrittenBy**):
+Následující příklad definuje typ entity (**Book**) se dvěma navigačními vlastnostmi (**PublishedBy** a **WrittenBy**):
 
 ``` xml
  <EntityType Name="Book">
@@ -983,42 +983,42 @@ Následující příklad definuje typ entity (**knihy**) s dvěma navigační vl
                        FromRole="Book" ToRole="Author" />
  </EntityType>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="ondelete-element-csdl"></a>Elementy OnDelete – Element (CSDL)
+## <a name="ondelete-element-csdl"></a>IsDeleted – element (CSDL)
 
-**Elementy OnDelete** prvek v Konceptuální schéma definici jazyka (CSDL) definuje chování, která je propojená s přidružení. Pokud **akce** atribut je nastaven na **Cascade** na jednom konci asociace související s typy entity na druhém konci přidružení se odstraní při odstranění typu entity na konci prvního. Pokud je primární klíč primárního klíče vztah přidružení mezi dvěma typy entity a pak načíst závislý objekt se odstraní při odstranění objektu na druhém konci přidružení, bez ohledu na to **elementy OnDelete** specifikace.  
+Element **IsDeleted** v koncepčním definičním jazyce (CSDL) definuje chování, které je připojeno k přidružení. Je-li atribut **Action** nastaven na hodnotu **Cascade** na jednom konci přidružení, budou související typy entit na druhém konci přidružení odstraněny při odstranění typu entity v prvním elementu end. Pokud je přidružení mezi dvěma typy entit primárním vztahem klíče k primárnímu klíči, pak se načtený závislý objekt odstraní při odstranění objektu zabezpečení na druhém konci přidružení bez ohledu na specifikaci při **odstranění** .  
 
 > [!NOTE]
-> **Elementy OnDelete** element má vliv pouze chování modulu runtime aplikace; nemá vliv na chování ve zdroji dat. Chování definované ve zdroji dat by měl být stejný jako chování definované v aplikaci.
+> Element **IsDeleted** má vliv pouze na chování aplikace za běhu. nemá vliv na chování ve zdroji dat. Chování definované ve zdroji dat by mělo být stejné jako chování definované v aplikaci.
 
- 
+ 
 
-**Elementy OnDelete** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **IsDeleted** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **elementy OnDelete** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **IsDeleted** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                                                                         |
+| Název atributu | Je povinné | Value                                                                                                                                                                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Akce**     | Ano         | **Kaskádové** nebo **žádný**. Pokud **Cascade**, typy závislé entit se odstraní při odstranění typ objektu zabezpečení entity. Pokud **žádný**, typy závislé entit se neodstraní při odstraňování instančního objektu entity typu. |
+| **Akce**     | Ano         | **Cascade** nebo **none**. V případě, že se **kaskády**odstraní, odstraní se závislé typy entit při odstranění typu objektu zabezpečení. Pokud **žádný**není, typy závislých entit nebudou odstraněny při odstranění typu hlavní entity. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **přidružení** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Association** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **přidružení** element, který definuje **CustomerOrders** přidružení. **Elementy OnDelete** element znamená, že všechny **objednávky** , která se vztahují ke konkrétní **zákazníka** a byly načtené do objektu ObjectContext se odstraní při  **Zákazník** se odstraní.
+Následující příklad ukazuje element **Association** , který definuje přidružení **CustomerOrders** . Element **IsDeleted** označuje, že všechny **objednávky** , které se vztahují ke konkrétnímu **zákazníkovi** a které byly načteny do objektu ObjectContext, budou odstraněny při odstranění **zákazníka** .
 
 ``` xml
  <Association Name="CustomerOrders">
@@ -1028,47 +1028,47 @@ Následující příklad ukazuje **přidružení** element, který definuje **Cu
    <End Type="ExampleModel.Order" Role="Order" Multiplicity="*" />
  </Association>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="parameter-element-csdl"></a>Parameter – Element (CSDL)
+## <a name="parameter-element-csdl"></a>Parameter – element (CSDL)
 
-**Parametr** element v Konceptuální schéma definici jazyka (CSDL) může být podřízený FunctionImport element nebo elementu Function.
+Element **Parameter** v koncepčním definičním jazyce (CSDL) může být podřízeným elementem FunctionImport nebo prvkem funkce.
 
-### <a name="functionimport-element-application"></a>FunctionImport Element aplikace
+### <a name="functionimport-element-application"></a>Element FunctionImport – aplikace
 
-A **parametr** – element (jako podřízený objekt **element FunctionImport** element) se používá k definování vstupních a výstupních parametrů pro importované funkce, které jsou deklarovány v CSDL.
+Element **parametru** (jako podřízený prvek elementu **FunctionImport** ) slouží k definování vstupních a výstupních parametrů pro importy funkce, které jsou deklarovány v CSDL.
 
-**Parametr** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Parameter** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden prvků povolený)
--   Elementů poznámky (nula nebo více prvků povolený)
+-   Dokumentace (povolené nula nebo jeden prvek)
+-   Prvky poznámky (povoleny nula nebo více prvků)
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+#### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **parametr** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Parameter** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                                                                           |
+| Název atributu | Je povinné | Value                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název parametru                                                                                                                                                                                                      |
-| **Typ**       | Ano         | Typ parametru. Hodnota musí být **EDMSimpleType** nebo komplexní typ, který spadá do rozsahu modelu.                                                                                                             |
-| **Režim**       | Ne          | **V**, **si**, nebo **InOut** v závislosti na tom, zda je parametr vstup, výstup nebo vstupně výstupní parametr.                                                                                                                |
-| **maxLength**  | Ne          | Maximální povolená délka parametru.                                                                                                                                                                                    |
-| **Přesnost**  | Ne          | Přesnost parametru.                                                                                                                                                                                                 |
-| **Škálování**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
-| **SRID**       | Ne          | Odkaz na identifikátor spatial systému. Platí jenom pro parametry prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **Název**       | Ano         | Název parametru                                                                                                                                                                                                      |
+| **Typ**       | Ano         | Typ parametru. Hodnota musí být **EDMSimpleType** nebo komplexní typ, který je v rámci oboru modelu.                                                                                                             |
+| **Mode**       | Ne          | **In**, **out**nebo **InOut** v závislosti na tom, zda je parametr vstupní, výstupní nebo vstupní/výstupní parametr.                                                                                                                |
+| **MaxLength**  | Ne          | Maximální povolená délka parametru.                                                                                                                                                                                    |
+| **Číslic**  | Ne          | Přesnost parametru.                                                                                                                                                                                                 |
+| **Kapacity**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
+| **SRID**       | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro parametry prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **parametr** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Parameter** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **element FunctionImport** element s jedním **parametr** podřízený element. Funkce přijímá jeden vstupní parametr a vrátí kolekci typů entit.
+Následující příklad ukazuje element **FunctionImport** s jedním podřízeným elementem **parametru** . Funkce přijímá jeden vstupní parametr a vrací kolekci typů entit.
 
 ``` xml
  <FunctionImport Name="GetStudentGrades"
@@ -1077,59 +1077,59 @@ Následující příklad ukazuje **element FunctionImport** element s jedním **
         <Parameter Name="StudentID" Mode="In" Type="Int32" />
  </FunctionImport>
 ```
- 
+ 
 
-### <a name="function-element-application"></a>Aplikaci prvku – funkce
+### <a name="function-element-application"></a>Aplikace prvku funkce
 
-A **parametr** – element (jako podřízený objekt **funkce** element) definuje parametry pro funkce, které jsou definována nebo deklarována v konceptuálním modelu.
+Element **Parameter** (jako podřízený prvek **funkce** ) definuje parametry pro funkce, které jsou definovány nebo deklarovány v koncepčním modelu.
 
-**Parametr** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Parameter** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden prvky)
--   Objekt CollectionType (žádný nebo jeden prvky)
--   Hodnota ReferenceType (žádný nebo jeden prvky)
--   RowType (žádný nebo jeden prvky)
-
-> [!NOTE]
-> Pouze jeden z **CollectionType**, **ReferenceType**, nebo **RowType** prvků může být podřízený prvek **vlastnost** elementu.
-
- 
-
--   Elementů poznámky (nula nebo více prvků povolený)
+-   Dokumentace (nula nebo jeden element)
+-   CollectionType (nula nebo jeden element)
+-   Hodnota ReferenceType (nula nebo jeden element)
+-   RowType (nula nebo jeden element)
 
 > [!NOTE]
-> Elementů poznámky se musí vyskytovat za všechny ostatní podřízené prvky. Elementů poznámky jsou povolené jenom v CSDL v2 nebo novější.
+> Pouze jeden z prvků typu **CollectionType**, **hodnota ReferenceType**nebo **RowType** může být podřízeným prvkem elementu **vlastnosti** .
 
- 
+ 
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+-   Prvky poznámky (povoleny nula nebo více prvků)
 
-Následující tabulka popisuje atributy, které mohou být použity **parametr** elementu.
+> [!NOTE]
+> Prvky poznámky se musí vyskytovat po všech ostatních podřízených prvcích. Prvky poznámek jsou povoleny pouze v CSDL v2 a novějších.
 
-| Název atributu   | Vyžaduje se | Hodnota                                                                                                                                                                                                                           |
+ 
+
+#### <a name="applicable-attributes"></a>Použitelné atributy
+
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Parameter** .
+
+| Název atributu   | Je povinné | Value                                                                                                                                                                                                                           |
 |:-----------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**         | Ano         | Název parametru                                                                                                                                                                                                      |
-| **Typ**         | Ne          | Typ parametru. Parametr může být některý z následujících typů (nebo kolekcí z těchto typů): <br/> **EdmSimpleType** <br/> Typ entity <br/> komplexní typ <br/> Typ řádku <br/> odkazový typ                             |
-| **S povolenou hodnotou Null**     | Ne          | **Hodnota TRUE** (výchozí hodnota) nebo **False** v závislosti na tom, zda tato vlastnost může mít **null** hodnotu.                                                                                                                          |
-| **Výchozí hodnota** | Ne          | Výchozí hodnota vlastnosti.                                                                                                                                                                                              |
-| **maxLength**    | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
-| **Hodnoty**  | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnotu vlastnosti jako řetězec pevné délky.                                                                                                                          |
-| **Přesnost**    | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Škálování**        | Ne          | Měřítko pro hodnotu vlastnosti.                                                                                                                                                                                                |
-| **SRID**         | Ne          | Odkaz na identifikátor spatial systému. Platí pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
-| **Unicode**      | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnoty vlastnosti jako řetězec s kódováním Unicode.                                                                                                                               |
-| **Kolace**    | Ne          | Řetězec, který určuje pořadí řazení, který se má použít ve zdroji dat.                                                                                                                                                   |
+| **Název**         | Ano         | Název parametru                                                                                                                                                                                                      |
+| **Typ**         | Ne          | Typ parametru. Parametr může být libovolný z následujících typů (nebo kolekcí těchto typů): <br/> **EdmSimpleType** <br/> entity type <br/> complex type <br/> typ řádku <br/> odkazový typ                             |
+| **Povoleno**     | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda vlastnost může mít hodnotu **null** .                                                                                                                          |
+| **Hodnot** | Ne          | Výchozí hodnota vlastnosti                                                                                                                                                                                              |
+| **MaxLength**    | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
+| **FixedLength**  | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
+| **Číslic**    | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
+| **Kapacity**        | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **SRID**         | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **Unicode**      | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
+| **Velké**    | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **parametr** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Parameter** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **funkce** element, který používá jednu **parametr** podřízený element definovat parametr funkce.
+Následující příklad ukazuje prvek **funkce** , který používá jeden podřízený element **Parameter** k definování parametru funkce.
 
 ``` xml
  <Function Name="GetYearsEmployed" ReturnType="Edm.Int32">
@@ -1140,35 +1140,35 @@ Následující příklad ukazuje **funkce** element, který používá jednu **p
  </Function>
 ```
 
- 
+ 
 
-## <a name="principal-element-csdl"></a>Instanční objekt – Element (CSDL)
+## <a name="principal-element-csdl"></a>Element zabezpečení (CSDL)
 
-**Hlavní** element v Konceptuální schéma definici jazyka (CSDL) je podřízeným prvkem prvku elementu ReferentialConstraint, který definuje hlavní konec referenčního omezení. A **elementu ReferentialConstraint** element definuje funkci, která je podobná omezení referenční integrity v relační databázi. Stejným způsobem, že sloupec (nebo sloupce) z tabulky databáze může odkazovat na primární klíč z jiné tabulky lze vlastnost (nebo vlastnosti) typu entity odkazují na klíč entity, která jiný typ entity. Je volána typ entity, na který odkazuje *hlavní koncový* omezení. Typ entity, která odkazuje na konci instančního objektu je volána *závislé end* omezení. **PropertyRef** elementy se používají k určení klíče, které je odkazováno dle závislé end.
+Element **Principal** v jazyce CSDL (konceptuální schéma Definition Language) je podřízeným prvkem elementu elementu ReferentialConstraint, který definuje hlavní konec referenčního omezení. Element **elementu ReferentialConstraint** definuje funkčnost, která je podobná omezení referenční integrity v relační databázi. Stejným způsobem, že sloupec (nebo sloupce) z tabulky databáze může odkazovat na primární klíč jiné tabulky, může vlastnost (nebo vlastnosti) typu entity odkazovat na klíč entity jiného typu entity. Odkazovaný typ entity se nazývá *hlavní konec* omezení. Typ entity, který odkazuje na hlavní konec, se nazývá *závislý konec* omezení. Prvky **PropertyRef** slouží k určení, na které klíče se odkazuje závislý konec.
 
-**Hlavní** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Principal** může mít následující podřízené elementy (v uvedeném pořadí):
 
 -   PropertyRef (jeden nebo více prvků)
--   Elementů poznámky (nula nebo více prvků)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **hlavní** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Principal** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                |
+| Název atributu | Je povinné | Value                                                                |
 |:---------------|:------------|:---------------------------------------------------------------------|
-| **Role**       | Ano         | Název typu entity na hlavní konec asociace. |
+| **Role**       | Ano         | Název typu entity na hlavním konci přidružení. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **hlavní** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> U elementu **Principal** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **elementu ReferentialConstraint** element, který je součástí definice **PublishedBy** přidružení. **Id** vlastnost **vydavatele** typ entity tvoří hlavní konec referenčního omezení.
+Následující příklad ukazuje element **elementu ReferentialConstraint** , který je součástí definice přidružení **PublishedBy** . Vlastnost **ID** typu entity **vydavatele** vytvoří hlavní konec referenčního omezení.
 
 ``` xml
  <Association Name="PublishedBy">
@@ -1185,60 +1185,60 @@ Následující příklad ukazuje **elementu ReferentialConstraint** element, kte
    </ReferentialConstraint>
  </Association>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="property-element-csdl"></a>Property – Element (CSDL)
+## <a name="property-element-csdl"></a>Property – element (CSDL)
 
-**Vlastnost** element v Konceptuální schéma definici jazyka (CSDL) může být podřízený EntityType element, ComplexType element nebo RowType element.
+Element **Property** v jazyce CSDL (koncepční schéma Definition Language) může být podřízeným elementem EntityType, elementem complexType nebo elementu RowType.
 
-### <a name="entitytype-and-complextype-element-applications"></a>Třída EntityType a ComplexType Element aplikací
+### <a name="entitytype-and-complextype-element-applications"></a>EntityType a ComplexType – aplikace elementu
 
-**Vlastnost** prvky (jako podřízené objekty **EntityType** nebo **ComplexType** elementy) definovat tvar a vlastnosti dat, která bude obsahovat instance typu entity nebo komplexní typ instance . Vlastnosti v konceptuálním modelu jsou podobná vlastnosti, které jsou definovány ve třídě. Stejným způsobem, že vlastnosti třídy definovat tvar třídy a budou mít informace o objektech vlastnosti v konceptuálním modelu definovat tvar typu entity a nesou informaci o instancí typu entity.
+Prvky **vlastností** (jako podřízené prvky **EntityType** nebo **complexType** ) definují tvar a vlastnosti dat, které instance typu entity nebo instance komplexního typu budou obsahovat. Vlastnosti v koncepčním modelu jsou analogické k vlastnostem, které jsou definovány ve třídě. Stejně jako vlastnosti třídy definují tvar třídy a přenášejí informace o objektech, vlastnosti v koncepčním modelu definují tvar typu entity a přenášejí informace o instancích typu entity.
 
-**Vlastnost** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Property** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Element Documentation (žádný nebo jeden prvků povolený)
--   Elementů poznámky (nula nebo více prvků povolený)
+-   Element dokumentace (povolené nula nebo jeden prvek)
+-   Prvky poznámky (povoleny nula nebo více prvků)
 
-Lze použít následující omezující vlastnosti **vlastnost** element: **Nullable**, **DefaultValue**, **MaxLength**,  **FixedLength**, **přesnost**, **škálování**, **Unicode**, **kolace**,  **Režim ConcurrencyMode**. Omezující vlastnosti jsou atributy ve formátu XML, které obsahují informace o způsobu uložení hodnoty vlastnosti dat v úložišti.
+Následující omezující vlastnosti lze použít na prvek **vlastnosti** : **Nullable**, **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**, **COLLATE**, **ConcurrencyMode**. Omezující vlastnosti jsou atributy XML, které poskytují informace o tom, jak jsou hodnoty vlastností uloženy v úložišti dat.
 
 > [!NOTE]
-> Charakteristiky může používat jedině pro vlastnosti typu **EDMSimpleType**.
+> Omezující vlastnosti lze použít pouze pro vlastnosti typu **EDMSimpleType**.
 
- 
+ 
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+#### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **vlastnost** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **vlastnosti** .
 
-| Název atributu                                                         | Vyžaduje se | Hodnota                                                                                                                                                                                                                           |
+| Název atributu                                                         | Je povinné | Value                                                                                                                                                                                                                           |
 |:-----------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**                                                               | Ano         | Název vlastnosti                                                                                                                                                                                                       |
-| **Typ**                                                               | Ano         | Typ hodnoty vlastnosti. Musí být typ hodnoty vlastnosti **EDMSimpleType** nebo komplexní typ (označená plně kvalifikovaný název), který je v rámci oboru modelu.                                                 |
-| **S povolenou hodnotou Null**                                                           | Ne          | **Hodnota TRUE** (výchozí hodnota) nebo <strong>False</strong> v závislosti na tom, zda tato vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                   |
-| > CSDL v1 komplexní typ vlastnosti musí mít `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
-| **Výchozí hodnota**                                                       | Ne          | Výchozí hodnota vlastnosti.                                                                                                                                                                                              |
-| **maxLength**                                                          | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
-| **Hodnoty**                                                        | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnotu vlastnosti jako řetězec pevné délky.                                                                                                                          |
-| **Přesnost**                                                          | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Škálování**                                                              | Ne          | Měřítko pro hodnotu vlastnosti.                                                                                                                                                                                                |
-| **SRID**                                                               | Ne          | Odkaz na identifikátor spatial systému. Platí pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
-| **Unicode**                                                            | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnoty vlastnosti jako řetězec s kódováním Unicode.                                                                                                                               |
-| **Kolace**                                                          | Ne          | Řetězec, který určuje pořadí řazení, který se má použít ve zdroji dat.                                                                                                                                                   |
-| **Režim ConcurrencyMode**                                                    | Ne          | **Žádný** (výchozí hodnota) nebo **Fixed**. Pokud je hodnota nastavena na **Fixed**, bude použita hodnota vlastnosti v kontroly optimistické souběžnosti.                                                                                  |
+| **Název**                                                               | Ano         | Název vlastnosti                                                                                                                                                                                                       |
+| **Typ**                                                               | Ano         | Typ hodnoty vlastnosti. Typ hodnoty vlastnosti musí být **EDMSimpleType** nebo komplexní typ (určený plně kvalifikovaným názvem), který je v rozsahu modelu.                                                 |
+| **Povoleno**                                                           | Ne          | **True** (výchozí hodnota) nebo <strong>false</strong> v závislosti na tom, zda vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                   |
+| > V CSDL v1 vlastnost komplexního typu musí mít `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
+| **Hodnot**                                                       | Ne          | Výchozí hodnota vlastnosti                                                                                                                                                                                              |
+| **MaxLength**                                                          | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
+| **FixedLength**                                                        | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
+| **Číslic**                                                          | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
+| **Kapacity**                                                              | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **SRID**                                                               | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **Unicode**                                                            | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
+| **Velké**                                                          | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
+| **ConcurrencyMode**                                                    | Ne          | **Žádná** (výchozí hodnota) nebo **pevná**. Pokud je hodnota nastavena na **pevná**, bude hodnota vlastnosti použita při kontrole optimistického řízení souběžnosti.                                                                                  |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **vlastnost** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Property** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityType** element s tři **vlastnost** prvky:
+Následující příklad ukazuje element **EntityType** se třemi prvky **vlastností** :
 
 ``` xml
  <EntityType Name="Book">
@@ -1254,9 +1254,9 @@ Následující příklad ukazuje **EntityType** element s tři **vlastnost** prv
                        FromRole="Book" ToRole="Author" />
  </EntityType>
 ```
- 
+ 
 
-Následující příklad ukazuje **ComplexType** element s pěti **vlastnost** prvky:
+Následující příklad ukazuje element **complexType** s pěti prvky **vlastností** :
 
 ``` xml
  <ComplexType Name="Address" >
@@ -1267,54 +1267,54 @@ Následující příklad ukazuje **ComplexType** element s pěti **vlastnost** p
    <Property Type="String" Name="PostalCode" Nullable="false" />
  </ComplexType>
 ```
- 
+ 
 
-### <a name="rowtype-element-application"></a>RowType Element aplikace
+### <a name="rowtype-element-application"></a>Aplikace prvku RowType
 
-**Vlastnost** prvky (jako podřízených prvků **RowType** element) definovat tvar a vlastnosti dat, které mohou být předány nebo vrácena z funkce modelově definovaných.  
+Prvky **vlastností** (jako podřízené objekty elementu **RowType** ) definují tvar a charakteristiky dat, která lze předat nebo vrátit z modelu definované funkce.  
 
-**Vlastnost** prvek může mít nastavený právě jeden z následujících podřízených elementů:
+Element **Property** může mít přesně jeden z následujících podřízených elementů:
 
--   Objekt CollectionType
--   Hodnota referenceType
+-   CollectionType
+-   Hodnota ReferenceType
 -   RowType
 
-**Vlastnost** prvek může mít libovolný počet podřízených elementů poznámky.
+Element **Property** může mít libovolný počet podřízených elementů poznámky.
 
 > [!NOTE]
-> Elementů poznámky jsou povolené jenom v CSDL v2 nebo novější.
+> Prvky poznámek jsou povoleny pouze v CSDL v2 a novějších.
 
- 
+ 
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+#### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **vlastnost** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **vlastnosti** .
 
-| Název atributu                                                     | Vyžaduje se | Hodnota                                                                                                                                                                                                                           |
+| Název atributu                                                     | Je povinné | Value                                                                                                                                                                                                                           |
 |:-------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**                                                           | Ano         | Název vlastnosti                                                                                                                                                                                                       |
+| **Název**                                                           | Ano         | Název vlastnosti                                                                                                                                                                                                       |
 | **Typ**                                                           | Ano         | Typ hodnoty vlastnosti.                                                                                                                                                                                                 |
-| **S povolenou hodnotou Null**                                                       | Ne          | **Hodnota TRUE** (výchozí hodnota) nebo **False** v závislosti na tom, zda tato vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                |
-| > CSDL v1 komplexní typ vlastnosti musí mít `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
-| **Výchozí hodnota**                                                   | Ne          | Výchozí hodnota vlastnosti.                                                                                                                                                                                              |
-| **maxLength**                                                      | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
-| **Hodnoty**                                                    | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnotu vlastnosti jako řetězec pevné délky.                                                                                                                          |
-| **Přesnost**                                                      | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Škálování**                                                          | Ne          | Měřítko pro hodnotu vlastnosti.                                                                                                                                                                                                |
-| **SRID**                                                           | Ne          | Odkaz na identifikátor spatial systému. Platí pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
-| **Unicode**                                                        | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnoty vlastnosti jako řetězec s kódováním Unicode.                                                                                                                               |
-| **Kolace**                                                      | Ne          | Řetězec, který určuje pořadí řazení, který se má použít ve zdroji dat.                                                                                                                                                   |
+| **Povoleno**                                                       | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                |
+| > V CSDL v1 vlastnost komplexního typu musí mít `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
+| **Hodnot**                                                   | Ne          | Výchozí hodnota vlastnosti                                                                                                                                                                                              |
+| **MaxLength**                                                      | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
+| **FixedLength**                                                    | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
+| **Číslic**                                                      | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
+| **Kapacity**                                                          | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **SRID**                                                           | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **Unicode**                                                        | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
+| **Velké**                                                      | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **vlastnost** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Property** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **vlastnost** prvků, které slouží k definování tvar návratový typ modelu uživatelsky definované funkce.
+Následující příklad ukazuje prvky **vlastností** používané k definování tvaru návratového typu funkce definované modelem.
 
 ``` xml
  <Function Name="LastNamesAfter">
@@ -1334,42 +1334,42 @@ Následující příklad ukazuje **vlastnost** prvků, které slouží k definov
    </DefiningExpression>
  </Function>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="propertyref-element-csdl"></a>Element PropertyRef (CSDL)
+## <a name="propertyref-element-csdl"></a>PropertyRef – element (CSDL)
 
-**PropertyRef** element v Konceptuální schéma definici jazyka (CSDL) odkazuje na vlastnost typu entity k označení, že vlastnost bude provádět jednu z následujících rolí:
+Element **PropertyRef** v jazyce CSDL (konceptuální schéma Definition Language) odkazuje na vlastnost typu entity, která označuje, že vlastnost provede jednu z následujících rolí:
 
--   Část klíče entity (vlastnost nebo sadu vlastností typu entity, které určují identity). Jeden nebo více **PropertyRef** prvky můžete použít k definování klíč entity.
--   Závislé nebo hlavní konec referenčního omezení.
+-   Část klíče entity (vlastnost nebo sada vlastností typu entity, která určuje identitu). Jeden nebo více elementů **PropertyRef** lze použít k definování klíče entity.
+-   Závislý nebo hlavní konec referenčního omezení.
 
-**PropertyRef** element může obsahovat pouze prvky poznámky (nula nebo více) jako podřízené prvky.
+Element **PropertyRef** může mít jako podřízené elementy pouze prvky poznámky (nula nebo více).
 
 > [!NOTE]
-> Elementů poznámky jsou povolené jenom v CSDL v2 nebo novější.
+> Prvky poznámek jsou povoleny pouze v CSDL v2 a novějších.
 
- 
+ 
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **PropertyRef** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **PropertyRef** .
 
-| Název atributu | Vyžaduje se | Hodnota                                |
+| Název atributu | Je povinné | Value                                |
 |:---------------|:------------|:-------------------------------------|
-| **Jméno**       | Ano         | Název odkazované vlastnosti. |
+| **Název**       | Ano         | Název odkazované vlastnosti |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **PropertyRef** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **PropertyRef** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad definuje typ entity (**knihy**). Klíč entity je definována odkazováním **ISBN** vlastnost typu entity.
+Následující příklad definuje typ entity (**Book**). Klíč entity je definován pomocí odkazu na vlastnost **ISBN** typu entity.
 
 ``` xml
  <EntityType Name="Book">
@@ -1385,9 +1385,9 @@ Následující příklad definuje typ entity (**knihy**). Klíč entity je defin
                        FromRole="Book" ToRole="Author" />
  </EntityType>
 ```
- 
+ 
 
-V následujícím příkladu dvě **PropertyRef** elementy se používají k označení tohoto dvě vlastnosti (**Id** a **PublisherId**) jsou konců objektem zabezpečení a závislými referenční omezení.
+V následujícím příkladu jsou použity dva prvky **PropertyRef** k označení toho, že dvě vlastnosti (**ID** a **PublisherId**) jsou objekty zabezpečení a závislé na konci referenčního omezení.
 
 ``` xml
  <Association Name="PublishedBy">
@@ -1404,43 +1404,43 @@ V následujícím příkladu dvě **PropertyRef** elementy se používají k ozn
    </ReferentialConstraint>
  </Association>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="referencetype-element-csdl"></a>Element ReferenceType (CSDL)
+## <a name="referencetype-element-csdl"></a>Hodnota ReferenceType – element (CSDL)
 
-**ReferenceType** element v Konceptuální schéma definici jazyka (CSDL) určuje odkaz na typ entity. **ReferenceType** element může být podřízená následující prvky:
+Element **hodnota ReferenceType** v jazyce CSDL (konceptuální schéma Definition Language) určuje odkaz na typ entity. Element **hodnota ReferenceType** může být podřízeným prvkem následujících prvků:
 
--   Vlastnost ReturnType (Function)
+-   ReturnType (Function)
 -   Parametr
--   Objekt CollectionType
+-   CollectionType
 
-**ReferenceType** element se používá při definování parametr nebo návratový typ pro funkci.
+Element **hodnota ReferenceType** se používá při definování parametru nebo návratového typu pro funkci.
 
-A **ReferenceType** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **hodnota ReferenceType** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **ReferenceType** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **hodnota ReferenceType** .
 
-| Název atributu | Vyžaduje se | Hodnota                                         |
+| Název atributu | Je povinné | Value                                         |
 |:---------------|:------------|:----------------------------------------------|
-| **Typ**       | Ano         | Název typu entity, na kterou se odkazuje. |
+| **Typ**       | Ano         | Název odkazovaného typu entity |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **ReferenceType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **hodnota ReferenceType** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **ReferenceType** používá jako podřízený element **parametr** elementu v modelu definován funkci, která přijímá odkaz na **osoba** entity Typ:
+Následující příklad ukazuje element **hodnota ReferenceType** , který se používá jako podřízený prvek **parametru** v rámci funkce definované modelem, která přijímá odkaz na typ entity **Person** :
 
 ``` xml
  <Function Name="GetYearsEmployed" ReturnType="Edm.Int32">
@@ -1452,9 +1452,9 @@ Následující příklad ukazuje **ReferenceType** používá jako podřízený 
    </DefiningExpression>
  </Function>
 ```
- 
+ 
 
-Následující příklad ukazuje **ReferenceType** používá jako podřízený element **ReturnType** – element (funkce) v modelu definován funkci, která vrátí odkaz na **osoba**typ entity:
+Následující příklad ukazuje element **hodnota ReferenceType** , který se používá jako podřízený prvek **ReturnType** (Function) ve funkci definovaného modelu, která vrací odkaz na typ entity **Person** :
 
 ``` xml
  <Function Name="GetPersonReference">
@@ -1467,32 +1467,32 @@ Následující příklad ukazuje **ReferenceType** používá jako podřízený 
      </DefiningExpression>
  </Function>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="referentialconstraint-element-csdl"></a>Element elementu ReferentialConstraint (CSDL)
+## <a name="referentialconstraint-element-csdl"></a>Elementu ReferentialConstraint – element (CSDL)
 
-A **elementu ReferentialConstraint** prvek v Konceptuální schéma definici jazyka (CSDL) definuje funkci, která je podobná omezení referenční integrity v relační databázi. Stejným způsobem, že sloupec (nebo sloupce) z tabulky databáze může odkazovat na primární klíč z jiné tabulky lze vlastnost (nebo vlastnosti) typu entity odkazují na klíč entity, která jiný typ entity. Je volána typ entity, na který odkazuje *hlavní koncový* omezení. Typ entity, která odkazuje na konci instančního objektu je volána *závislé end* omezení.
+Element **elementu ReferentialConstraint** v jazyce CSDL (konceptuální schéma Definition Language) definuje funkce, které jsou podobné omezení referenční integrity v relační databázi. Stejným způsobem, že sloupec (nebo sloupce) z tabulky databáze může odkazovat na primární klíč jiné tabulky, může vlastnost (nebo vlastnosti) typu entity odkazovat na klíč entity jiného typu entity. Odkazovaný typ entity se nazývá *hlavní konec* omezení. Typ entity, který odkazuje na hlavní konec, se nazývá *závislý konec* omezení.
 
-Pokud cizí klíč, který je zveřejněný na jednu entitu typu odkazuje na vlastnost na jiný typ entity, **elementu ReferentialConstraint** element definuje přidružení mezi tyto dva typy entity. Vzhledem k tomu, **elementu ReferentialConstraint** element poskytuje informace o tom, jak dva typy entit souvisejí, bez odpovídajícího prvku AssociationSetMapping je nezbytné v mapování specification language (MSL). Přidružení mezi dvěma typy entit, které nemají cizí klíče, které jsou vystaveny musí mít odpovídající **AssociationSetMapping** prvku abyste mohli mapovat na zdroj dat informací o přidružení.
+Pokud cizí klíč, který je vystaven na jednom typu entity, odkazuje na vlastnost v jiném typu entity, element **elementu ReferentialConstraint** definuje přidružení mezi dvěma typy entit. Vzhledem k tomu, že element **elementu ReferentialConstraint** poskytuje informace o tom, jak se vztahují dva typy entit, není v jazyce MSL (Mapping Specification Language) nutný žádný odpovídající element AssociationSetMapping. Přidružení mezi dvěma typy entit, které nemají vystavené cizími klíči, musí mít odpovídající element **AssociationSetMapping** , aby bylo možné mapovat informace o přidružení ke zdroji dat.
 
-Pokud cizí klíč není dostupná na typ entity, **elementu ReferentialConstraint** elementu lze definovat pouze klíč primárního omezení primárního klíče mezi typu entity a jiný typ entity.
+Pokud cizí klíč není vystavený pro typ entity, element **elementu ReferentialConstraint** může definovat jenom primární omezení klíče na primární klíč mezi typem entity a jiným typem entity.
 
-A **elementu ReferentialConstraint** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **elementu ReferentialConstraint** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
+-   Dokumentace (nula nebo jeden element)
 -   Objekt zabezpečení (právě jeden element)
--   Závislé (právě jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Závislý (právě jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-**Elementu ReferentialConstraint** prvek může mít libovolný počet atributů poznámky (vlastní atributy XML). Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+Element **elementu ReferentialConstraint** může mít libovolný počet atributů anotace (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **elementu ReferentialConstraint** element se používá jako součást definice **PublishedBy** přidružení.
+Následující příklad ukazuje element **elementu ReferentialConstraint** , který se používá jako součást definice asociace **PublishedBy** .
 
 ``` xml
  <Association Name="PublishedBy">
@@ -1509,45 +1509,45 @@ Následující příklad ukazuje **elementu ReferentialConstraint** element se p
    </ReferentialConstraint>
  </Association>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="returntype-function-element-csdl"></a>Element ReturnType (Function) (CSDL)
+## <a name="returntype-function-element-csdl"></a>ReturnType – element (Function) (CSDL)
 
-**ReturnType** – element (funkce) v Konceptuální schéma definici jazyka (CSDL) určuje návratový typ pro funkci, která je definována v elementu Function. Funkce, návratový typ je také možné zadat při **ReturnType** atribut.
+Element **ReturnType** (Function) v jazyce CSDL (konceptuální schéma Definition Language) určuje návratový typ pro funkci, která je definována v elementu Function. Návratový typ funkce lze také zadat s atributem **ReturnType** .
 
-Vrátí typy mohou být některé **EdmSimpleType**, typ entity, komplexní typ, typ řádku, typ odkazu nebo kolekce jednoho z těchto typů.
+Návratové typy mohou být libovolné **EdmSimpleType**, typ entity, komplexní typ, typ řádku, typ odkazu nebo kolekce jednoho z těchto typů.
 
-Návratový typ funkce se dá nastavit některým **typ** atribut **ReturnType** – element (funkce), nebo některou z následujících podřízených elementů:
+Návratový typ funkce lze zadat buď pomocí atributu **Type** elementu **ReturnType** (Function), nebo s jedním z následujících podřízených elementů:
 
--   Objekt CollectionType
--   Hodnota referenceType
+-   CollectionType
+-   Hodnota ReferenceType
 -   RowType
 
 > [!NOTE]
-> Model neověří při zadání funkce, návratový typ se službami **typ** atribut **ReturnType** elementu (funkce) a jeden z podřízených prvků.
+> Model nebude ověřen, pokud zadáte návratový typ funkce s atributem **Type** elementu **ReturnType** (Function) a jedním z podřízených elementů.
 
- 
+ 
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **ReturnType** – element (funkce).
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **ReturnType** (Function).
 
-| Název atributu | Vyžaduje se | Hodnota                              |
+| Název atributu | Je povinné | Value                              |
 |:---------------|:------------|:-----------------------------------|
-| **Vlastnost ReturnType** | Ne          | Typ vrácené funkcí. |
+| **ReturnType** | Ne          | Typ vrácený funkcí |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **ReturnType** – element (funkce). Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **ReturnType** (Function) lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-V následujícím příkladu **funkce** prvek, který chcete definovat funkci, která vrátí počet roků knihy se při tisku. Všimněte si, že je návratový typ určený **typ** atribut **ReturnType** – element (funkce).
+Následující příklad používá element **Function** k definování funkce, která vrátí počet roků, po který se kniha tiskne. Všimněte si, že návratový typ je určen atributem **typu** elementu **ReturnType** (Function).
 
 ``` xml
  <Function Name="GetYearsInPrint">
@@ -1558,37 +1558,37 @@ V následujícím příkladu **funkce** prvek, který chcete definovat funkci, k
    </DefiningExpression>
  </Function>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="returntype-functionimport-element-csdl"></a>Vlastnost ReturnType (element FunctionImport) – Element (CSDL)
+## <a name="returntype-functionimport-element-csdl"></a>ReturnType (FunctionImport) – element (CSDL)
 
-**ReturnType** – element (element FunctionImport) v Konceptuální schéma definici jazyka (CSDL) určuje návratový typ pro funkci, která je definována v elementu FunctionImport. Funkce, návratový typ je také možné zadat při **ReturnType** atribut.
+Element **ReturnType** (FunctionImport) v jazyce CSDL (konceptuální schéma Definition Language) určuje návratový typ pro funkci, která je definována v elementu FunctionImport. Návratový typ funkce lze také zadat s atributem **ReturnType** .
 
-Vrátí typy mohou být jakoukoli kolekci typu entity, komplexní typ, nebo **EdmSimpleType**,
+Návratové typy mohou být libovolné kolekce typu entity, komplexního typu nebo **EdmSimpleType**.
 
-Návratový typ funkce se zadaným **typ** atribut **ReturnType** – element (element FunctionImport).
+Návratový typ funkce je zadán s atributem **Type** elementu **ReturnType** (FunctionImport).
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **ReturnType** – element (element FunctionImport).
+Následující tabulka popisuje atributy, které lze použít na element **ReturnType** (FunctionImport).
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                                                 |
+| Název atributu | Je povinné | Value                                                                                                                                                                                                 |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Typ**       | Ne          | Typ, který funkce vrátí. Hodnota musí být kolekce ComplexType, EntityType nebo EDMSimpleType.                                                                                      |
-| **Objekt EntitySet**  | Ne          | Pokud funkce vrátí kolekci entit typy, hodnota **objektu EntitySet** musí být sada entit, ke které patří do kolekce. V opačném případě **objektu EntitySet** atribut nesmí být použit. |
+| **Typ**       | Ne          | Typ, který funkce vrátí. Hodnotou musí být kolekce ComplexType, EntityType nebo EDMSimpleType.                                                                                      |
+| **Sada**  | Ne          | Pokud funkce vrátí kolekci typů entit, hodnota **objektu EntitySet** musí být sada entit, do které kolekce patří. V opačném případě nesmí být použit atribut **EntitySet** . |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **ReturnType** – element (element FunctionImport). Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **ReturnType** (FunctionImport) lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad používá **element FunctionImport** , která vrací knihy a vydavatelích. Všimněte si, že funkce vrátí dvou sad výsledků a tedy dvě **ReturnType** zadaných elementů (element FunctionImport).
+V následujícím příkladu je použita funkce **FunctionImport** , která vrací knihy a vydavatele. Všimněte si, že funkce vrací dvě sady výsledků, a proto jsou zadány dva prvky **ReturnType** (FunctionImport).
 
 ``` xml
  <FunctionImport Name="GetBooksAndPublishers">
@@ -1596,32 +1596,32 @@ Následující příklad používá **element FunctionImport** , která vrací k
    <ReturnType Type=="Collection(BooksModel.Publisher)" EntitySet=”Publishers”>
  </FunctionImport>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="rowtype-element-csdl"></a>Element RowType (CSDL)
+## <a name="rowtype-element-csdl"></a>RowType – element (CSDL)
 
-A **RowType** prvek v Konceptuální schéma definici jazyka (CSDL) definuje nepojmenovanou strukturu jako parametr nebo návratový typ funkce definované v konceptuálním modelu.
+Element **RowType** v koncepčním definičním jazyce (CSDL) definuje nepojmenované struktury jako parametr nebo návratový typ pro funkci definovanou v koncepčním modelu.
 
-A **RowType** element může být podřízená následující prvky:
+Element **RowType** může být podřízeným prvkem následujících prvků:
 
--   Objekt CollectionType
+-   CollectionType
 -   Parametr
--   Vlastnost ReturnType (Function)
+-   ReturnType (Function)
 
-A **RowType** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **RowType** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Vlastnosti (jeden nebo více)
--   Elementů poznámky (nula nebo více)
+-   Vlastnost (jedna nebo více)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Libovolný počet atributů poznámky (vlastní atributy XML) lze na **RowType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+Pro element **RowType** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje funkce definované v modelu, která používá **CollectionType** elementu k určení, že funkce vrátí kolekce řádků (jak je uvedeno v **RowType** element).
+Následující příklad ukazuje funkci definovanou modelem, která používá element **CollectionType** k určení, že funkce vrací kolekci řádků (jak je uvedeno v elementu **RowType** ).
 
 ``` xml
  <Function Name="LastNamesAfter">
@@ -1642,55 +1642,55 @@ Následující příklad ukazuje funkce definované v modelu, která používá 
  </Function>
 ```
 
-## <a name="schema-element-csdl"></a>Element schématu (CSDL)
+## <a name="schema-element-csdl"></a>Schema – element (CSDL)
 
-**Schématu** prvek je kořenovým elementem definici konceptuálního modelu. Obsahuje definice pro objekty, funkce a kontejnerů, které tvoří konceptuálního modelu.
+Element **Schema** je kořenovým prvkem definice koncepčního modelu. Obsahuje definice pro objekty, funkce a kontejnery, které tvoří koncepční model.
 
-**Schématu** element může obsahovat nula nebo více z následujících podřízených elementů:
+Element **Schema** může obsahovat nula nebo více z následujících podřízených elementů:
 
--   použití
--   EntityContainer
+-   Použití
+-   Kontejneru
 -   Typ entity
 -   EnumType
--   Přidružení
--   Typ ComplexType
+-   Řídí
+-   Elementu
 -   Funkce
 
-A **schématu** element může obsahovat nejvýše jedno elementů poznámky.
+Prvek **schématu** může obsahovat nula nebo jeden prvek poznámky.
 
 > [!NOTE]
-> **Funkce** elementu a elementů poznámky jsou povolené jenom v CSDL v2 nebo novější.
+> Element **funkce** a prvky poznámky jsou povoleny pouze v CSDL v2 a novějším.
 
- 
+ 
 
-**Schématu** prvek používá **Namespace** atribut pro definování oboru názvů pro typ entity, komplexní typ a přidružení objekty v konceptuálním modelu. V rámci oboru názvů může mít žádné dva objekty se stejným názvem. Obory názvů může zahrnovat více **schématu** prvků a více souborů .csdl.
+Element **Schema** používá atribut **Namespace** k definování oboru názvů pro typ entity, komplexní typ a objekty přidružení v koncepčním modelu. V rámci oboru názvů nemohou mít žádné dva objekty stejný název. Obory názvů mohou zahrnovat více prvků **schématu** a více souborů. csdl.
 
-Obor názvů koncepčního modelu se liší od oboru názvů XML **schématu** elementu. Obor názvů koncepčního modelu (podle definice **Namespace** atribut) je logický kontejner pro typy entit a komplexní typy, přidružení typů. Obor názvů XML (indikován **xmlns** atribut) z **schématu** element je výchozí obor názvů pro podřízené prvky a atributy **schématu** elementu. Obory názvů XML formuláře http://schemas.microsoft.com/ado/YYYY/MM/edm (kde RRRR a MM představují roku a měsíce v uvedeném pořadí) jsou vyhrazené pro CSDL. Vlastní elementy a atributy nemohou být v oborech názvů, které mají tento formulář.
+Obor názvů koncepčního modelu je jiný než obor názvů XML elementu **Schema** . Obor názvů koncepčního modelu (jak je definováno atributem **Namespace** ) je logický kontejner pro typy entit, komplexní typy a typy přidružení. Obor názvů XML (uvedený atributem **xmlns** ) elementu **Schema** je výchozí obor názvů pro podřízené elementy a atributy elementu **Schema** . Obory názvů XML ve formátu https://schemas.microsoft.com/ado/YYYY/MM/edm (kde RRRR a MM představují rok a měsíc) jsou vyhrazené pro CSDL. Vlastní elementy a atributy nemůžou být v oborech názvů, které mají tento formulář.
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy lze použít **schématu** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **Schema** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Název atributu | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 |:---------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**  | Ano         | Obor názvů konceptuálního modelu. Hodnota **Namespace** atribut se používá k vytvoření plně kvalifikovaný název typu. Například pokud **EntityType** s názvem *zákazníka* je v oboru názvů Simple.Example.Model pak plně kvalifikovaný název **EntityType** je SimpleExampleModel.Customer. <br/> Následující řetězce nelze použít jako hodnotu **Namespace** atribut: **systému**, **přechodné**, nebo **Edm**. Hodnota **Namespace** atribut nemůže být stejná jako hodnota pro **Namespace** atribut v prvek schématu SSDL. |
-| **Alias**      | Ne          | Identifikátor, použijí se místo názvu oboru názvů. Například pokud **EntityType** s názvem *zákazníka* je v oboru názvů Simple.Example.Model a hodnoty **Alias** atribut je *modelu*, můžete použít Model.Customer jako plně kvalifikovaný název **EntityType.**                                                                                                                                                                                                                                                                                                     |
+| **Namespace**  | Ano         | Obor názvů koncepčního modelu. Hodnota atributu **Namespace** slouží k vytvoření plně kvalifikovaného názvu typu. Pokud je například **EntityType** s názvem *Zákazník* v jednoduchém oboru názvů. example. model, pak plně kvalifikovaný název **objektu EntityType** je SimpleExampleModel. Customer. <br/> Následující řetězce nelze použít jako hodnotu pro atribut **Namespace** : **System**, **přechodný**nebo **EDM**. Hodnota atributu **Namespace** nemůže být stejná jako hodnota atributu **Namespace** v elementu schématu SSDL. |
+| **Alias**      | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v jednoduchém oboru názvů. example. model a hodnota atributu **alias** je *model*, pak můžete použít model. Customer jako plně kvalifikovaný název **objektu EntityType.**                                                                                                                                                                                                                                                                                                     |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **schématu** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Schema** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **schématu** element, který obsahuje **EntityContainer** elementu, dvěma **EntityType** elementy a jeden **přidružení** elementu.
+Následující příklad ukazuje element **schématu** , který obsahuje element **EntityContainer** , dva elementy **EntityType** a jeden element **Association** .
 
 ``` xml
- <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm"
-      xmlns:cg="http://schemas.microsoft.com/ado/2009/11/codegeneration"
-      xmlns:store="http://schemas.microsoft.com/ado/2009/11/edm/EntityStoreSchemaGenerator"
+ <Schema xmlns="https://schemas.microsoft.com/ado/2009/11/edm"
+      xmlns:cg="https://schemas.microsoft.com/ado/2009/11/codegeneration"
+      xmlns:store="https://schemas.microsoft.com/ado/2009/11/edm/EntityStoreSchemaGenerator"
        Namespace="ExampleModel" Alias="Self">
          <EntityContainer Name="ExampleModelContainer">
            <EntitySet Name="Customers"
@@ -1743,47 +1743,47 @@ Následující příklad ukazuje **schématu** element, který obsahuje **Entity
          </Association>
        </Schema>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="typeref-element-csdl"></a>Element TypeRef (CSDL)
+## <a name="typeref-element-csdl"></a>TypeRef – element (CSDL)
 
-**TypeRef** element v Konceptuální schéma definici jazyka (CSDL) poskytuje odkaz na existující s názvem typu. **TypeRef** element může být podřízený element CollectionType, který se používá k určení, že má kolekce jako parametr nebo návratový typ funkce.
+Element **TypeRef** v jazyce CSDL (konceptuální schéma Definition Language) poskytuje odkaz na existující pojmenovaný typ. Element **TypeRef** může být podřízeným elementem CollectionType, který se používá k určení toho, že funkce má kolekci jako parametr nebo návratový typ.
 
-A **TypeRef** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **TypeRef** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **TypeRef** elementu. Všimněte si, že **DefaultValue**, **MaxLength**, **FixedLength**, **přesnost**, **škálování**,  **Kódování Unicode**, a **kolace** atributy se vztahují jenom **EDMSimpleTypes**.
+Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **TypeRef** . Všimněte si, že atributy **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**a **kolace** se vztahují pouze na **EDMSimpleTypes**.
 
-| Název atributu                                                     | Vyžaduje se | Hodnota                                                                                                                                                                                                                           |
+| Název atributu                                                     | Je povinné | Value                                                                                                                                                                                                                           |
 |:-------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Typ**                                                           | Ne          | Název typu, který se odkazuje.                                                                                                                                                                                          |
-| **S povolenou hodnotou Null**                                                       | Ne          | **Hodnota TRUE** (výchozí hodnota) nebo **False** v závislosti na tom, zda tato vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                |
-| > CSDL v1 komplexní typ vlastnosti musí mít `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
-| **Výchozí hodnota**                                                   | Ne          | Výchozí hodnota vlastnosti.                                                                                                                                                                                              |
-| **maxLength**                                                      | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
-| **Hodnoty**                                                    | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnotu vlastnosti jako řetězec pevné délky.                                                                                                                          |
-| **Přesnost**                                                      | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Škálování**                                                          | Ne          | Měřítko pro hodnotu vlastnosti.                                                                                                                                                                                                |
-| **SRID**                                                           | Ne          | Odkaz na identifikátor spatial systému. Platí pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
-| **Unicode**                                                        | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží hodnoty vlastnosti jako řetězec s kódováním Unicode.                                                                                                                               |
-| **Kolace**                                                      | Ne          | Řetězec, který určuje pořadí řazení, který se má použít ve zdroji dat.                                                                                                                                                   |
+| **Typ**                                                           | Ne          | Název odkazovaného typu                                                                                                                                                                                          |
+| **Povoleno**                                                       | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                |
+| > V CSDL v1 vlastnost komplexního typu musí mít `Nullable="False"`. |             |                                                                                                                                                                                                                                 |
+| **Hodnot**                                                   | Ne          | Výchozí hodnota vlastnosti                                                                                                                                                                                              |
+| **MaxLength**                                                      | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
+| **FixedLength**                                                    | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
+| **Číslic**                                                      | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
+| **Kapacity**                                                          | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **SRID**                                                           | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **Unicode**                                                        | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
+| **Velké**                                                      | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **CollectionType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **CollectionType** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje funkce definované v modelu, která používá **TypeRef** – element (jako podřízený objekt **CollectionType** element) k určení, že funkce přijímá kolekce  **Oddělení** typy entit.
+Následující příklad ukazuje funkci definovanou modelem, která používá prvek **TypeRef** (jako podřízený prvek typu **CollectionType** ) k určení, že funkce přijímá kolekci typů entit **oddělení** .
 
 ``` xml
  <Function Name="GetAvgBudget">
@@ -1798,48 +1798,48 @@ Následující příklad ukazuje funkce definované v modelu, která používá 
        </DefiningExpression>
  </Function>
 ```
- 
+ 
 
- 
+ 
 
-## <a name="using-element-csdl"></a>Pomocí elementu (CSDL)
+## <a name="using-element-csdl"></a>Using – element (CSDL)
 
-**Použití** element v Konceptuální schéma definici jazyka (CSDL) Importuje obsah Koncepční model, který existuje v jiné oboru názvů. Nastavením hodnoty **Namespace** atributu, mohou odkazovat na typy entit, komplexní typy a typy přidružení, které jsou definovány v jiném koncepčního modelu. Více než jeden **použití** element může být podřízený **schématu** elementu.
+Element **using** v jazyce CSDL (konceptuální schéma Definition Language) importuje obsah koncepčního modelu, který existuje v jiném oboru názvů. Nastavením hodnoty atributu **Namespace** můžete odkazovat na typy entit, komplexní typy a typy přidružení, které jsou definovány v jiném koncepčním modelu. Více než jeden element **using** může být podřízeným elementu **schématu** .
 
 > [!NOTE]
-> **Použití** nebude fungovat stejně jako prvek v CSDL **pomocí** příkaz v programovacím jazyce. Importováním oboru názvů s **pomocí** příkaz v programovacím jazyce, nemají vliv objekty v oboru názvů původní. V CSDL importovaným oborem názvů může obsahovat typ entity, který je odvozen z typu entity v původní oboru názvů. To může ovlivnit sady entit deklarované v původní obor názvů.
+> Element **using** v CSDL nefunguje úplně stejně jako příkaz **using** v programovacím jazyce. Importováním oboru názvů pomocí příkazu **using** v programovacím jazyce neovlivníte objekty v původním oboru názvů. V CSDL může importovaný obor názvů obsahovat typ entity, který je odvozen z typu entity v původním oboru názvů. To může mít vliv na sady entit deklarované v původním oboru názvů.
 
- 
+ 
 
-**Použití** prvek může mít následujících podřízených elementů:
+Element **using** může mít následující podřízené prvky:
 
--   Dokumentace ke službě (žádný nebo jeden prvků povolený)
--   Elementů poznámky (nula nebo více prvků povolený)
+-   Dokumentace (povolené nula nebo jeden prvek)
+-   Prvky poznámky (povoleny nula nebo více prvků)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy lze použít **použití** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **using** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                              |
+| Název atributu | Je povinné | Value                                                                                                                                                                              |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**  | Ano         | Importované oboru názvů.                                                                                                                                                |
-| **Alias**      | Ano         | Identifikátor, použijí se místo názvu oboru názvů. I když tento atribut je vyžadován, není nutné název oboru názvů se být zastoupen kvalifikovat názvy objektů. |
+| **Namespace**  | Ano         | Název importovaného oboru názvů.                                                                                                                                                |
+| **Alias**      | Ano         | Identifikátor použitý místo názvu oboru názvů. I když je tento atribut vyžadován, není vyžadováno, aby byl použit místo názvu oboru názvů k získání názvů objektů. |
 
- 
+ 
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **použití** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **using** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
- 
+ 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje, **použití** element se používá pro import oboru názvů, který je definovaný jinde. Všimněte si, že je obor názvů pro **schématu** uvedeného prvku je `BooksModel`. `Address` Vlastnost `Publisher` **EntityType** je komplexní typ, který je definován v `ExtendedBooksModel` obor názvů (importovat s **použití** element).
+Následující příklad ukazuje **použití** prvku, který je použit pro import oboru názvů, který je definován jinde. Všimněte si, že obor názvů pro zobrazený element **schématu** je `BooksModel`. Vlastnost `Address` na**EntityType** `Publisher` je komplexní typ, který je definován v oboru názvů `ExtendedBooksModel` (importované pomocí elementu **using** ).
 
 ``` xml
- <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm"
-           xmlns:cg="http://schemas.microsoft.com/ado/2009/11/codegeneration"
-           xmlns:store="http://schemas.microsoft.com/ado/2009/11/edm/EntityStoreSchemaGenerator"
+ <Schema xmlns="https://schemas.microsoft.com/ado/2009/11/edm"
+           xmlns:cg="https://schemas.microsoft.com/ado/2009/11/codegeneration"
+           xmlns:store="https://schemas.microsoft.com/ado/2009/11/edm/EntityStoreSchemaGenerator"
            Namespace="BooksModel" Alias="Self">
 
      <Using Namespace="BooksModel.Extended" Alias="BMExt" />
@@ -1859,28 +1859,28 @@ Následující příklad ukazuje, **použití** element se používá pro import
 
  </Schema>
 ```
- 
+ 
 
- 
+ 
 
 ## <a name="annotation-attributes-csdl"></a>Atributy poznámek (CSDL)
 
-Atributy poznámky v Konceptuální schéma definici jazyka (CSDL) jsou vlastní atributy XML v konceptuálním modelu. Kromě s platnou strukturu XML, musí být splněné anotace atributů následující podmínky:
+Atributy poznámek v nástroji CSDL (konceptuální schéma Definition Language) jsou vlastní atributy XML v koncepčním modelu. Kromě toho, že mají platnou strukturu XML, musí mít následující hodnoty true atributů Anotace:
 
--   Atributy poznámky nesmí být v libovolný obor názvů XML, který je vyhrazen pro CSDL.
--   Více než jeden atribut poznámky se můžou vztahovat na daný prvek CSDL.
--   Plně kvalifikovaných názvů atributů dvě poznámky nesmí být stejné.
+-   Atributy poznámky nesmí být v žádném oboru názvů XML, který je vyhrazený pro CSDL.
+-   U daného elementu CSDL lze použít více než jeden atribut poznámky.
+-   Plně kvalifikované názvy všech dvou atributů poznámek nesmí být stejné.
 
-Anotace atributy je možné poskytnout další metadata o prvky v konceptuálním modelu. Metadat obsažených v elementů poznámky je možný za běhu pomocí tříd v oboru názvů System.Data.Metadata.Edm.
+Atributy poznámek lze použít k poskytnutí dalších metadat o prvcích v koncepčním modelu. K metadatům obsaženým v prvcích poznámky lze za běhu přistup použít třídy v oboru názvů System. data. Metadata. Edm.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityType** element s atributem poznámky (**Atribut CustomAttribute**). Příklad také ukazuje element poznámky na prvek typu entity.
+Následující příklad ukazuje element **EntityType** s atributem poznámky (**CustomAttribute**). Příklad také ukazuje prvek poznámky aplikovaný na prvek typu entity.
 
 ``` xml
  <Schema Namespace="SchoolModel" Alias="Self"
-         xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
-         xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+         xmlns:annotation="https://schemas.microsoft.com/ado/2009/02/edm/annotation"
+         xmlns="https://schemas.microsoft.com/ado/2009/11/edm">
    <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
      <EntitySet Name="People" EntityType="SchoolModel.Person" />
    </EntityContainer>
@@ -1903,9 +1903,9 @@ Následující příklad ukazuje **EntityType** element s atributem poznámky (*
    </EntityType>
  </Schema>
 ```
- 
+ 
 
-Následující kód načte metadata v atributu poznámky a zapíše jej do konzoly:
+Následující kód načte metadata v atributu anotace a zapíše je do konzoly:
 
 ``` xml
  EdmItemCollection collection = new EdmItemCollection("School.csdl");
@@ -1921,36 +1921,36 @@ Následující kód načte metadata v atributu poznámky a zapíše jej do konzo
      Console.WriteLine(annotationValue.ToString());
  }
 ```
- 
+ 
 
-Výše uvedený kód předpokládá, že `School.csdl` soubor v adresáři výstupu projektu a že jste přidali následující `Imports` a `Using` příkazy do projektu:
+Výše uvedený kód předpokládá, že soubor `School.csdl` je ve výstupním adresáři projektu a že jste do projektu přidali následující příkazy `Imports` a `Using`:
 
 ``` csharp
  using System.Data.Metadata.Edm;
 ```
- 
+ 
 
- 
+ 
 
-## <a name="annotation-elements-csdl"></a>Elementů poznámky (CSDL)
+## <a name="annotation-elements-csdl"></a>Prvky poznámek (CSDL)
 
-Elementů poznámky v Konceptuální schéma definici jazyka (CSDL) jsou vlastní elementy XML v konceptuálním modelu. Kromě s platnou strukturu XML, musí být elementů poznámky platí následující podmínky:
+Prvky poznámek v jazyce CSDL (konceptuální schéma Definition Language) jsou vlastní prvky XML v koncepčním modelu. Kromě toho, že mají platnou strukturu XML, musí mít následující hodnoty true pro prvky poznámky:
 
--   Elementů poznámky nesmí být v libovolný obor názvů XML, který je vyhrazen pro CSDL.
--   Více než jeden element anotace může být podřízeným daného prvku CSDL.
--   Plně kvalifikovaných názvů všech elementů dvě poznámky nesmí být stejné.
--   Elementů poznámky se musí vyskytovat za všechny ostatní podřízené prvky daného prvku CSDL.
+-   Prvky poznámky nesmí být v žádném oboru názvů XML, který je vyhrazený pro CSDL.
+-   Více než jeden element poznámky může být podřízeným prvku daného elementu CSDL.
+-   Plně kvalifikované názvy všech dvou prvků poznámky nesmí být stejné.
+-   Prvky poznámky se musí vyskytovat po všech ostatních podřízených prvcích daného elementu CSDL.
 
-Elementů poznámky je možné poskytnout další metadata o prvky v konceptuálním modelu. Od verze rozhraní .NET Framework verze 4, metadat obsažených v elementů poznámky je možný za běhu pomocí tříd v oboru názvů System.Data.Metadata.Edm.
+Prvky poznámky lze použít k poskytnutí dalších metadat o prvcích v koncepčním modelu. Počínaje verzí .NET Framework 4 je k metadatům obsaženým v prvcích poznámky možné přistupovat za běhu pomocí tříd v oboru názvů System. data. Metadata. Edm.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityType** prvek s elementem poznámky (**CustomElement**). V příkladu také zobrazit poznámky atribut na prvek typu entity.
+Následující příklad ukazuje element **EntityType** s elementem Annotation (**CustomElement**). Příklad také ukazuje atribut anotace aplikovaný na prvek typu entity.
 
 ``` xml
  <Schema Namespace="SchoolModel" Alias="Self"
-         xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
-         xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+         xmlns:annotation="https://schemas.microsoft.com/ado/2009/02/edm/annotation"
+         xmlns="https://schemas.microsoft.com/ado/2009/11/edm">
    <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
      <EntitySet Name="People" EntityType="SchoolModel.Person" />
    </EntityContainer>
@@ -1973,9 +1973,9 @@ Následující příklad ukazuje **EntityType** prvek s elementem poznámky (**C
    </EntityType>
  </Schema>
 ```
- 
+ 
 
-Následující kód načte metadata v elementu poznámky a zapíše jej do konzoly:
+Následující kód načte metadata v prvku anotace a zapíše jej do konzoly:
 
 ``` csharp
  EdmItemCollection collection = new EdmItemCollection("School.csdl");
@@ -1991,89 +1991,89 @@ Následující kód načte metadata v elementu poznámky a zapíše jej do konzo
      Console.WriteLine(annotationValue.ToString());
  }
 ```
- 
+ 
 
-Výše uvedený kód předpokládá, že je School.csdl soubor v adresáři výstupu projektu a že jste přidali následující `Imports` a `Using` příkazy do projektu:
+Výše uvedený kód předpokládá, že soubor School. csdl je ve výstupním adresáři projektu a že jste do projektu přidali následující příkazy `Imports` a `Using`:
 
 ``` csharp
  using System.Data.Metadata.Edm;
 ```
- 
+ 
 
- 
+ 
 
 ## <a name="conceptual-model-types-csdl"></a>Typy konceptuálních modelů (CSDL)
 
-Konceptuální schéma definici jazyka (CSDL) podporuje sadu abstraktní primitivní datové typy, volá **EDMSimpleTypes**, které definují vlastnosti v konceptuálním modelu. **EDMSimpleTypes** jsou proxy servery pro primitivní datové typy, které jsou podporovány ve službě storage nebo hostitelského prostředí.
+Model CSDL (konceptuální schéma Definition Language) podporuje sadu abstraktních primitivních datových typů s názvem **EDMSimpleTypes**, které definují vlastnosti v koncepčním modelu. **EDMSimpleTypes** jsou proxy pro primitivní datové typy, které jsou podporovány v úložišti nebo hostitelském prostředí.
 
-Následující tabulka uvádí primitivní datové typy, které jsou podporovány CSDL. V tabulce jsou uvedeny také omezující vlastnosti, které lze použít u každého **EDMSimpleType**.
+Následující tabulka uvádí primitivní datové typy, které podporuje CSDL. Tabulka obsahuje také seznam omezujících vlastností, které lze použít na jednotlivé **EDMSimpleType**.
 
-| EDMSimpleType                    | Popis                                                | Použít omezující vlastnosti                                                        |
+| EDMSimpleType                    | Popis                                                | Použitelné omezující vlastnosti                                                        |
 |:---------------------------------|:-----------------------------------------------------------|:-------------------------------------------------------------------------|
-| **Edm.Binary**                   | Obsahuje binární data.                                      | MaxLength, hodnoty, s možnou hodnotou Null, výchozí                                |
-| **Typem Edm.Boolean**                  | Obsahuje hodnotu **true** nebo **false**.                  | S povolenou hodnotou Null, výchozí                                                        |
-| **Edm.Byte**                     | Obsahuje hodnotu bez znaménka 8bitové celé číslo.                  | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.DateTime**                 | Představuje datum a čas.                                | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.DateTimeOffset**           | Obsahuje data a času jako posun během několika minut od GMT. | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.Decimal**                  | Obsahuje číselná hodnota s pevnou hodnot precision a scale.   | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.Double**                   | Obsahuje plovoucí desetinnou čárkou s přesností na 15 číslic čísla   | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.Float**                    | Obsahuje bod s plovoucí desetinnou čárkou s přesností 7 číslic čísla.   | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.Guid**                     | Obsahuje jedinečný identifikátor 16 bajtů.                      | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.Int16**                    | Obsahuje hodnotu se znaménkem 16 bitů.                    | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Typem Edm.Int32**                    | Obsahuje hodnotu se znaménkem 32-bit.                    | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.Int64**                    | Obsahuje hodnotu se znaménkem 64-bit.                    | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.SByte**                    | Obsahuje hodnotu se znaménkem 8 bitů.                     | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.String**                   | Obsahuje znaková data.                                   | Výchozí kódování Unicode, hodnoty, MaxLength, kolace, přesností, s možnou hodnotou Null, |
-| **Edm.Time**                     | Obsahuje denní dobu.                                    | Přesnost, s možnou hodnotou Null, výchozí                                             |
-| **Edm.Geography**                |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeographyPoint**           |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeographyLineString**      |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeographyPolygon**         |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeographyMultiPoint**      |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeographyMultiLineString** |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeographyMultiPolygon**    |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeographyCollection**      |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.Geometry**                 |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeometryPoint**            |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeometryLineString**       |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeometryPolygon**          |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeometryMultiPoint**       |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeometryMultiLineString**  |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeometryMultiPolygon**     |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
-| **Edm.GeometryCollection**       |                                                            | S povolenou hodnotou Null, výchozí, SRID                                                  |
+| **EDM. Binary**                   | Obsahuje binární data.                                      | MaxLength, FixedLength, Nullable, default                                |
+| **EDM. Boolean**                  | Obsahuje hodnotu **true** nebo **false**.                  | Nullable, výchozí                                                        |
+| **EDM. Byte**                     | Obsahuje 8bitové celočíselnou hodnotu bez znaménka.                  | Přesnost, Nullable, výchozí                                             |
+| **EDM. DateTime**                 | Představuje datum a čas.                                | Přesnost, Nullable, výchozí                                             |
+| **EDM. DateTimeOffset**           | Obsahuje datum a čas jako posun v minutách od času GMT. | Přesnost, Nullable, výchozí                                             |
+| **EDM. Decimal**                  | Obsahuje číselnou hodnotu s pevnou přesností a škálováním.   | Přesnost, Nullable, výchozí                                             |
+| **EDM. Double**                   | Obsahuje číslo s plovoucí desetinnou čárkou s přesností na 15 číslic.   | Přesnost, Nullable, výchozí                                             |
+| **EDM. float**                    | Obsahuje číslo s plovoucí desetinnou čárkou s přesností na 7 číslic.   | Přesnost, Nullable, výchozí                                             |
+| **EDM. GUID**                     | Obsahuje jedinečný identifikátor o velikosti 16 bajtů.                      | Přesnost, Nullable, výchozí                                             |
+| **EDM. Int16**                    | Obsahuje 16bitová celočíselnou hodnotu se znaménkem.                    | Přesnost, Nullable, výchozí                                             |
+| **EDM. Int32**                    | Obsahuje podepsaná 32 celočíselná hodnota.                    | Přesnost, Nullable, výchozí                                             |
+| **EDM. Int64**                    | Obsahuje podepsaná 64 celočíselná hodnota.                    | Přesnost, Nullable, výchozí                                             |
+| **EDM. SByte**                    | Obsahuje 8bitové celočíselnou hodnotu se znaménkem.                     | Přesnost, Nullable, výchozí                                             |
+| **EDM. String**                   | Obsahuje znaková data.                                   | Unicode, FixedLength, MaxLength, kolace, přesnost, Nullable, default |
+| **EDM. time**                     | Obsahuje denní dobu.                                    | Přesnost, Nullable, výchozí                                             |
+| **EDM. geografie**                |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeographyPoint**           |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeographyLineString**      |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeographyPolygon**         |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeographyMultiPoint**      |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeographyMultiLineString** |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeographyMultiPolygon**    |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. geografie –Collection**      |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. Geometry**                 |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeometryPoint**            |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeometryLineString**       |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeometryPolygon**          |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeometryMultiPoint**       |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeometryMultiLineString**  |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeometryMultiPolygon**     |                                                            | Nullable, Default, SRID                                                  |
+| **EDM. GeometryCollection**       |                                                            | Nullable, Default, SRID                                                  |
 
 ## <a name="facets-csdl"></a>Omezující vlastnosti (CSDL)
 
-Omezující vlastnosti v Konceptuální schéma definici jazyka (CSDL) představují omezení na vlastnosti typů entit a komplexní typy. Omezující vlastnosti zobrazí jako atributy ve formátu XML na následujících prvcích CSDL:
+Charakteristiky v jazyce CSDL (konceptuální schéma Definition Language) reprezentují omezení vlastností typů entit a komplexních typů. Omezující vlastnosti se zobrazí jako atributy XML u následujících elementů CSDL:
 
 -   Vlastnost
--   Odkaz TypeRef
+-   Odkaz
 -   Parametr
 
-Následující tabulka popisuje omezující vlastnosti, které jsou podporovány v CSDL. Všechny omezující vlastnosti jsou volitelné. Některé omezujících vlastností uvedených níže používá Entity Framework při generování databáze z Koncepční model.
+Následující tabulka obsahuje popis omezujících vlastností, které jsou podporovány v CSDL. Všechny omezující vlastnosti jsou volitelné. Některé omezující vlastnosti, které jsou uvedeny níže, jsou používány Entity Framework při generování databáze z koncepčního modelu.
 
 > [!NOTE]
-> Informace o datových typech v konceptuálním modelu najdete v tématu typy koncepční Model (CSDL).
+> Informace o datových typech v koncepčním modelu naleznete v tématu typy konceptuálních modelů (CSDL).
 
-| omezující vlastnost               | Popis                                                                                                                                                                                                                                                   | Platí pro                                                                                                                                                                                                                                                                                                                                                                           | Používá pro generování databáze | Použít modul runtime |
+| Omezující               | Popis                                                                                                                                                                                                                                                   | Platná pro                                                                                                                                                                                                                                                                                                                                                                           | Používá se pro generování databáze. | Používáno modulem runtime |
 |:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------|:--------------------|
-| **Kolace**       | Určuje pořadí řazení (nebo pořadí řazení) pro použití při provádění porovnání a řazení operací na hodnotách vlastnosti.                                                                                                               | **Edm.String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
-| **Režim ConcurrencyMode** | Označuje, že hodnota vlastnosti má být použita pro kontroly optimistické souběžnosti.                                                                                                                                                                    | Všechny **EDMSimpleType** vlastnosti                                                                                                                                                                                                                                                                                                                                                     | Ne                               | Ano                 |
-| **Default**         | Určuje výchozí hodnotu vlastnosti, pokud není zadána žádná hodnota, při vytváření instance.                                                                                                                                                                       | Všechny **EDMSimpleType** vlastnosti                                                                                                                                                                                                                                                                                                                                                     | Ano                              | Ano                 |
-| **Hodnoty**     | Určuje, zda se může lišit délka hodnoty vlastnosti.                                                                                                                                                                                                  | **Edm.Binary**, **Edm.String**                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
-| **maxLength**       | Určuje maximální délku hodnoty vlastnosti.                                                                                                                                                                                                           | **Edm.Binary**, **Edm.String**                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
-| **S povolenou hodnotou Null**        | Určuje, zda tato vlastnost může mít **null** hodnotu.                                                                                                                                                                                                     | Všechny **EDMSimpleType** vlastnosti                                                                                                                                                                                                                                                                                                                                                     | Ano                              | Ano                 |
-| **Přesnost**       | Pro vlastnosti typu **desítkové**, určuje počet číslic, může mít hodnotu vlastnosti. Pro vlastnosti typu **čas**, **data a času**, a **DateTimeOffset**, určuje počet číslic za desetinnou čárkou sady sekund hodnoty vlastnosti. | **Edm.DateTime**, **Edm.DateTimeOffset**, **Edm.Decimal**, **Edm.Time**                                                                                                                                                                                                                                                                                                              | Ano                              | Ne                  |
-| **Škálování**           | Určuje počet číslic vpravo od desetinné čárky pro hodnotu vlastnosti.                                                                                                                                                                      | **Edm.Decimal**                                                                                                                                                                                                                                                                                                                                                                      | Ano                              | Ne                  |
-| **SRID**            | Určuje ID prostorových systému odkaz na systém. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx).                                                              | **Edm.Geography Edm.GeographyPoint, Edm.GeographyLineString, Edm.GeographyPolygon, Edm.GeographyMultiPoint, Edm.GeographyMultiLineString, Edm.GeographyMultiPolygon, Edm.GeographyCollection, Edm.Geometry, Edm.GeometryPoint, Edm.GeometryLineString Edm.GeometryPolygon, Edm.GeometryMultiPoint, Edm.GeometryMultiLineString, Edm.GeometryMultiPolygon, Edm.GeometryCollection** | Ne                               | Ano                 |
-| **Unicode**         | Označuje, zda hodnota vlastnosti je uložen jako kódování Unicode.                                                                                                                                                                                                    | **Edm.String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ano                 |
+| **Velké**       | Určuje pořadí kompletování (nebo řazení sekvence), které se má použít při provádění operací porovnání a řazení u hodnot vlastnosti.                                                                                                               | **EDM. String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
+| **ConcurrencyMode** | Označuje, že hodnota vlastnosti by měla být použita pro kontroly optimistického řízení souběžnosti.                                                                                                                                                                    | Všechny vlastnosti **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Ne                               | Ano                 |
+| **Výchozí**         | Určuje výchozí hodnotu vlastnosti, pokud není při vytváření instance zadána žádná hodnota.                                                                                                                                                                       | Všechny vlastnosti **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Ano                              | Ano                 |
+| **FixedLength**     | Určuje, zda může být délka hodnoty vlastnosti odlišná.                                                                                                                                                                                                  | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
+| **MaxLength**       | Určuje maximální délku hodnoty vlastnosti.                                                                                                                                                                                                           | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
+| **Povoleno**        | Určuje, zda vlastnost může mít hodnotu **null** .                                                                                                                                                                                                     | Všechny vlastnosti **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Ano                              | Ano                 |
+| **Číslic**       | Pro vlastnosti typu **Decimal**určuje počet číslic, které může mít hodnota vlastnosti. Pro vlastnosti typu **Time**, **DateTime**a **DateTimeOffset**určuje počet číslic pro zlomkovou část hodnoty vlastnosti v sekundách. | **EDM. DateTime**, **EDM. DateTimeOffset**, **EDM. Decimal**, **EDM. time**                                                                                                                                                                                                                                                                                                              | Ano                              | Ne                  |
+| **Kapacity**           | Určuje počet číslic vpravo od desetinné čárky pro hodnotu vlastnosti.                                                                                                                                                                      | **EDM. Decimal**                                                                                                                                                                                                                                                                                                                                                                      | Ano                              | Ne                  |
+| **SRID**            | Určuje ID referenčního systému prostorového systému. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx).                                                              | **EDM. geografie, Edm. GeographyPoint, Edm. GeographyLineString, Edm. GeographyPolygon, Edm. GeographyMultiPoint, Edm. GeographyMultiLineString, Edm. GeographyMultiPolygon, Edm. geografie, Edm. Geometry, Edm. GeometryPoint, EDM. GeometryLineString, Edm. GeometryPolygon, Edm. GeometryMultiPoint, Edm. GeometryMultiLineString, Edm. GeometryMultiPolygon, Edm. GeometryCollection** | Ne                               | Ano                 |
+| **Unicode**         | Určuje, zda je hodnota vlastnosti uložena jako Unicode.                                                                                                                                                                                                    | **EDM. String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ano                 |
 
 >[!NOTE]
-> Při generování z Koncepční model databáze, databáze průvodce generovat rozpozná hodnoty **výčet StoreGeneratedPattern** atribut na **vlastnost** elementu, jestliže je v následujícím obor názvů: http://schemas.microsoft.com/ado/2009/02/edm/annotation. Podporované hodnoty pro atribut **Identity** a **vypočítané**. Hodnota **Identity** vytvoří sloupec databáze hodnotu identity, který je vygenerován v databázi. Hodnota **vypočítané** vytvoří sloupec hodnot, které je vypočítán v databázi.
+> Při generování databáze z koncepčního modelu Průvodce generováním databáze rozpozná hodnotu atributu **StoreGeneratedPattern** elementu **Property** , pokud je v následujícím oboru názvů: https://schemas.microsoft.com/ado/2009/02/edm/annotation. Podporované hodnoty atributu jsou **identity** a **počítané**. Hodnota **identity** vytvoří sloupec databáze s hodnotou identity, která je vygenerována v databázi. Hodnota **počítaná** vygeneruje sloupec s hodnotou, která je vypočítána v databázi.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje použitý pro vlastnosti typu entity omezující vlastnosti:
+Následující příklad ukazuje charakteristiky použité pro vlastnosti typu entity:
 
 ``` xml
  <EntityType Name="Product">
@@ -2083,7 +2083,7 @@ Následující příklad ukazuje použitý pro vlastnosti typu entity omezujíc�
    <Property Type="Int32"
              Name="ProductId" Nullable="false"
              a:StoreGeneratedPattern="Identity"
-    xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    xmlns:a="https://schemas.microsoft.com/ado/2009/02/edm/annotation" />
    <Property Type="String"
              Name="ProductName"
              Nullable="false"

@@ -1,35 +1,35 @@
 ---
-title: Entity Framework blogy - EF6
+title: Entity Framework Blogy – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: f8fcfb34-35de-4e82-b419-8f99fd2eb92a
-ms.openlocfilehash: 49cf475a68967583410a3a4b442f974f41cdcaa4
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 6900ce3d139f4ae017edc764d55a7b746561a226
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490079"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182413"
 ---
-# <a name="entity-framework-blogs"></a>Blogy Entity Framework
-Kromě v dokumentaci k produktu může být tyto blogy zdroj užitečné informace o rozhraní Entity Framework:
+# <a name="entity-framework-blogs"></a>Entity Framework Blogy
+Kromě dokumentace k produktu může být tyto Blogy zdrojem užitečných informací o Entity Framework:
 
 ## <a name="ef-team-blogs"></a>Blogy týmu EF
 
-- [Blog k .NET – značka: Entity Framework](https://blogs.msdn.microsoft.com/dotnet/tag/entity-framework/)
-- [Blog ADO.NET (již nejsou používána)](https://blogs.msdn.microsoft.com/adonet/)
-- [Blog o návrhu EF (již nejsou používána)](https://blogs.msdn.microsoft.com/efdesign/)
+- @no__t – značka blogu 0.NET: Entity Framework @ no__t-0
+- [Blog ADO.NET (už se nepoužívá)](https://blogs.msdn.microsoft.com/adonet/)
+- [Blog pro návrh EF (už se nepoužívá)](https://blogs.msdn.microsoft.com/efdesign/)
 
-## <a name="current-and-former-ef-team-bloggers"></a>Aktuální a původní bloggerům EF týmu
+## <a name="current-and-former-ef-team-bloggers"></a>Aktuální a dřívější EF blogerů
 
-- [Podle Arthur Vickerse](https://blog.oneunicorn.com/tag/entity-framework/)
-- [Brice Lambson](http://www.bricelam.net/)
-- [Diego Vega](https://blogs.msdn.microsoft.com/diego/)
+- [Arthur Vickers](https://blog.oneunicorn.com/tag/entity-framework/)
+- [Brice Lambson](https://www.bricelam.net/)
+- [Diegu Vega](https://blogs.msdn.microsoft.com/diego/)
 - [Rowan Miller](https://romiller.com/category/entity-framework/)
 - [Pawel Kadluczka](https://blog.3d-logic.com/category/entity-framework/)
 - [Alex James](https://blogs.msdn.microsoft.com/alexj/tag/entity-framework/)
 - [Zlatko Michailov](https://blogs.msdn.microsoft.com/esql/tag/entity-framework/)
 
-## <a name="ef-community-bloggers"></a>EF komunity triggerů
+## <a name="ef-community-bloggers"></a>Komunita EF blogerů
 
-- [Julie Lerman](http://thedatafarm.com/blog/)  
+- [Julie Lerman](https://thedatafarm.com/blog/)  
 - [Shawn Wildermuth](https://wildermuth.com/Tag/%20Entity%20Framework)  

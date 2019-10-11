@@ -1,45 +1,45 @@
 ---
-title: Rozhraní Fluent API s VB.NET – EF6
+title: Rozhraní Fluent API s VB.NET-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: 6aa74fa72296f66f0b069b9b5ee7e2e016570525
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: df3e61fa5e2d24873336511e90231a7d78d32535
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283742"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182660"
 ---
 # <a name="fluent-api-with-vbnet"></a>Rozhraní Fluent API s VB.NET
-Kód nejprve umožňuje definovat model pomocí jazyka C\# nebo VB.NET třídy. Další konfigurace můžete volitelně provést pomocí atributů ve třídách a vlastnostech nebo s použitím rozhraní API fluent. Tento návod ukazuje, jak provádět fluent konfigurace rozhraní API pomocí VB.NET.
+Code First umožňuje definovat model pomocí tříd C @ no__t-0 nebo VB.NET. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent. Tento návod ukazuje, jak provést konfiguraci rozhraní Fluent API pomocí VB.NET.
 
-Tato stránka se předpokládá, že máte základní znalosti o Code First. Přečtěte si další informace o Code First následujících návodech:
+Tato stránka předpokládá, že máte základní znalosti o Code First. Další informace o Code First najdete v následujících návodech:
 
--   [Kód nejprve do nové databáze](~/ef6/modeling/code-first/workflows/new-database.md)
--   [Kód nejprve ke stávající databázi](~/ef6/modeling/code-first/workflows/existing-database.md)
+-   [Code First k nové databázi](~/ef6/modeling/code-first/workflows/new-database.md)
+-   [Code First do existující databáze](~/ef6/modeling/code-first/workflows/existing-database.md)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
-Budete muset mít alespoň Visual Studio 2010 nebo Visual Studio 2012 nainstalovat k dokončení tohoto návodu.
+Abyste mohli dokončit tento návod, budete muset mít nainstalovanou aspoň Visual Studio 2010 nebo Visual Studio 2012.
 
-Pokud používáte Visual Studio 2010, musíte také mít [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) nainstalovaná
+Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .
 
 ## <a name="create-the-application"></a>Vytvoření aplikace
 
-Pro zjednodušení budeme vytvářet základní Konzolová aplikace, které používá Code First pro přístup k datům.
+Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům.
 
 -   Otevřít Visual Studio
--   **Soubor –&gt; nové –&gt; projektu...**
--   Vyberte **Windows** v levé nabídce a **konzolové aplikace**
--   Zadejte **CodeFirstVBSample** jako název
--   Vyberte **OK**
+-   **Soubor-&gt; nový-&gt; projekt...**
+-   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
+-   Jako název zadejte **CodeFirstVBSample** .
+-   Vybrat **OK**
 
-## <a name="define-the-model"></a>Definovat Model
+## <a name="define-the-model"></a>Definování modelu
 
-V tomto kroku nadefinujete VB.NET objektů POCO typy entit, které představují konceptuálního modelu. Třídy není nutné odvozovat všechny základní třídy nebo implementovat všem rozhraním.
+V tomto kroku definujete typy entit VB.NET POCO, které reprezentují koncepční model. Třídy nemusejí odvozovat ze žádné základní třídy ani implementovat žádná rozhraní.
 
--   Přidejte novou třídu do projektu, zadejte **nazvaného SchoolModel** pro název třídy
--   Nahraďte obsah novou třídu s následujícím kódem
+-   Přidejte do projektu novou třídu, jako název třídy zadejte **SchoolModel** .
+-   Nahraďte obsah nové třídy následujícím kódem
 
 ``` vb
    Public Class Department
@@ -133,21 +133,21 @@ V tomto kroku nadefinujete VB.NET objektů POCO typy entit, které představují
     End Class
 ```
 
-## <a name="define-a-derived-context"></a>Definovat odvozené kontext
+## <a name="define-a-derived-context"></a>Definovat odvozený kontext
 
-Můžeme se chystáte začít pomocí typů z Entity Framework, takže je potřeba přidat balíček NuGet objektu EntityFramework.
+Chystáme se začít používat typy z Entity Framework, takže musíme přidat balíček NuGet EntityFramework.
 
--   ** Projektu –&gt; **spravovat balíčky NuGet...**
+-   \* * Projekt – &gt; **Spravovat balíčky NuGet...**
 > [!NOTE]
-> Pokud nemáte k dispozici **spravovat balíčky NuGet...** možnost byste měli nainstalovat [nejnovější verze Nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
--   Vyberte **Online** kartu
--   Vyberte **EntityFramework** balíčku
--   Klikněte na tlačítko **instalace**
+> Pokud nemáte **balíčky pro správu NuGet...** možnost, měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .
+-   Vyberte **online** kartu.
+-   Výběr balíčku **EntityFramework**
+-   Klikněte na **nainstalovat** .
 
-Nyní je možné definovat odvozené kontext, který reprezentuje relaci s databází, což nám pro dotazování a uložit data. Kontext, který je odvozen od System.Data.Entity.DbContext a zveřejňuje typu DbSet definujeme&lt;TEntity&gt; pro každou třídu v náš model.
+Nyní je čas definovat odvozený kontext, který představuje relaci s databází, a můžeme nám umožnit dotazování a ukládání dat. Definujeme kontext, který je odvozen od typu System. data. entity. DbContext a zpřístupňuje typ Negenerickými @ no__t-0TEntity @ no__t-1 pro každou třídu v našem modelu.
 
--   Přidejte novou třídu do projektu, zadejte **SchoolContext** pro název třídy
--   Nahraďte obsah novou třídu s následujícím kódem
+-   Přidejte do projektu novou třídu, jako název třídy zadejte **SchoolContext** .
+-   Nahraďte obsah nové třídy následujícím kódem
 
 ``` vb
     Imports System.Data.Entity
@@ -169,11 +169,11 @@ Nyní je možné definovat odvozené kontext, který reprezentuje relaci s datab
     End Class
 ```
 
-## <a name="configuring-with-the-fluent-api"></a>Konfigurace s rozhraním API Fluent
+## <a name="configuring-with-the-fluent-api"></a>Konfigurace pomocí rozhraní Fluent API
 
-Tato část ukazuje, jak použít rozhraní fluent API konfigurace typů k tabulkám, mapování vlastností mapování sloupce a relace mezi tabulkami\\typ v modelu. Rozhraní fluent API je k dispozici prostřednictvím **DbModelBuilder** zadejte a přistupuje nejčastěji tak, že přepíšete **OnModelCreating** metoda **DbContext**.
+V této části se dozvíte, jak používat rozhraní API Fluent ke konfiguraci typů mapování tabulek, vlastností mapování sloupců a vztahů mezi tabulkami @ no__t-0type v modelu. Rozhraní API Fluent se zveřejňuje prostřednictvím typu **DbModelBuilder** a nejčastěji se k němu používá přepsáním metody **OnModelCreating** na **DbContext**.
 
--   Zkopírujte následující kód a přidejte ho do **OnModelCreating** metody definované na **SchoolContext** třídy komentáře popisují, co dělá každé mapování
+-   Zkopírujte následující kód a přidejte ho do metody **OnModelCreating** definované v třídě **SchoolContext** . komentáře objasňují, co každé mapování dělá.
 
 ``` vb
 ' Configure Code First to ignore PluralizingTableName convention
@@ -363,12 +363,12 @@ modelBuilder.Entity(Of Course)().
     WillCascadeOnDelete(False)
 ```
 
-## <a name="using-the-model"></a>Pomocí modelu
+## <a name="using-the-model"></a>Použití modelu
 
-Teď provedeme některé datovou pomocí **SchoolContext** zobrazíte navýšení kapacity modelu v akci.
+Pojďme k zobrazení modelu v akci použít nějaký přístup k datům pomocí **SchoolContext** .
 
--   Otevřete soubor Module1.vb, ve kterém je definována funkce Main
--   Zkopírujte a vložte následující definice modulu 1
+-   Otevřete soubor Module1. vb, kde je definovaná funkce main.
+-   Zkopírujte a vložte následující definici Module1
 
 ``` vb
 Imports System.Data.Entity
@@ -408,9 +408,9 @@ Module Module1
 End Module
 ```
 
-Teď můžete aplikaci spustit a otestování.
+Nyní můžete spustit aplikaci a otestovat ji.
 
-```
+```console
 Enter a name for a new Department: Computing
 All Departments in the database:
 Computing

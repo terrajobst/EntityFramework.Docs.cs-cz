@@ -1,55 +1,55 @@
 ---
-title: Specifikace SSDL - EF6
+title: SSDL – specifikace – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
-ms.openlocfilehash: a8b1f844a34c44d283982a52cef3bf80afd7e679
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: b20d1f99f1da9c53a8a164fccc461e07d19c879d
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490347"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182545"
 ---
 # <a name="ssdl-specification"></a>Specifikace SSDL
-Store schema definition language (SSDL) je jazyk založený na formátu XML, který popisuje model úložiště aplikace Entity Framework.
+Soubor SSDL (Schema Definition Language) je jazyk založený na jazyce XML, který popisuje model úložiště aplikace Entity Framework.
 
-V aplikaci Entity Framework je načteno ze souboru ssdl (napsaného v SSDL) do instance System.Data.Metadata.Edm.StoreItemCollection metadat modelu úložiště a je přístupný pomocí metod v Třída System.Data.Metadata.Edm.MetadataWorkspace. Entity Framework používá metadata modelu úložiště pro převod dotazy na koncepční model příkazů specifických pro úložiště.
+V Entity Framework aplikaci se metadata modelu úložiště načítají ze souboru. ssdl (napsaného ve verzi SSDL) do instance System. data. Metadata. Edm. StoreItemCollection a jsou přístupná pomocí metod v System. data. Metadata. Edm. MetadataWorkspace – třída Entity Framework používá metadata modelu úložiště k překladu dotazů na koncepční model pro ukládání specifických příkazů.
 
-Návrhář Entity Framework (EF designeru) ukládá informace o modelu úložiště v souboru .edmx v době návrhu. V návrháři entit v okamžiku sestavení používá informace v souboru .edmx k vytvoření souboru ssdl, která je potřeba pro Entity Framework za běhu.
+Entity Framework Designer (EF Designer) ukládá informace o modelu úložiště v souboru EDMX v době návrhu. V okamžiku sestavení Entity Designer používá informace v souboru. edmx k vytvoření souboru. ssdl, který je vyžadován Entity Framework za běhu.
 
-Verze souborů SSDL, jsou rozlišené pomocí obory názvů XML.
+Verze SSDL jsou odlišeny obory názvů XML.
 
-| Verze souborů SSDL | Namespace XML                                     |
+| Verze SSDL | Obor názvů XML                                     |
 |:-------------|:--------------------------------------------------|
-| SSDL v1      | http://schemas.microsoft.com/ado/2006/04/edm/ssdl |
-| SSDL v2      | http://schemas.microsoft.com/ado/2009/02/edm/ssdl |
-| SSDL v3      | http://schemas.microsoft.com/ado/2009/11/edm/ssdl |
+| SSDL v1      | https://schemas.microsoft.com/ado/2006/04/edm/ssdl |
+| SSDL v2      | https://schemas.microsoft.com/ado/2009/02/edm/ssdl |
+| SSDL V3      | https://schemas.microsoft.com/ado/2009/11/edm/ssdl |
 
 ## <a name="association-element-ssdl"></a>Element Association (SSDL)
 
-**Přidružení** element v store schema definition language (SSDL) určuje sloupce tabulky, které se účastní v omezení cizího klíče v podkladové databázi. Dva elementy End požadovaný podřízený zadejte tabulek na konci přidružení a násobnost na každém konci. Volitelný prvek elementu ReferentialConstraint určuje objektem zabezpečení a závislými konce přidružení, jakož i zúčastněných sloupců. Pokud ne **elementu ReferentialConstraint** element je k dispozici, AssociationSetMapping elementu musí použít k určení mapování sloupců pro přidružení.
+Element **Association** ve službě Store Schema Definition Language (SSDL) Určuje sloupce tabulky, které se účastní omezení cizího klíče v podkladové databázi. Dva povinné podřízené elementy end určují tabulky na konci přidružení a násobnost na každém konci. Volitelný element elementu ReferentialConstraint určuje hlavní a závislé konce přidružení a také zúčastněné sloupce. Pokud není přítomen žádný element **elementu ReferentialConstraint** , je nutné použít element AssociationSetMapping k určení mapování sloupce pro přidružení.
 
-**Přidružení** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Association** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden)
--   End (přesně dvě)
--   Elementu ReferentialConstraint (nula nebo jedna)
--   Elementů poznámky (nula nebo více)
+-   Dokumentace (0 nebo 1)
+-   End (přesně dva)
+-   Elementu ReferentialConstraint (nula nebo jeden)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **přidružení** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Association** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                            |
+| Název atributu | Je povinné | Value                                                                            |
 |:---------------|:------------|:---------------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název odpovídající omezení cizího klíče v podkladové databázi. |
+| **Název**       | Ano         | Název odpovídajícího omezení cizího klíče v podkladové databázi. |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **přidružení** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Association** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **přidružení** element, který se používá **elementu ReferentialConstraint** elementu k určení sloupců, které jsou součástí **FK\_CustomerOrders**  omezení cizího klíče:
+Následující příklad ukazuje element **Association** , který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-3CustomerOrders** :
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -70,33 +70,33 @@ Následující příklad ukazuje **přidružení** element, který se používá
  </Association>
 ```
 
-## <a name="associationset-element-ssdl"></a>Element AssociationSet (SSDL)
+## <a name="associationset-element-ssdl"></a>AssociationSet – Element (SSDL)
 
-**AssociationSet** prvek v store schema definition language (SSDL) představuje omezení cizího klíče mezi dvěma tabulkami v podkladové databázi. Sloupce tabulky, které jsou součástí omezení cizího klíče jsou určené v elementu Association. **Přidružení** element, který odpovídá daný **AssociationSet** prvek je zadán v **přidružení** atribut **AssociationSet**  elementu.
+Element **AssociationSet** ve službě Store Schema Definition Language (SSDL) představuje omezení cizího klíče mezi dvěma tabulkami v podkladové databázi. Sloupce tabulky, které jsou součástí omezení cizího klíče, jsou zadány v elementu Association. Element **Association** , který odpovídá danému elementu **AssociationSet** , je určen v atributu **Association** elementu **AssociationSet** .
 
-Nastaví přidružení souborů SSDL se mapují na sady přidružení CSDL prvkem AssociationSetMapping. Ale pokud přidružení CSDL pro danou CSDL přidružení se definuje pomocí prvek elementu ReferentialConstraint odpovídající **AssociationSetMapping** element je nezbytné. V takovém případě pokud **AssociationSetMapping** element je k dispozici, mapování, definuje, budou přepsaná identifikátorem **elementu ReferentialConstraint** elementu.
+Sady přidružení SSDL jsou namapovány na sady přidružení CSDL pomocí elementu AssociationSetMapping. Pokud je však přidružení CSDL pro danou sadu přidružení CSDL definováno pomocí elementu elementu ReferentialConstraint, není nutný žádný odpovídající prvek **AssociationSetMapping** . V tomto případě, pokud je přítomen element **AssociationSetMapping** , mapování, které definuje, bude přepsáno prvkem **elementu ReferentialConstraint** .
 
-**AssociationSet** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **AssociationSet** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden)
--   End (nula nebo dva)
--   Elementů poznámky (nula nebo více)
+-   Dokumentace (0 nebo 1)
+-   End (nula nebo 2)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **AssociationSet** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **AssociationSet** .
 
-| Název atributu  | Vyžaduje se | Hodnota                                                                                                |
+| Název atributu  | Je povinné | Value                                                                                                |
 |:----------------|:------------|:-----------------------------------------------------------------------------------------------------|
-| **Jméno**        | Ano         | Název omezení cizího klíče, nastavte přidružení představuje.                          |
-| **Přidružení** | Ano         | Název přidružení, které definuje sloupce, které se účastní v omezení cizího klíče. |
+| **Název**        | Ano         | Název omezení cizího klíče, který představuje sada přidružení.                          |
+| **Přidružení** | Ano         | Název asociace, který definuje sloupce, které jsou součástí omezení cizího klíče. |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **AssociationSet** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **AssociationSet** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **AssociationSet** elementu, který představuje `FK_CustomerOrders` omezení cizího klíče v podkladové databázi:
+Následující příklad ukazuje element **AssociationSet** , který představuje omezení cizího klíče `FK_CustomerOrders` v podkladové databázi:
 
 ``` xml
  <AssociationSet Name="FK_CustomerOrders"
@@ -106,16 +106,16 @@ Následující příklad ukazuje **AssociationSet** elementu, který představuj
  </AssociationSet>
 ```
 
-## <a name="collectiontype-element-ssdl"></a>Element CollectionType (SSDL)
+## <a name="collectiontype-element-ssdl"></a>CollectionType – element (SSDL)
 
-**CollectionType** element v store schema definition language (SSDL) určuje, že je návratový typ funkce kolekce. **CollectionType** element je podřízeným prvkem elementu ReturnType. Typ kolekce je určena pomocí podřízený element RowType:
+Element **CollectionType** ve službě Store Schema Definition Language (SSDL) určuje, že návratový typ funkce je kolekce. Element **CollectionType** je podřízeným prvkem atributu ReturnType. Typ kolekce je určen pomocí podřízeného prvku RowType:
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **CollectionType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **CollectionType** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje funkci, která se používá **CollectionType** elementu k určení, že funkce vrátí kolekci řádků.
+Následující příklad ukazuje funkci, která používá element **CollectionType** k určení, že funkce vrací kolekci řádků.
 
 ``` xml
    <Function Name="GetProducts" IsComposable="true" Schema="dbo">
@@ -133,17 +133,17 @@ Následující příklad ukazuje funkci, která se používá **CollectionType**
    </Function>
 ```
 
-## <a name="commandtext-element-ssdl"></a>Element CommandText (SSDL)
+## <a name="commandtext-element-ssdl"></a>CommandText – element (SSDL)
 
-**CommandText** prvek store schema definition language (SSDL) je podřízeným prvkem elementu funkce, který umožňuje definovat příkaz SQL, který je proveden v databázi. **CommandText** element slouží k přidání funkce, která se podobá uloženou proceduru v databázi, ale můžete definovat **CommandText** elementu v modelu úložiště.
+Element **CommandText** ve službě Store Schema Definition Language (SSDL) je podřízeným prvkem prvku funkce, který umožňuje definovat příkaz SQL, který je spuštěn v databázi. Element **CommandText** umožňuje přidat funkce, které jsou podobné uložené proceduře v databázi, ale v modelu úložiště definujte element **CommandText** .
 
-**CommandText** element nemůže mít podřízené prvky. Text **CommandText** element musí být platný příkaz SQL pro podkladové databáze.
+Element **CommandText** nemůže mít podřízené elementy. Tělo elementu **CommandText** musí být platným příkazem SQL pro podkladovou databázi.
 
-Žádné atributy se vztahují na **CommandText** elementu.
+Pro element **CommandText** nelze použít žádné atributy.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **funkce** element s podřízený **CommandText** elementu. Zveřejnit **UpdateProductInOrder** fungují jako metoda v rozhraní ObjectContext naimportujete do koncepčního modelu.  
+Následující příklad ukazuje element **Function** s podřízeným elementem **CommandText** . Vystavte funkci **UpdateProductInOrder** jako metodu objektu ObjectContext importem do koncepčního modelu.  
 
 ``` xml
  <Function Name="UpdateProductInOrder" IsComposable="false">
@@ -161,11 +161,11 @@ Následující příklad ukazuje **funkce** element s podřízený **CommandText
  </Function>
 ```
 
-## <a name="definingquery-element-ssdl"></a>Element DefiningQuery (SSDL)
+## <a name="definingquery-element-ssdl"></a>DefiningQuery – element (SSDL)
 
-**DefiningQuery** prvek store schema definition language (SSDL) umožňuje spouštění příkazu SQL přímo v podkladové databázi. **DefiningQuery** element se často používá jako zobrazení databáze, ale zobrazení je definováno v modelu úložiště, ne na databázi. Definováno v zobrazení **DefiningQuery** elementu je možné mapovat na typ entity v konceptuálním modelu prostřednictvím EntitySetMapping element. Tato mapování jsou jen pro čtení.  
+Element **DefiningQuery** v úložišti SSDL (Schema Definition Language) umožňuje spustit příkaz SQL přímo v podkladové databázi. Element **DefiningQuery** se běžně používá jako zobrazení databáze, ale zobrazení je definované v modelu úložiště místo databáze. Zobrazení definované v elementu **DefiningQuery** lze namapovat na typ entity v koncepčním modelu prostřednictvím elementu EntitySetMapping. Tato mapování jsou jen pro čtení.  
 
-Následující syntaxe SSDL znázorňuje deklaraci **objektu EntitySet** následovaný **DefiningQuery** element, který obsahuje dotaz použitý k načtení zobrazení.
+Následující syntaxe SSDL ukazuje deklaraci objektu **EntitySet** následovaný elementem **DefiningQuery** , který obsahuje dotaz použitý k načtení zobrazení.
 
 ``` xml
  <Schema>
@@ -180,33 +180,33 @@ Následující syntaxe SSDL znázorňuje deklaraci **objektu EntitySet** násled
  </Schema>
 ```
 
-Uložené procedury v Entity Framework slouží k povolení scénářů pro čtení a zápis přes zobrazení. Zobrazení zdroje dat nebo zobrazení Entity SQL můžete použít jako základní tabulky pro načítání dat a změna zpracování uložených procedur.
+Uložené procedury v Entity Framework můžete použít k povolení scénářů pro čtení i zápis v zobrazeních. Můžete použít buď zobrazení zdroje dat, nebo zobrazení Entity SQL jako základní tabulku pro načítání dat a pro zpracování změn v uložených procedurách.
 
-Můžete použít **DefiningQuery** element do cílového serveru Microsoft SQL Server Compact 3.5. I když SQL Server Compact 3.5 nepodporuje uložené procedury, podobné funkce s můžete implementovat **DefiningQuery** elementu. Jiné místo, kde může být užitečné je při vytváření uložených procedur k překonání Neshoda mezi datovými typy v programovacím jazyce a těch, které zdroj dat použít. Můžete napsat **DefiningQuery** , která používá sadu parametrů a pak volá uloženou proceduru s jinou sadu parametrů, třeba uloženou proceduru, která odstraní data.
+Element **DefiningQuery** můžete použít k cíli Microsoft SQL Server Compact 3,5. I když SQL Server Compact 3,5 nepodporuje uložené procedury, můžete implementovat podobné funkce pomocí elementu **DefiningQuery** . Další místo, kde může být užitečné, je vytvoření uložených procedur k překonání neshody mezi datovými typy použitými v programovacím jazyce a zdroji dat. Můžete napsat **DefiningQuery** , který přebírá určitou sadu parametrů, a pak volá uloženou proceduru s jinou sadou parametrů, například uloženou proceduru, která odstraňuje data.
 
-## <a name="dependent-element-ssdl"></a>Závislé – Element (SSDL)
+## <a name="dependent-element-ssdl"></a>Závislý element (SSDL)
 
-**Závislé** prvek store schema definition language (SSDL) je podřízeným prvkem prvku elementu ReferentialConstraint, který definuje závislé konec omezení cizího klíče (tzv. referenční omezení). **Závislé** prvek určuje sloupec (nebo sloupce) v tabulce, která odkazují na sloupec primárního klíče (nebo sloupce). **PropertyRef** určují prvky sloupce, které jsou odkazovány. Hlavní prvek určuje primární klíčové sloupce, které jsou odkazovány podle sloupců, které jsou určené v **závislé** elementu.
+**Závislý** element ve službě Store Schema Definition Language (SSDL) je podřízeným prvkem prvku elementu ReferentialConstraint, který definuje závislý konec omezení cizího klíče (označuje se také jako referenční omezení). **Závislý** element určuje sloupec (nebo sloupce) v tabulce, která odkazuje na sloupec primárního klíče (nebo sloupce). Prvky **PropertyRef** určují, na které sloupce se odkazuje. Hlavní prvek určuje sloupce primárního klíče, na které jsou odkazovány sloupce, které jsou zadány v **závislém** elementu.
 
-**Závislé** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+**Závislý** element může mít následující podřízené elementy (v uvedeném pořadí):
 
--   PropertyRef (jeden nebo více)
--   Elementů poznámky (nula nebo více)
+-   PropertyRef (jedna nebo víc)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **závislé** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na **závislý** element.
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                       |
+| Název atributu | Je povinné | Value                                                                                                                                                       |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Role**       | Ano         | Stejná hodnota jako **Role** atribut (Pokud se používá) odpovídajícího prvku End; v opačném případě se název tabulky, která obsahuje objekt odkazujícího sloupce. |
+| **Role**       | Ano         | Stejná hodnota jako atribut **role** (Pokud se používá) odpovídajícího elementu end; jinak název tabulky, která obsahuje odkazující sloupec. |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **závislé** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro **závislý** element lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element přidružení, který se používá **elementu ReferentialConstraint** elementu k určení sloupců, které jsou součástí **FK\_CustomerOrders** cizí klíč omezení. **Závislé** určuje element **CustomerId** sloupec **pořadí** tabulky jako závislé konec omezení.
+Následující příklad ukazuje element Association, který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-2CustomerOrders** . **Závislý** element určuje sloupec **KódZákazníka** tabulky **Order** jako závislý konec omezení.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -227,22 +227,22 @@ Následující příklad ukazuje element přidružení, který se používá **e
  </Association>
 ```
 
-## <a name="documentation-element-ssdl"></a>Element Documentation (SSDL)
+## <a name="documentation-element-ssdl"></a>Element dokumentace (SSDL)
 
-**Dokumentaci** prvek store schema definition language (SSDL) slouží k zadání informací o objektu, který je definován v nadřazeném elementu.
+Element **dokumentace** v úložišti SSDL (Schema Definition Language) je možné použít k poskytnutí informací o objektu, který je definovaný v nadřazeném elementu.
 
-**Dokumentaci** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Prvek **dokumentace** může mít následující podřízené prvky (v uvedeném pořadí):
 
--   **Souhrn**: stručný popis nadřazeného elementu. (žádný nebo jeden element)
--   **LongDescription**: rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
+-   **Souhrn**: Stručný popis nadřazeného elementu. (žádný nebo jeden element)
+-   **Longdescription**: Rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Libovolný počet atributů poznámky (vlastní atributy XML) lze na **dokumentaci** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+Pro prvek **dokumentace** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **dokumentaci** element jako podřízený prvek elementu EntityType.
+Následující příklad ukazuje prvek **dokumentace** jako podřízený prvek elementu EntityType.
 
 ``` xml
  <EntityType Name="Customers">
@@ -258,36 +258,36 @@ Následující příklad ukazuje **dokumentaci** element jako podřízený prvek
  </EntityType>
 ```
 
-## <a name="end-element-ssdl"></a>Element end (SSDL)
+## <a name="end-element-ssdl"></a>End – element (SSDL)
 
-**End** element v store schema definition language (SSDL) Určuje tabulku a počet řádků na jednom konci omezení cizího klíče v podkladové databázi. **End** element může být podřízeným prvkem elementu Association elementu nebo elementu AssociationSet. V každém případě je to možné podřízené prvky a příslušné atributy se liší.
+Element **End** ve službě Store Schema Definition Language (SSDL) Určuje tabulku a počet řádků na jednom konci omezení cizího klíče v podkladové databázi. Element **End** může být podřízeným prvkem elementu Association nebo elementu AssociationSet. V každém případě jsou možné podřízené prvky a příslušné atributy odlišné.
 
-### <a name="end-element-as-a-child-of-the-association-element"></a>Koncový Element jako podřízený Element přidružení
+### <a name="end-element-as-a-child-of-the-association-element"></a>Ukončit element jako podřízený elementu přidružení
 
-**End** – element (jako podřízený objekt **přidružení** element) Určuje tabulku a počet řádků na konci omezení cizího klíče s **typ** a **Násobnost** atributy v uvedeném pořadí. Konce omezení cizího klíče jsou definované jako součást přidružení souborů SSDL; přidružení souborů SSDL musí mít přesně dva elementy.
+Element **End** (jako podřízený prvek elementu **Association** ) Určuje tabulku a počet řádků na konci omezení cizího klíče s atributy **typu** a **násobnosti** . Konce omezení cizího klíče jsou definovány jako součást přidružení SSDL; přidružení SSDL musí mít přesně dva konce.
 
-**End** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **End** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Elementy OnDelete (žádný nebo jeden element)
--   Elementů poznámky (nula nebo více prvků)
+-   Dokumentace (nula nebo jeden element)
+-   Při odstranění (nula nebo jeden element)
+-   Prvky poznámky (nula nebo více prvků)
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+#### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **End** prvku, když je podřízeným **přidružení** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízenou položkou elementu **Association** .
 
-| Název atributu   | Vyžaduje se | Hodnota                                                                                                                                                                                                                                                                                                                                                                                      |
+| Název atributu   | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                      |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Typ**         | Ano         | Plně kvalifikovaný název sady entit SSDL, který je na konci omezení cizího klíče.                                                                                                                                                                                                                                                                                          |
-| **Role**         | Ne          | Hodnota **Role** atribut v elementu objektu nebo závislé na odpovídající element v elementu ReferentialConstraint (Pokud se používá).                                                                                                                                                                                                                                             |
-| **Násobnost** | Ano         | **1**, **0..1**, nebo **\*** v závislosti na počtu řádků, které mohou být na konci omezení cizího klíče. <br/> **1** označuje, že přesně jeden řádek existuje na konci omezení cizího klíče. <br/> **0..1** znamená, že neexistuje žádný nebo jeden řádek na konci omezení cizího klíče. <br/> **\*** Udává, že žádný, jeden nebo více řádků existuje na straně cizího klíče. |
+| **Typ**         | Ano         | Plně kvalifikovaný název sady entit SSDL, která je na konci omezení cizího klíče.                                                                                                                                                                                                                                                                                          |
+| **Role**         | Ne          | Hodnota atributu **role** v objektu zabezpečení nebo závislém elementu odpovídajícího prvku elementu ReferentialConstraint (Pokud se používá).                                                                                                                                                                                                                                             |
+| **Násobnost** | Ano         | **1**, **0.. 1**nebo **\*** v závislosti na počtu řádků, které mohou být na konci omezení cizího klíče. <br/> **1** znamená, že v konci omezení cizího klíče existuje přesně jeden řádek. <br/> **0.. 1** znamená, že v konci omezení cizího klíče existuje žádný nebo jeden řádek. <br/> **\*** znamená, že v konci omezení cizího klíče existuje nula, jeden nebo více řádků. |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **End** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **End** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **přidružení** element, který definuje **FK\_CustomerOrders** omezení cizího klíče. **Násobnost** hodnoty zadané v každém **koncové** označení daný počet řádků v elementu **objednávky** můžou být spojené s řádek v tabulce **zákazníkům**  tabulky, ale pouze jeden řádek v **zákazníkům** můžou být spojené s řádek v tabulce **objednávky** tabulky. Kromě toho **elementy OnDelete** element označuje, že všechny řádky v **objednávky** tabulku, která odkazují na konkrétní řádek v **zákazníkům** tabulka bude odstraněno odpovídající řádek v **zákazníkům** tabulce se odstraní.
+Následující příklad ukazuje element **Association** , který definuje omezení cizího klíče **FK @ no__t-2CustomerOrders** . Hodnoty **násobnosti** zadané u každého elementu **End** označují, že mnoho řádků v tabulce **Orders** může být přidruženo k řádku v tabulce **Customers** , ale k řádku může být přidružen pouze jeden řádek v tabulce **Customers** . v tabulce **Orders** . Kromě toho element **IsDeleted** označuje, že všechny řádky v tabulce **Orders** , které odkazují na konkrétní řádek v tabulce **Customers** , se odstraní, pokud se řádek v tabulce **Customers (zákazníci** ) odstraní.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -308,30 +308,30 @@ Následující příklad ukazuje **přidružení** element, který definuje **FK
  </Association>
 ```
 
-### <a name="end-element-as-a-child-of-the-associationset-element"></a>Koncový Element jako podřízený AssociationSet Element
+### <a name="end-element-as-a-child-of-the-associationset-element"></a>Ukončit element jako podřízený element elementu AssociationSet
 
-**End** – element (jako podřízený objekt **AssociationSet** element) Určuje tabulku na jednom konci omezení cizího klíče v podkladové databázi.
+Element **End** (jako podřízený prvek elementu **AssociationSet** ) Určuje tabulku na jednom konci omezení cizího klíče v podkladové databázi.
 
-**End** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **End** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden)
--   Elementů poznámky (nula nebo více)
+-   Dokumentace (0 nebo 1)
+-   Prvky poznámky (nula nebo více)
 
-#### <a name="applicable-attributes"></a>Příslušné atributy
+#### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **End** prvku, když je podřízeným **AssociationSet** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízeným elementem elementu **AssociationSet** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                  |
+| Název atributu | Je povinné | Value                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------|
-| **Objekt EntitySet**  | Ano         | Název sady entit SSDL, který je na konci omezení cizího klíče.                                      |
-| **Role**       | Ne          | Hodnota jednoho z **Role** atributy určené v jednom **End** odpovídajícího elementu Association elementu. |
+| **Sada**  | Ano         | Název sady entit SSDL, která je na konci omezení cizího klíče.                                      |
+| **Role**       | Ne          | Hodnota jednoho z atributů **role** zadaná u jednoho elementu **End** odpovídajícího elementu Association. |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **End** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **End** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityContainer** element s **AssociationSet** element se dvěma **koncové** prvky:
+Následující příklad ukazuje element **EntityContainer** s elementem **AssociationSet** se dvěma elementy **End** :
 
 ``` xml
  <EntityContainer Name="ExampleModelStoreContainer">
@@ -349,32 +349,32 @@ Následující příklad ukazuje **EntityContainer** element s **AssociationSet*
  </EntityContainer>
 ```
 
-## <a name="entitycontainer-element-ssdl"></a>Element EntityContainer (SSDL)
+## <a name="entitycontainer-element-ssdl"></a>EntityContainer – element (SSDL)
 
-**EntityContainer** prvek store schema definition language (SSDL) popisuje strukturu podkladového zdroje dat v aplikaci Entity Framework: sady entit SSDL (definováno v elementů EntitySet nemá) představují tabulky v databáze, typy entit SSDL (definované v objektu EntityType elementy) představují řádky v tabulce a sad přidružení (definované elementy AssociationSet) představují omezení cizího klíče v databázi. Kontejner úložiště modelu entity se mapuje na kontejner koncepčního modelu entity pomocí elementu EntityContainerMapping.
+Element **EntityContainer** ve službě Store Schema Definition Language (SSDL) popisuje strukturu podkladového zdroje dat v Entity Framework aplikaci: Sady entit SSDL (definované v elementech EntitySet) reprezentují tabulky v databázi, typy entit SSDL (definované v elementech EntityType) reprezentují řádky v tabulce a sady přidružení (definované v elementech AssociationSet) reprezentují omezení cizího klíče v databáze. Kontejner entit modelu úložiště se mapuje na kontejner entit koncepčního modelu prostřednictvím elementu EntityContainerMapping.
 
-**EntityContainer** element může mít nejvýše jedno dokumentace prvků. Pokud **dokumentaci** element je k dispozici, se musí předcházet všem ostatním prvkům podřízené.
+Element **EntityContainer** může mít nula nebo jeden prvek dokumentace. Pokud je přítomen prvek **dokumentace** , musí předcházet všem ostatním podřízeným elementům.
 
-**EntityContainer** prvek může mít nula nebo více z následujících podřízených elementů (v uvedeném pořadí):
+Element **EntityContainer** může mít nula nebo více z následujících podřízených elementů (v uvedeném pořadí):
 
--   Objekt EntitySet
--   Element AssociationSet
--   Elementů poznámky
+-   Sada
+-   Vlastností
+-   Prvky poznámky
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **EntityContainer** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntityContainer** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                   |
+| Název atributu | Je povinné | Value                                                                   |
 |:---------------|:------------|:------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název kontejneru entity. Tento název nesmí obsahovat tečky (.). |
+| **Název**       | Ano         | Název kontejneru entity. Tento název nesmí obsahovat tečky (.). |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **EntityContainer** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **EntityContainer** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityContainer** element, který definuje dvě sady entit a přidružení jedné sady. Všimněte si, že jsou názvy entit typu a přidružení typu kvalifikován názvem oboru názvů koncepčního modelu.
+Následující příklad ukazuje element **EntityContainer** , který definuje dvě sady entit a jednu sadu přidružení. Všimněte si, že názvy entit a typů přidružení jsou kvalifikovány názvem oboru názvů konceptuálního modelu.
 
 ``` xml
  <EntityContainer Name="ExampleModelStoreContainer">
@@ -392,36 +392,36 @@ Následující příklad ukazuje **EntityContainer** element, který definuje dv
  </EntityContainer>
 ```
 
-## <a name="entityset-element-ssdl"></a>Element EntitySet (SSDL)
+## <a name="entityset-element-ssdl"></a>EntitySet – element (SSDL)
 
-**Objektu EntitySet** prvek v store schema definition language (SSDL) představuje tabulku nebo zobrazení v podkladové databázi. Element EntityType v SSDL představuje řádek v tabulce nebo zobrazení. **EntityType** atribut **objektu EntitySet** prvek určuje konkrétní typ entity SSDL, který představuje řádků v SSDL sadu entit. V elementu EntitySetMapping je určeno mapování mezi sadu entit CSDL a sadu entit SSDL.
+Element **EntitySet** ve službě Store Schema Definition Language (SSDL) představuje tabulku nebo zobrazení v podkladové databázi. Element EntityType ve SSDL představuje řádek v tabulce nebo zobrazení. Atribut **EntityType** elementu **EntitySet** určuje konkrétní typ entity SSDL reprezentující řádky v sadě entit SSDL. Mapování mezi sadou entit CSDL a sadou entit SSDL je zadáno v elementu EntitySetMapping.
 
-**Objektu EntitySet** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **EntitySet** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   DefiningQuery (žádný nebo jeden element)
--   Elementů poznámky
+-   Dokumentace (nula nebo jeden element)
+-   DefiningQuery (nula nebo jeden element)
+-   Prvky poznámky
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **objektu EntitySet** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntitySet** .
 
 > [!NOTE]
-> Některé atributy (tu nejsou uvedené) může být kvalifikován s **ukládání** alias. Tyto atributy jsou používány v Průvodci modelů aktualizace při aktualizaci modelu.
+> Některé atributy (zde nejsou uvedeny) mohou být kvalifikovány s aliasem **úložiště** . Tyto atributy používá Průvodce modelem aktualizace při aktualizaci modelu.
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                    |
+| Název atributu | Je povinné | Value                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název sady entit.                                                              |
-| **Typ entity** | Ano         | Plně kvalifikovaný název typu entity, pro kterou sada entit obsahuje instance. |
+| **Název**       | Ano         | Název sady entit                                                              |
+| **Objektu** | Ano         | Plně kvalifikovaný název typu entity, pro který sada entit obsahuje instance. |
 | **schéma**     | Ne          | Schéma databáze.                                                                     |
-| **Tabulka**      | Ne          | Databázové tabulky.                                                                      |
+| **Tabulka**      | Ne          | Databázová tabulka                                                                      |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **objektu EntitySet** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **EntitySet** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityContainer** element, který má dva **objektu EntitySet** elementy a jeden **AssociationSet** element:
+Následující příklad ukazuje element **EntityContainer** , který má dva elementy **EntitySet** a jeden element **AssociationSet** :
 
 ``` xml
  <EntityContainer Name="ExampleModelStoreContainer">
@@ -439,30 +439,30 @@ Následující příklad ukazuje **EntityContainer** element, který má dva **o
  </EntityContainer>
 ```
 
-## <a name="entitytype-element-ssdl"></a>Element EntityType (SSDL)
+## <a name="entitytype-element-ssdl"></a>EntityType – element (SSDL)
 
-**EntityType** prvek v store schema definition language (SSDL) představuje řádek v tabulce nebo zobrazení z databáze. Element EntitySet v SSDL představuje tabulku nebo zobrazení, ve kterém dojde k řádků. **EntityType** atribut **objektu EntitySet** prvek určuje konkrétní typ entity SSDL, který představuje řádků v SSDL sadu entit. Mapování mezi typem entity SSDL a typ entity CSDL je zadán v mapování EntityTypeMapping elementu.
+Element **EntityType** ve službě Store Schema Definition Language (SSDL) představuje řádek v tabulce nebo zobrazení podkladové databáze. Element EntitySet ve SSDL představuje tabulku nebo zobrazení, ve kterých se vyskytují řádky. Atribut **EntityType** elementu **EntitySet** určuje konkrétní typ entity SSDL reprezentující řádky v sadě entit SSDL. Mapování mezi typem entity SSDL a typem entity CSDL je zadáno v elementu element entitytypemapping.
 
-**EntityType** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **EntityType** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden element)
--   Klíč (žádný nebo jeden element)
--   Elementů poznámky
+-   Dokumentace (nula nebo jeden element)
+-   Klíč (nula nebo jeden element)
+-   Prvky poznámky
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **EntityType** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntityType** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                  |
+| Název atributu | Je povinné | Value                                                                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název typu entity. Tato hodnota je obvykle stejný jako název tabulky, ve které představuje typ entity řádek. Tato hodnota může obsahovat žádné tečky (.). |
+| **Název**       | Ano         | Název typu entity Tato hodnota je obvykle stejná jako název tabulky, ve které typ entity představuje řádek. Tato hodnota nesmí obsahovat žádné tečky (.). |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **EntityType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **EntityType** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityType** element s dvě vlastnosti:
+Následující příklad ukazuje element **EntityType** se dvěma vlastnostmi:
 
 ``` xml
  <EntityType Name="Customers">
@@ -478,53 +478,53 @@ Následující příklad ukazuje **EntityType** element s dvě vlastnosti:
  </EntityType>
 ```
 
-## <a name="function-element-ssdl"></a>Element Function (SSDL)
+## <a name="function-element-ssdl"></a>Function – Element (SSDL)
 
-**Funkce** element v store schema definition language (SSDL) Určuje uloženou proceduru, která existuje v podkladové databázi.
+Prvek **funkce** v úložišti SSDL (Store Schema Definition Language) určuje uloženou proceduru, která existuje v podkladové databázi.
 
-**Funkce** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Function** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden)
+-   Dokumentace (0 nebo 1)
 -   Parametr (nula nebo více)
--   Atribut CommandText (nula nebo jedna)
--   Vlastnost ReturnType (nula nebo více)
--   Elementů poznámky (nula nebo více)
+-   CommandText (nula nebo jedna)
+-   ReturnType (nula nebo více)
+-   Prvky poznámky (nula nebo více)
 
-Návratová typ pro funkci musí být určen buď **ReturnType** element nebo **ReturnType** atribut (viz níže), ale ne obojí.
+Návratový typ pro funkci musí být zadán buď pomocí elementu **ReturnType** , nebo atributu **ReturnType** (viz níže), ale nikoli obojího.
 
-Uložené procedury, které jsou určené v modelu úložiště lze importovat do koncepčního modelu aplikace. Další informace najdete v tématu [dotazování pomocí uložené procedury](~/ef6/modeling/designer/stored-procedures/query.md). **Funkce** element můžete také použít k definování vlastních funkcí v rámci modelu úložiště.  
+Uložené procedury, které jsou zadány v modelu úložiště, lze importovat do koncepčního modelu aplikace. Další informace najdete v tématu [dotazování s uloženými procedurami](~/ef6/modeling/designer/stored-procedures/query.md). Element **Function** lze také použít k definování vlastních funkcí v modelu úložiště.  
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **funkce** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Function** .
 
 > [!NOTE]
-> Některé atributy (tu nejsou uvedené) může být kvalifikován s **ukládání** alias. Tyto atributy jsou používány v Průvodci modelů aktualizace při aktualizaci modelu.
+> Některé atributy (zde nejsou uvedeny) mohou být kvalifikovány s aliasem **úložiště** . Tyto atributy používá Průvodce modelem aktualizace při aktualizaci modelu.
 
-| Název atributu             | Vyžaduje se | Hodnota                                                                                                                                                                                                              |
+| Název atributu             | Je povinné | Value                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**                   | Ano         | Název uložené procedury.                                                                                                                                                                                  |
-| **Vlastnost ReturnType**             | Ne          | Návratový typ uložené procedury.                                                                                                                                                                           |
-| **Agregace**              | Ne          | **Hodnota TRUE** Pokud bude procedura vracet agregovanou hodnotu; jinak **False**.                                                                                                                                  |
-| **Předdefinované**                | Ne          | **Hodnota TRUE** Pokud je integrovaná funkce<sup>1</sup> funkce; v opačném případě **False**.                                                                                                                                  |
+| **Název**                   | Ano         | Název uložené procedury.                                                                                                                                                                                  |
+| **ReturnType**             | Ne          | Návratový typ uložené procedury.                                                                                                                                                                           |
+| **Souhrnné**              | Ne          | **True** , pokud uložená procedura vrátí agregovanou hodnotu; v opačném případě **false**.                                                                                                                                  |
+| **Integrované**                | Ne          | **True** , pokud je funkce vestavěnou funkcí<sup>1</sup> ; v opačném případě **false**.                                                                                                                                  |
 | **StoreFunctionName**      | Ne          | Název uložené procedury.                                                                                                                                                                                  |
-| **NiladicFunction**        | Ne          | **Hodnota TRUE** Pokud je funkce bez vstupních parametrů<sup>2</sup> funkce; **False** jinak.                                                                                                                                   |
-| **IsComposable**           | Ne          | **Hodnota TRUE** Pokud je funkce možností složení<sup>3</sup> funkce; **False** jinak.                                                                                                                                |
-| **ParameterTypeSemantics** | Ne          | Výčet, který definuje typ sémantice použité vyřešit přetížení funkce. Výčet je definovaný v manifestu zprostředkovatele za definici funkce. Výchozí hodnota je **AllowImplicitConversion**. |
-| **schéma**                 | Ne          | Název schématu, ve kterém je definována uloženou proceduru.                                                                                                                                                   |
+| **NiladicFunction**        | Ne          | **True** , pokud je funkce funkce niladic<sup>2</sup> ; V opačném případě **NEPRAVDA** .                                                                                                                                   |
+| **IsComposable**           | Ne          | **True** , pokud je funkce sestavitelnou funkcí<sup>3</sup> ; V opačném případě **NEPRAVDA** .                                                                                                                                |
+| **ParameterTypeSemantics** | Ne          | Výčet definující sémantiku typu, která se používá k vyřešení přetížení funkce. Výčet je definován v manifestu zprostředkovatele podle definice funkce. Výchozí hodnota je **AllowImplicitConversion**. |
+| **schéma**                 | Ne          | Název schématu, ve kterém je uložená procedura definovaná.                                                                                                                                                   |
 
-<sup>1</sup> integrované funkce je funkce, která je definována v databázi. Informace o funkcích, které jsou definovány v modelu úložiště najdete v tématu Element CommandText (SSDL).
+<sup>1</sup> integrovaná funkce je funkce, která je definována v databázi. Informace o funkcích, které jsou definovány v modelu úložiště, naleznete v tématu CommandText element (SSDL).
 
-<sup>2</sup> bez vstupních parametrů funkce je funkce, která nepřijímá žádné parametry a při volání, nevyžaduje závorky.
+<sup>2</sup> funkce niladic je funkce, která nepřijímá žádné parametry a při volání nepožaduje závorky.
 
-<sup>3</sup> dvě funkce jsou složení, pokud výstup jedné funkce může být vstup pro jiné funkce.
+<sup>3</sup> dvě funkce jsou sestavitelné, pokud výstup jedné funkce může být vstupem pro druhou funkci.
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **funkce** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Function** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **funkce** element, který odpovídá **UpdateOrderQuantity** uložené procedury. Uložené procedury přijímá dva parametry a vracet hodnotu.
+Následující příklad ukazuje prvek **funkce** , který odpovídá uložené proceduře **UpdateOrderQuantity** . Uložená procedura přijímá dva parametry a nevrací hodnotu.
 
 ``` xml
  <Function Name="UpdateOrderQuantity"
@@ -539,20 +539,20 @@ Následující příklad ukazuje **funkce** element, který odpovídá **UpdateO
  </Function>
 ```
 
-## <a name="key-element-ssdl"></a>Klíčovým prvkem (SSDL)
+## <a name="key-element-ssdl"></a>Key – element (SSDL)
 
-**Klíč** prvek v store schema definition language (SSDL) představuje primární klíč tabulky v podkladové databázi. **Klíč** je podřízeným prvkem elementu EntityType, který představuje řádek v tabulce. Primární klíč je definována v **klíč** element pomocí odkazu na jeden nebo více vlastností prvků, které jsou definovány na **EntityType** elementu.
+**Klíčovým** prvkem ve službě Store Schema Definition Language (SSDL) představuje primární klíč tabulky v podkladové databázi. **Key** je podřízený prvek elementu EntityType, který představuje řádek v tabulce. Primární klíč je definován v elementu **Key** odkazem na jeden nebo více prvků vlastností, které jsou definovány v elementu **EntityType** .
 
-**Klíč** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+**Klíčový** prvek může mít následující podřízené elementy (v uvedeném pořadí):
 
--   PropertyRef (jeden nebo více)
--   Elementů poznámky
+-   PropertyRef (jedna nebo víc)
+-   Prvky poznámky
 
-Žádné atributy se vztahují na **klíč** elementu.
+Pro **klíčový** element nejsou použity žádné atributy.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityType** element s klíčem, který odkazuje na jednu vlastnost:
+Následující příklad ukazuje element **EntityType** s klíčem, který odkazuje na jednu vlastnost:
 
 ``` xml
  <EntityType Name="Customers">
@@ -568,29 +568,29 @@ Následující příklad ukazuje **EntityType** element s klíčem, který odkaz
  </EntityType>
 ```
 
-## <a name="ondelete-element-ssdl"></a>Elementy OnDelete – Element (SSDL)
+## <a name="ondelete-element-ssdl"></a>IsDeleted – element (SSDL)
 
-**Elementy OnDelete** prvek store schema definition language (SSDL) odráží databáze chování při odstranění řádku, který se podílí na omezení cizího klíče. Pokud je akce nastavená **Cascade**, pak budou odstraněny také řádky, které odkazují na řádek, který se právě odstraňuje. Pokud je akce nastavená **žádný**, pak se odstraní také řádky, které odkazují na řádek, který se právě odstraňuje. **Elementy OnDelete** element je podřízeným prvkem elementu End.
+Element **IsDeleted** ve službě Store Schema Definition Language (SSDL) odráží chování databáze při odstranění řádku, který je součástí omezení cizího klíče. Pokud je akce nastavena na **Cascade**, odstraní se i řádky, které odkazují na odstraněný řádek. Pokud je akce nastavena na **hodnotu None**, nebudou odstraněny také řádky, které odkazují na odstraněný řádek. Element **IsDeleted** je podřízeným prvkem elementu end.
 
-**Elementy OnDelete** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **IsDeleted** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden)
--   Elementů poznámky (nula nebo více)
+-   Dokumentace (0 nebo 1)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **elementy OnDelete** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **IsDeleted** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                               |
+| Název atributu | Je povinné | Value                                                                                               |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
-| **Akce**     | Ano         | **Kaskádové** nebo **žádný**. (Hodnota **s omezeným přístupem** je platný, ale má stejné chování jako **žádný**.) |
+| **Akce**     | Ano         | **Cascade** nebo **none**. (Hodnota **s omezením** je platná, ale má stejné chování jako **žádné**.) |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **elementy OnDelete** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **IsDeleted** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **přidružení** element, který definuje **FK\_CustomerOrders** omezení cizího klíče. **Elementy OnDelete** element označuje, že všechny řádky v **objednávky** tabulku, která odkazují na konkrétní řádek v **zákazníkům** tabulka bude odstraněno řádku **Zákazníkům** tabulce se odstraní.
+Následující příklad ukazuje element **Association** , který definuje omezení cizího klíče **FK @ no__t-2CustomerOrders** . Element **IsDeleted** označuje, že všechny řádky v tabulce **Orders** , které odkazují na konkrétní řádek v tabulce **Customers** , se odstraní, když se řádek v tabulce **Customers** odstraní.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -611,35 +611,35 @@ Následující příklad ukazuje **přidružení** element, který definuje **FK
  </Association>
 ```
 
-## <a name="parameter-element-ssdl"></a>Parameter – Element (SSDL)
+## <a name="parameter-element-ssdl"></a>Parameter – element (SSDL)
 
-**Parametr** prvek store schema definition language (SSDL) je podřízeným prvkem elementu funkce, která určuje parametry pro uloženou proceduru v databázi.
+Element **Parameter** ve službě Store Schema Definition Language (SSDL) je podřízeným prvkem prvku funkce, který určuje parametry pro uloženou proceduru v databázi.
 
-**Parametr** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Parameter** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   Dokumentace ke službě (žádný nebo jeden)
--   Elementů poznámky (nula nebo více)
+-   Dokumentace (0 nebo 1)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **parametr** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **Parameter** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                                                                                           |
+| Název atributu | Je povinné | Value                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**       | Ano         | Název parametru                                                                                                                                                                                                      |
+| **Název**       | Ano         | Název parametru                                                                                                                                                                                                      |
 | **Typ**       | Ano         | Typ parametru.                                                                                                                                                                                                             |
-| **Režim**       | Ne          | **V**, **si**, nebo **InOut** v závislosti na tom, zda je parametr vstup, výstup nebo vstupně výstupní parametr.                                                                                                                |
-| **maxLength**  | Ne          | Maximální délka parametru.                                                                                                                                                                                            |
-| **Přesnost**  | Ne          | Přesnost parametru.                                                                                                                                                                                                 |
-| **Škálování**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
-| **SRID**       | Ne          | Odkaz na identifikátor spatial systému. Platí jenom pro parametry prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **Mode**       | Ne          | **In**, **out**nebo **InOut** v závislosti na tom, zda je parametr vstupní, výstupní nebo vstupní/výstupní parametr.                                                                                                                |
+| **MaxLength**  | Ne          | Maximální délka parametru.                                                                                                                                                                                            |
+| **Číslic**  | Ne          | Přesnost parametru.                                                                                                                                                                                                 |
+| **Kapacity**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
+| **SRID**       | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro parametry prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **parametr** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Parameter** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **funkce** element, který má dva **parametr** elementy, které určují vstupní parametry:
+Následující příklad ukazuje prvek **funkce** , který má dva prvky **parametru** , které určují vstupní parametry:
 
 ``` xml
  <Function Name="UpdateOrderQuantity"
@@ -654,29 +654,29 @@ Následující příklad ukazuje **funkce** element, který má dva **parametr**
  </Function>
 ```
 
-## <a name="principal-element-ssdl"></a>Instanční objekt – Element (SSDL)
+## <a name="principal-element-ssdl"></a>Element zabezpečení (SSDL)
 
-**Hlavní** prvek store schema definition language (SSDL) je podřízeným prvkem prvku elementu ReferentialConstraint, který definuje hlavní konec omezení cizího klíče (tzv. referenční omezení). **Hlavní** prvek určuje sloupec primárního klíče (nebo sloupce) v tabulce, na který odkazuje jiný sloupec (nebo sloupce). **PropertyRef** určují prvky sloupce, které jsou odkazovány. Určuje sloupce, které odkazují na sloupce primárního klíče, které jsou určené v elementu závislé **instančního objektu** elementu.
+Element **Principal** ve službě Store Schema Definition Language (SSDL) je podřízeným prvkem prvku elementu ReferentialConstraint, který definuje hlavní konec omezení cizího klíče (označuje se také jako referenční omezení). Element **Principal** určuje sloupec (nebo sloupce) primárního klíče v tabulce, na kterou odkazuje jiný sloupec (nebo sloupce). Prvky **PropertyRef** určují, na které sloupce se odkazuje. Závislý element určuje sloupce, které odkazují na sloupce primárního klíče, které jsou zadány v elementu **Principal** .
 
-**Hlavní** prvek může mít následující podřízené prvky (v uvedeném pořadí):
+Element **Principal** může mít následující podřízené elementy (v uvedeném pořadí):
 
--   PropertyRef (jeden nebo více)
--   Elementů poznámky (nula nebo více)
+-   PropertyRef (jedna nebo víc)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **hlavní** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **Principal** .
 
-| Název atributu | Vyžaduje se | Hodnota                                                                                                                                                      |
+| Název atributu | Je povinné | Value                                                                                                                                                      |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Role**       | Ano         | Stejná hodnota jako **Role** atribut (Pokud se používá) odpovídajícího prvku End; v opačném případě se název tabulky, který obsahuje Odkazovaný sloupec. |
+| **Role**       | Ano         | Stejná hodnota jako atribut **role** (Pokud se používá) odpovídajícího elementu end; jinak název tabulky, která obsahuje odkazovaný sloupec. |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **hlavní** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> U elementu **Principal** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element přidružení, který se používá **elementu ReferentialConstraint** elementu k určení sloupců, které jsou součástí **FK\_CustomerOrders** cizí klíč omezení. **Hlavní** určuje element **CustomerId** sloupec **zákazníka** tabulku jako hlavní konec omezení.
+Následující příklad ukazuje element Association, který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-2CustomerOrders** . Element **Principal** určuje sloupec **KódZákazníka** tabulky **Customer** jako hlavní konec omezení.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -697,37 +697,37 @@ Následující příklad ukazuje element přidružení, který se používá **e
  </Association>
 ```
 
-## <a name="property-element-ssdl"></a>Property – Element (SSDL)
+## <a name="property-element-ssdl"></a>Property – element (SSDL)
 
-**Vlastnost** prvek v store schema definition language (SSDL) představuje sloupci v tabulce v podkladové databázi. **Vlastnost** prvky jsou podřízených elementů EntityType, které představují řádky v tabulce. Každý **vlastnost** element definovaný v **EntityType** element představuje sloupci.
+Element **Property** ve službě Store Schema Definition Language (SSDL) představuje sloupec v tabulce v podkladové databázi. Prvky **vlastností** jsou podřízené prvky EntityType, které představují řádky v tabulce. Každý element **Property** definovaný na elementu **EntityType** reprezentuje sloupec.
 
-A **vlastnost** element nemůže mít žádné podřízené prvky.
+Element **Property** nemůže mít žádné podřízené elementy.
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **vlastnost** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **vlastnosti** .
 
-| Název atributu            | Vyžaduje se | Hodnota                                                                                                                                                                                                                           |
+| Název atributu            | Je povinné | Value                                                                                                                                                                                                                           |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**                  | Ano         | Název odpovídající sloupec.                                                                                                                                                                                           |
-| **Typ**                  | Ano         | Typ odpovídající sloupec.                                                                                                                                                                                           |
-| **S povolenou hodnotou Null**              | Ne          | **Hodnota TRUE** (výchozí hodnota) nebo **False** v závislosti na tom, zda odpovídající sloupec může mít hodnotu null.                                                                                                                  |
-| **Výchozí hodnota**          | Ne          | Výchozí hodnota odpovídající sloupec.                                                                                                                                                                                  |
-| **maxLength**             | Ne          | Maximální délka odpovídající sloupec.                                                                                                                                                                                 |
-| **Hodnoty**           | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, zda se uloží odpovídající hodnotu sloupce jako řetězce pevné délky.                                                                                                              |
-| **Přesnost**             | Ne          | Přesnost odpovídající sloupec.                                                                                                                                                                                      |
-| **Škálování**                 | Ne          | Škálování odpovídající sloupec.                                                                                                                                                                                          |
-| **Unicode**               | Ne          | **Hodnota TRUE** nebo **False** v závislosti na tom, jestli se uloží odpovídající hodnotu sloupce jako řetězec s kódováním Unicode.                                                                                                                   |
-| **Kolace**             | Ne          | Řetězec, který určuje pořadí řazení, který se má použít ve zdroji dat.                                                                                                                                                   |
-| **SRID**                  | Ne          | Odkaz na identifikátor spatial systému. Platí pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](http://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
-| **Výčet StoreGeneratedPattern** | Ne          | **Žádný**, **Identity** (Pokud je hodnota odpovídající sloupec identity, který je vygenerován v databázi), nebo **vypočítané** (Pokud odpovídající sloupec hodnota byla vypočítána v databázi). Není platné pro RowType vlastnosti. |
+| **Název**                  | Ano         | Název odpovídajícího sloupce.                                                                                                                                                                                           |
+| **Typ**                  | Ano         | Typ odpovídajícího sloupce.                                                                                                                                                                                           |
+| **Povoleno**              | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda odpovídající sloupec může mít hodnotu null.                                                                                                                  |
+| **Hodnot**          | Ne          | Výchozí hodnota odpovídajícího sloupce.                                                                                                                                                                                  |
+| **MaxLength**             | Ne          | Maximální délka odpovídajícího sloupce.                                                                                                                                                                                 |
+| **FixedLength**           | Ne          | **True** nebo **false** v závislosti na tom, jestli se odpovídající hodnota sloupce uloží jako řetězec s pevnou délkou.                                                                                                              |
+| **Číslic**             | Ne          | Přesnost odpovídajícího sloupce.                                                                                                                                                                                      |
+| **Kapacity**                 | Ne          | Měřítko odpovídajícího sloupce.                                                                                                                                                                                          |
+| **Unicode**               | Ne          | **True** nebo **false** v závislosti na tom, jestli se odpovídající hodnota sloupce uloží jako řetězec Unicode.                                                                                                                   |
+| **Velké**             | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
+| **SRID**                  | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
+| **StoreGeneratedPattern** | Ne          | **None**, **identity** (Pokud je odpovídající hodnota sloupce identita, která je generována v databázi), nebo **vypočítána** (Pokud je v databázi vypočítána odpovídající hodnota sloupce). Neplatný pro vlastnosti RowType. |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **vlastnost** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **Property** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **EntityType** element s dva podřízené **vlastnost** prvky:
+Následující příklad ukazuje element **EntityType** se dvěma podřízenými prvky **vlastnosti** :
 
 ``` xml
  <EntityType Name="Customers">
@@ -743,32 +743,32 @@ Následující příklad ukazuje **EntityType** element s dva podřízené **vla
  </EntityType>
 ```
 
-## <a name="propertyref-element-ssdl"></a>Element PropertyRef (SSDL)
+## <a name="propertyref-element-ssdl"></a>PropertyRef – element (SSDL)
 
-**PropertyRef** prvek store schema definition language (SSDL) odkazuje na vlastnost definovaný v elementu EntityType k označení, že vlastnost bude provádět jednu z následujících rolí:
+Element **PropertyRef** v úložišti pro definici schématu (SSDL) odkazuje na vlastnost definovanou na elementu EntityType, aby označoval, že vlastnost provede jednu z následujících rolí:
 
--   Být součástí primárního klíče tabulky, který **EntityType** představuje. Jeden nebo více **PropertyRef** prvky můžete použít k definování primární klíč. Další informace najdete v elementu Key.
--   Být závislé nebo hlavní konec referenčního omezení. Další informace najdete v elementu ReferentialConstraint elementu.
+-   Být součástí primárního klíče tabulky, který představuje **EntityType** . Jeden nebo více elementů **PropertyRef** lze použít k definování primárního klíče. Další informace naleznete v tématu klíčový element.
+-   Být závislé nebo hlavní zakončení referenčního omezení. Další informace naleznete v tématu elementu ReferentialConstraint element.
 
-**PropertyRef** element může obsahovat pouze následujících podřízených elementů:
+Element **PropertyRef** může mít pouze následující podřízené prvky:
 
--   Dokumentace ke službě (žádný nebo jeden)
--   Elementů poznámky
+-   Dokumentace (0 nebo 1)
+-   Prvky poznámky
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy, které mohou být použity **PropertyRef** elementu.
+Následující tabulka popisuje atributy, které mohou být aplikovány na element **PropertyRef** .
 
-| Název atributu | Vyžaduje se | Hodnota                                |
+| Název atributu | Je povinné | Value                                |
 |:---------------|:------------|:-------------------------------------|
-| **Jméno**       | Ano         | Název odkazované vlastnosti. |
+| **Název**       | Ano         | Název odkazované vlastnosti |
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **PropertyRef** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro CSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **PropertyRef** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **PropertyRef** element sloužící k odkazování na vlastnost, která je definována na definovat primární klíč **EntityType** elementu.
+Následující příklad ukazuje element **PropertyRef** , který slouží k definování primárního klíče odkazem na vlastnost, která je definována v elementu **EntityType** .
 
 ``` xml
  <EntityType Name="Customers">
@@ -784,26 +784,26 @@ Následující příklad ukazuje **PropertyRef** element sloužící k odkazová
  </EntityType>
 ```
 
-## <a name="referentialconstraint-element-ssdl"></a>Element elementu ReferentialConstraint (SSDL)
+## <a name="referentialconstraint-element-ssdl"></a>Elementu ReferentialConstraint – element (SSDL)
 
-**Elementu ReferentialConstraint** prvek v store schema definition language (SSDL) představuje omezení cizího klíče (také nazývané omezení referenční integrity) v podkladové databázi. Objektem zabezpečení a závislými konce omezení jsou určena pomocí podřízených prvků objektu zabezpečení a závislé. Sloupce, které jsou součástí objektem zabezpečení a závislými elementy end jsou odkazovány pomocí PropertyRef elementy.
+Element **elementu ReferentialConstraint** ve službě Store Schema Definition Language (SSDL) představuje omezení cizího klíče (označované také jako omezení referenční integrity) v podkladové databázi. Hlavní a závislé elementy na konci omezení jsou určeny hlavními a závislými podřízenými prvky v uvedeném pořadí. Sloupce, které se podílejí na koncích objektu zabezpečení a závislých, jsou odkazovány pomocí elementů PropertyRef.
 
-**Elementu ReferentialConstraint** element je volitelný podřízený prvek elementu Association. Pokud **elementu ReferentialConstraint** element není slouží k omezení cizího klíče, který je zadán v mapování **přidružení** element, AssociationSetMapping element musí k tomu použít.
+Element **elementu ReferentialConstraint** je volitelný podřízený prvek elementu Association. Pokud se nepoužívá element **elementu ReferentialConstraint** k mapování omezení cizího klíče, který je určen v elementu **Association** , je nutné použít element AssociationSetMapping.
 
-**Elementu ReferentialConstraint** prvek může mít následujících podřízených elementů:
+Element **elementu ReferentialConstraint** může mít následující podřízené prvky:
 
--   Dokumentace ke službě (žádný nebo jeden)
+-   Dokumentace (0 nebo 1)
 -   Objekt zabezpečení (právě jeden)
--   Závislé (právě jeden)
--   Elementů poznámky (nula nebo více)
+-   Závislý (právě jeden)
+-   Prvky poznámky (nula nebo více)
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Libovolný počet atributů poznámky (vlastní atributy XML) lze na **elementu ReferentialConstraint** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+Pro element **elementu ReferentialConstraint** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **přidružení** element, který se používá **elementu ReferentialConstraint** elementu k určení sloupců, které jsou součástí **FK\_CustomerOrders**  omezení cizího klíče:
+Následující příklad ukazuje element **Association** , který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-3CustomerOrders** :
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -824,22 +824,22 @@ Následující příklad ukazuje **přidružení** element, který se používá
  </Association>
 ```
 
-## <a name="returntype-element-ssdl"></a>Element ReturnType (SSDL)
+## <a name="returntype-element-ssdl"></a>ReturnType – element (SSDL)
 
-**ReturnType** element v store schema definition language (SSDL) určuje návratový typ pro funkci, která je definována v **funkce** elementu. Funkce, návratový typ je také možné zadat při **ReturnType** atribut.
+Element **ReturnType** v rámci služby Store Schema Definition Language (SSDL) určuje návratový typ pro funkci, která je definována v elementu **Function** . Návratový typ funkce lze také zadat s atributem **ReturnType** .
 
-Návratový typ funkce se zadaným **typ** atribut nebo **ReturnType** elementu.
+Návratový typ funkce je zadán pomocí atributu **Type** nebo elementu **ReturnType** .
 
-**ReturnType** prvek může mít následujících podřízených elementů:
+Element **ReturnType** může mít následující podřízené prvky:
 
-- Objekt CollectionType (jeden)  
+- CollectionType (jeden)  
 
 > [!NOTE]
-> Libovolný počet atributů poznámky (vlastní atributy XML) lze na **ReturnType** elementu. Uživatelských atributů, které však nemusí patřit do libovolný obor názvů XML, který je vyhrazen pro SSDL. Plně kvalifikovaných názvů pro všemi dvě vlastními atributy nemůže být stejné.
+> Pro element **ReturnType** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad používá **funkce** , který vrátí kolekce řádků.
+Následující příklad používá **funkci** , která vrací kolekci řádků.
 
 ``` xml
    <Function Name="GetProducts" IsComposable="true" Schema="dbo">
@@ -858,19 +858,19 @@ Následující příklad používá **funkce** , který vrátí kolekce řádků
 ```
 
 
-## <a name="rowtype-element-ssdl"></a>Element RowType (SSDL)
+## <a name="rowtype-element-ssdl"></a>RowType – element (SSDL)
 
-A **RowType** prvek v store schema definition language (SSDL) definuje nepojmenovanou strukturu jako návratový typ pro funkci definovanou v úložišti.
+Element **RowType** ve službě Store Schema Definition Language (SSDL) definuje nepojmenované struktury jako návratový typ pro funkci definovanou v úložišti.
 
-A **RowType** prvek je podřízený prvek **CollectionType** element:
+Element **RowType** je podřízeným prvkem elementu **CollectionType** :
 
-A **RowType** prvek může mít následujících podřízených elementů:
+Element **RowType** může mít následující podřízené prvky:
 
-- Vlastnosti (jeden nebo více)  
+- Vlastnost (jedna nebo více)  
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje funkci úložiště, který používá **CollectionType** elementu k určení, že funkce vrátí kolekce řádků (jak je uvedeno v **RowType** element).
+Následující příklad ukazuje funkci úložiště, která používá element **CollectionType** k určení, že funkce vrací kolekci řádků (jak je uvedeno v elementu **RowType** ).
 
 
 ``` xml
@@ -889,41 +889,41 @@ Následující příklad ukazuje funkci úložiště, který používá **Collec
    </Function>
 ```
 
-## <a name="schema-element-ssdl"></a>Element schématu (SSDL)
+## <a name="schema-element-ssdl"></a>Schema – element (SSDL)
 
-**Schématu** prvek store schema definition language (SSDL) je kořenovým elementem definice modelu úložiště. Obsahuje definice pro objekty, funkce a kontejnerů, které tvoří modelu úložiště.
+Element **Schema** v nástroji Store Schema Definition Language (SSDL) je kořenovým prvkem definice modelu úložiště. Obsahuje definice pro objekty, funkce a kontejnery, které tvoří model úložiště.
 
-**Schématu** element může obsahovat nula nebo více z následujících podřízených elementů:
+Element **Schema** může obsahovat nula nebo více z následujících podřízených elementů:
 
--   Přidružení
+-   Řídí
 -   Typ entity
--   EntityContainer
+-   Kontejneru
 -   Funkce
 
-**Schématu** prvek používá **Namespace** atribut pro definování oboru názvů pro objekty typu a přidružení entit v modelu úložiště. V rámci oboru názvů může mít žádné dva objekty se stejným názvem.
+Element **Schema** používá atribut **Namespace** k definování oboru názvů pro typ entity a objekty přidružení v modelu úložiště. V rámci oboru názvů nemohou mít žádné dva objekty stejný název.
 
-Obor názvů modelu úložiště se liší od oboru názvů XML **schématu** elementu. Obor názvů modelu úložiště (podle definice **Namespace** atribut) je logický kontejner pro typy entit a přidružení typů. Obor názvů XML (indikován **xmlns** atribut) z **schématu** element je výchozí obor názvů pro podřízené prvky a atributy **schématu** elementu. Obory názvů XML formuláře http://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (kde RRRR a MM představují roku a měsíce v uvedeném pořadí) jsou vyhrazené pro SSDL. Vlastní elementy a atributy nemohou být v oborech názvů, které mají tento formulář.
+Obor názvů modelu úložiště se liší od oboru názvů XML elementu **Schema** . Obor názvů modelu úložiště (jak je definováno atributem **Namespace** ) je logický kontejner pro typy entit a typy přidružení. Obor názvů XML (uvedený atributem **xmlns** ) elementu **Schema** je výchozí obor názvů pro podřízené elementy a atributy elementu **Schema** . Obory názvů XML ve formátu https://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (kde RRRR a MM představují rok a měsíc) jsou vyhrazeny pro SSDL. Vlastní elementy a atributy nemůžou být v oborech názvů, které mají tento formulář.
 
-### <a name="applicable-attributes"></a>Příslušné atributy
+### <a name="applicable-attributes"></a>Použitelné atributy
 
-Následující tabulka popisuje atributy lze použít **schématu** elementu.
+Následující tabulka popisuje atributy, které lze použít pro element **Schema** .
 
-| Název atributu            | Vyžaduje se | Hodnota                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Název atributu            | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**             | Ano         | Obor názvů model úložiště. Hodnota **Namespace** atribut se používá k vytvoření plně kvalifikovaný název typu. Například pokud **EntityType** s názvem *zákazníka* je v oboru názvů ExampleModel.Store pak plně kvalifikovaný název **EntityType** je ExampleModel.Store.Customer. <br/> Následující řetězce nelze použít jako hodnotu **Namespace** atribut: **systému**, **přechodné**, nebo **Edm**. Hodnota **Namespace** atribut nemůže být stejná jako hodnota pro **Namespace** atribut v elementu CSDL Schema. |
-| **Alias**                 | Ne          | Identifikátor, použijí se místo názvu oboru názvů. Například pokud **EntityType** s názvem *zákazníka* je v oboru názvů ExampleModel.Store a hodnoty **Alias** atribut je *StorageModel*, můžete použít StorageModel.Customer jako plně kvalifikovaný název **EntityType.**                                                                                                                                                                                                                                                                                    |
-| **Zprostředkovatel**              | Ano         | Zprostředkovatel dat.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **ProviderManifestToken** | Ano         | Token, který označuje které manifest zprostředkovatele se vraťte k poskytovateli. Je definován žádný formát pro daný token. Hodnoty pro daný token je definována v poskytovateli. Informace o manifestu tokeny zprostředkovatele SQL Server najdete v tématu SqlClient pro Entity Framework.                                                                                                                                                                                                                                                                                                                        |
+| **Namespace**             | Ano         | Obor názvů modelu úložiště. Hodnota atributu **Namespace** slouží k vytvoření plně kvalifikovaného názvu typu. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store, pak plně kvalifikovaný název třídy **EntityType** je ExampleModel. Store. Customer. <br/> Následující řetězce nelze použít jako hodnotu pro atribut **Namespace** : **System**, **přechodný**nebo **EDM**. Hodnota atributu **Namespace** nemůže být stejná jako hodnota atributu **Namespace** v elementu schématu CSDL. |
+| **Alias**                 | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store a hodnota atributu **alias** je *StorageModel*, pak můžete použít StorageModel. Customer jako plně kvalifikovaný název  **EntityType.**                                                                                                                                                                                                                                                                                    |
+| **Poskytovatel**              | Ano         | Poskytovatel dat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **ProviderManifestToken** | Ano         | Token, který indikuje poskytovateli, který manifest Provider vrátí. Není definován žádný formát pro token. Hodnoty pro token jsou definovány zprostředkovatelem. Informace o tokenech manifestu poskytovatele SQL Server najdete v tématu SqlClient for Entity Framework.                                                                                                                                                                                                                                                                                                                        |
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **schématu** element, který obsahuje **EntityContainer** elementu, dvěma **EntityType** elementy a jeden **přidružení** elementu.
+Následující příklad ukazuje element **schématu** , který obsahuje element **EntityContainer** , dva elementy **EntityType** a jeden element **Association** .
 
 ``` xml
  <Schema Namespace="ExampleModel.Store"
        Alias="Self" Provider="System.Data.SqlClient"
        ProviderManifestToken="2008"
-       xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+       xmlns="https://schemas.microsoft.com/ado/2009/11/edm/ssdl">
    <EntityContainer Name="ExampleModelStoreContainer">
      <EntitySet Name="Customers"
                 EntityType="ExampleModel.Store.Customers"
@@ -1005,16 +1005,16 @@ Následující příklad ukazuje **schématu** element, který obsahuje **Entity
 
 ## <a name="annotation-attributes"></a>Atributy poznámek
 
-Atributy poznámek v store schema definition language (SSDL) jsou vlastní atributy XML v modelu úložiště, které poskytují další metadata o prvky v modelu úložiště. Kromě s platnou strukturu XML, platí následující omezení atributů poznámky:
+Atributy poznámek ve službě Store Schema Definition Language (SSDL) jsou vlastní atributy XML v modelu úložiště, které poskytují dodatečná metadata o prvcích v modelu úložiště. Kromě existence platné struktury XML platí následující omezení pro atributy poznámek:
 
--   Atributy poznámky nesmí být v libovolný obor názvů XML, který je vyhrazen pro SSDL.
--   Plně kvalifikovaných názvů atributů dvě poznámky nesmí být stejné.
+-   Atributy poznámky nesmí být v žádném oboru názvů XML, který je vyhrazený pro SSDL.
+-   Plně kvalifikované názvy všech dvou atributů poznámek nesmí být stejné.
 
-Více než jeden atribut poznámky se můžou vztahovat na daný prvek SSDL. Metadat obsažených v elementů poznámky je možný za běhu pomocí tříd v oboru názvů System.Data.Metadata.Edm.
+U daného elementu SSDL lze použít více než jeden atribut poznámky. K metadatům obsaženým v prvcích poznámky lze za běhu přistup použít třídy v oboru názvů System. data. Metadata. Edm.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element EntityType, který má anotaci atributem použitým **OrderId** vlastnost. V příkladu také zobrazit poznámky prvek přidán do **EntityType** elementu.
+Následující příklad ukazuje element EntityType, který má atribut poznámky aplikovaný na vlastnost **ČísloObjednávky** . V příkladu se zobrazí také element poznámky přidaný do elementu **EntityType** .
 
 ``` xml
  <EntityType Name="Orders" xmlns:c="http://CustomNamespace">
@@ -1032,19 +1032,19 @@ Následující příklad ukazuje element EntityType, který má anotaci atribute
  </EntityType>
 ```
 
-## <a name="annotation-elements-ssdl"></a>Elementů poznámky (SSDL)
+## <a name="annotation-elements-ssdl"></a>Prvky poznámky (SSDL)
 
-Poznámka prvky store schema definition language (SSDL) jsou vlastní elementů XML v modelu úložiště, které poskytují další metadata týkající se modelu úložiště. Kromě platný struktura XML elementů poznámky platí následující omezení:
+Prvky poznámek ve službě Store Schema Definition Language (SSDL) jsou vlastní prvky XML v modelu úložiště, které poskytují dodatečná metadata o modelu úložiště. Kromě existence platné struktury XML platí následující omezení pro prvky poznámky:
 
--   Elementů poznámky nesmí být v libovolný obor názvů XML, který je vyhrazen pro SSDL.
--   Plně kvalifikovaných názvů všech elementů dvě poznámky nesmí být stejné.
--   Elementů poznámky se musí vyskytovat za všechny ostatní podřízené prvky daného prvku SSDL.
+-   Prvky poznámky nesmí být v žádném oboru názvů XML, který je vyhrazený pro SSDL.
+-   Plně kvalifikované názvy všech dvou prvků poznámky nesmí být stejné.
+-   Prvky poznámky se musí vyskytovat po všech ostatních podřízených prvcích daného elementu SSDL.
 
-Více než jeden element anotace může být podřízeným daného prvku SSDL. Od verze rozhraní .NET Framework verze 4, metadat obsažených v elementů poznámky je možný za běhu pomocí tříd v oboru názvů System.Data.Metadata.Edm.
+Více než jeden element poznámky může být podřízeným prvku daného elementu SSDL. Počínaje verzí .NET Framework 4 je k metadatům obsaženým v prvcích poznámky možné přistupovat za běhu pomocí tříd v oboru názvů System. data. Metadata. Edm.
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element EntityType, který má element anotace (**CustomElement**). Tento příklad také ukazuje anotace atributem použitým **OrderId** vlastnost.
+Následující příklad ukazuje element EntityType, který má element Annotation (**CustomElement**). V příkladu se také zobrazuje atribut poznámky, který se použije na vlastnost **KódObjednávky** .
 
 ``` xml
  <EntityType Name="Orders" xmlns:c="http://CustomNamespace">
@@ -1064,15 +1064,15 @@ Následující příklad ukazuje element EntityType, který má element anotace 
 
 ## <a name="facets-ssdl"></a>Omezující vlastnosti (SSDL)
 
-Omezující vlastnosti v store schema definition language (SSDL) představují omezení na typy sloupců, které jsou uvedeny v prvcích vlastností. Omezující vlastnosti jsou implementovány jako atributy ve formátu XML na **vlastnost** elementy.
+Charakteristiky v úložišti SSDL (Schema Definition Language) představují omezení pro typy sloupců, které jsou zadány v prvcích vlastností. Omezující vlastnosti jsou implementovány jako atributy XML v prvcích **vlastností** .
 
-Následující tabulka popisuje, které jsou podporovány v SSDL omezující vlastnosti:
+Následující tabulka obsahuje popis omezujících vlastností, které jsou podporovány ve službě SSDL:
 
-| omezující vlastnost           | Popis                                                                                                                                                                                                                                                 |
+| Omezující           | Popis                                                                                                                                                                                                                                                 |
 |:----------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Kolace**   | Určuje pořadí řazení (nebo pořadí řazení) pro použití při provádění porovnání a řazení operací na hodnotách vlastnosti.                                                                                                             |
-| **Hodnoty** | Určuje, zda se může lišit délka hodnoty sloupce.                                                                                                                                                                                                  |
-| **maxLength**   | Určuje maximální délku hodnoty sloupce.                                                                                                                                                                                                           |
-| **Přesnost**   | Pro vlastnosti typu **desítkové**, určuje počet číslic, může mít hodnotu vlastnosti. Pro vlastnosti typu **čas**, **data a času**, a **DateTimeOffset**, určuje počet číslic za desetinnou čárkou sady sekund hodnotu ve sloupci. |
-| **Škálování**       | Určuje počet číslic vpravo od desetinné čárky pro hodnotu sloupce.                                                                                                                                                                      |
-| **Unicode**     | Určuje, zda hodnota sloupce ukládá jako kódování Unicode.                                                                                                                                                                                                    |
+| **Velké**   | Určuje pořadí kompletování (nebo řazení sekvence), které se má použít při provádění operací porovnání a řazení u hodnot vlastnosti.                                                                                                             |
+| **FixedLength** | Určuje, zda může být délka hodnoty sloupce odlišná.                                                                                                                                                                                                  |
+| **MaxLength**   | Určuje maximální délku hodnoty sloupce.                                                                                                                                                                                                           |
+| **Číslic**   | Pro vlastnosti typu **Decimal**určuje počet číslic, které může mít hodnota vlastnosti. Pro vlastnosti typu **Time**, **DateTime**a **DateTimeOffset**určuje počet číslic pro zlomkovou část hodnoty sloupce v sekundách. |
+| **Kapacity**       | Určuje počet číslic vpravo od desetinné čárky pro hodnotu sloupce.                                                                                                                                                                      |
+| **Unicode**     | Určuje, zda je hodnota sloupce uložena jako Unicode.                                                                                                                                                                                                    |

@@ -1,15 +1,15 @@
 ---
-title: Přenesení z EF6 do EF Core
+title: Přenos z EF6 do EF Core-EF
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 826b58bd-77b0-4bbc-bfcd-24d1ed3a8f38
 uid: efcore-and-ef6/porting/index
-ms.openlocfilehash: 42e40ce769a67a987883027e1807ec7eaeb4ad7a
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 77096b9bffba6b8c2a3d7bfb0c2e41e2d170a7db
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198025"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182094"
 ---
 # <a name="porting-from-ef6-to-ef-core"></a>Přenesení z EF6 do EF Core
 
@@ -29,17 +29,17 @@ Toto je nevyčerpávající seznam některých změn v chování mezi EF6 a EF C
 
 ### <a name="dbsetaddattach-and-graph-behavior"></a>Negenerickými. Přidání/připojení a chování grafu
 
-V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledávání všech entit, na které se odkazuje ve vlastnostech navigace. Všechny nalezené entity a již nejsou sledovány kontextem, jsou také označeny jako přidané. `DbSet.Attach()`se chová stejně, s výjimkou všech entit jsou označeny jako beze změny.
+V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledávání všech entit, na které se odkazuje ve vlastnostech navigace. Všechny nalezené entity a již nejsou sledovány kontextem, jsou také označeny jako přidané. `DbSet.Attach()` se chová stejně, s výjimkou, že všechny entity jsou označeny jako beze změny.
 
 **EF Core provádí podobné rekurzivní vyhledávání, ale s trochu odlišnými pravidly.**
 
-*  Kořenová entita je vždy ve vyžádaném stavu (přidáno `DbSet.Add` pro a `DbSet.Attach`beze změny).
+*  Kořenová entita je vždy v požadovaném stavu (přidáno pro `DbSet.Add` a nezměněná pro `DbSet.Attach`).
 
 *  **Pro entity, které byly nalezeny během rekurzivního prohledávání vlastností navigace:**
 
     *  **Pokud je primární klíč entity vygenerovaný jako úložiště**
 
-        * Pokud primární klíč není nastaven na hodnotu, stav je nastaveno na přidáno. Hodnota primárního klíče se považuje za nenastavenou, pokud je přiřazena výchozí hodnota CLR pro daný typ vlastnosti ( `0` například pro `int`, `null` pro `string`atd.).
+        * Pokud primární klíč není nastaven na hodnotu, stav je nastaveno na přidáno. Hodnota primárního klíče se považuje za nenastavenou, pokud je přiřazena výchozí hodnota CLR pro daný typ vlastnosti (například `0` pro `int` `null` pro `string` atd.).
 
         * Pokud je primární klíč nastaven na hodnotu, stav je nastaven na nezměněný.
 
@@ -47,11 +47,11 @@ V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledáván
 
 ### <a name="code-first-database-initialization"></a>Inicializace databáze Code First
 
-**EF6 má velký výkon, který vychází z výběru připojení databáze a inicializace databáze. Mezi tato pravidla patří:**
+@no__t – 0EF6 má velký výkon, který vychází z výběru připojení databáze a inicializace databáze. Mezi tato pravidla patří: **
 
 * Pokud se neprovede žádná konfigurace, EF6 vybere databázi na SQL Express nebo LocalDb.
 
-* Pokud je připojovací řetězec se stejným názvem jako kontext v souboru aplikace `App/Web.config` , bude použito toto připojení.
+* Pokud je připojovací řetězec se stejným názvem jako kontext v souboru aplikace `App/Web.config`, bude použito toto připojení.
 
 * Pokud databáze neexistuje, vytvoří se.
 
@@ -63,10 +63,10 @@ V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledáván
 
 * Připojení k databázi musí být explicitně nakonfigurované v kódu.
 
-* Není provedena žádná inicializace. K použití migrace `DbContext.Database.Migrate()` ( `DbContext.Database.EnsureCreated()` `EnsureDeleted()` nebo k vytvoření/odstranění databáze bez použití migrace) musíte použít.
+* Není provedena žádná inicializace. Chcete-li použít migrace (nebo `DbContext.Database.EnsureCreated()` a `EnsureDeleted()` k vytvoření nebo odstranění databáze bez použití migrace), je nutné použít `DbContext.Database.Migrate()`.
 
 ### <a name="code-first-table-naming-convention"></a>Code First zásady vytváření názvů tabulek
 
 EF6 spustí název třídy entity prostřednictvím služby pro pojmenování a vypočítá výchozí název tabulky, na kterou je entita namapována.
 
-EF Core používá název `DbSet` vlastnosti, ke které je entita vystavena v odvozeném kontextu. Pokud entita `DbSet` neobsahuje vlastnost, použije se název třídy.
+EF Core používá název vlastnosti `DbSet`, ke které je entita vystavena v odvozeném kontextu. Pokud entita nemá vlastnost `DbSet`, použije se název třídy.

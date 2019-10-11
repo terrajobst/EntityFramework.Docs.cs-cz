@@ -1,15 +1,15 @@
 ---
-title: Instalace Entity Framework Core
+title: Instalace Entity Framework Core-EF Core
 author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 7bdedf563b7d919ba334db79af73c3eed3ba4129
-ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
+ms.openlocfilehash: b4ae13ae1b22bb78c2c0407c0b3da64ee12ff2c1
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71317584"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181199"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
@@ -41,7 +41,7 @@ Chcete-li nainstalovat nebo aktualizovat balíčky NuGet, můžete použít rozh
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
   ```
 
-* Konkrétní verzi můžete v `dotnet add package` příkazu označit `-v` pomocí modifikátoru. Například pro instalaci balíčků EF Core 2.2.0 přidejte `-v 2.2.0` k příkazu.
+* Konkrétní verzi můžete určit v příkazu `dotnet add package` pomocí modifikátoru `-v`. Například pro instalaci balíčků EF Core 2.2.0 přidejte `-v 2.2.0` do příkazu.
 
 Další informace najdete v tématu [nástroje rozhraní příkazového řádku .NET (CLI)](/dotnet/core/tools/).
 
@@ -51,7 +51,7 @@ Další informace najdete v tématu [nástroje rozhraní příkazového řádku 
 
 * Klikněte na kartu **Procházet** nebo **aktualizace** .
 
-* Pokud chcete nainstalovat nebo aktualizovat poskytovatele SQL Server, vyberte `Microsoft.EntityFrameworkCore.SqlServer` balíček a potvrďte ho.
+* Pokud chcete nainstalovat nebo aktualizovat poskytovatele SQL Server, vyberte balíček `Microsoft.EntityFrameworkCore.SqlServer` a potvrďte ho.
 
 Další informace najdete v [dialogovém okně Správce balíčků NuGet](/nuget/tools/package-manager-ui).
 
@@ -64,9 +64,9 @@ Další informace najdete v [dialogovém okně Správce balíčků NuGet](/nuget
   ``` PowerShell  
   Install-Package Microsoft.EntityFrameworkCore.SqlServer
   ```
-* Chcete-li aktualizovat poskytovatele, použijte `Update-Package` příkaz.
+* Chcete-li aktualizovat poskytovatele, použijte příkaz `Update-Package`.
 
-* K určení konkrétní verze použijte `-Version` modifikátor. Například pro instalaci balíčků EF Core 2.2.0 přidejte `-Version 2.2.0` k příkazům
+* Chcete-li zadat konkrétní verzi, použijte modifikátor `-Version`. Například pro instalaci balíčků EF Core 2.2.0 přidejte `-Version 2.2.0` k příkazům
 
 Další informace najdete v tématu [Konzola správce balíčků](/nuget/tools/package-manager-console).
 
@@ -76,11 +76,11 @@ Můžete nainstalovat nástroje pro provádění úloh souvisejících s EF Core
 
 K dispozici jsou dvě sady nástrojů:
 
-* [Nástroje rozhraní příkazového řádku .NET Core (CLI)](xref:core/miscellaneous/cli/dotnet) se dají použít v systému Windows, Linux nebo MacOS. Tyto příkazy začínají `dotnet ef`na. 
+* [Nástroje rozhraní příkazového řádku .NET Core (CLI)](xref:core/miscellaneous/cli/dotnet) se dají použít v systému Windows, Linux nebo MacOS. Tyto příkazy začínají na `dotnet ef`. 
 
-* [Nástroje konzoly Správce balíčků (PMC)](xref:core/miscellaneous/cli/powershell) se spouštějí v aplikaci Visual Studio ve Windows. Tyto příkazy začínají příkazem, například `Add-Migration`. `Update-Database`
+* [Nástroje konzoly Správce balíčků (PMC)](xref:core/miscellaneous/cli/powershell) se spouštějí v aplikaci Visual Studio ve Windows. Tyto příkazy začínají příkazem, například `Add-Migration`, `Update-Database`.
 
-I když můžete použít `dotnet ef` taky příkazy z konzoly Správce balíčků, doporučuje se použít nástroje konzoly Správce balíčků, když používáte Visual Studio:
+I když v konzole správce balíčků můžete použít taky příkazy `dotnet ef`, doporučuje se použít nástroje konzoly Správce balíčků při použití sady Visual Studio:
 
 * Automaticky pracují s aktuálním projektem vybraným v PMC v aplikaci Visual Studio, aniž by museli ručně přepínat adresáře.  
 
@@ -92,7 +92,7 @@ I když můžete použít `dotnet ef` taky příkazy z konzoly Správce balíčk
 
 .NET Core CLI nástroje vyžadují .NET Core SDK, zmíněné dříve v části [požadavky](#prerequisites).
 
-Příkazy jsou obsaženy v aktuálních verzích .NET Core SDK, ale pokud chcete povolit příkazy v konkrétním projektu, je nutné `Microsoft.EntityFrameworkCore.Design` nainstalovat balíček: `dotnet ef`
+Příkazy `dotnet ef` jsou součástí aktuálních verzí .NET Core SDK, ale pokud chcete povolit příkazy v konkrétním projektu, je nutné nainstalovat balíček `Microsoft.EntityFrameworkCore.Design`:
 
 ``` Console 
 dotnet add package Microsoft.EntityFrameworkCore.Design 
@@ -105,7 +105,7 @@ Pro ASP.NET Core aplikace je tento balíček zahrnutý automaticky.
 
 ### <a name="get-the-package-manager-console-tools"></a>Získat nástroje konzoly Správce balíčků
 
-Chcete-li získat nástroje konzoly Správce balíčků pro EF Core, nainstalujte `Microsoft.EntityFrameworkCore.Tools` balíček. Například ze sady Visual Studio:
+Chcete-li získat nástroje konzoly Správce balíčků pro EF Core, nainstalujte balíček `Microsoft.EntityFrameworkCore.Tools`. Například ze sady Visual Studio:
 
 ``` PowerShell  
 Install-Package Microsoft.EntityFrameworkCore.Tools
@@ -125,11 +125,10 @@ Pro ASP.NET Core aplikace je tento balíček zahrnutý automaticky.
 
 * Pokud upgradujete existující aplikaci na nejnovější verzi EF Core, může být nutné ručně odebrat některé odkazy na starší EF Core balíčky:
 
-  * Balíčky pro dobu návrhu, `Microsoft.EntityFrameworkCore.SqlServer.Design` jako jsou již nejsou vyžadovány nebo podporovány v EF Core 2,0 a novějších, ale nejsou automaticky odebrány při upgradu ostatních balíčků.
+  * Balíčky pro dobu návrhu, například `Microsoft.EntityFrameworkCore.SqlServer.Design`, již nejsou vyžadovány nebo podporovány EF Core 2,0 a novějším, ale nejsou automaticky odebrány při upgradu ostatních balíčků.
 
   * Nástroje rozhraní příkazového řádku .NET jsou součástí sady .NET SDK od verze 2,1, takže odkaz na tento balíček lze odebrat ze souboru projektu:
-
-    ```
+    ```xml
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     ```
 

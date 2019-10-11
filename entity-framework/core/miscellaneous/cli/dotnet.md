@@ -4,16 +4,16 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 910136871cce5818b8e70a012e5132259b66e4c1
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: e5b42275aa575d711e1dcdf3d2ba3cb29a036727
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197590"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181261"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenční informace k nástrojům pro Entity Framework Core – .NET CLI
 
-Nástroje rozhraní příkazového řádku (CLI) pro Entity Framework Core provádět úlohy vývoje v době návrhu. Například vytvářejí [migrace](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), aplikují migrace a generují kód pro model založený na stávající databázi. Příkazy jsou rozšířením příkazu [dotnet](/dotnet/core/tools) pro různé platformy, který je součástí [.NET Core SDK](https://www.microsoft.com/net/core). Tyto nástroje fungují v projektech .NET Core.
+Nástroje rozhraní příkazového řádku (CLI) pro Entity Framework Core provádět úlohy vývoje v době návrhu. Například vytvářejí [migrace](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0), aplikují migrace a generují kód pro model založený na stávající databázi. Příkazy jsou rozšířením příkazu [dotnet](/dotnet/core/tools) pro různé platformy, který je součástí [.NET Core SDK](https://www.microsoft.com/net/core). Tyto nástroje fungují v projektech .NET Core.
 
 Pokud používáte sadu Visual Studio, doporučujeme místo toho použít [Nástroje konzoly Správce balíčků](powershell.md) :
 * Automaticky pracují s aktuálním projektem vybraným v **konzole správce balíčků** bez nutnosti ručně přepínat adresáře.
@@ -30,17 +30,17 @@ Postup instalace závisí na typu a verzi projektu:
 
 ### <a name="ef-core-3x"></a>EF Core 3. x
 
-* `dotnet ef`musí být nainstalovaný jako globální nebo místní nástroj. Většina vývojářů se `dotnet ef` nainstaluje jako globální nástroj pomocí následujícího příkazu:
+* `dotnet ef` musí být nainstalován jako globální nebo místní nástroj. Většina vývojářů nainstaluje `dotnet ef` jako globální nástroj pomocí následujícího příkazu:
 
   ``` console
   dotnet tool install --global dotnet-ef
   ```
 
-  Můžete použít `dotnet ef` také jako místní nástroj. Chcete-li jej použít jako místní nástroj, obnovte závislosti projektu, který deklaruje jako závislost nástrojů pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
+  @No__t-0 můžete také použít jako místní nástroj. Chcete-li jej použít jako místní nástroj, obnovte závislosti projektu, který deklaruje jako závislost nástrojů pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
 
 * Nainstalujte [.NET Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Sada SDK musí být nainstalována i v případě, že máte nejnovější verzi sady Visual Studio.
 
-* Nainstalujte si nejnovější `Microsoft.EntityFrameworkCore.Design` balíček.
+* Nainstalujte nejnovější balíček `Microsoft.EntityFrameworkCore.Design`.
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -50,15 +50,15 @@ Postup instalace závisí na typu a verzi projektu:
 
 * Nainstalujte aktuální [.NET Core SDK](https://www.microsoft.com/net/download/core). Sada SDK musí být nainstalována i v případě, že máte nejnovější verzi sady Visual Studio 2017.
 
-  To je všechno, co je potřeba pro ASP.NET Core 2.1 +, `Microsoft.EntityFrameworkCore.Design` protože balíček je zahrnutý ve [službě Microsoft. AspNetCore. app Metapackage](/aspnet/core/fundamentals/metapackage-app).
+  To je všechno, co je potřeba pro ASP.NET Core 2.1 +, protože balíček `Microsoft.EntityFrameworkCore.Design` je zahrnutý v [Microsoft. AspNetCore. app Metapackage](/aspnet/core/fundamentals/metapackage-app).
 
 ### <a name="ef-core-2x-not-aspnet-core"></a>EF Core 2. x (není ASP.NET Core)
 
-Příkazy jsou součástí .NET Core SDK, ale umožňují příkazy, které potřebujete k `Microsoft.EntityFrameworkCore.Design` instalaci balíčku. `dotnet ef`
+Příkazy `dotnet ef` jsou součástí .NET Core SDK, ale umožňují příkazy, které potřebujete k instalaci balíčku `Microsoft.EntityFrameworkCore.Design`.
 
 * Nainstalujte aktuální [.NET Core SDK](https://www.microsoft.com/net/download/core). Sada SDK musí být nainstalována i v případě, že máte nejnovější verzi sady Visual Studio.
 
-* Nainstalujte nejnovější stabilní `Microsoft.EntityFrameworkCore.Design` balíček.
+* Nainstalujte nejnovější stabilní balíček `Microsoft.EntityFrameworkCore.Design`.
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -70,9 +70,9 @@ Příkazy jsou součástí .NET Core SDK, ale umožňují příkazy, které pot�
 
 * Nakonfigurujte aplikaci tak, aby používala verzi sady 2.1.200 SDK úpravou jejího [globálního souboru. JSON](/dotnet/core/tools/global-json) . Tento soubor je obvykle zahrnutý v adresáři řešení (jeden nad projektem).
 
-* Upravte soubor projektu a přidejte `Microsoft.EntityFrameworkCore.Tools.DotNet` ho `DotNetCliToolReference` jako položku. Zadejte nejnovější verzi 1. x, například: 1.1.6. Podívejte se na příklad soubor projektu na konci této části.
+* Upravte soubor projektu a přidejte `Microsoft.EntityFrameworkCore.Tools.DotNet` jako položku `DotNetCliToolReference`. Zadejte nejnovější verzi 1. x, například: 1.1.6. Podívejte se na příklad soubor projektu na konci této části.
 
-* Nainstalujte nejnovější verzi `Microsoft.EntityFrameworkCore.Design` balíčku balíčku (1. x), například:
+* Nainstalujte nejnovější verzi 1. x balíčku `Microsoft.EntityFrameworkCore.Design`, například:
 
   ```console
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
@@ -98,7 +98,7 @@ Příkazy jsou součástí .NET Core SDK, ale umožňují příkazy, které pot�
   </Project>
   ```
 
-  Odkaz na balíček, `PrivateAssets="All"` který není přístupný pro projekty, které odkazují na tento projekt. Toto omezení je zvláště užitečné pro balíčky, které se obvykle používají jenom během vývoje.
+  Odkaz na balíček s `PrivateAssets="All"` není zveřejněn pro projekty, které odkazují na tento projekt. Toto omezení je zvláště užitečné pro balíčky, které se obvykle používají jenom během vývoje.
 
 ### <a name="verify-installation"></a>Ověřit instalaci
 
@@ -133,9 +133,9 @@ Před použitím těchto nástrojů možná budete muset vytvořit projekt po sp
 
 Příkazy odkazují na *projekt* a na *spouštěný projekt*.
 
-* *Projekt* je také označován jako *cílový projekt* , protože je tam, kde příkazy přidávají nebo odebírají soubory. Ve výchozím nastavení je projekt v aktuálním adresáři cílovým projektem. Můžete určit jiný projekt jako cílový projekt pomocí <nobr>`--project`</nobr> možnosti.
+* *Projekt* je také označován jako *cílový projekt* , protože je tam, kde příkazy přidávají nebo odebírají soubory. Ve výchozím nastavení je projekt v aktuálním adresáři cílovým projektem. Můžete určit jiný projekt jako cílový projekt pomocí možnosti <nobr>`--project`</nobr> .
 
-* Spouštěný *projekt* je ten, který nástroje sestavují a spouštějí. Nástroje musí spustit kód aplikace v době návrhu, aby získali informace o projektu, jako je například připojovací řetězec databáze a konfigurace modelu. Ve výchozím nastavení je projekt v aktuálním adresáři spouštěným projektem. Můžete určit jiný projekt jako spouštěný projekt pomocí <nobr>`--startup-project`</nobr> možnosti.
+* Spouštěný *projekt* je ten, který nástroje sestavují a spouštějí. Nástroje musí spustit kód aplikace v době návrhu, aby získali informace o projektu, jako je například připojovací řetězec databáze a konfigurace modelu. Ve výchozím nastavení je projekt v aktuálním adresáři spouštěným projektem. Můžete určit jiný projekt jako spouštěný projekt pomocí možnosti <nobr>`--startup-project`</nobr> .
 
 Spouštěcí projekt a cílový projekt jsou často stejný projekt. Typický scénář, kde jsou samostatné projekty, je:
 
@@ -146,7 +146,7 @@ Je také možné [umístit kód migrace do knihovny tříd odděleně od EF Core
 
 ### <a name="other-target-frameworks"></a>Další cílová rozhraní
 
-Nástroje rozhraní příkazového řádku fungují s projekty .NET Core a projekty .NET Framework. Aplikace s modelem EF Core v knihovně tříd .NET Standard nemusí mít projekt .NET Core nebo .NET Framework. Například to platí pro Xamarin a Univerzální platforma Windows aplikace. V takových případech můžete vytvořit projekt konzolové aplikace .NET Core, jehož jediným účelem je jednat jako projekt po spuštění pro nástroje. Projekt může být fiktivní projekt bez reálného kódu &mdash; , který je potřeba jenom k tomu, aby k nástrojům poskytoval jenom cíl.
+Nástroje rozhraní příkazového řádku fungují s projekty .NET Core a projekty .NET Framework. Aplikace s modelem EF Core v knihovně tříd .NET Standard nemusí mít projekt .NET Core nebo .NET Framework. Například to platí pro Xamarin a Univerzální platforma Windows aplikace. V takových případech můžete vytvořit projekt konzolové aplikace .NET Core, jehož jediným účelem je jednat jako projekt po spuštění pro nástroje. Projekt může být fiktivní projekt bez skutečného kódu &mdash; je potřeba jenom poskytnout cíl pro nástroje.
 
 Proč je vyžadován fiktivní projekt? Jak bylo zmíněno dříve, nástroje musí spustit kód aplikace v době návrhu. K tomu je potřeba použít modul runtime .NET Core. Když je model EF Core v projektu cíleném na rozhraní .NET Core nebo .NET Framework, EF Core nástroje vypůjčí modul runtime z projektu. Nemůžou to dělat, pokud je model EF Core v knihovně tříd .NET Standard. .NET Standard není skutečná implementace rozhraní .NET; je to specifikace sady rozhraní API, které musí implementace rozhraní .NET podporovat. Proto .NET Standard není dostačující pro EF Core nástroje pro spouštění kódu aplikace. Fiktivní projekt, který vytvoříte pro použití jako spouštěný projekt, poskytuje konkrétní cílovou platformu, do které mohou nástroje načíst .NET Standard knihovny tříd.
 
@@ -159,11 +159,11 @@ Chcete-li určit prostředí pro ASP.NET Core projekty, nastavte před spuštěn
 |                   | Možnost                            | Popis                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | Zobrazit výstup JSON.                                                                                                                                                                                                                                             |
-| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | `DbContext` Třída, která se má použít Pouze název třídy nebo plně kvalifikovaný obory názvů.  Pokud je tato možnost vynechána, EF Core najde kontextovou třídu. Pokud existuje více kontextových tříd, je tato možnost povinná.                                            |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | Třída `DbContext`, která se má použít. Pouze název třídy nebo plně kvalifikovaný obory názvů.  Pokud je tato možnost vynechána, EF Core najde kontextovou třídu. Pokud existuje více kontextových tříd, je tato možnost povinná.                                            |
 | `-p`              | `--project <PROJECT>`             | Relativní cesta ke složce projektu cílového projektu  Výchozí hodnota je aktuální složka.                                                                                                                                                              |
 | `-s`              | `--startup-project <PROJECT>`     | Relativní cesta ke složce projektu spouštěného projektu Výchozí hodnota je aktuální složka.                                                                                                                                                              |
 |                   | `--framework <FRAMEWORK>`         | [Moniker cílového rozhraní .NET Framework](/dotnet/standard/frameworks#supported-target-framework-versions) pro [cílovou architekturu](/dotnet/standard/frameworks).  Použijte, pokud soubor projektu určuje více cílových rozhraní a chcete vybrat jeden z nich. |
-|                   | `--configuration <CONFIGURATION>` | Konfigurace sestavení, například: `Debug` nebo. `Release`                                                                                                                                                                                                   |
+|                   | `--configuration <CONFIGURATION>` | Konfigurace sestavení, například: `Debug` nebo `Release`.                                                                                                                                                                                                   |
 |                   | `--runtime <IDENTIFIER>`          | Identifikátor cílového modulu runtime, pro který mají být obnoveny balíčky. Seznam identifikátorů modulu runtime (identifikátorů RID) najdete v [katalogu RID](/dotnet/core/rid-catalog).                                                                                                      |
 | `-h`              | `--help`                          | Zobrazí informace o nápovědě.                                                                                                                                                                                                                                        |
 | `-v`              | `--verbose`                       | Zobrazit podrobný výstup.                                                                                                                                                                                                                                          |
@@ -200,21 +200,21 @@ dotnet ef database update 20180904195021_InitialCreate
 
 ## <a name="dotnet-ef-dbcontext-info"></a>dotnet EF DbContext – informace
 
-Načte informace o `DbContext` typu.
+Získá informace o typu `DbContext`.
 
 ## <a name="dotnet-ef-dbcontext-list"></a>dotnet EF – seznam DbContext
 
-Zobrazí seznam `DbContext` dostupných typů.
+Zobrazí seznam dostupných typů `DbContext`.
 
 ## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet EF DbContext – generování uživatelského rozhraní
 
-Generuje kód pro `DbContext` typy entit a pro databázi. Aby tento příkaz vygeneroval typ entity, musí mít databázová tabulka primární klíč.
+Generuje kód pro `DbContext` a typy entit pro databázi. Aby tento příkaz vygeneroval typ entity, musí mít databázová tabulka primární klíč.
 
 Náhodné
 
 | Argument       | Popis                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2. x může být hodnota *název =\<název připojovacího řetězce >* . V takovém případě název pochází ze zdrojů konfigurace, které jsou nastaveny pro projekt. |
+| `<CONNECTION>` | Připojovací řetězec k databázi. Pro projekty ASP.NET Core 2. x může být hodnota *Name = \<Name připojovacího řetězce >* . V takovém případě název pochází ze zdrojů konfigurace, které jsou nastaveny pro projekt. |
 | `<PROVIDER>`   | Poskytovatel, který se má použít. Obvykle se jedná o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
 Nastavení
@@ -222,12 +222,12 @@ Nastavení
 |                 | Možnost                                   | Popis                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | <nobr>-d</nobr> | `--data-annotations`                     | Použijte atributy ke konfiguraci modelu (Pokud je to možné). Pokud je tato možnost vynechána, je použita pouze funkce Fluent API.                                                                |
-| `-c`            | `--context <NAME>`                       | Název `DbContext` třídy, která se má generovat                                                                                                                                 |
-|                 | `--context-dir <PATH>`                   | Adresář, do kterého se `DbContext` má vložit soubor třídy Cesty jsou relativní vzhledem k adresáři projektu. Obory názvů jsou odvozeny z názvů složek.                                 |
+| `-c`            | `--context <NAME>`                       | Název třídy `DbContext`, která má být vygenerována.                                                                                                                                 |
+|                 | `--context-dir <PATH>`                   | Adresář, do kterého se má umístit soubor třídy `DbContext` Cesty jsou relativní vzhledem k adresáři projektu. Obory názvů jsou odvozeny z názvů složek.                                 |
 | `-f`            | `--force`                                | Přepsat existující soubory.                                                                                                                                                      |
 | `-o`            | `--output-dir <PATH>`                    | Adresář, do kterého se mají vložit soubory třídy entity Cesty jsou relativní vzhledem k adresáři projektu.                                                                                       |
-|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Schémata tabulek, pro které se mají generovat typy entit Chcete-li zadat více schémat `--schema` , opakujte akci pro každé z nich. Pokud je tato možnost vynechána, jsou uvedena všechna schémata.          |
-| `-t`            | `--table <TABLE_NAME>`...                | Tabulky, pro které se mají generovat typy entit Chcete-li zadat více tabulek `-t` , `--table` opakujte akci nebo pro každou z nich. Pokud je tato možnost vynechána, jsou zahrnuty všechny tabulky.                |
+|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | Schémata tabulek, pro které se mají generovat typy entit Chcete-li zadat více schémat, opakujte `--schema` pro každé z nich. Pokud je tato možnost vynechána, jsou uvedena všechna schémata.          |
+| `-t`            | `--table <TABLE_NAME>`...                | Tabulky, pro které se mají generovat typy entit Chcete-li zadat více tabulek, opakujte `-t` nebo `--table` pro každé z nich. Pokud je tato možnost vynechána, jsou zahrnuty všechny tabulky.                |
 |                 | `--use-database-names`                   | Názvy tabulek a sloupců používejte přesně tak, jak se zobrazí v databázi. Pokud je tato možnost vynechána, názvy databází jsou změněny, aby lépe odpovídaly C# konvencím stylu názvu. |
 
 Následující příklad vygeneruje všechna schémata a tabulky a vloží nové soubory do složky *modely* .

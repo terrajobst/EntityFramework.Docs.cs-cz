@@ -1,63 +1,63 @@
 ---
-title: Vlastní sledování entity návod – EF6
+title: Návod k entitám s sebou samým sledováním – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: d89c452410d34bea71e8220aae141c3bfca3e1ce
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9bd644461f50a7eff1006cb8866ca9a3b08b6b8d
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490269"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181713"
 ---
-# <a name="self-tracking-entities-walkthrough"></a>Vlastní sledování návod entity
+# <a name="self-tracking-entities-walkthrough"></a>Návod k entitám s sebou samým sledováním
 > [!IMPORTANT]
-> Už doporučujeme použít šablonu samoobslužného tracking entity. Pouze bude nadále být k dispozici pro podporu stávající aplikace. Pokud aplikace potřebuje pracovat s grafy odpojených entit, zvažte další možnosti, jako [organizovaným entity](http://trackableentities.github.io/), což je technologie, podobně jako u samoobslužného-Tracking-entit, které je více aktivně vyvíjen Komunita, nebo psaní vlastního kódu pomocí nízké úrovně rozhraní API pro sledování změn.
+> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například sledovací [entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastní kód s využitím rozhraní API pro sledování změn nízké úrovně.
 
-Tento návod ukazuje scénář, ve kterém služby Windows Communication Foundation (WCF) poskytuje operace, která se vrátí entit grafu. V dalším kroku klientská aplikace provádí úpravy tohoto grafu a odešle změny operace služby, která ověřuje a uloží aktualizace k databázi pomocí Entity Frameworku.
+Tento návod ukazuje scénář, ve kterém služba Windows Communication Foundation (WCF) zveřejňuje operaci, která vrací graf entity. V dalším kroku klientská aplikace pracuje s grafem a odesílá změny operace služby, která ověřuje a ukládá aktualizace databáze pomocí Entity Framework.
 
-Před dokončením tohoto návodu Ujistěte se, že čtete [Self-Tracking entity](index.md) stránky.
+Před dokončením tohoto návodu se ujistěte, že si přečtete stránku [entit s vlastním sledováním](index.md) .
 
-Tento návod provede následující akce:
+V tomto návodu se dokončí následující akce:
 
--   Vytvoří databázi přístup.
+-   Vytvoří databázi pro přístup.
 -   Vytvoří knihovnu tříd, která obsahuje model.
--   Záměna Self-Tracking Entity generátor šablony.
--   Přesune tříd entit do samostatného projektu.
--   Vytvoří službu WCF, která poskytuje operace pro dotazování a uložení entity.
--   Vytvoří klienta aplikace (konzoly a WPF), které využívají službu.
+-   Zahodí se k šabloně generátoru entit na základě sebe.
+-   Přesune třídy entit do samostatného projektu.
+-   Vytvoří službu WCF, která zveřejňuje operace pro dotazování a ukládání entit.
+-   Vytvoří klientské aplikace (konzolu a WPF), které tuto službu využívají.
 
-Použijeme první databáze v tomto podrobném návodu, ale stejné techniky stejnou měrou vztahují na první Model.
+V tomto návodu použijeme Database First, ale stejné postupy se použijí stejně jako Model First.
 
 ## <a name="pre-requisites"></a>Předpoklady
 
-K dokončení tohoto návodu potřebujete novější verzi sady Visual Studio.
+K dokončení tohoto návodu budete potřebovat nejnovější verzi sady Visual Studio.
 
 ## <a name="create-a-database"></a>Vytvoření databáze
 
-Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio, které jste nainstalovali:
+Databázový server, který je nainstalovaný se sadou Visual Studio, se liší v závislosti na verzi sady Visual Studio, kterou jste nainstalovali:
 
--   Pokud používáte sadu Visual Studio 2012 pak vytvoříte databázi LocalDB.
--   Pokud používáte Visual Studio 2010 vytvoříte databázi SQL Express.
+-   Pokud používáte Visual Studio 2012, budete vytvářet databázi LocalDB.
+-   Pokud používáte Visual Studio 2010, budete vytvářet databázi SQL Express.
 
-Pojďme tedy vygenerovala databáze.
+Pojďme dopředu a vygenerovat databázi.
 
 -   Otevřít Visual Studio
--   **Zobrazení –&gt; Průzkumníka serveru**
--   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
--   Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat
--   Připojte se k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali
--   Zadejte **STESample** jako název databáze
--   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
--   Nová databáze se teď budou zobrazovat v Průzkumníku serveru
--   Pokud používáte sadu Visual Studio 2012
-    -   Klikněte pravým tlačítkem na databázi v Průzkumníku serveru a vyberte **nový dotaz**
-    -   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
+-   **Zobrazení-&gt; Průzkumník serveru**
+-   Klikněte pravým tlačítkem na **datová připojení – &gt; Přidat připojení...**
+-   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat
+-   Připojte se k LocalDB nebo SQL Express v závislosti na tom, který z nich máte nainstalovanou.
+-   Jako název databáze zadejte **STESample** .
+-   Vyberte **OK** a zobrazí se dotaz, jestli chcete vytvořit novou databázi, a pak vyberte **Ano** .
+-   Nová databáze se nyní zobrazí v Průzkumník serveru
+-   Pokud používáte Visual Studio 2012
+    -   Klikněte pravým tlačítkem na databázi v Průzkumník serveru a vyberte **Nový dotaz** .
+    -   Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .
 -   Pokud používáte Visual Studio 2010
-    -   Vyberte **dat –&gt; jazyka Transact SQL Editor –&gt; nové připojení dotazu...**
-    -   Zadejte **.\\ SQLEXPRESS** jako název serveru a klikněte na **OK**
-    -   Vyberte **STESample** databázi z rozevíracího seznamu v horní části editoru dotazů
-    -   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **provést SQL**
+    -   Vyberte **data-&gt; Transact SQL Editor-&gt; nové připojení dotazu...**
+    -   Jako název serveru zadejte **. \\SQLEXPRESS** a klikněte na **OK** .
+    -   Vyberte databázi **STESample** v rozevíracím seznamu v horní části editoru dotazů.
+    -   Zkopírujte následující příkaz SQL do nového dotazu, potom klikněte pravým tlačítkem na dotaz a vyberte **Spustit SQL** .
 
 ``` SQL
     CREATE TABLE [dbo].[Blogs] (
@@ -85,103 +85,103 @@ Pojďme tedy vygenerovala databáze.
 
 ## <a name="create-the-model"></a>Vytvoření modelu
 
-Až, nejprve je třeba projekt se umístí modelu.
+Nejdřív potřebujeme projekt pro vložení modelu do.
 
--   **Soubor –&gt; nové –&gt; projektu...**
--   Vyberte **Visual C\#**  v levém podokně a pak **knihovny tříd**
--   Zadejte **STESample** jako název a klikněte na **OK**
+-   **Soubor-&gt; nový-&gt; projekt...**
+-   V levém podokně vyberte **Visual C @ no__t-1** a pak **knihovny tříd** .
+-   Jako název zadejte **STESample** a klikněte na **OK** .
 
-Teď vytvoříme jednoduchý model v EF designeru pro přístup k naší databázi:
+Nyní vytvoříme v Návrháři EF jednoduchý model pro přístup k naší databázi:
 
--   **Projekt –&gt; přidat novou položku...**
--   Vyberte **Data** v levém podokně a pak **datový Model Entity ADO.NET**
--   Zadejte **BloggingModel** jako název a klikněte na **OK**
--   Vyberte **Generovat z databáze** a klikněte na tlačítko **další**
--   Zadejte informace o připojení pro databázi, kterou jste vytvořili v předchozí části
--   Zadejte **BloggingContext** jako název připojovacího řetězce a klikněte na **další**
--   Zaškrtněte políčko vedle položky **tabulky** a klikněte na tlačítko **dokončit**
+-   **Projekt-&gt; Přidat novou položku...**
+-   V levém podokně vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
+-   Jako název zadejte **BloggingModel** a klikněte na **OK** .
+-   Vyberte **Generovat z databáze** a klikněte na **Další** .
+-   Zadejte informace o připojení pro databázi, kterou jste vytvořili v předchozí části.
+-   Jako název připojovacího řetězce zadejte **BloggingContext** a klikněte na **Další** .
+-   Zaškrtněte políčko vedle **tabulky** a klikněte na **Dokončit** .
 
-## <a name="swap-to-ste-code-generation"></a>Zaměnit STE generování kódu
+## <a name="swap-to-ste-code-generation"></a>Přepnout na generování kódu STE
 
-Nyní potřebujeme zakázat výchozí generování kódu a přepnutí na Self-Tracking entity.
+Teď je potřeba zakázat generování výchozích kódů a jejich přeměnu na entity, které se sledují sami.
 
-### <a name="if-you-are-using-visual-studio-2012"></a>Pokud používáte sadu Visual Studio 2012
+### <a name="if-you-are-using-visual-studio-2012"></a>Pokud používáte Visual Studio 2012
 
--   Rozbalte **BloggingModel.edmx** v **Průzkumníka řešení** a odstranit **BloggingModel.tt** a **BloggingModel.Context.tt** 
-     *Tato akce zakáže výchozí generování kódu*
--   Klikněte pravým tlačítkem na prázdnou oblast na EF designeru ploše a vyberte možnost **přidat položku generování kódu...**
--   Vyberte **Online** v levém podokně a vyhledejte **generátor STE**
--   Vyberte **STE generátor pro jazyk C\#**  šablony, zadejte **STETemplate** jako název a klikněte na **přidat**
--   **STETemplate.tt** a **STETemplate.Context.tt** soubory budou přidány pod BloggingModel.edmx souboru
+-   V **Průzkumník řešení** rozbalte **BloggingModel. edmx** a odstraňte **BloggingModel.TT** a **BloggingModel.Context.TT**
+    .*tím se zakáže výchozí generování kódu* .
+-   Klikněte pravým tlačítkem myši na prázdnou oblast na povrchu návrháře EF a vyberte **Přidat položku pro generování kódu...**
+-   V levém podokně vyberte **online** a vyhledejte **generátor ste** .
+-   Vyberte **ste generátor pro šablonu jazyka C @ no__t-1** , jako název zadejte **STETemplate** a klikněte na **Přidat** .
+-   Soubory **STETemplate.TT** a **STETemplate.Context.TT** se přidají do souboru BloggingModel. edmx.
 
 ### <a name="if-you-are-using-visual-studio-2010"></a>Pokud používáte Visual Studio 2010
 
--   Klikněte pravým tlačítkem na prázdnou oblast na EF designeru ploše a vyberte možnost **přidat položku generování kódu...**
--   Vyberte **kód** v levém podokně a pak **generátor Entity Self-Tracking ADO.NET**
--   Zadejte **STETemplate** jako název a klikněte na **přidat**
--   **STETemplate.tt** a **STETemplate.Context.tt** se přidají soubory přímo do vašeho projektu
+-   Klikněte pravým tlačítkem myši na prázdnou oblast na povrchu návrháře EF a vyberte **Přidat položku pro generování kódu...**
+-   V levém podokně vyberte **kód** a pak **ADO.NET generátor entit pro samoobslužné sledování** .
+-   Jako název zadejte **STETemplate** a klikněte na **Přidat** .
+-   Soubory **STETemplate.TT** a **STETemplate.Context.TT** se přidají přímo do vašeho projektu.
 
-## <a name="move-entity-types-into-separate-project"></a>Přesuňte typy entit do samostatného projektu
+## <a name="move-entity-types-into-separate-project"></a>Přesunout typy entit do samostatného projektu
 
-Použití Self-Tracking entity naše klientská aplikace potřebuje přístup k entity prostor tříd vygenerovaných z našeho modelu. Protože nechceme zpřístupnit celý model do klientské aplikace teď ještě chvíli Zůstaneme k přesunutí tříd entit do samostatného projektu.
+Chcete-li použít entity se sledováním, potřebuje přístup k třídám entit vygenerovaným z našeho modelu. Vzhledem k tomu, že nechceme zveřejnit celý model pro klientskou aplikaci, přesuneme třídy entit do samostatného projektu.
 
-Prvním krokem je se přestávají generovat tříd entit v existující projekt:
+Prvním krokem je zastavit generování tříd entit v existujícím projektu:
 
--   Klikněte pravým tlačítkem na **STETemplate.tt** v **Průzkumníka řešení** a vyberte **vlastnosti**
--   V **vlastnosti** okno vymazat **TextTemplatingFileGenerator** z **CustomTool** vlastnost
--   Rozbalte **STETemplate.tt** v **Průzkumníka řešení** a odstraňte všechny soubory vnořená dole
+-   V **Průzkumník řešení** klikněte pravým tlačítkem na **STETemplate.TT** a vyberte **vlastnosti** .
+-   V okně **vlastnosti** zrušte **hodnotu TextTemplatingFileGenerator** z vlastnosti **CustomTool** .
+-   V **Průzkumník řešení** rozbalte **STETemplate.TT** a odstraňte všechny soubory, které jsou v něm vnořené.
 
-V dalším kroku budeme přidat nový projekt a v něm generování tříd entit
+Nyní přidáme nový projekt a vygenerujeme třídy entit.
 
--   **Soubor –&gt; Add -&gt; projektu...**
--   Vyberte **Visual C\#**  v levém podokně a pak **knihovny tříd**
--   Zadejte **STESample.Entities** jako název a klikněte na **OK**
--   **Projekt –&gt; přidat existující položku...**
--   Přejděte **STESample** složky projektu
--   Vyberte, chcete-li zobrazit **všechny soubory (\*.\*)**
--   Vyberte **STETemplate.tt** souboru
--   Klikněte na šipku rozevíracího seznamu vedle **přidat** tlačítko a vyberte **přidat jako odkaz**
+-   **Soubor-&gt; Add-&gt; projekt...**
+-   V levém podokně vyberte **Visual C @ no__t-1** a pak **knihovny tříd** .
+-   Jako název zadejte **STESample. Entities** a klikněte na **OK** .
+-   **Projekt-&gt; Přidat existující položku...**
+-   Přejděte do složky projektu **STESample** .
+-   Tuto možnost vyberte, pokud chcete zobrazit **všechny soubory (\*. \*).**
+-   Vybrat soubor **STETemplate.TT**
+-   Klikněte na šipku rozevíracího seznamu vedle tlačítka **Přidat** a vyberte **Přidat jako odkaz** .
 
-    ![Přidat propojené šablony](~/ef6/media/addlinkedtemplate.png)
+    ![Přidat propojenou šablonu](~/ef6/media/addlinkedtemplate.png)
 
-My budeme také zajistit, aby že vygeneruje tříd entit ve stejném oboru názvů jako kontext. Právě to snižuje počet pomocí příkazů, které je potřeba přidat v celé aplikaci.
+Také se ujistěte, že třídy entit se generují ve stejném oboru názvů jako kontext. Tím se jenom zmenší počet příkazů using, které potřebujeme přidat v naší aplikaci.
 
--   Klikněte pravým tlačítkem na propojený **STETemplate.tt** v **Průzkumníka řešení** a vyberte **vlastnosti**
--   V **vlastnosti** okno sady **Custom Tool Namespace** k **STESample**
+-   Klikněte pravým tlačítkem na propojený **STETemplate.TT** v **Průzkumník řešení** a vyberte **vlastnosti** .
+-   V okně **vlastnosti** nastavte **obor názvů vlastního nástroje** na **STESample**
 
-Kód vygenerovaný šablony STE potřebovat odkaz na **System.Runtime.Serialization** kompilaci. Tato knihovna je potřeba pro WCF **kontraktu dat DataContract** a **DataMember** atributy, které se používají na typy serializovatelné entit.
+Kód vygenerovaný šablonou STE bude pro zkompilování vyžadovat odkaz na **System. Runtime. Serialization** . Tato knihovna je potřebná pro atributy **DataContract** a **DataMember** WCF, které se používají v serializovatelných typech entit.
 
--   Klikněte pravým tlačítkem na **STESample.Entities** projekt **Průzkumníka řešení** a vyberte **přidat odkaz...**
-    -   V sadě Visual Studio 2012 – zaškrtněte políčko vedle položky **System.Runtime.Serialization** a klikněte na tlačítko **OK**
-    -   V sadě Visual Studio 2010 – vyberte **System.Runtime.Serialization** a klikněte na tlačítko **OK**
+-   Klikněte pravým tlačítkem na projekt **STESample. Entities** v **Průzkumník řešení** a vyberte **Přidat odkaz...**
+    -   V aplikaci Visual Studio 2012 – zaškrtněte políčko vedle pole **System. Runtime. Serialization** a klikněte na tlačítko **OK** .
+    -   V aplikaci Visual Studio 2010 – vyberte **System. Runtime. Serialization** a klikněte na **OK** .
 
-A konečně projekt se náš kontext v něm potřebovat odkaz na typy entit.
+Nakonec projekt s naším kontextem bude potřebovat odkaz na typy entit.
 
--   Klikněte pravým tlačítkem na **STESample** projekt **Průzkumníka řešení** a vyberte **přidat odkaz...**
-    -   V sadě Visual Studio 2012 – vyberte **řešení** v levém podokně zaškrtněte políčko vedle položky **STESample.Entities** a klikněte na tlačítko **OK**
-    -   V sadě Visual Studio 2010 – vyberte **projekty** kartu, vyberte možnost **STESample.Entities** a klikněte na tlačítko **OK**
+-   V **Průzkumník řešení** klikněte pravým tlačítkem na projekt **STESample** a vyberte **Přidat odkaz...**
+    -   V aplikaci Visual Studio 2012 – v levém podokně vyberte **řešení** , zaškrtněte políčko vedle položky **STESample. Entities** a klikněte na **OK** .
+    -   V aplikaci Visual Studio 2010 – vyberte kartu **projekty** , vyberte **STESample. Entities** a klikněte na **OK** .
 
 >[!NOTE]
-> Další možností pro typy entit Přesun do samostatného projektu je přesunout soubor šablony, nikoli propojení z výchozího umístění. Pokud to uděláte, budete muset aktualizovat **inputFile** proměnné v šabloně zadat relativní cestu k souboru edmx (v tomto příkladu, která by byla **... \\BloggingModel.edmx**).
+> Další možností pro přesunutí typů entit do samostatného projektu je přesunout soubor šablony namísto jeho propojení z výchozího umístění. Pokud to uděláte, budete muset v šabloně aktualizovat proměnnou **Vstupní_soubor** , aby byla zajištěna relativní cesta k souboru EDMX (v tomto příkladu, který by byl **.. \\BloggingModel. edmx**).
 
 ## <a name="create-a-wcf-service"></a>Vytvoření služby WCF
 
-Teď je čas na přidání zpřístupnit naše data ve službě WCF, začneme vytvořením projektu.
+Teď je čas přidat službu WCF, aby zveřejnila naše data, začneme vytvořením projektu.
 
--   **Soubor –&gt; Add -&gt; projektu...**
--   Vyberte **Visual C\#**  v levém podokně a pak **aplikace služby WCF**
--   Zadejte **STESample.Service** jako název a klikněte na **OK**
--   Přidejte odkaz na **System.Data.Entity** sestavení
--   Přidejte odkaz na **STESample** a **STESample.Entities** projekty
+-   **Soubor-&gt; Add-&gt; projekt...**
+-   V levém podokně vyberte **Visual C @ no__t-1** a potom **aplikaci služby WCF** .
+-   Jako název zadejte **STESample. Service** a klikněte na **OK** .
+-   Přidat odkaz na sestavení **System. data. entity**
+-   Přidat odkaz na projekty **STESample** a **STESample. Entities**
 
-Potřebujeme zkopírujte připojovací řetězec EF do tohoto projektu tak, aby se nachází za běhu.
+Musíme zkopírovat připojovací řetězec EF do tohoto projektu, aby byl nalezen za běhu.
 
--   Otevřít **App.Config** souboru ** STESample ** projektu a zkopírujte **connectionStrings** – element
--   Vložit **connectionStrings** prvek jako podřízený prvek **konfigurace** elementu **Web.Config** soubor **STESample.Service** projektu
+-   Otevřete soubor **App. config** pro projekt **STESample **a zkopírujte element **connectionStrings** .
+-   Vložte element **connectionStrings** jako podřízený element **konfiguračního** elementu v souboru **Web. config** v projektu **STESample. Service** .
 
-Nyní je čas k implementaci aktuální služby.
+Nyní je čas implementovat skutečnou službu.
 
--   Otevřít **IService1.cs** a nahraďte jeho obsah následujícím kódem
+-   Otevřete **IService1.cs** a nahraďte obsah následujícím kódem.
 
 ``` csharp
     using System.Collections.Generic;
@@ -201,7 +201,7 @@ Nyní je čas k implementaci aktuální služby.
     }
 ```
 
--   Otevřít **Service1.svc** a nahraďte jeho obsah následujícím kódem
+-   Otevřete **Service1. svc** a nahraďte obsah následujícím kódem.
 
 ``` csharp
     using System;
@@ -254,24 +254,24 @@ Nyní je čas k implementaci aktuální služby.
     }
 ```
 
-## <a name="consume-the-service-from-a-console-application"></a>Používání této služby z konzolové aplikace
+## <a name="consume-the-service-from-a-console-application"></a>Využití služby z konzolové aplikace
 
-Pojďme vytvořit konzolovou aplikaci, která využívá naši službu.
+Pojďme vytvořit konzolovou aplikaci, která používá naši službu.
 
--   **Soubor –&gt; nové –&gt; projektu...**
--   Vyberte **Visual C\#**  v levém podokně a pak **konzolové aplikace**
--   Zadejte **STESample.ConsoleTest** jako název a klikněte na **OK**
--   Přidejte odkaz na **STESample.Entities** projektu
+-   **Soubor-&gt; nový-&gt; projekt...**
+-   V levém podokně vyberte **Visual C @ no__t-1** a pak **konzolovou aplikaci** .
+-   Jako název zadejte **STESample. ConsoleTest** a klikněte na **OK** .
+-   Přidat odkaz na projekt **STESample. Entities**
 
-Potřebujeme odkazu na službu do naší službě WCF
+Pro naši službu WCF potřebujeme odkaz na službu.
 
--   Klikněte pravým tlačítkem myši **STESample.ConsoleTest** projekt **Průzkumníka řešení** a vyberte **přidat odkaz na službu...**
--   Klikněte na tlačítko **zjišťování**
--   Zadejte **BloggingService** jako obor názvů a klikněte na **OK**
+-   V **Průzkumník řešení** klikněte pravým tlačítkem na projekt **STESample. ConsoleTest** a vyberte **Přidat odkaz na službu...**
+-   Klikněte na **Vyhledat** .
+-   Jako obor názvů zadejte **BloggingService** a klikněte na **OK** .
 
-Nyní jsme můžete napsat kód k používání této služby.
+Nyní můžeme napsat kód pro využívání služby.
 
--   Otevřít **Program.cs** a nahraďte jeho obsah následujícím kódem.
+-   Otevřete **program.cs** a nahraďte obsah následujícím kódem.
 
 ``` csharp
     using STESample.ConsoleTest.BloggingService;
@@ -398,13 +398,13 @@ Nyní jsme můžete napsat kód k používání této služby.
     }
 ```
 
-Nyní můžete spustit aplikaci sledujte v akci.
+Teď můžete aplikaci spustit, aby se zobrazila v akci.
 
--   Klikněte pravým tlačítkem **STESample.ConsoleTest** projekt **Průzkumníku řešení** a vyberte **ladění -&gt; zahájit novou instanci**
+-   V **Průzkumník řešení** klikněte pravým tlačítkem na projekt **STESample. ConsoleTest** a vyberte **ladit-&gt; Start New instance** .
 
-Pokud aplikace provádí, zobrazí se následující výstup.
+Když se aplikace spustí, zobrazí se následující výstup.
 
-```
+```console
 Initial Data:
 ADO.NET Blog
 - Intro to EF
@@ -434,24 +434,24 @@ ADO.NET Blog
 Press any key to exit...
 ```
 
-## <a name="consume-the-service-from-a-wpf-application"></a>Využívat služby z aplikace WPF
+## <a name="consume-the-service-from-a-wpf-application"></a>Využívání služby z aplikace WPF
 
-Vytvoříme aplikaci WPF, která využívá naši službu.
+Pojďme vytvořit aplikaci WPF, která používá naši službu.
 
--   **Soubor –&gt; nové –&gt; projektu...**
--   Vyberte **Visual C\#**  v levém podokně a pak **aplikace WPF**
--   Zadejte **STESample.WPFTest** jako název a klikněte na **OK**
--   Přidejte odkaz na **STESample.Entities** projektu
+-   **Soubor-&gt; nový-&gt; projekt...**
+-   V levém podokně vyberte **Visual C @ no__t-1** a pak **aplikace WPF** .
+-   Jako název zadejte **STESample. WPFTest** a klikněte na **OK** .
+-   Přidat odkaz na projekt **STESample. Entities**
 
-Potřebujeme odkazu na službu do naší službě WCF
+Pro naši službu WCF potřebujeme odkaz na službu.
 
--   Klikněte pravým tlačítkem myši **STESample.WPFTest** projekt **Průzkumníka řešení** a vyberte **přidat odkaz na službu...**
--   Klikněte na tlačítko **zjišťování**
--   Zadejte **BloggingService** jako obor názvů a klikněte na **OK**
+-   V **Průzkumník řešení** klikněte pravým tlačítkem na projekt **STESample. WPFTest** a vyberte **Přidat odkaz na službu...**
+-   Klikněte na **Vyhledat** .
+-   Jako obor názvů zadejte **BloggingService** a klikněte na **OK** .
 
-Nyní jsme můžete napsat kód k používání této služby.
+Nyní můžeme napsat kód pro využívání služby.
 
--   Otevřít **souboru MainWindow.xaml** a nahraďte jeho obsah následujícím kódem.
+-   Otevřete **MainWindow. XAML** a nahraďte obsah následujícím kódem.
 
 ``` xaml
     <Window
@@ -495,7 +495,7 @@ Nyní jsme můžete napsat kód k používání této služby.
     </Window>
 ```
 
--   Otevřete kódu pro hlavní okno MainWindow (**MainWindow.xaml.cs**) a nahraďte jeho obsah následujícím kódem
+-   Otevřete kód za MainWindow (**MainWindow.XAML.cs**) a nahraďte jeho obsah následujícím kódem.
 
 ``` csharp
     using STESample.WPFTest.BloggingService;
@@ -547,9 +547,9 @@ Nyní jsme můžete napsat kód k používání této služby.
     }
 ```
 
-Nyní můžete spustit aplikaci sledujte v akci.
+Teď můžete aplikaci spustit, aby se zobrazila v akci.
 
--   Klikněte pravým tlačítkem **STESample.WPFTest** projekt **Průzkumníku řešení** a vyberte **ladění -&gt; zahájit novou instanci**
--   Můžete pracovat s daty na obrazovce a uložte ho prostřednictvím používání služby **Uložit** tlačítko
+-   V **Průzkumník řešení** klikněte pravým tlačítkem na projekt **STESample. WPFTest** a vyberte **ladit-&gt; Start New instance** .
+-   Můžete manipulovat s daty pomocí obrazovky a uložit ji přes službu pomocí tlačítka **Uložit** .
 
-![WPF hlavní okno](~/ef6/media/wpf.png)
+![Hlavní okno WPF](~/ef6/media/wpf.png)

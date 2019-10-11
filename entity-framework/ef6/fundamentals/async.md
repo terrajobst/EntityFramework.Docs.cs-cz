@@ -3,12 +3,12 @@ title: Asynchronní dotazování a ukládání – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: ae578976ffc88b407ef0aaa0017935005bedd093
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 0642dc13e7aa3906fa1495031c62701fc16f0192
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921632"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181836"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazování a ukládání
 > [!NOTE]
@@ -30,7 +30,7 @@ Zde jsou některé další zdroje informací o asynchronních prostředcích:
 
 -   [Brandon Bray – přehled Async/await v rozhraní .NET 4,5](https://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
 -   Stránky [asynchronního programování](https://msdn.microsoft.com/library/hh191443.aspx) v knihovně MSDN
--   [Sestavování webových aplikací v ASP.NET pomocí Async](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (zahrnuje ukázku zvýšené propustnosti serveru)
+-   [Sestavování webových aplikací v ASP.NET pomocí Async](https://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (zahrnuje ukázku zvýšené propustnosti serveru)
 
 ## <a name="create-the-model"></a>Vytvoření modelu
 
@@ -222,12 +222,12 @@ Teď, když máme náš program v provozu, můžeme začít používat nová kl�
 Teď, když je kód asynchronní, můžeme při spuštění programu sledovat jiný tok spuštění:
 
 1. **SaveChanges** zahajuje vložení nového **blogu** do databáze.  
-    *Po odeslání příkazu do databáze není v aktuálním spravovaném vlákně potřeba další výpočetní čas. Metoda **PerformDatabaseOperations** vrací (i když ještě nedokončila) a tok programu v metodě Main pokračuje.*
+    @no__t – 0Once se příkaz pošle do databáze. v aktuálním spravovaném vlákně není potřeba žádné další výpočetní čas. Metoda **PerformDatabaseOperations** vrací (i když není dokončená) a tok programu v metodě Main pokračuje. *
 2. **Nabídka dne se zapisuje do konzoly.**  
-    *Vzhledem k tomu, že v metodě Main neexistuje žádná další práce, spravované vlákno je ve volání čekání blokováno, dokud se operace databáze nedokončí. Po dokončení bude zbytek našich **PerformDatabaseOperations** spuštěn.*
+    @no__t – 0Since neexistuje žádná další práce v metodě Main, spravované vlákno je ve volání čekání blokované, dokud se operace databáze nedokončí. Po dokončení bude zbytek našich **PerformDatabaseOperations** spuštěn. *
 3.  **SaveChanges** se dokončí.  
 4.  Dotaz pro všechny **Blogy** jsou odesílány do databáze.  
-    *Spravované vlákno je znovu zadarmo v průběhu zpracování dotazu v databázi. Vzhledem k tomu, že bylo dokončeno jakékoli jiné spuštění, vlákno bude pouze zastaveno ve volání čekání, i když.*
+    @no__t – 0Again je spravované vlákno bezplatné v průběhu zpracování dotazu v databázi. Vzhledem k tomu, že bylo dokončeno jakékoli jiné spuštění, vlákno bude pouze zastaveno při volání čekání, ale. *
 5.  Dotaz vrátí a výsledky se zapisují do **konzoly** .  
 
 ![Asynchronní výstup](~/ef6/media/asyncoutput.png) 

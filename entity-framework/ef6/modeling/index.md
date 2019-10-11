@@ -1,55 +1,55 @@
 ---
-title: Vytvoření modelu - EF6
+title: Vytvoření modelu – EF6
 author: divega
 ms.date: 07/05/2018
 ms.assetid: 4890228E-CEA1-4595-B8AD-CA81253F8767
-ms.openlocfilehash: c02cdf0550116b703fb6436f8b0c6b064b5d1408
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: bd9843a93121f53518a307c9d2d43b68ae03369c
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283573"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182467"
 ---
 # <a name="creating-a-model"></a>Vytvoření modelu
 
-Modelu EF jsou uloženy podrobnosti o použití tříd a vlastností mapování do databáze tabulky a sloupce. Vytvoření modelu EF dvěma způsoby:
+Model EF ukládá podrobnosti o tom, jak se třídy a vlastnosti aplikace mapují na tabulky a sloupce databáze. Existují dva hlavní způsoby, jak vytvořit model EF:
 
-- **Pomocí Code First**: vývojář píše kód k určení modelu. EF generuje modely a mapování na modul runtime podle tříd entit a další model konfigurace od vývojáře.
+- **Použití Code First**: Vývojář zapisuje kód pro určení modelu. EF generuje modely a mapování za běhu na základě tříd entit a další konfiguraci modelu poskytovanou vývojářem.
 
-- **Pomocí EF designeru**: vývojáře kreslí polí a řádky určené k určení modelu pomocí EF designeru. Výsledný model se ukládá jako kód XML v souboru s příponou EDMX. Objekty domény aplikace obvykle automaticky generovány v konceptuálním modelu.
+- **Pomocí NÁVRHÁŘE EF**: Vývojář nakreslí pole a řádky pro určení modelu pomocí návrháře EF. Výsledný model je uložen jako XML v souboru s příponou EDMX. Objekty domény aplikace se obvykle generují automaticky z koncepčního modelu.
 
-## <a name="ef-workflows"></a>EF pracovních postupů
+## <a name="ef-workflows"></a>Workflowy EF
 
-Jak z těchto postupů je možné cílit na existující databázi nebo vytvořte novou databázi, což vede k 4 různé pracovní postupy.
-Přečtěte si o tom, které jedna je pro vás nejvhodnější:  
+Oba tyto přístupy lze použít k zacílení existující databáze nebo vytvoření nové databáze, což vede ke 4 různým pracovním postupům.
+Zjistěte, který z nich je pro vás nejvhodnější:  
 
-|                                           | Chci napsat kód...                                                                                                                   | Chci používat návrháře...                                                                                                                        |
+|                                           | Přeji si pouze napsat kód...                                                                                                                   | Chci použít návrháře...                                                                                                                        |
 |:------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Vytvářím nové databáze**          | [Použití **Code First** definovat model v kódu a pak vytvořte databázi.](~/ef6/modeling/code-first/workflows/new-database.md)           | [Použití **první Model** definovat model pomocí polí a řádky a pak vytvořte databázi.](~/ef6/modeling/designer/workflows/model-first.md)   |
-| **Potřebuji pro přístup k existující databázi** | [Použití **Code First** pro vytvoření kódu na základě modelu, který se mapuje na existující databázi.](~/ef6/modeling/code-first/workflows/existing-database.md) | [Použití **Database First** k vytvoření polí a řádky modelu, který se mapuje na existující databázi.](~/ef6/modeling/designer/workflows/database-first.md) |
+| **Vytvářím novou databázi**          | [Použijte **Code First** k definování modelu v kódu a následnému vygenerování databáze.](~/ef6/modeling/code-first/workflows/new-database.md)           | [Použijte **model First** k definování modelu pomocí polí a řádků a následnému vygenerování databáze.](~/ef6/modeling/designer/workflows/model-first.md)   |
+| **Potřebuji získat přístup k existující databázi** | [Pomocí **Code First** můžete vytvořit model založený na kódu, který se mapuje na existující databázi.](~/ef6/modeling/code-first/workflows/existing-database.md) | [Pomocí **Database First** můžete vytvořit model polí a čar, který se mapuje na existující databázi.](~/ef6/modeling/designer/workflows/database-first.md) |
 
-### <a name="watch-the-video-what-ef-workflow-should-i-use"></a>Podívejte se na video: jaké EF pracovního postupu použít?
+### <a name="watch-the-video-what-ef-workflow-should-i-use"></a>Podívejte se na video: Jaký pracovní postup EF mám použít?
 
-Toto krátké video vysvětluje rozdíly a tom, jak najít ten, který je pro vás nejvhodnější.
+Toto krátké video vysvětluje rozdíly a najdete tu, která je pro vás nejvhodnější.
 
-**Přednášející:**: [Rowan Miller](http://romiller.com/)
+**Prezentující**: [Rowan Miller](https://romiller.com/)
 
-![Které pracovní postup Thumb](../media/whichworkflow-thumb.png) [WMV](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
+@no__t – 0Which pracovního postupu na palec @ no__t-1 [wmv](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
 
-Pokud po zhlédnutí tohoto videa, které se můžete stále není s klidem rozhodování o tom, zda chcete použít EF designeru nebo Code First, zjistěte, jak!
+Pokud se po sledování videa stále nemusíte rozhodovat, jestli chcete použít návrháře EF nebo Code First, přečtěte si obojí.
 
-## <a name="a-look-under-the-hood"></a>Pohled pod kapotu
+## <a name="a-look-under-the-hood"></a>Pohled pod digestoř
 
-Bez ohledu na to, ať už používáte Code First nebo EF designeru modelu EF vždy má několik součástí:
+Bez ohledu na to, zda používáte Code First nebo Návrhář EF, má model EF vždycky několik součástí:
 
-- Objekty domény aplikace nebo entity typy sami. To se často označuje jako objektové vrstvě
+- Objekty domény aplikace nebo samotné typy entit. To se často označuje jako vrstva objektu.
 
-- Konceptuální model, který se skládá z entity specifického pro doménu typů a vztahů, popisují pomocí [modelu Entity Data Model](~/ef6/resources/glossary.md#entity-data-model). Tato vrstva je často označována s písmenem "C" pro _koncepční_.
+- Koncepční model skládající se z typů entit a vztahů specifických pro doménu, popsaných pomocí [model EDM (Entity Data Model)](~/ef6/resources/glossary.md#entity-data-model). Tato vrstva je často označována znakem "C", pro _koncepční_.
 
-- Model úložiště představující tabulky, sloupce a relace, jak jsou definovány v databázi. Tato vrstva je často označována pomocí novější "S", pro _úložiště_.  
+- Model úložiště reprezentující tabulky, sloupce a relace, jak jsou definovány v databázi. Tato vrstva se často označuje pomocí pozdějšího "S" pro _úložiště_.  
 
-- Mapování mezi konceptuálního modelu a schématu databáze. Toto mapování se často označuje jako "C-S" mapování.
+- Mapování mezi koncepčním modelem a schématem databáze. Toto mapování se často označuje jako mapování "C-S".
 
-Modul mapování na EF využívá "C-S" mapování transformace operací s entitami – jako například vytvářet, číst, aktualizovat a odstraňovat - do ekvivalentními operacemi na tabulky v databázi.
+Modul pro mapování EF využívá mapování "C-S" na transformace operací s entitami – například vytváření, čtení, aktualizace a odstraňování ekvivalentních operací s tabulkami v databázi.
 
-Mapování mezi Koncepční model a objekty aplikaci se často označuje jako "Vstupně-C" mapování. Ve srovnání s mapování "C-S", "O-C" mapování je implicitní a 1: 1: entity, vlastnosti a vztahy definované v konceptuálním modelu musí odpovídat tvary a typy objektů .NET. Z EF4 a nad rámec objekty vrstvy se může skládat z jednoduchého objekty s vlastnostmi nezávisle na EF. Tyto prvky jsou obvykle označovány jako prostý staré CLR objektů POCO a mapování typů a vlastností se provádí základní na název odpovídající konvencí. Dříve v EF 3.5 existovaly zvláštní omezení pro objektové vrstvě, stejně jako entity s odvodit z třídy EntityObject a muset nosit EF atributy implementovat mapování "Vstupně-C".
+Mapování mezi koncepčním modelem a objekty aplikace je často označováno jako mapování "O-C". V porovnání s mapováním "C-S" je mapování "O-C" implicitní a 1:1: entity, vlastnosti a vztahy definované v koncepčním modelu jsou vyžadovány pro porovnání tvarů a typů objektů rozhraní .NET. Z EF4 a mimo ni může být vrstva objektů složena z jednoduchých objektů s vlastnostmi bez jakýchkoli závislostí na EF. Ty jsou obvykle označovány jako objekty CLR v prostém Old (POCO) a mapování typů a vlastností je provedeno na bázi konvencí pro porovnání názvů. Dříve existovala v EF 3,5 specifická omezení pro vrstvu objektů, například entity, které se musí odvozovat od třídy objektů EntityObject a musí přenášet atributy EF pro implementaci mapování "O-C".

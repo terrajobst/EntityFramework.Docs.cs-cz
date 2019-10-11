@@ -3,17 +3,17 @@ title: Vazba s WinForms – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: 3c7c58f5ded29c136bbdca1d81c64b07c53ce583
-ms.sourcegitcommit: 7391cc31193c1216ec9ed485709042ad0c2106cf
+ms.openlocfilehash: 4b3eee20ff238864b94ef4edfb97c1bae0713300
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/23/2019
-ms.locfileid: "69985478"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181791"
 ---
 # <a name="databinding-with-winforms"></a>Datová vazba s WinForms
 V tomto podrobném návodu se dozvíte, jak navazovat POCO typy na ovládací prvky WinForms (Window Forms) ve formuláři "Master-Detail". Aplikace používá Entity Framework k naplnění objektů daty z databáze, sledování změn a zachování dat v databázi.
 
-Model definuje dva typy, které se účastní relace 1: n: Kategorie (\\hlavní hlavní server) a produkt (\\podrobnosti závislé na). Nástroje sady Visual Studio pak slouží k navázání typů definovaných v modelu na ovládací prvky WinForms. Rozhraní WinForms pro vázání dat umožňuje navigaci mezi souvisejícími objekty: výběrem řádků v zobrazení Předloha způsobí, že se podrobné zobrazení aktualizuje s odpovídajícími podřízenými daty.
+Model definuje dva typy, které se účastní relace 1: n: Kategorie (objekt zabezpečení @ no__t-0master) a produkt (závislé na @ no__t-1detail). Nástroje sady Visual Studio pak slouží k navázání typů definovaných v modelu na ovládací prvky WinForms. Rozhraní WinForms pro vázání dat umožňuje navigaci mezi souvisejícími objekty: výběrem řádků v zobrazení Předloha způsobí, že se podrobné zobrazení aktualizuje s odpovídajícími podřízenými daty.
 
 Snímky obrazovky a výpisy kódu v tomto návodu jsou pořízeny z Visual Studio 2013, ale můžete tento návod dokončit pomocí sady Visual Studio 2012 nebo Visual Studio 2010.
 
@@ -21,12 +21,12 @@ Snímky obrazovky a výpisy kódu v tomto návodu jsou pořízeny z Visual Studi
 
 Pro dokončení tohoto Názorného postupu musíte mít nainstalovanou Visual Studio 2013, Visual Studio 2012 nebo Visual Studio 2010.
 
-Pokud používáte Visual Studio 2010, je také nutné nainstalovat NuGet. Další informace najdete v tématu [instalace NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).
+Pokud používáte Visual Studio 2010, je také nutné nainstalovat NuGet. Další informace najdete v tématu [instalace NuGet](https://docs.nuget.org/docs/start-here/installing-nuget).
 
 ## <a name="create-the-application"></a>Vytvoření aplikace
 
 -   Otevřít Visual Studio
--   **Soubor –&gt; nový-&gt; projekt....**
+-   **Soubor-&gt; nový-&gt; projekt...**
 -   V levém podokně vyberte **Windows** a v pravém podokně klikněte na **Windows FormsApplication** .
 -   Jako název zadejte **WinFormswithEFSample** .
 -   Vybrat **OK**
@@ -46,11 +46,11 @@ Vlastnosti kolekce musí implementovat rozhraní IListSource, aby bylo možné p
 
 -   Přidejte do projektu třídu **ObservableListSource** :
     -   Klikněte pravým tlačítkem myši na název projektu.
-    -   Vyberte **položku Přidat&gt; a nová položka** .
+    -   Vybrat **Add-&gt; nová položka**
     -   Vyberte **třídu** a jako název třídy zadejte **ObservableListSource** .
 -   Nahraďte kód vygenerovaný ve výchozím nastavení následujícím kódem:
 
-*Tato třída umožňuje obousměrnou datovou vazbu a řazení. Třída je odvozena z kolekci ObservableCollection&lt;T&gt; a přidává explicitní implementaci IListSource. Metoda GetList () IListSource je implementována pro vrácení implementace IBindingList, která zůstává synchronizována s kolekci ObservableCollection. Implementace IBindingList vygenerovaná ToBindingList podporuje řazení. Metoda rozšíření ToBindingList je definována v sestavení EntityFramework.*
+Třída *This umožňuje obousměrnou datovou vazbu a řazení. Třída je odvozena z kolekci ObservableCollection @ no__t-0T @ no__t-1 a přidává explicitní implementaci IListSource. Metoda GetList () IListSource je implementována pro vrácení implementace IBindingList, která zůstává synchronizována s kolekci ObservableCollection. Implementace IBindingList vygenerovaná ToBindingList podporuje řazení. Metoda rozšíření ToBindingList je definována v sestavení EntityFramework.*
 
 ``` csharp
     using System.Collections;
@@ -83,7 +83,7 @@ V tomto návodu můžete zvolit implementaci modelu pomocí Code First nebo náv
 
 ### <a name="option-1-define-a-model-using-code-first"></a>Možnost 1: Definice modelu pomocí Code First
 
-V této části se dozvíte, jak vytvořit model a jeho přidruženou databázi pomocí Code First. Přejděte k další části (**možnost 2: Definice modelu pomocí Database First)** Pokud byste místo toho použili Database First k zpětné analýze modelu z databáze pomocí návrháře EF
+V této části se dozvíte, jak vytvořit model a jeho přidruženou databázi pomocí Code First. Přejděte k další části (**Option 2: Definice modelu pomocí Database First)** , pokud místo toho chcete použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF.
 
 Při použití vývoje Code First obvykle začněte psaním .NET Framework tříd, které definují koncepční (doménový) model.
 
@@ -134,7 +134,7 @@ Při použití vývoje Code First obvykle začněte psaním .NET Framework tří
     }
 ```
 
-Kromě definování entit musíte definovat třídu, která je odvozena z **DbContext** a zpřístupňuje **negenerickými&lt;vlastnosti TEntity&gt;**  . Vlastnosti **negenerickými** umožňují, aby kontext věděl, které typy chcete do modelu zahrnout. Typy **DbContext** a **negenerickými** jsou definovány v sestavení EntityFramework.
+Kromě definování entit musíte definovat třídu, která je odvozena z **DbContext** a zpřístupňuje vlastnosti **negenerickými @ no__t-2TEntity @ no__t-3** . Vlastnosti **negenerickými** umožňují, aby kontext věděl, které typy chcete do modelu zahrnout. Typy **DbContext** a **negenerickými** jsou definovány v sestavení EntityFramework.
 
 Instance DbContext odvozeného typu spravuje objekty entit za běhu, což zahrnuje vyplnění objektů daty z databáze, sledování změn a uchování dat do databáze.
 
@@ -162,7 +162,7 @@ Zkompilujte projekt.
 
 ### <a name="option-2-define-a-model-using-database-first"></a>Možnost 2: Definice modelu pomocí Database First
 
-V této části se dozvíte, jak použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF. Pokud jste dokončili předchozí část (**možnost 1: Definujte model pomocí Code First)** , pak tuto část přeskočte a přejděte rovnou na oddíl **opožděné načítání** .
+V této části se dozvíte, jak použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF. Pokud jste dokončili předchozí část (**Option 1: Definujte model pomocí Code First)** , pak tuto část přeskočte a přejděte rovnou k oddílu **opožděné načítání** .
 
 #### <a name="create-an-existing-database"></a>Vytvoření existující databáze
 
@@ -175,8 +175,8 @@ Databázový server, který je nainstalovaný se sadou Visual Studio, se liší 
 
 Pojďme dopředu a vygenerovat databázi.
 
--   **Zobrazení –&gt; Průzkumník serveru**
--   Klikněte pravým tlačítkem na **datová&gt; připojení – přidat připojení...**
+-   **Zobrazení-&gt; Průzkumník serveru**
+-   Klikněte pravým tlačítkem na **datová připojení – &gt; Přidat připojení...**
 -   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat Microsoft SQL Server jako zdroj dat
 
     ![Změnit zdroj dat](~/ef6/media/changedatasource.png)
@@ -217,7 +217,7 @@ Pojďme dopředu a vygenerovat databázi.
 
 Budeme používat Entity Framework Designer, který je součástí sady Visual Studio, a vytvořit náš model.
 
--   **Projekt –&gt; přidat novou položku...**
+-   **Projekt-&gt; Přidat novou položku...**
 -   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
 -   Jako název zadejte **ProductModel** a klikněte na **OK** .
 -   Spustí se **průvodce model EDM (Entity Data Model)** .
@@ -241,11 +241,11 @@ Pokud pracujete v aplikaci Visual Studio 2010, bude nutné aktualizovat návrhá
 
 -   V Návrháři EF klikněte pravým tlačítkem na prázdný bod modelu a vyberte **Přidat položku pro generování kódu...**
 -   V nabídce vlevo vyberte **online šablony** a vyhledejte **DbContext** .
--   Vyberte **generátor EF 6. x DbContext pro jazyk C\#,** jako název zadejte **ProductsModel** a klikněte na Přidat.
+-   Vyberte **generátor EF 6. x DbContext pro jazyk C @ no__t-1,** jako název zadejte **ProductsModel** a klikněte na Přidat.
 
 #### <a name="updating-code-generation-for-data-binding"></a>Aktualizuje se generování kódu pro datovou vazbu.
 
-EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visual Studio nebo stažené z galerie sady Visual Studio jsou určené pro účely obecného použití. To znamená, že entity vygenerované z těchto šablon mají jednoduché&lt;vlastnosti&gt; ICollection T. Při provádění datových vazeb je ale žádoucí, aby měly vlastnosti kolekce, které implementují IListSource. To je důvod, proč jsme vytvořili třídu ObservableListSource výše a teď se chystáme upravit šablony, aby bylo možné tuto třídu používat.
+EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visual Studio nebo stažené z galerie sady Visual Studio jsou určené pro účely obecného použití. To znamená, že entity vygenerované z těchto šablon mají jednoduché vlastnosti ICollection @ no__t-0T @ no__t-1. Při provádění datových vazeb je ale žádoucí, aby měly vlastnosti kolekce, které implementují IListSource. To je důvod, proč jsme vytvořili třídu ObservableListSource výše a teď se chystáme upravit šablony, aby bylo možné tuto třídu používat.
 
 -   Otevřete **Průzkumník řešení** a vyhledejte soubor **ProductModel. edmx.**
 -   Vyhledejte soubor **ProductModel.TT** , který bude vnořen do souboru ProductModel. edmx.
@@ -254,16 +254,16 @@ EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visua
 
 -   Poklikejte na soubor ProductModel.tt a otevře se v editoru Visual studia.
 -   Vyhledejte a nahraďte dva výskyty "**ICollection**" pomocí "**ObservableListSource**". Tyto jsou umístěné přibližně na řádcích 296 a 484.
--   Najde první výskyt "**HashSet –** " a nahradí ho "**ObservableListSource**". Tento výskyt je umístěný přibližně na řádku 50. Neměňte druhý výskyt HashSet –, který byl nalezen později v kódu.
+-   Najde první výskyt "**HashSet –** " a nahradí ho "**ObservableListSource**". Tento výskyt je umístěný přibližně na řádku 50. **Neměňte druhý** výskyt HashSet –, který byl nalezen později v kódu.
 -   Uložte soubor ProductModel.tt. To by mělo způsobit opětovné vygenerování kódu pro entity. Pokud se kód znovu negeneruje automaticky, klikněte pravým tlačítkem na ProductModel.tt a zvolte spustit vlastní nástroj.
 
-Pokud teď otevřete soubor Category.cs (který je vnořený pod ProductModel.TT), měli byste vidět, že kolekce Products má typ **ObservableListSource&lt;produkt&gt;** .
+Pokud teď otevřete soubor Category.cs (který je vnořený pod ProductModel.tt), měli byste vidět, že kolekce Products má typ **ObservableListSource @ no__t-1Product @ no__t-2**.
 
 Zkompilujte projekt.
 
 ## <a name="lazy-loading"></a>Opožděné načítání
 
-Vlastnost **Products** u vlastnosti Category třídy a **kategorie** u třídy **produkt** je vlastností navigace. V Entity Framework navigační vlastnosti poskytují způsob, jak procházet relaci mezi dvěma typy entit.
+Vlastnost **Products** **u vlastnosti Category třídy a** **kategorie** u třídy **produkt** je vlastností navigace. V Entity Framework navigační vlastnosti poskytují způsob, jak procházet relaci mezi dvěma typy entit.
 
 EF vám nabízí možnost načítat související entity z databáze automaticky při prvním přístupu k vlastnosti navigace. U tohoto typu načítání (tzv. opožděné načítání) mějte na paměti, že při prvním přístupu k jednotlivým vlastnostem navigace se v databázi spustí samostatný dotaz, pokud obsah ještě není v kontextu.
 
@@ -273,15 +273,15 @@ Při použití typů entit POCO nahrazuje EF opožděné načítání vytvořen�
 
 Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto aplikaci WinForms.
 
--   V hlavní nabídce vyberte **&gt; projekt – přidat nový zdroj dat...**
-    (v aplikaci Visual Studio 2010 je nutné vybrat **&gt; data – přidat nový zdroj dat...** )
+-   V hlavní nabídce vyberte **projekt-&gt; Přidat nový zdroj dat...**
+    (v aplikaci Visual Studio 2010 je nutné vybrat **data-&gt; Přidat nový zdroj dat...** )
 -   V okně zvolte typ zdroje dat vyberte **objekt** a klikněte na **Další** .
 -   V dialogovém okně Vybrat datové objekty rozložte **WinFormswithEFSample** dvakrát a vyberte **kategorie** . není nutné vybírat zdroj dat produktu, protože se k němu dostanete prostřednictvím vlastnosti produktu ve zdroji dat kategorie.
 
     ![Zdroj dat](~/ef6/media/datasource.png)
 
 -   Klikněte na tlačítko **Dokončit.**
-    Pokud se nezobrazí okno zdroje dat, vyberte možnost **Zobrazit –&gt; &gt; ostatní zdroje dat systému Windows.**
+    Pokud se nezobrazí okno zdroje dat, vyberte **zobrazení-&gt; ostatní zdroje dat Windows-&gt;.**
 -   Stiskněte ikonu připnutí, aby se okno zdroje dat neautomaticky skrylo. Pokud je okno již viditelné, může být nutné spustit tlačítko Aktualizovat.
 
     ![Zdroj dat 2](~/ef6/media/datasource2.png)
@@ -304,7 +304,7 @@ Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto apl
 
     ![Návrhář – formulář 1](~/ef6/media/form1-designer.png)
 
--   Přidejte obslužnou rutinu události pro tlačítko Uložit dvojitým kliknutím na tlačítko. Tím se přidá obslužná rutina události a budete přinášet k kódu za jeho pozadí. Do další části se přidá kód obslužné rutiny události **kliknutí na categoryBindingNavigatorSaveItem\_** .
+-   Přidejte obslužnou rutinu události pro tlačítko Uložit dvojitým kliknutím na tlačítko. Tím se přidá obslužná rutina události a budete přinášet k kódu za jeho pozadí. V další části se přidá kód pro obslužnou rutinu události **categoryBindingNavigatorSaveItem @ no__t-1Click** .
 
 ## <a name="add-the-code-that-handles-data-interaction"></a>Přidat kód, který zpracovává interakci s daty
 
