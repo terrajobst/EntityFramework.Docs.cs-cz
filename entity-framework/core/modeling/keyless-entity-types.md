@@ -5,14 +5,15 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/keyless-entity-types
-ms.openlocfilehash: e78b9f91fd2505de300ced7b5e73291b5d1ad3b4
-ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
+ms.openlocfilehash: 3dbc2700fc9bb277eb90885dfc2506c250ae21f1
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71266778"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445942"
 ---
 # <a name="keyless-entity-types"></a>Typy entit bez klíčů
+
 > [!NOTE]
 > Tato funkce byla přidána do EF Core 2,1 pod názvem typů dotazů. V EF Core 3,0 byl koncept přejmenován na bez klíčů entity Types.
 
@@ -20,19 +21,19 @@ Kromě běžných typů entit může EF Core model obsahovat _typy entit bez kl�
 
 ## <a name="keyless-entity-types-characteristics"></a>Vlastnosti typů entit bez klíčů
 
-Typy entit bez klíčů podporují mnoho stejných funkcí mapování jako regulární typy entit, jako je mapování dědičnosti a vlastnosti navigace. Na relační úložiště můžete nakonfigurovat cílové objektů databáze a sloupce pomocí metody fluent API nebo datových poznámek.
+Typy entit bez klíčů podporují mnoho stejných funkcí mapování jako regulární typy entit, jako je mapování dědičnosti a vlastnosti navigace. V relačních úložištích můžou konfigurovat objekty a sloupce cílové databáze prostřednictvím metod rozhraní Fluent API nebo datových poznámek.
 
 Liší se však od regulárních typů entit v tom, že:
 
 - Nelze definovat klíč.
 - Nejsou sledovány pro změny v _DbContext_ , a proto nejsou nikdy vloženy, aktualizovány ani smazány v databázi.
-- Nikdy zjištění konvencí.
+- Nejsou nikdy zjištěny konvencí.
 - Podporuje pouze podmnožinu možností mapování navigace, konkrétně:
-  - Může se nikdy fungovat jako hlavní konec relace.
+  - Nemusí nikdy fungovat jako hlavní konec relace.
   - Nemusí mít navigace ke vlastněným entitám.
   - Mohou obsahovat pouze referenční navigační vlastnosti ukazující na běžné entity.
   - Entity nemůžou obsahovat navigační vlastnosti bez klíčů typů entit.
-- Je nutné nakonfigurovat s `.HasNoKey()` voláním metody.
+- Je nutné nakonfigurovat s voláním metody `.HasNoKey()`.
 - Může být mapován na _definiční dotaz_. Definiční dotaz je dotaz deklarovaný v modelu, který slouží jako zdroj dat pro typ entity bez klíčů.
 
 ## <a name="usage-scenarios"></a>Scénáře použití
@@ -41,45 +42,45 @@ Některé z hlavních scénářů použití pro typy entit bez klíčů jsou:
 
 - Slouží jako návratový typ pro [nezpracované dotazy SQL](xref:core/querying/raw-sql).
 - Mapování na zobrazení databáze, která neobsahují primární klíč.
-- Mapování tabulek, které nemají definován primární klíč.
-- Mapování pro dotazy definované v modelu.
+- Mapování na tabulky, ve kterých není definován primární klíč.
+- Mapování na dotazy definované v modelu.
 
-## <a name="mapping-to-database-objects"></a>Mapování databázových objektů
+## <a name="mapping-to-database-objects"></a>Mapování na databázové objekty
 
-Mapování typu entity bez klíčů k databázovému objektu se dosáhne pomocí `ToTable` rozhraní API Fluent nebo. `ToView` Z pohledu EF Core je určený v této metodě objekt databáze _zobrazení_, to znamená, že je považován za zdroj dotazu jen pro čtení a nemůže být cílem příkazu update, insert nebo operace odstranění. To však neznamená, že objekt databáze je skutečně vyžadován pro zobrazení databáze. Může se případně jednat o databázovou tabulku, která bude považována za jen pro čtení. U regulárních typů entit EF Core předpokládá, že databázový objekt zadaný v `ToTable` metodě může být zpracován jako _tabulka_, což znamená, že je možné jej použít jako zdroj dotazu, ale také cílený na operace Update, DELETE a INSERT. Ve skutečnosti můžete zadat název databáze zobrazení v `ToTable` a všechno, co by mělo fungovat bez problémů jako zobrazení konfigurován tak, aby umožnit aktualizaci modelové databáze.
+Mapování typu entity bez klíčů na databázový objekt se dosahuje pomocí rozhraní API `ToTable` nebo `ToView` Fluent. Z perspektivy EF Core je databázový objekt zadaný v této metodě _zobrazení_, což znamená, že je považován za zdroj dotazu jen pro čtení a nemůže být cílem operace Update, INSERT nebo DELETE. To však neznamená, že objekt databáze je skutečně vyžadován pro zobrazení databáze. Může se případně jednat o databázovou tabulku, která bude považována za jen pro čtení. U regulárních typů entit EF Core předpokládá, že databázový objekt zadaný v metodě `ToTable` lze považovat za _tabulku_, což znamená, že se dá použít jako zdroj dotazu, ale také cílený na operace aktualizace, odstranění a vložení. Ve skutečnosti můžete zadat název zobrazení databáze v `ToTable` a vše by mělo fungovat, dokud je v databázi nakonfigurováno, aby bylo možné aktualizovat.
 
 > [!NOTE]
-> `ToView`předpokládá, že objekt již v databázi existuje a nebude vytvořen migracemi.
+> `ToView` předpokládá, že objekt již v databázi existuje a nebude vytvořen migracemi.
 
 ## <a name="example"></a>Příklad
 
 Následující příklad ukazuje, jak použít typy entit bez klíčů k dotazování zobrazení databáze.
 
 > [!TIP]
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) na Githubu.
+> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) tohoto článku můžete zobrazit na GitHubu.
 
-Nejprve definujte jsme jednoduchý model blogu a příspěvek:
+Nejdřív definujeme jednoduchý blog a model post:
 
 [!code-csharp[Main](../../../samples/core/KeylessEntityTypes/Program.cs#Entities)]
 
-Dále nadefinujeme zobrazení jednoduché databáze, které vám umožní nám zjistit počet příspěvků, které jsou spojené s každou blogu:
+V dalším kroku definujeme jednoduché zobrazení databáze, které nám umožní dotazovat se na počet příspěvků přidružených ke každému blogu:
 
 [!code-csharp[Main](../../../samples/core/KeylessEntityTypes/Program.cs#View)]
 
-V dalším kroku budeme definovat třídu pro uchování výsledku ze zobrazení databáze:
+Dále definujeme třídu, která bude uchovávat výsledek z pohledu databáze:
 
 [!code-csharp[Main](../../../samples/core/KeylessEntityTypes/Program.cs#KeylessEntityType)]
 
-V dalším kroku nakonfigurujeme typ entity bez klíčů v _OnModelCreating_ pomocí `HasNoKey` rozhraní API.
+V dalším kroku nakonfigurujeme typ entity bez klíčů v _OnModelCreating_ pomocí rozhraní API `HasNoKey`.
 Rozhraní API pro konfiguraci Fluent používáme ke konfiguraci mapování pro typ entity bez klíčů:
 
 [!code-csharp[Main](../../../samples/core/KeylessEntityTypes/Program.cs#Configuration)]
 
-Dále nakonfigurujeme `DbContext` tak, aby `DbSet<T>`zahrnovala:
+Dále nakonfigurujte `DbContext` tak, aby zahrnovala `DbSet<T>`:
 
 [!code-csharp[Main](../../../samples/core/KeylessEntityTypes/Program.cs#DbSet)]
 
-Nakonec jsme zobrazení databáze můžete dotazovat na standardním způsobem:
+Nakonec můžeme dotazovat zobrazení databáze standardním způsobem:
 
 [!code-csharp[Main](../../../samples/core/KeylessEntityTypes/Program.cs#Query)]
 

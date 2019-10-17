@@ -1,100 +1,80 @@
 ---
-title: Sledování vs. Žádné dotazy sledování – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+title: Sledování vs. žádné dotazy sledování – EF Core
+author: smitpatel
+ms.date: 10/10/2019
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 588dee012039ce5ecc83f0ecf263a4ea6ca38c29
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 66988f936ab75e17620398c8f21e4a32bbc950bd
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181989"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445952"
 ---
-# <a name="tracking-vs-no-tracking-queries"></a>Sledování vs. Žádné dotazy pro sledování
+# <a name="tracking-vs-no-tracking-queries"></a>Sledování vs. žádné dotazy sledování
 
-Chování při sledování Určuje, jestli Entity Framework Core v nástroji pro sledování změn budou uchovávat informace o instanci entity. Pokud je entita sledována, budou všechny změny zjištěné v entitě trvale uchovány v databázi během `SaveChanges()`. Entity Framework Core budou také opravovat navigační vlastnosti mezi entitami získanými z sledovacího dotazu a entit, které byly dříve načteny do instance DbContext.
+Sledování chování řídí, pokud Entity Framework Core uchová informace o instanci entity ve sledování změn. Pokud je entita sledována, budou všechny změny zjištěné v entitě trvale uchovány v databázi během `SaveChanges()`. EF Core budou také opravovat navigační vlastnosti mezi entitami ve výsledku sledovacího dotazu a entitami, které jsou v sledování změn.
+
+> [!NOTE]
+> [Typy entit bez klíčů](xref:core/modeling/keyless-entity-types) nejsou nikdy sledovány. Bez ohledu na to, kde tento článek uvádí typy entit, odkazuje na typy entit, které mají definován klíč.
 
 > [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
+> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.
 
 ## <a name="tracking-queries"></a>Sledování dotazů
 
-Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit. To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny trvale `SaveChanges()`.
+Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit. To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny trvale `SaveChanges()`. V následujícím příkladu bude v průběhu `SaveChanges()` zjištěna změna v hodnocení blogů a bude uložena do databáze.
 
-V následujícím příkladu bude v průběhu `SaveChanges()` zjištěna změna v hodnocení blogů a bude uložena do databáze.
-
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs.SingleOrDefault(b => b.BlogId == 1);
-    blog.Rating = 5;
-    context.SaveChanges();
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#Tracking)]
 
 ## <a name="no-tracking-queries"></a>Žádné dotazy pro sledování
 
-Žádné sledovací dotazy nejsou užitečné, pokud jsou výsledky použity ve scénáři jen pro čtení. Spouští se rychleji, protože není nutné nastavovat informace o sledování změn.
+Žádné sledovací dotazy nejsou užitečné, pokud jsou výsledky použity ve scénáři jen pro čtení. Spouští se rychleji, protože není potřeba nastavovat informace o sledování změn. Pokud nepotřebujete aktualizovat entity načtené z databáze, měli byste použít dotaz bez sledování. Jednotlivé dotazy můžete přepínat na možnost bez sledování.
 
-Jednotlivé dotazy můžete přepínat na možnost bez sledování:
-
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=4)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blogs = context.Blogs
-        .AsNoTracking()
-        .ToList();
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#NoTracking)]
 
 Můžete také změnit výchozí chování při sledování na úrovni instance kontextu:
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=3)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ContextDefaultTrackingBehavior)]
 
-    var blogs = context.Blogs.ToList();
-}
-```
+## <a name="identity-resolution"></a>Překlad identity
 
-> [!NOTE]  
-> Žádné sledovací dotazy stále neprovádějí rozlišení identity v rámci spuštěného dotazu. Pokud sada výsledků obsahuje stejnou entitu vícekrát, bude pro každý výskyt v sadě výsledků vrácena stejná instance třídy entity. Slabé odkazy se však používají k udržení přehledu o entitách, které již byly vráceny. Pokud předchozí výsledek se stejnou identitou přejde mimo rozsah a spustí se uvolňování paměti, můžete získat novou instanci entity. Další informace najdete v tématu [Jak funguje dotaz](xref:core/querying/how-query-works).
+Vzhledem k tomu, že sledovací dotaz používá sledování změn, EF Core provede překlad identity v dotazu sledování. Pokud je vyhodnocování entitou, EF Core vrátí stejnou instanci entity ze sledování změn, pokud již je sledována. Pokud výsledek obsahuje stejnou entitu víckrát, vrátí se stejná instance pro každý výskyt. Žádné dotazy pro sledování nepoužívají sledování změn a nedělají rozlišení identity. Takže se vrátí nová instance entity i v případě, že je stejná entita obsažena v výsledku víckrát. Toto chování se liší ve verzích před EF Core 3,0, viz [předchozí verze](#previous-versions).
 
-## <a name="tracking-and-projections"></a>Sledování a projekce
+## <a name="tracking-and-custom-projections"></a>Sledování a vlastní projekce
 
-I v případě, že typ výsledku dotazu není typ entity, pokud výsledek obsahuje typy entit, které budou ve výchozím nastavení sledovány. V následujícím dotazu, který vrací anonymní typ, budou sledovány instance `Blog` v sadě výsledků.
+I v případě, že typ výsledku dotazu není typ entity, EF Core budou stále sledovat typy entit obsažené ve výsledku ve výchozím nastavení. V následujícím dotazu, který vrací anonymní typ, budou sledovány instance `Blog` v sadě výsledků.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs
-        .Select(b =>
-            new
-            {
-                Blog = b,
-                Posts = b.Posts.Count()
-            });
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection1)]
 
-Pokud sada výsledků neobsahuje žádné typy entit, sledování se neprovede. V následujícím dotazu, který vrátí anonymní typ s některými hodnotami z entity (ale žádné instance skutečného typu entity), se neprovede žádné sledování.
+Pokud sada výsledků obsahuje typy entit, které pocházejí ze složení LINQ, EF Core je sledovat.
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs
-        .Select(b =>
-            new
-            {
-                Id = b.BlogId,
-                Url = b.Url
-            });
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection2)]
+
+Pokud sada výsledků neobsahuje žádné typy entit, sledování se neprovádí. V následujícím dotazu vrátíme anonymní typ s některými hodnotami z entity (ale žádné instance skutečného typu entity). Z dotazu nejdou žádné sledované entity.
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection3)]
+
+ EF Core podporuje testování klientů v projekci nejvyšší úrovně. Pokud EF Core materializuje instanci entity pro hodnocení klienta, bude sledována. Od této chvíle předáváme @no__t entit-0 do metody klienta `StandardizeURL`, EF Core bude také sledovat instance blogu.
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientMethod)]
+
+EF Core nesleduje instance entit bez klíčů obsažené ve výsledku. Ale EF Core sleduje všechny ostatní instance typů entit s klíčem podle pravidel uvedených výše.
+
+Některá z výše uvedených pravidel fungovala jinak než EF Core 3,0. Další informace najdete v tématu [předchozí verze](#previous-versions).
+
+## <a name="previous-versions"></a>Předchozí verze
+
+Před verzí 3,0 byl EF Core několik rozdílů v tom, jak bylo sledování provedeno. Mezi významné rozdíly patří následující:
+
+- Jak je vysvětleno na stránce [hodnocení klienta vs](xref:core/querying/client-eval) . EF Core podporované hodnocení klienta v jakékoli části dotazu před verzí 3,0. Vyhodnocení klienta způsobilo materializaci entit, které nebyly součástí výsledku. Proto EF Core analyzovat výsledek, aby bylo možné zjistit, co se má sledovat. Tento návrh má určité rozdíly, jak je znázorněno níže:
+  - Vyhodnocení klienta v projekci, což způsobilo materializace, ale nevrátilo nevrácenou instanci materializované entity. Následující příklad nesledoval entity `blog`.
+    [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
+
+  - V některých případech EF Core nesledovaly objekty, které jsou vycházející ze sestavení LINQ. Následující příklad nesledoval `Post`.
+    [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection2)]
+
+- Vždy, když výsledky dotazu obsahují typy entit bez klíčů, byl celý dotaz proveden bez sledování. To znamená, že typy entit s klíči, které jsou ve výsledku, nebyly sledovány buď.
+- EF Core se překlad identity v dotazu bez sledování. Používaly slabé odkazy, které udržují přehled o entitách, které již byly vráceny. Takže pokud sada výsledků dotazu obsahuje násobky vícekrát, získáte stejnou instanci pro každý výskyt. I když by předchozí výsledek se stejnou identitou byl mimo rozsah a byl uvolněný odpadkový systém, EF Core vrátil novou instanci.

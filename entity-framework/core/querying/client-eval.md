@@ -1,27 +1,27 @@
 ---
-title: Vyhodnocení klienta vs. Vyhodnocení serveru – EF Core
+title: Klient vs. vyhodnocení serveru – EF Core
 author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 3d70324f0b57a0ea9b165b5140a2154001c326f4
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 5cfb05041f04246712fb699f58b407f70a75ce92
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181903"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445963"
 ---
-# <a name="client-vs-server-evaluation"></a>Vyhodnocení klienta vs. serveru
+# <a name="client-vs-server-evaluation"></a>Hodnocení klienta vs. Server
 
 Obecně platí, Entity Framework Core se pokusí vyhodnotit dotaz na serveru co nejvíce. EF Core převede části dotazu na parametry, které lze vyhodnotit na straně klienta. Zbytek dotazu (spolu s vygenerovanými parametry) se předávají poskytovateli databáze k určení ekvivalentního databázového dotazu, který se má na serveru vyhodnotit. EF Core podporuje částečné vyhodnocení klientů v projekci nejvyšší úrovně (v podstatě poslední volání `Select()`). Pokud se projekce nejvyšší úrovně v dotazu nedá přeložit na server, EF Core načte všechna požadovaná data ze serveru a vyhodnotí zbývající části dotazu na klientovi. Pokud EF Core detekuje výraz, na jakémkoli jiném místě než projekcí nejvyšší úrovně, které nelze přeložit na server, vyvolá výjimku za běhu. Podívejte se, [Jak dotaz funguje](xref:core/querying/how-query-works) pro pochopení, jak EF Core určuje, co se nedá přeložit na server.
 
 > [!NOTE]
 > Před verzí 3,0 Entity Framework Core podporované vyhodnocení klientů kdekoli v dotazu. Další informace najdete v [části předchozí verze](#previous-versions).
 
-## <a name="client-evaluation-in-the-top-level-projection"></a>Hodnocení klienta v projekci nejvyšší úrovně
-
 > [!TIP]
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
+> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.
+
+## <a name="client-evaluation-in-the-top-level-projection"></a>Hodnocení klienta v projekci nejvyšší úrovně
 
 V následujícím příkladu se pomocná metoda používá ke standardizaci adres URL pro Blogy, které se vracejí z databáze SQL Server. Vzhledem k tomu, že poskytovatel SQL Server nemá žádné informace o tom, jak je tato metoda implementována, není možné ji přeložit do jazyka SQL. Všechny ostatní aspekty dotazu jsou vyhodnocovány v databázi, ale předávání vrácených `URL` prostřednictvím této metody je provedeno na klientovi.
 
@@ -50,9 +50,9 @@ V takových případech se můžete explicitně vyjádřit k vyhodnocení klient
 
 Vzhledem k tomu, že překlad dotazů a kompilace jsou nákladné, EF Core ukládá do mezipaměti kompilovaný plán dotazů. Delegát v mezipaměti může používat klientský kód při hodnocení projekce na nejvyšší úrovni. EF Core generuje parametry pro části stromu vyhodnocené klientem a znovu použije plán dotazu nahrazením hodnot parametrů. Některé konstanty ve stromu výrazů ale nelze převést na parametry. Pokud delegát v mezipaměti obsahuje takové konstanty, pak tyto objekty nemůžou být shromážděny z paměti, protože jsou pořád odkazovány. Pokud takový objekt obsahuje DbContext nebo jiné služby, může to způsobit, že se využití paměti aplikace v průběhu času zvětšuje. Toto chování obvykle představuje znaménko nevracení paměti. EF Core vyvolá výjimku vždy, když dojde v rámci konstant typu, který nelze namapovat pomocí aktuálního poskytovatele databáze. Běžné příčiny a jejich řešení jsou následující:
 
-- **Použití metody instance**: Při použití metod instance v projekci klienta obsahuje strom výrazu konstantu instance. Pokud vaše metoda nepoužívá žádná data z instance, zvažte vytvoření metody jako statické. Pokud potřebujete data instance v těle metody a pak předejte konkrétní data jako argument metody.
-- **Předání argumentů konstant do metody**: Tento případ se obvykle používá `this` v argumentu pro metodu klienta. Zvažte rozdělení argumentu do na více skalárních argumentů, které mohou být mapovány poskytovatelem databáze.
-- **Jiné konstanty**: Pokud je konstanta v jakémkoli jiném případě, můžete vyhodnotit, zda je konstanta potřebná ke zpracování. Pokud je nutné mít konstantu, nebo pokud nemůžete použít řešení z výše uvedených případů, vytvořte místní proměnnou pro uložení hodnoty a použijte místní proměnnou v dotazu. EF Core převede místní proměnnou na parametr.
+- **Použití metody instance**: při použití metod instance v projekci klienta obsahuje strom výrazu konstantu instance. Pokud vaše metoda nepoužívá žádná data z instance, zvažte vytvoření metody jako statické. Pokud potřebujete data instance v těle metody a pak předejte konkrétní data jako argument metody.
+- **Předání argumentů konstant do metody**: v tomto případě se obvykle používá `this` v argumentu pro metodu klienta. Zvažte rozdělení argumentu do na více skalárních argumentů, které mohou být mapovány poskytovatelem databáze.
+- **Jiné konstanty**: Pokud se konstanta nachází napříč v jakémkoli jiném případě, můžete vyhodnotit, zda je konstanta potřebná ke zpracování. Pokud je nutné mít konstantu, nebo pokud nemůžete použít řešení z výše uvedených případů, vytvořte místní proměnnou pro uložení hodnoty a použijte místní proměnnou v dotazu. EF Core převede místní proměnnou na parametr.
 
 ## <a name="previous-versions"></a>Předchozí verze
 
