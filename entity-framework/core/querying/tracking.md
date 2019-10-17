@@ -1,100 +1,80 @@
 ---
-title: Sledování vs. Žádné dotazy sledování – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+title: Sledování vs. žádné dotazy sledování – EF Core
+author: smitpatel
+ms.date: 10/10/2019
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 588dee012039ce5ecc83f0ecf263a4ea6ca38c29
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 66988f936ab75e17620398c8f21e4a32bbc950bd
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181989"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445952"
 ---
-# <a name="tracking-vs-no-tracking-queries"></a><span data-ttu-id="202a6-102">Sledování vs. Žádné dotazy pro sledování</span><span class="sxs-lookup"><span data-stu-id="202a6-102">Tracking vs. No-Tracking Queries</span></span>
+# <a name="tracking-vs-no-tracking-queries"></a><span data-ttu-id="ef261-102">Sledování vs. žádné dotazy sledování</span><span class="sxs-lookup"><span data-stu-id="ef261-102">Tracking vs. No-Tracking Queries</span></span>
 
-<span data-ttu-id="202a6-103">Chování při sledování Určuje, jestli Entity Framework Core v nástroji pro sledování změn budou uchovávat informace o instanci entity.</span><span class="sxs-lookup"><span data-stu-id="202a6-103">Tracking behavior controls whether or not Entity Framework Core will keep information about an entity instance in its change tracker.</span></span> <span data-ttu-id="202a6-104">Pokud je entita sledována, budou všechny změny zjištěné v entitě trvale uchovány v databázi během `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="202a6-104">If an entity is tracked, any changes detected in the entity will be persisted to the database during `SaveChanges()`.</span></span> <span data-ttu-id="202a6-105">Entity Framework Core budou také opravovat navigační vlastnosti mezi entitami získanými z sledovacího dotazu a entit, které byly dříve načteny do instance DbContext.</span><span class="sxs-lookup"><span data-stu-id="202a6-105">Entity Framework Core will also fix-up navigation properties between entities that are obtained from a tracking query and entities that were previously loaded into the DbContext instance.</span></span>
+<span data-ttu-id="ef261-103">Sledování chování řídí, pokud Entity Framework Core uchová informace o instanci entity ve sledování změn.</span><span class="sxs-lookup"><span data-stu-id="ef261-103">Tracking behavior controls if Entity Framework Core will keep information about an entity instance in its change tracker.</span></span> <span data-ttu-id="ef261-104">Pokud je entita sledována, budou všechny změny zjištěné v entitě trvale uchovány v databázi během `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="ef261-104">If an entity is tracked, any changes detected in the entity will be persisted to the database during `SaveChanges()`.</span></span> <span data-ttu-id="ef261-105">EF Core budou také opravovat navigační vlastnosti mezi entitami ve výsledku sledovacího dotazu a entitami, které jsou v sledování změn.</span><span class="sxs-lookup"><span data-stu-id="ef261-105">EF Core will also fix up navigation properties between the entities in a tracking query result and the entities that are in the change tracker.</span></span>
+
+> [!NOTE]
+> <span data-ttu-id="ef261-106">[Typy entit bez klíčů](xref:core/modeling/keyless-entity-types) nejsou nikdy sledovány.</span><span class="sxs-lookup"><span data-stu-id="ef261-106">[Keyless entity types](xref:core/modeling/keyless-entity-types) are never tracked.</span></span> <span data-ttu-id="ef261-107">Bez ohledu na to, kde tento článek uvádí typy entit, odkazuje na typy entit, které mají definován klíč.</span><span class="sxs-lookup"><span data-stu-id="ef261-107">Wherever this article mentions entity types, it refers to entity types which have a key defined.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="202a6-106">Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.</span><span class="sxs-lookup"><span data-stu-id="202a6-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) on GitHub.</span></span>
+> <span data-ttu-id="ef261-108">[Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.</span><span class="sxs-lookup"><span data-stu-id="ef261-108">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) on GitHub.</span></span>
 
-## <a name="tracking-queries"></a><span data-ttu-id="202a6-107">Sledování dotazů</span><span class="sxs-lookup"><span data-stu-id="202a6-107">Tracking queries</span></span>
+## <a name="tracking-queries"></a><span data-ttu-id="ef261-109">Sledování dotazů</span><span class="sxs-lookup"><span data-stu-id="ef261-109">Tracking queries</span></span>
 
-<span data-ttu-id="202a6-108">Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit.</span><span class="sxs-lookup"><span data-stu-id="202a6-108">By default, queries that return entity types are tracking.</span></span> <span data-ttu-id="202a6-109">To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny trvale `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="202a6-109">This means you can make changes to those entity instances and have those changes persisted by `SaveChanges()`.</span></span>
+<span data-ttu-id="ef261-110">Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit.</span><span class="sxs-lookup"><span data-stu-id="ef261-110">By default, queries that return entity types are tracking.</span></span> <span data-ttu-id="ef261-111">To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny trvale `SaveChanges()`.</span><span class="sxs-lookup"><span data-stu-id="ef261-111">Which means you can make changes to those entity instances and have those changes persisted by `SaveChanges()`.</span></span> <span data-ttu-id="ef261-112">V následujícím příkladu bude v průběhu `SaveChanges()` zjištěna změna v hodnocení blogů a bude uložena do databáze.</span><span class="sxs-lookup"><span data-stu-id="ef261-112">In the following example, the change to the blogs rating will be detected and persisted to the database during `SaveChanges()`.</span></span>
 
-<span data-ttu-id="202a6-110">V následujícím příkladu bude v průběhu `SaveChanges()` zjištěna změna v hodnocení blogů a bude uložena do databáze.</span><span class="sxs-lookup"><span data-stu-id="202a6-110">In the following example, the change to the blogs rating will be detected and persisted to the database during `SaveChanges()`.</span></span>
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#Tracking)]
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs.SingleOrDefault(b => b.BlogId == 1);
-    blog.Rating = 5;
-    context.SaveChanges();
-}
-```
+## <a name="no-tracking-queries"></a><span data-ttu-id="ef261-113">Žádné dotazy pro sledování</span><span class="sxs-lookup"><span data-stu-id="ef261-113">No-tracking queries</span></span>
 
-## <a name="no-tracking-queries"></a><span data-ttu-id="202a6-111">Žádné dotazy pro sledování</span><span class="sxs-lookup"><span data-stu-id="202a6-111">No-tracking queries</span></span>
+<span data-ttu-id="ef261-114">Žádné sledovací dotazy nejsou užitečné, pokud jsou výsledky použity ve scénáři jen pro čtení.</span><span class="sxs-lookup"><span data-stu-id="ef261-114">No tracking queries are useful when the results are used in a read-only scenario.</span></span> <span data-ttu-id="ef261-115">Spouští se rychleji, protože není potřeba nastavovat informace o sledování změn.</span><span class="sxs-lookup"><span data-stu-id="ef261-115">They're quicker to execute because there's no need to set up the change tracking information.</span></span> <span data-ttu-id="ef261-116">Pokud nepotřebujete aktualizovat entity načtené z databáze, měli byste použít dotaz bez sledování.</span><span class="sxs-lookup"><span data-stu-id="ef261-116">If you don't need to update the entities retrieved from the database, then a no-tracking query should be used.</span></span> <span data-ttu-id="ef261-117">Jednotlivé dotazy můžete přepínat na možnost bez sledování.</span><span class="sxs-lookup"><span data-stu-id="ef261-117">You can swap an individual query to be no-tracking.</span></span>
 
-<span data-ttu-id="202a6-112">Žádné sledovací dotazy nejsou užitečné, pokud jsou výsledky použity ve scénáři jen pro čtení.</span><span class="sxs-lookup"><span data-stu-id="202a6-112">No tracking queries are useful when the results are used in a read-only scenario.</span></span> <span data-ttu-id="202a6-113">Spouští se rychleji, protože není nutné nastavovat informace o sledování změn.</span><span class="sxs-lookup"><span data-stu-id="202a6-113">They are quicker to execute because there is no need to setup change tracking information.</span></span>
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#NoTracking)]
 
-<span data-ttu-id="202a6-114">Jednotlivé dotazy můžete přepínat na možnost bez sledování:</span><span class="sxs-lookup"><span data-stu-id="202a6-114">You can swap an individual query to be no-tracking:</span></span>
+<span data-ttu-id="ef261-118">Můžete také změnit výchozí chování při sledování na úrovni instance kontextu:</span><span class="sxs-lookup"><span data-stu-id="ef261-118">You can also change the default tracking behavior at the context instance level:</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=4)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blogs = context.Blogs
-        .AsNoTracking()
-        .ToList();
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ContextDefaultTrackingBehavior)]
 
-<span data-ttu-id="202a6-115">Můžete také změnit výchozí chování při sledování na úrovni instance kontextu:</span><span class="sxs-lookup"><span data-stu-id="202a6-115">You can also change the default tracking behavior at the context instance level:</span></span>
+## <a name="identity-resolution"></a><span data-ttu-id="ef261-119">Překlad identity</span><span class="sxs-lookup"><span data-stu-id="ef261-119">Identity resolution</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=3)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+<span data-ttu-id="ef261-120">Vzhledem k tomu, že sledovací dotaz používá sledování změn, EF Core provede překlad identity v dotazu sledování.</span><span class="sxs-lookup"><span data-stu-id="ef261-120">Since a tracking query uses the change tracker, EF Core will do identity resolution in a tracking query.</span></span> <span data-ttu-id="ef261-121">Pokud je vyhodnocování entitou, EF Core vrátí stejnou instanci entity ze sledování změn, pokud již je sledována.</span><span class="sxs-lookup"><span data-stu-id="ef261-121">When materializing an entity, EF Core will return the same entity instance from the change tracker if it's already being tracked.</span></span> <span data-ttu-id="ef261-122">Pokud výsledek obsahuje stejnou entitu víckrát, vrátí se stejná instance pro každý výskyt.</span><span class="sxs-lookup"><span data-stu-id="ef261-122">If the result contains same entity multiple times, you get back same instance for each occurrence.</span></span> <span data-ttu-id="ef261-123">Žádné dotazy pro sledování nepoužívají sledování změn a nedělají rozlišení identity.</span><span class="sxs-lookup"><span data-stu-id="ef261-123">No-tracking queries don't use the change tracker and don't do identity resolution.</span></span> <span data-ttu-id="ef261-124">Takže se vrátí nová instance entity i v případě, že je stejná entita obsažena v výsledku víckrát.</span><span class="sxs-lookup"><span data-stu-id="ef261-124">So you get back new instance of entity even when the same entity is contained in the result multiple times.</span></span> <span data-ttu-id="ef261-125">Toto chování se liší ve verzích před EF Core 3,0, viz [předchozí verze](#previous-versions).</span><span class="sxs-lookup"><span data-stu-id="ef261-125">This behavior was different in versions before EF Core 3.0, see [previous versions](#previous-versions).</span></span>
 
-    var blogs = context.Blogs.ToList();
-}
-```
+## <a name="tracking-and-custom-projections"></a><span data-ttu-id="ef261-126">Sledování a vlastní projekce</span><span class="sxs-lookup"><span data-stu-id="ef261-126">Tracking and custom projections</span></span>
 
-> [!NOTE]  
-> <span data-ttu-id="202a6-116">Žádné sledovací dotazy stále neprovádějí rozlišení identity v rámci spuštěného dotazu.</span><span class="sxs-lookup"><span data-stu-id="202a6-116">No tracking queries still perform identity resolution within the executing query.</span></span> <span data-ttu-id="202a6-117">Pokud sada výsledků obsahuje stejnou entitu vícekrát, bude pro každý výskyt v sadě výsledků vrácena stejná instance třídy entity.</span><span class="sxs-lookup"><span data-stu-id="202a6-117">If the result set contains the same entity multiple times, the same instance of the entity class will be returned for each occurrence in the result set.</span></span> <span data-ttu-id="202a6-118">Slabé odkazy se však používají k udržení přehledu o entitách, které již byly vráceny.</span><span class="sxs-lookup"><span data-stu-id="202a6-118">However, weak references are used to keep track of entities that have already been returned.</span></span> <span data-ttu-id="202a6-119">Pokud předchozí výsledek se stejnou identitou přejde mimo rozsah a spustí se uvolňování paměti, můžete získat novou instanci entity.</span><span class="sxs-lookup"><span data-stu-id="202a6-119">If a previous result with the same identity goes out of scope, and garbage collection runs, you may get a new entity instance.</span></span> <span data-ttu-id="202a6-120">Další informace najdete v tématu [Jak funguje dotaz](xref:core/querying/how-query-works).</span><span class="sxs-lookup"><span data-stu-id="202a6-120">For more information, see [How Query Works](xref:core/querying/how-query-works).</span></span>
+<span data-ttu-id="ef261-127">I v případě, že typ výsledku dotazu není typ entity, EF Core budou stále sledovat typy entit obsažené ve výsledku ve výchozím nastavení.</span><span class="sxs-lookup"><span data-stu-id="ef261-127">Even if the result type of the query isn't an entity type, EF Core will still track entity types contained in the result by default.</span></span> <span data-ttu-id="ef261-128">V následujícím dotazu, který vrací anonymní typ, budou sledovány instance `Blog` v sadě výsledků.</span><span class="sxs-lookup"><span data-stu-id="ef261-128">In the following query, which returns an anonymous type, the instances of `Blog` in the result set will be tracked.</span></span>
 
-## <a name="tracking-and-projections"></a><span data-ttu-id="202a6-121">Sledování a projekce</span><span class="sxs-lookup"><span data-stu-id="202a6-121">Tracking and projections</span></span>
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection1)]
 
-<span data-ttu-id="202a6-122">I v případě, že typ výsledku dotazu není typ entity, pokud výsledek obsahuje typy entit, které budou ve výchozím nastavení sledovány.</span><span class="sxs-lookup"><span data-stu-id="202a6-122">Even if the result type of the query isn't an entity type, if the result contains entity types they will still be tracked by default.</span></span> <span data-ttu-id="202a6-123">V následujícím dotazu, který vrací anonymní typ, budou sledovány instance `Blog` v sadě výsledků.</span><span class="sxs-lookup"><span data-stu-id="202a6-123">In the following query, which returns an anonymous type, the instances of `Blog` in the result set will be tracked.</span></span>
+<span data-ttu-id="ef261-129">Pokud sada výsledků obsahuje typy entit, které pocházejí ze složení LINQ, EF Core je sledovat.</span><span class="sxs-lookup"><span data-stu-id="ef261-129">If the result set contains entity types coming out from LINQ composition, EF Core will track them.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs
-        .Select(b =>
-            new
-            {
-                Blog = b,
-                Posts = b.Posts.Count()
-            });
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection2)]
 
-<span data-ttu-id="202a6-124">Pokud sada výsledků neobsahuje žádné typy entit, sledování se neprovede.</span><span class="sxs-lookup"><span data-stu-id="202a6-124">If the result set does not contain any entity types, then no tracking is performed.</span></span> <span data-ttu-id="202a6-125">V následujícím dotazu, který vrátí anonymní typ s některými hodnotami z entity (ale žádné instance skutečného typu entity), se neprovede žádné sledování.</span><span class="sxs-lookup"><span data-stu-id="202a6-125">In the following query, which returns an anonymous type with some of the values from the entity (but no instances of the actual entity type), there is no tracking performed.</span></span>
+<span data-ttu-id="ef261-130">Pokud sada výsledků neobsahuje žádné typy entit, sledování se neprovádí.</span><span class="sxs-lookup"><span data-stu-id="ef261-130">If the result set doesn't contain any entity types, then no tracking is done.</span></span> <span data-ttu-id="ef261-131">V následujícím dotazu vrátíme anonymní typ s některými hodnotami z entity (ale žádné instance skutečného typu entity).</span><span class="sxs-lookup"><span data-stu-id="ef261-131">In the following query, we return an anonymous type with some of the values from the entity (but no instances of the actual entity type).</span></span> <span data-ttu-id="ef261-132">Z dotazu nejdou žádné sledované entity.</span><span class="sxs-lookup"><span data-stu-id="ef261-132">There are no tracked entities coming out of the query.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs
-        .Select(b =>
-            new
-            {
-                Id = b.BlogId,
-                Url = b.Url
-            });
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection3)]
+
+ <span data-ttu-id="ef261-133">EF Core podporuje testování klientů v projekci nejvyšší úrovně.</span><span class="sxs-lookup"><span data-stu-id="ef261-133">EF Core supports doing client evaluation in the top-level projection.</span></span> <span data-ttu-id="ef261-134">Pokud EF Core materializuje instanci entity pro hodnocení klienta, bude sledována.</span><span class="sxs-lookup"><span data-stu-id="ef261-134">If EF Core materializes an entity instance for client evaluation, it will be tracked.</span></span> <span data-ttu-id="ef261-135">Od této chvíle předáváme @no__t entit-0 do metody klienta `StandardizeURL`, EF Core bude také sledovat instance blogu.</span><span class="sxs-lookup"><span data-stu-id="ef261-135">Here, since we're passing `blog` entities to the client method `StandardizeURL`, EF Core will track the blog instances too.</span></span>
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientMethod)]
+
+<span data-ttu-id="ef261-136">EF Core nesleduje instance entit bez klíčů obsažené ve výsledku.</span><span class="sxs-lookup"><span data-stu-id="ef261-136">EF Core doesn't track the keyless entity instances contained in the result.</span></span> <span data-ttu-id="ef261-137">Ale EF Core sleduje všechny ostatní instance typů entit s klíčem podle pravidel uvedených výše.</span><span class="sxs-lookup"><span data-stu-id="ef261-137">But EF Core tracks all the other instances of entity types with key according to rules above.</span></span>
+
+<span data-ttu-id="ef261-138">Některá z výše uvedených pravidel fungovala jinak než EF Core 3,0.</span><span class="sxs-lookup"><span data-stu-id="ef261-138">Some of the above rules worked differently before EF Core 3.0.</span></span> <span data-ttu-id="ef261-139">Další informace najdete v tématu [předchozí verze](#previous-versions).</span><span class="sxs-lookup"><span data-stu-id="ef261-139">For more information, see [previous versions](#previous-versions).</span></span>
+
+## <a name="previous-versions"></a><span data-ttu-id="ef261-140">Předchozí verze</span><span class="sxs-lookup"><span data-stu-id="ef261-140">Previous versions</span></span>
+
+<span data-ttu-id="ef261-141">Před verzí 3,0 byl EF Core několik rozdílů v tom, jak bylo sledování provedeno.</span><span class="sxs-lookup"><span data-stu-id="ef261-141">Before version 3.0, EF Core had some differences in how tracking was done.</span></span> <span data-ttu-id="ef261-142">Mezi významné rozdíly patří následující:</span><span class="sxs-lookup"><span data-stu-id="ef261-142">Notable differences are as follows:</span></span>
+
+- <span data-ttu-id="ef261-143">Jak je vysvětleno na stránce [hodnocení klienta vs](xref:core/querying/client-eval) . EF Core podporované hodnocení klienta v jakékoli části dotazu před verzí 3,0.</span><span class="sxs-lookup"><span data-stu-id="ef261-143">As explained in [Client vs Server Evaluation](xref:core/querying/client-eval) page, EF Core supported client evaluation in any part of the query before version 3.0.</span></span> <span data-ttu-id="ef261-144">Vyhodnocení klienta způsobilo materializaci entit, které nebyly součástí výsledku.</span><span class="sxs-lookup"><span data-stu-id="ef261-144">Client evaluation caused materialization of entities, which weren't part of the result.</span></span> <span data-ttu-id="ef261-145">Proto EF Core analyzovat výsledek, aby bylo možné zjistit, co se má sledovat. Tento návrh má určité rozdíly, jak je znázorněno níže:</span><span class="sxs-lookup"><span data-stu-id="ef261-145">So EF Core analyzed the result to detect what to track. This design had certain differences as follows:</span></span>
+  - <span data-ttu-id="ef261-146">Vyhodnocení klienta v projekci, což způsobilo materializace, ale nevrátilo nevrácenou instanci materializované entity.</span><span class="sxs-lookup"><span data-stu-id="ef261-146">Client evaluation in the projection, which caused materialization but didn't return the materialized entity instance wasn't tracked.</span></span> <span data-ttu-id="ef261-147">Následující příklad nesledoval entity `blog`.</span><span class="sxs-lookup"><span data-stu-id="ef261-147">The following example didn't track `blog` entities.</span></span>
+    [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
+
+  - <span data-ttu-id="ef261-148">V některých případech EF Core nesledovaly objekty, které jsou vycházející ze sestavení LINQ.</span><span class="sxs-lookup"><span data-stu-id="ef261-148">EF Core didn't track the objects coming out of LINQ composition in certain cases.</span></span> <span data-ttu-id="ef261-149">Následující příklad nesledoval `Post`.</span><span class="sxs-lookup"><span data-stu-id="ef261-149">The following example didn't track `Post`.</span></span>
+    [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection2)]
+
+- <span data-ttu-id="ef261-150">Vždy, když výsledky dotazu obsahují typy entit bez klíčů, byl celý dotaz proveden bez sledování.</span><span class="sxs-lookup"><span data-stu-id="ef261-150">Whenever query results contained keyless entity types, the whole query was made non-tracking.</span></span> <span data-ttu-id="ef261-151">To znamená, že typy entit s klíči, které jsou ve výsledku, nebyly sledovány buď.</span><span class="sxs-lookup"><span data-stu-id="ef261-151">That means that entity types with keys, which are in result weren't being tracked either.</span></span>
+- <span data-ttu-id="ef261-152">EF Core se překlad identity v dotazu bez sledování.</span><span class="sxs-lookup"><span data-stu-id="ef261-152">EF Core did identity resolution in no-tracking query.</span></span> <span data-ttu-id="ef261-153">Používaly slabé odkazy, které udržují přehled o entitách, které již byly vráceny.</span><span class="sxs-lookup"><span data-stu-id="ef261-153">It used weak references to keep track of entities that had already been returned.</span></span> <span data-ttu-id="ef261-154">Takže pokud sada výsledků dotazu obsahuje násobky vícekrát, získáte stejnou instanci pro každý výskyt.</span><span class="sxs-lookup"><span data-stu-id="ef261-154">So if a result set contained the same entity multiples times, you would get the same instance for each occurrence.</span></span> <span data-ttu-id="ef261-155">I když by předchozí výsledek se stejnou identitou byl mimo rozsah a byl uvolněný odpadkový systém, EF Core vrátil novou instanci.</span><span class="sxs-lookup"><span data-stu-id="ef261-155">Though if a previous result with the same identity went out of scope and got garbage collected, EF Core returned a new instance.</span></span>
