@@ -175,22 +175,24 @@
           items:
             - name: Přehled
               href: core/querying/index.md
-            - name: Načítání souvisejících dat
-              href: core/querying/related-data.md
             - name: Vyhodnocení klienta vs. serveru
               href: core/querying/client-eval.md
             - name: Sledování vs. nesledování
               href: core/querying/tracking.md
-            - name: Nezpracované dotazy SQL
-              href: core/querying/raw-sql.md
+            - name: Komplexní operátory dotazů
+              href: core/querying/complex-query-operators.md
+            - name: Načítání souvisejících dat
+              href: core/querying/related-data.md
             - name: Asynchronní dotazy
               href: core/querying/async.md
-            - name: Jak funguje dotaz
-              href: core/querying/how-query-works.md
+            - name: Nezpracované dotazy SQL
+              href: core/querying/raw-sql.md
             - name: Globální filtry dotazů
               href: core/querying/filters.md
             - name: Značky dotazů
               href: core/querying/tags.md
+            - name: Jak funguje dotaz
+              href: core/querying/how-query-works.md
         - name: Ukládání dat
           items:
             - name: Přehled
