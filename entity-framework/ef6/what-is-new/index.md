@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: c49f4cba0066d1e218f11c3959d96f9cafa913f4
-ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
+ms.openlocfilehash: 9daae787d0cec0ca536413e6263bb363ba76ff2c
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71266785"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812144"
 ---
 # <a name="whats-new-in-ef6"></a>Co je nového v EF6
 
@@ -25,9 +25,9 @@ Modul runtime EF 6.3.0 byl vydán do NuGet v září 2019. Hlavním cílem této
   - Balíček EntityFramework se teď zaměřuje .NET Standard 2,1, kromě .NET Framework 4. x.
   - To znamená, že EF 6,3 je platforma pro víc platforem a je podporovaná na jiných operačních systémech než Windows, jako je Linux a macOS.
   - Příkazy migrace byly přepsány, aby vytvářely mimo proces a pracovaly s projekty ve stylu sady SDK.
-- Podpora SQL Server HierarchyId
-- Vylepšená kompatibilita s Roslyn a NuGet PackageReference
-- Přidaný `ef6.exe` Nástroj pro povolování, přidávání, skriptování a instalaci migrace ze sestavení. Toto nahrazení`migrate.exe`
+- Podpora SQL Server HierarchyId.
+- Vylepšená kompatibilita s Roslyn a NuGet PackageReference.
+- Přidání nástroje `ef6.exe` pro povolování, přidávání, skriptování a instalaci migrace ze sestavení. Tato náhrada nahrazuje `migrate.exe`.
 
 ### <a name="ef-designer-support"></a>Podpora návrháře EF
 

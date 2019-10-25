@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: a7fb19f9c86d1768967d172c006eb5d894254e0c
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: c660107619470a726fe13ad8eee2850749e6dcd9
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71196941"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812092"
 ---
 # <a name="inheritance-relational-database"></a>Dědičnost (relační databáze)
 
@@ -100,6 +100,7 @@ modelBuilder.Entity<Blog>()
 ```
 
 Diskriminátor lze také namapovat na skutečnou vlastnost CLR v entitě. Příklad:
+
 ```C#
 class MyContext : DbContext
 {
@@ -126,6 +127,7 @@ public class RssBlog : Blog
 ```
 
 Kombinování těchto dvou věcí je možné namapovat mezi diskriminátory na skutečnou vlastnost a nakonfigurovat ji:
+
 ```C#
 modelBuilder.Entity<Blog>(b =>
 {

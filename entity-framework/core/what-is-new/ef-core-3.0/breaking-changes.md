@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 690c7828cfe5019f4e7ae904c92430fab4726cb9
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: b2e3881e3454377dab7851cba999ed6b891def4e
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72446012"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812123"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Přerušující změny zahrnuté v EF Core 3,0
 Následující změny rozhraní API a chování mají možnost rušit existující aplikace při jejich upgradu na 3.0.0.
@@ -69,6 +69,7 @@ Změny, které očekáváme jenom o to, aby ovlivnili pouze poskytovatele datab�
 | [Microsoft. EntityFrameworkCore. Design je teď balíček DevelopmentDependency.](#dip) | Slab      |
 | [SQLitePCL. Raw aktualizováno na verzi 2.0.0](#SQLitePCL) | Slab      |
 | [NetTopologySuite aktualizace na verzi 2.0.0](#NetTopologySuite) | Slab      |
+| [Místo typu System. data. SqlClient se používá Microsoft. data. SqlClient.](#SqlClient) | Slab      |
 | [Je nutné nakonfigurovat více dvojznačných relací odkazujících na sebe.](#mersa) | Slab      |
 | [DbFunction. Schema má hodnotu null nebo je prázdný řetězec, který nakonfiguruje, aby byl ve výchozím schématu modelu.](#udf-empty-string) | Slab      |
 
@@ -560,7 +561,7 @@ Při dotazování EF Core nastaví `OrderDetails` na `null`, pokud některá z j
 
 **Hrozeb**
 
-Pokud má váš model sdílení tabulky závislé na všech volitelných sloupcích, ale navigace ukazující na ni se neočekává `null`, aplikace by měla být upravena tak, aby zpracovávala případy, když je navigace `null`. Pokud to není možné, musí být do typu entity přidána požadovaná vlastnost nebo k ní @no__t musí být přiřazena alespoň jedna vlastnost.
+Pokud má váš model sdílení tabulky závislé na všech volitelných sloupcích, ale navigace ukazující na ni se neočekává `null`, aplikace by měla být upravena tak, aby zpracovávala případy, když je navigace `null`. Pokud to není možné, měla by být do typu entity přidána požadovaná vlastnost, nebo alespoň jedna vlastnost musí mít přiřazenou jinou ne`null` hodnotu.
 
 <a name="aes"></a>
 
@@ -977,8 +978,8 @@ Před voláním `Entry` volejte `ChgangeTracker.DetectChanges()`, aby se zajisti
 
 **Staré chování**
 
-Před EF Core 3,0 lze použít vlastnosti klíče `string` a `byte[]` bez explicitního nastavení hodnoty, která není null.
-V takovém případě by se hodnota klíče vygenerovala na klientovi jako identifikátor GUID serializovaná na bajty pro `byte[]`.
+Před EF Core 3,0 lze použít `string` a `byte[]` vlastnosti klíče, aniž byste museli explicitně nastavit hodnotu, která není null.
+V takovém případě se hodnota klíče vygeneruje na klientovi jako identifikátor GUID serializovaný na bajty pro `byte[]`.
 
 **Nové chování**
 
@@ -986,7 +987,7 @@ Počínaje EF Core 3,0 bude vyvolána výjimka oznamující, že nebyla nastaven
 
 **Proč**
 
-Tato změna byla provedena, protože hodnoty `string` @ no__t-1 @ no__t-2 generované klientem nejsou všeobecně užitečné a výchozí chování způsobilo obtížně generované hodnoty klíčů běžným způsobem.
+Tato změna byla provedena, protože/`byte[]` hodnoty `string`generované klientem nejsou všeobecně užitečné a výchozí chování způsobilo, že je obtížné vygenerovat hodnoty klíčů běžným způsobem.
 
 **Hrozeb**
 
@@ -1023,7 +1024,7 @@ Počínaje EF Core 3,0 se nyní `ILoggerFactory` zaregistruje jako obor.
 
 **Proč**
 
-Tato změna byla provedena, aby bylo možné povolit přidružení protokolovacího nástroje s instancí @no__t 0, která umožňuje další funkce a odstraňuje některé případy patologického chování, jako je například rozbalení interních poskytovatelů služeb.
+Tato změna byla provedena, aby bylo možné povolit přidružení protokolovacího nástroje k instanci `DbContext`, která umožňuje další funkce a odebírá některé případy patologického chování, jako je například rozbalení interních poskytovatelů služeb.
 
 **Hrozeb**
 
@@ -1276,7 +1277,7 @@ Před EF Core 3,0 by EF Core při otevření připojení k SQLite odeslal `PRAGM
 
 **Nové chování**
 
-Počínaje EF Core 3,0 EF Core už při otevření připojení k SQLite neposílá `PRAGMA foreign_keys = 1`.
+Počínaje EF Core 3,0 EF Core již neposílá `PRAGMA foreign_keys = 1` při otevření připojení k SQLite.
 
 **Proč**
 
@@ -1595,7 +1596,7 @@ Microsoft. EntityFrameworkCore. sqlite byl dřív závislý na 1.1.12 verze SQLi
 
 **Nové chování**
 
-Náš balíček jsme aktualizovali tak, aby byl závislý na verzi 2.0.0.
+Aktualizovali jsme náš balíček tak, aby byl závislý na verzi 2.0.0.
 
 **Proč**
 
@@ -1626,6 +1627,29 @@ Náš balíček jsme aktualizovali tak, aby byl závislý na verzi 2.0.0.
 **Hrozeb**
 
 NetTopologySuite verze 2.0.0 obsahuje některé průlomové změny. Podrobnosti najdete v [poznámkách k verzi](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) .
+
+<a name="SqlClient"></a>
+
+### <a name="microsoftdatasqlclient-is-used-instead-of-systemdatasqlclient"></a>Místo typu System. data. SqlClient se používá Microsoft. data. SqlClient.
+
+[Sledování problému #15636](https://github.com/aspnet/EntityFrameworkCore/issues/15636)
+
+**Staré chování**
+
+Microsoft. EntityFrameworkCore. SqlServer byl dřív závislý na System. data. SqlClient.
+
+**Nové chování**
+
+Balíček jsme aktualizovali tak, aby byl závislý na Microsoft. data. SqlClient.
+
+**Proč**
+
+Microsoft. data. SqlClient je nejdůležitější ovladač pro přístup k datům, který je k dispozici pro SQL Server a System. data. SqlClient již není zaměřuje na vývoj.
+Některé důležité funkce, například Always Encrypted, jsou k dispozici pouze v Microsoft. data. SqlClient.
+
+**Hrozeb**
+
+Pokud váš kód používá přímou závislost na System. data. SqlClient, musíte ho změnit tak, aby odkazoval na Microsoft. data. SqlClient místo toho. vzhledem k tomu, že oba balíčky udržují velmi vysoký stupeň kompatibility rozhraní API, mělo by to být jenom jednoduchý balíček a Změna oboru názvů.
 
 <a name="mersa"></a>
 

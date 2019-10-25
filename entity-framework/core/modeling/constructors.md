@@ -4,26 +4,26 @@ author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: 5bf49718f02c1860871b1f4c255ec4d98fce2fc7
-ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
+ms.openlocfilehash: ddfaa8eebde388a9d3309f21b8891de593077956
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65405250"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811891"
 ---
 # <a name="entity-types-with-constructors"></a>Typy entit s konstruktory
 
 > [!NOTE]  
-> Tato funkce je nového v EF Core 2.1.
+> Tato funkce je v EF Core 2,1 novinkou.
 
-Od verze EF Core 2.1, je teď možné definovat konstruktor s parametry a EF Core volání tohoto konstruktoru při vytváření instance entity. Parametry konstruktoru mohou být vázány na připojené vlastnosti nebo na různé typy služeb, aby se usnadnilo chování jako opožděné načtení.
+Počínaje EF Core 2,1 je nyní možné definovat konstruktor s parametry a nechat EF Core volat tento konstruktor při vytváření instance entity. Parametry konstruktoru mohou být vázány na mapované vlastnosti nebo různé druhy služeb pro usnadnění chování, jako je opožděné načítání.
 
 > [!NOTE]  
-> EF Core 2.1 všechny vazby konstruktor je podle konvence. Konfigurace specifické konstruktory používat pro budoucí verzi plánujeme přidat.
+> Od EF Core 2,1 je všechny vazby konstruktoru podle konvence. Konfigurace konkrétních konstruktorů, které se mají použít, je plánována v budoucí verzi.
 
-## <a name="binding-to-mapped-properties"></a>Vazba pro mapovanou vlastnosti
+## <a name="binding-to-mapped-properties"></a>Vazba na mapované vlastnosti
 
-Zvažte typické modelu/blogu:
+Vezměte v úvahu typický model blogu/post:
 
 ``` csharp
 public class Blog
@@ -48,7 +48,7 @@ public class Post
 }
 ```
 
-Když EF Core vytváří instance typů, například pro výsledky dotazu, bude nejprve volat výchozí konstruktor a nastavte jednotlivé vlastnosti na hodnotu z databáze. Ale pokud najde konstruktorem s EF Core mapovat názvy parametrů a typy, které odpovídají vlastnosti a pak bude místo toho volat Parametrizovaný konstruktor s hodnotami pro tyto vlastnosti a není explicitně nastavena každou vlastnost. Příklad:
+Když EF Core vytváří instance těchto typů, například pro výsledky dotazu, nejprve vyvolá výchozí konstruktor bez parametrů a pak nastaví každou vlastnost na hodnotu z databáze. Pokud však EF Core najde parametrizovaný konstruktor s názvy parametrů a typy, které odpovídají hodnotám mapovaných vlastností, pak místo toho bude volat parametrizovaný konstruktor s hodnotami těchto vlastností a nebude explicitně nastavovat každou vlastnost. Příklad:
 
 ``` csharp
 public class Blog
@@ -86,19 +86,23 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
-Poznamenat několik věcí:
-* Ne všechny vlastnosti musí mít parametry konstruktoru. Například vlastnost Post.Content není nastavena podle jakékoli parametr konstruktoru, takže EF Core ho nastavte po volání konstruktoru běžným způsobem.
-* Typy parametrů a názvů musí odpovídat názvy a typy vlastností s tím rozdílem, že vlastnosti mohou být – jazyka Pascal – parametry jsou – ve formátu camelCase.
-* EF Core nelze nastavit navigační vlastnosti (například blogu nebo příspěvky výše) pomocí konstruktoru.
-* Konstruktor může být veřejný, privátní, nebo máte další usnadnění přístupu. Opožděné načtení proxy vyžadují konstruktor je přístupná ze dědičné třídy proxy serveru. Obvykle to znamená, že je veřejná nebo chráněná.
+
+Pamatujte na tyto věci:
+
+* Ne všechny vlastnosti musí mít parametry konstruktoru. Například vlastnost post. Content není nastavena žádným parametrem konstruktoru, takže EF Core nastaví je po volání konstruktoru normálním způsobem.
+* Typy parametrů a názvy musí odpovídat typům a názvům vlastností, s tím rozdílem, že vlastnosti mohou být Pascal-použita, zatímco parametry jsou ve stylu CamelCase-použita.
+* EF Core nemůže pomocí konstruktoru nastavit navigační vlastnosti (například blog nebo příspěvky výše).
+* Konstruktor může být veřejný, privátní nebo má jakékoliv jiné přístupnost. Nicméně opožděné načítání proxy vyžaduje, aby byl konstruktor přístupný z třídy dědění proxy. Obvykle to znamená, že je buď veřejná, nebo chráněná.
 
 ### <a name="read-only-properties"></a>Vlastnosti jen pro čtení
 
-Jakmile se nastavují vlastnosti prostřednictvím konstruktoru může být vhodné provést některé z nich jen pro čtení. EF Core podporuje, ale k vyhledání navýšení kapacity na několik věcí:
-* Vlastnosti bez setter nejsou mapovat pomocí konvence. (To se obvykle mapy – vlastnosti, které by neměly být mapována, například vypočítané vlastnosti.)
-* Použití hodnoty automaticky generovaného klíče vyžaduje klíčová vlastnost, která je pro čtení i zápis, protože hodnota klíče, která se musí nastavit generátorem klíče při vložení nových entit.
+Po nastavení vlastností prostřednictvím konstruktoru může mít smysl, aby bylo některé z nich jen pro čtení. EF Core to podporuje, ale existují několik věcí, které je třeba najít:
 
-Snadný způsob, jak se vyhnout tyto věci se má používat soukromé funkce setter. Příklad:
+* Vlastnosti bez setter nejsou namapované podle konvence. (To znamená, že má za následek mapování vlastností, které by neměly být namapovány, například vypočítané vlastnosti.)
+* Použití automaticky generovaných hodnot klíčů vyžaduje klíčovou vlastnost, která je pro čtení i zápis, protože při vkládání nových entit musí být klíčová hodnota nastavena pomocí generátoru klíčů.
+
+Snadný způsob, jak se těmto akcím vyhnout, je použití privátních setter. Příklad:
+
 ``` csharp
 public class Blog
 {
@@ -135,9 +139,10 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
-EF Core považuje čtení i zápis, což znamená, že všechny vlastnosti jsou mapovány stejně jako předtím a klíč se můžete stále možné generovaných úložištěm vlastnost s privátní metodu setter.
 
-Alternativou k používání soukromý setter je nastavení vlastnosti skutečně jen pro čtení a přidat více explicitního mapování v OnModelCreating. Některé vlastnosti, můžete k úplnému odebrání a nahradí pouze pole. Představte si třeba tyto typy entit:
+EF Core vidí vlastnost s privátním setter jako pro čtení i zápis, což znamená, že všechny vlastnosti jsou namapované jako dřív a klíč může být vygenerovaný i nadále uložený.
+
+Alternativou k použití privátních Setter je vytvořit vlastnosti, které jsou ve skutečnosti jen pro čtení, a přidat explicitní mapování v OnModelCreating. Podobně je možné některé vlastnosti zcela odebrat a nahradit je pouze poli. Zvažte například tyto typy entit:
 
 ``` csharp
 public class Blog
@@ -173,7 +178,9 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
+
 A tato konfigurace v OnModelCreating:
+
 ``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -194,26 +201,29 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         });
 }
 ```
-Co je potřeba mějte na paměti:
-* Pole je nyní klíč "vlastnosti". Nejedná se `readonly` pole tak, aby klíče generované úložištěm můžete použít.
-* Další vlastnosti jsou jen pro čtení vlastnosti nastavené jenom v konstruktoru.
-* Pokud hodnotu primárního klíče je vždy jen nastavit EF nebo čtení z databáze, je potřeba zahrnout do konstruktoru. To opustí klíč "vlastnosti" jako jednoduchý pole a je zřejmé, že ho by neměla být explicitně nastaveno při vytváření nových blogů a příspěvky.
+
+Co je potřeba vzít v vědomí:
+
+* Klíč "Property" je nyní pole. Nejedná se o `readonly` pole, aby bylo možné použít klíče generované úložištěm.
+* Ostatní vlastnosti jsou vlastnosti jen pro čtení nastavené pouze v konstruktoru.
+* Pokud je hodnota primárního klíče vždy nastavena pomocí EF nebo načtena z databáze, pak není nutné ji zahrnout do konstruktoru. Tím se klíč "Property" ponechá jako jednoduché pole a zruší se tak, že by neměl být nastaven explicitně při vytváření nových blogů nebo příspěvků.
 
 > [!NOTE]  
-> Tento kód způsobí kompilátor varování "169" označující, že pole se nikdy nepoužívá. To můžete ignorovat, protože ve skutečnosti je EF Core pomocí pole extralinguistic způsobem.
+> Výsledkem tohoto kódu bude upozornění kompilátoru "169", což značí, že pole není nikdy použito. To je možné ignorovat, protože ve realitě EF Core používá pole extralinguistic způsobem.
 
 ## <a name="injecting-services"></a>Vkládání služeb
 
-EF Core můžete také vložit "služby" do konstruktoru typu entity. Například následující může být vloženy:
-* `DbContext` -aktuální instance kontextu, které mohou být zadány jako odvozený typ DbContext
-* `ILazyLoader` -opožděné načtení služby – najdete v článku [opožděné načtení dokumentaci](../querying/related-data.md) další podrobnosti
-* `Action<object, string>` -opožděné načtení delegáta--najdete v článku [opožděné načtení dokumentaci](../querying/related-data.md) další podrobnosti
-* `IEntityType` -EF Core metadata přidružená k tomuto typu entity
+EF Core může také vložit "služby" do konstruktoru typu entity. Například lze vložit následující:
+
+* `DbContext` – aktuální kontext instance, který lze také zadat jako odvozený typ DbContext
+* `ILazyLoader` – služba opožděného načítání – další podrobnosti najdete v [dokumentaci s opožděným načtením](../querying/related-data.md) .
+* `Action<object, string>` – delegát opožděného načítání – další podrobnosti najdete v [dokumentaci s opožděným načtením](../querying/related-data.md) .
+* `IEntityType` – metadata EF Core přidružená k tomuto typu entity
 
 > [!NOTE]  
-> Od verze EF Core 2.1 lze vloženy pouze služeb, které EF Core. Podpora pro vkládání aplikace služby se považují za pro budoucí verzi.
+> Od EF Core 2,1 mohou být vloženy pouze služby známé EF Core. Podpora pro vkládání aplikačních služeb se považuje za budoucí verzi.
 
-Například je možné selektivní přístup k databázi k získání informací o související entity bez načtení všechny vloženého DbContext. V následujícím příkladu se používá získat počet příspěvků v blogu bez načtení příspěvky:
+Například vložená DbContext může být použita k selektivnímu přístupu do databáze, aby získala informace o souvisejících entitách bez jejich načtení. V následujícím příkladu se používá k získání počtu příspěvků na blogu bez načtení příspěvků:
 
 ``` csharp
 public class Blog
@@ -251,10 +261,12 @@ public class Post
     public Blog Blog { get; set; }
 }
 ```
-Všimněte si, že o této několik věcí:
-* Konstruktor je privátní, protože je vždy jen volá pomocí EF Core a existuje další veřejný konstruktor pro obecné použití.
-* Kód pomocí vloženého služby (to znamená, context) je obrany proti ho právě `null` zpracovat případy, ve kterém není EF Core vytvořit instanci.
-* Protože služby jsou uložena ve vlastnosti pro čtení a zápisu se resetuje při entity je připojený k nové instance kontextu.
+
+K tomu si můžete všimnout několika věcí:
+
+* Konstruktor je privátní, protože je někdy volán pouze pomocí EF Core a existuje další veřejný konstruktor pro obecné použití.
+* Kód, který používá vloženou službu (tj. kontext), je obrannou linií na `null` pro zpracování případů, kde EF Core nevytváří instanci.
+* Vzhledem k tomu, že je služba uložena ve vlastnosti pro čtení a zápis, bude resetována, když je entita připojena k nové instanci kontextu.
 
 > [!WARNING]  
-> Vkládání uvolněn objekt DbContext, jako je to často považuje za proti vzor od jeho páry v odstupu vaše typy entit přímo na EF Core. Pečlivě zvažte všechny možnosti před využitím vkládání služby následujícím způsobem.
+> Vložení DbContext takto se často považuje za antipattern, protože Couples typy entit přímo do EF Core. Před použitím injektáže služby jako takového zvažte pečlivě všechny možnosti.

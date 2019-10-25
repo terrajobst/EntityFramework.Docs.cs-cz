@@ -1,26 +1,27 @@
 ---
-title: Migrace s několika poskytovateli – EF Core
+title: Migrace s více zprostředkovateli – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/08/2017
-ms.openlocfilehash: 75c055221609679db3f00016b9cb44c6c8c6e473
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+uid: core/managing-schemas/migrations/providers
+ms.openlocfilehash: c9b1a2563ef548e592374f90a6242b0bd851bc98
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488774"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811955"
 ---
-<a name="migrations-with-multiple-providers"></a>Migrace s více poskytovatelů
-==================================
-[EF Core Tools] [ 1] pouze generování uživatelského rozhraní migrace pro aktivní zprostředkovatele. V některých případech však můžete chtít použít více než jednoho poskytovatele (třeba Microsoft SQL Server a SQLite) s vaší DbContext. Existují dva způsoby, jak o to postarají s migrací. Abyste mohli pro dvě sady migrace – jednu pro každého poskytovatele--nebo sloučení je jedno nastavení, která může pracovat na obojí.
+# <a name="migrations-with-multiple-providers"></a>Migrace s více zprostředkovateli
 
-<a name="two-migration-sets"></a>Dvě sady migrace
-------------------
-V první metodě generovat dvě migrace u každé změny modelu.
+[Nástroje pro EF Core][1] jsou jenom migrace uživatelského rozhraní pro aktivního poskytovatele. V některých případech však můžete chtít použít více než jednoho poskytovatele (například Microsoft SQL Server a SQLite) s vaším DbContext. Existují dva způsoby, jak to zvládnout s migracemi. Můžete udržovat dvě sady migrace – jeden pro každého poskytovatele – nebo je sloučit do jedné sady, která může fungovat na obou.
 
-Jeden ze způsobů, jak provést to je umístění jednotlivých sad migrace [v samostatném sestavení] [ 2] a ručně přepínat aktivní zprostředkovatel (a migrace sestavení) přidání dvě migrace.
+## <a name="two-migration-sets"></a>Dvě sady migrace
 
-Další možností, která usnadňuje práci s nástroji je vytvoření nového typu, který je odvozen od vaší DbContext a přepíše aktivní zprostředkovatele. Tento typ se používá při návrhu při přidání nebo použití migrace.
+V prvním přístupu vygenerujete pro každou změnu modelu dvě migrace.
+
+Jedním ze způsobů, jak to provést, je umístit každou sadu migrace [do samostatného sestavení][2] a ručně přepínat aktivní zprostředkovatele (a sestavení migrace) mezi přidáním těchto dvou migrací.
+
+Dalším způsobem, který usnadňuje práci s nástroji, je vytvořit nový typ, který je odvozený od vašeho DbContext a přepíše aktivního poskytovatele. Tento typ se používá v době návrhu při přidávání nebo aplikování migrace.
 
 ``` csharp
 class MySqliteDbContext : MyDbContext
@@ -31,27 +32,28 @@ class MySqliteDbContext : MyDbContext
 ```
 
 > [!NOTE]
-> Protože každá sada migrace používá vlastní typy DbContext, nevyžaduje tento přístup pomocí migrace samostatného sestavení.
+> Vzhledem k tomu, že každá sada migrace používá vlastní typy DbContext, tento přístup nevyžaduje použití samostatného sestavení migrace.
 
-Při přidávání nové migraci, určete typy kontextu.
+Při přidávání nové migrace zadejte typy kontextu.
 
 ``` powershell
 Add-Migration InitialCreate -Context MyDbContext -OutputDir Migrations\SqlServerMigrations
 Add-Migration InitialCreate -Context MySqliteDbContext -OutputDir Migrations\SqliteMigrations
 ```
+
 ``` Console
 dotnet ef migrations add InitialCreate --context MyDbContext --output-dir Migrations/SqlServerMigrations
 dotnet ef migrations add InitialCreate --context MySqliteDbContext --output-dir Migrations/SqliteMigrations
 ```
 
 > [!TIP]
-> Není nutné určit výstupní adresář pro další migrace, protože byly vytvořeny jako na stejné úrovni jako poslední.
+> Nemusíte určovat výstupní adresář pro následné migrace, protože jsou vytvořené na stejné úrovni jako poslední.
 
-<a name="one-migration-set"></a>Migrace jedné sady
------------------
-Pokud se vám s dvě sady migrace, můžete je ručně kombinovat do jediné sady, který lze použít na obou zprostředkovatele.
+## <a name="one-migration-set"></a>Jedna sada migrace
 
-Poznámky můžou existovat společně, protože zprostředkovatele ignoruje jakékoli poznámky, které ho nerozumí. Například to sloupec primárního klíče, který spolupracuje s Microsoft SQL Server a SQLite může vypadat takto.
+Pokud nechcete, aby se dvě sady migrace používaly, můžete je ručně zkombinovat do jedné sady, kterou je možné použít u obou zprostředkovatelů.
+
+Poznámky můžou existovat společně, protože poskytovatel ignoruje všechny anotace, které nerozumí. Například sloupec primárního klíče, který pracuje s Microsoft SQL Server i SQLite, může vypadat takto.
 
 ``` csharp
 Id = table.Column<int>(nullable: false)
@@ -60,7 +62,7 @@ Id = table.Column<int>(nullable: false)
     .Annotation("Sqlite:Autoincrement", true),
 ```
 
-Pokud operace lze použít pouze na jeden zprostředkovatel (nebo jinak jsou mezi poskytovatele), použijte `ActiveProvider` vlastnost zjistit, které poskytovatel aktivní.
+Pokud se operace dají použít jenom u jednoho poskytovatele (nebo se mezi poskytovateli liší), pomocí vlastnosti `ActiveProvider` sdělte, který poskytovatel je aktivní.
 
 ``` csharp
 if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
@@ -69,7 +71,6 @@ if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer"
         name: "EntityFrameworkHiLoSequence");
 }
 ```
-
 
   [1]: ../../miscellaneous/cli/index.md
   [2]: projects.md

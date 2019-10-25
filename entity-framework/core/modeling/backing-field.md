@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: c3ca8bb97992c192672e8c2f2040b0de029df68d
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 288440a4494117fe59d27187e24424c4d2fd44ab
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197478"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811873"
 ---
 # <a name="backing-fields"></a>Pomocná pole
 
@@ -51,16 +51,12 @@ Můžete nakonfigurovat, kdy EF používá pole nebo vlastnost. Podporované mo�
 
 V modelu můžete také vytvořit koncepční vlastnost, která nemá odpovídající vlastnost CLR v třídě entity, ale místo toho používá pole k uložení dat v entitě. To se liší od [vlastností stín](shadow-properties.md), kde jsou data uložená v sledování změn. To se obvykle používá, pokud třída entity používá metody k získání nebo nastavení hodnot.
 
-EF můžete zadat název pole v `Property(...)` rozhraní API. Pokud neexistuje žádná vlastnost se zadaným názvem, pak bude v EF Hledat pole.
+EF můžete zadat název pole v rozhraní `Property(...)` API. Pokud neexistuje žádná vlastnost se zadaným názvem, pak bude v EF Hledat pole.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldNoProperty.cs#Sample)]
 
-Můžete také zvolit, že chcete vlastnosti zadat jiný název než název pole. Tento název se pak použije při vytváření modelu, hlavně se použije pro název sloupce, který je namapovaný na v databázi.
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldConceptualProperty.cs#Sample)]
-
-Pokud třída entity neobsahuje žádnou vlastnost, lze použít `EF.Property(...)` metodu v dotazu LINQ pro odkaz na vlastnost, která je koncepčně součástí modelu.
+Pokud třída entity neobsahuje žádnou vlastnost, můžete použít metodu `EF.Property(...)` v dotazu LINQ pro odkazování na vlastnost, která je koncepčně součástí modelu.
 
 ``` csharp
-var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "Url"));
+var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));
 ```

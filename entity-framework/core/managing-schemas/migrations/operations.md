@@ -1,30 +1,29 @@
 ---
-title: Operace s vlastní migrací – EF Core
+title: Operace s vlastními migracemi – EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/07/2017
 uid: core/managing-schemas/migrations/operations
-ms.openlocfilehash: 93de6ee1b2eda1875188ace6eda299260fbcc1fe
-ms.sourcegitcommit: 082946dcaa1ee5174e692dbfe53adeed40609c6a
+ms.openlocfilehash: bd2bfdc24977a47eaf7a6756a88b758b563d818a
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51028080"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812042"
 ---
-<a name="custom-migrations-operations"></a>Operace vlastní migrace
-============================
-Rozhraní API MigrationBuilder lze provádět mnoho různých typů operací během migrace, ale je daleko od vyčerpávající. Rozhraní API je však také rozšiřitelný, umožňuje definovat vlastní operace. Existují dva způsoby, jak rozšířit rozhraní API: použití `Sql()` metodu, nebo tak, že definujete vlastní `MigrationOperation` objekty.
+# <a name="custom-migrations-operations"></a>Operace s vlastní migrací
 
-Pro ilustraci, Podívejme se na implementaci operace, která vytvoří uživatele databáze s využitím každý přístup. V našem migrace chceme umožnit zápis následující kód:
+Rozhraní MigrationBuilder API umožňuje provádět v průběhu migrace mnoho různých druhů operací, ale je to daleko od sebe vyčerpávající. Rozhraní API je ale také rozšiřitelné, což vám umožní definovat vaše vlastní operace. Existují dva způsoby, jak rozhraní API rozšiřuje: pomocí metody `Sql()`, nebo definováním vlastních objektů `MigrationOperation`.
+
+Pro ilustraci se podívejme na implementaci operace, která vytvoří uživatele databáze pomocí každého přístupu. V našich migracích chceme povolit zápis následující kód:
 
 ``` csharp
 migrationBuilder.CreateUser("SQLUser1", "Password");
 ```
 
-<a name="using-migrationbuildersql"></a>Pomocí MigrationBuilder.Sql()
-----------------------------
-Nejjednodušší způsob, jak implementovat vlastní operace se má definovat rozšiřující metodu, která volá `MigrationBuilder.Sql()`.
-Tady je příklad, který generuje příslušné příkazů jazyka Transact-SQL.
+## <a name="using-migrationbuildersql"></a>Použití MigrationBuilder. SQL ()
+
+Nejjednodušší způsob implementace vlastní operace je definovat metodu rozšíření, která volá `MigrationBuilder.Sql()`. Tady je příklad, který generuje odpovídající jazyk Transact-SQL.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -34,7 +33,7 @@ static MigrationBuilder CreateUser(
     => migrationBuilder.Sql($"CREATE USER {name} WITH PASSWORD '{password}';");
 ```
 
-Pokud vaše migrace potřebovat pro podporu více poskytovatelů pro databáze, můžete použít `MigrationBuilder.ActiveProvider` vlastnost. Tady je příklad podporuje Microsoft SQL Server využívající databázi PostgreSQL.
+Pokud vaše migrace potřebují podporovat více poskytovatelů databáze, můžete použít vlastnost `MigrationBuilder.ActiveProvider`. Tady je příklad podporující Microsoft SQL Server a PostgreSQL.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -57,11 +56,11 @@ static MigrationBuilder CreateUser(
 }
 ```
 
-Tento postup funguje jenom v případě znát každý zprostředkovatele kde se budou aplikovat vaše vlastní operace.
+Tento přístup funguje jenom v případě, že znáte každého poskytovatele, kde se vaše vlastní operace použije.
 
-<a name="using-a-migrationoperation"></a>Použití MigrationOperation
----------------------------
-Pokud chcete oddělit vlastní operace v SQL, můžete definovat vlastní `MigrationOperation` který ho zastupuje. Operace je pak předán zprostředkovatel tak může zjistit, správný příkaz SQL pro generování.
+## <a name="using-a-migrationoperation"></a>Použití MigrationOperation
+
+Chcete-li oddělit vlastní operaci z databáze SQL, můžete definovat vlastní `MigrationOperation` pro reprezentaci. Tato operace je pak předána poskytovateli, aby mohla určit vhodný SQL pro vygenerování.
 
 ``` csharp
 class CreateUserOperation : MigrationOperation
@@ -71,7 +70,7 @@ class CreateUserOperation : MigrationOperation
 }
 ```
 
-S tímto přístupem jenom potřebuje rozšiřující metoda pro přidání jednoho z těchto operací `MigrationBuilder.Operations`.
+Pomocí tohoto přístupu metoda rozšíření stačí k `MigrationBuilder.Operations`přidat jednu z těchto operací.
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -90,7 +89,7 @@ static MigrationBuilder CreateUser(
 }
 ```
 
-Tento přístup vyžaduje každý poskytovatel vědět, jak ke generování SQL pro tuto operaci v jejich `IMigrationsSqlGenerator` služby. Tady je příklad přepsání generátor SQL Server pro novou operaci zpracování.
+Tento přístup vyžaduje, aby každý zprostředkovatel znal, jak vygenerovat SQL pro tuto operaci ve své `IMigrationsSqlGenerator` službě. Tady je příklad přepsání generátoru SQL Server pro zpracování nové operace.
 
 ``` csharp
 class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator
@@ -135,7 +134,7 @@ class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator
 }
 ```
 
-Aktualizované nahradíte výchozí migrace sql generátoru service.
+Nahraďte výchozí migraci služby generátoru SQL pomocí aktualizované verze.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
