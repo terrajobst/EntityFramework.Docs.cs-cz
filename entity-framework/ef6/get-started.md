@@ -3,12 +3,13 @@ title: Začínáme s Entity Framework 6 – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
-ms.openlocfilehash: bf54879ea94e597dfeac3e4bd70571dad290dd9e
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+uid: ef6/get-started
+ms.openlocfilehash: 74ae347af3c386639631f28ccb2ddbe9f444953a
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181401"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655847"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Začínáme s Entity Framework 6
 
@@ -20,11 +21,11 @@ Tato příručka obsahuje kolekci odkazů na vybrané články k dokumentaci, n�
 
   V tomto článku se dozvíte, jak přidat Entity Framework k vašim aplikacím a pokud chcete použít návrháře EF, ujistěte se, že jste ho nainstalovali v aplikaci Visual Studio.
 
-* @no__t 0Creating model: Code First, Návrhář EF a pracovní postupy EF @ no__t-0
+* [Vytvoření modelu: Code First, Návrhář EF a pracovní postupy EF](~/ef6/modeling/index.md)
 
   Dáváte přednost určení modelu EF pro psaní kódu nebo polí kreslení a řádků?
 Chcete použít EF k mapování objektů na existující databázi, nebo chcete, aby byl EF vytvořen databáze přizpůsobená pro vaše objekty?
-Přečtěte si o dvou různých přístupech k používání EF6: Návrhář EF a Code First.
+Tady získáte informace o dvou různých přístupech k použití EF6: EF Designer a Code First.
 Ujistěte se, že provedete diskusi a sledujte rozdíl v videu.
 
 * [Práce s DbContext](~/ef6/fundamentals/working-with-dbcontext.md)
@@ -65,7 +66,7 @@ Ujistěte se, že provedete diskusi a sledujte rozdíl v videu.
   - [Definování dotazu](~/ef6/modeling/designer/advanced/defining-query.md) (rozšířené)
   - [Funkce vracející tabulku](~/ef6/modeling/designer/advanced/tvfs.md) (rozšířené)
 
-## <a name="other-resources"></a>Další prostředky
+## <a name="other-resources"></a>Další zdroje
   - [Asynchronní dotazování a ukládání](~/ef6/fundamentals/async.md)
   - [Datová vazba s WinForms](~/ef6/fundamentals/databinding/winforms.md)
   - [Vázání dat pomocí WPF](~/ef6/fundamentals/databinding/wpf.md)

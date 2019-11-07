@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 09/26/2018
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/how-query-works
-ms.openlocfilehash: bc085755f39b1288f092a8b2df892c1bf82a89f1
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: ba0d68469530e6272ffbb51946d7856122a261c7
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72186265"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656245"
 ---
 # <a name="how-queries-work"></a>Jak fungují dotazy
 
@@ -33,15 +33,16 @@ Následuje přehled procesu, pomocí kterého každý dotaz projde.
       * Pokud ano, bude vrácena existující entita <sup>(1)</sup> .
       * V takovém případě se vytvoří nová entita, která se vrátí.
 
-<sup>(1)</sup> žádné sledovací dotazy pomocí slabých odkazů udržují přehled o entitách, které už byly vráceny. Pokud předchozí výsledek se stejnou identitou přejde mimo rozsah a spustí se uvolňování paměti, můžete získat novou instanci entity.
+<sup>(1)</sup> žádné dotazy pro sledování nepoužívají slabé odkazy k udržení přehledu o entitách, které již byly vráceny. Pokud předchozí výsledek se stejnou identitou přejde mimo rozsah a spustí se uvolňování paměti, můžete získat novou instanci entity.
 
 ## <a name="when-queries-are-executed"></a>Při spuštění dotazů
 
 Při volání operátorů LINQ stačí sestavit reprezentace dotazu v paměti. Dotaz je odeslán do databáze pouze v případě, že jsou výsledky spotřebovány.
 
 Nejběžnější operace, které mají za následek odeslání dotazu do databáze, jsou tyto:
+
 * Iterace výsledků ve smyčce `for`
-* Použití operátoru, například `ToList`, `ToArray` `Single`, `Count`
+* Použití operátoru, jako je `ToList`, `ToArray`, `Single``Count`
 * Vazba výsledků dotazu na uživatelské rozhraní
 
 > [!WARNING]  

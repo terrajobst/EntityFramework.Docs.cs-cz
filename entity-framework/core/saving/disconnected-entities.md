@@ -5,12 +5,12 @@ ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 070f2ad396ec21858096c29413ac80bdf8547328
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 88c3fa8ea5b8246a932f5cf21e674bc7cc71c0ea
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197807"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656272"
 ---
 # <a name="disconnected-entities"></a>Odpojené entity
 
@@ -18,11 +18,13 @@ Instance DbContext bude automaticky sledovat entity vracené z databáze. Změny
 
 Někdy se ale entity dotazují pomocí jedné instance kontextu a pak se ukládají pomocí jiné instance. K tomu často dochází v případě "odpojených" scénářů, jako je například webová aplikace, ve které se tyto entity odesílají do klienta, které se odešlou do klienta, změnili, odeslali zpátky na server v žádosti a pak se uložil. V takovém případě musí druhá instance kontextu zjistit, jestli jsou entity nové (měly by být vložené) nebo existující (by se měly aktualizovat).
 
-> [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) na Githubu.
+<!-- markdownlint-disable MD028 -->
+> [!TIP]
+> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/) tohoto článku můžete zobrazit na GitHubu.
 
 > [!TIP]
 > EF Core může sledovat jenom jednu instanci libovolné entity s daným hodnotou primárního klíče. Nejlepším způsobem, jak se tomuto problému vyhnout, je použití krátkodobého kontextu pro každou jednotku, aby byl kontext spuštěný, a obsahuje entity, které jsou k němu připojené, ukládají tyto entity a pak je tento kontext vyřazený a zahozený.
+<!-- markdownlint-enable MD028 -->
 
 ## <a name="identifying-new-entities"></a>Identifikace nových entit
 
@@ -50,8 +52,9 @@ EF má však také vestavěný způsob, jak to provést pro libovolný typ entit
 ### <a name="with-other-keys"></a>S jinými klíči
 
 K identifikaci nových entit je potřeba nějaký jiný mechanismus, když se klíčové hodnoty negenerují automaticky. Existují dva obecné přístupy:
- * Dotaz na entitu
- * Předat příznak z klienta
+
+* Dotaz na entitu
+* Předat příznak z klienta
 
 Chcete-li zadat dotaz na entitu, stačí použít metodu Find:
 
@@ -74,11 +77,12 @@ Metoda aktualizace obvykle označí entitu pro aktualizaci, nikoli INSERT. Pokud
 > [!TIP]  
 > Toto chování bylo zavedeno v EF Core 2,0. V dřívějších verzích je vždycky nutné explicitně zvolit možnost Přidat nebo aktualizovat.
 
-Pokud entita nepoužívá automaticky generované klíče, musí se aplikace rozhodnout, jestli má být entita vložená nebo aktualizovaná: Příklad:
+Pokud entita nepoužívá automaticky generované klíče, musí se rozhodnout, zda má být entita vložena nebo aktualizována: například:
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
 Postup najdete tady:
+
 * Pokud funkce Find vrátí hodnotu null, databáze již neobsahuje blog s tímto ID, proto zavolejte metodu Add, kterou označíte pro vložení.
 * Pokud funkce Find vrátí entitu, pak v databázi existuje a kontext teď sleduje existující entitu.
   * Pak pomocí vlastností SetValue nastavíme hodnoty všech vlastností u této entity na ty, které pocházejí z klienta.

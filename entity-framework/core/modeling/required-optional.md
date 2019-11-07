@@ -4,27 +4,27 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ddaa0a54-9f43-4c34-aae3-f95c96c69842
 uid: core/modeling/required-optional
-ms.openlocfilehash: fd9e96e6f79965e63b07c21217edd004fd5c4d54
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 62b2b3f5a761c0aacece986ecd0b2dd2f958d048
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197851"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655653"
 ---
-# <a name="required-and-optional-properties"></a>Povinné a volitelné vlastnosti
+# <a name="required-and-optional-properties"></a>Požadované a volitelné vlastnosti
 
-Vlastnost je považována za volitelnou, pokud je platná pro její `null`zahrnutí. Pokud `null` není platná hodnota, která má být přiřazena vlastnosti, je považována za požadovanou vlastnost.
+Vlastnost je považována za volitelnou, pokud je platná pro, aby obsahovala `null`. Pokud `null` není platná hodnota, která má být přiřazena vlastnosti, považuje se za povinnou vlastnost.
 
 Při mapování na schéma relační databáze jsou požadované vlastnosti vytvořeny jako sloupce, které neumožňují hodnotu null, a volitelné vlastnosti jsou vytvořeny jako sloupce s možnou hodnotou null.
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence vlastnost, jejíž typ .NET může obsahovat hodnotu null, bude nakonfigurována jako volitelná, zatímco vlastnosti, jejichž typ .NET nesmí obsahovat hodnotu null, budou nakonfigurovány jako povinné. Například všechny vlastnosti s typy hodnot .NET (`int`, `decimal`, `bool`atd.) jsou konfigurovány podle potřeby a všechny vlastnosti s Nullable typy hodnot typu .NET (`int?`, `decimal?`, `bool?`atd.). nakonfigurováno jako volitelné.
+Podle konvence vlastnost, jejíž typ .NET může obsahovat hodnotu null, bude nakonfigurována jako volitelná, zatímco vlastnosti, jejichž typ .NET nesmí obsahovat hodnotu null, budou nakonfigurovány jako povinné. Například všechny vlastnosti s typy hodnot .NET (`int`, `decimal`, `bool`atd.) jsou nakonfigurovány jako povinné a všechny vlastnosti s Nullable typy hodnot (`int?`, `decimal?`, `bool?`atd.) jsou nakonfigurovány jako volitelné.
 
 C#8 zavádí novou funkci nazvanou [typ odkazu s možnou hodnotou null](/dotnet/csharp/tutorials/nullable-reference-types), která umožňuje odkazování na typy odkazů, které označují, zda jsou pro ně platné hodnoty null nebo ne. Tato funkce je ve výchozím nastavení zakázaná a v případě jejího povolení upraví chování EF Core následujícím způsobem:
 
-* Pokud jsou typy odkazů s možnou hodnotou null (výchozí), všechny vlastnosti s odkazy .NET se nakonfigurují jako volitelné podle konvence `string`(např.).
-* Pokud jsou povoleny typy odkazů s možnou hodnotou null, budou vlastnosti nakonfigurovány na základě C# hodnoty null jejich typu `string?` .NET: budou nakonfigurovány jako volitelné `string` , zatímco budou nakonfigurovány jako povinné.
+* Pokud jsou typy odkazů s možnou hodnotou null (výchozí), všechny vlastnosti s odkazy .NET se nakonfigurují jako volitelné podle konvence (např. `string`).
+* Pokud jsou povoleny typy odkazů s možnou hodnotou null, budou vlastnosti nakonfigurovány na základě C# hodnoty null jejich typu .net: `string?` budou konfigurovány jako volitelné, zatímco `string` budou konfigurovány jako povinné.
 
 Následující příklad znázorňuje typ entity s požadovanými a volitelnými vlastnostmi, přičemž odkazovaná funkce s možnou hodnotou null je zakázaná (výchozí) a povolená:
 
@@ -53,7 +53,7 @@ Vlastnost, která by byla volitelná konvencí, se dá nakonfigurovat tak, aby s
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Required.cs?highlight=14)]
 
-# <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api) 
+# <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Required.cs?highlight=11-13)]
 

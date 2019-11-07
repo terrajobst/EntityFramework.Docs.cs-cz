@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/teams
-ms.openlocfilehash: e6a1b86761a201cbcae34cced7e64f11df37a420
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 6c17c56277821159962884aef72d46c624442e20
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811983"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655548"
 ---
 # <a name="migrations-in-team-environments"></a>Migrace v týmových prostředích
 
@@ -19,11 +19,13 @@ Při práci s migracemi v týmových prostředích věnujte zvláštní pozornos
 
 Při sloučení migrace z ostatními týmu můžete v souboru snímku modelu Zobrazit konflikty. Pokud se obě změny netýkají, je sloučení triviální a můžou dvě migrace koexistovat. Například může dojít ke konfliktu při sloučení v konfiguraci typu entity zákazníka, která vypadá takto:
 
-    <<<<<<< Mine
-    b.Property<bool>("Deactivated");
-    =======
-    b.Property<int>("LoyaltyPoints");
-    >>>>>>> Theirs
+``` output
+<<<<<<< Mine
+b.Property<bool>("Deactivated");
+=======
+b.Property<int>("LoyaltyPoints");
+>>>>>>> Theirs
+```
 
 Vzhledem k tomu, že obě tyto vlastnosti musí existovat v konečném modelu, dokončete sloučení přidáním obou vlastností. V mnoha případech může systém správy verzí tyto změny automaticky sloučit.
 
@@ -38,11 +40,13 @@ V těchto případech je migrace a migrace společník vzájemně nezávislá. V
 
 Někdy při slučování modelu snímku modelu dochází ke skutečnému konfliktu. Například vaše společník může přejmenovat stejnou vlastnost.
 
-    <<<<<<< Mine
-    b.Property<string>("Username");
-    =======
-    b.Property<string>("Alias");
-    >>>>>>> Theirs
+``` output
+<<<<<<< Mine
+b.Property<string>("Username");
+=======
+b.Property<string>("Alias");
+>>>>>>> Theirs
+```
 
 Pokud se setkáte s tímto druhem konfliktu, vyřešte ho tím, že znovu vytvoříte migraci. Postupujte podle těchto kroků:
 

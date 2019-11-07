@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c807aa4c-7845-443d-b8d0-bfc9b42691a3
 uid: core/modeling/relational/tables
-ms.openlocfilehash: 62dce317b901bc862b3c7d20ed1d176805bb24dd
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 474c49aca4c65cd5d58b184b1f3c2d30e7abff84
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71196967"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656102"
 ---
 # <a name="table-mapping"></a>Mapování tabulek
 
@@ -20,7 +20,7 @@ Mapování tabulky určuje, která data tabulky by se měla dotazovat a Uložit 
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence se Každá entita nastaví tak, aby se namapovala na tabulku se stejným názvem, `DbSet<TEntity>` jako má vlastnost, která zpřístupňuje entitu v odvozeném kontextu. Pokud pro danou entitu nenízahrnuto,použijesenázevtřídy.`DbSet<TEntity>`
+Podle konvence se Každá entita nastaví tak, aby se namapovala na tabulku se stejným názvem, jako má vlastnost `DbSet<TEntity>`, která zpřístupňuje entitu v odvozeném kontextu. Pokud není pro danou entitu zahrnutá žádná `DbSet<TEntity>`, použije se název třídy.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
@@ -28,8 +28,7 @@ K nakonfigurování tabulky, na kterou je typ mapován, můžete použít datov�
 
 ``` csharp
 using System.ComponentModel.DataAnnotations.Schema;
-```
-``` csharp
+
 [Table("blogs")]
 public class Blog
 {
@@ -55,8 +54,7 @@ Rozhraní Fluent API můžete použít ke konfiguraci tabulky, na kterou se typ 
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
-```
-``` csharp
+
 class MyContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }
@@ -77,8 +75,4 @@ public class Blog
 
 Můžete také zadat schéma, do kterého tabulka patří.
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/TableAndSchema.cs?highlight=2)] -->
-``` csharp
-        modelBuilder.Entity<Blog>()
-            .ToTable("blogs", schema: "blogging");
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/TableAndSchema.cs?name=Table&highlight=2)]

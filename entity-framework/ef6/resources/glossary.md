@@ -1,81 +1,82 @@
 ---
-title: Entity Framework glosář - EF6
+title: Glosář Entity Framework – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 4e42e5870879524b814cecdc361e688d36f0180f
-ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
+uid: ef6/resources/glossary
+ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58131390"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656148"
 ---
-# <a name="entity-framework-glossary"></a>Entity Framework – glosář
-## <a name="code-first"></a>Kód nejprve
-Vytvoření modelu Entity Framework pomocí kódu. Model můžete cílit na existující databázi nebo novou databázi.
+# <a name="entity-framework-glossary"></a>Glosář Entity Framework
+## <a name="code-first"></a>Code First
+Vytvoření modelu Entity Framework pomocí kódu. Model může cílit na existující databázi nebo novou databázi.
 
-## <a name="context"></a>Kontext
-Třída, která představuje relaci s databází, umožňuje dotazování a uložit data. Kontext je odvozena z třídy DbContext nebo objektu ObjectContext.
+## <a name="context"></a>Souvislost
+Třída, která představuje relaci s databází a umožňuje dotazování a ukládání dat. Kontext je odvozen z třídy DbContext nebo ObjectContext.
 
 ## <a name="convention-code-first"></a>Konvence (Code First)
-Pravidlo, které používá Entity Framework k odvození tvar model z vaší třídy.
+Pravidlo, které Entity Framework používá k odvození tvaru vašeho modelu z vašich tříd.
 
-## <a name="database-first"></a>První databáze
-Vytvoření modelu Entity Framework, pomocí EF designeru, zaměřuje na existující databázi.
+## <a name="database-first"></a>Database First
+Vytvoření modelu Entity Framework pomocí návrháře EF, který cílí na stávající databázi.
 
-## <a name="eager-loading"></a>Předběžné načítání
-Vzor načítání souvisejících dat, kde dotaz pro jeden typ entity se také načtou související entity jako součást dotazu.
+## <a name="eager-loading"></a>Eager načítání
+Vzor načítání souvisejících dat, kde dotaz na jeden typ entity také načte související entity jako součást dotazu.
 
-## <a name="ef-designer"></a>EF designeru
-Vizuálního návrháře v sadě Visual Studio, která umožňuje vytvoření modelu Entity Framework pomocí polí a čáry.
+## <a name="ef-designer"></a>Návrhář EF
+Vizuální Návrhář v aplikaci Visual Studio, který umožňuje vytvořit Entity Framework model pomocí polí a čar.
 
 ## <a name="entity"></a>Entity
-Třída nebo objekt, který představuje data aplikací, jako jsou zákazníci, výrobky a objednávky.
+Třída nebo objekt reprezentující data aplikace, jako jsou například zákazníci, produkty a objednávky.
 
 ## <a name="entity-data-model"></a>Entity Data Model
-Model, který popisuje entit a vztahů mezi nimi. EF používá k popisu konceptuální model, proti kterému EDM vývojářské programy. EDM je založena na modelu relace Entity zavedené zotavení po havárii. Peter Chen. EDM byla původně vyvinuta primárním cílem stávají common data model napříč sada pro vývojáře a server technologií od Microsoftu. EDM slouží také jako součást protokolu OData.
+Model, který popisuje entity a vztahy mezi nimi. EF používá model EDM k popisu koncepčního modelu, proti kterému vývojářské programy. Model EDM sestaví na modelu vztahů mezi entitami, který zavádí Dr. Petra Chen. Model EDM byl původně vyvinut s primárním cílem, který se stane běžným datovým modelem v rámci sady technologií pro vývojáře a server od Microsoftu. Model EDM se používá také jako součást protokolu OData.
 
-## <a name="explicit-loading"></a>explicitní načtení
-Vzor načítání souvisejících dat, kde jsou načteny související objekty voláním rozhraní API.
+## <a name="explicit-loading"></a>Explicitní načítání
+Vzor načítání souvisejících dat v případě, že související objekty jsou načteny voláním rozhraní API.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
-Rozhraní API, které lze použít ke konfiguraci modelu Code First.
+Rozhraní API, které lze použít ke konfiguraci Code Firstho modelu.
 
 ## <a name="foreign-key-association"></a>Přidružení cizího klíče
-Přidružení mezi entitami, kde je vlastnost, která představuje klíč, cizí součástí třídy entity závislé. Vlastnost ID kategorie obsahuje například produktu.
+Přidružení mezi entitami, kde vlastnost reprezentující cizí klíč je součástí třídy závislé entity. Například produkt obsahuje vlastnost KódKategorie.
 
-## <a name="identifying-relationship"></a>Určení vztahu
-Vztah, kde primární klíč entity, objektu zabezpečení je součástí primárního klíče entity závislé. V tento druh vztahu závislé entity nemůže existovat bez instančního objektu entity.
+## <a name="identifying-relationship"></a>Identifikace vztahu
+Vztah, ve kterém je primární klíč hlavní entity součástí primárního klíče závislé entity. V tomto typu relace nemůže závislá entita existovat bez hlavní entity.
 
 ## <a name="independent-association"></a>Nezávislé přidružení
-Přidružení mezi entitami tam, kde není žádná vlastnost představující cizí klíč ve třídě závislé entity. Například třída produkt obsahuje vztah ke kategorii, ale žádná vlastnost ID kategorie. Entity Framework sleduje stav přidružení bez ohledu na jejich stav entit na koncích dva přidružení.
+Přidružení mezi entitami, kde neexistuje žádná vlastnost reprezentující cizí klíč ve třídě závislé entity. Například třída produktu obsahuje relaci ke kategorii, ale žádnou vlastnost KódKategorie. Entity Framework sleduje stav přidružení nezávisle na stavu entit na obou koncích přidružení.
 
-## <a name="lazy-loading"></a>Opožděné načtení
-Vzor načítání souvisejících dat, kde načteny související objekty jsou automaticky při přístupu k vlastnosti navigace.
+## <a name="lazy-loading"></a>Opožděné načítání
+Vzor načítání souvisejících dat, kde jsou související objekty automaticky načteny, když je k dispozici navigační vlastnost.
 
-## <a name="model-first"></a>První model
-Vytvoření modelu Entity Framework, pomocí EF designeru, který potom slouží k vytvoření nové databáze.
+## <a name="model-first"></a>Model First
+Vytvoření modelu Entity Framework pomocí návrháře EF, který je pak použit k vytvoření nové databáze.
 
 ## <a name="navigation-property"></a>Navigační vlastnost
-Vlastnosti entity, která odkazuje na jinou entitou. Například produkt obsahuje vlastnost navigace kategorie a kategorie obsahuje produkty navigační vlastnost.
+Vlastnost entity, která odkazuje na jinou entitu. Například produkt obsahuje navigační vlastnost kategorie a kategorie obsahuje navigační vlastnost Products.
 
 ## <a name="poco"></a>POCO
-Zkratka pro objekt CLR prostý staré. Jednoduché uživatelské třídu, která nemá žádné závislosti pomocí libovolné architektury. V rámci EF, třídu entity, která není odvozena od EntityObject, implementuje všechna rozhraní nebo představuje libovolné atributy definované v EF. Takové entity třídy, které jsou oddělené od rozhraní trvalost se také označují jako "trvalost ignorant".  
+Zkratka pro objekt CLR v prostém starém formátu. Jednoduchá třída uživatele, která nemá žádné závislosti s žádným rozhraním. V kontextu EF Třída entity, která není odvozena od objektů EntityObject, implementuje jakákoli rozhraní nebo přenáší žádné atributy definované v EF. Takové třídy entit, které jsou odděleny od rozhraní trvalosti, jsou také označovány jako "trvalé ignorování".  
 
 ## <a name="relationship-inverse"></a>Inverzní relace
-V opačném směru relace, například produktu. Kategorie a kategorie. Produkt.
+Opačný konec relace, například produkt. Kategorie a kategorie. Produktu.
 
-## <a name="self-tracking-entity"></a>Vlastní sledování entity
-Entity vytvořené ze šablony generování kódu, který pomáhá s N-Vrstvý vývoj.
+## <a name="self-tracking-entity"></a>Entita pro sledování sebe
+Entita vytvořená z šablony pro generování kódu, která pomáhá s vývojem na N-vrstvách.
 
-## <a name="table-per-concrete-type-tpc"></a>Tabulky na konkrétní typ (TPC)
-Metoda mapování dědičnosti, kde každý neabstraktního typu v hierarchii je mapována do samostatné tabulky v databázi.
+## <a name="table-per-concrete-type-tpc"></a>Pro konkrétní typ tabulky (TPC)
+Metoda mapování dědičnosti, kde jsou jednotlivé neabstraktní typy v hierarchii namapovány na samostatnou tabulku v databázi.
 
-## <a name="table-per-hierarchy-tph"></a>Za hierarchii tabulky (TPH)
-Metoda mapování dědičnosti, kde jsou všechny typy v hierarchii namapovány na stejnou tabulku v databázi. Diskriminátor sloupců, které se používá k určení, jaký typ každý řádek je přidružený.
+## <a name="table-per-hierarchy-tph"></a>Tabulka na hierarchii (TPH)
+Metoda mapování dědičnosti, kde jsou všechny typy v hierarchii namapovány na stejnou tabulku v databázi. Ke zjištění, ke kterému typu jsou přidruženy jednotlivé řádky, se používají sloupce diskriminátorů.
 
-## <a name="table-per-type-tpt"></a>Za typ tabulky (TPT)
-Metoda mapování dědičnosti, kde běžné vlastnosti všech typů v hierarchii jsou namapovány na stejnou tabulku v databázi, ale vlastnosti jedinečné pro jednotlivé typy jsou mapovány do samostatné tabulky.
+## <a name="table-per-type-tpt"></a>Tabulka podle typu (TPT)
+Metoda mapování dědičnosti, kde jsou společné vlastnosti všech typů v hierarchii namapovány na stejnou tabulku v databázi, ale vlastnosti jedinečné pro každý typ jsou namapovány na samostatnou tabulku.
 
-## <a name="type-discovery"></a>Typ zjišťování
-Proces identifikace typů, které by měla být součástí modelu Entity Framework.
+## <a name="type-discovery"></a>Zjišťování typů
+Proces určení typů, které by měly být součástí modelu Entity Framework.

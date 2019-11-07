@@ -1,32 +1,32 @@
 ---
-title: Založené na modelu konvencí - EF6
+title: Konvence založené na modelu – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
-ms.openlocfilehash: 80b722730b4ca6c9d00a8611b6c9027e8bc9fe61
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: c873e9a216bd9bd1934f2149ae6af602072f3608
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283704"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656171"
 ---
-# <a name="model-based-conventions"></a>Vytváření názvů založených na modelu
+# <a name="model-based-conventions"></a>Konvence založené na modelu
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Model na základě konvence jsou rozšířený způsob konfigurace založené na konvenci modelu. Pro většinu scénářů [vlastní kód prvního konvence rozhraní API na DbModelBuilder](~/ef6/modeling/code-first/conventions/custom.md) by měla sloužit. Znalost DbModelBuilder rozhraní API pro vytváření názvů se doporučuje před použitím modelu na základě konvence.  
+Konvence založené na modelu jsou pokročilou metodou konfigurace modelu založenou na konvencích. Pro většinu scénářů by se měla použít [rozhraní API pro vlastní konvence Code First v DbModelBuilder](~/ef6/modeling/code-first/conventions/custom.md) . Před použitím konvencí založených na modelech se doporučuje pochopit rozhraní DbModelBuilder API pro konvence.  
 
-Model na základě konvencí povolit vytvoření vliv na vlastnosti a tabulky, která nejdou konfigurovat pomocí standardní konvence vytváření názvů. Tyto příklady diskriminátoru sloupců v tabulce na hierarchii modely a nezávislé přidružení sloupce.  
+Konvence založené na modelu umožňují vytvářet konvence, které ovlivňují vlastnosti a tabulky, které se nedají konfigurovat pomocí standardních konvencí. Příklady jsou sloupce diskriminátorů v tabulce pro modely hierarchie a sloupce nezávislého přidružení.  
 
-## <a name="creating-a-convention"></a>Vytváření konvence   
+## <a name="creating-a-convention"></a>Vytvoření konvence   
 
-Prvním krokem při vytváření modelu na základě konvence je výběr, když v kanálu úmluvy musí být použité pro model. Existují dva typy modelu konvencí, konceptuální (C + MEZERNÍK) a Store (S-místa). Místo C konvence je použité pro model, který aplikace sestavena, že vytváření názvů S místo platí pro verze modelu, který představuje databázi a ovládací prvky věcí, například jak automaticky generované sloupce mají název.  
+Prvním krokem při vytváření konvence založené na modelu je výběr, kdy v kanálu je potřeba použít pro model konvenci. Existují dva typy konvencí modelu, koncepční (C-Space) a úložiště (S-Space). Konvence v jazyce C je aplikována na model, který aplikace sestaví, zatímco konvence S pro místo je použita na verzi modelu, která představuje databázi, a ovládací prvky, jako je například způsob pojmenování automaticky generovaných sloupců.  
 
-Vytváření modelu je třída, která rozšiřuje IConceptualModelConvention nebo IStoreModelConvention.  Tato rozhraní, obě přijmout obecný typ, který může být zadejte MetadataItem, který se používá k filtrování podle úmluvy platí pro datového typu.  
+Modelová konvence je třída, která rozšiřuje buď IConceptualModelConvention nebo IStoreModelConvention.  Tato rozhraní obě přijímají obecný typ, který může být typu MetadataItem, který slouží k filtrování datového typu, na který se konvence vztahuje.  
 
 ## <a name="adding-a-convention"></a>Přidání konvence   
 
-Stejným způsobem jako pravidelné vytváření třídy se přidají modelu konvencí. V **OnModelCreating** metodu, přidejte tato konvence do seznamu konvence pro model.  
+Konvence modelu jsou přidány stejným způsobem jako třídy regulárních konvencí. V metodě **OnModelCreating** přidejte konvenci do seznamu konvencí pro model.  
 
 ``` csharp
 using System.Data.Entity;
@@ -46,7 +46,7 @@ public class BlogContext : DbContext
 }
 ```  
 
-Konvence lze také přidat ve vztahu k jiné konvence pomocí Conventions.AddBefore\< \> nebo Conventions.AddAfter\< \> metody. Další informace o konvencích, pro které platí Entity Framework naleznete v části poznámky.  
+Konvenci je také možné přidat ve vztahu k jiné konvenci pomocí konvence. AddBefore\<\> nebo konvence. AddAfter\<\> metody. Další informace o konvencích, které Entity Framework použít, najdete v části poznámky.  
 
 ``` csharp
 protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -55,11 +55,11 @@ protected override void OnModelCreating(DbModelBuilder modelBuilder)
 }
 ```  
 
-## <a name="example-discriminator-model-convention"></a>Příklad: Diskriminátoru modelu konvence  
+## <a name="example-discriminator-model-convention"></a>Příklad: konvence modelu diskriminátoru  
 
-Přejmenování sloupců generovaných EF je příkladem něco, co není možné provádět pomocí jiné konvence rozhraní API.  To je naopak situace, kde je pomocí modelu konvencí je vaší jedinou možností.  
+Přejmenování sloupců generovaných EF je příkladem něčeho, co nemůžete dělat s jinými rozhraními API pro konvence.  Jedná se o situaci, kdy použití konvence modelu je jedinou možností.  
 
-Příklad toho, jak použít model podle úmluvy ke konfiguraci generované sloupce přizpůsobuje způsob, jakým jsou pojmenované sloupce diskriminátoru.  Níže je příklad jednoduchého modelu na základě úmluvy, který se přejmenuje každý sloupec v modelu s názvem "Diskriminátoru" na "EntityType".  To zahrnuje sloupce, že vývojář jednoduše pojmenované "Diskriminátoru". Protože generovaný sloupec je sloupec "Diskriminátoru" to je potřeba spustit v prostoru S.  
+Příklad použití konvence založené na modelu ke konfiguraci vygenerovaných sloupců je přizpůsobením způsobu, jakým jsou pojmenovány sloupce diskriminátoru.  Níže je uveden příklad jednoduché konvence založené na modelu, která přejmenuje každý sloupec v modelu s názvem "diskriminátor" na "EntityType".  To zahrnuje sloupce, které vývojář jednoduše nazývá "diskriminátor". Vzhledem k tomu, že sloupec "diskriminátor" je vygenerovaný sloupec, musí být spuštěn v prostoru S.  
 
 ``` csharp
 using System.Data.Entity;
@@ -79,11 +79,11 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 }
 ```  
 
-## <a name="example-general-ia-renaming-convention"></a>Příklad: Obecné IA přejmenování konvence   
+## <a name="example-general-ia-renaming-convention"></a>Příklad: konvence přejmenování obecné IA   
 
-Další složitější příklad modelu na základě konvencí v akci, je nakonfigurovat tak, že jsou názvy nezávislé přidružení (IAs).  Toto je případě, že se dají použít, protože služba ověřování v Internetu jsou generovány pomocí EF a nejsou k dispozici v modelu, s přístupem k rozhraní API DbModelBuilder modelu konvencí.  
+Dalším složitějším příkladem konvencí založených na modelu v akci je Konfigurace způsobu, jakým jsou pojmenovány nezávislé asociace (IAs).  Jedná se o situaci, kdy se používají konvence modelu, protože služba ověřování v Internetu je vygenerovaná v rámci modelu, ke kterému má přístup rozhraní DbModelBuilder API.  
 
-Když EF generuje IA, vytvoří se sloupec s názvem EntityType_KeyName. Například pro přidružení s názvem zákazníků s klíčový sloupec s názvem CustomerId vygeneruje sloupec s názvem Customer_CustomerId. Následující pásky konvence "\_" znak mimo název sloupce, který je generován pro i a.  
+Když EF generuje výjimku IA, vytvoří sloupec s názvem EntityType_KeyName. Například pro asociaci s názvem Customer se sloupcem klíč s názvem CustomerId by vygeneroval sloupec s názvem Customer_CustomerId. Následující konvence obchází znak "\_" mimo název sloupce, který je generován pro platformu IA.  
 
 ``` csharp
 using System.Data.Entity;
@@ -132,7 +132,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
     private void NormalizeForeignKeyProperties(ReadOnlyMetadataCollection<EdmProperty> properties)
     {
-        for (int i = 0; i \< properties.Count; ++i)
+        for (int i = 0; i < properties.Count; ++i)
         {
             int underscoreIndex = properties[i].Name.IndexOf('_');
             if (underscoreIndex > 0)
@@ -144,9 +144,9 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 }
 ```  
 
-## <a name="extending-existing-conventions"></a>Rozšíření stávající konvence   
+## <a name="extending-existing-conventions"></a>Rozšíření existujících konvencí   
 
-Pokud potřebujete napsat konvence, která se podobá konvence Entity Framework již platí pro váš model je vždy rozšířit této konvenci, abyste ho nemuseli znovu od začátku jeho přepsání.  Příkladem je nahraďte stávající Id odpovídající konvenci s vlastní.   Dodatečná výhoda pro přepsání klíče konvence je, že bude zavolána přepsané metody pouze v případě, že neexistuje žádný klíč nerozpoznal nebo explicitně nakonfigurovat. Seznam konvence, která používá Entity Framework je k dispozici tady: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
+Pokud potřebujete napsat konvenci, která je podobná jedné z konvencí, kterou Entity Framework už u vašeho modelu použít, můžete tuto úmluvu vždycky rozšíříte, abyste se vyhnuli nutnosti jejich přepisu od začátku.  Příkladem je nahrazení existující konvence pro porovnání ID vlastním.   Přidaná výhoda pro přepsání klíčové konvence je, že přepsaná metoda se volá jenom v případě, že už není zjištěný ani explicitně nakonfigurovaný klíč. Seznam konvencí, které používá Entity Framework, je k dispozici zde: [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  
 
 ``` csharp
 using System.Data.Entity;
@@ -191,7 +191,7 @@ public class CustomKeyDiscoveryConvention : KeyDiscoveryConvention
 }
 ```  
 
-Pak potřebujeme přidat naše nová konvence před existující klíče konvence. Po přidání CustomKeyDiscoveryConvention, můžeme odebrat IdKeyDiscoveryConvention.  Pokud jsme neměli odebrat existující IdKeyDiscoveryConvention Tato konvence by stále přednost konvenci zjišťování Id vzhledem k tomu, že je spuštěn jako první, ale v případě, pokud je nalezena žádná vlastnost "klíče", "id" konvence poběží.  Toto chování vidíme, protože každý konvence vidí modelu, která jsou aktualizovány předchozí konvence (nikoli na provoz na něm nezávisle a všechny je zkopírovat dohromady) tak, aby Pokud například předchozí konvence aktualizovat název sloupce tak, aby odpovídaly něco z zajímavé pro váš vlastní konvence (pokud dříve nebyla název zájmu) pak bude platit pro tento sloupec.  
+Pak musíme přidat naši novou konvenci před existující klíčovou smlouvou. Až přidáme CustomKeyDiscoveryConvention, můžeme IdKeyDiscoveryConvention odebrat.  Pokud jsme neodebrali stávající IdKeyDiscoveryConvention, Tato konvence by stále měla přednost před konvencí zjišťování ID, protože se spustí jako první, ale v případě, že se nenajde žádná vlastnost Key, se spustí konvence "ID".  Toto chování se zobrazuje, protože každá konvence prochází model aktualizovaný předchozí konvencí (místo toho, aby se nezávisle nepracoval), takže pokud například předchozí konvence aktualizovala název sloupce tak, aby odpovídala nějakému z Zajímá vás vaše vlastní konvence (Pokud před tím, než je název nezajímavá), použije se pro tento sloupec.  
 
 ``` csharp
 public class BlogContext : DbContext
@@ -209,4 +209,4 @@ public class BlogContext : DbContext
 
 ## <a name="notes"></a>Poznámky  
 
-Seznam smluv, které jsou aktuálně použité rozhraním Entity Framework je k dispozici v dokumentaci MSDN zde: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx ](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Tento seznam se načítají přímo z našeho zdrojového kódu.  Zdrojový kód pro Entity Framework 6 je k dispozici na [Githubu](https://github.com/aspnet/entityframework6/) a řadu konvencemi použitými rozhraním Entity Framework jsou dobré počáteční body pro vlastního modelu na základě konvence.  
+Seznam konvencí, které aktuálně používá Entity Framework, je k dispozici v dokumentaci MSDN: [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Tento seznam je načítán přímo z našeho zdrojového kódu.  Zdrojový kód pro Entity Framework 6 je k dispozici na [GitHubu](https://github.com/aspnet/entityframework6/) a mnohé z konvencí používaných v Entity Framework jsou dobré počáteční body pro vlastní konvence založené na modelu.  

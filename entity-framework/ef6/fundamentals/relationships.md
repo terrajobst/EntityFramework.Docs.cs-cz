@@ -1,41 +1,41 @@
 ---
-title: Relace, navigačních vlastností a cizí klíče - EF6
+title: Relace, navigační vlastnosti a cizí klíče – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 8292ae7af8d760240715854611d92ab340bf1ca7
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: cc7160f2d0ab7ac0c6009f820441c88590cacfaf
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319189"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655866"
 ---
-# <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigačních vlastností a cizí klíče
-Toto téma obsahuje základní informace o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje pokyny o tom, jak mapovat a manipulaci s relací.
+# <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigační vlastnosti a cizí klíče
+Toto téma poskytuje přehled o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje také pokyny k tomu, jak namapovat a manipulovat s relacemi.
 
 ## <a name="relationships-in-ef"></a>Vztahy v EF
 
-V relačních databázích jsou definovány relace (také nazývané přidružení) mezi tabulkami prostřednictvím cizí klíče. Cizí klíč (Cizíklíč) je sloupec nebo kombinace sloupců, který se používá k zahájení a vynucují odkaz mezi daty ve dvou tabulkách. Existují obecně tři typy vztahů: 1: 1, 1 n a many-to-many. Ve vztahu jednoho k několika je cizí klíč definovaný pro tabulku, která představuje řadu konci vztahu. Vztah mnoho mnoho zahrnuje definování třetí tabulka (označují se jako tabulku spojení nebo join), jejichž primární klíč se skládá z cizích klíčů z obou související tabulky. V relaci primární klíč slouží také jako cizí klíč a neexistuje žádný samostatný sloupec cizího klíče pro obě tabulky.
+V relačních databázích jsou relace (označované také jako asociace) mezi tabulkami definovány pomocí cizích klíčů. Cizí klíč (FK) je sloupec nebo kombinace sloupců, které se používají k vytvoření a vykonání propojení mezi daty ve dvou tabulkách. K dispozici jsou všeobecně tři typy vztahů: 1:1, 1: n a m:n. V relaci 1: n je cizí klíč definován v tabulce, která představuje mnoho konců relace. Relace m:n zahrnuje definování třetí tabulky (označované jako spojení nebo spojovací tabulka), jejíž primární klíč se skládá z cizích klíčů z obou souvisejících tabulek. V relaci 1:1 se primární klíč chová navíc jako cizí klíč a neexistuje žádný samostatný sloupec cizího klíče pro žádnou tabulku.
 
-Následující obrázek ukazuje dvě tabulky, které se účastní v vztah jeden mnoho. **Kurzu** tabulky je závislé tabulky, protože obsahuje **DepartmentID** sloupec, který odkazuje na **oddělení** tabulky.
+Následující obrázek znázorňuje dvě tabulky, které se účastní relace 1: n. Tabulka **kurzů** je závislá na tabulce, protože obsahuje sloupec **DepartmentID** , který ho propojuje s tabulkou **oddělení** .
 
-![Oddělení a kurzu tabulky](~/ef6/media/database2.png)
+![Tabulky oddělení a kurzu](~/ef6/media/database2.png)
 
-V Entity Framework entity souviset s jinými entitami, prostřednictvím přidružení nebo vztah. Každý vztah obsahuje dva elementy, které popisují typ entity a násobnosti typu (jedna, nula nebo jedna nebo řada) pro dvě entity, které v této relaci. Relace můžou řídit referenční omezení, která popisuje, jaké end v relaci je hlavní role a který je závislé role.
+V Entity Framework entita může souviset s jinými entitami prostřednictvím přidružení nebo vztahu. Každá relace obsahuje dva elementy end, které popisují typ entity a násobnost typu (jedna, nulová nebo jedna nebo mnoho) pro dvě entity v dané relaci. Vztah se může řídit referenčním omezením, které popisuje, který objekt end v relaci je role zabezpečení a která je závislá na roli.
 
-Vlastnosti navigace poskytují způsob, jak procházet přidružení mezi dvěma typy entit. Každý objekt může mít navigační vlastnost pro každý vztah, ve kterém se podílí. Navigační vlastnosti umožňují přejít a spravovat vztahy v obou směrech, vrací buď odkaz na objekt (Pokud je násobnost buď jeden nebo nula nebo jedna) nebo celé kolekci (Pokud je násobnost mnoho). Také můžete mít jednosměrné navigace, v takovém případě můžete definovat vlastnost navigace na pouze jeden z typů, které se účastní vztahu a ne na obě.
+Navigační vlastnosti poskytují způsob, jak procházet přidružení mezi dvěma typy entit. Každý objekt může mít navigační vlastnost pro každý vztah, ve kterém se účastní. Navigační vlastnosti umožňují procházet a spravovat relace v obou směrech, vracet buď Referenční objekt (Pokud je násobnost buď jedna, nebo nula, nebo-jedna), nebo kolekci (Pokud je násobnost mnoho). Můžete se také rozhodnout, že máte jednosměrnou navigaci, v takovém případě můžete definovat vlastnost navigace pouze v jednom z typů, které jsou součástí relace, a nikoli v obou.
 
-Doporučuje se pro vložení vlastností do modelu, které mapují na cizí klíče v databázi. Pomocí vlastnosti cizího klíče zahrnuty můžete vytvořit nebo změnit úpravou hodnoty cizího klíče na závislý objekt relace. Tento druh přidružení se nazývá přidružení cizího klíče. Použití cizího klíče je ještě více základní, pokud pracujete s odpojené entity. Poznámka:, že pracujete s 1: 1 nebo 1 na 0.. vztahy 1, neexistuje žádný samostatný sloupec cizího klíče, vlastnost primárního klíče funguje jako cizí klíč a je vždy součástí modelu.
+Doporučuje se zahrnout vlastnosti v modelu, který se mapuje na cizí klíče v databázi. S využitím vlastností cizího klíče můžete vytvořit nebo změnit relaci úpravou hodnoty cizího klíče u závislého objektu. Tento druh asociace se nazývá přidružení cizího klíče. Použití cizích klíčů je ještě důležitější při práci s odpojenými entitami. Pamatujte na to, že při práci s 1-to-1 nebo 1-to-0.. 1 relace neexistují žádné samostatné sloupce cizího klíče, vlastnost Primary key funguje jako cizí klíč a je vždy zahrnutá v modelu.
 
-Pokud sloupce cizího klíče nejsou součástí modelu, informací o přidružení je spravovat jako nezávislý objekt. Relace jsou sledovány pomocí odkazů na objekty místo vlastnosti cizího klíče. Tento typ přidružení se nazývá *nezávislé přidružení*. Nejběžnější způsob, jak upravit *nezávislé přidružení* je upravit navigační vlastnosti, které jsou generovány pro každou entitu, která se účastní asociace.
+Pokud se sloupce cizího klíče v modelu nezahrnují, jsou informace o přidružení spravované jako nezávislé objekty. Relace jsou sledovány prostřednictvím odkazů na objekty namísto vlastností cizích klíčů. Tento typ přidružení se nazývá *nezávislé přidružení*. Nejběžnější způsob, jak upravit *nezávislé přidružení* , je upravit vlastnosti navigace, které jsou generovány pro každou entitu, která se účastní přidružení.
 
-Můžete použít jeden nebo oba typy přidružení v modelu. Ale pokud budete mít čistě many-to-many vztah, který je připojen pomocí připojení k tabulce, která obsahuje pouze cizí klíče, použije EF nezávislé přidružení ke správě takové vztah mnoho mnoho.   
+V modelu se můžete rozhodnout použít jeden nebo oba typy přidružení. Pokud máte ale k dispozici čistě relaci m:n, která je propojená tabulkou JOIN obsahující pouze cizí klíče, EF použije nezávislé přidružení ke správě takového vztahu m:n.   
 
-Následující obrázek ukazuje koncepční model, který byl vytvořen s Entity Framework Designer. Model obsahuje dvě entity, které jsou součástí vztah jeden mnoho. Oba entity mají navigační vlastnosti. **Kurz** depend entitou a má **DepartmentID** cizí definovanou klíčovou vlastnost.
+Následující obrázek znázorňuje koncepční model, který byl vytvořen pomocí Entity Framework Designer. Model obsahuje dvě entity, které se účastní relace 1: n. Obě entity mají navigační vlastnosti. **Kurz** je závislá entita a má definovanou vlastnost cizího klíče **DepartmentID** .
 
-![Oddělení a kurzu tabulky s navigační vlastnosti](~/ef6/media/relationshipefdesigner.png)
+![Tabulky oddělení a kurzu s navigačními vlastnostmi](~/ef6/media/relationshipefdesigner.png)
 
-Následující fragment kódu ukazuje stejný model, který byl vytvořen s Code First.
+Následující fragment kódu ukazuje stejný model, který byl vytvořen pomocí Code First.
 
 ``` csharp
 public class Course
@@ -62,55 +62,55 @@ public class Department
 }
 ```
 
-## <a name="configuring-or-mapping-relationships"></a>Konfigurace nebo mapování relací
+## <a name="configuring-or-mapping-relationships"></a>Konfigurace nebo mapování vztahů
 
-Zbytek této stránce se zaměřuje na přístup k a manipulaci s daty pomocí relací. Informace o nastavení relace v modelu získáte na následujících stránkách.
+Zbývající část této stránky popisuje, jak získat přístup k datům a manipulovat s nimi pomocí relací. Informace o nastavení vztahů v modelu najdete na následujících stránkách.
 
--   Konfiguraci relace v Code First najdete v tématu [anotacemi dat](~/ef6/modeling/code-first/data-annotations.md) a [rozhraní Fluent API – vztahy](~/ef6/modeling/code-first/fluent/relationships.md).
--   Konfigurace relace pomocí Entity Framework Designer, naleznete v tématu [vztahy s EF designeru](~/ef6/modeling/designer/relationships.md).
+-   Pokud chcete nakonfigurovat vztahy v Code First, přečtěte si téma [datové poznámky](~/ef6/modeling/code-first/data-annotations.md) a [Fluent API – vztahy](~/ef6/modeling/code-first/fluent/relationships.md).
+-   Chcete-li nakonfigurovat relace pomocí Entity Framework Designer, přečtěte si téma [relace s návrhářem EF](~/ef6/modeling/designer/relationships.md).
 
-## <a name="creating-and-modifying-relationships"></a>Vytvoření a úprava relací
+## <a name="creating-and-modifying-relationships"></a>Vytváření a úpravy relací
 
-V *přidružení cizího klíče*, když změníte vztah stavu závislý objekt s `EntityState.Unchanged` stav se změní na `EntityState.Modified`. Ve vztahu k nezávislé změny vztahů neaktualizuje stav objektu závislý.
+Při *přidružení cizího klíče*při změně vztahu se stav závislého objektu se stavem `EntityState.Unchanged` změní na `EntityState.Modified`. V nezávislém vztahu změna vztahu neaktualizuje stav závislého objektu.
 
-Následující příklady ukazují, jak pomocí vlastnosti cizího klíče a navigačních vlastností můžete přidružit souvisejících objektů. Přidružení cizího klíče můžete pomocí některé z metod můžete změnit, vytvořit nebo upravit relace. S nezávislé přidružení nelze použít vlastnost cizího klíče.
+Následující příklady ukazují, jak použít vlastnosti cizího klíče a navigační vlastnosti k přidružení souvisejících objektů. Pomocí přidružení cizího klíče můžete pomocí obou metod změnit, vytvořit nebo upravit relace. U nezávislých přidružení nelze použít vlastnost cizího klíče.
 
-- Přiřazením novou hodnotu pro vlastnost cizího klíče, jako v následujícím příkladu.  
+- Přiřazením nové hodnoty k vlastnosti cizího klíče, jak je uvedeno v následujícím příkladu.  
   ``` csharp
   course.DepartmentID = newCourse.DepartmentID;
   ```
 
-- Následující kód odebere relace nastavením cizího klíče na **null**. Všimněte si, že vlastnost cizího klíče musí být s možnou hodnotou Null.  
+- Následující kód odstraní relaci nastavením cizího klíče na **hodnotu null**. Všimněte si, že vlastnost cizího klíče musí mít hodnotu null.  
   ``` csharp
   course.DepartmentID = null;
   ```
 
   >[!NOTE]
-  > Pokud odkaz je ve stavu přidáno (v tomto příkladu kurzu objektu), odkaz na vlastnost navigace se nebudou synchronizovat s klíčovými hodnotami nový objekt dokud je volána metoda SaveChanges. Synchronizace nebude fungovat, protože kontext objektu neobsahuje trvalé klíče pro přidání objektů, dokud se uloží. Pokud potřebujete nové objekty, které jsou plně synchronizována v co nejdříve nastavit relace, použijte jednu z následujících methods.*
+  > Pokud je odkaz v přidaném stavu (v tomto příkladu je to objekt kurzu), navigační vlastnost odkazu nebude synchronizována s hodnotami klíče nového objektu, dokud není voláno SaveChanges. K synchronizaci nedochází, protože kontext objektu neobsahuje trvalé klíče pro přidané objekty, dokud nebudou uloženy. Pokud je nutné, aby byly nové objekty plně synchronizovány, jakmile nastavíte relaci, použijte jednu z následujících metod. *
 
-- Po přiřazení nového objektu pro navigační vlastnost. Následující kód vytvoří vztah mezi kurz a `department`. Pokud objekty jsou připojené ke kontextu, `course` je taky přidaný ke `department.Courses` kolekce a odpovídající cizího klíče na vlastnost `course` objektu je nastavena na hodnotu klíče oddělení.  
+- Přiřazením nového objektu navigační vlastnosti. Následující kód vytvoří relaci mezi kurzem a `department`. Pokud jsou objekty připojeny k tomuto kontextu, `course` je také přidána do kolekce `department.Courses` a odpovídající vlastnost cizího klíče objektu `course` je nastavena na hodnotu klíčové vlastnosti oddělení.  
   ``` csharp
   course.Department = department;
   ```
 
-- Pokud chcete odstranit vztah, nastavte vlastnost navigace na `null`. Pokud pracujete se sadou Entity Framework, která je založena na rozhraní .NET 4.0, element end musí být načteny, než se nastaví na hodnotu null. Příklad:   
+- Pokud chcete relaci odstranit, nastavte vlastnost navigace na `null`. Pokud pracujete se Entity Framework, který je založen na rozhraní .NET 4,0, je nutné před nastavením na hodnotu null načíst související konec. Příklad:   
   ``` csharp
   context.Entry(course).Reference(c => c.Department).Load();
   course.Department = null;
   ```
 
-  Od verze Entity Framework 5.0, založené na rozhraní .NET 4.5, můžete nastavit vztah na hodnotu null bez načtení element end. Můžete také nastavit aktuální hodnotu na hodnotu null, následujícím způsobem.   
+  Počínaje Entity Framework 5,0, která je založena na rozhraní .NET 4,5, můžete nastavit relaci na hodnotu null bez načtení souvisejícího konce. Pomocí následující metody můžete také nastavit aktuální hodnotu null.   
   ``` csharp
   context.Entry(course).Reference(c => c.Department).CurrentValue = null;
   ```
 
-- Odstraněním nebo přidávání objektů v kolekci entit. Například můžete přidat objekt typu `Course` k `department.Courses` kolekce. Tato operace vytvoří vztah mezi konkrétní **kurzu** a konkrétní `department`. Pokud objekty jsou připojené ke kontextu, odkaz na oddělení a vlastnost cizího klíče na **kurzu** objektu se nastaví na příslušné `department`.  
+- Odstraněním nebo přidáním objektu v kolekci entit. Například můžete přidat objekt typu `Course` do kolekce `department.Courses`. Tato operace vytvoří vztah mezi konkrétním **kurzem** a konkrétním `department`. Pokud jsou objekty připojeny k kontextu, odkaz na oddělení a vlastnost cizího klíče v objektu **Course** budou nastaveny na příslušné `department`.  
   ``` csharp
   department.Courses.Add(newCourse);
   ```
 
-- S použitím `ChangeRelationshipState` metodu, která změní stav zadaného vztah mezi dva objekty entity. Tato metoda se nejčastěji používá při práci s N-vrstvé aplikace a *nezávislé přidružení* (jej nelze použít s přidružení cizího klíče). Také, aby používali tuto metodu je třeba vyřadit dolů na `ObjectContext`, jak je znázorněno v následujícím příkladu.  
-V následujícím příkladu je many-to-many vztah mezi Instruktoři a kurzy. Volání `ChangeRelationshipState` metoda a předávání `EntityState.Added` parametr, umožňuje `SchoolContext` vědět, že byla přidána vztahu mezi dvěma objekty:
+- Pomocí metody `ChangeRelationshipState` ke změně stavu zadaného vztahu mezi dvěma objekty entity. Tato metoda se nejčastěji používá při práci s N-vrstvými aplikacemi a *nezávislou asociací* (nedá se použít s přidružením cizího klíče). Chcete-li použít tuto metodu, musíte také vyřadit do `ObjectContext`, jak je znázorněno v následujícím příkladu.  
+V následujícím příkladu existuje vztah n:n mezi instruktory a kurzy. Volání metody `ChangeRelationshipState` a předání parametru `EntityState.Added`, umožňuje `SchoolContext`, že mezi dvěma objekty bylo přidáno relaci:
   ``` csharp
 
   ((IObjectContextAdapter)context).ObjectContext.
@@ -118,7 +118,7 @@ V následujícím příkladu je many-to-many vztah mezi Instruktoři a kurzy. Vo
     ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
   ```
 
-  Všimněte si, že pokud aktualizujete (nikoli pouze přidáním) vztahu, musíte odstranit staré relace po přidání nové:
+  Všimněte si, že pokud aktualizujete (nestačí jenom přidávat) relaci, musíte po přidání nového vztahu odstranit původní relaci:
 
   ``` csharp
   ((IObjectContextAdapter)context).ObjectContext.
@@ -126,11 +126,11 @@ V následujícím příkladu je many-to-many vztah mezi Instruktoři a kurzy. Vo
     ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
   ```
 
-## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>Synchronizace změn mezi cizí klíče a vlastnosti navigace
+## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>Synchronizace změn mezi cizími klíči a navigačními vlastnostmi
 
-Při změně vztah mezi objekty pomocí jedné z metod popsaných výše připojit ke kontextu Entity Framework je potřeba udržovat synchronizované cizí klíče, odkazy a kolekce. Entity Framework automaticky spravuje této synchronizace (označované také jako relace opravit) pro POCO entity s proxy servery. Další informace najdete v tématu [práce s proxy](~/ef6/fundamentals/proxies.md).
+Když změníte vztah objektů připojených k kontextu pomocí jedné z výše popsaných metod, Entity Framework musí udržovat cizí klíče, odkazy a kolekce synchronizované. Entity Framework automaticky spravuje tuto synchronizaci (označovanou také jako oprava relace) pro entity POCO s proxy servery. Další informace najdete v tématu [práce se servery proxy](~/ef6/fundamentals/proxies.md).
 
-Pokud používáte entity POCO bez proxy servery, je třeba Ujistěte se, že **metoda DetectChanges** metoda je volána k synchronizaci souvisejících objektů, které v kontextu. Všimněte si, který automaticky aktivuje následující rozhraní API **metoda DetectChanges** volání.
+Pokud používáte entity POCO bez proxy, je nutné zajistit, aby byla volána metoda **DetectChanges** pro synchronizaci souvisejících objektů v kontextu. Všimněte si, že následující rozhraní API automaticky aktivují volání **DetectChanges** .
 
 -   `DbSet.Add`
 -   `DbSet.AddRange`
@@ -143,14 +143,14 @@ Pokud používáte entity POCO bez proxy servery, je třeba Ujistěte se, že **
 -   `DbContext.GetValidationErrors`
 -   `DbContext.Entry`
 -   `DbChangeTracker.Entries`
--   Provádění LINQ dotazovat `DbSet`
+-   Provádění dotazu LINQ na `DbSet`
 
-## <a name="loading-related-objects"></a>Načítají se související objekty
+## <a name="loading-related-objects"></a>Načítání souvisejících objektů
 
-V rozhraní Entity Framework běžně používají navigační vlastnosti pro načtení entit, které se vztahují k vrácenou entitu definovanou v přidružení. Další informace najdete v tématu [načítání související objekty](~/ef6/querying/related-data.md).
+V Entity Framework běžně používáte navigační vlastnosti k načtení entit, které souvisejí s vrácenou entitou podle definovaného přidružení. Další informace najdete v tématu [načítání souvisejících objektů](~/ef6/querying/related-data.md).
 
 > [!NOTE]
-> V přidružení cizího klíče při načtení související konec závislý objekt objekt v relaci se načtou podle hodnoty cizího klíče, který je aktuálně v paměti závislé:
+> Při přidružení cizího klíče při načtení souvisejícího konce závislého objektu se načte související objekt na základě hodnoty cizího klíče závislé na, který je aktuálně v paměti:
 
 ``` csharp
     // Get the course where currently DepartmentID = 2.
@@ -164,16 +164,16 @@ V rozhraní Entity Framework běžně používají navigační vlastnosti pro na
     context.Entry(course).Reference(c => c.Department).Load();
 ```
 
-V nezávislých přidružení je dotazován související konec závislý objekt podle hodnoty cizího klíče, který je aktuálně v databázi. Nicméně pokud relace byla změněna a odkaz na vlastnost závislý objekt odkazuje na jiný objekt, který je načten v kontextu objektu, Entity Framework se pokusíme vytvořit relaci jako je definován na straně klienta.
+V nezávislém přidružení je související konec závislého objektu dotazován na základě hodnoty cizího klíče, který je aktuálně v databázi. Pokud se však změnil vztah a vlastnost reference na závislém objektu odkazuje na jiný objekt zabezpečení, který je načten v kontextu objektu, Entity Framework se pokusí vytvořit relaci, která je definována v klientovi.
 
 ## <a name="managing-concurrency"></a>Správa souběžnosti
 
-V cizím klíči a nezávislé přidružení kontrolách souběžnosti se na základě klíče entit a jiné vlastnosti entity, které jsou definovány v modelu. Při použití k vytvoření modelu EF designeru, nastavte `ConcurrencyMode` atribut **oprava** k určení, že vlastnost by měla sloužit k souběžnosti. Při použití Code First definovat model, použijte `ConcurrencyCheck` Poznámka u vlastnosti, které mají být vráceny pro souběžnost. Při práci se službou Code First také můžete použít `TimeStamp` poznámky k určení, že vlastnost by měla sloužit k souběžnosti. Může mít pouze jednu vlastnost časového razítka v dané třídě. Tato vlastnost mapy kódu nejprve neumožňující hodnotu pole v databázi.
+V cizím i nezávislém přidružení jsou kontroly souběžnosti založeny na klíčích entit a dalších vlastnostech entit, které jsou definovány v modelu. Při použití návrháře EF k vytvoření modelu nastavte atribut `ConcurrencyMode` na **pevnou** , aby určoval, že by měla být vlastnost kontrolována pro souběžnost. Při použití Code First k definování modelu použijte anotaci `ConcurrencyCheck` u vlastností, u kterých chcete zkontrolovat souběžnost. Při práci s Code First lze také pomocí anotace `TimeStamp` určit, zda má být vlastnost pro souběžnost kontrolována. V dané třídě může být pouze jedna vlastnost časového razítka. Code First mapuje tuto vlastnost na pole bez hodnoty null v databázi.
 
-Doporučujeme vám, že vždy používáte přidružení cizího klíče při práci s entitami, které jsou součástí Kontrola souběžnosti a řešení.
+Při práci s entitami, které se účastní kontroly souběžnosti a řešení, doporučujeme vždy používat přidružení cizího klíče.
 
 Další informace najdete v tématu [zpracování konfliktů souběžnosti](~/ef6/saving/concurrency.md).
 
 ## <a name="working-with-overlapping-keys"></a>Práce s překrývajícími se klíči
 
-Překrývající se klíče jsou složené klíče, kde některé vlastnosti v klíči jsou taky součástí jiný klíč v dané entitě. Překrývající se klíč nemůže mít v nezávislých přidružení. Chcete-li změnit přidružení cizího klíče, který obsahuje překrývajícími se klíči, doporučujeme proto upravovat hodnoty cizího klíče místo použití odkazy na objekty.
+Překrývající se klíče jsou složené klíče, kde některé vlastnosti v klíči jsou také součástí jiného klíče v entitě. Nemůžete mít překrývající se klíč v nezávislém přidružení. Chcete-li změnit přidružení cizího klíče, které obsahuje překrývající se klíče, doporučujeme místo použití odkazů na objekty upravovat hodnoty cizích klíčů.

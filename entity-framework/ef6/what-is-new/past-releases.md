@@ -3,12 +3,13 @@ title: Minulé verze Entity Framework – EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 478dec6b2401efd554e84a231fe78e71dcbf5771
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+uid: ef6/what-is-new/past-releases
+ms.openlocfilehash: fada7740453cd9a55a1d0069236efcecbd9aa314
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182105"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656143"
 ---
 # <a name="past-releases-of-entity-framework"></a>Minulé verze Entity Framework
 
@@ -50,15 +51,15 @@ Tady je stručný seznam nejdůležitějších změn, které mají vliv na modul
 - Migruje. exe teď podporuje-možnost skriptu [#240](https://github.com/aspnet/EntityFramework6/issues/240)
 - EF6 může nyní pracovat s hodnotami klíčů generovanými sekvencí v SQL Server [#165](https://github.com/aspnet/EntityFramework6/issues/165)
 - Aktualizace seznamu přechodných chyb pro SQL Azure strategii provádění [#83](https://github.com/aspnet/EntityFramework6/issues/83)
-- Problém Opakované pokusy dotazů nebo příkazů SQL selžou s "rozhraní SqlParameter je již obsaženo v jiném SqlParameterCollection" [#81](https://github.com/aspnet/EntityFramework6/issues/81)
-- Problém Vyhodnocování DbQuery. ToString () je v ladicím programu často vyprší [#73](https://github.com/aspnet/EntityFramework6/issues/73)
+- Chyba: opakované pokusy dotazů nebo příkazů SQL selžou s "rozhraní SqlParameter je již obsaženo v jiném SqlParameterCollection" [#81](https://github.com/aspnet/EntityFramework6/issues/81)
+- Chyba: časový limit vyhodnocení DbQuery. ToString () v ladicím programu [#73](https://github.com/aspnet/EntityFramework6/issues/73)
 
 ## <a name="ef-613"></a>EF 6.1.3
 Modul runtime EF 6.1.3 byl vydaný do NuGet v říjnu od 2015.
 Tato verze obsahuje jenom opravy chyb s vysokou prioritou a regrese nahlášené ve verzi 6.1.2.
 Tyto opravy zahrnují:
 
-- Dotaz: Regrese v EF – 6.1.2: U vztahů mezi 1:1 a klauzulí let se zavedly vnější použití a složitější dotazy.
+- Dotaz: regrese v EF – 6.1.2: vnější použití zavedeno a složitější dotazy pro vztahy 1:1 a klauzuli let
 - TPT problém s skrytím vlastnosti základní třídy v zděděné třídě
 - DbMigration. SQL se nezdařila, pokud je slovo ' přejít ' obsaženo v textu
 - Vytvořit příznak kompatibility pro podporu UnionAll a Intersecting pro sloučení
@@ -79,7 +80,7 @@ Tato verze je převážně o opravách chyb. Také jsme přijali několik zajím
 ## <a name="ef-611"></a>EF 6.1.1
 Modul runtime EF 6.1.1 byl vydán do NuGet v červnu 2014.
 Tato verze obsahuje opravy pro problémy, ke kterým došlo v řadě lidí. Mimo jiné:
-- Návrháře Chyba při otevírání EF5 EDMX s desítkovou přesností v Návrháři EF6
+- Návrhář: Chyba při otevírání EF5 EDMX s desítkovou přesností v Návrháři EF6
 - Výchozí logika rozpoznávání instancí pro LocalDB nefunguje s SQL Server 2014
 
 ## <a name="ef-610"></a>EF 6.1.0
@@ -88,7 +89,7 @@ Tato dílčí aktualizace obsahuje velký počet nových funkcí:
 
 - **Konsolidace nástrojů** nabízí jednotný způsob, jak vytvořit nový model EF. Tato funkce [rozšiřuje průvodce model EDM (Entity Data Model) ADO.NET, aby podporoval vytváření Code Firstch modelů](~/ef6/modeling/code-first/workflows/existing-database.md), včetně zpětné analýzy z existující databáze. Tyto funkce byly dříve dostupné v kvalitě beta verze nástroje EF Power Tools.
 - **[Zpracování chyb potvrzení transakce](~/ef6/fundamentals/connection-resiliency/commit-failures.md)** poskytuje CommitFailureHandler, který využívá nově zavedenou schopnost zachytit transakční operace. CommitFailureHandler umožňuje automatické obnovení při selhání připojení a zároveň potvrzení transakce.
-- **[IndexAttribute](~/ef6/modeling/code-first/data-annotations.md)** umožňuje zadat indexy umístěním atributu `[Index]` u vlastnosti (nebo vlastností) ve vašem modelu Code First. Code First pak vytvoří odpovídající index v databázi.
+- **[IndexAttribute](~/ef6/modeling/code-first/data-annotations.md)** umožňuje zadat indexy umístěním atributu `[Index]` do vlastnosti (nebo vlastností) ve vašem modelu Code First. Code First pak vytvoří odpovídající index v databázi.
 - **Rozhraní API pro veřejné mapování** poskytuje přístup k informacím EF, které se týkají způsobu mapování vlastností a typů na sloupce a tabulky v databázi. V dřívějších verzích bylo toto rozhraní API interní.
 - **[Možnost konfigurovat zachycení prostřednictvím souboru app/web. config](~/ef6/fundamentals/configuring/config-file.md)** umožní, aby se přichytily k přidání bez opětovné kompilace aplikace.
 - **System. data. entity. Infrastructure. Intercept. DatabaseLogger**je nový zachytávací nástroj, který usnadňuje protokolování všech operací databáze do souboru. V kombinaci s předchozí funkcí vám to umožňuje snadno [Přepnout na protokolování operací databáze pro nasazenou aplikaci](~/ef6/fundamentals/configuring/config-file.md), aniž by bylo nutné znovu kompilovat.
@@ -125,7 +126,7 @@ Následující funkce fungují pro modely vytvořené pomocí Code First nebo n�
 - **Výčty, prostorové a lepší výkon na platformě .net 4,0** – přesunutím základních komponent, které se používají v .NET Framework do balíčku NuGet NuGet, teď můžeme nabízet podporu výčtu, prostorové datové typy a vylepšení výkonu z EF5 v .NET 4,0.
 - **Vylepšený výkon vyčíslitelné. obsahuje v dotazech LINQ**.
 - **Zvýšila se doba zahřívání (zobrazení generace)** , zejména pro velké modely.
-- **Připojitelná @no__t v množném čísle – služba jednotného přihlašování**
+- **Služba jednotného připojování &amp; v množném čísle**
 - Nyní jsou podporovány **vlastní implementace Equals nebo GetHashCode** na třídy entit.
 - **Negenerickými. AddRange/RemoveRange** poskytuje optimalizovaný způsob, jak přidat nebo odebrat více entit ze sady.
 - **DbChangeTracker. HasChanges** poskytuje snadný a efektivní způsob, jak zjistit, jestli jsou v databázi uložené nějaké nedokončené změny.
@@ -138,11 +139,11 @@ Následující funkce platí jenom pro Code First:
 - **[Idempotentní migrace skriptů](~/ef6/modeling/code-first/migrations/index.md)** vám umožní vygenerovat skript SQL, který může upgradovat databázi v libovolné verzi na nejnovější verzi.
 - **[Konfigurovatelná tabulka historie migrace](~/ef6/modeling/code-first/migrations/history-customization.md)** umožňuje přizpůsobit definici tabulky historie migrace. To je užitečné hlavně pro poskytovatele databází, kteří vyžadují příslušné datové typy atd. pro správné fungování tabulky historie migrace.
 - **Více kontextů na databázi** při použití migrace odebere předchozí omezení jednoho Code First modelu na databázi nebo když Code First automaticky vytvořila databáze za vás.
-- **[DbModelBuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** je nové rozhraní API Code First, které umožňuje nakonfigurovat výchozí schéma databáze pro model Code First na jednom místě. Dřív byl Code First výchozí schéma pevně zakódováno, aby &quot;dbo @ no__t-1 a jediný způsob konfigurace schématu, ke kterému byla tabulka patřila prostřednictvím rozhraní ToTable API.
+- **[DbModelBuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** je nové rozhraní API Code First, které umožňuje nakonfigurovat výchozí schéma databáze pro model Code First na jednom místě. Předchozí schéma Code First bylo pevně zakódováno pro &quot;dbo&quot; a jediným způsobem, jak nakonfigurovat schéma, ke kterému byla tabulka patřila prostřednictvím rozhraní API ToTable.
 - **DbModelBuilder. configurations. AddFromAssembly metoda** umožňuje snadno přidat všechny třídy konfigurace definované v sestavení při použití tříd konfigurace s rozhraním Code First Fluent API.
 - **[Vlastní operace migrace](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** umožňují přidat další operace, které se mají použít v rámci migrace na základě kódu.
 - **Výchozí úroveň izolace transakce se změní na READ_COMMITTED_SNAPSHOT** pro databáze vytvořené pomocí Code First, což umožňuje větší škálovatelnost a menší počet zablokování.
-- **Entity a komplexní typy teď můžou být nestedinside třídy**. |
+- **Entity a komplexní typy teď můžou být nestedinside třídy**.
 
 ## <a name="ef-50"></a>EF 5,0
 Modul runtime EF 5.0.0 byl vydán do NuGet v srpnu od 2012.
@@ -150,7 +151,7 @@ Tato verze zavádí některé nové funkce, včetně podpory výčtu, funkcí vr
 
 Entity Framework Designer v aplikaci Visual Studio 2012 také zavádí podporu pro více diagramů na model, vybarvení tvarů na návrhové ploše a dávkového importu uložených procedur.
 
-Tady je seznam obsahu, který jsme sepravili speciálně pro vydání EF 5.
+Tady je seznam obsahu, který jsme sepravili speciálně pro vydání EF 5:
 
 -   [Příspěvek k vydání EF 5](https://blogs.msdn.com/b/adonet/archive/2012/08/15/ef5-released.aspx)
 -   Nové funkce v EF5
@@ -164,7 +165,7 @@ Tady je seznam obsahu, který jsme sepravili speciálně pro vydání EF 5.
 -   Nastavení modelu
     -   [Vytvoření modelu](~/ef6/modeling/index.md)
     -   [Připojení a modely](~/ef6/fundamentals/configuring/connection-strings.md)
-    -   [Důležité informace o výkonu](~/ef6/fundamentals/performance/perf-whitepaper.md)
+    -   [Faktory ovlivňující výkon](~/ef6/fundamentals/performance/perf-whitepaper.md)
     -   [Práce s Microsoft SQL Azure](~/ef6/fundamentals/connection-resiliency/retry-logic.md)
     -   [Nastavení konfiguračního souboru](~/ef6/fundamentals/configuring/config-file.md)
     -   [Glosář](~/ef6/resources/glossary.md)
@@ -217,7 +218,7 @@ Tady je seznam obsahu, který jsme sepravili speciálně pro vydání EF 5.
 Modul runtime EF 4.3.1 byl vydaný do NuGet v únoru 2012 krátce po 4.3.0 EF.
 Tato oprava obsahuje některé opravy chyb pro vydání EF 4,3 a zavedla lepší podporu LocalDB pro zákazníky, kteří používají EF 4,3 s Visual Studio 2012.
 
-Tady je seznam obsahu, který je určený speciálně pro vydání EF 4.3.1. většina obsahu poskytovaného pro EF 4,1 se ale vztahuje i na EF 4,3.
+Tady je seznam obsahu, který jsme společně zadali pro vydání EF 4.3.1. většina obsahu poskytovaného pro EF 4,1 se ale vztahuje i na EF 4,3.
 
 -   [Blogový příspěvek k vydání EF 4.3.1](https://blogs.msdn.com/b/adonet/archive/2012/02/29/ef4-3-1-and-ef5-beta-1-available-on-nuget.aspx)
 
@@ -235,7 +236,7 @@ Modul runtime EF 4.2.0 byl vydán do NuGet v listopadu 2011.
 Tato verze zahrnuje opravy chyb pro vydání EF 4.1.1.
 Vzhledem k tomu, že tato verze obsahuje jenom opravy chyb, může se jednat o verzi produktu EF 4.1.2, ale zjistili jsme, že jsme přešli na 4,2, abychom mohli opustit číslo verze opravy založené na datu, které jsme použili ve verzích 4.1. x a přijali standard [sémantických verzí](https://semver.org) pro s. Správa verzí emantic.
 
-Tady je seznam obsahu, který je určený speciálně pro vydání EF 4,2. obsah poskytovaný pro EF 4,1 se přesto vztahuje i na EF 4,2.
+Tady je seznam obsahu, který je určený speciálně pro vydání EF 4,2. obsah poskytovaný pro EF 4,1 se přesto vztahuje i na EF 4,2:
 
 -   [Příspěvek k vydání EF 4,2](https://blogs.msdn.com/b/adonet/archive/2011/11/01/ef-4-2-released.aspx)
 -   [Návod Code First](https://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-code-first-walkthrough.aspx)

@@ -1,16 +1,16 @@
 ---
 title: Poskytovatel Azure Cosmos DB – práce s nestrukturovanými daty – EF Core
+description: Jak pracovat s Azure Cosmos DB nestrukturovanými daty pomocí Entity Framework Core
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 09/12/2019
-ms.assetid: b47d41b6-984f-419a-ab10-2ed3b95e3919
+ms.date: 11/05/2019
 uid: core/providers/cosmos/unstructured-data
-ms.openlocfilehash: 86bb0f7915c8a2561e7d5cd5dffc27474218a112
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 0bfccbfd3af6e209967004752b5a3947d644544b
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150814"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655520"
 ---
 # <a name="working-with-unstructured-data-in-ef-core-azure-cosmos-db-provider"></a>Práce s nestrukturovanými daty v EF Core poskytovateli Azure Cosmos DB
 
@@ -18,19 +18,18 @@ EF Core byla navržena tak, aby usnadnila práci s daty, která následují po s
 
 ## <a name="accessing-the-raw-json"></a>Přístup k nezpracovanému formátu JSON
 
-Je možné získat přístup k vlastnostem, které nejsou sledovány EF Core prostřednictvím speciální vlastnosti ve [stínovém stavu](../../modeling/shadow-properties.md) s názvem `"__jObject"` , který obsahuje `JObject` reprezentující data přijatá ze Storu a data, která budou uložena:
+Je možné získat přístup k vlastnostem, které nejsou sledovány EF Core prostřednictvím speciální vlastnosti ve [stínovém stavu](../../modeling/shadow-properties.md) s názvem `"__jObject"` obsahující `JObject` reprezentující data přijatá ze Storu a data, která budou uložena:
 
-[!code-csharp[Unmapped](../../../../samples/core/Cosmos/UnstructuredData/Sample.cs?highlight=21-23&name=Unmapped)]
+[!code-csharp[Unmapped](../../../../samples/core/Cosmos/UnstructuredData/Sample.cs?highlight=23,24&name=Unmapped)]
 
 ``` json
 {
     "Id": 1,
-    "Discriminator": "Order",
+    "PartitionKey": "1",
     "TrackingNumber": null,
-    "id": "Order|1",
+    "id": "1",
     "Address": {
         "ShipsToCity": "London",
-        "Discriminator": "StreetAddress",
         "ShipsToStreet": "221 B Baker St"
     },
     "_rid": "eLMaAK8TzkIBAAAAAAAAAA==",
@@ -43,24 +42,24 @@ Je možné získat přístup k vlastnostem, které nejsou sledovány EF Core pro
 ```
 
 > [!WARNING]
-> Tato `"__jObject"` vlastnost je součástí infrastruktury EF Core a měla by se používat jenom jako poslední způsob, protože v budoucích verzích může mít jiné chování.
+> Vlastnost `"__jObject"` je součástí infrastruktury EF Core a měla by se používat jenom jako poslední možnost, protože v budoucích verzích může mít jiné chování.
 
 > [!NOTE]
-> Změny v entitě přepíšou hodnoty uložené v `"__jObject"` průběhu. `SaveChanges`
+> Změny v entitě přepíšou hodnoty uložené v `"__jObject"` během `SaveChanges`.
 
 ## <a name="using-cosmosclient"></a>Použití CosmosClient
 
-Chcete-li úplně oddělit od EF Core `CosmosClient` získat objekt, který je [součástí sady Azure Cosmos DB SDK](https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-get-started) , z `DbContext`:
+Pro úplné oddělit od EF Core získat objekt [CosmosClient](/dotnet/api/Microsoft.Azure.Cosmos.CosmosClient) , který je [součástí sady Azure Cosmos DB SDK](/azure/cosmos-db/sql-api-get-started) od `DbContext`:
 
 [!code-csharp[CosmosClient](../../../../samples/core/Cosmos/UnstructuredData/Sample.cs?highlight=3&name=CosmosClient)]
 
 ## <a name="missing-property-values"></a>Chybějící hodnoty vlastností
 
-V předchozím příkladu jsme odebrali `"TrackingNumber"` vlastnost z objednávky. Vzhledem k tomu, jak indexování funguje v Cosmos DB, dotazy, které odkazují na chybějící vlastnost někam jinde než v projekci, by mohly vracet neočekávané výsledky. Příklad:
+V předchozím příkladu jsme z objednávky odebrali vlastnost `"TrackingNumber"`. Vzhledem k tomu, jak indexování funguje v Cosmos DB, dotazy, které odkazují na chybějící vlastnost někam jinde než v projekci, by mohly vracet neočekávané výsledky. Příklad:
 
 [!code-csharp[MissingProperties](../../../../samples/core/Cosmos/UnstructuredData/Sample.cs?name=MissingProperties)]
 
 Seřazený dotaz ve skutečnosti nevrátí žádné výsledky. To znamená, že by měl být při přímém práci s obchodem nutné vždy naplnit vlastnosti namapované EF Core.
 
 > [!NOTE]
-> Toto chování se může v budoucích verzích Cosmos změnit. Například v současné době, pokud zásady indexování definují složený index {ID/? ASC, TrackingNumber/? ASC)}, pak dotaz, který má "ORDER by c.ID ASC, c. diskriminátor __ASC",__ vrátí položky, u kterých chybí `"TrackingNumber"` vlastnost.
+> Toto chování se může v budoucích verzích Cosmos změnit. Například v současné době, pokud zásady indexování definují složený index {ID/? ASC, TrackingNumber/? ASC)}, pak dotaz, který má "ORDER BY c.Id ASC, c. diskriminátor __ASC",__ vrátí položky, u kterých chybí vlastnost `"TrackingNumber"`.

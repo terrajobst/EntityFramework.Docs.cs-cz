@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 335d4f3a601624f7c994b7dcacefe4ef6798beb3
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181381"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655603"
 ---
 # <a name="spatial-data"></a>Prostorová data
 
@@ -25,14 +25,14 @@ Aby bylo možné použít prostorová data s EF Core, je nutné nainstalovat př
 
 Poskytovatel EF Core                        | Prostorový balíček NuGet
 --------------------------------------- | ---------------------
-Microsoft.EntityFrameworkCore.SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
-Microsoft.EntityFrameworkCore.Sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
-Microsoft.EntityFrameworkCore.InMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
-Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreSQL. NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
+Microsoft. EntityFrameworkCore. SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
+Microsoft. EntityFrameworkCore. sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
+Microsoft. EntityFrameworkCore. inMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
+Npgsql. EntityFrameworkCore. PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreSQL. NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
 
 ## <a name="reverse-engineering"></a>Zpětná analýza
 
-Prostorové balíčky NuGet také umožňují modely [zpětné analýzy](../managing-schemas/scaffolding.md) s prostorovými vlastnostmi, ale ***před*** spuštěním `Scaffold-DbContext` nebo `dotnet ef dbcontext scaffold` je potřeba balíček nainstalovat. Pokud to neuděláte, zobrazí se upozornění týkající se nehledání mapování typů pro sloupce a sloupce se přeskočí.
+Prostorové balíčky NuGet také umožňují modely [zpětné analýzy](../managing-schemas/scaffolding.md) s prostorovými vlastnostmi, ale ***před*** spuštěním `Scaffold-DbContext` nebo `dotnet ef dbcontext scaffold`je potřeba balíček nainstalovat. Pokud to neuděláte, zobrazí se upozornění týkající se nehledání mapování typů pro sloupce a sloupce se přeskočí.
 
 ## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
 
@@ -213,15 +213,15 @@ Pokud používáte SQL Server, máte k dispozici několik dalších věcí, o kt
 
 ### <a name="geography-or-geometry"></a>Zeměpisná nebo geometrie
 
-Ve výchozím nastavení jsou prostorové vlastnosti namapovány na sloupce `geography` v SQL Server. Pokud chcete použít `geometry`, nakonfigurujte v modelu [typ sloupce](xref:core/modeling/relational/data-types) .
+Ve výchozím nastavení jsou prostorové vlastnosti namapovány na `geography` sloupce v SQL Server. Pokud chcete použít `geometry`, nakonfigurujte v modelu [typ sloupce](xref:core/modeling/relational/data-types) .
 
 ### <a name="geography-polygon-rings"></a>Geografické kroužky mnohoúhelníků
 
-Při použití typu sloupce `geography` SQL Server ukládá další požadavky na vnější prstenec (nebo prostředí) a vnitřní prstence (nebo díry). Vnější prstenec musí být orientovaný proti směru hodinových ručiček a vnitřní prstence po směru hodinových ručiček. NTS ho před odesláním hodnot do databáze ověří.
+Při použití `geography`ho typu sloupce SQL Server ukládá další požadavky na vnější prstenec (nebo prostředí) a vnitřní prstence (nebo díry). Vnější prstenec musí být orientovaný proti směru hodinových ručiček a vnitřní prstence po směru hodinových ručiček. NTS ho před odesláním hodnot do databáze ověří.
 
 ### <a name="fullglobe"></a>FullGlobe
 
-SQL Server má nestandardní typ geometrie, který představuje úplný glóbus při použití typu sloupce `geography`. Má také způsob, jak znázornit mnohoúhelníky na základě plného světa (bez vnějšího okruhu). Ani jedna z těchto možností není podporována nástrojem NTS.
+SQL Server má nestandardní typ geometrie, který představuje úplný glóbus při použití `geography`ho typu sloupce. Má také způsob, jak znázornit mnohoúhelníky na základě plného světa (bez vnějšího okruhu). Ani jedna z těchto možností není podporována nástrojem NTS.
 
 > [!WARNING]
 > FullGlobe a mnohoúhelníky, které jsou na nich založené, nejsou podporovány NTS.
@@ -271,7 +271,7 @@ Geometry. AsBinary () | ✔ | ✔ | ✔ | ✔
 Geometry. AsText () | ✔ | ✔ | ✔ | ✔
 Geometrie. hranice | ✔ | | ✔ | ✔
 Geometry. Buffer (Double) | ✔ | ✔ | ✔ | ✔
-Geometry. Buffer (Double, int) | | | ✔
+Geometry. Buffer (Double, int) | | | ✔ | ✔
 Geometrie. těžiště | ✔ | | ✔ | ✔
 Geometrie. Contains (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. ConvexHull () | ✔ | ✔ | ✔ | ✔
@@ -287,17 +287,17 @@ Geometry. EqualsExact (geometrie) | | | | ✔
 Geometry. EqualsTopologically (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometrie. GeometryType | ✔ | ✔ | ✔ | ✔
 Geometry. GetGeometryN (int) | ✔ | | ✔ | ✔
-Geometrie. InteriorPoint | ✔ | | ✔
+Geometrie. InteriorPoint | ✔ | | ✔ | ✔
 Geometry. proprůsečík (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometrie. INTERSECTY (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometrie. Empty | ✔ | ✔ | ✔ | ✔
 Geometrie. zjednodušená | ✔ | | ✔ | ✔
 Geometrie. IsValid | ✔ | ✔ | ✔ | ✔
-Geometry. IsWithinDistance (geometrie, Double) | ✔ | | ✔
+Geometry. IsWithinDistance (geometrie, Double) | ✔ | | ✔ | ✔
 Geometrie. Length | ✔ | ✔ | ✔ | ✔
 Geometrie. NumGeometries | ✔ | ✔ | ✔ | ✔
 Geometrie. NumPoints | ✔ | ✔ | ✔ | ✔
-Geometrie. OgcGeometryType | ✔ | ✔ | ✔
+Geometrie. OgcGeometryType | ✔ | ✔ | ✔ | ✔
 Geometrie. překryvy (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometrie. PointOnSurface | ✔ | | ✔ | ✔
 Geometry. propojovat (geometrie, String) | ✔ | | ✔ | ✔
@@ -307,7 +307,7 @@ Geometry. SymmetricDifference (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometry. ToBinary () | ✔ | ✔ | ✔ | ✔
 Geometry. ToText () | ✔ | ✔ | ✔ | ✔
 Geometrie. touchs (geometrie) | ✔ | | ✔ | ✔
-Geometry. Union () | | | ✔
+Geometry. Union () | | | ✔ | ✔
 Geometry. Union (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometrie. uvnitř (geometrie) | ✔ | ✔ | ✔ | ✔
 Geometriecollection. Count | ✔ | ✔ | ✔ | ✔

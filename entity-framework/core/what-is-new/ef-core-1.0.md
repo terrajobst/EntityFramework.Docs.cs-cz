@@ -1,104 +1,180 @@
 ---
-title: Novinky v EF Core 1.0 – EF Core
+title: Co je nového v EF Core 1,0-EF Core
 author: divega
 ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 uid: core/what-is-new/ef-core-1.0
-ms.openlocfilehash: 409e16d762bca3ecd083ea191ad7b42aa0a6a275
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2cd2a54d75ed3f0caa8b674dfb56babcfcc13592
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996848"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655855"
 ---
-# <a name="features-included-in-ef-core-10"></a>Funkce obsažené v EF Core 1.0
+# <a name="features-included-in-ef-core-10"></a>Funkce, které jsou součástí EF Core 1,0
 
 ## <a name="platforms"></a>Platformy
-### <a name="net-framework-451"></a>.NET Framework 4.5.1
-Zahrnuje konzolu, WPF, WinForms, ASP.NET 4 atd.
-### <a name="net-standard-13"></a>.NET standard 1.3
-Včetně ASP.NET Core, které cílí na rozhraní .NET Framework a .NET Core ve Windows, os x a Linuxu.
 
-## <a name="modelling"></a>Modelování
+### <a name="net-framework-451"></a>.NET Framework 4.5.1
+
+Zahrnuje konzolu, WPF, WinForms, ASP.NET 4 atd.
+
+### <a name="net-standard-13"></a>.NET Standard 1,3
+
+Včetně ASP.NET Core cílících na .NET Framework a .NET Core ve Windows, OSX a Linux.
+
+## <a name="modelling"></a>Modelovací
+
 ### <a name="basic-modelling"></a>Základní modelování
-Podle POCO entit s get a set vlastnosti společné skalárních typů (`int`, `string`atd.).
-### <a name="relationships-and-navigation-properties"></a>Vztahy a navigačních vlastností
-1 n a – nula nebo-relace se dá nastavit v modelu na základě cizího klíče. Navigační vlastnosti kolekce nebo odkaz typů jednoduché lze přidružit tyto vztahy.
-### <a name="built-in-conventions"></a>Integrované konvence
-Tyto sestavit model ve službě počáteční založené na obrazec tříd entit.
+
+Založené na POCO entitách pomocí vlastností get/set běžných skalárních typů (`int`, `string`atd.).
+
+### <a name="relationships-and-navigation-properties"></a>Relace a navigační vlastnosti
+
+V modelu založeném na cizím klíči lze určit relace 1: n a 1:1 nebo jedna-nula. K těmto relacím se dají přidružit navigační vlastnosti jednoduchých typů nebo odkazů.
+
+### <a name="built-in-conventions"></a>Předdefinované konvence
+
+Tyto sestavují počáteční model na základě tvaru tříd entit.
+
 ### <a name="fluent-api"></a>Rozhraní Fluent API
-Umožňuje přepsat `OnModelCreating` metodu na kontext k další konfiguraci modelu, který byl zjištěn konvencí.
+
+Umožňuje přepsat metodu `OnModelCreating` v kontextu a dále konfigurovat model, který byl zjištěn podle konvence.
+
 ### <a name="data-annotations"></a>Datové poznámky
-Jsou atributy, které lze přidat do vaší třídy a vlastnosti entity a ovlivní EF modelu. Například přidáním `[Required]` vám umožní EF vědět, že je vyžadována určitá vlastnost.
-### <a name="relational-table-mapping"></a>Relační mapování tabulek
-Umožňuje entity, které mají být namapovány na tabulky nebo sloupce.
-### <a name="key-value-generation"></a>Generování klíč-hodnota
-Včetně generace na straně klienta a generování databáze.
-### <a name="database-generated-values"></a>Databáze vygenerovala hodnoty
-Umožňuje pro hodnoty, které mají být generovány databázi při vložení (výchozí hodnoty) nebo aktualizace (vypočítané sloupce).
-### <a name="sequences-in-sql-server"></a>Pořadí v systému SQL Server
-Umožňuje sekvenci objektů byly definovány v modelu.
+
+Jsou atributy, které mohou být přidány do tříd nebo vlastností entit a budou mít vliv na model EF. Přidání `[Required]` například umožní, aby EF věděl, že je požadovaná vlastnost.
+
+### <a name="relational-table-mapping"></a>Mapování relační tabulky
+
+Umožňuje mapovat entity na tabulky nebo sloupce.
+
+### <a name="key-value-generation"></a>Generování hodnoty klíče
+
+Včetně generování a generování databáze na straně klienta.
+
+### <a name="database-generated-values"></a>Databáze vygenerovaly hodnoty
+
+Umožňuje generovat hodnoty z databáze při vložení (výchozí hodnoty) nebo aktualizovat (počítané sloupce).
+
+### <a name="sequences-in-sql-server"></a>Sekvence v SQL Server
+
+Umožňuje definovat objekty sekvence v modelu.
+
 ### <a name="unique-constraints"></a>Jedinečná omezení
-Umožňuje definice alternativních klíčů a možnost definovat relace, které cílí tento klíč.
+
+Umožňuje definování alternativních klíčů a možnosti definovat vztahy, které cílí na tento klíč.
+
 ### <a name="indexes"></a>Indexy
-Definování indexy v modelu automaticky zavádí indexy v databázi. Jedinečné indexy jsou také podporovány.
-### <a name="shadow-state-properties"></a>Stínové vlastnosti stavu
-Umožňuje pro vlastnosti definované v modelu, které nejsou deklarovány a nejsou uloženy ve třídě rozhraní .NET, ale může být sledovány a aktualizuje pomocí EF Core. Běžně používaná pro vlastnosti cizího klíče při vystavení v objektu není žádoucí.
-### <a name="table-per-hierarchy-inheritance-pattern"></a>Model tabulka za hierarchie dědičnosti
-Umožňuje entit v hierarchie dědičnosti bude uložena do jedné tabulky pomocí sloupec diskriminátoru identifikovat jejich typ entity pro daný záznam v databázi.
+
+Definováním indexů v modelu automaticky zavádí indexy v databázi. Podporují se taky jedinečné indexy.
+
+### <a name="shadow-state-properties"></a>Vlastnosti stavu stínu
+
+Umožňuje definovat vlastnosti v modelu, který není deklarovaný a který není uložený ve třídě .NET, ale dá se sledovat a aktualizovat pomocí EF Core. Běžně používané pro vlastnosti cizích klíčů při vystavování těchto objektů v objektu není žádoucí.
+
+### <a name="table-per-hierarchy-inheritance-pattern"></a>Vzor dědičnosti tabulky na hierarchii
+
+Umožňuje, aby se entity v hierarchii dědičnosti ukládaly do jedné tabulky pomocí sloupce diskriminátoru, které identifikují typ entity pro daný záznam v databázi.
+
 ### <a name="model-validation"></a>Ověření modelu
-Zjistí neplatné vzory v modelu a poskytuje užitečné chybové zprávy.
+
+Detekuje neplatné vzory v modelu a poskytuje užitečné chybové zprávy.
 
 ## <a name="change-tracking"></a>Sledování změn
-### <a name="snapshot-change-tracking"></a>Snímek řešení change tracking
-Umožňuje, aby změny v entitách rozpoznat automaticky pomocí porovnání aktuálního stavu proti kopie (snímek) původního stavu.
-### <a name="notification-change-tracking"></a>Sledování změn je oznámení
-Umožňuje entity upozornit modul sledování změny při změně hodnoty vlastnosti.
-### <a name="accessing-tracked-state"></a>Přístup k sledované stavu
+
+### <a name="snapshot-change-tracking"></a>Sledování změn snímků
+
+Umožňuje, aby se změny v entitách zjistily automaticky porovnáním aktuálního stavu s kopií (snímkem) původního stavu.
+
+### <a name="notification-change-tracking"></a>Sledování změn oznámení
+
+Umožňuje entitám upozorňování sledování změn při změně hodnot vlastností.
+
+### <a name="accessing-tracked-state"></a>Přístup ke sledovanému stavu
+
 Prostřednictvím `DbContext.Entry` a `DbContext.ChangeTracker`.
-### <a name="attaching-detached-entitiesgraphs"></a>Připojení odpojených entit a grafy
-Nové `DbContext.AttachGraph` API pomáhá, aby bylo možné uložit nových/upravených entity připojí entity do kontextu.
+
+### <a name="attaching-detached-entitiesgraphs"></a>Připojení odpojených entit a grafů
+
+Nové rozhraní `DbContext.AttachGraph` API pomáhá znovu připojovat entity k kontextu, aby bylo možné ukládat nové a upravené entity.
 
 ## <a name="saving-data"></a>Ukládání dat
-### <a name="basic-save-functionality"></a>Základní funkce uložení
-Umožňuje měnit instancí entit natrvalo do databáze.
-### <a name="optimistic-concurrency"></a>Optimistická souběžnost
-Chrání proti přepsání změny provedené jinými uživateli, protože se načetla data z databáze.
-### <a name="async-savechanges"></a>Asynchronní metoda SaveChanges
-Můžete uvolnit tak aktuální vlákno zpracovávat další požadavky, zatímco databáze zpracovává příkazy vydané z `SaveChanges`.
-### <a name="database-transactions"></a>Databázové transakce
-Znamená, že `SaveChanges` je vždy atomic (tj. je buď zcela úspěšná nebo nebudou provedeny žádné změny k databázi). Existují také transakce související s rozhraním API umožňující sdílení transakce mezi místní instancí atd.
-### <a name="relational-batching-of-statements"></a>Relační: Dávkové zpracování příkazů
-Poskytuje lepší výkon pomocí dávkování více příkazy INSERT/UPDATE/DELETE v jedné odezvě do databáze.
+
+### <a name="basic-save-functionality"></a>Základní funkce ukládání
+
+Umožňuje, aby se změny instancí entity zachovaly v databázi.
+
+### <a name="optimistic-concurrency"></a>Optimistická metoda souběžného zpracování
+
+Chrání před přepsáním změn provedených jiným uživatelem od načtení dat z databáze.
+
+### <a name="async-savechanges"></a>Asynchronní metody SaveChanges
+
+Může uvolnit aktuální vlákno pro zpracování dalších požadavků, zatímco databáze zpracovává příkazy vydané z `SaveChanges`.
+
+### <a name="database-transactions"></a>Transakce databáze
+
+Znamená, že `SaveChanges` je vždy atomická (to znamená, že buď zcela uspěje, nebo nejsou provedeny žádné změny v databázi). K dispozici jsou také rozhraní API související s transakcemi umožňující sdílení transakcí mezi instancemi kontextu atd.
+
+### <a name="relational-batching-of-statements"></a>Relační: dávkování příkazů
+
+Poskytuje lepší výkon tím, že dávkuje více příkazů pro vložení, aktualizaci a odstranění do jediného převodu do databáze.
 
 ## <a name="query"></a>Dotazy
-### <a name="basic-linq-support"></a>Podpora na úrovni Basic LINQ
-Poskytuje možnost použití LINQ k načtení dat z databáze.
-### <a name="mixed-clientserver-evaluation"></a>Vyhodnocení smíšené klient/server
-Umožňuje dotazům obsahují logiku, která nelze vyhodnotit v databázi a musí být vyhodnocena proto po načtení dat do paměti.
-### <a name="notracking"></a>NoTracking
-Dotazy umožňuje rychlejší provádění dotazu, když není potřeba kontextu monitorování změn instancí entit (to je užitečné, pokud jsou výsledky jen pro čtení).
-### <a name="eager-loading"></a>Předběžné načítání
-Poskytuje `Include` a `ThenInclude` metody pro identifikaci související data, která by měla načíst také při dotazování.
-### <a name="async-query"></a>Asynchronní dotazu
-Můžete uvolnit aktuální vlákno (a související prostředky) zpracovávat další požadavky při databáze zpracovává dotazu.
-### <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
-Poskytuje `DbSet.FromSql` metodu použít nezpracovaná SQL dotazuje se načíst data. Tyto dotazy je možné také skládání na pomocí jazyka LINQ.
 
-## <a name="database-schema-management"></a>Správa schématu databáze       
-### <a name="database-creationdeletion-apis"></a>Databáze vytváření/odstraňování rozhraní API
-Většinou jsou navržené pro testování, ve které chcete rychle vytvářet a odstraňovat databáze bez použití migrace.
+### <a name="basic-linq-support"></a>Základní podpora LINQ
+
+Poskytuje možnost použít LINQ k načtení dat z databáze.
+
+### <a name="mixed-clientserver-evaluation"></a>Smíšené vyhodnocení klientů/serverů
+
+Umožňuje dotazům obsahovat logiku, která se v databázi nedá vyhodnotit, a po načtení dat do paměti je proto nutné vyhodnotit.
+
+### <a name="notracking"></a>NoTracking
+
+Dotazy umožňují rychlejší provádění dotazů, pokud kontext nemusí sledovat změny instancí entit (to je užitečné, pokud jsou výsledky jen pro čtení).
+
+### <a name="eager-loading"></a>Eager načítání
+
+Poskytuje metody `Include` a `ThenInclude` k identifikaci souvisejících dat, která by se měla načíst také při dotazování.
+
+### <a name="async-query"></a>Asynchronní dotaz
+
+Může uvolnit aktuální vlákno (a přidružené prostředky) pro zpracování dalších požadavků, zatímco databáze zpracovává dotaz.
+
+### <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
+
+Poskytuje metodu `DbSet.FromSql` pro použití nezpracovaných dotazů SQL k načtení dat. Tyto dotazy mohou být také vytvořeny pomocí LINQ.
+
+## <a name="database-schema-management"></a>Správa schématu databáze
+
+### <a name="database-creationdeletion-apis"></a>Rozhraní API pro vytváření a odstraňování databází
+
+Jsou převážně navržené pro testování, kde chcete rychle vytvořit nebo odstranit databázi bez použití migrace.
+
 ### <a name="relational-database-migrations"></a>Migrace relačních databází
-Povolte schéma relační databáze vyvíjí přesčas jako změny modelu.
+
+Povolí schématu relační databáze vyvíjet přesčasovou práci při změnách modelu.
+
 ### <a name="reverse-engineer-from-database"></a>Zpětná analýza z databáze
-Nástroj scaffold modelu EF podle schéma stávající relační databáze.
+
+Generuje základní generátory modelu EF na základě stávajícího schématu relační databáze.
 
 ## <a name="database-providers"></a>Poskytovatelé databází
+
 ### <a name="sql-server"></a>SQL Server
-Připojení k Microsoft SQL Server 2008 a vyšší.
+
+Připojí se k Microsoft SQL Server 2008 a vyšší.
+
 ### <a name="sqlite"></a>SQLite
-Se připojí k databázi SQLite 3.
+
+Připojí se k databázi SQLite 3.
+
 ### <a name="in-memory"></a>V paměti
-Umožňuje snadno testování bez připojení ke skutečné databázi.
-### <a name="3rd-party-providers"></a>Zprostředkovatelé 3.
-Několik poskytovatelů jsou k dispozici pro ostatní databázové stroje. Zobrazit [poskytovatelé databází](../providers/index.md) úplný seznam.
+
+Je navržený tak, aby se testování snadno povolilo bez připojení ke skutečné databázi.
+
+### <a name="3rd-party-providers"></a>poskytovatelé třetích stran
+
+K dispozici je několik poskytovatelů pro jiné databázové moduly. Úplný seznam najdete v tématu [poskytovatelé databáze](../providers/index.md) .

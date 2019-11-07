@@ -1,16 +1,16 @@
 ---
 title: Poskytovatel Azure Cosmos DB – EF Core
+description: Dokumentace pro poskytovatele databáze, která umožňuje použití Entity Framework Core s rozhraním API Azure Cosmos DB SQL
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 09/12/2019
-ms.assetid: 28264681-4486-4891-888c-be5e4ade24f1
+ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 96686256bb93f5828bb21fed167eb57812806390
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: 6cac695288d9ba84968b7fab6361f55e9b51be67
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813548"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656093"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Poskytovatel EF Core Azure Cosmos DB
 
@@ -19,19 +19,22 @@ ms.locfileid: "71813548"
 
 Tento poskytovatel databáze umožňuje použití Entity Framework Core s Azure Cosmos DB. Poskytovatel se udržuje jako součást [projektu Entity Framework Core](https://github.com/aspnet/EntityFrameworkCore).
 
-Před čtením této části se důrazně doporučuje seznámení s [Azure Cosmos DB dokumentaci](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction) .
+Před čtením této části se důrazně doporučuje seznámení s [Azure Cosmos DB dokumentaci](/azure/cosmos-db/introduction) .
+
+>[!NOTE]
+> Tento zprostředkovatel funguje jenom s rozhraním SQL API Azure Cosmos DB.
 
 ## <a name="install"></a>Instalace
 
 Nainstalujte [balíček NuGet Microsoft. EntityFrameworkCore. Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).
 
-# <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+## <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ``` console
 dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
-# <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Cosmos
@@ -44,12 +47,12 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 > [!TIP]  
 > Ukázku tohoto článku můžete zobrazit [na GitHubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos).
 
-Podobně jako u jiných poskytovatelů je prvním krokem volání `UseCosmos`:
+Podobně jako u jiných poskytovatelů je prvním krokem volání [UseCosmos](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosDbContextOptionsExtensions.UseCosmos):
 
 [!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
-> Koncový bod a klíč se tady pevně zakódované pro jednoduchost, ale v produkční aplikaci by se měly [ukládat securily](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager) .
+> Koncový bod a klíč se tady pevně zakódované pro jednoduchost, ale v produkční aplikaci by se měly [ukládat securily](/aspnet/core/security/app-secrets#secret-manager) .
 
 V tomto příkladu `Order` je jednoduchá entita s odkazem na [vlastní typ](../../modeling/owned-entities.md) `StreetAddress`.
 
@@ -62,23 +65,40 @@ Ukládání a quering dat se řídí normálním vzorem EF:
 [!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
-> Volání `EnsureCreated` je nezbytné pro vytvoření požadovaných kolekcí a vložení [počátečních dat](../../modeling/data-seeding.md) , pokud jsou uvedena v modelu. Měla `EnsureCreated` by být však volána pouze během nasazení, nikoli v normálním provozu, protože může způsobit problémy s výkonem.
+> Volání [EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) je nezbytné pro vytvoření požadovaných kontejnerů a vložení [počátečních dat](../../modeling/data-seeding.md) , pokud jsou uvedena v modelu. `EnsureCreatedAsync` by však měly být volány pouze během nasazení, nikoli v normálním provozu, protože může dojít k problémům s výkonem.
 
 ## <a name="cosmos-specific-model-customization"></a>Přizpůsobení modelu specifického pro Cosmos
 
-Ve výchozím nastavení jsou všechny typy entit namapovány na stejný kontejner pojmenovaný za odvozeným kontextem (`"OrderContext"` v tomto případě). Chcete-li změnit výchozí název kontejneru `HasDefaultContainer`, použijte:
+Ve výchozím nastavení jsou všechny typy entit namapovány na stejný kontejner pojmenovaný za odvozeným kontextem (`"OrderContext"` v tomto případě). Chcete-li změnit výchozí název kontejneru, použijte [HasDefaultContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosModelBuilderExtensions.HasDefaultContainer):
 
 [!code-csharp[DefaultContainer](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=DefaultContainer)]
 
-Chcete-li namapovat typ entity na jiný kontejner `ToContainer`, použijte:
+Pokud chcete mapovat typ entity na jiný kontejner, použijte [ToContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToContainer):
 
 [!code-csharp[Container](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Container)]
 
 Chcete-li identifikovat typ entity, který daná položka představuje EF Core přidá hodnotu diskriminátoru, i když nejsou k dispozici žádné odvozené typy entit. Název a hodnotu diskriminátoru [lze změnit](../../modeling/inheritance.md).
 
+Pokud se v jednom kontejneru nebude nikdy ukládat žádný jiný typ entity, může se diskriminátor odebrat voláním [HasNoDiscriminator](/dotnet/api/Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder.HasNoDiscriminator):
+
+[!code-csharp[NoDiscriminator](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=NoDiscriminator)]
+
+### <a name="partition-keys"></a>Klíče oddílu
+
+Ve výchozím nastavení EF Core vytvoří kontejnery s klíčem oddílu nastaveným na `"__partitionKey"` bez zadání jakékoli hodnoty při vkládání položek. Pokud ale chcete plně využívat možnosti výkonu Azure Cosmos, měli byste použít [pečlivě vybraný klíč oddílu](/azure/cosmos-db/partition-data) . Dá se nakonfigurovat voláním [HasPartitionKey](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.HasPartitionKey):
+
+[!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PartitionKey)]
+
+>[!NOTE]
+>Vlastnost klíče oddílu může být libovolného typu, pokud je [převedena na řetězec](xref:core/modeling/value-conversions).
+
+Po nakonfigurování by vlastnost klíče oddílu měla vždycky mít hodnotu, která není null. Při vystavení dotazu je možné přidat podmínku, která bude obsahovat jeden oddíl.
+
+[!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=PartitionKey)]
+
 ## <a name="embedded-entities"></a>Vložené entity
 
-Pro entity vlastněné v Cosmos jsou vložené do stejné položky jako vlastník. Chcete-li změnit název vlastnosti `ToJsonProperty`, použijte:
+Pro entity vlastněné v Cosmos jsou vložené do stejné položky jako vlastník. Chcete-li změnit název vlastnosti, použijte [ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty):
 
 [!code-csharp[PropertyNames](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PropertyNames)]
 
@@ -87,12 +107,11 @@ V této konfiguraci je pořadí z výše uvedeného příkladu uloženo takto:
 ``` json
 {
     "Id": 1,
-    "Discriminator": "Order",
+    "PartitionKey": "1",
     "TrackingNumber": null,
-    "id": "Order|1",
+    "id": "1",
     "Address": {
         "ShipsToCity": "London",
-        "Discriminator": "StreetAddress",
         "ShipsToStreet": "221 B Baker St"
     },
     "_rid": "6QEKAM+BOOABAAAAAAAAAA==",
@@ -103,7 +122,7 @@ V této konfiguraci je pořadí z výše uvedeného příkladu uloženo takto:
 }
 ```
 
-Jsou vložené i kolekce vlastněných entit. V dalším příkladu budeme používat `Distributor` třídu s `StreetAddress`kolekcí:
+Jsou vložené i kolekce vlastněných entit. V dalším příkladu použijeme třídu `Distributor` s kolekcí `StreetAddress`:
 
 [!code-csharp[Distributor](../../../../samples/core/Cosmos/ModelBuilding/Distributor.cs?name=Distributor)]
 
@@ -121,12 +140,10 @@ Budou trvale zachované tímto způsobem:
     "ShippingCenters": [
         {
             "City": "Phoenix",
-            "Discriminator": "StreetAddress",
             "Street": "500 S 48th Street"
         },
         {
             "City": "Anaheim",
-            "Discriminator": "StreetAddress",
             "Street": "5650 Dolly Ave"
         }
     ],
@@ -138,7 +155,7 @@ Budou trvale zachované tímto způsobem:
 }
 ```
 
-Interně EF Core vždy musí mít jedinečné hodnoty klíčů pro všechny sledované entity. Primární klíč vytvořený ve výchozím nastavení pro kolekce vlastněných typů se skládá z vlastností cizích klíčů odkazujících na vlastníka a `int` vlastnost odpovídající indexu v poli JSON. Pro načtení těchto hodnot můžete použít rozhraní API pro zápis:
+Interně EF Core vždy musí mít jedinečné hodnoty klíčů pro všechny sledované entity. Primární klíč vytvořený ve výchozím nastavení pro kolekce vlastněných typů se skládá z vlastností cizích klíčů odkazujících na vlastníka a vlastnost `int` odpovídající indexu v poli JSON. Pro načtení těchto hodnot můžete použít rozhraní API pro zápis:
 
 [!code-csharp[ImpliedProperties](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=ImpliedProperties)]
 
@@ -147,9 +164,9 @@ Interně EF Core vždy musí mít jedinečné hodnoty klíčů pro všechny sled
 
 ## <a name="working-with-disconnected-entities"></a>Práce s odpojenými entitami
 
-Každá položka musí mít `id` hodnotu, která je pro daný klíč oddílu jedinečná. Ve výchozím nastavení EF Core generuje hodnotu zřetězením diskriminátoru a hodnot primárního klíče pomocí | jako oddělovače. Hodnoty klíče jsou generovány pouze tehdy, když entita vstoupí `Added` do stavu. To může představovat problém při [připojování entit](../../saving/disconnected-entities.md) , pokud `id` nemají vlastnost v typu .NET k uložení hodnoty.
+Každá položka musí mít `id` hodnotu, která je pro daný klíč oddílu jedinečná. Ve výchozím nastavení EF Core generuje hodnotu zřetězením diskriminátoru a hodnot primárního klíče pomocí | jako oddělovače. Hodnoty klíče jsou generovány pouze tehdy, když entita vstoupí do stavu `Added`. To může představovat problém při [připojování entit](../../saving/disconnected-entities.md) , pokud nemají vlastnost `id` v typu .NET k uložení hodnoty.
 
-Pokud chcete toto omezení obejít, můžete ho vytvořit a `id` nastavit ručně nebo nejdřív označit entitu jako přidanou, a pak ji změnit na požadovaný stav:
+Pokud chcete toto omezení obejít, můžete vytvořit a nastavit hodnotu `id` ručně nebo označit entitu jako přidanou a pak ji změnit na požadovaný stav:
 
 [!code-csharp[Attach](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?highlight=4&name=Attach)]
 
@@ -158,18 +175,18 @@ Toto je výsledný formát JSON:
 ``` json
 {
     "Id": 1,
-    "Discriminator": "Order",
-    "TrackingNumber": null,
-    "id": "Order|1",
-    "Address": {
-        "ShipsToCity": "London",
-        "Discriminator": "StreetAddress",
-        "ShipsToStreet": "3 Abbey Road"
-    },
-    "_rid": "6QEKAM+BOOABAAAAAAAAAA==",
-    "_self": "dbs/6QEKAA==/colls/6QEKAM+BOOA=/docs/6QEKAM+BOOABAAAAAAAAAA==/",
-    "_etag": "\"00000000-0000-0000-683c-8f7ac48f01d5\"",
+    "Discriminator": "Distributor",
+    "id": "Distributor|1",
+    "ShippingCenters": [
+        {
+            "City": "Phoenix",
+            "Street": "500 S 48th Street"
+        }
+    ],
+    "_rid": "JBwtAN8oNYEBAAAAAAAAAA==",
+    "_self": "dbs/JBwtAA==/colls/JBwtAN8oNYE=/docs/JBwtAN8oNYEBAAAAAAAAAA==/",
+    "_etag": "\"00000000-0000-0000-9377-d7a1ae7c01d5\"",
     "_attachments": "attachments/",
-    "_ts": 1568163739
+    "_ts": 1572917100
 }
 ```

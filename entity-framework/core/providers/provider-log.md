@@ -1,107 +1,108 @@
 ---
-title: Protokol změn vliv na poskytovatele – EF Core
+title: Protokol změn ovlivňujících poskytovatele – EF Core
 author: ajcvickers
 ms.author: avickers
 ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 61a58bd6119763d90731fac62343b983af510cb6
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: b911a2da493e20c4e4ce6f1e25024bd0efd38b44
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929872"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656130"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
-Tato stránka obsahuje odkazy na EF Core úložiště, které můžou vyžadovat autoři ostatní poskytovatelé databází reagovat žádostmi o přijetí změn. Záměrem je poskytnout výchozí bod pro autory existující poskytovatelé databází výrobců při aktualizaci jejich zprostředkovatele na novou verzi.
+Tato stránka obsahuje odkazy na žádosti o přijetí změn provedené v úložišti EF Core, které mohou vyžadovat, aby autoři jiných poskytovatelů databáze reagovali. Záměrem je poskytnout výchozí bod autorům stávajících poskytovatelů databází třetích stran při aktualizaci poskytovatele na novou verzi.
 
-Začínáme tento protokol se změnami z 2.1 2.2. Před 2.1 jsme použili [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) a [ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) popisky na naše problémy a žádosti o přijetí změn.
+Tento protokol Začínáme změnami z 2,1 na 2,2. Před 2,1 jsme použili [`providers-beware`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) a [`providers-fyi`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) popisky pro naše problémy a žádosti o přijetí změn.
 
-## <a name="22-----30"></a>2.2 ---> 3.0
+## <a name="22-----30"></a>2,2---> 3,0
 
-Mějte na paměti, který mnoho [rozbíjející změny v úrovni aplikace](../what-is-new/ef-core-3.0/breaking-changes.md) také ovlivní poskytovatelů.
+Počítejte s tím, že mnoho [změn na úrovni aplikace](../what-is-new/ef-core-3.0/breaking-changes.md) bude mít vliv i na poskytovatele.
 
-* https://github.com/aspnet/EntityFrameworkCore/pull/14022
-  * Odebraný zastaralá rozhraní API a přetížení s sbaleném volitelný parametr
-  * Removed DatabaseColumn.GetUnderlyingStoreType()
-* https://github.com/aspnet/EntityFrameworkCore/pull/14589
-  * Odebraný zastaralá rozhraní API
-* https://github.com/aspnet/EntityFrameworkCore/pull/15044
-  * Podtřídy třídy CharTypeMapping byla pravděpodobně přerušena z důvodu změny chování potřeba opravit několik chyb ve základní implementaci.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15090
-  * Přidat základní třídu pro IDatabaseModelFactory a aktualizovat ho na použití objekt zadal ke zmírnění budoucí konce.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15123
-  * Použít parametr objekty v MigrationsSqlGenerator ke zmírnění budoucí konce.
-* https://github.com/aspnet/EntityFrameworkCore/pull/14972
-  * Explicitní konfigurace úrovně protokolu vyžaduje některé změny rozhraní API, která může používat poskytovatele. Konkrétně poskytovatelé přímo použití protokolování infrastruktury, pak tato změna může budou přerušeny, které používají. Navíc zprostředkovatelů, které používají infrastrukturu (což bude veřejný) od dané chvíle bude nutné odvozovat `LoggingDefinitions` nebo `RelationalLoggingDefinitions`. Podívejte se systému SQL Server a poskytovatele v paměti pro příklady.
-* https://github.com/aspnet/EntityFrameworkCore/pull/15091
-  * Core, relační databází a abstrakce zdrojové řetězce jsou nyní veřejné.
-  * `CoreLoggerExtensions` a `RelationalLoggerExtensions` jsou nyní veřejné. Poskytovatelé by pomocí těchto rozhraní API při protokolování událostí, které jsou definovány na úrovni relační nebo core. Nemají přístup k prostředkům protokolování přímo. Toto jsou stále interní.
-  * `IRawSqlCommandBuilder` změnil ze služby typu singleton vymezené služby
-  * `IMigrationsSqlGenerator` změnil ze služby typu singleton vymezené služby
-* https://github.com/aspnet/EntityFrameworkCore/pull/14706
-  * Infrastrukturu pro vytváření relačních příkazy byl proveden veřejný, může být bezpečně používán poskytovateli a Refaktorovat mírně.
-* https://github.com/aspnet/EntityFrameworkCore/pull/14733
-  * `ILazyLoader` byl změněn z vymezené služby na přechodné služby
-* https://github.com/aspnet/EntityFrameworkCore/pull/14610
-  * `IUpdateSqlGenerator` byl změněn z vymezené služby na jednotlivý prvek služby
-  * Navíc `ISingletonUpdateSqlGenerator` byl odebrán
-* https://github.com/aspnet/EntityFrameworkCore/pull/15067
-  * Velké množství vnitřní kód, který se používal poskytovateli teď byl zveřejněn
-  * Neměla by už být necssary odkazovat `IndentedStringBuilder` vzhledem k tomu, že má se dostaneme z míst, která je vystavena
-  * Použití `NonCapturingLazyInitializer` by měla být nahrazena `LazyInitializer` z BCL
-* https://github.com/aspnet/EntityFrameworkCore/pull/14608
-  * Tato změna je podrobně popsané v aplikaci rozbíjející změny dokumentu. Pro poskytovatele to může být další na vliv, protože testovací EF core může často vést k dosažení tohoto problému, takže testovací infrastruktury byl změněn na ujistěte, že méně pravděpodobné.
-* https://github.com/aspnet/EntityFrameworkCore/issues/13961
-  * `EntityMaterializerSource` zjednodušili jsme
-* https://github.com/aspnet/EntityFrameworkCore/pull/14895
-  * StartsWith překlad změnilo tak, aby zprostředkovatelé může chtít/potřeba reagovat
-* https://github.com/aspnet/EntityFrameworkCore/pull/15168
-  * Vytváření sady služeb se změnily. Poskytovatelé by měl nyní dědí z "ProviderConventionSet" nebo "RelationalConventionSet".
-  * Přizpůsobení je možné přidat prostřednictvím `IConventionSetCustomizer` služeb, ale je určena pro použití jiné rozšíření poskytovatelů není.
-  * Konvencích použitých v době běhu by měly být opraveny z `IConventionSetBuilder`.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/15288](https://github.com/aspnet/EntityFrameworkCore/pull/15288) -Synchronizace replik indexů data byla refaktorována, do veřejné rozhraní API, abyste ho nemuseli používat vnitřní typy. Pouze to by měl mít vliv na nerelačních poskytovatele, protože synchronizace replik indexů se zpracovává souborem relační základní třídu pro všechny poskytovatele relační.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14022>
+  * Odebrala se zastaralá rozhraní API a sbalená volitelná parametr přetížení.
+  * Odebrané DatabaseColumn. GetUnderlyingStoreType ()
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14589>
+  * Odebrána zastaralá rozhraní API
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15044>
+  * Podtřídy CharTypeMapping byly pravděpodobně přerušeny kvůli změnám chování vyžadovaným pro opravu několika chyb v základní implementaci.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15090>
+  * Přidali jsme základní třídu pro IDatabaseModelFactory a aktualizovali ji tak, aby používala objekt parametr k omezení budoucích přerušení.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15123>
+  * Používané objekty parametrů v MigrationsSqlGenerator k omezení budoucích přerušení.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14972>
+  * Explicitní konfigurace úrovní protokolu vyžaduje některé změny rozhraní API, které můžou poskytovatelé používat. Konkrétně platí, že pokud poskytovatelé používají infrastrukturu protokolování přímo, pak tato změna může toto použití poškodit. I poskytovatelé, kteří používají infrastrukturu (které budou veřejné), budou muset dál odvodit z `LoggingDefinitions` nebo `RelationalLoggingDefinitions`. Příklady najdete v tématu poskytovatelé SQL Server a v paměti.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15091>
+  * Řetězce prostředků Core, relační a abstrakce jsou teď veřejné.
+  * `CoreLoggerExtensions` a `RelationalLoggerExtensions` jsou teď veřejné. Poskytovatelé by měli používat tato rozhraní API při protokolování událostí, které jsou definovány na úrovni základní nebo relační. Nepoužívejte přímý přístup k prostředkům protokolování; Tyto jsou pořád interní.
+  * `IRawSqlCommandBuilder` se změnila ze služby s jedním oborem na službu s oborem.
+  * `IMigrationsSqlGenerator` se změnila ze služby s jedním oborem na službu s oborem.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14706>
+  * Infrastruktura pro vytváření relačních příkazů byla veřejná, takže ji mohou bezpečně využívat poskytovatelé a jejich refaktoring mírně.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14733>
+  * `ILazyLoader` se změnila z oboru na přechodovou službu.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14610>
+  * `IUpdateSqlGenerator` se změnila z oboru na službu typu singleton.
+  * Odebrali jsme taky `ISingletonUpdateSqlGenerator`
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15067>
+  * Mnoho interního kódu, který používali poskytovatelé, je teď zveřejněné.
+  * Neměl by již být necssary na odkaz `IndentedStringBuilder`, protože byl vytvořen z místa, ve kterém je vystavený.
+  * Použití `NonCapturingLazyInitializer` by se mělo nahradit `LazyInitializer` z BCL
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14608>
+  * Tato změna je plně popsaná v dokumentu o přerušujících změny aplikace. U zprostředkovatelů to může být ovlivněno, protože testování jádra EF může často vést k tomuto problému, takže se testovací infrastruktura změnila tak, aby to bylo méně pravděpodobná.
+* <https://github.com/aspnet/EntityFrameworkCore/issues/13961>
+  * `EntityMaterializerSource` bylo zjednodušené.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/14895>
+  * Převod StartsWith se změnil způsobem, který poskytovatelé můžou chtít nebo potřebují reagovat.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15168>
+  * Služby sady konvencí se změnily. Poskytovatelé by teď měli dědit buď z "ProviderConventionSet", nebo "RelationalConventionSet".
+  * Vlastní nastavení lze přidat prostřednictvím `IConventionSetCustomizer` Services, ale je určeno pro použití jinými rozšířeními, nikoli poskytovateli.
+  * Konvence používané v modulu runtime by se měly přeložit z `IConventionSetBuilder`.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/15288>
+  * Osazení dat se refaktoruje na veřejné rozhraní API, aby nedocházelo k nutnosti používat interní typy. To by mělo mít vliv pouze na nerelační zprostředkovatele, protože osazení je zpracováváno základní relační třídou pro všechny relační zprostředkovatele.
 
-## <a name="21-----22"></a>2.1 ---> 2.2
+## <a name="21-----22"></a>2,1---> 2,2
 
-### <a name="test-only-changes"></a>Změny jen pro test
+### <a name="test-only-changes"></a>Pouze změny testů
 
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12057](https://github.com/aspnet/EntityFrameworkCore/pull/12057) – Povolte přizpůsobitelné dají SQL v testech
-  * Otestovat změny, které umožňují nepřísném plovoucího bodu porovnání v BuiltInDataTypesTestBase
-  * Test změny, které umožňují testů dotaz znovu použít se dají jiný SQL
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12072](https://github.com/aspnet/EntityFrameworkCore/pull/12072) -Přidáte DbFunction testy do relační specifikace testů
-  * Tak, aby se dají spustit tyto testy pro všechny poskytovatele databáze
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12362](https://github.com/aspnet/EntityFrameworkCore/pull/12362) -Vyčištění testovacího asynchronní
-  * Odebrat `Wait` nepotřebné asynchronní volání a přejmenovat některé testovací metody
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12666](https://github.com/aspnet/EntityFrameworkCore/pull/12666) -Sjednocení protokolování testovací infrastrukturu
-  * Přidání `CreateListLoggerFactory` a odebrat některé předchozí infrastruktury protokolování, který bude vyžadovat zprostředkovatelů pomocí tyto testy reagovat
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12500](https://github.com/aspnet/EntityFrameworkCore/pull/12500) -Spuštění více testů dotazu synchronně i asynchronně
-  * Názvy testů a které budou zohledňovat došlo ke změně, což bude vyžadovat zprostředkovatelů pomocí tyto testy reagovat
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12766](https://github.com/aspnet/EntityFrameworkCore/pull/12766) -Přejmenování navigaci v modelu ComplexNavigations
-  * Možná bude nutné zprostředkovatelů tyto testy pomocí react
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12141](https://github.com/aspnet/EntityFrameworkCore/pull/12141) -Vrátíte kontext do fondu namísto disposing v funkční testy
-  * Tato změna zahrnuje některé refaktoring testů, může být nutné poskytovatelé react
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12057> – povolí přizpůsobitelný delimeters SQL v testech
+  * Testování změn, které umožňují nestriktní porovnání s plovoucí desetinnou čárkou v BuiltInDataTypesTestBase
+  * Testování změn povolujících opakované použití testů dotazů s různými delimeters SQL
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12072> – Přidání testů DbFunction do testů relační specifikace
+  * Tyto testy lze spustit u všech poskytovatelů databáze.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12362> – vyčištění asynchronního testu
+  * Odebrání volání `Wait`, nepotřebného asynchronního a přejmenování některých testovacích metod
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12666> – infrastruktura testů pro sjednocení
+  * Přidání `CreateListLoggerFactory` a odebrání některé předchozí infrastruktury protokolování, která bude vyžadovat, aby poskytovatelé pomocí těchto testů reagovali
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12500> – spuštění více testů dotazů synchronně a asynchronně
+  * Názvy a faktoringy testů se změnily, což vyžaduje, aby poskytovatelé pomocí těchto testů reagovali.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12766> – přejmenování navigace v modelu ComplexNavigations
+  * Poskytovatelé, kteří používají tyto testy, možná budou potřebovat reagovat.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12141> – vrátí kontext do fondu namísto funkce disposing ve funkčních testech.
+  * Tato změna zahrnuje nějaký testovací refaktoring, který může vyžadovat, aby poskytovatelé reagovali.
 
-### <a name="test-and-product-code-changes"></a>Změny kódu testu a produktu
+### <a name="test-and-product-code-changes"></a>Testování a změny kódu produktu
 
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12109](https://github.com/aspnet/EntityFrameworkCore/pull/12109) -Konsolidovat RelationalTypeMapping.Clone metody
-  * Změny v 2.1, aby RelationalTypeMapping povolené pro zjednodušení v odvozených třídách. Nevěříme to byla rozbíjející poskytovatelů, ale zprostředkovatelé můžete využít výhod této změny v jejich odvozený typ mapování třídy.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/12069](https://github.com/aspnet/EntityFrameworkCore/pull/12069) -Označených nebo pojmenovaných dotazů
-  * Přidá infrastruktury pro označování dotazů LINQ a mají tyto visačky se zobrazují jako komentáře v SQL. To může vyžadovat poskytovatelé reagovat v generování SQL.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13115](https://github.com/aspnet/EntityFrameworkCore/pull/13115) -Podpora prostorových dat prostřednictvím chny Zarážky
-  * Umožňuje mapování typů a členů překladatele k registraci mimo zprostředkovatele
-    * Poskytovatelé musí volat základní. FindMapping() v jejich provádění ITypeMappingSource, aby to fungovalo
-  * Postupovat podle tohoto vzoru přidává prostorových na svého poskytovatele, který je konzistentní napříč poskytovatelů.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13199](https://github.com/aspnet/EntityFrameworkCore/pull/13199) -Přidat vylepšené ladění pro vytvoření poskytovatele služby
-  * Umožňuje DbContextOptionsExtensions implementovat nové rozhraní, která pomáhá uživatelům pochopit, proč se opětovně sestaven vnitřní chybě služby zprostředkovatele
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13289](https://github.com/aspnet/EntityFrameworkCore/pull/13289) -Přidá CanConnect rozhraní API pro použití kontroly stavu
-  * Tato žádost o přijetí změn přidá konceptu `CanConnect` který budou používat ASP.NET Core stavu kontroly k určení, jestli je databáze k dispozici. Ve výchozím nastavení, relační implementace jen volá `Exist`, ale zprostředkovatelé můžete implementovat něco jiného v případě potřeby. Nerelační poskytovatelé muset implementovat nové rozhraní API v pořadí pro kontrolu stavu, který má být použitelná.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -Aktualizace základní RelationalTypeMapping nenastavovat DbParameter velikost
-  * Zastavte, protože to může způsobit zkrácení nastavení velikosti ve výchozím nastavení. Poskytovatelé pravděpodobně nutné přidat své vlastní logiky, pokud velikost musí být nastavena.
-* (https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng: Vždy určit typ sloupce pro desítkové sloupce
-  * Vždy Konfigurujte typ sloupce pro desítkové sloupce automaticky generovaný kód, místo konfigurace podle konvence.
-  * Poskytovatelé, neměli byste potřebovat všechny změny na své straně.
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -Přidá CaseExpression pro generování výrazy SQL CASE
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13648](https://github.com/aspnet/EntityFrameworkCore/pull/13648) -Přidává možnost zadat mapování typů SqlFunctionExpression ke zlepšení odvozování typů úložiště argumenty a výsledky.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12109> – konsolidace metod RelationalTypeMapping. Clone
+  * Změny v 2,1 pro RelationalTypeMapping povolené pro zjednodušení v odvozených třídách. Nevěříme, že došlo k přerušení poskytovatelům, ale poskytovatelé můžou tuto změnu využít v odvozených třídách mapování typu.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/12069> – tagované nebo pojmenované dotazy
+  * Přidá infrastrukturu pro označování dotazů LINQ a tyto značky se zobrazí jako komentáře v SQL. To může vyžadovat, aby poskytovatelé reagovali při generování SQL.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13115> – podpora prostorových dat prostřednictvím NTS
+  * Povoluje registraci typů mapování a překladatelů členů mimo poskytovatele.
+    * Zprostředkovatelé musí volat základ. FindMapping () ve své implementaci ITypeMappingSource, aby fungoval
+  * Podle tohoto vzoru přidejte prostorovou podporu pro vašeho poskytovatele, který je konzistentní napříč poskytovateli.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13199> – přidat vylepšené ladění pro vytváření poskytovatele služeb
+  * Umožňuje DbContextOptionsExtensions implementovat nové rozhraní, které může lidem pomáhat pochopit, proč se poskytovatel interních služeb znovu sestavil.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13289> – přidá rozhraní API CanConnect pro použití kontrolami stavu.
+  * Tato žádost o přijetí změn přidává koncept `CanConnect`, který budou používat ASP.NET Core kontroly stavu k určení, jestli je databáze k dispozici. Ve výchozím nastavení relační implementace volá pouze `Exist`, ale poskytovatelé můžou v případě potřeby implementovat něco jiného. Nerelační poskytovatelé budou muset implementovat nové rozhraní API, aby bylo možné použít kontrolu stavu.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13306> – aktualizovat základní RelationalTypeMapping, aby se nastavila velikost DbParameter
+  * Zastaví velikost nastavení ve výchozím nastavení, protože může způsobit zkrácení. Poskytovatelé můžou potřebovat přidat vlastní logiku, pokud je potřeba nastavit velikost.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13372>-RevEng: vždy zadat typ sloupce pro desetinné sloupce
+  * Vždy konfigurujte typ sloupce pro desetinné místo v kódu vygenerovaného pomocí konvence namísto konfigurace podle konvence.
+  * Poskytovatelé by na svém konci neměli vyžadovat žádné změny.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13469> – přidá CaseExpression pro generování výrazů případu SQL.
+* <https://github.com/aspnet/EntityFrameworkCore/pull/13648> – přidá možnost zadat mapování typů na SqlFunctionExpression ke zlepšení odvození typu úložiště argumentů a výsledků.

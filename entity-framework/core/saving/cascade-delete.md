@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: af86383bad52c87d2874fa4f8eb247a656601312
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 51c8b6f4517a3f87821ed1e4e2d60549e06ed39d
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182015"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656056"
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -18,9 +18,11 @@ Kaskádové odstraňování se často používá v terminologii databáze k popi
 EF Core implementuje několik různých chování při odstraňování a umožňuje konfiguraci chování při odstraňování jednotlivých vztahů. EF Core také implementuje konvence, které automaticky nakonfigurují užitečné výchozí chování při odstraňování každého vztahu na základě [požadované hodnoty vztahu](../modeling/relationships.md#required-and-optional-relationships).
 
 ## <a name="delete-behaviors"></a>Chování při odstranění
+
 Chování při odstranění jsou definovaná v typu enumerátoru *DeleteBehavior* a dají se předat rozhraní API pro *odstranění* Fluent, které určuje, jestli se má odstranit objekt zabezpečení nebo nadřazená entita nebo závažnost vztahu k závislým/podřízeným entitám. mají vedlejší efekt na závislých nebo podřízených entitách.
 
 Existují tři akce, které EF může provést při odstranění objektu zabezpečení nebo nadřazené entity nebo při jeho vztahu k podřízenému objektu:
+
 * Podřízená/závislá je možné odstranit.
 * Hodnoty cizího klíče dítěte mohou být nastaveny na hodnotu null.
 * Podřízená položka zůstane beze změny.
@@ -33,6 +35,7 @@ U druhé akce výše nastavení hodnota cizího klíče na hodnotu null není pl
 Existují čtyři chování při odstranění, jak je uvedeno v následujících tabulkách.
 
 ### <a name="optional-relationships"></a>Volitelné relace
+
 U volitelných vztahů (cizí klíč s možnou hodnotou null) _je_ možné uložit hodnotu cizího klíče s hodnotou null, která má za následek následující důsledky:
 
 | Název chování               | Vliv na závislé nebo podřízené objekty v paměti    | Vliv na závislé nebo podřízené v databázi  |
@@ -43,6 +46,7 @@ U volitelných vztahů (cizí klíč s možnou hodnotou null) _je_ možné ulož
 | **Omezit**                | Žádné                                   | Žádné                                   |
 
 ### <a name="required-relationships"></a>Požadované relace
+
 Pro požadované relace (cizí klíč, který nesmí mít hodnotu null), _není_ možné uložit hodnotu cizího klíče s hodnotou null, která má za následek následující důsledky:
 
 | Název chování         | Vliv na závislé nebo podřízené objekty v paměti | Vliv na závislé nebo podřízené v databázi |
@@ -55,6 +59,7 @@ Pro požadované relace (cizí klíč, který nesmí mít hodnotu null), _není_
 V tabulkách uvedených výše může *žádný* z nich dojít k porušení omezení. Například pokud je odstraněna objekt hlavní/podřízená entita, ale není provedena žádná akce pro změnu cizího klíče závislého nebo podřízeného objektu, databáze pravděpodobně vyvolá operaci SaveChanges z důvodu narušení cizího omezení.
 
 Na nejvyšší úrovni:
+
 * Pokud máte entity, které nemůžou existovat bez nadřazeného objektu, a chcete, aby se EF postaral o automatické odstranění podřízených objektů, použijte *kaskády*.
   * Entity, které nemohou existovat bez nadřazeného objektu obvykle využívají požadované relace, pro které je výchozí hodnota *Cascade* .
 * Pokud máte entity, které mohou nebo nemusí mít nadřazenou položku a chcete, aby EF postaral o vynulování cizího klíče za vás, pak použijte *ClientSetNull*
@@ -107,7 +112,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s požadovanou relací
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -130,7 +135,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s volitelným vztahem
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -160,7 +165,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. restrict s povinným nebo volitelným vztahem
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -189,7 +194,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>DeleteBehavior. Cascade s povinným nebo volitelným vztahem
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -217,7 +222,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s požadovanou relací
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -240,7 +245,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior. ClientSetNull nebo DeleteBehavior. SetNull s volitelným vztahem
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -268,7 +273,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>DeleteBehavior. restrict s povinným nebo volitelným vztahem
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -297,7 +302,7 @@ Při volání *metody SaveChanges*budou pravidla pro odstranění kaskádových 
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-Pokud je načtený pouze objekt zabezpečení (například když je proveden dotaz na blogu) bez `Include(b => b.Posts)` pro zahrnutí příspěvků, pak SaveChanges vygeneruje pouze SQL pro odstranění objektu zabezpečení nebo nadřazené položky:
+Pokud je načtený jenom objekt zabezpečení (například když je na blogu vytvořený dotaz) bez `Include(b => b.Posts)`, aby taky zahrnoval příspěvky, pak SaveChanges vygeneruje SQL jenom pro odstranění objektu zabezpečení nebo nadřazené položky:
 
 ```sql
     DELETE FROM [Blogs] WHERE [BlogId] = 1

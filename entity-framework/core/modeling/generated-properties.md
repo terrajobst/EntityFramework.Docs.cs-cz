@@ -4,18 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 6b38fd2e540ec29674f1116e7c204052d06ca1bc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 6643d3c5c9b3363e450e820793f449a41e2eba80
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197426"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655751"
 ---
 # <a name="generated-values"></a>Vygenerované hodnoty
 
 ## <a name="value-generation-patterns"></a>Vzorce generování hodnoty
 
 Existují tři vzorce generování hodnoty, které lze použít pro vlastnosti:
+
 * Bez generování hodnoty
 * Hodnota vygenerovaná při přidání
 * Hodnota vygenerovaná při přidání nebo aktualizaci
@@ -28,26 +29,26 @@ Existují tři vzorce generování hodnoty, které lze použít pro vlastnosti:
 
 Hodnota vygenerovaná při přidání znamená, že se pro nové entity vygeneruje hodnota.
 
-V závislosti na použitém poskytovateli databáze mohou být hodnoty generovány na straně klienta podle EF nebo v databázi. Pokud je hodnota vygenerována databází, pak EF může přiřadit dočasnou hodnotu, když přidáte entitu do kontextu. Tato dočasná hodnota bude nahrazena hodnotou vygenerovanou databází během `SaveChanges()`.
+V závislosti na použitém poskytovateli databáze mohou být hodnoty generovány na straně klienta podle EF nebo v databázi. Pokud je hodnota vygenerována databází, pak EF může přiřadit dočasnou hodnotu, když přidáte entitu do kontextu. Tato dočasná hodnota se pak nahradí vygenerovanou hodnotou databáze během `SaveChanges()`.
 
-Pokud přidáte entitu do kontextu, který má hodnotu přiřazenou k vlastnosti, pak EF se pokusí tuto hodnotu vložit místo vygenerování nového. Vlastnost je považována za přiřazenou hodnotu,`null` `0` `int` `Guid.Empty` není-li přiřazena výchozí hodnota CLR (pro `string`, pro, pro `Guid`atd.). Další informace najdete v tématu [explicitní hodnoty pro vygenerované vlastnosti](../saving/explicit-values-generated-properties.md).
+Pokud přidáte entitu do kontextu, který má hodnotu přiřazenou k vlastnosti, pak EF se pokusí tuto hodnotu vložit místo vygenerování nového. Vlastnost je považována za přiřazenou hodnotu, pokud není přiřazena výchozí hodnota CLR (`null` pro `string`, `0` pro `int`, `Guid.Empty` pro `Guid`atd.). Další informace najdete v tématu [explicitní hodnoty pro vygenerované vlastnosti](../saving/explicit-values-generated-properties.md).
 
 > [!WARNING]  
 > Způsob generování hodnoty pro přidané entity bude záviset na používaném poskytovateli databáze. Poskytovatelé databází můžou automaticky nastavit generování hodnot u některých typů vlastností, ale jiné můžou vyžadovat ruční nastavení způsobu generování hodnoty.
 >
-> Například při použití SQL Server se hodnoty automaticky generují pro `GUID` vlastnosti (pomocí sekvenčního algoritmu GUID SQL Server). Pokud však zadáte, že `DateTime` vlastnost je generována při přidání, je nutné nastavit způsob, jakým mají být generovány hodnoty. Jedním ze způsobů, jak to provést, je nakonfigurovat výchozí hodnotu `GETDATE()`, viz [výchozí hodnoty](relational/default-values.md).
+> Například při použití SQL Server se hodnoty automaticky vygenerují pro `GUID` vlastnosti (pomocí SQL Server sekvenčního algoritmu GUID). Pokud však zadáte, že vlastnost `DateTime` je generována při přidání, je nutné nastavit způsob, jakým mají být generovány hodnoty. Jedním ze způsobů, jak to provést, je nakonfigurovat výchozí hodnotu `GETDATE()`, najdete v tématu [výchozí hodnoty](relational/default-values.md).
 
 ### <a name="value-generated-on-add-or-update"></a>Hodnota vygenerovaná při přidání nebo aktualizaci
 
 Hodnota generovaná při přidání nebo aktualizaci znamená, že nová hodnota je generována při každém uložení záznamu (vložit nebo aktualizovat).
 
-Pokud `value generated on add`například zadáte hodnotu pro vlastnost u nově přidané instance entity, bude tato hodnota vložena místo vygenerování hodnoty. Při aktualizaci je také možné nastavit explicitní hodnotu. Další informace najdete v tématu [explicitní hodnoty pro vygenerované vlastnosti](../saving/explicit-values-generated-properties.md).
+Podobně jako u `value generated on add`platí, že pokud zadáte hodnotu vlastnosti u nově přidané instance entity, bude tato hodnota vložena místo vygenerování hodnoty. Při aktualizaci je také možné nastavit explicitní hodnotu. Další informace najdete v tématu [explicitní hodnoty pro vygenerované vlastnosti](../saving/explicit-values-generated-properties.md).
 
 > [!WARNING]
 > Způsob generování hodnoty pro přidané a aktualizované entity bude záviset na používaném poskytovateli databáze. Poskytovatelé databáze mohou automaticky nastavit generování hodnot u některých typů vlastností, zatímco ostatní budou vyžadovat ruční nastavení způsobu generování hodnoty.
-> 
-> Například při použití SQL Server, `byte[]` vlastnosti, které jsou nastaveny jako generované při přidání nebo aktualizaci a označené jako tokeny souběžnosti, budou nastaveny `rowversion` s datovým typem, aby se hodnoty vygenerovaly v databázi. Nicméně pokud určíte, že se `DateTime` vlastnost generuje při přidání nebo aktualizaci, musíte nastavit způsob, jakým se mají vygenerovat hodnoty. Jedním ze způsobů, jak to provést, je nakonfigurovat výchozí hodnotu `GETDATE()` (viz [výchozí hodnoty](relational/default-values.md)), aby se generovaly hodnoty pro nové řádky. Pak můžete použít Trigger databáze k vygenerování hodnot během aktualizací (například pomocí následujícího příkladu triggeru).
-> 
+>
+> Například při použití SQL Server, `byte[]` vlastností, které jsou nastaveny jako generované při přidání nebo aktualizaci a označené jako tokeny souběžnosti, bude instalační program s datovým typem `rowversion`, takže budou v databázi vygenerovány hodnoty. Pokud však zadáte, že se vlastnost `DateTime` vygeneruje při přidání nebo aktualizaci, musíte nastavit způsob, jakým se mají hodnoty generovat. Jedním ze způsobů, jak to provést, je nakonfigurovat výchozí hodnotu `GETDATE()` (viz [výchozí hodnoty](relational/default-values.md)) a generovat hodnoty pro nové řádky. Pak můžete použít Trigger databáze k vygenerování hodnot během aktualizací (například pomocí následujícího příkladu triggeru).
+>
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.sql)]
 
 ## <a name="conventions"></a>Konvence
@@ -87,7 +88,7 @@ Rozhraní Fluent API můžete použít ke změně vzoru pro generování hodnot 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> `ValueGeneratedOnAdd()`jednoduše umožňuje, aby EF věděl, že jsou pro přidané entity vygenerované hodnoty. nezaručujeme tak, že EF nastaví skutečný mechanismus pro generování hodnot.  Další podrobnosti najdete v části věnované [hodnotě vygenerované v doplňku](#value-generated-on-add) .
+> `ValueGeneratedOnAdd()` jen pro EF ví, že jsou pro přidané entity vygenerované hodnoty, nezaručuje, že EF nastaví skutečný mechanismus pro generování hodnot.  Další podrobnosti najdete v části věnované [hodnotě vygenerované v doplňku](#value-generated-on-add) .
 
 ### <a name="value-generated-on-add-or-update-fluent-api"></a>Hodnota vygenerovaná při přidání nebo aktualizaci (Fluent API)
 

@@ -1,25 +1,26 @@
 ---
-title: Přepínání mezi více modelů pomocí stejného DbContext typu – EF Core
+title: Střídání mezi několika modely se stejným typem DbContext-EF Core
 author: AndriySvyryd
 ms.date: 12/10/2017
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/dynamic-model
-ms.openlocfilehash: 1d87efb668c12a2862583fba16a6c444b3cda9de
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 034076b1595894e80b98467354f6c9f139bd7426
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994983"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655728"
 ---
-# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Přepínání mezi více modelů se stejným typem DbContext
+# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>Střídání mezi několika modely se stejným typem DbContext
 
-Model sestavený `OnModelCreating` použít vlastnost na kontextu, chcete-li změnit, jak je sestaven modelu. Například to může být vyloučena určitá vlastnost:
+Model sestavený `OnModelCreating` mohl použít vlastnost v kontextu ke změně způsobu sestavení modelu. Můžete například použít k vyloučení určité vlastnosti:
 
 [!code-csharp[Main](../../../samples/core/DynamicModel/DynamicContext.cs?name=Class)]
 
 ## <a name="imodelcachekeyfactory"></a>IModelCacheKeyFactory
-Ale pokud jste se pokusili, díky předchozímu bez jakýchkoli dalších změn byste získali stejného modelu pokaždé, když se vytvoří nový kontext pro libovolnou hodnotu z `IgnoreIntProperty`. Důvodem je ukládání do mezipaměti mechanismus EF používá ke zlepšení výkonu pouze vyvoláním modelu `OnModelCreating` jednou a ukládání do mezipaměti modelu.
 
-Ve výchozím nastavení EF předpokládá, že pro jakýkoli kontext daného typu modelu budou stejné. K provedení této výchozí implementace `IModelCacheKeyFactory` vrátí klíč, který obsahuje pouze typ kontextu. Chcete-li změnit toto je třeba nahradit `IModelCacheKeyFactory` služby. Novou implementaci musí vracet objekt, který lze porovnávat na jiné modelu klíče pomocí `Equals` metodu, která bere v úvahu všechny proměnné, které mají vliv modelu:
+Nicméně pokud jste se pokusili provést výše uvedené bez dalších změn, měli byste stejný model pokaždé, když se vytvoří nový kontext pro libovolnou hodnotu `IgnoreIntProperty`. To je způsobeno tím, že nástroj pro ukládání modelů do mezipaměti EF používá ke zlepšení výkonu pouze vyvoláním `OnModelCreating` jednou a ukládáním do mezipaměti modelu.
+
+Ve výchozím nastavení předpokládá, že pro jakýkoli daný typ kontextu bude model stejný. Chcete-li dosáhnout této výchozí implementace `IModelCacheKeyFactory` vrátí klíč, který pouze obsahuje typ kontextu. Chcete-li toto změnit, je třeba nahradit službu `IModelCacheKeyFactory`. Nová implementace vyžaduje vrácení objektu, který lze porovnat s jinými klíči modelů pomocí metody `Equals`, která přihlíží ke všem proměnným, které mají vliv na model:
 
 [!code-csharp[Main](../../../samples/core/DynamicModel/DynamicModelCacheKeyFactory.cs?name=Class)]

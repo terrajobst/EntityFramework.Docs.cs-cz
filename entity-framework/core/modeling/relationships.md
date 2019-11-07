@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 uid: core/modeling/relationships
-ms.openlocfilehash: 1e9c62bec47263ef452c7ac425a0bb446f9371d8
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 1e59ce9e19c12aa5564bc8467dcfcb3be8ee8996
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197653"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655676"
 ---
 # <a name="relationships"></a>Relace
 
@@ -38,21 +38,21 @@ K popisu vztahů se používá určitý počet výrazů.
 
   * **Inverzní navigační vlastnost:** Při diskusi na konkrétní navigační vlastnost se tento termín odkazuje na vlastnost navigace na druhém konci relace.
 
-Následující výpis kódu ukazuje vztah 1: n mezi `Blog` a`Post`
+Následující výpis kódu ukazuje vztah 1: n mezi `Blog` a `Post`
 
-* `Post`je závislá entita
+* `Post` je závislá entita.
 
-* `Blog`je hlavní entitou
+* `Blog` je hlavní entitou.
 
-* `Post.BlogId`je cizí klíč
+* `Post.BlogId` je cizí klíč.
 
-* `Blog.BlogId`je hlavní klíč (v tomto případě je to primární klíč, nikoli alternativní klíč).
+* `Blog.BlogId` je hlavní klíč (v tomto případě je to primární klíč, nikoli alternativní klíč).
 
-* `Post.Blog`je referenční navigační vlastnost
+* `Post.Blog` je navigační vlastnost odkazu
 
-* `Blog.Posts`je navigační vlastnost kolekce
+* `Blog.Posts` je navigační vlastnost kolekce
 
-* `Post.Blog`je inverzní vlastnost `Blog.Posts` navigace (a naopak).
+* `Post.Blog` je inverzní navigační vlastnost `Blog.Posts` (a naopak).
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Entities)]
 
@@ -69,7 +69,7 @@ Nejběžnějším vzorem relací je mít vlastnosti navigace definované na obou
 
 * Pokud je mezi dvěma typy nalezen pár vlastností navigace, budou nakonfigurovány jako inverzní navigační vlastnosti stejné relace.
 
-* Pokud závislá entita obsahuje vlastnost s názvem `<primary key property name>`, `<navigation property name><primary key property name>`, nebo `<principal entity name><primary key property name>` se nakonfiguruje jako cizí klíč.
+* Pokud závislá entita obsahuje vlastnost s názvem `<primary key property name>`, `<navigation property name><primary key property name>`nebo `<principal entity name><primary key property name>` pak bude nakonfigurována jako cizí klíč.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs?name=Entities&highlight=6,15,16)]
 
@@ -78,7 +78,7 @@ Nejběžnějším vzorem relací je mít vlastnosti navigace definované na obou
 
 ### <a name="no-foreign-key-property"></a>Žádná vlastnost cizího klíče
 
-I když se doporučuje mít vlastnost cizího klíče definovanou ve třídě závislé entity, není to nutné. Pokud se nenalezne žádná vlastnost cizího klíče, zavedený s názvem `<navigation property name><principal key property name>` se vytvoří vlastnost stínového cizího klíče (Další informace najdete v tématu [vlastnosti stínu](shadow-properties.md) ).
+I když se doporučuje mít vlastnost cizího klíče definovanou ve třídě závislé entity, není to nutné. Pokud se nenalezne žádná vlastnost cizího klíče, zavede se vlastnost stínového cizího klíče s názvem `<navigation property name><principal key property name>` (Další informace najdete v tématu [vlastnosti stínu](shadow-properties.md) ).
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/NoForeignKey.cs?name=Entities&highlight=6,15)]
 
@@ -98,16 +98,16 @@ Další podrobnosti o různých chováních při odstraňování a výchozích h
 
 ## <a name="data-annotations"></a>Datové poznámky
 
-K dispozici jsou dva datové poznámky, které lze použít ke konfiguraci `[ForeignKey]` relací `[InverseProperty]`a. Ty jsou k dispozici `System.ComponentModel.DataAnnotations.Schema` v oboru názvů.
+Existují dva datové poznámky, které lze použít ke konfiguraci relací, `[ForeignKey]` a `[InverseProperty]`. Jsou k dispozici v oboru názvů `System.ComponentModel.DataAnnotations.Schema`.
 
-### <a name="foreignkey"></a>[ForeignKey]
+### <a name="foreignkey"></a>Klíč ForeignKey
 
 Pomocí datových poznámek můžete nakonfigurovat, která vlastnost má být použita jako vlastnost cizího klíče pro danou relaci. To se obvykle provádí v případě, že není zjištěna vlastnost cizího klíče podle konvence.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?highlight=30)]
 
 > [!TIP]  
-> `[ForeignKey]` Anotace lze umístit buď do vlastnosti navigace v relaci. Nepotřebujete přejít na navigační vlastnost v třídě závislé entity.
+> Anotaci `[ForeignKey]` lze umístit buď do vlastnosti navigace v relaci. Nepotřebujete přejít na navigační vlastnost v třídě závislé entity.
 
 ### <a name="inverseproperty"></a>[InverseProperty]
 
@@ -117,13 +117,13 @@ Pomocí datových poznámek můžete nakonfigurovat, jak se mají spárovat vlas
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 
-Pokud chcete nakonfigurovat relaci v rozhraní Fluent API, začněte tím, že určíte navigační vlastnosti, které tvoří relaci. `HasOne`nebo `HasMany` identifikuje navigační vlastnost u typu entity, na které začínáte konfigurovat. Pak řetězení volání `WithOne` nebo `WithMany` k identifikaci invertované navigace. `HasOne`/`WithOne`slouží k odkazu na navigační vlastnosti a `HasMany` / `WithMany` používají se pro navigační vlastnosti kolekce.
+Pokud chcete nakonfigurovat relaci v rozhraní Fluent API, začněte tím, že určíte navigační vlastnosti, které tvoří relaci. `HasOne` nebo `HasMany` identifikuje navigační vlastnost u typu entity, na které začínáte konfigurovat. Pak řetězení volání `WithOne` nebo `WithMany` k identifikaci invertované navigace. `HasOne`/`WithOne` se používají pro referenční vlastnosti navigace a `HasMany`/`WithMany` se používají pro navigační vlastnosti kolekce.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?highlight=14-16)]
 
 ### <a name="single-navigation-property"></a>Jednoduchá navigační vlastnost
 
-Pokud máte pouze jednu navigační vlastnost, existují přetížení `WithOne` parametrů a. `WithMany` To znamená, že na konci relace existuje koncepční odkaz nebo kolekce, ale ve třídě entity není obsažena žádná vlastnost navigace.
+Pokud máte pouze jednu navigační vlastnost, existují přetížení `WithOne` a `WithMany`bez parametrů. To znamená, že na konci relace existuje koncepční odkaz nebo kolekce, ale ve třídě entity není obsažena žádná vlastnost navigace.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneNavigation.cs?highlight=14-16)]
 
@@ -137,7 +137,7 @@ Následující výpis kódu ukazuje, jak nakonfigurovat složený cizí klíč.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?highlight=20)]
 
-Můžete použít přetížení `HasForeignKey(...)` řetězce pro ke konfiguraci vlastnosti Shadow jako cizího klíče (Další informace najdete v tématu [vlastnosti stínu](shadow-properties.md) ). Do modelu doporučujeme explicitně přidat vlastnost Shadow, než ji použijete jako cizí klíč (jak je vidět níže).
+Pomocí přetížení řetězců `HasForeignKey(...)` můžete nakonfigurovat vlastnost Shadow jako cizí klíč (Další informace najdete v tématu [vlastnosti stínu](shadow-properties.md) ). Do modelu doporučujeme explicitně přidat vlastnost Shadow, než ji použijete jako cizí klíč (jak je vidět níže).
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ShadowForeignKey.cs#Sample)]
 
@@ -151,83 +151,11 @@ Nemusíte nutně zadávat navigační vlastnost. Můžete jednoduše zadat cizí
 
 Pokud chcete, aby cizí klíč odkazoval na jinou vlastnost než na primární klíč, můžete pro relaci nakonfigurovat vlastnost klíče zabezpečení pomocí rozhraní Fluent API. Vlastnost, kterou nakonfigurujete jako hlavní klíč, se automaticky nastaví jako alternativní klíč (Další informace najdete v tématu [alternativní klíče](alternate-keys.md) ).
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Car> Cars { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<RecordOfSale>()
-            .HasOne(s => s.Car)
-            .WithMany(c => c.SaleHistory)
-            .HasForeignKey(s => s.CarLicensePlate)
-            .HasPrincipalKey(c => c.LicensePlate);
-    }
-}
-
-public class Car
-{
-    public int CarId { get; set; }
-    public string LicensePlate { get; set; }
-    public string Make { get; set; }
-    public string Model { get; set; }
-
-    public List<RecordOfSale> SaleHistory { get; set; }
-}
-
-public class RecordOfSale
-{
-    public int RecordOfSaleId { get; set; }
-    public DateTime DateSold { get; set; }
-    public decimal Price { get; set; }
-
-    public string CarLicensePlate { get; set; }
-    public Car Car { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
 Následující výpis kódu ukazuje, jak nakonfigurovat složený klíč zabezpečení.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Car> Cars { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<RecordOfSale>()
-            .HasOne(s => s.Car)
-            .WithMany(c => c.SaleHistory)
-            .HasForeignKey(s => new { s.CarState, s.CarLicensePlate })
-            .HasPrincipalKey(c => new { c.State, c.LicensePlate });
-    }
-}
-
-public class Car
-{
-    public int CarId { get; set; }
-    public string State { get; set; }
-    public string LicensePlate { get; set; }
-    public string Make { get; set; }
-    public string Model { get; set; }
-
-    public List<RecordOfSale> SaleHistory { get; set; }
-}
-
-public class RecordOfSale
-{
-    public int RecordOfSaleId { get; set; }
-    public DateTime DateSold { get; set; }
-    public decimal Price { get; set; }
-
-    public string CarState { get; set; }
-    public string CarLicensePlate { get; set; }
-    public Car Car { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=Composite&highlight=11)]
 
 > [!WARNING]  
 > Pořadí, ve kterém určíte vlastnosti hlavního klíče, musí odpovídat pořadí, ve kterém jsou zadané pro cizí klíč.
@@ -236,39 +164,7 @@ public class RecordOfSale
 
 Pomocí rozhraní Fluent API můžete nakonfigurovat, jestli je relace povinná nebo volitelná. Nakonec tato možnost určuje, jestli je vlastnost cizího klíče povinná nebo volitelná. To je nejužitečnější při použití cizího klíče stavu stínové kopie. Máte-li ve třídě entity vlastnost cizího klíče, je vyžadována požadovaná vlastnost vztahu na základě toho, zda je vlastnost cizího klíče povinná nebo volitelná (Další informace naleznete v části [povinné a volitelné vlastnosti](required-optional.md) ).
 
-<!-- [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<Post> Posts { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Post>()
-            .HasOne(p => p.Blog)
-            .WithMany(b => b.Posts)
-            .IsRequired();
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public List<Post> Posts { get; set; }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public Blog Blog { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?name=Required&highlight=11)]
 
 ### <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -276,40 +172,7 @@ Rozhraní Fluent API můžete použít ke konfiguraci chování kaskádového od
 
 Podrobné informace o jednotlivých možnostech najdete v části [kaskádová odstranění](../saving/cascade-delete.md) v části ukládání dat.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/CascadeDelete.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<Post> Posts { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Post>()
-            .HasOne(p => p.Blog)
-            .WithMany(b => b.Posts)
-            .OnDelete(DeleteBehavior.Cascade);
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public List<Post> Posts { get; set; }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public int? BlogId { get; set; }
-    public Blog Blog { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CascadeDelete.cs?name=CascadeDelete&highlight=11)]
 
 ## <a name="other-relationship-patterns"></a>Další vzory vztahů
 
@@ -317,119 +180,19 @@ public class Post
 
 Jedna až jedna relace má referenční navigační vlastnost na obou stranách. Dodržují stejné konvence jako relace 1: n, ale do vlastnosti cizího klíče se zavedl jedinečný index, který zaručí, že k jednotlivým objektům zabezpečení souvisí jenom jedna závislá hodnota.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Relationships/OneToOne.cs?highlight=6,15,16)] -->
-``` csharp
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public BlogImage BlogImage { get; set; }
-}
-
-public class BlogImage
-{
-    public int BlogImageId { get; set; }
-    public byte[] Image { get; set; }
-    public string Caption { get; set; }
-
-    public int BlogId { get; set; }
-    public Blog Blog { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/OneToOne.cs?name=Property&highlight=6,15,16)]
 
 > [!NOTE]  
 > EF vybere jednu z entit, které budou závislé na závislosti na schopnosti detekovat vlastnost cizího klíče. Pokud je jako závislá vybraná nesprávná entita, můžete ji opravit pomocí rozhraní Fluent API.
 
-Při konfiguraci relace s rozhraním API Fluent použijte `HasOne` metody a. `WithOne`
+Když konfigurujete relaci s rozhraním API Fluent, použijete metody `HasOne` a `WithOne`.
 
-Při konfiguraci cizího klíče je nutné zadat typ závislé entity – Všimněte si obecného parametru, který `HasForeignKey` je uveden v níže uvedeném seznamu. V relaci 1: n je jasné, že entita s referenční navigací je závislá a ta, která je v kolekci, je objektem zabezpečení. Nejedná se ale o relaci 1:1, takže je potřeba explicitně definovat.
+Při konfiguraci cizího klíče musíte zadat typ závislé entity – Všimněte si obecného parametru poskytnutého `HasForeignKey` v níže uvedeném seznamu. V relaci 1: n je jasné, že entita s referenční navigací je závislá a ta, která je v kolekci, je objektem zabezpečení. Nejedná se ale o relaci 1:1, takže je potřeba explicitně definovat.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<BlogImage> BlogImages { get; set; }
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?name=OneToOne&highlight=11)]
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasOne(p => p.BlogImage)
-            .WithOne(i => i.Blog)
-            .HasForeignKey<BlogImage>(b => b.BlogForeignKey);
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public BlogImage BlogImage { get; set; }
-}
-
-public class BlogImage
-{
-    public int BlogImageId { get; set; }
-    public byte[] Image { get; set; }
-    public string Caption { get; set; }
-
-    public int BlogForeignKey { get; set; }
-    public Blog Blog { get; set; }
-}
-```
-
-### <a name="many-to-many"></a>Many-to-many
+### <a name="many-to-many"></a>Mnoho k mnoha
 
 Relace m:n bez třídy entity představující tabulku JOIN se ještě nepodporují. Můžete však znázornit relaci n:n zahrnutím třídy entity pro tabulku JOIN a mapováním dvou samostatných vztahů 1: n.
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?highlight=11,12,13,14,16,17,18,19,39,40,41,42,43,44,45,46)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Post> Posts { get; set; }
-    public DbSet<Tag> Tags { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<PostTag>()
-            .HasKey(pt => new { pt.PostId, pt.TagId });
-
-        modelBuilder.Entity<PostTag>()
-            .HasOne(pt => pt.Post)
-            .WithMany(p => p.PostTags)
-            .HasForeignKey(pt => pt.PostId);
-
-        modelBuilder.Entity<PostTag>()
-            .HasOne(pt => pt.Tag)
-            .WithMany(t => t.PostTags)
-            .HasForeignKey(pt => pt.TagId);
-    }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public List<PostTag> PostTags { get; set; }
-}
-
-public class Tag
-{
-    public string TagId { get; set; }
-
-    public List<PostTag> PostTags { get; set; }
-}
-
-public class PostTag
-{
-    public int PostId { get; set; }
-    public Post Post { get; set; }
-
-    public string TagId { get; set; }
-    public Tag Tag { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?name=ManyToMany&highlight=11,12,13,14,16,17,18,19,39,40,41,42,43,44,45,46)]

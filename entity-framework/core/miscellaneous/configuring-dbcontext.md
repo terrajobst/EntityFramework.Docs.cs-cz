@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: e04c1b65df96819f3493e0ed34ccf26609511f6a
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72445906"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655804"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
@@ -41,7 +41,7 @@ optionsBuilder
 > [!NOTE]  
 > Metody selektoru poskytovatele a další výše uvedené metody selektoru chování jsou rozšiřující metody pro třídy možností `DbContextOptions` nebo specifické pro poskytovatele. Aby bylo možné mít přístup k těmto metodám rozšíření, možná budete muset mít v oboru obor názvů (obvykle `Microsoft.EntityFrameworkCore`) a zahrnout do projektu další závislosti balíčků.
 
-@No__t-0 lze dodávat do `DbContext` přepsáním metody `OnConfiguring` nebo externě prostřednictvím argumentu konstruktoru.
+`DbContextOptions` lze dodávat do `DbContext` přepsáním metody `OnConfiguring` nebo externě prostřednictvím argumentu konstruktoru.
 
 Pokud jsou oba použity, `OnConfiguring` se použije jako poslední a může přepsat možnosti zadané v argumentu konstruktoru.
 
@@ -163,11 +163,12 @@ using (var context = serviceProvider.GetService<BloggingContext>())
 
 var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
+
 ## <a name="avoiding-dbcontext-threading-issues"></a>Předcházení problémům s vlákny DbContext
 
 Entity Framework Core nepodporuje spouštění více paralelních operací na stejné instanci `DbContext`. To zahrnuje paralelní spuštění asynchronních dotazů a jakékoli explicitní souběžné použití z více vláken. Proto vždy asynchronní volání `await` okamžitě nebo pro operace, které se spouštějí paralelně, použijte samostatné instance `DbContext`.
 
-Když EF Core detekuje souběžný pokus o použití instance `DbContext`, zobrazí se `InvalidOperationException` se zprávou, například: 
+Když EF Core detekuje souběžný pokus o použití instance `DbContext`, zobrazí se `InvalidOperationException` se zprávou, například:
 
 > Druhá operace začala v tomto kontextu před dokončením předchozí operace. To je obvykle způsobeno různými vlákny pomocí stejné instance DbContext, ale členy instance nejsou zaručeny jako bezpečné pro přístup z více vláken.
 
@@ -177,13 +178,13 @@ Existují běžné chyby, které můžou neúmyslně způsobit souběžný pří
 
 ### <a name="forgetting-to-await-the-completion-of-an-asynchronous-operation-before-starting-any-other-operation-on-the-same-dbcontext"></a>Forgetting na čekání na dokončení asynchronní operace před spuštěním jakékoli jiné operace na stejném DbContext
 
-Asynchronní metody umožňují EF Core iniciovat operace, které přistupují k databázi neblokujícím způsobem. Pokud však volající neočekává dokončení jedné z těchto metod a pokračuje v provádění dalších operací s `DbContext`, stav `DbContext` může být (a pravděpodobně bude) poškozen. 
+Asynchronní metody umožňují EF Core iniciovat operace, které přistupují k databázi neblokujícím způsobem. Pokud však volající neočekává dokončení jedné z těchto metod a pokračuje v provádění dalších operací s `DbContext`, stav `DbContext` může být (a pravděpodobně bude) poškozen.
 
 Vždy čekají EF Core asynchronní metody okamžitě.  
 
 ### <a name="implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection"></a>Implicitní sdílení instancí DbContext napříč více vlákny prostřednictvím injektáže závislosti
 
-Metoda rozšíření [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) registruje ve výchozím nastavení typy `DbContext` s [vymezenou životností](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) . 
+Metoda rozšíření [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) registruje ve výchozím nastavení typy `DbContext` s [vymezenou životností](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) .
 
 To je bezpečné před souběžným problémům s přístupem v aplikacích ASP.NET Core, protože v daný okamžik probíhá pouze jedno vlákno, které spouští každou žádost klienta, a protože každý požadavek získá samostatný rozsah vkládání závislostí (a proto samostatnou instanci `DbContext`).
 
@@ -193,5 +194,5 @@ Pomocí injektáže závislostí lze dosáhnout toho, že buď zaregistrujete ko
 
 ## <a name="more-reading"></a>Další čtení
 
-* Přečtěte si [Injektáže závislostí](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) , kde se dozvíte víc o používání di.
-* Další informace najdete v tématu [testování](testing/index.md) .
+- Přečtěte si [Injektáže závislostí](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) , kde se dozvíte víc o používání di.
+- Další informace najdete v tématu [testování](testing/index.md) .

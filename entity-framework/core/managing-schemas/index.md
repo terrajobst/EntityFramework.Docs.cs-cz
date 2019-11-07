@@ -1,23 +1,24 @@
 ---
-title: Správa schémat databází – EF Core
+title: Správa schémat databáze – EF Core
 author: bricelam
 ms.date: 10/30/2017
-ms.openlocfilehash: c1ebe33b5575cab76a54721ef86ecbcb7ff8b98b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2da17865cb0192fb3e6e3396e4ca5f31fde9c52a
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994382"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655649"
 ---
 # <a name="managing-database-schemas"></a>Správa schémat databází
-EF Core poskytuje dvěma základními způsoby udržování EF Core modelu a databázové schéma synchronizace. K výběru mezi těmito dvěma, rozhodněte, zda modelu EF Core nebo schéma databáze je zdroj informací.
 
-Pokud chcete modelu EF Core zdroj pravdivých informací, použijte [migrace][1]. Při provádění změn do modelu EF Core, postupně vztahuje se odpovídající změny schématu na vaši databázi, aby zůstala kompatibilní s modelem EF Core.
+EF Core poskytuje dva hlavní způsoby udržování modelu EF Core a schématu databáze v synchronizaci. Pokud si chcete vybrat mezi těmito dvěma možnostmi, rozhodněte se, jestli je model EF Core nebo schéma databáze zdrojem pravdy.
 
-Použití [Reverse Engineering] [ 2] Pokud chcete schéma databáze se zdroji pravdivých informací. Tento přístup umožňuje generování uživatelského rozhraní DbContext a třídy typu entity ve zpětné analýze schématu databáze do modelu EF Core.
+Pokud chcete, aby byl model EF Core zdrojem pravdy, použijte [migrace][1]. Při provádění změn v modelu EF Core tento postup přírůstkově aplikuje odpovídající změny schématu do vaší databáze tak, aby zůstal kompatibilní s modelem EF Core.
+
+Pokud chcete, aby bylo vaše schéma databáze zdrojem pravdy, použijte [zpětný technický vývoj][2] . Tento přístup vám umožní vytvořit si třídu typu DbContext a třídy typů entit, a to tak, že vaše schéma databáze vrátí zpět do modelu EF Core.
 
 > [!NOTE]
-> [Vytvoření a přemístění rozhraní API] [ 3] můžete také vytvořit schéma databáze z modelu EF Core. Nicméně jsou primárně pro testování, vytváření prototypů a další scénáře, kde vyřazením databáze je přijatelné.
+> [Rozhraní API pro vytváření a vyřazení][3] můžou také vytvořit schéma databáze z modelu EF Core. Jsou ale primárně určené pro testování, vytváření prototypů a další scénáře, kdy je odstranění databáze přijatelné.
 
 
   [1]: migrations/index.md
