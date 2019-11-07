@@ -4,29 +4,30 @@ author: ajcvickers
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 2a1956221ecc920feba796e4d95cc97259e89c53
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 93774bc1bc3887f982faeac151825a6643c1107c
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152507"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654786"
 ---
-# <a name="value-conversions"></a><span data-ttu-id="45677-102">Převody hodnot</span><span class="sxs-lookup"><span data-stu-id="45677-102">Value Conversions</span></span>
+# <a name="value-conversions"></a><span data-ttu-id="59da0-102">Převody hodnot</span><span class="sxs-lookup"><span data-stu-id="59da0-102">Value Conversions</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="45677-103">Tato funkce je nového v EF Core 2.1.</span><span class="sxs-lookup"><span data-stu-id="45677-103">This feature is new in EF Core 2.1.</span></span>
+> <span data-ttu-id="59da0-103">Tato funkce je v EF Core 2,1 novinkou.</span><span class="sxs-lookup"><span data-stu-id="59da0-103">This feature is new in EF Core 2.1.</span></span>
 
-<span data-ttu-id="45677-104">Převodníky hodnot povolit hodnoty vlastností, které převedou při čtení nebo zápisu do databáze.</span><span class="sxs-lookup"><span data-stu-id="45677-104">Value converters allow property values to be converted when reading from or writing to the database.</span></span> <span data-ttu-id="45677-105">Tento převod může být z jedné hodnoty do jiného stejného typu (například šifrování řetězců) nebo z hodnoty jednoho typu na hodnotu jiný typ (například převod hodnoty výčtu do a z řetězce v databázi.)</span><span class="sxs-lookup"><span data-stu-id="45677-105">This conversion can be from one value to another of the same type (for example, encrypting strings) or from a value of one type to a value of another type (for example, converting enum values to and from strings in the database.)</span></span>
+<span data-ttu-id="59da0-104">Převaděče hodnot umožňují převod hodnot vlastností při čtení nebo zápisu do databáze.</span><span class="sxs-lookup"><span data-stu-id="59da0-104">Value converters allow property values to be converted when reading from or writing to the database.</span></span> <span data-ttu-id="59da0-105">Tento převod může být z jedné hodnoty na jiný stejného typu (například šifrovací řetězce) nebo z hodnoty jednoho typu na hodnotu jiného typu (například převod hodnot výčtu na a z řetězců v databázi.)</span><span class="sxs-lookup"><span data-stu-id="59da0-105">This conversion can be from one value to another of the same type (for example, encrypting strings) or from a value of one type to a value of another type (for example, converting enum values to and from strings in the database.)</span></span>
 
-## <a name="fundamentals"></a><span data-ttu-id="45677-106">Základy</span><span class="sxs-lookup"><span data-stu-id="45677-106">Fundamentals</span></span>
+## <a name="fundamentals"></a><span data-ttu-id="59da0-106">Základy</span><span class="sxs-lookup"><span data-stu-id="59da0-106">Fundamentals</span></span>
 
-<span data-ttu-id="45677-107">Převodníky hodnot zadávají se stanovují `ModelClrType` a `ProviderClrType`.</span><span class="sxs-lookup"><span data-stu-id="45677-107">Value converters are specified in terms of a `ModelClrType` and a `ProviderClrType`.</span></span> <span data-ttu-id="45677-108">Typ modelu je typ formátu .NET vlastnosti v typu entity.</span><span class="sxs-lookup"><span data-stu-id="45677-108">The model type is the .NET type of the property in the entity type.</span></span> <span data-ttu-id="45677-109">Typ zprostředkovatele je typ formátu .NET srozumitelné pro poskytovatele databáze.</span><span class="sxs-lookup"><span data-stu-id="45677-109">The provider type is the .NET type understood by the database provider.</span></span> <span data-ttu-id="45677-110">Například uložte výčty jako řetězce v databázi, je typ modelu typ výčtu a zprostředkovatele nejedná `String`.</span><span class="sxs-lookup"><span data-stu-id="45677-110">For example, to save enums as strings in the database, the model type is the type of the enum, and the provider type is `String`.</span></span> <span data-ttu-id="45677-111">Tyto dva typy mohou být stejné.</span><span class="sxs-lookup"><span data-stu-id="45677-111">These two types can be the same.</span></span>
+<span data-ttu-id="59da0-107">Převaděče hodnot jsou zadány na základě `ModelClrType` a `ProviderClrType`.</span><span class="sxs-lookup"><span data-stu-id="59da0-107">Value converters are specified in terms of a `ModelClrType` and a `ProviderClrType`.</span></span> <span data-ttu-id="59da0-108">Typ modelu je typ .NET vlastnosti v typu entity.</span><span class="sxs-lookup"><span data-stu-id="59da0-108">The model type is the .NET type of the property in the entity type.</span></span> <span data-ttu-id="59da0-109">Typ zprostředkovatele je typ .NET, který rozumí poskytovatel databáze.</span><span class="sxs-lookup"><span data-stu-id="59da0-109">The provider type is the .NET type understood by the database provider.</span></span> <span data-ttu-id="59da0-110">Chcete-li například uložit výčty jako řetězce v databázi, typ modelu je typ výčtu a typ poskytovatele `String`.</span><span class="sxs-lookup"><span data-stu-id="59da0-110">For example, to save enums as strings in the database, the model type is the type of the enum, and the provider type is `String`.</span></span> <span data-ttu-id="59da0-111">Tyto dva typy mohou být stejné.</span><span class="sxs-lookup"><span data-stu-id="59da0-111">These two types can be the same.</span></span>
 
-<span data-ttu-id="45677-112">Převody jsou definovány pomocí dvou `Func` stromů výrazů: jedna z `ModelClrType` k `ProviderClrType` a druhý z `ProviderClrType` k `ModelClrType`.</span><span class="sxs-lookup"><span data-stu-id="45677-112">Conversions are defined using two `Func` expression trees: one from `ModelClrType` to `ProviderClrType` and the other from `ProviderClrType` to `ModelClrType`.</span></span> <span data-ttu-id="45677-113">Stromy výrazů se používají tak, aby může být zkompilovány do databáze přístupový kód pro efektivní převody.</span><span class="sxs-lookup"><span data-stu-id="45677-113">Expression trees are used so that they can be compiled into the database access code for efficient conversions.</span></span> <span data-ttu-id="45677-114">Pro komplexní převody stromu výrazů může být jednoduché volání metody, která provádí převod.</span><span class="sxs-lookup"><span data-stu-id="45677-114">For complex conversions, the expression tree may be a simple call to a method that performs the conversion.</span></span>
+<span data-ttu-id="59da0-112">Převody jsou definovány pomocí dvou `Func` stromů výrazů: jeden z `ModelClrType` na `ProviderClrType` a druhý od `ProviderClrType` až po `ModelClrType`.</span><span class="sxs-lookup"><span data-stu-id="59da0-112">Conversions are defined using two `Func` expression trees: one from `ModelClrType` to `ProviderClrType` and the other from `ProviderClrType` to `ModelClrType`.</span></span> <span data-ttu-id="59da0-113">Stromy výrazů se používají tak, aby je bylo možné kompilovat do kódu přístupu k databázi pro efektivní převody.</span><span class="sxs-lookup"><span data-stu-id="59da0-113">Expression trees are used so that they can be compiled into the database access code for efficient conversions.</span></span> <span data-ttu-id="59da0-114">U složitých převodů může být strom výrazů jednoduchým voláním metody, která provádí převod.</span><span class="sxs-lookup"><span data-stu-id="59da0-114">For complex conversions, the expression tree may be a simple call to a method that performs the conversion.</span></span>
 
-## <a name="configuring-a-value-converter"></a><span data-ttu-id="45677-115">Převaděč hodnoty konfigurace</span><span class="sxs-lookup"><span data-stu-id="45677-115">Configuring a value converter</span></span>
+## <a name="configuring-a-value-converter"></a><span data-ttu-id="59da0-115">Konfigurace převaděče hodnot</span><span class="sxs-lookup"><span data-stu-id="59da0-115">Configuring a value converter</span></span>
 
-<span data-ttu-id="45677-116">Převody hodnot, které jsou definovány na vlastnosti v `OnModelCreating` z vaší `DbContext`.</span><span class="sxs-lookup"><span data-stu-id="45677-116">Value conversions are defined on properties in the `OnModelCreating` of your `DbContext`.</span></span> <span data-ttu-id="45677-117">Představte si třeba typu výčtu a entity definován jako:</span><span class="sxs-lookup"><span data-stu-id="45677-117">For example, consider an enum and entity type defined as:</span></span>
+<span data-ttu-id="59da0-116">Převody hodnot jsou definovány ve vlastnostech `OnModelCreating` `DbContext`.</span><span class="sxs-lookup"><span data-stu-id="59da0-116">Value conversions are defined on properties in the `OnModelCreating` of your `DbContext`.</span></span> <span data-ttu-id="59da0-117">Představte si například výčet a typ entity definovaný jako:</span><span class="sxs-lookup"><span data-stu-id="59da0-117">For example, consider an enum and entity type defined as:</span></span>
+
 ``` csharp
 public class Rider
 {
@@ -42,7 +43,9 @@ public enum EquineBeast
     Unicorn
 }
 ```
-<span data-ttu-id="45677-118">Pak převody lze definovat v `OnModelCreating` pro uložení hodnoty výčtu jako řetězce (například "Oslů", "Mul",...) v databázi:</span><span class="sxs-lookup"><span data-stu-id="45677-118">Then conversions can be defined in `OnModelCreating` to store the enum values as strings (for example, "Donkey", "Mule", ...) in the database:</span></span>
+
+<span data-ttu-id="59da0-118">Pak lze převody definovat v `OnModelCreating` pro uložení hodnot výčtu jako řetězců (například "Donkey", "Mule",...) v databázi:</span><span class="sxs-lookup"><span data-stu-id="59da0-118">Then conversions can be defined in `OnModelCreating` to store the enum values as strings (for example, "Donkey", "Mule", ...) in the database:</span></span>
+
 ``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -54,12 +57,14 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             v => (EquineBeast)Enum.Parse(typeof(EquineBeast), v));
 }
 ```
+
 > [!NOTE]  
-> <span data-ttu-id="45677-119">A `null` se nikdy být předána hodnota převaděč hodnoty.</span><span class="sxs-lookup"><span data-stu-id="45677-119">A `null` value will never be passed to a value converter.</span></span> <span data-ttu-id="45677-120">To usnadňuje provádění převodů a umožňuje jejich sdílí mezi vlastností s možnou hodnotou Null a Null.</span><span class="sxs-lookup"><span data-stu-id="45677-120">This makes the implementation of conversions easier and allows them to be shared amongst nullable and non-nullable properties.</span></span>
+> <span data-ttu-id="59da0-119">Hodnota `null` nebude nikdy předána převaděči hodnot.</span><span class="sxs-lookup"><span data-stu-id="59da0-119">A `null` value will never be passed to a value converter.</span></span> <span data-ttu-id="59da0-120">Díky tomu je implementace převodů jednodušší a umožňuje, aby se sdílely mezi vlastnosti s možnou hodnotou null a nepovolující hodnotu null.</span><span class="sxs-lookup"><span data-stu-id="59da0-120">This makes the implementation of conversions easier and allows them to be shared amongst nullable and non-nullable properties.</span></span>
 
-## <a name="the-valueconverter-class"></a><span data-ttu-id="45677-121">Třída ValueConverter</span><span class="sxs-lookup"><span data-stu-id="45677-121">The ValueConverter class</span></span>
+## <a name="the-valueconverter-class"></a><span data-ttu-id="59da0-121">Třída ValueConverter</span><span class="sxs-lookup"><span data-stu-id="59da0-121">The ValueConverter class</span></span>
 
-<span data-ttu-id="45677-122">Volání `HasConversion` jak uvádíme výš, se vytvoří `ValueConverter` instance a nastavte ji na vlastnost.</span><span class="sxs-lookup"><span data-stu-id="45677-122">Calling `HasConversion` as shown above will create a `ValueConverter` instance and set it on the property.</span></span> <span data-ttu-id="45677-123">`ValueConverter` Lze vytvořit místo toho explicitně.</span><span class="sxs-lookup"><span data-stu-id="45677-123">The `ValueConverter` can instead be created explicitly.</span></span> <span data-ttu-id="45677-124">Příklad:</span><span class="sxs-lookup"><span data-stu-id="45677-124">For example:</span></span>
+<span data-ttu-id="59da0-122">Volání `HasConversion` jak je uvedeno výše, vytvoří instanci `ValueConverter` a nastaví ji na vlastnost.</span><span class="sxs-lookup"><span data-stu-id="59da0-122">Calling `HasConversion` as shown above will create a `ValueConverter` instance and set it on the property.</span></span> <span data-ttu-id="59da0-123">Místo toho `ValueConverter` lze vytvořit explicitně.</span><span class="sxs-lookup"><span data-stu-id="59da0-123">The `ValueConverter` can instead be created explicitly.</span></span> <span data-ttu-id="59da0-124">Příklad:</span><span class="sxs-lookup"><span data-stu-id="59da0-124">For example:</span></span>
+
 ``` csharp
 var converter = new ValueConverter<EquineBeast, string>(
     v => v.ToString(),
@@ -70,37 +75,40 @@ modelBuilder
     .Property(e => e.Mount)
     .HasConversion(converter);
 ```
-<span data-ttu-id="45677-125">To může být užitečné, když používají stejný převod více vlastností.</span><span class="sxs-lookup"><span data-stu-id="45677-125">This can be useful when multiple properties use the same conversion.</span></span>
+
+<span data-ttu-id="59da0-125">To může být užitečné, pokud více vlastností používá stejný převod.</span><span class="sxs-lookup"><span data-stu-id="59da0-125">This can be useful when multiple properties use the same conversion.</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="45677-126">Aktuálně neexistuje žádný způsob, jak určit na jednom místě, že každé vlastnosti daného typu musí používat stejnou převaděč hodnoty.</span><span class="sxs-lookup"><span data-stu-id="45677-126">There is currently no way to specify in one place that every property of a given type must use the same value converter.</span></span> <span data-ttu-id="45677-127">Tato funkce se budou považovat za pro budoucí verzi.</span><span class="sxs-lookup"><span data-stu-id="45677-127">This feature will be considered for a future release.</span></span>
+> <span data-ttu-id="59da0-126">V současné době neexistuje způsob, jak zadat na jednom místě, kde musí každá vlastnost daného typu používat stejný konvertor hodnoty.</span><span class="sxs-lookup"><span data-stu-id="59da0-126">There is currently no way to specify in one place that every property of a given type must use the same value converter.</span></span> <span data-ttu-id="59da0-127">Tato funkce se bude považovat za budoucí verzi.</span><span class="sxs-lookup"><span data-stu-id="59da0-127">This feature will be considered for a future release.</span></span>
 
-## <a name="built-in-converters"></a><span data-ttu-id="45677-128">Vestavěné převaděče</span><span class="sxs-lookup"><span data-stu-id="45677-128">Built-in converters</span></span>
+## <a name="built-in-converters"></a><span data-ttu-id="59da0-128">Předdefinované převaděče</span><span class="sxs-lookup"><span data-stu-id="59da0-128">Built-in converters</span></span>
 
-<span data-ttu-id="45677-129">EF Core se dodává se sadou předem definovanou `ValueConverter` třídy, v rámci `Microsoft.EntityFrameworkCore.Storage.ValueConversion` oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="45677-129">EF Core ships with a set of pre-defined `ValueConverter` classes, found in the `Microsoft.EntityFrameworkCore.Storage.ValueConversion` namespace.</span></span> <span data-ttu-id="45677-130">Toto jsou:</span><span class="sxs-lookup"><span data-stu-id="45677-130">These are:</span></span>
-* <span data-ttu-id="45677-131">`BoolToZeroOneConverter` – Bool na 0 a 1</span><span class="sxs-lookup"><span data-stu-id="45677-131">`BoolToZeroOneConverter` - Bool to zero and one</span></span>
-* <span data-ttu-id="45677-132">`BoolToStringConverter` – Bool na řetězce jako je například "Y" a "N"</span><span class="sxs-lookup"><span data-stu-id="45677-132">`BoolToStringConverter` - Bool to strings such as "Y" and "N"</span></span>
-* <span data-ttu-id="45677-133">`BoolToTwoValuesConverter` – Bool na jakékoli dvě hodnoty</span><span class="sxs-lookup"><span data-stu-id="45677-133">`BoolToTwoValuesConverter` - Bool to any two values</span></span>
-* <span data-ttu-id="45677-134">`BytesToStringConverter` -Bajtové pole na řetězec kódovaný ve formátu Base64</span><span class="sxs-lookup"><span data-stu-id="45677-134">`BytesToStringConverter` - Byte array to Base64-encoded string</span></span>
-* <span data-ttu-id="45677-135">`CastingConverter` -Převody, které vyžadují pouze přetypování typu</span><span class="sxs-lookup"><span data-stu-id="45677-135">`CastingConverter` - Conversions that require only a type cast</span></span>
-* <span data-ttu-id="45677-136">`CharToStringConverter` -Char jeden znak řetězec</span><span class="sxs-lookup"><span data-stu-id="45677-136">`CharToStringConverter` - Char to single character string</span></span>
-* <span data-ttu-id="45677-137">`DateTimeOffsetToBinaryConverter` – DateTimeOffset zakódovaná binární hodnotu 64-bit</span><span class="sxs-lookup"><span data-stu-id="45677-137">`DateTimeOffsetToBinaryConverter` - DateTimeOffset to binary-encoded 64-bit value</span></span>
-* <span data-ttu-id="45677-138">`DateTimeOffsetToBytesConverter` – DateTimeOffset na pole bajtů</span><span class="sxs-lookup"><span data-stu-id="45677-138">`DateTimeOffsetToBytesConverter` - DateTimeOffset to byte array</span></span>
-* <span data-ttu-id="45677-139">`DateTimeOffsetToStringConverter` -Typu DateTimeOffset mimo řetězec</span><span class="sxs-lookup"><span data-stu-id="45677-139">`DateTimeOffsetToStringConverter` - DateTimeOffset to string</span></span>
-* <span data-ttu-id="45677-140">`DateTimeToBinaryConverter` -Datum a čas na 64 bitů hodnotu včetně DateTimeKind</span><span class="sxs-lookup"><span data-stu-id="45677-140">`DateTimeToBinaryConverter` - DateTime to 64-bit value including DateTimeKind</span></span>
-* <span data-ttu-id="45677-141">`DateTimeToStringConverter` -Datum a čas na řetězec</span><span class="sxs-lookup"><span data-stu-id="45677-141">`DateTimeToStringConverter` - DateTime to string</span></span>
-* <span data-ttu-id="45677-142">`DateTimeToTicksConverter` -Datum a čas k značky</span><span class="sxs-lookup"><span data-stu-id="45677-142">`DateTimeToTicksConverter` - DateTime to ticks</span></span>
-* <span data-ttu-id="45677-143">`EnumToNumberConverter` – Enum základní číslo</span><span class="sxs-lookup"><span data-stu-id="45677-143">`EnumToNumberConverter` - Enum to underlying number</span></span>
-* <span data-ttu-id="45677-144">`EnumToStringConverter` – Enum řetězec</span><span class="sxs-lookup"><span data-stu-id="45677-144">`EnumToStringConverter` - Enum to string</span></span>
-* <span data-ttu-id="45677-145">`GuidToBytesConverter` -Identifikátor Guid bajtové pole</span><span class="sxs-lookup"><span data-stu-id="45677-145">`GuidToBytesConverter` - Guid to byte array</span></span>
-* <span data-ttu-id="45677-146">`GuidToStringConverter` -Identifikátor Guid do řetězce</span><span class="sxs-lookup"><span data-stu-id="45677-146">`GuidToStringConverter` - Guid to string</span></span>
-* <span data-ttu-id="45677-147">`NumberToBytesConverter` – Jakékoli číselné hodnoty do bajtového pole</span><span class="sxs-lookup"><span data-stu-id="45677-147">`NumberToBytesConverter` - Any numerical value to byte array</span></span>
-* <span data-ttu-id="45677-148">`NumberToStringConverter` – Libovolná číselnou hodnotu na řetězec</span><span class="sxs-lookup"><span data-stu-id="45677-148">`NumberToStringConverter` - Any numerical value to string</span></span>
-* <span data-ttu-id="45677-149">`StringToBytesConverter` -Řetězec, který se bajty UTF8</span><span class="sxs-lookup"><span data-stu-id="45677-149">`StringToBytesConverter` - String to UTF8 bytes</span></span>
-* <span data-ttu-id="45677-150">`TimeSpanToStringConverter` -Časový interval na řetězec</span><span class="sxs-lookup"><span data-stu-id="45677-150">`TimeSpanToStringConverter` - TimeSpan to string</span></span>
-* <span data-ttu-id="45677-151">`TimeSpanToTicksConverter` -Časový interval má značky</span><span class="sxs-lookup"><span data-stu-id="45677-151">`TimeSpanToTicksConverter` - TimeSpan to ticks</span></span>
+<span data-ttu-id="59da0-129">EF Core se dodává se sadou předem definovaných `ValueConverter` tříd, která se nachází v oboru názvů `Microsoft.EntityFrameworkCore.Storage.ValueConversion`.</span><span class="sxs-lookup"><span data-stu-id="59da0-129">EF Core ships with a set of pre-defined `ValueConverter` classes, found in the `Microsoft.EntityFrameworkCore.Storage.ValueConversion` namespace.</span></span> <span data-ttu-id="59da0-130">Jsou to tyto:</span><span class="sxs-lookup"><span data-stu-id="59da0-130">These are:</span></span>
 
-<span data-ttu-id="45677-152">Všimněte si, že `EnumToStringConverter` je zahrnuta v tomto seznamu.</span><span class="sxs-lookup"><span data-stu-id="45677-152">Notice that `EnumToStringConverter` is included in this list.</span></span> <span data-ttu-id="45677-153">To znamená, že není potřeba specifikovat převod explicitně, jak je znázorněno výše.</span><span class="sxs-lookup"><span data-stu-id="45677-153">This means that there is no need to specify the conversion explicitly, as shown above.</span></span> <span data-ttu-id="45677-154">Místo toho použijte integrované převaděč:</span><span class="sxs-lookup"><span data-stu-id="45677-154">Instead, just use the built-in converter:</span></span>
+* <span data-ttu-id="59da0-131">`BoolToZeroOneConverter` – bool na nulu a jeden</span><span class="sxs-lookup"><span data-stu-id="59da0-131">`BoolToZeroOneConverter` - Bool to zero and one</span></span>
+* <span data-ttu-id="59da0-132">`BoolToStringConverter` – bool pro řetězce, jako například "Y" a "N"</span><span class="sxs-lookup"><span data-stu-id="59da0-132">`BoolToStringConverter` - Bool to strings such as "Y" and "N"</span></span>
+* <span data-ttu-id="59da0-133">`BoolToTwoValuesConverter` – bool pro libovolné dvě hodnoty</span><span class="sxs-lookup"><span data-stu-id="59da0-133">`BoolToTwoValuesConverter` - Bool to any two values</span></span>
+* <span data-ttu-id="59da0-134">`BytesToStringConverter` bajtové pole na řetězec kódovaný v kódování Base64</span><span class="sxs-lookup"><span data-stu-id="59da0-134">`BytesToStringConverter` - Byte array to Base64-encoded string</span></span>
+* <span data-ttu-id="59da0-135">`CastingConverter` – převody, které vyžadují pouze přetypování typu</span><span class="sxs-lookup"><span data-stu-id="59da0-135">`CastingConverter` - Conversions that require only a type cast</span></span>
+* <span data-ttu-id="59da0-136">`CharToStringConverter`-char do řetězce s jedním znakem</span><span class="sxs-lookup"><span data-stu-id="59da0-136">`CharToStringConverter` - Char to single character string</span></span>
+* <span data-ttu-id="59da0-137">`DateTimeOffsetToBinaryConverter`-DateTimeOffset až do binární hodnoty s kódováním 64</span><span class="sxs-lookup"><span data-stu-id="59da0-137">`DateTimeOffsetToBinaryConverter` - DateTimeOffset to binary-encoded 64-bit value</span></span>
+* <span data-ttu-id="59da0-138">pole `DateTimeOffsetToBytesConverter`-DateTimeOffset až bajtů</span><span class="sxs-lookup"><span data-stu-id="59da0-138">`DateTimeOffsetToBytesConverter` - DateTimeOffset to byte array</span></span>
+* <span data-ttu-id="59da0-139">`DateTimeOffsetToStringConverter`-DateTimeOffset do řetězce</span><span class="sxs-lookup"><span data-stu-id="59da0-139">`DateTimeOffsetToStringConverter` - DateTimeOffset to string</span></span>
+* <span data-ttu-id="59da0-140">`DateTimeToBinaryConverter`-hodnota DateTime až 64, včetně DateTimeKind</span><span class="sxs-lookup"><span data-stu-id="59da0-140">`DateTimeToBinaryConverter` - DateTime to 64-bit value including DateTimeKind</span></span>
+* <span data-ttu-id="59da0-141">`DateTimeToStringConverter`-DateTime do řetězce</span><span class="sxs-lookup"><span data-stu-id="59da0-141">`DateTimeToStringConverter` - DateTime to string</span></span>
+* <span data-ttu-id="59da0-142">`DateTimeToTicksConverter`-DateTime na takty</span><span class="sxs-lookup"><span data-stu-id="59da0-142">`DateTimeToTicksConverter` - DateTime to ticks</span></span>
+* <span data-ttu-id="59da0-143">`EnumToNumberConverter` – výčet pro základní číslo</span><span class="sxs-lookup"><span data-stu-id="59da0-143">`EnumToNumberConverter` - Enum to underlying number</span></span>
+* <span data-ttu-id="59da0-144">`EnumToStringConverter` – výčet do řetězce</span><span class="sxs-lookup"><span data-stu-id="59da0-144">`EnumToStringConverter` - Enum to string</span></span>
+* <span data-ttu-id="59da0-145">`GuidToBytesConverter` – identifikátor GUID pro pole bajtů</span><span class="sxs-lookup"><span data-stu-id="59da0-145">`GuidToBytesConverter` - Guid to byte array</span></span>
+* <span data-ttu-id="59da0-146">`GuidToStringConverter`-GUID k řetězci</span><span class="sxs-lookup"><span data-stu-id="59da0-146">`GuidToStringConverter` - Guid to string</span></span>
+* <span data-ttu-id="59da0-147">`NumberToBytesConverter` – jakákoli číselná hodnota k poli bajtů</span><span class="sxs-lookup"><span data-stu-id="59da0-147">`NumberToBytesConverter` - Any numerical value to byte array</span></span>
+* <span data-ttu-id="59da0-148">`NumberToStringConverter` – jakákoli číselná hodnota k řetězci</span><span class="sxs-lookup"><span data-stu-id="59da0-148">`NumberToStringConverter` - Any numerical value to string</span></span>
+* <span data-ttu-id="59da0-149">`StringToBytesConverter` – řetězec na bajty UTF8</span><span class="sxs-lookup"><span data-stu-id="59da0-149">`StringToBytesConverter` - String to UTF8 bytes</span></span>
+* <span data-ttu-id="59da0-150">`TimeSpanToStringConverter`-TimeSpan do řetězce</span><span class="sxs-lookup"><span data-stu-id="59da0-150">`TimeSpanToStringConverter` - TimeSpan to string</span></span>
+* <span data-ttu-id="59da0-151">`TimeSpanToTicksConverter`-TimeSpan k taktům</span><span class="sxs-lookup"><span data-stu-id="59da0-151">`TimeSpanToTicksConverter` - TimeSpan to ticks</span></span>
+
+<span data-ttu-id="59da0-152">Všimněte si, že `EnumToStringConverter` je součástí tohoto seznamu.</span><span class="sxs-lookup"><span data-stu-id="59da0-152">Notice that `EnumToStringConverter` is included in this list.</span></span> <span data-ttu-id="59da0-153">To znamená, že není nutné explicitně zadávat převod, jak je uvedeno výše.</span><span class="sxs-lookup"><span data-stu-id="59da0-153">This means that there is no need to specify the conversion explicitly, as shown above.</span></span> <span data-ttu-id="59da0-154">Místo toho stačí použít vestavěný převaděč:</span><span class="sxs-lookup"><span data-stu-id="59da0-154">Instead, just use the built-in converter:</span></span>
+
 ``` csharp
 var converter = new EnumToStringConverter<EquineBeast>();
 
@@ -109,18 +117,22 @@ modelBuilder
     .Property(e => e.Mount)
     .HasConversion(converter);
 ```
-<span data-ttu-id="45677-155">Všimněte si, že všechny vestavěné převaděče bezstavové a tak jediné instance může bezpečně sdílet víc vlastností.</span><span class="sxs-lookup"><span data-stu-id="45677-155">Note that all the built-in converters are stateless and so a single instance can be safely shared by multiple properties.</span></span>
 
-## <a name="pre-defined-conversions"></a><span data-ttu-id="45677-156">Předem definované převody</span><span class="sxs-lookup"><span data-stu-id="45677-156">Pre-defined conversions</span></span>
+<span data-ttu-id="59da0-155">Všimněte si, že všechny předdefinované převaděče jsou bezstavové, takže jednu instanci lze bezpečně sdílet pomocí více vlastností.</span><span class="sxs-lookup"><span data-stu-id="59da0-155">Note that all the built-in converters are stateless and so a single instance can be safely shared by multiple properties.</span></span>
 
-<span data-ttu-id="45677-157">Běžné převody, pro které existuje integrované převaděč není nutné explicitně zadat převaděč.</span><span class="sxs-lookup"><span data-stu-id="45677-157">For common conversions for which a built-in converter exists there is no need to specify the converter explicitly.</span></span> <span data-ttu-id="45677-158">Místo toho stačí pouze nakonfigurovat poskytovatele typu by měla sloužit a automaticky se použije odpovídající integrované převaděč EF.</span><span class="sxs-lookup"><span data-stu-id="45677-158">Instead, just configure which provider type should be used and EF will automatically use the appropriate built-in converter.</span></span> <span data-ttu-id="45677-159">Výčet pro převod řetězců se používají jako příklad výše, ale EF ve skutečnosti to automaticky v případě nakonfigurovaný typ poskytovatele:</span><span class="sxs-lookup"><span data-stu-id="45677-159">Enum to string conversions are used as an example above, but EF will actually do this automatically if the provider type is configured:</span></span>
+## <a name="pre-defined-conversions"></a><span data-ttu-id="59da0-156">Předem definované převody</span><span class="sxs-lookup"><span data-stu-id="59da0-156">Pre-defined conversions</span></span>
+
+<span data-ttu-id="59da0-157">Pro běžné převody, pro které existuje vestavěný převaděč, není nutné explicitně zadávat převaděč.</span><span class="sxs-lookup"><span data-stu-id="59da0-157">For common conversions for which a built-in converter exists there is no need to specify the converter explicitly.</span></span> <span data-ttu-id="59da0-158">Místo toho stačí nakonfigurovat, který typ poskytovatele má být použit, a EF bude automaticky používat odpovídající vestavěný převaděč.</span><span class="sxs-lookup"><span data-stu-id="59da0-158">Instead, just configure which provider type should be used and EF will automatically use the appropriate built-in converter.</span></span> <span data-ttu-id="59da0-159">Výčty na převody řetězců se používají jako příklad výše, ale EF to vlastně provede automaticky, pokud je nakonfigurovaný typ zprostředkovatele:</span><span class="sxs-lookup"><span data-stu-id="59da0-159">Enum to string conversions are used as an example above, but EF will actually do this automatically if the provider type is configured:</span></span>
+
 ``` csharp
 modelBuilder
     .Entity<Rider>()
     .Property(e => e.Mount)
     .HasConversion<string>();
 ```
-<span data-ttu-id="45677-160">Totéž lze dosáhnout explicitního určení typu sloupce.</span><span class="sxs-lookup"><span data-stu-id="45677-160">The same thing can be achieved by explicitly specifying the column type.</span></span> <span data-ttu-id="45677-161">Například pokud je definován typ entity, jako jsou proto:</span><span class="sxs-lookup"><span data-stu-id="45677-161">For example, if the entity type is defined like so:</span></span>
+
+<span data-ttu-id="59da0-160">Stejné věci je možné dosáhnout explicitním určením typu sloupce.</span><span class="sxs-lookup"><span data-stu-id="59da0-160">The same thing can be achieved by explicitly specifying the column type.</span></span> <span data-ttu-id="59da0-161">Například pokud je typ entity definovaný jako příklad:</span><span class="sxs-lookup"><span data-stu-id="59da0-161">For example, if the entity type is defined like so:</span></span>
+
 ``` csharp
 public class Rider
 {
@@ -130,12 +142,14 @@ public class Rider
     public EquineBeast Mount { get; set; }
 }
 ```
-<span data-ttu-id="45677-162">Potom hodnoty výčtu se uloží jako řetězce v databázi bez jakékoli další konfigurace v `OnModelCreating`.</span><span class="sxs-lookup"><span data-stu-id="45677-162">Then the enum values will be saved as strings in the database without any further configuration in `OnModelCreating`.</span></span>
 
-## <a name="limitations"></a><span data-ttu-id="45677-163">Omezení</span><span class="sxs-lookup"><span data-stu-id="45677-163">Limitations</span></span>
+<span data-ttu-id="59da0-162">Hodnoty výčtu pak budou uloženy jako řetězce v databázi bez další konfigurace v `OnModelCreating`.</span><span class="sxs-lookup"><span data-stu-id="59da0-162">Then the enum values will be saved as strings in the database without any further configuration in `OnModelCreating`.</span></span>
 
-<span data-ttu-id="45677-164">Existuje několik známých aktuální omezení systému převod hodnoty:</span><span class="sxs-lookup"><span data-stu-id="45677-164">There are a few known current limitations of the value conversion system:</span></span>
-* <span data-ttu-id="45677-165">Jak bylo uvedeno výše, `null` nelze převést.</span><span class="sxs-lookup"><span data-stu-id="45677-165">As noted above, `null` cannot be converted.</span></span>
-* <span data-ttu-id="45677-166">Aktuálně neexistuje žádný způsob, jak rozšířit převod jednoho vlastnosti na více sloupců nebo naopak.</span><span class="sxs-lookup"><span data-stu-id="45677-166">There is currently no way to spread a conversion of one property to multiple columns or vice-versa.</span></span>
-* <span data-ttu-id="45677-167">Použití převody hodnot může mít vliv na schopnost EF Core překlad výrazů jazyka SQL.</span><span class="sxs-lookup"><span data-stu-id="45677-167">Use of value conversions may impact the ability of EF Core to translate expressions to SQL.</span></span> <span data-ttu-id="45677-168">Upozornění se protokolují pro tyto případy.</span><span class="sxs-lookup"><span data-stu-id="45677-168">A warning will be logged for such cases.</span></span>
-<span data-ttu-id="45677-169">Odebrání těchto omezení se považují za pro budoucí verzi.</span><span class="sxs-lookup"><span data-stu-id="45677-169">Removal of these limitations is being considered for a future release.</span></span>
+## <a name="limitations"></a><span data-ttu-id="59da0-163">Omezení</span><span class="sxs-lookup"><span data-stu-id="59da0-163">Limitations</span></span>
+
+<span data-ttu-id="59da0-164">K dispozici je několik známých omezení systému převodu hodnot:</span><span class="sxs-lookup"><span data-stu-id="59da0-164">There are a few known current limitations of the value conversion system:</span></span>
+
+* <span data-ttu-id="59da0-165">Jak bylo uvedeno výše, `null` nelze převést.</span><span class="sxs-lookup"><span data-stu-id="59da0-165">As noted above, `null` cannot be converted.</span></span>
+* <span data-ttu-id="59da0-166">V současné době neexistuje způsob, jak rozložit převod jedné vlastnosti do více sloupců nebo naopak.</span><span class="sxs-lookup"><span data-stu-id="59da0-166">There is currently no way to spread a conversion of one property to multiple columns or vice-versa.</span></span>
+* <span data-ttu-id="59da0-167">Použití převodů hodnot může mít vliv na schopnost EF Core přeložit výrazy do jazyka SQL.</span><span class="sxs-lookup"><span data-stu-id="59da0-167">Use of value conversions may impact the ability of EF Core to translate expressions to SQL.</span></span> <span data-ttu-id="59da0-168">V takových případech bude zaznamenáno upozornění.</span><span class="sxs-lookup"><span data-stu-id="59da0-168">A warning will be logged for such cases.</span></span>
+<span data-ttu-id="59da0-169">Odebrání těchto omezení se považuje za budoucí verzi.</span><span class="sxs-lookup"><span data-stu-id="59da0-169">Removal of these limitations is being considered for a future release.</span></span>
