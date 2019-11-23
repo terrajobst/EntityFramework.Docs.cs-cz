@@ -261,11 +261,11 @@ Kód zachycení je sestaven kolem konceptu rozhraní zachycení. Tato rozhraní 
 
 ### <a name="the-interception-context"></a>Kontext zachycení  
 
-V případě metod, které jsou definovány v jakémkoli rozhraní zachytávací, je zřejmé, že každé volání je předané objektu typu DbInterceptionContext nebo nějaký typ odvozený z tohoto typu, jako je například DbCommandInterceptionContext @ no__t-0 @ no__t-1. Tento objekt obsahuje kontextové informace o akci, kterou EF vezme. Například pokud je akce prováděna jménem DbContext, pak DbContext je součástí DbInterceptionContext. Podobně pro příkazy, které jsou spouštěny asynchronně, je příznak-Async nastaven na DbCommandInterceptionContext.  
+V případě metod, které jsou definovány v jakémkoli rozhraní zachytávací, je zřejmé, že každé volání je předané objektu typu DbInterceptionContext nebo nějaký typ odvozený z tohoto typu, jako je například DbCommandInterceptionContext\<\>. Tento objekt obsahuje kontextové informace o akci, kterou EF vezme. Například pokud je akce prováděna jménem DbContext, pak DbContext je součástí DbInterceptionContext. Podobně pro příkazy, které jsou spouštěny asynchronně, je příznak-Async nastaven na DbCommandInterceptionContext.  
 
 ### <a name="result-handling"></a>Zpracování výsledku  
 
-Třída DbCommandInterceptionContext @ no__t-0 @ no__t-1 obsahuje vlastnosti nazvané výsledek, OriginalResult, výjimka a OriginalException. Tyto vlastnosti jsou nastaveny na hodnotu null/nula pro volání metod zachycení, které jsou volány před spuštěním operace – to znamená pro... Spouštění metod. Pokud je operace spuštěná a úspěšná, pak se výsledek a OriginalResult nastaví na výsledek operace. Tyto hodnoty lze následně pozorovat v metodách zachycení, které jsou volány po provedení operace – to znamená na... Spouštěné metody. Podobně platí, že pokud operace vyvolá, budou nastaveny vlastnosti Exception a OriginalException.  
+Třída DbCommandInterceptionContext\<\> obsahuje vlastnosti nazvané výsledek, OriginalResult, výjimka a OriginalException. Tyto vlastnosti jsou nastaveny na hodnotu null/nula pro volání metod zachycení, které jsou volány před spuštěním operace – to znamená pro... Spouštění metod. Pokud je operace spuštěná a úspěšná, pak se výsledek a OriginalResult nastaví na výsledek operace. Tyto hodnoty lze následně pozorovat v metodách zachycení, které jsou volány po provedení operace – to znamená na... Spouštěné metody. Podobně platí, že pokud operace vyvolá, budou nastaveny vlastnosti Exception a OriginalException.  
 
 #### <a name="suppressing-execution"></a>Potlačení provádění  
 
@@ -297,7 +297,7 @@ DbInterception.Add(new NLogCommandInterceptor());
 
 Zachycení lze také registrovat na úrovni aplikačních domén pomocí mechanismu konfigurace založeného na kódu DbConfiguration.  
 
-### <a name="example-logging-to-nlog"></a>Příklad: Protokolování do NLog  
+### <a name="example-logging-to-nlog"></a>Příklad: protokolování do NLog  
 
 Pojďme to všechno dohromady do příkladu, který používá IDbCommandInterceptor a [nLOG](https://nlog-project.org/) k:  
 

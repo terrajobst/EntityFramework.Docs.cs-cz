@@ -13,7 +13,7 @@ ms.locfileid: "72181579"
 # <a name="testability-and-entity-framework-40"></a>Testování a Entity Framework 4,0
 Scott Allen
 
-Zveřejněna Květen 2010
+Publikováno: květen 2010
 
 ## <a name="introduction"></a>Úvod
 
@@ -120,7 +120,7 @@ S ohledem na IRepository objektů zaměstnanců může kód provádět následuj
 
 Vzhledem k tomu, že kód používá rozhraní (IRepository zaměstnance), můžeme kód poskytnout různým implementací rozhraní. Jedna implementace může být implementace zajištěná EF4 a trvalých objektů do databáze Microsoft SQL Server. Odlišná implementace (jedna, kterou používáme během testování) může být zálohovaná seznamem objektů zaměstnanců v paměti. Rozhraní vám pomůže dosáhnout izolace v kódu.
 
-Všimněte si, že rozhraní IRepository @ no__t-0T @ no__t-1 nevystavuje operaci uložení. Jak aktualizovat existující objekty? Můžete se setkat s definicemi IRepository, které zahrnují operaci uložení, a implementace těchto úložišť budou muset do databáze okamžitě zachovat objekt. V mnoha aplikacích ale nechceme objekty uchovávat individuálně. Místo toho chceme přinášet objekty do života, třeba z různých úložišť, upravovat tyto objekty jako součást obchodní aktivity a pak uchovávat všechny objekty jako součást jedné atomické operace. Naštěstí existuje vzor, který umožňuje tento typ chování.
+Všimněte si, že rozhraní IRepository&lt;T&gt; nezveřejňuje operaci uložení. Jak aktualizovat existující objekty? Můžete se setkat s definicemi IRepository, které zahrnují operaci uložení, a implementace těchto úložišť budou muset do databáze okamžitě zachovat objekt. V mnoha aplikacích ale nechceme objekty uchovávat individuálně. Místo toho chceme přinášet objekty do života, třeba z různých úložišť, upravovat tyto objekty jako součást obchodní aktivity a pak uchovávat všechny objekty jako součást jedné atomické operace. Naštěstí existuje vzor, který umožňuje tento typ chování.
 
 ### <a name="the-unit-of-work-pattern"></a>Model pracovní jednotky
 
@@ -194,11 +194,11 @@ Tyto definice tříd se mírně změní, protože zkoumáme různé přístupy a
 
 POCOs je možné v aplikaci Visual Studio vytvořit pomocí model EDM (Entity Data Model) (EDM) (viz obrázek 1). K vygenerování kódu pro naše entity nebudeme používat EDM. Místo toho chceme, abychom používali entity, které jsme lovingly, na základě ruky. K vygenerování našeho schématu databáze použijeme jenom model EDM a poskytneme metadata, která EF4 potřebuje k namapování objektů do databáze.
 
-![EF Test_01](~/ef6/media/eftest-01.jpg)
+![EF test_01](~/ef6/media/eftest-01.jpg)
 
 **Obrázek 1**
 
-Poznámka: Pokud chcete model EDM nejprve vyvinout, je možné vygenerovat čistý POCO kód z modelu EDM. Můžete to provést pomocí rozšíření sady Visual Studio 2010, které poskytuje tým programovatelnosti dat. Chcete-li stáhnout rozšíření, spusťte Správce rozšíření z nabídky nástroje v aplikaci Visual Studio a vyhledejte online galerii šablon pro "POCO" (viz obrázek 2). Pro EF je k dispozici několik šablon POCO. Další informace o použití šablony najdete v části [Walkthrough: Šablona POCO pro Entity Framework @ no__t-0
+Poznámka: Pokud chcete model EDM nejprve vyvinout, je možné vygenerovat čistý POCO kód z modelu EDM. Můžete to provést pomocí rozšíření sady Visual Studio 2010, které poskytuje tým programovatelnosti dat. Chcete-li stáhnout rozšíření, spusťte Správce rozšíření z nabídky nástroje v aplikaci Visual Studio a vyhledejte online galerii šablon pro "POCO" (viz obrázek 2). Pro EF je k dispozici několik šablon POCO. Další informace o použití šablony najdete v části " [Návod: Šablona POCO pro Entity Framework](https://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)".
 
 ![EF test_02](~/ef6/media/eftest-02.png)
 
@@ -220,7 +220,7 @@ Vezměte v úvahu následující akci kontroleru z projektu ASP.NET MVC. Akce na
 
 Je kód testovatelné? K dispozici jsou alespoň dva testy, které potřebujeme k ověření chování akce. Nejdříve byste chtěli ověřit, že akce vrátí správné zobrazení – jednoduchý test. Chtěli bychom také napsat test, abychom ověřili, že akce načte správného zaměstnance, a chceme to udělat bez spuštění kódu pro dotazování databáze. Nezapomeňte izolovat testovaný kód. Při izolaci se ověří, že se test nezdařil z důvodu chyby v kódu pro přístup k datům nebo v konfiguraci databáze. Pokud se test nezdaří, poznáte, že došlo k chybě v logice kontroleru a ne v některé součásti systému nižší úrovně.
 
-Aby se zajistila izolace, budete potřebovat několik abstrakcí, jako jsou rozhraní, které jsme dříve předložili pro úložiště a jednotky práce. Zapamatujte si, že vzor úložiště je navržený tak, aby vypravil mezi doménovými objekty a vrstvou mapování dat. V tomto scénáři EF4 *je* vrstva mapování dat a již poskytuje abstrakci podobnou úložišti s názvem IObjectSet @ No__t-1T @ no__t-2 (z oboru názvů System. data. Objects). Definice rozhraní vypadá následovně.
+Aby se zajistila izolace, budete potřebovat několik abstrakcí, jako jsou rozhraní, které jsme dříve předložili pro úložiště a jednotky práce. Zapamatujte si, že vzor úložiště je navržený tak, aby vypravil mezi doménovými objekty a vrstvou mapování dat. V tomto scénáři EF4 *je* vrstva mapování dat a již poskytuje abstrakci podobnou úložišti s názvem IObjectSet&lt;t&gt; (z oboru názvů System. data. Objects). Definice rozhraní vypadá následovně.
 
 ``` csharp
     public interface IObjectSet<TEntity> :
@@ -237,7 +237,7 @@ Aby se zajistila izolace, budete potřebovat několik abstrakcí, jako jsou rozh
     }
 ```
 
-IObjectSet @ no__t-0T @ no__t-1 splňuje požadavky na úložiště, protože se podobá kolekci objektů (přes IEnumerable @ no__t-2T @ no__t-3) a poskytuje metody pro přidání a odebrání objektů z simulované kolekce. Metody připojení a odpojení zpřístupňují další možnosti rozhraní EF4 API. Pokud chcete použít IObjectSet @ no__t-0T @ no__t-1 jako rozhraní pro úložiště, potřebujeme k vytváření vazeb úložišť určitou jednotku práce.
+IObjectSet&lt;T&gt; splňuje požadavky pro úložiště, protože se podobá kolekci objektů (přes IEnumerable&lt;T&gt;) a poskytuje metody pro přidání a odebrání objektů z simulované kolekce. Metody připojení a odpojení zpřístupňují další možnosti rozhraní EF4 API. Pokud chcete používat IObjectSet&lt;T&gt; jako rozhraní pro úložiště, potřebujeme k vytváření vazeb úložišť určitou jednotku práce.
 
 ``` csharp
     public interface IUnitOfWork {
@@ -276,7 +276,7 @@ Jedna konkrétní implementace tohoto rozhraní se bude mluvit SQL Server a je s
     }
 ```
 
-Uvedení IObjectSet @ no__t-0T @ no__t-1 na život je stejně snadné jako volání metody metody CreateObjectSet objektu ObjectContext. Na pozadí Framework použije metadata, která jsme poskytli v EDM, k vytvoření konkrétního objektu ObjectSet @ no__t-0T @ no__t-1. Budeme vracet rozhraní IObjectSet @ no__t-0T @ no__t-1, protože bude pomáhat s tím, jak zachovávat testování v kódu klienta.
+Zavedení IObjectSet&lt;T&gt; je stejně snadné jako volání metody metody CreateObjectSet objektu ObjectContext. Na pozadí Framework použije metadata, která jsme poskytli v modelu EDM, k vytvoření konkrétního&lt;u ObjectSet&gt;. Zavedeme se vrácením rozhraní IObjectSet&lt;T&gt;, protože pomůže zachovat testování v kódu klienta.
 
 Tato konkrétní implementace je užitečná v produkčním prostředí, ale musíme se zaměřit na to, jak budeme používat naši abstrakci IUnitOfWork k usnadnění testování.
 
@@ -321,7 +321,7 @@ Napodobeninná jednotka práce, kterou můžeme použít pro testování, může
 
 Všimněte si, že falešná jednotka práce zveřejňuje svěřenou vlastnost. Někdy je užitečné přidat funkce do falešné třídy, která usnadňuje testování. V tomto případě je možné snadno sledovat, jestli kód potvrdí pracovní jednotku, a to tak, že zkontroluje vlastnost potvrzená.
 
-Pro uložení objektů Employee a docházky do paměti budeme také potřebovat falešně IObjectSet @ no__t-0T @ no__t-1. Jednu implementaci můžeme poskytnout pomocí generických typů.
+Pro uchování objektů Employee a docházky v paměti budeme také potřebovat falešně IObjectSet&lt;T&gt;. Jednu implementaci můžeme poskytnout pomocí generických typů.
 
 ``` csharp
     public class InMemoryObjectSet<T> : IObjectSet<T> where T : class
@@ -368,7 +368,7 @@ Pro uložení objektů Employee a docházky do paměti budeme také potřebovat 
     }
 ```
 
-Tento test zdvojnásobuje svou práci na podkladové objekty HashSet – @ no__t-0T @ no__t-1. Všimněte si, že IObjectSet @ no__t-0T @ no__t-1 vyžaduje obecné omezení vynucující T jako třídu (odkazový typ) a také nám vynutí implementaci IQueryable @ no__t-2T @ no__t-3. Je snadné vytvořit kolekci v paměti jako IQueryable @ no__t-0T @ no__t-1 pomocí standardního operátoru LINQ AsQueryable.
+Tento test zdvojnásobí svoji práci na základní objekt HashSet –&lt;T&gt;. Všimněte si, že IObjectSet&lt;T&gt; vyžaduje obecné omezení vynucující T jako třídu (odkazový typ), a také nám vynutí implementaci IQueryable&lt;T&gt;. Je snadné vytvořit kolekci v paměti jako sadu IQueryable&lt;T&gt; pomocí standardního operátoru LINQ AsQueryable.
 
 ### <a name="the-tests"></a>Testy
 
@@ -541,7 +541,7 @@ Výše uvedený kód obsahuje dvě významné funkce. First – kód je snadno t
     }
 ```
 
-Druhá významná funkce je způsob, jakým kód umožňuje EF4 generovat jediný efektivní dotaz pro sestavování informací o zaměstnanci a časové kartě společně. Do stejného objektu jsme načetli informace o zaměstnancích a časové kartě, aniž byste museli používat žádná speciální rozhraní API. Kód vyjadřuje pouze informace, které vyžaduje, pomocí standardních operátorů LINQ, které pracují se zdroji dat v paměti a také se vzdálenými zdroji dat. EF4 byl schopný přeložit stromy výrazů generované dotazy LINQ a kompilátorem C @ no__t-0 do jediného a efektivního dotazu T-SQL.
+Druhá významná funkce je způsob, jakým kód umožňuje EF4 generovat jediný efektivní dotaz pro sestavování informací o zaměstnanci a časové kartě společně. Do stejného objektu jsme načetli informace o zaměstnancích a časové kartě, aniž byste museli používat žádná speciální rozhraní API. Kód vyjadřuje pouze informace, které vyžaduje, pomocí standardních operátorů LINQ, které pracují se zdroji dat v paměti a také se vzdálenými zdroji dat. EF4 byl schopný přeložit stromy výrazů generované dotazy LINQ a kompilátorem C\# do jediného a efektivního dotazu T-SQL.
 
 ``` SQL
     SELECT
@@ -569,14 +569,14 @@ Existují jiné časy, kdy nechci pracovat s modelem zobrazení nebo objektem DT
 
 ### <a name="explicit-eager-loading"></a>Explicitní načítání Eager
 
-Když chceme eagerly informace o entitách souvisejících s načtením, potřebujeme nějaký mechanismus pro obchodní logiku (nebo v tomto scénáři logiku akční logiky), abyste vyjádřili přání k úložišti. Třída EF4 ObjectQuery @ no__t-0T @ no__t-1 definuje metodu include pro určení souvisejících objektů, které mají být načteny během dotazu. Nezapomeňte, že EF4 ObjectContext zpřístupňuje entity prostřednictvím konkrétní třídy ObjectSet @ no__t-0T @ no__t-1, která dědí z ObjectQuery @ no__t-2T @ no__t-3.  Pokud jsme v naší akci kontroleru používali odkazy ObjectSet @ no__t-0T @ no__t-1, mohli bychom napsat následující kód, který určí Eager načtení informací o časové kartě pro každého zaměstnance.
+Když chceme eagerly informace o entitách souvisejících s načtením, potřebujeme nějaký mechanismus pro obchodní logiku (nebo v tomto scénáři logiku akční logiky), abyste vyjádřili přání k úložišti. Třída EF4 ObjectQuery&lt;T&gt; definuje metodu include pro určení souvisejících objektů, které mají být načteny během dotazu. Nezapomeňte, že EF4 ObjectContext zpřístupňuje entity prostřednictvím konkrétního&gt; třídy ObjectSet&lt;T, která dědí z ObjectQuery&lt;T&gt;.  Pokud jsme používali odkazy na ObjectSet&lt;T&gt; v naší akci kontroleru, mohli jsme napsat následující kód, který určí Eager načtení informací o časové kartě pro každého zaměstnance.
 
 ``` csharp
     _employees.Include("TimeCards")
               .Where(e => e.HireDate.Year > 2009);
 ```
 
-Nicméně vzhledem k tomu, že se snažíme zachovat náš kód testovatelné, Nezveřejňujeme ObjectSet @ no__t-0T @ no__t-1 z vnějšku třídy skutečné jednotky práce. Místo toho se spoléháme na rozhraní IObjectSet @ no__t-0T @ no__t-1, které je snadněji nafalešné, ale IObjectSet @ no__t-2T @ no__t-3 nedefinuje metodu include. Krásy jazyka LINQ je, že můžeme vytvořit vlastní operátor include.
+Nicméně vzhledem k tomu, že se snažíme zachovat náš kód testovatelné, Nezveřejňujeme&gt; ObjectSet&lt;T, než je skutečná jednotka třídy Work. Místo toho spoléháme na rozhraní&gt; IObjectSet&lt;T, které je snazší, ale IObjectSet&lt;T&gt; nedefinuje metodu include. Krásy jazyka LINQ je, že můžeme vytvořit vlastní operátor include.
 
 ``` csharp
     public static class QueryableExtensions {
@@ -592,7 +592,7 @@ Nicméně vzhledem k tomu, že se snažíme zachovat náš kód testovatelné, N
     }
 ```
 
-Všimněte si, že tento operátor include je definován jako metoda rozšíření pro IQueryable @ no__t-0T @ no__t-1 namísto IObjectSet @ no__t-2T @ no__t-3. Díky tomu je možné využít metodu s širší škálou možných typů, včetně IQueryable @ no__t-0T @ no__t-1, IObjectSet @ no__t-2T @ no__t-3, ObjectQuery @ no__t-4T @ no__t-5 a ObjectSet @ no__t-6T @ no__t-7. V případě, že podkladová sekvence není pravá EF4 ObjectQuery @ no__t-0T @ no__t-1, nedošlo k žádnému poškození a operátor include je no-op. Pokud *je* podkladová sekvence ObjectQuery @ No__t-1T @ no__t-2 (nebo je odvozená od ObjectQuery @ No__t-3T @ no__t-4), pak EF4 uvidí náš požadavek na další data a formuluje správný dotaz SQL.
+Všimněte si, že tento operátor include je definován jako metoda rozšíření pro IQueryable&lt;T&gt; namísto IObjectSet&lt;T&gt;. Díky tomu je možné využít metodu s širší škálou možných typů, včetně IQueryable&lt;T&gt;, IObjectSet&lt;T&gt;, ObjectQuery&lt;T&gt;a ObjectSet&lt;T&gt;. V případě, že se podkladová sekvence nejedná o originální EF4 ObjectQuery&lt;T&gt;, nedošlo k žádnému poškození a operátor include je no-op. Pokud *je* podkladová sekvence ObjectQuery&lt;t&gt; (nebo je odvozená z ObjectQuery&lt;t&gt;), pak EF4 uvidí náš požadavek na další data a formuluje správný dotaz SQL.
 
 Díky tomuto novému operátorovi můžeme explicitně vyžádat Eager načtení informací o časové kartě z úložiště.
 
@@ -660,7 +660,7 @@ Aby mohly tyto proxy fungovat, ale potřebují způsob, jak se připojit k opera
     }
 ```
 
-Přesto můžeme říci, že entita zaměstnance je většinou ignorována. Jediným požadavkem je použít virtuální členy a nemá vliv na testování kódu. Nepotřebujeme odvozovat ze žádné zvláštní základní třídy ani ani použít speciální kolekci vyhrazenou pro opožděné načítání. Jak kód ukazuje, je k dispozici jakákoli třída implementující rozhraní ICollection @ no__t-0T @ no__t-1 pro ukládání souvisejících entit.
+Přesto můžeme říci, že entita zaměstnance je většinou ignorována. Jediným požadavkem je použít virtuální členy a nemá vliv na testování kódu. Nepotřebujeme odvozovat ze žádné zvláštní základní třídy ani ani použít speciální kolekci vyhrazenou pro opožděné načítání. Jak kód ukazuje, je k dispozici jakákoli třída implementující rozhraní ICollection&lt;T&gt; pro ukládání souvisejících entit.
 
 V naší pracovní jednotce je také potřeba udělat jednu menší změnu. Opožděné načítání je ve výchozím nastavení *vypnuté* , když pracujete přímo s objektem ObjectContext. Pro vlastnost předané možnosti ContextOptions můžete nastavit vlastnost, která umožňuje odložené načítání. tuto vlastnost můžeme nastavit v naší skutečné pracovní jednotce, pokud chceme povolit opožděné načítání všude.
 
@@ -687,7 +687,7 @@ Pokud je povoleno implicitní opožděné načítání, kód aplikace může pou
 
 Opožděné načítání usnadňuje psaní kódu aplikace a u proxy Magic kód zůstane zcela testovatelné. Napodobenina pracovní jednotky v paměti může jednoduše předčítat falešné entity s přidruženými daty v případě potřeby během testu.
 
-V tuto chvíli provedeme pozornost vytvářením úložišť pomocí IObjectSet @ no__t-0T @ no__t-1 a skryjeme abstrakce pro skrytí všech příznaků rozhraní Persistence.
+V tuto chvíli provedeme pozornost vytvářením úložišť pomocí IObjectSet&lt;T&gt; a podíváme se na abstrakce, abyste skryli všechny známky rozhraní Persistence.
 
 ## <a name="custom-repositories"></a>Vlastní úložiště
 
@@ -701,9 +701,9 @@ Když jsme nejdřív v tomto článku předložili pracovní vzor pracovní jedn
     }
 ```
 
-Hlavním rozdílem mezi touto jednotkou práce a pracovní jednotkou, kterou jsme vytvořili v poslední části, je, jak tato pracovní jednotka nepoužívá žádné abstrakce z EF4 Frameworku (není IObjectSet @ no__t-0T @ no__t-1). IObjectSet @ no__t-0T @ no__t-1 funguje dobře jako rozhraní úložiště, ale rozhraní API, které zpřístupňuje, nemusí dokonale sjednotit požadavky naší aplikace. V tomto nadcházejícím přístupu budeme představovat úložiště pomocí vlastní abstrakce IRepository @ no__t-0T @ no__t-1.
+Hlavním rozdílem mezi touto jednotkou práce a částí práce, kterou jsme vytvořili v poslední části, je, jak tato jednotka práce nepoužívá žádné abstrakce z EF4 Frameworku (&gt;&lt;T). IObjectSet&lt;T&gt; funguje dobře jako rozhraní úložiště, ale rozhraní API, které zpřístupňuje, nemusí dokonale sjednotit požadavky naší aplikace. V tomto nadcházejícím přístupu budeme zastupovat úložiště pomocí vlastní IRepository&lt;T&gt; abstrakce.
 
-Mnoho vývojářů, kteří následují návrhem řízený návrh, návrhem řízený chování a návrhem metodologie řízených domén, dávají přednost IRepository @ no__t-0T @ no__t-1 z několika důvodů. Nejprve rozhraní IRepository @ no__t-0T @ no__t-1 představuje vrstvu "anti-poškození". Jak je popsáno v Eric Evans v rámci své pracovní knihy založené na doméně, vrstva odolná proti poškození udržuje kód vaší domény od rozhraní API infrastruktury, jako je trvalá rozhraní API. V druhé době můžou vývojáři sestavovat metody do úložiště, které splňuje přesné potřeby aplikace (jak bylo zjištěno při psaní testů). Například může být často potřeba vyhledat jednu entitu pomocí hodnoty ID, abychom mohli do rozhraní úložiště přidat metodu FindById.  Naše IRepository @ no__t-0T @ no__t-1 bude vypadat jako v následujícím příkladu.
+Mnoho vývojářů, kteří následují návrhem řízený návrh, návrhem řízený chování a návrhem metodologie řízených doménami, dávají přednost IRepository&lt;T&gt; přístup z několika důvodů. Nejprve rozhraní IRepository&lt;T&gt; představuje vrstvu "anti-poškození". Jak je popsáno v Eric Evans v rámci své pracovní knihy založené na doméně, vrstva odolná proti poškození udržuje kód vaší domény od rozhraní API infrastruktury, jako je trvalá rozhraní API. V druhé době můžou vývojáři sestavovat metody do úložiště, které splňuje přesné potřeby aplikace (jak bylo zjištěno při psaní testů). Například může být často potřeba vyhledat jednu entitu pomocí hodnoty ID, abychom mohli do rozhraní úložiště přidat metodu FindById.  Naše IRepository&lt;T&gt; definice bude vypadat jako v následujícím příkladu.
 
 ``` csharp
     public interface IRepository<T>
@@ -716,9 +716,9 @@ Mnoho vývojářů, kteří následují návrhem řízený návrh, návrhem ří
     }
 ```
 
-Všimněte si, že se vrátíme k použití rozhraní IQueryable @ no__t-0T @ no__t-1 k vystavování kolekcí entit. IQueryable @ no__t-0T @ no__t-1 umožňuje stromům výrazů LINQ Flow do poskytovatele EF4 a dává poskytovateli holistický zobrazení dotazu. Druhou možností je vrátit IEnumerable @ no__t-0T @ no__t-1, což znamená, že poskytovatel EF4 LINQ uvidí jenom výrazy sestavené uvnitř úložiště. Jakékoli seskupení, řazení a projekce provedené mimo úložiště se neskládají do příkazu SQL, který se odesílá do databáze, což může snížit výkon. Na druhé straně úložiště, které vrací pouze IEnumerable @ no__t-0T @ no__t-1, nebude nikdy neočekávaně začínat novým příkazem SQL. Oba přístupy budou fungovat a oba přístupy zůstanou testovatelné.
+Všimněte si, že jsme zpátky na použití rozhraní IQueryable&lt;T&gt; k vystavování kolekcí entit. IQueryable&lt;T&gt; umožňuje stromům výrazů LINQ přesměrovat do poskytovatele EF4 a poskytnout poskytovateli holistický zobrazení dotazu. Druhou možností je vrátit rozhraní IEnumerable&lt;T&gt;, což znamená, že poskytovatel LINQ EF4 uvidí jenom výrazy sestavené uvnitř úložiště. Jakékoli seskupení, řazení a projekce provedené mimo úložiště se neskládají do příkazu SQL, který se odesílá do databáze, což může snížit výkon. Na druhé straně úložiště vracející jenom IEnumerable&lt;T&gt; výsledky nikdy nevrátí nový příkaz SQL. Oba přístupy budou fungovat a oba přístupy zůstanou testovatelné.
 
-Je jednoduché poskytnout jednu implementaci rozhraní IRepository @ no__t-0T @ no__t-1 pomocí obecných typů a rozhraní EF4 ObjectContext API.
+Je jednoduché poskytnout jednu implementaci rozhraní IRepository&lt;T&gt; pomocí obecných typů a rozhraní EF4 ObjectContext API.
 
 ``` csharp
     public class SqlRepository<T> : IRepository<T>
@@ -746,7 +746,7 @@ Je jednoduché poskytnout jednu implementaci rozhraní IRepository @ no__t-0T @ 
     }
 ```
 
-Přístup IRepository @ no__t-0T @ no__t-1 nám poskytuje další kontrolu nad našimi dotazy, protože klient musí vyvolat metodu pro získání entity. Uvnitř metody můžeme poskytnout další kontroly a operátory LINQ k prosazování omezení aplikace. Všimněte si, že rozhraní má dvě omezení parametru obecného typu. Prvním omezením je nevýhoda třídy, kterou vyžaduje objekt ObjectSet @ no__t-0T @ no__t-1. druhé omezení vynutí, aby naši entity implementovaly IEntity – pro aplikaci se vytvořila abstrakce. Rozhraní IEntity vynutí, aby entity měly vlastnost čitelného ID a tuto vlastnost pak můžeme použít v metodě FindById. IEntity je definován s následujícím kódem.
+Přístup IRepository&lt;T&gt; nám poskytuje další kontrolu nad našimi dotazy, protože klient musí vyvolat metodu pro získání entity. Uvnitř metody můžeme poskytnout další kontroly a operátory LINQ k prosazování omezení aplikace. Všimněte si, že rozhraní má dvě omezení parametru obecného typu. Prvním omezením je nevýhoda třídy chuti, kterou vyžaduje ObjectSet&lt;T&gt;. druhé omezení vynutí, aby naši entity implementovaly IEntity – abstrakce vytvořená pro aplikaci. Rozhraní IEntity vynutí, aby entity měly vlastnost čitelného ID a tuto vlastnost pak můžeme použít v metodě FindById. IEntity je definován s následujícím kódem.
 
 ``` csharp
     public interface IEntity {
@@ -756,7 +756,7 @@ Přístup IRepository @ no__t-0T @ no__t-1 nám poskytuje další kontrolu nad n
 
 IEntity může být považováno za malé porušení trvalosti, protože pro implementaci tohoto rozhraní jsou vyžadovány naše entity. Pamatujte na to, že ignorování přetrvává v souvislosti s kompromisy a pro mnoho funkcí FindById převažuje omezení uložené rozhraním. Rozhraní nemá žádný vliv na testování.
 
-Vytvoření instance živého IRepositoryu @ no__t-0T @ no__t-1 vyžaduje rozhraní EF4 ObjectContext, takže by mohla být vytvořena konkrétní jednotka práce, kterou by bylo možné spravovat.
+Vytvoření instance živého IRepository&lt;T&gt; vyžaduje rozhraní ObjectContext EF4, takže konkrétní jednotka práce by měla spravovat vytváření instancí.
 
 ``` csharp
     public class SqlUnitOfWork : IUnitOfWork {
@@ -801,7 +801,7 @@ Vytvoření instance živého IRepositoryu @ no__t-0T @ no__t-1 vyžaduje rozhra
 
 ### <a name="using-the-custom-repository"></a>Používání vlastního úložiště
 
-Použití našeho vlastního úložiště se významně neliší od použití úložiště založeného na IObjectSet @ no__t-0T @ no__t-1. Namísto použití operátorů LINQ přímo na vlastnost bude nejprve nutné vyvolat jednu z metod úložiště k vytvoření odkazu IQueryable @ no__t-0T @ no__t-1.
+Použití našeho vlastního úložiště se významně neliší od použití úložiště založeného na IObjectSet&lt;T&gt;. Namísto použití operátorů LINQ přímo na vlastnost bude nejprve nutné vyvolat jednu z metod úložiště, aby bylo možné získat odkaz IQueryable&lt;T&gt;.
 
 ``` csharp
     public ViewResult Index() {
@@ -821,7 +821,7 @@ Všimněte si, že vlastní operátor include, který jsme dřív implementovali
     }
 ```
 
-Neexistují žádné významné rozdíly v testování dvou přístupů, které jsme prozkoumali. Můžeme poskytnout falešné implementace IRepository @ no__t-0T @ no__t-1 tím, že sestavíte konkrétní třídy, které jsou založené na HashSet – @ no__t-2Employee @ no__t-3 – stejně jako v poslední části. Někteří vývojáři však dávají přednost použití objektů typu Object a objektové architektury objektů namísto sestavování napodobenin. Podíváme se na použití makety k otestování naší implementace a diskuze o rozdílech mezi modely a napodobeninami v další části.
+Neexistují žádné významné rozdíly v testování dvou přístupů, které jsme prozkoumali. Pro IRepositoryy, které jsou založené na HashSet –&lt;zaměstnanců&gt; – stejně jako to, co jsme provedli v poslední části, můžeme poskytnout falešné implementace&lt;T&gt;. Někteří vývojáři však dávají přednost použití objektů typu Object a objektové architektury objektů namísto sestavování napodobenin. Podíváme se na použití makety k otestování naší implementace a diskuze o rozdílech mezi modely a napodobeninami v další části.
 
 ### <a name="testing-with-mocks"></a>Testování s použitím makety
 
@@ -841,7 +841,7 @@ K dispozici je jiný typ *testu, známý jako objekt typu*. I když napodobeniny
     var employee = repository.FindById(1);
 ```
 
-Požádáme MOQ o implementaci IRepository @ no__t-0Employee @ no__t-1 a sestavíme ji dynamicky. K objektu, který implementuje IRepository @ no__t-0Employee @ no__t-1, se můžeme dostat přístupem k vlastnosti objektu objektu makety @ no__t-2T @ no__t-3. Jedná se o vnitřní objekt, který můžeme předat do našich řadičů a nedokáže zjistit, jestli se jedná o dvojitý test nebo reálné úložiště. Můžeme vyvolat metody objektu stejně jako bychom vyvolali metody u objektu s skutečnou implementací.
+Požádáme MOQ o IRepository implementaci&gt;&lt;zaměstnanců a sestavíme ji dynamicky. K objektu, který implementuje IRepository&lt;&gt; zaměstnanců, se můžeme dostat přístupem k vlastnosti objektu objektu makety&lt;T&gt;. Jedná se o vnitřní objekt, který můžeme předat do našich řadičů a nedokáže zjistit, jestli se jedná o dvojitý test nebo reálné úložiště. Můžeme vyvolat metody objektu stejně jako bychom vyvolali metody u objektu s skutečnou implementací.
 
 Je nutné zajímat, co bude v případě, kdy vyvolá metodu Add, vyvoláno. Vzhledem k tomu, že není k dispozici žádná implementace za objektem makety, nelze přidat žádnou akci. Na pozadí se nevyskytuje žádná konkrétní kolekce, jako bychom měli napsané falešné, takže se zaměstnanec zahodí. Co je návratová hodnota FindById? V takovém případě objekt makety dělá pouze to, co může udělat, což vrátí výchozí hodnotu. Vzhledem k tomu, že vracíme typ odkazu (zaměstnanec), vrácená hodnota je hodnota null.
 
@@ -862,7 +862,7 @@ Druhá skvělé funkce je způsob, jak můžeme použít MOQ k naprogramování 
     }
 ```
 
-V této ukázce požádáme MOQ, aby dynamicky sestavil úložiště a pak jsme úložiště naprogramoval na očekávanou hodnotu. Očekává se, že objekt Form vrátí objekt pro nový zaměstnanec s hodnotou ID 5, pokud někdo vyvolá metodu FindById, která předává hodnotu 5. Tento test projde a nemuseli byste vytvořit úplnou implementaci do falešného IRepository @ no__t-0T @ no__t-1.
+V této ukázce požádáme MOQ, aby dynamicky sestavil úložiště a pak jsme úložiště naprogramoval na očekávanou hodnotu. Očekává se, že objekt Form vrátí objekt pro nový zaměstnanec s hodnotou ID 5, pokud někdo vyvolá metodu FindById, která předává hodnotu 5. Tento test projde a nemuseli jsme sestavovat plnou implementaci falešného IRepository&lt;T&gt;.
 
 Pojďme znovu přejít k dříve popsaným testům a znovu je použít k použití návrhů namísto napodobenin. Stejně jako dřív, použijeme základní třídu k nastavení společných částí infrastruktury, které potřebujeme pro všechny testy řadiče.
 
@@ -957,14 +957,14 @@ Volba mezi maketami nebo napodobeninami, které jsou v podstatě, závisí na sy
 
 ## <a name="conclusions"></a>Závěry
 
-V tomto dokumentu jsme ukázali několik přístupů k vytváření kódu testovatelné při použití ADO.NET Entity Framework pro trvalost dat. Můžeme využít předdefinované abstrakce jako IObjectSet @ no__t-0T @ no__t-1 nebo vytvořit vlastní abstrakce, jako je IRepository @ no__t-2T @ no__t-3.  V obou případech podpora POCO v ADO.NET Entity Framework 4,0 umožňuje spotřebitelům těchto abstrakcí zůstat trvale ignorovatelné a vysoce testovatelné. Další funkce EF4, jako je implicitní opožděné načítání, umožňují pracovat s kódem obchodních a aplikačních služeb, aniž by se museli starat o podrobnosti o relačním úložišti dat. A nakonec se abstrakce, které vytvoříme, snadno napodobují nebo jsou falešné v rámci testů jednotek a můžeme použít tyto podvojky testu k zajištění rychlých spuštěných, vysoce izolovaných a spolehlivých testů.
+V tomto dokumentu jsme ukázali několik přístupů k vytváření kódu testovatelné při použití ADO.NET Entity Framework pro trvalost dat. Můžeme využít předdefinované abstrakce jako IObjectSet&lt;T&gt;nebo vytvořit vlastní abstrakce, jako je IRepository&lt;T&gt;.  V obou případech podpora POCO v ADO.NET Entity Framework 4,0 umožňuje spotřebitelům těchto abstrakcí zůstat trvale ignorovatelné a vysoce testovatelné. Další funkce EF4, jako je implicitní opožděné načítání, umožňují pracovat s kódem obchodních a aplikačních služeb, aniž by se museli starat o podrobnosti o relačním úložišti dat. A nakonec se abstrakce, které vytvoříme, snadno napodobují nebo jsou falešné v rámci testů jednotek a můžeme použít tyto podvojky testu k zajištění rychlých spuštěných, vysoce izolovaných a spolehlivých testů.
 
 ### <a name="additional-resources"></a>Další prostředky
 
 -   Robert C. Martin, " [Princip jedné zodpovědnosti](https://www.objectmentor.com/resources/articles/srp.pdf)"
 -   Martin Fowlera, [katalog vzorů](https://www.martinfowler.com/eaaCatalog/index.html) ze *vzorů architektury podnikové aplikace*
 -   Griffin Caprio, " [vkládání závislostí](https://msdn.microsoft.com/magazine/cc163739.aspx)"
--   Blog o programovatelnosti dat "[Walkthrough: Otestujte vývoj řízený pomocí Entity Framework 4.0 @ no__t-0.
+-   Blog o programovatelnosti dat " [Návod: Vývoj řízený testováním pomocí Entity Framework 4,0](https://blogs.msdn.com/adonet/pages/walkthrough-test-driven-development-with-the-entity-framework-4-0.aspx)".
 -   Blog o programovatelnosti dat, " [používání úložiště a pracovní jednotky vzorů s Entity Framework 4,0](https://blogs.msdn.com/adonet/archive/2009/06/16/using-repository-and-unit-of-work-patterns-with-entity-framework-4-0.aspx)"
 -   Aaron Jensen, " [představení specifikací počítačů](http://codebetter.com/blogs/aaron.jensen/archive/2008/05/08/introducing-machine-specifications-or-mspec-for-short.aspx)"
 -   Eric Novák, " [BDD with MSTest](https://blogs.msdn.com/elee/archive/2009/01/20/bdd-with-mstest.aspx)"

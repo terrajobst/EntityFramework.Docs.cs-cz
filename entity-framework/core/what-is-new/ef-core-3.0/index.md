@@ -91,7 +91,7 @@ Další podrobnosti najdete [v tématu asynchronní C# datové proudy v dokument
 
 ### <a name="nullable-reference-types"></a>Odkazové typy s možnou hodnotou null
 
-Pokud je tato nová funkce ve vašem kódu povolená, EF Core prověřuje vlastnost s hodnotou null vlastností typu odkazu a použije ji pro odpovídající sloupce a relace v databázi: vlastnosti odkazů na typy, které neumožňují hodnotu null, se považují za, jako kdyby měly @no__t_ atribut poznámky k datům 0_
+Pokud je tato nová funkce ve vašem kódu povolená, EF Core prověřuje vlastnost s hodnotou null vlastností typu odkazu a použije ji pro odpovídající sloupce a relace v databázi: vlastnosti odkazů na typy, které neumožňují hodnotu null, se považují za, jako kdyby obsahovaly atribut `[Required]` data anotace.
 
 Například v následující třídě jsou vlastnosti označené jako typu `string?` konfigurovány jako volitelné, zatímco `string` budou konfigurovány podle požadavků:
 

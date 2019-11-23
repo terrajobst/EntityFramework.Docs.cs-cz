@@ -18,7 +18,7 @@ Toto video představuje úvod do Database First vývoje pomocí Entity Framework
 
 **Prezentující**: [Rowan Miller](https://romiller.com/)
 
-**Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
+**Video**: [wmv](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
@@ -28,7 +28,7 @@ Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](h
 
  
 
-## <a name="1-create-an-existing-database"></a>1. Vytvoření existující databáze
+## <a name="1-create-an-existing-database"></a>1. vytvoření existující databáze
 
 Když cílíte na existující databázi, bude už vytvořená, ale pro tento návod musíme pro přístup vytvořit databázi.
 
@@ -43,10 +43,10 @@ Pojďme dopředu a vygenerovat databázi.
 
 -   Otevřít Visual Studio
 -   **Zobrazení-&gt; Průzkumník serveru**
--   Klikněte pravým tlačítkem na **datová připojení – &gt; Přidat připojení...**
+-   Klikněte pravým tlačítkem na **datová připojení –&gt; přidat připojení...**
 -   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat Microsoft SQL Server jako zdroj dat
 
-    ![Vybrat zdroj dat](~/ef6/media/selectdatasource.png)
+    ![Výběr zdroje dat](~/ef6/media/selectdatasource.png)
 
 -   Připojte se buď k LocalDB nebo SQL Express v závislosti na tom, který z nich jste nainstalovali, a jako název databáze zadejte **DatabaseFirst. blog.**
 
@@ -84,18 +84,18 @@ CREATE TABLE [dbo].[Posts] (
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Database First k provádění přístupu k datům:
 
 -   Otevřít Visual Studio
--   **Soubor-&gt; nový-&gt; projekt...**
+-   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **DatabaseFirstSample** .
 -   Vybrat **OK**
 
  
 
-## <a name="3-reverse-engineer-model"></a>3. Model zpětného analýz
+## <a name="3-reverse-engineer-model"></a>3. zpětná analýza modelu
 
 Budeme používat Entity Framework Designer, který je součástí sady Visual Studio, a vytvořit náš model.
 
--   **Projekt-&gt; Přidat novou položku...**
+-   **Projekt –&gt; přidat novou položku...**
 -   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
 -   Jako název zadejte **BloggingModel** a klikněte na **OK** .
 -   Spustí se **průvodce model EDM (Entity Data Model)** .
@@ -123,8 +123,8 @@ Pokud pracujete v aplikaci Visual Studio 2010, je nutné provést další kroky 
 
 Nejdřív potřebujeme získat nejnovější verzi Entity Framework z NuGetu.
 
--   **Projekt – &gt; spravovat balíčky NuGet...** 
-    ,*Pokud nemáte balíčky pro **správu NuGet...** , měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .*
+-   **Projekt –&gt; spravovat balíčky NuGet...** 
+    , *jestli nemáte balíčky pro **správu NuGet...** , měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .*
 -   Vyberte **online** kartu.
 -   Výběr balíčku **EntityFramework**
 -   Klikněte na **nainstalovat** .
@@ -133,13 +133,13 @@ Dále je potřeba prohodit náš model a vygenerovat kód, který využívá roz
 
 -   V Návrháři EF klikněte pravým tlačítkem na prázdný bod modelu a vyberte **Přidat položku pro generování kódu...**
 -   V nabídce vlevo vyberte **online šablony** a vyhledejte **DbContext** .
--   Vyberte generátor EF **5. x DbContext pro jazyk C @ no__t-1**, jako název zadejte **BloggingModel** a klikněte na **Přidat** .
+-   Vyberte generátor EF **5. x DbContext pro jazyk C\#** , jako název zadejte **BloggingModel** a klikněte na **Přidat** .
 
     ![Šablona DbContext](~/ef6/media/dbcontexttemplate.png)
 
  
 
-## <a name="4-reading--writing-data"></a>4. Čtení & zápisu dat
+## <a name="4-reading--writing-data"></a>4. čtení & zápisu dat
 
 Teď, když máme model, je čas ho použít pro přístup k některým datům. Třídy, které použijeme pro přístup k datům, se pro vás automaticky generují na základě souboru EDMX.
 
@@ -194,7 +194,7 @@ Press any key to exit...
 ```
  
 
-## <a name="5-dealing-with-database-changes"></a>5. Práce se změnami databáze
+## <a name="5-dealing-with-database-changes"></a>5. práce se změnami databáze
 
 Teď je čas udělat nějaké změny ve schématu databáze, když tyto změny provedeme, abychom tyto změny provedli, i když aktualizujeme náš model.
 
@@ -215,7 +215,7 @@ Teď, když je schéma aktualizované, je čas aktualizovat model pomocí těcht
 
 -   Klikněte pravým tlačítkem myši na prázdný bod modelu v Návrháři EF a vyberte aktualizovat model z databáze.... tím se spustí Průvodce aktualizací.
 -   Na kartě Přidat v Průvodci aktualizací zaškrtněte políčko vedle pole tabulky, což znamená, že chceme do schématu přidat jakékoli nové tabulky.
-    karta aktualizace *The zobrazuje všechny existující tabulky v modelu, u kterých budou během aktualizace zkontrolovány změny. Karty odstranit zobrazují všechny tabulky, které byly odebrány ze schématu a budou také odebrány z modelu jako součást aktualizace. Informace na těchto dvou kartách se automaticky zjišťují a jsou dostupné jenom pro informativní účely, nemůžete změnit žádné nastavení.*
+    *Na kartě aktualizace se zobrazují všechny existující tabulky v modelu, u kterých budou během aktualizace zkontrolovány změny. Karty odstranit zobrazují všechny tabulky, které byly odebrány ze schématu a budou také odebrány z modelu jako součást aktualizace. Informace na těchto dvou kartách se automaticky zjišťují a jsou dostupné jenom pro informativní účely, nemůžete změnit žádné nastavení.*
 
     ![Průvodce aktualizací](~/ef6/media/refreshwizard.png)
 

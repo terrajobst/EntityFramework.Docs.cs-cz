@@ -13,17 +13,17 @@ ms.locfileid: "72445952"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>Sledování vs. žádné dotazy sledování
 
-Sledování chování řídí, pokud Entity Framework Core uchová informace o instanci entity ve sledování změn. Pokud je entita sledována, budou všechny změny zjištěné v entitě trvale uchovány v databázi během `SaveChanges()`. EF Core budou také opravovat navigační vlastnosti mezi entitami ve výsledku sledovacího dotazu a entitami, které jsou v sledování změn.
+Sledování chování řídí, pokud Entity Framework Core uchová informace o instanci entity ve sledování změn. Pokud je entita sledována, všechny změny zjištěné v entitě budou během `SaveChanges()`trvalé v databázi. EF Core budou také opravovat navigační vlastnosti mezi entitami ve výsledku sledovacího dotazu a entitami, které jsou v sledování změn.
 
 > [!NOTE]
 > [Typy entit bez klíčů](xref:core/modeling/keyless-entity-types) nejsou nikdy sledovány. Bez ohledu na to, kde tento článek uvádí typy entit, odkazuje na typy entit, které mají definován klíč.
 
 > [!TIP]  
-> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.
+> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
 
 ## <a name="tracking-queries"></a>Sledování dotazů
 
-Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit. To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny trvale `SaveChanges()`. V následujícím příkladu bude v průběhu `SaveChanges()` zjištěna změna v hodnocení blogů a bude uložena do databáze.
+Ve výchozím nastavení jsou sledovány dotazy, které vracejí typy entit. To znamená, že můžete provádět změny těchto instancí entit a nechat tyto změny trvale `SaveChanges()`. V následujícím příkladu bude v průběhu `SaveChanges()`zjištěna změna hodnocení blogů a jejich uchování do databáze.
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#Tracking)]
 
@@ -55,7 +55,7 @@ Pokud sada výsledků neobsahuje žádné typy entit, sledování se neprovádí
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection3)]
 
- EF Core podporuje testování klientů v projekci nejvyšší úrovně. Pokud EF Core materializuje instanci entity pro hodnocení klienta, bude sledována. Od této chvíle předáváme @no__t entit-0 do metody klienta `StandardizeURL`, EF Core bude také sledovat instance blogu.
+ EF Core podporuje testování klientů v projekci nejvyšší úrovně. Pokud EF Core materializuje instanci entity pro hodnocení klienta, bude sledována. Z toho důvodu, že předáváme `blog` entit `StandardizeURL`metodě klienta, EF Core bude sledovat i instance blogu.
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
 
@@ -70,7 +70,7 @@ Některá z výše uvedených pravidel fungovala jinak než EF Core 3,0. Další
 Před verzí 3,0 byl EF Core několik rozdílů v tom, jak bylo sledování provedeno. Mezi významné rozdíly patří následující:
 
 - Jak je vysvětleno na stránce [hodnocení klienta vs](xref:core/querying/client-eval) . EF Core podporované hodnocení klienta v jakékoli části dotazu před verzí 3,0. Vyhodnocení klienta způsobilo materializaci entit, které nebyly součástí výsledku. Proto EF Core analyzovat výsledek, aby bylo možné zjistit, co se má sledovat. Tento návrh má určité rozdíly, jak je znázorněno níže:
-  - Vyhodnocení klienta v projekci, což způsobilo materializace, ale nevrátilo nevrácenou instanci materializované entity. Následující příklad nesledoval entity `blog`.
+  - Vyhodnocení klienta v projekci, což způsobilo materializace, ale nevrátilo nevrácenou instanci materializované entity. Následující příklad nesledoval `blog` entit.
     [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
 
   - V některých případech EF Core nesledovaly objekty, které jsou vycházející ze sestavení LINQ. Následující příklad nesledoval `Post`.

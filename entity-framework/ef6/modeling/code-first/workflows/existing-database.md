@@ -11,7 +11,7 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182619"
 ---
 # <a name="code-first-to-an-existing-database"></a>Code First do existující databáze
-Toto video a podrobný návod vám poskytnou Úvod do Code First vývoje cílící na stávající databázi. Code First umožňuje definovat model pomocí tříd C @ no__t-0 nebo VB.Net. Volitelně můžete provést další konfiguraci pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
+Toto video a podrobný návod vám poskytnou Úvod do Code First vývoje cílící na stávající databázi. Code First umožňuje definovat model pomocí tříd C\# nebo VB.Net. Volitelně můžete provést další konfiguraci pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
 
 ## <a name="watch-the-video"></a>Přehrát video
 Toto video je [teď k dispozici na Channel 9](https://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-).
@@ -22,7 +22,7 @@ Abyste mohli dokončit tento návod, budete muset mít nainstalovanou **aplikaci
 
 Budete také potřebovat verzi **6,1** (nebo novější) Entity Framework Tools nainstalované sady **Visual Studio** . Informace o instalaci nejnovější verze Entity Framework Tools najdete v tématu věnovaném [získání Entity Framework](~/ef6/fundamentals/install.md) .
 
-## <a name="1-create-an-existing-database"></a>1. Vytvoření existující databáze
+## <a name="1-create-an-existing-database"></a>1. vytvoření existující databáze
 
 Když cílíte na existující databázi, bude už vytvořená, ale pro tento návod musíme pro přístup vytvořit databázi.
 
@@ -30,10 +30,10 @@ Pojďme dopředu a vygenerovat databázi.
 
 -   Otevřít Visual Studio
 -   **Zobrazení-&gt; Průzkumník serveru**
--   Klikněte pravým tlačítkem na **datová připojení – &gt; Přidat připojení...**
+-   Klikněte pravým tlačítkem na **datová připojení –&gt; přidat připojení...**
 -   Pokud jste se k databázi nepřipojili z **Průzkumník serveru** před tím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat
 
-    ![Vybrat zdroj dat](~/ef6/media/selectdatasource.png)
+    ![Výběr zdroje dat](~/ef6/media/selectdatasource.png)
 
 -   Připojte se k instanci LocalDB a jako název databáze zadejte **blog** .
 
@@ -75,18 +75,18 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům:
 
 -   Otevřít Visual Studio
--   **Soubor-&gt; nový-&gt; projekt...**
+-   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **CodeFirstExistingDatabaseSample** .
 -   Vybrat **OK**
 
  
 
-## <a name="3-reverse-engineer-model"></a>3. Model zpětného analýz
+## <a name="3-reverse-engineer-model"></a>3. zpětná analýza modelu
 
 Využijeme Entity Framework Tools pro Visual Studio, abychom nám pomohli vygenerovat nějaký počáteční kód pro mapování na databázi. Tyto nástroje právě generují kód, který můžete zadat také v případě, že dáváte přednost.
 
--   **Projekt-&gt; Přidat novou položku...**
+-   **Projekt –&gt; přidat novou položku...**
 -   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
 -   Jako název zadejte **BloggingContext** a klikněte na **OK** .
 -   Spustí se **průvodce model EDM (Entity Data Model)** .
@@ -117,12 +117,12 @@ Do projektu byl přidán soubor App. config, tento soubor obsahuje připojovací
 </connectionStrings>
 ```
 
-@no__t – 0You'll Všimněte si i některých dalších nastavení v konfiguračním souboru, jedná se o výchozí nastavení EF, které sděluje Code First, kde vytvořit databáze. Vzhledem k tomu, že jsme provedli mapování na existující databázi, tato nastavení budou v naší aplikaci ignorována. *
+*Všimněte si, že některá další nastavení jsou také v konfiguračním souboru. Jedná se o výchozí nastavení EF, které sděluje Code First, kde vytvořit databáze. Vzhledem k tomu, že jsme provedli mapování na existující databázi, tato nastavení budou v naší aplikaci ignorována.*
 
 ### <a name="derived-context"></a>Odvozený kontext
 
 Do projektu se přidala třída **BloggingContext** . Kontext představuje relaci s databází a umožňuje nám dotazovat se na data a ukládat je.
-Kontext zveřejňuje **negenerickými @ no__t-1TEntity @ no__t-2** pro každý typ v našem modelu. Všimněte si také, že výchozí konstruktor volá základní konstruktor pomocí syntaxe **Name =** . To oznamuje Code First, že připojovací řetězec, který se má použít pro tento kontext, by měl být načten z konfiguračního souboru.
+Kontext zpřístupňuje **negenerickými&lt;TEntity&gt;** pro každý typ v našem modelu. Všimněte si také, že výchozí konstruktor volá základní konstruktor pomocí syntaxe **Name =** . To oznamuje Code First, že připojovací řetězec, který se má použít pro tento kontext, by měl být načten z konfiguračního souboru.
 
 ``` csharp
 public partial class BloggingContext : DbContext
@@ -141,11 +141,11 @@ public partial class BloggingContext : DbContext
     }
 ```
 
-*You by měla při použití připojovacího řetězce v konfiguračním souboru vždycky používat syntaxi **Name =** . Tím se zajistí, že pokud není k dispozici připojovací řetězec, Entity Framework místo vytvoření nové databáze podle konvence vyvolala.*
+*Při použití připojovacího řetězce v konfiguračním souboru byste vždy měli použít syntaxi **Name =** . Tím je zajištěno, že pokud připojovací řetězec není k dispozici, Entity Framework bude vyvolávat místo vytvoření nové databáze podle konvence.*
 
 ### <a name="model-classes"></a>Třídy modelu
 
-Nakonec byly do projektu přidány také třídy **blog** a **příspěvek** . Jedná se o třídy domény, které tvoří náš model. V případě, že se konvence Code First neshodují se strukturou existující databáze, uvidíte datové poznámky použité na třídy. Například se zobrazí anotace **StringLength** na **blog.Name** a **blogu. URL** , protože v databázi mají maximální délku **200** (Code First výchozí hodnota je použití maximun podporovaného poskytovatelem databáze). **nvarchar (max)** v SQL Server).
+Nakonec byly do projektu přidány také třídy **blog** a **příspěvek** . Jedná se o třídy domény, které tvoří náš model. V případě, že se konvence Code First neshodují se strukturou existující databáze, uvidíte datové poznámky použité na třídy. Například se zobrazí anotace **StringLength** na **blog.Name** a **blogu. URL** , protože v databázi mají maximální délku **200** (Code First výchozí hodnota je použití maximun podporovaného poskytovatelem databáze- **nvarchar (max)** v SQL Server).
 
 ``` csharp
 public partial class Blog
@@ -167,7 +167,7 @@ public partial class Blog
 }
 ```
 
-## <a name="4-reading--writing-data"></a>4. Čtení & zápisu dat
+## <a name="4-reading--writing-data"></a>4. čtení & zápisu dat
 
 Teď, když máme model, je čas ho použít pro přístup k některým datům. Implementujte metodu **Main** v **program.cs** , jak je znázorněno níže. Tento kód vytvoří novou instanci našeho kontextu a pak ho použije k vložení nového **blogu**. Pak použije dotaz LINQ k načtení všech **blogů** z databáze seřazené abecedně podle **názvu**.
 

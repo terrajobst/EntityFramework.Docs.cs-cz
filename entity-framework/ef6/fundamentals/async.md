@@ -154,12 +154,12 @@ Vzhledem k tomu, že kód je synchronní, můžeme při spuštění programu sle
 
 Teď, když máme náš program v provozu, můžeme začít používat nová klíčová slova Async a await. Provedli jsme následující změny Program.cs
 
-1.  Řádek 2: Příkaz using pro obor názvů **System. data. entity** poskytne přístup k metodám asynchronního rozšíření EF.
-2.  Řádek 4: Příkaz using pro obor názvů **System. Threading. Tasks** nám umožňuje použít typ **úkolu** .
-3.  Řádek 12 & 18: Zachycujeme jako úkol, který monitoruje průběh **PerformSomeDatabaseOperations** (řádek 12) a potom zablokuje spuštění programu pro tuto úlohu, aby se dokončila i po dokončení veškeré práce pro daný program (řádek 18).
-4.  Řádek 25: **PerformSomeDatabaseOperations** jsme aktualizovali tak, aby byla označena jako **asynchronní** a vrátila **úlohu**.
-5.  Řádek 35: Nyní voláme asynchronní verzi metody SaveChanges a čeká se na její dokončení.
-6.  Řádek 42: Nyní voláme asynchronní verzi ToList – a čekáme na výsledek.
+1.  Řádek 2: příkaz using pro obor názvů **System. data. entity** poskytne přístup k metodám asynchronního rozšíření EF.
+2.  Řádek 4: příkaz using pro obor názvů **System. Threading. Tasks** nám umožňuje použít typ **úkolu** .
+3.  Řádek 12 & 18: zachytíme jako úkol, který monitoruje průběh **PerformSomeDatabaseOperations** (řádek 12) a potom zablokuje spuštění programu pro tuto úlohu, aby se dokončila veškerá práce pro daný program (řádek 18).
+4.  Řádek 25: Aktualizovali jsme **PerformSomeDatabaseOperations** tak, aby byl označený jako **asynchronní** a vrátilo **úlohu**.
+5.  Řádek 35: nyní voláme asynchronní verzi metody SaveChanges a čeká se na její dokončení.
+6.  Řádek 42: nyní voláme asynchronní verzi ToList – a čeká se na výsledek.
 
 Úplný seznam dostupných metod rozšíření v oboru názvů System. data. entity naleznete v tématu Třída QueryableExtensions. *Pro příkazy using budete také muset přidat "using System. data. entity".*
 
@@ -222,12 +222,12 @@ Teď, když máme náš program v provozu, můžeme začít používat nová kl�
 Teď, když je kód asynchronní, můžeme při spuštění programu sledovat jiný tok spuštění:
 
 1. **SaveChanges** zahajuje vložení nového **blogu** do databáze.  
-    @no__t – 0Once se příkaz pošle do databáze. v aktuálním spravovaném vlákně není potřeba žádné další výpočetní čas. Metoda **PerformDatabaseOperations** vrací (i když není dokončená) a tok programu v metodě Main pokračuje. *
+    *Po odeslání příkazu do databáze není v aktuálním spravovaném vlákně potřeba další výpočetní čas. Metoda **PerformDatabaseOperations** vrací (i když ještě nedokončila) a tok programu v metodě Main pokračuje.*
 2. **Nabídka dne se zapisuje do konzoly.**  
-    @no__t – 0Since neexistuje žádná další práce v metodě Main, spravované vlákno je ve volání čekání blokované, dokud se operace databáze nedokončí. Po dokončení bude zbytek našich **PerformDatabaseOperations** spuštěn. *
+    *Vzhledem k tomu, že v metodě Main neexistuje žádná další práce, spravované vlákno je ve volání čekání blokováno, dokud se operace databáze nedokončí. Po dokončení bude zbytek našich **PerformDatabaseOperations** spuštěn.*
 3.  **SaveChanges** se dokončí.  
 4.  Dotaz pro všechny **Blogy** jsou odesílány do databáze.  
-    @no__t – 0Again je spravované vlákno bezplatné v průběhu zpracování dotazu v databázi. Vzhledem k tomu, že bylo dokončeno jakékoli jiné spuštění, vlákno bude pouze zastaveno při volání čekání, ale. *
+    *Spravované vlákno je znovu zadarmo v průběhu zpracování dotazu v databázi. Vzhledem k tomu, že bylo dokončeno jakékoli jiné spuštění, vlákno bude pouze zastaveno ve volání čekání, i když.*
 5.  Dotaz vrátí a výsledky se zapisují do **konzoly** .  
 
 ![Asynchronní výstup](~/ef6/media/asyncoutput.png) 

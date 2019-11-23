@@ -29,7 +29,7 @@ Toto je nevyčerpávající seznam některých změn v chování mezi EF6 a EF C
 
 ### <a name="dbsetaddattach-and-graph-behavior"></a>Negenerickými. Přidání/připojení a chování grafu
 
-V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledávání všech entit, na které se odkazuje ve vlastnostech navigace. Všechny nalezené entity a již nejsou sledovány kontextem, jsou také označeny jako přidané. `DbSet.Attach()` se chová stejně, s výjimkou, že všechny entity jsou označeny jako beze změny.
+V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledávání všech entit, na které se odkazuje ve vlastnostech navigace. Všechny nalezené entity a již nejsou sledovány kontextem, jsou také označeny jako přidané. `DbSet.Attach()` se chová stejně, s výjimkou všech entit jsou označeny jako beze změny.
 
 **EF Core provádí podobné rekurzivní vyhledávání, ale s trochu odlišnými pravidly.**
 
@@ -39,7 +39,7 @@ V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledáván
 
     *  **Pokud je primární klíč entity vygenerovaný jako úložiště**
 
-        * Pokud primární klíč není nastaven na hodnotu, stav je nastaveno na přidáno. Hodnota primárního klíče se považuje za nenastavenou, pokud je přiřazena výchozí hodnota CLR pro daný typ vlastnosti (například `0` pro `int` `null` pro `string` atd.).
+        * Pokud primární klíč není nastaven na hodnotu, stav je nastaveno na přidáno. Hodnota primárního klíče se považuje za nenastavenou, pokud je přiřazena výchozí hodnota CLR pro daný typ vlastnosti (například `0` `int`, `null` pro `string`atd.).
 
         * Pokud je primární klíč nastaven na hodnotu, stav je nastaven na nezměněný.
 
@@ -47,7 +47,7 @@ V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledáván
 
 ### <a name="code-first-database-initialization"></a>Inicializace databáze Code First
 
-@no__t – 0EF6 má velký výkon, který vychází z výběru připojení databáze a inicializace databáze. Mezi tato pravidla patří: **
+**EF6 má velký výkon, který vychází z výběru připojení databáze a inicializace databáze. Mezi tato pravidla patří:**
 
 * Pokud se neprovede žádná konfigurace, EF6 vybere databázi na SQL Express nebo LocalDb.
 
@@ -63,7 +63,7 @@ V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledáván
 
 * Připojení k databázi musí být explicitně nakonfigurované v kódu.
 
-* Není provedena žádná inicializace. Chcete-li použít migrace (nebo `DbContext.Database.EnsureCreated()` a `EnsureDeleted()` k vytvoření nebo odstranění databáze bez použití migrace), je nutné použít `DbContext.Database.Migrate()`.
+* Není provedena žádná inicializace. Chcete-li použít migraci (nebo `DbContext.Database.EnsureCreated()` a `EnsureDeleted()` k vytvoření nebo odstranění databáze bez použití migrace), je nutné použít `DbContext.Database.Migrate()`.
 
 ### <a name="code-first-table-naming-convention"></a>Code First zásady vytváření názvů tabulek
 

@@ -26,7 +26,7 @@ TVF jsou velmi podobné uloženým procedurám s jedním klíčovým rozdílem: 
 
 **Prezentující**: Helena Kornich
 
-[WMV](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
+[Wmv](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
@@ -40,13 +40,13 @@ K dokončení tohoto návodu budete potřebovat:
 
 1.  Otevřít Visual Studio
 2.  V nabídce **soubor** přejděte na příkaz **Nový**a potom klikněte na **projekt** .
-3.  V levém podokně klikněte na položku **Visual C @ no__t-1**a potom vyberte šablonu **konzoly** .
+3.  V levém podokně klikněte na položku **Visual C\#** a pak vyberte šablonu **konzoly** .
 4.  Jako název projektu zadejte **TVF** a klikněte na **OK** .
 
 ## <a name="add-a-tvf-to-the-database"></a>Přidání TVF do databáze
 
--   Vyberte **zobrazení-&gt; Průzkumník objektů systému SQL Server**
--   Pokud LocalDB není v seznamu serverů: Klikněte pravým tlačítkem na **SQL Server** a vyberte **Přidat SQL Server** pro připojení k serveru LocalDB použijte výchozí **ověřování systému Windows** .
+-   Vybrat **zobrazení-&gt; Průzkumník objektů systému SQL Server**
+-   Pokud LocalDB není v seznamu serverů: klikněte pravým tlačítkem na **SQL Server** a vyberte **Přidat SQL Server** pro připojení k serveru LocalDB použijte výchozí **ověřování systému Windows** .
 -   Rozbalte uzel LocalDB
 -   V uzlu databáze klikněte pravým tlačítkem myši na uzel školní databáze a vyberte **Nový dotaz...**
 -   V editoru T-SQL vložte následující definici TVF
@@ -78,12 +78,12 @@ RETURN
 2.  V nabídce vlevo vyberte **data** a v podokně **šablony** vyberte **ADO.NET model EDM (Entity Data Model)** .
 3.  Jako název souboru zadejte **TVFModel. edmx** a pak klikněte na **Přidat** .
 4.  V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další** .
-5.  Klikněte na **nové připojení** ENTER **(LocalDB) \\mssqllocaldb** do textového pole název serveru zadejte **School** for název databáze klikněte na **OK** .
-6.  V dialogovém okně zvolte objekty databáze pod **tabulkami** Node vyberte **osoba**, **StudentGrade**a **kurz** tables
-7.  Vyberte funkci **GetStudentGradesForCourse** , která se nachází pod **uloženými procedurami a funkcemi** node poznámkami, která začíná sadou Visual Studio 2012, Entity Designer umožňuje Batch importovat uložené procedury a funkce.
+5.  Klikněte na **nové připojení** ENTER **(LocalDB)\\mssqllocaldb** v textovém poli název serveru zadejte **School** pro název databáze klikněte na **OK** .
+6.  V dialogovém okně zvolte objekty databáze pod uzlem  **tabulky** vyberte tabulky **Person**, **StudentGrade**a **Course** .
+7.  Vyberte funkci **GetStudentGradesForCourse** nacházející se pod **uloženými procedurami a funkcemi** poznámkami k uzlu, která začíná sadou Visual Studio 2012, Entity Designer umožňuje Batch importovat uložené procedury a funkce.
 8.  Klikněte na **Dokončit** .
-9.  Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu. Do modelu jsou přidány všechny objekty, které jste vybrali v poli **zvolit objekty databáze** dialog.
-10. Ve výchozím nastavení se tvar výsledku každé importované uložené procedury nebo funkce automaticky změní na nový komplexní typ v modelu entity. Ale chceme namapovat výsledky funkce GetStudentGradesForCourse na entitu StudentGrade: Klikněte pravým tlačítkem myši na návrhovou plochu a vyberte možnost **prohlížeč modelů** v prohlížeči modelů, vyberte **Import funkcí**a pak dvakrát klikněte na funkci **GetStudentGradesForCourse** v dialogovém okně Upravit import funkce. Vyberte **entity** . @no__t – 4and zvolit **StudentGrade**
+9.  Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu. Do modelu jsou přidány všechny objekty, které jste vybrali v dialogovém okně **zvolit objekty databáze** .
+10. Ve výchozím nastavení se tvar výsledku každé importované uložené procedury nebo funkce automaticky změní na nový komplexní typ v modelu entity. Ale chceme namapovat výsledky GetStudentGradesForCourse funkce na entitu StudentGrade: klikněte pravým tlačítkem myši na návrhovou plochu a vyberte možnost **prohlížeč modelů** v prohlížeči modelů, vyberte **Import funkcí**a potom poklikejte na funkci **GetStudentGradesForCourse** v dialogovém okně upravit import funkce, vyberte **entity** a zvolte **StudentGrade** .
 
 ## <a name="persist-and-retrieve-data"></a>Zachovat a načíst data
 

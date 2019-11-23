@@ -102,7 +102,7 @@ namespace TestingDemo
 
 Všimněte si, že náš kontext implementuje rozhraní IBloggingContext.  
 
-Pokud používáte Code First pak můžete upravit kontext přímo k implementaci rozhraní. Pokud používáte návrháře EF, budete muset upravit šablonu T4, která generuje váš kontext. Otevřete \<model_name @ no__t-1. Soubor Context.tt, který je vnořen do souboru EDMX, vyhledejte následující fragment kódu a přidejte ho do rozhraní, jak je znázorněno na obrázku.  
+Pokud používáte Code First pak můžete upravit kontext přímo k implementaci rozhraní. Pokud používáte návrháře EF, budete muset upravit šablonu T4, která generuje váš kontext. Otevřete \<model_name\>. Soubor Context.tt, který je vnořen do souboru EDMX, vyhledejte následující fragment kódu a přidejte ho do rozhraní, jak je znázorněno na obrázku.  
 
 ``` csharp  
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IBloggingContext

@@ -37,14 +37,14 @@ Element **alias** nemůže mít podřízené elementy.
 
 Následující tabulka popisuje atributy, které lze použít na prvek **alias** .
 
-| Název atributu | Je povinné | Value                                                                     |
+| Název atributu | Je povinné | Hodnota                                                                     |
 |:---------------|:------------|:--------------------------------------------------------------------------|
 | **Klíč**        | Ano         | Alias pro obor názvů, který je určen atributem **Value** . |
 | **Hodnota**      | Ano         | Obor názvů, pro který je hodnota **klíčového** prvku alias.     |
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje prvek **alias** definující alias `c` pro typy, které jsou definovány v koncepčním modelu.
+Následující příklad ukazuje element **alias** , který definuje alias `c`pro typy, které jsou definovány v koncepčním modelu.
 
 ``` xml
  <Mapping Space="C-S"
@@ -81,7 +81,7 @@ Následující příklad ukazuje prvek **alias** definující alias `c` pro typy
 
 Element **AssociationEnd** v jazyce MSL (Mapping Specification Language) se používá, pokud jsou funkce úprav typu entity v koncepčním modelu mapovány na uložené procedury v podkladové databázi. Pokud uložená procedura úpravy převezme parametr, jehož hodnota je uložena ve vlastnosti Association, element **AssociationEnd** mapuje hodnotu vlastnosti na parametr. Další informace naleznete v níže uvedeném příkladu.
 
-Další informace o mapování funkcí úprav typů entit na uložené procedury naleznete v tématu ModificationFunctionMapping element (MSL) a návod: Mapování entity na uložené procedury.
+Další informace o mapování funkcí úprav typů entit na uložené procedury naleznete v tématu ModificationFunctionMapping element (MSL) a návod: mapování entity na uložené procedury.
 
 Element **AssociationEnd** může mít následující podřízené prvky:
 
@@ -91,7 +91,7 @@ Element **AssociationEnd** může mít následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které se vztahují na element **AssociationEnd** .
 
-| Název atributu     | Je povinné | Value                                                                                                                                                                             |
+| Název atributu     | Je povinné | Hodnota                                                                                                                                                                             |
 |:-------------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Vlastností** | Ano         | Název asociace, který je namapován.                                                                                                                                 |
 | **from**           | Ano         | Hodnota atributu **FromRole** vlastnosti navigace, která odpovídá mapovanému přidružení. Další informace naleznete v tématu element NavigationProperty (CSDL). |
@@ -131,7 +131,7 @@ Zvažte také následující uloženou proceduru:
                                 WHERE CourseID=@CourseID;
 ```
 
-Aby bylo možné namapovat funkci Update entity `Course` na tuto uloženou proceduru, je nutné do parametru **DepartmentID** dodat hodnotu. Hodnota parametru `DepartmentID` neodpovídá vlastnosti typu entity; je obsažen v nezávislém přidružení, jehož mapování je zobrazeno zde:
+Aby bylo možné namapovat funkci aktualizace entity `Course` na tuto uloženou proceduru, je nutné do parametru **DepartmentID** dodat hodnotu. Hodnota pro `DepartmentID` neodpovídá vlastnosti typu entity; je obsažen v nezávislém přidružení, jehož mapování je zobrazeno zde:
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -146,7 +146,7 @@ Aby bylo možné namapovat funkci Update entity `Course` na tuto uloženou proce
  </AssociationSetMapping>
 ```
 
-Následující kód ukazuje element **AssociationEnd** , který slouží k mapování vlastnosti **DepartmentID** třídy **FK @ no__t-3Course @ no__t-4Department** na uloženou proceduru **UpdateCourse** (do které funkce Update Typ entity **kurzu** je namapován):
+Následující kód ukazuje element **AssociationEnd** , který se používá k namapování\_vlastnosti **DepartmentID** přidružení **\_oddělení** na **UpdateCourse** uloženou proceduru (na kterou je namapovaná funkce Update typu entity **kurzu** ):
 
 ``` xml
  <EntitySetMapping Name="Courses">
@@ -198,7 +198,7 @@ Element **AssociationSetMapping** může mít následující podřízené elemen
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **AssociationSetMapping** .
 
-| Název atributu     | Je povinné | Value                                                                                       |
+| Název atributu     | Je povinné | Hodnota                                                                                       |
 |:-------------------|:------------|:--------------------------------------------------------------------------------------------|
 | **Název**           | Ano         | Název namapované sady přidružení koncepčního modelu.                      |
 | **Popisuje**       | Ne          | Obor názvů kvalifikovaný název typu přidružení koncepčního modelu, který je namapován. |
@@ -206,7 +206,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **AssociationSetMapping** , ve kterém je přidružení **FK @ no__t-2Course @ no__t-3Department** namapováno v koncepčním modelu na tabulku **kurzů** v databázi. Mapování mezi vlastnostmi typu přidružení a sloupci tabulky jsou specifikovány v podřízených elementech **endproperty lze mapovat** .
+Následující příklad ukazuje element **AssociationSetMapping** , ve kterém je přidružení **\_\_ho oddělení** v koncepčním modelu namapováno na tabulku **kurzu** v databázi. Mapování mezi vlastnostmi typu přidružení a sloupci tabulky jsou specifikovány v podřízených elementech **endproperty lze mapovat** .
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -236,7 +236,7 @@ Element vlastnosti **complexType** může mít následující podřízené prvky
 
 Následující tabulka popisuje atributy, které se vztahují na element **ComplexProperty** :
 
-| Název atributu | Je povinné | Value                                                                                            |
+| Název atributu | Je povinné | Hodnota                                                                                            |
 |:---------------|:------------|:-------------------------------------------------------------------------------------------------|
 | **Název**       | Ano         | Název komplexní vlastnosti typu entity v koncepčním modelu, který je namapován. |
 | **Popisuje**   | Ne          | Obor názvů kvalifikovaný název typu vlastnosti koncepčního modelu.                              |
@@ -291,7 +291,7 @@ Následující MSL ukazuje element **ComplexProperty** použitý k mapování vl
 
 ## <a name="complextypemapping-element-msl"></a>ComplexTypeMapping – element (MSL)
 
-Element **ComplexTypeMapping** v jazyce MSL (Mapping Specification Language) je podřízeným prvkem prvku ResultMapping a definuje mapování mezi funkcí importovanou v koncepčním modelu a uloženou procedurou v podkladové databázi, když následující jsou splněné:
+Element **ComplexTypeMapping** v jazyce MSL (Mapping Specification Language) je podřízeným prvkem prvku ResultMapping a definuje mapování mezi funkcí importovanou v koncepčním modelu a uloženou procedurou v podkladové databázi, pokud jsou splněny následující podmínky:
 
 -   Import funkce vrací koncepční komplexní typ.
 -   Názvy sloupců vrácené uloženou procedurou neodpovídají přesně názvům vlastností komplexního typu.
@@ -306,7 +306,7 @@ Element **ComplexTypeMapping** může mít následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které se vztahují na element **ComplexTypeMapping** .
 
-| Název atributu | Je povinné | Value                                                                  |
+| Název atributu | Je povinné | Hodnota                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------|
 | **Popisuje**   | Ano         | Obor názvů kvalifikovaný název komplexního typu, který je namapován. |
 
@@ -377,7 +377,7 @@ Element **Condition** nemůže mít žádné podřízené prvky.
 
 Následující tabulka popisuje atributy, které se vztahují na prvek **podmínky** :
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                                                                                                         |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                                                                                                         |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **ColumnName** | Ne          | Název sloupce tabulky, jehož hodnota se používá k vyhodnocení podmínky.                                                                                                                                                                                                                   |
 | **IsNull**     | Ne          | **True** nebo **false**. Pokud je hodnota **true** a hodnota sloupce je **null**, nebo pokud je hodnota **false** a hodnota sloupce není **null**, podmínka je pravdivá. V opačném případě je podmínka nepravdivá. <br/> Atributy **IsNull** a **Value** nelze použít současně. |
@@ -438,7 +438,7 @@ Element **DeleteFunction** může mít při použití na element **element entit
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **DeleteFunction** při použití na element **element entitytypemapping** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                    |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Ano         | Obor názvů kvalifikovaný název uložené procedury, ke které je namapována funkce DELETE. Uložená procedura musí být deklarována v modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupního parametru, který vrátí počet ovlivněných řádků.                                                                               |
@@ -502,7 +502,7 @@ Element **DeleteFunction** může mít při použití na element **AssociationSe
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **DeleteFunction** při použití na element **AssociationSetMapping** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                    |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Ano         | Obor názvů kvalifikovaný název uložené procedury, ke které je namapována funkce DELETE. Uložená procedura musí být deklarována v modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupního parametru, který vrátí počet ovlivněných řádků.                                                                               |
@@ -556,13 +556,13 @@ Element **endproperty lze mapovat** může mít následující podřízené prvk
 
 Následující tabulka popisuje atributy, které se vztahují na element **endproperty lze mapovat** :
 
-| Název atributu | Je povinné | Value                                                 |
+| Název atributu | Je povinné | Hodnota                                                 |
 |:---------------|:------------|:------------------------------------------------------|
-| Name           | Ano         | Název elementu Association, který je namapován. |
+| Název           | Ano         | Název elementu Association, který je namapován. |
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **AssociationSetMapping** , ve kterém je přidružení **FK @ no__t-2Course @ no__t-3Department** v koncepčním modelu mapováno na tabulku **kurzů** v databázi. Mapování mezi vlastnostmi typu přidružení a sloupci tabulky jsou specifikovány v podřízených elementech **endproperty lze mapovat** .
+Následující příklad ukazuje element **AssociationSetMapping** , ve kterém se přidružení **\_ho oddělení\_ho kurzu** v koncepčním modelu mapuje na tabulku **kurzu** v databázi. Mapování mezi vlastnostmi typu přidružení a sloupci tabulky jsou specifikovány v podřízených elementech **endproperty lze mapovat** .
 
 ``` xml
  <AssociationSetMapping Name="FK_Course_Department"
@@ -626,15 +626,15 @@ Element **EntityContainerMapping** může mít následující podřízené eleme
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntityContainerMapping** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                                                                                                                    |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **StorageModelContainer** | Ano         | Název mapovaného kontejneru entit modelu úložiště.                                                                                                                                                                                     |
 | **CdmEntityContainer**    | Ano         | Název kontejneru entity koncepčního modelu, který je namapován.                                                                                                                                                                                  |
-| **GenerateUpdateViews**   | Ne          | **True** nebo **false**. Pokud je **hodnota false**, nejsou vygenerována žádná zobrazení aktualizací. Tento atribut by měl být nastaven na **hodnotu false** , pokud máte mapování jen pro čtení, které by bylo neplatné, protože data se nemusí úspěšně odcyklovat. <br/> Výchozí hodnota je **true (pravda**). |
+| **GenerateUpdateViews**   | Ne          | **True** nebo **false**. Pokud je **hodnota false**, nejsou vygenerována žádná zobrazení aktualizací. Tento atribut by měl být nastaven na **hodnotu false** , pokud máte mapování jen pro čtení, které by bylo neplatné, protože data se nemusí úspěšně odcyklovat. <br/> Výchozí hodnota je **True**. |
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **EntityContainerMapping** , který mapuje kontejner **SchoolModelEntities** (kontejner entity koncepčního modelu) do kontejneru **SchoolModelStoreContainer** (entita modelu úložiště kontejner):
+Následující příklad ukazuje element **EntityContainerMapping** , který mapuje kontejner **SchoolModelEntities** (kontejner entity koncepčního modelu) do kontejneru **SchoolModelStoreContainer** (kontejner entit modelu úložiště):
 
 ``` xml
  <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer"
@@ -677,7 +677,7 @@ Element **EntitySetMapping** může mít následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntitySetMapping** .
 
-| Název atributu           | Je povinné | Value                                                                                                                                                                                                                         |
+| Název atributu           | Je povinné | Hodnota                                                                                                                                                                                                                         |
 |:-------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                 | Ano         | Název namapované sady entit koncepčního modelu.                                                                                                                                                             |
 | **TypeName** **1**       | Ne          | Název typu entity koncepčního modelu, který je namapován.                                                                                                                                                            |
@@ -743,7 +743,7 @@ Element **element entitytypemapping** může mít následující podřízené pr
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **element entitytypemapping** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Popisuje**   | Ano         | Obor názvů kvalifikovaný název typu entity koncepčního modelu, který je namapován. <br/> Pokud je typ abstraktní nebo odvozený typ, musí být hodnota `IsOfType(Namespace-qualified_type_name)`. |
 
@@ -829,7 +829,7 @@ Element **FunctionImportMapping** může mít následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které se vztahují na element **FunctionImportMapping** :
 
-| Název atributu         | Je povinné | Value                                                                                   |
+| Název atributu         | Je povinné | Hodnota                                                                                   |
 |:-----------------------|:------------|:----------------------------------------------------------------------------------------|
 | **Názevfunkceimportu** | Ano         | Název importované funkce v koncepčním modelu, který je namapován.           |
 | **FunctionName**       | Ano         | Kvalifikovaný název oboru názvů funkce v modelu úložiště, který je namapován. |
@@ -887,7 +887,7 @@ Element **InsertFunction** může mít při použití na element **element entit
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **InsertFunction** při použití na element **element entitytypemapping** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                    |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Ano         | Obor názvů kvalifikovaný název uložené procedury, ke které je namapována funkce INSERT. Uložená procedura musí být deklarována v modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupního parametru, který vrátí počet ovlivněných řádků.                                                                               |
@@ -938,7 +938,7 @@ Element **InsertFunction** může mít při použití na element **AssociationSe
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **InsertFunction** při použití na element **AssociationSetMapping** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                    |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Ano         | Obor názvů kvalifikovaný název uložené procedury, ke které je namapována funkce INSERT. Uložená procedura musí být deklarována v modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupního parametru, který vrátí počet ovlivněných řádků.                                                                               |
@@ -995,7 +995,7 @@ Názvy koncepčních a typů modelů úložiště, které jsou odkazovány v MSL
 
 Následující tabulka popisuje atributy, které lze použít na element **Mapping** .
 
-| Název atributu | Je povinné | Value                                                 |
+| Název atributu | Je povinné | Hodnota                                                 |
 |:---------------|:------------|:------------------------------------------------------|
 | **Space**      | Ano         | **C-S**. Toto je pevná hodnota a nelze ji změnit. |
 
@@ -1048,7 +1048,7 @@ Element **MappingFragment** může mít následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **MappingFragment** .
 
-| Název atributu          | Je povinné | Value                                                                                                                                                                                                                         |
+| Název atributu          | Je povinné | Hodnota                                                                                                                                                                                                                         |
 |:------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **StoreEntitySet**      | Ano         | Název tabulky nebo zobrazení, které je mapováno.                                                                                                                                                                           |
 | **Atributem makecolumnsdistinct nastaveným** | Ne          | **Hodnota true** nebo **false** v závislosti na tom, zda jsou vráceny pouze odlišné řádky. <br/> Pokud je tento atribut nastaven na **hodnotu true**, atribut **GenerateUpdateViews** elementu EntityContainerMapping musí být nastaven na **hodnotu false**. |
@@ -1193,7 +1193,7 @@ Následující příklad ukazuje mapování sady přidružení pro přidružení
 
 ## <a name="queryview-element-msl"></a>QueryView – element (MSL)
 
-Element **QueryView** v jazyce MSL (Mapping Specification Language) definuje mapování jen pro čtení mezi typem entity nebo přidružením v koncepčním modelu a tabulkou v podkladové databázi. Mapování je definováno s Entity SQL dotazem, který je vyhodnocován na základě modelu úložiště a vyjadřuje sadu výsledků dotazu v souvislosti s entitou nebo přidružením v koncepčním modelu. Vzhledem k tomu, že zobrazení dotazů jsou jen pro čtení, nemůžete použít standardní příkazy aktualizace k aktualizaci typů, které jsou definovány zobrazeními dotazů. Můžete provádět aktualizace těchto typů pomocí funkcí úprav. Další informace naleznete v tématu How to: Namapujte funkce úprav na uložené procedury.
+Element **QueryView** v jazyce MSL (Mapping Specification Language) definuje mapování jen pro čtení mezi typem entity nebo přidružením v koncepčním modelu a tabulkou v podkladové databázi. Mapování je definováno s Entity SQL dotazem, který je vyhodnocován na základě modelu úložiště a vyjadřuje sadu výsledků dotazu v souvislosti s entitou nebo přidružením v koncepčním modelu. Vzhledem k tomu, že zobrazení dotazů jsou jen pro čtení, nemůžete použít standardní příkazy aktualizace k aktualizaci typů, které jsou definovány zobrazeními dotazů. Můžete provádět aktualizace těchto typů pomocí funkcí úprav. Další informace naleznete v tématu How to: map – funkce úprav do uložených procedur.
 
 > [!NOTE]
 > V elementu **QueryView** se nepodporuje Entity SQL výrazy, které obsahují **GroupBy**, agregace skupin nebo navigační vlastnosti.
@@ -1211,7 +1211,7 @@ Element **QueryView** nemůže mít žádné podřízené elementy.
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **QueryView** .
 
-| Název atributu | Je povinné | Value                                                                         |
+| Název atributu | Je povinné | Hodnota                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------|
 | **Popisuje**   | Ne          | Název typu koncepčního modelu, který je namapován zobrazením dotazu. |
 
@@ -1253,7 +1253,7 @@ Vzhledem k tomu, že dotaz vrací pouze podmnožinu členů typu **oddělení** 
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **QueryView** jako podřízenou položku prvku **AssociationSetMapping** a definuje mapování jen pro čtení pro asociaci `FK_Course_Department` v modelu školy.
+Následující příklad ukazuje element **QueryView** jako podřízenou položku prvku **AssociationSetMapping** a definuje mapování jen pro čtení pro `FK_Course_Department` přidružení v modelu školy.
 
 ``` xml
  <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer"
@@ -1315,7 +1315,7 @@ Při definování zobrazení dotazu pro entity platí následující požadavky:
 
 ## <a name="resultbinding-element-msl"></a>ResultBinding – element (MSL)
 
-Element **ResultBinding** v Mapping Specification Language (MSL) mapuje hodnoty sloupce, které jsou vraceny uloženými procedurami do vlastností entity v koncepčním modelu, pokud jsou funkce změny typu entity mapovány na uložené procedury v podkladová databáze. Například pokud je hodnota sloupce identity vrácena uloženou procedurou INSERT, element **ResultBinding** mapuje vrácenou hodnotu na vlastnost typu entity v koncepčním modelu.
+Element **ResultBinding** v Mapping Specification Language (MSL) mapuje hodnoty sloupce, které jsou vraceny uloženými procedurami do vlastností entity v koncepčním modelu, pokud jsou funkce změny typu entity mapovány na uložené procedury v podkladové databázi. Například pokud je hodnota sloupce identity vrácena uloženou procedurou INSERT, element **ResultBinding** mapuje vrácenou hodnotu na vlastnost typu entity v koncepčním modelu.
 
 Element **ResultBinding** může být podřízeným prvkem elementu InsertFunction nebo elementu UpdateFunction.
 
@@ -1325,7 +1325,7 @@ Element **ResultBinding** nemůže mít žádné podřízené elementy.
 
 Následující tabulka popisuje atributy, které se vztahují na element **ResultBinding** :
 
-| Název atributu | Je povinné | Value                                                                         |
+| Název atributu | Je povinné | Hodnota                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------|
 | **Název**       | Ano         | Název vlastnosti entity v koncepčním modelu, který je namapován. |
 | **ColumnName** | Ano         | Název mapovaného sloupce                                          |
@@ -1477,14 +1477,14 @@ Atributy, které se vztahují na element **ScalarProperty** , se liší v závis
 
 Následující tabulka popisuje atributy, které jsou použity při použití prvku **ScalarProperty** k namapování vlastnosti koncepčního modelu na sloupec v databázi:
 
-| Název atributu | Je povinné | Value                                                           |
+| Název atributu | Je povinné | Hodnota                                                           |
 |:---------------|:------------|:----------------------------------------------------------------|
 | **Název**       | Ano         | Název vlastnosti konceptuálního modelu, který je mapován. |
 | **ColumnName** | Ano         | Název sloupce tabulky, který je namapován.              |
 
 Následující tabulka popisuje atributy, které se vztahují na element **ScalarProperty** při použití k namapování vlastnosti koncepčního modelu na parametr uložené procedury:
 
-| Název atributu    | Je povinné | Value                                                                                                                                           |
+| Název atributu    | Je povinné | Hodnota                                                                                                                                           |
 |:------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**          | Ano         | Název vlastnosti konceptuálního modelu, který je mapován.                                                                                 |
 | **ParameterName** | Ano         | Název parametru, který je namapován.                                                                                                 |
@@ -1595,7 +1595,7 @@ Element **UpdateFunction** může mít následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **UpdateFunction** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                    |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                    |
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **FunctionName**          | Ano         | Obor názvů kvalifikovaný název uložené procedury, na kterou je namapovaná funkce Update. Uložená procedura musí být deklarována v modelu úložiště. |
 | **RowsAffectedParameter** | Ne          | Název výstupního parametru, který vrátí počet ovlivněných řádků.                                                                               |

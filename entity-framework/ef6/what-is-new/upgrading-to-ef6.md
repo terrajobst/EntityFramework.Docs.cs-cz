@@ -18,7 +18,7 @@ To by mělo být jednoduché pro aplikace, které využívají DbContext jako do
 
 Tady je kontrolní seznam věcí, které je třeba provést při upgradu existující aplikace na EF6.
 
-## <a name="1-install-the-ef6-nuget-package"></a>1. Instalace balíčku NuGet EF6
+## <a name="1-install-the-ef6-nuget-package"></a>1. Nainstalujte balíček NuGet EF6.
 
 Musíte upgradovat na nový modul runtime Entity Framework 6.
 
@@ -37,14 +37,14 @@ Install-Package EntityFramework
 
 Instalace balíčku NuGet EF6 by měla automaticky odebrat všechny odkazy na System. data. entity z vašeho projektu.
 
-## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3. Výměna všech modelů EF Designer (EDMX) pro použití EF 6. x generování kódu
+## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3. Proměňte všechny modely EF Designer (EDMX), aby bylo možné použít kód EF 6. x.
 
 Pokud máte v Návrháři EF vytvořené nějaké modely, budete muset aktualizovat šablony pro generování kódu, aby se generoval kód kompatibilní s EF6.
 
 > [!NOTE]
 > V současné době jsou k dispozici pouze šablony generátoru DbContext v EF 6. x pro Visual Studio 2012 a 2013.
 
-1. Odstranit existující šablony pro generování kódu. Tyto soubory budou obvykle pojmenovány **@no__t -1edmx_file_name\>.tt** a **\<edmx_file_name @ no__t-5. Context.tt** a vnořovat do souboru EDMX v Průzkumník řešení. Můžete vybrat šablony v Průzkumník řešení a stisknout klávesu **del** a odstranit je.  
+1. Odstranit existující šablony pro generování kódu. Tyto soubory budou obvykle pojmenovány **\<edmx_file_name\>. TT** a **\<edmx_file_name\>. Context.tt** a vnořovat do souboru EDMX v Průzkumník řešení. Můžete vybrat šablony v Průzkumník řešení a stisknout klávesu **del** a odstranit je.  
    > [!NOTE]
    > V projektech webů nebudou šablony vnořené do souboru EDMX, ale jsou uvedeny vedle sebe v Průzkumník řešení.  
 
@@ -58,7 +58,7 @@ Pokud máte v Návrháři EF vytvořené nějaké modely, budete muset aktualizo
     - Pokud používáte rozhraní API ObjectContext, budete muset vybrat **online** kartu a vyhledat **generátor EF 6. x objektů EntityObject**.  
 3. Pokud jste v šablonách generování kódu použili jakékoli úpravy, budete je muset znovu použít na aktualizované šablony.
 
-## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4. Aktualizujte obory názvů pro všechny používané typy EF Core.
+## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4. aktualizujte obory názvů pro všechny používané typy EF Core.
 
 Obory názvů pro typy DbContext a Code First se nezměnily. To znamená, že pro mnoho aplikací, které používají EF 4,1 nebo novější, nebudete muset cokoli měnit.
 

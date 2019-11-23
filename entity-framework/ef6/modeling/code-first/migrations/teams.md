@@ -24,7 +24,7 @@ Předtím, než jsme DIGI, jak spravovat migrace vygenerované více vývojáři
 
 ### <a name="each-team-member-should-have-a-local-development-database"></a>Každý člen týmu by měl mít místní vývojovou databázi.
 
-Migrace používá tabulku **\_ @ no__t-2MigrationsHistory** k uložení, které migrace byly použity v databázi. Pokud máte několik vývojářů, kteří při pokusu o zacílení na stejnou databázi nastavili různé migrace (a tak nasdíleli tabulku **\_ @ no__t-2MigrationsHistory** ), budou se vám podělit.
+Migrace používá tabulku **\_\_MigrationsHistory** k ukládání, které migrace byly použity v databázi. Pokud máte několik vývojářů, kteří při pokusu o zacílení na stejnou databázi nastavili různé migrace (a tak nasdíleli **\_\_tabulka MigrationsHistory** ), budou migrace značně matoucí.
 
 Samozřejmě, pokud máte členy týmu, kteří negenerují migrace, neexistuje žádný problém, který by měl sdílet centrální vývojovou databázi.
 
@@ -38,11 +38,11 @@ Automatické migrace umožňují aktualizaci schématu databáze tak, aby odpov�
 
 Pokud místo toho chcete sledovat záznam dění na záznamovém počítači, než je tento článek přečetl, následující dvě videa se týkají stejného obsahu jako tento článek.
 
-### <a name="video-one-migrations---under-the-hood"></a>Video One: "Migrace – pod digestoř"
+### <a name="video-one-migrations---under-the-hood"></a>Video One: "migrace – pod digestoř"
 
 [Tento záznam dění](https://channel9.msdn.com/blogs/ef/migrations-under-the-hood) popisuje, jak migrace sleduje a používá informace o modelu pro detekci změn modelu.
 
-### <a name="video-two-migrations---team-environments"></a>Video dvě: Migrace – Týmová prostředí
+### <a name="video-two-migrations---team-environments"></a>Video dvě: migrace – Týmová prostředí
 
 [Tento záznam dění](https://channel9.msdn.com/blogs/ef/migrations-team-environments) na základě konceptů z předchozího videa pokrývá problémy, které vznikají v týmovém prostředí, a jak je řešit.
 
@@ -98,28 +98,28 @@ Sledujeme model EF a migrace s tím, že se podíváme na několik změn. Pro v�
 
 ![Počáteční bod](~/ef6/media/startingpoint.png)
 
-Developer @no__t – 01 a Developer \#2 teď v rámci svého místního kódu v základu kódu provede některé změny modelu EF. @No__t pro vývojáře – 01 přidá do **blogu** vlastnost **hodnocení** a vygeneruje migraci **AddRating** , která použije změny v databázi. @No__t pro vývojáře – 02 přidá vlastnost **čtenářů** do **blogu** – a vygeneruje odpovídající migraci **AddReaders** . Oba vývojáři spustí **příkaz Update-Database**, aby se změny projevily v místních databázích a pak pokračovali v vývoji aplikace.
+Vývojář \#1 a vývojář \#2 teď provede některé změny modelu EF v rámci svého základu kódu. Developer \#1 přidá do **blogu** vlastnost **hodnocení** a vygeneruje migraci **AddRating** , která použije změny v databázi. Developer \#2 přidá vlastnost **čtenářů** do **blogu** – a vygeneruje odpovídající migraci **AddReaders** . Oba vývojáři spustí **příkaz Update-Database**, aby se změny projevily v místních databázích a pak pokračovali v vývoji aplikace.
 
 > [!NOTE]
-> Migrace mají předponu s časovým razítkem, takže naše grafika představuje, že migrace AddReaders z Developer \#2 pochází po migraci AddRating z Developer \#1. Bez ohledu na to, jestli Developer \#1 nebo \#2 vygenerovala migraci jako první, nedojde k žádnému rozdílu na problémech práce v týmu ani na procesu jejich sloučení v další části.
+> Migrace mají předponu s časovým razítkem, takže naše grafika představuje, že migrace AddReaders od vývojáře \#2 pochází po migraci AddRating z Developer \#1. Bez ohledu na to, jestli vývojář \#1 nebo \#2 vytvoří migraci za prvé, neprovede žádný rozdíl na problémech práce v týmu nebo proces jejich sloučení, které se zobrazí v další části.
 
 ![Místní změny](~/ef6/media/localchanges.png)
 
-Je to štěstí den pro vývojáře \#1, protože se k tomu přidávají změny jako první. Vzhledem k tomu, že nikdo jiný nebyl vrácen se změnami, protože synchronizoval své úložiště, může pouze odeslat své změny bez provedení sloučení.
+Pro vývojáře \#1 se jedná o štěstíý den, protože se k tomu poprvé odesílají změny. Vzhledem k tomu, že nikdo jiný nebyl vrácen se změnami, protože synchronizoval své úložiště, může pouze odeslat své změny bez provedení sloučení.
 
-![Poskytoval](~/ef6/media/submit.png)
+![Odeslat](~/ef6/media/submit.png)
 
-Teď je čas, kdy vývojář \#2 odeslat. Nejsou tak štěstíy. Vzhledem k tomu, že někdo jiný odeslal změny od synchronizace, bude muset stáhnout změny a sloučit je. Systém správy zdrojů bude pravděpodobně moci automaticky sloučit změny na úrovni kódu, protože jsou velmi jednoduché. Stav místního úložiště Developer \#2 po synchronizaci je znázorněný na následujícím obrázku. 
+Teď je čas, kdy se má vývojář \#2 odeslat. Nejsou tak štěstíy. Vzhledem k tomu, že někdo jiný odeslal změny od synchronizace, bude muset stáhnout změny a sloučit je. Systém správy zdrojů bude pravděpodobně moci automaticky sloučit změny na úrovni kódu, protože jsou velmi jednoduché. Stav místního úložiště Developer \#2 po synchronizaci je znázorněný na následujícím obrázku. 
 
 ![O přijetí změn](~/ef6/media/pull.png)
 
-V tomto kroku \#2 může spustit rutinu **Update-Database** , která detekuje novou migraci **AddRating** (která se nepoužila na databázi vývojářů \#2) a použije ji. Nyní se sloupec **hodnocení** přidá do tabulky **Blogy** a databáze je synchronizována s modelem.
+V této fázi vývojář \#2 může spustit rutinu **Update-Database** , která detekuje novou migraci **AddRating** (nepoužila se pro databázi vývojáře \#2) a použije ji. Nyní se sloupec **hodnocení** přidá do tabulky **Blogy** a databáze je synchronizována s modelem.
 
 Existuje několik problémů, i když:
 
-1.  I když **aktualizace databáze** použije migraci **AddRating** , vyvolá taky upozornění: *Databázi se nepovedlo aktualizovat tak, aby odpovídala aktuálnímu modelu, protože existují probíhající změny a Automatická migrace je zakázaná...*
+1.  I když **aktualizace databáze** použije migraci **AddRating** , vyvolá taky upozornění: *databáze se nedá aktualizovat tak, aby odpovídala aktuálnímu modelu, protože existují nedokončené změny a Automatická migrace je zakázaná...*
     Problémem je, že snímek modelu uložený během poslední migrace (**AddReader**) postrádá vlastnost **hodnocení** na **blogu** (protože není součástí modelu při vygenerování migrace). Code First zjistí, že model v poslední migraci neodpovídá aktuálnímu modelu a vyvolá upozornění.
-2.  Spuštění aplikace by způsobilo, že se spustí příkaz InvalidOperationException s oznámením, že se od vytvoření databáze změnil model "*The", který způsobil zálohování kontextu "BloggingContext". Zvažte použití Migrace Code First k aktualizaci databáze... "*
+2.  Spuštění aplikace bude mít za následek, že*se od vytvoření databáze změnil model zálohování kontextu ' BloggingContext '. Zvažte použití Migrace Code First k aktualizaci databáze... "*
     Tento problém je opět stejný jako snímek modelu uložený během poslední migrace neodpovídá aktuálnímu modelu.
 3.  Nakonec by se čekalo, že spuštění příkazu **Add-Migration** by nyní vygenerovalo prázdnou migraci (vzhledem k tomu, že v databázi nejsou žádné změny). Ale vzhledem k tomu, že migrace porovnává aktuální model od poslední migrace (ve které chybí vlastnost **hodnocení** ), bude ve skutečnosti vygenerované jiné volání **AddColumn** , které se přidá do sloupce **hodnocení** . Tato migrace samozřejmě během **aktualizace databáze** selže, protože sloupec **hodnocení** již existuje.
 
@@ -129,11 +129,11 @@ Dobrá zpráva je, že není příliš těžko se zabývat sloučením ručně �
 
 K dispozici jsou dvě možnosti, nejjednodušší je vygenerovat prázdnou migraci, která má správný aktuální model jako snímek. Druhou možností je aktualizovat snímek v poslední migraci tak, aby měl správný snímek modelu. Druhá možnost je trochu obtížnější a nedá se použít v každém scénáři, ale je také čisticí, protože nezahrnuje přidání další migrace.
 
-### <a name="option-1-add-a-blank-merge-migration"></a>Možnost 1: Přidat prázdnou migraci ' sloučit '
+### <a name="option-1-add-a-blank-merge-migration"></a>Možnost 1: Přidání prázdné migrace ' sloučit '
 
 V této možnosti vygenerujeme prázdnou migraci výhradně za účelem zajištění toho, aby poslední migrace měla uložený správný snímek modelu.
 
-Tato možnost se dá použít bez ohledu na to, kdo poslední migraci vygeneroval. V tomto příkladu jsme se seznámili s @no__t – 02 se zabývají sloučením a k vygenerování poslední migrace se stala. Tyto stejné kroky je ale možné použít, pokud vývojář @no__t – 01 Poslední migraci vygenerovala. Tento postup platí také v případě, že je zapojeno více migrací – právě jsme prohledali dvě, aby bylo snadné je zachovat.
+Tato možnost se dá použít bez ohledu na to, kdo poslední migraci vygeneroval. V příkladu, který jsme \#2, se postará o sloučení a při generování poslední migrace k nim došlo. Tyto stejné kroky je ale možné použít, pokud vývojář \#1 vygeneroval poslední migraci. Tento postup platí také v případě, že je zapojeno více migrací – právě jsme prohledali dvě, aby bylo snadné je zachovat.
 
 Následující postup lze použít pro tento přístup, počínaje od okamžiku, kdy jste si uvědomili změny, které je třeba synchronizovat ze správy zdrojového kódu.
 
@@ -141,14 +141,14 @@ Následující postup lze použít pro tento přístup, počínaje od okamžiku,
 2.  Synchronizace se správou zdrojových kódů.
 3.  Spusťte **příkaz Update-Database** a použijte přitom všechny nové migrace, které jiní vývojáři vrátili se změnami.
     **_Poznámka:_** *Pokud neobdržíte žádná upozornění z příkazu Update-Database, neexistují žádné nové migrace od jiných vývojářů a není nutné provádět žádné další sloučení.*
-4.  Spusťte příkaz **Add-Migration &lt;pick @ no__t-2a @ no__t-3name @ no__t-4 – IgnoreChanges** (například **sloučení migrace – IgnoreChanges**). Tím se vygeneruje migrace se všemi metadaty (včetně snímku aktuálního modelu), ale ignoruje všechny změny, které detekuje při porovnávání aktuálního modelu s snímkem během poslední migrace (což **znamená, že získáte prázdnou a** **nižší** metodu).
+4.  Spusťte příkaz **Add-Migration &lt;vyberte\_\_název&gt; – IgnoreChanges** (například **sloučení migrace – IgnoreChanges**). Tím se vygeneruje migrace se všemi metadaty (včetně snímku aktuálního modelu), ale ignoruje všechny změny, které detekuje při porovnávání aktuálního modelu s snímkem během poslední migrace (což **znamená, že získáte prázdnou a** **nižší** metodu).
 5.  Pokračujte v vývoji nebo odešlete do správy zdrojového kódu (po spuštění testování částí kurzu).
 
-Tady je stav základu místního kódu @no__t vývojáře-02 po použití tohoto přístupu.
+Tady je stav základu místního kódu pro vývojáře \#2 po použití tohoto přístupu.
 
 ![Sloučení migrace](~/ef6/media/mergemigration.png)
 
-### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>Možnost 2: Aktualizace snímku modelu při poslední migraci
+### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>Možnost 2: aktualizace snímku modelu při poslední migraci
 
 Tato možnost je velmi podobná možnosti 1, ale odstraní dodatečnou prázdnou migraci – protože Pojďme na ni dát další soubory kódu v jejich řešení.
 
@@ -162,15 +162,15 @@ Následující postup lze použít pro tento přístup, počínaje od okamžiku,
 2.  Proveďte synchronizaci se správou zdrojových kódů.
 3.  Spusťte **příkaz Update-Database** a použijte přitom všechny nové migrace, které jiní vývojáři vrátili se změnami.
     **_Poznámka:_** *Pokud neobdržíte žádná upozornění z příkazu Update-Database, neexistují žádné nové migrace od jiných vývojářů a není nutné provádět žádné další sloučení.*
-4.  Spusťte rutinu **Update-Database – TargetMigration &lt;second @ no__t-2last @ no__t-3migration @ no__t-4** (v příkladu jsme to udělali jako **Update-Database – TargetMigration AddRating**). Tím se databáze role vrátí do stavu druhé poslední migrace – efektivně nepoužívá poslední migraci z databáze.
-    **_Značte_** *This krok je nutný, aby bylo bezpečné upravovat metadata migrace, protože metadata jsou také uložena v \_ @ no__t-2MigrationsHistoryTable databáze. Z tohoto důvodu byste měli tuto možnost používat jenom v případě, že se poslední migrace používá jenom v místním základu kódu. Pokud se poslední migrace použila u jiných databází, museli byste je také vrátit zpět a znovu použít poslední migraci, aby se metadata aktualizovala.* 
-5.  Spusťte příkaz **Add-Migration &lt;full @ no__t-2name @ no__t-3including @ no__t-4timestamp @ no__t-5of @ no__t-6last @ no__t-** 7migration &gt; (v příkladu jsme to udělali za to, že by to bylo něco podobného jako **Přidání-migrace 201311062215252 @ no__ t-10AddReaders**).
-    **_Značte_** *Je potřeba zahrnout časové razítko, aby migrace věděly, že chcete upravit existující migraci, a ne vytvořit nové.*
-    Tím se aktualizují metadata poslední migrace tak, aby odpovídala aktuálnímu modelu. Až se příkaz dokončí, zobrazí se následující upozornění, které je přesně to, co chcete. "@no__t – 0Only kód návrháře pro migraci 201311062215252 @ no__t-1AddReaders" byl znovu vytvořen z uživatelského rozhraní. K opětovnému vygenerování uživatelského rozhraní pro celou migraci použijte parametr-Force. *
+4.  Spusťte **rutinu Update-Database – TargetMigration &lt;druhé\_poslední\_&gt;migrace** (v příkladu jsme to udělali jako **Update-Database – TargetMigration AddRating**). Tím se databáze role vrátí do stavu druhé poslední migrace – efektivně nepoužívá poslední migraci z databáze.
+    **_Poznámka:_** *Tento krok je nutný, aby bylo bezpečné upravit metadata migrace, protože metadata jsou také uložena v \_\_MigrationsHistoryTable databáze. Z tohoto důvodu byste měli tuto možnost používat jenom v případě, že se poslední migrace používá jenom v místním základu kódu. Pokud se poslední migrace použila u jiných databází, museli byste je také vrátit zpátky a znovu použít poslední migraci, aby se metadata aktualizovala.* 
+5.  Spusťte příkaz **Add-migration &lt;full\_name\_včetně\_časového razítka\_\_poslední\_migrace**&gt; (v příkladu jsme to udělali jako rutina **add-Migration 201311062215252\_AddReaders**).
+    **_Poznámka:_** *je potřeba zahrnout časové razítko, aby migrace věděly, že chcete upravit existující migraci, a ne vytvořit nové rozhraní.*
+    Tím se aktualizují metadata poslední migrace tak, aby odpovídala aktuálnímu modelu. Až se příkaz dokončí, zobrazí se následující upozornění, které je přesně to, co chcete. *Jenom kód návrháře pro migraci 201311062215252\_AddReaders se znovu vygeneroval. K opětovnému vygenerování uživatelského rozhraní pro celou migraci použijte parametr-Force.*
 6.  Spuštěním rutiny **Update-Database** znovu nainstalujte nejnovější migraci s aktualizovanými metadaty.
 7.  Pokračujte v vývoji nebo odešlete do správy zdrojového kódu (po spuštění testování částí kurzu).
 
-Tady je stav základu místního kódu @no__t vývojáře-02 po použití tohoto přístupu.
+Tady je stav základu místního kódu pro vývojáře \#2 po použití tohoto přístupu.
 
 ![Aktualizovaná metadata](~/ef6/media/updatedmetadata.png)
 

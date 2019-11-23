@@ -15,14 +15,14 @@ ms.locfileid: "71197304"
 
 Entity Framework používá sadu konvencí pro sestavování modelu na základě tvaru tříd entit. Můžete zadat další konfiguraci pro doplnění nebo přepsání toho, co bylo zjištěno podle konvence.
 
-Tento článek se zabývá konfigurací, kterou je možné použít pro model, který cílí na jakékoli úložiště dat a který je možné použít při cílení na jakoukoli relační databázi. Poskytovatelé taky můžou povolit konfiguraci, která je specifická pro konkrétní úložiště dat. Dokumentaci ke konfiguraci specifickou pro poskytovatele najdete v části [poskytovatelé](../providers/index.md) databází.
+Tento článek se zabývá konfigurací, kterou je možné použít pro model, který cílí na jakékoli úložiště dat a který je možné použít při cílení na jakoukoli relační databázi. Poskytovatelé taky můžou povolit konfiguraci, která je specifická pro konkrétní úložiště dat. Dokumentaci ke konkrétní konfiguraci poskytovatele najdete v části [poskytovatelé databáze](../providers/index.md) .
 
 > [!TIP]  
->  [](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples)Ukázku tohoto článku můžete zobrazit na GitHubu.
+> Na GitHubu můžete zobrazit [ukázkové](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples) tohoto článku.
 
 ## <a name="use-fluent-api-to-configure-a-model"></a>Použití rozhraní Fluent API ke konfiguraci modelu
 
-Můžete přepsat `OnModelCreating` metoduv `ModelBuilder API` odvozeném kontextu a použít ke konfiguraci modelu. Jedná se o nejúčinnější způsob konfigurace a umožňuje zadat konfiguraci bez úprav tříd entit. Konfigurace rozhraní Fluent API má nejvyšší prioritu a přepíše konvence a datové poznámky.
+V odvozeném kontextu můžete přepsat metodu `OnModelCreating` a pomocí `ModelBuilder API` nakonfigurovat model. Jedná se o nejúčinnější způsob konfigurace a umožňuje zadat konfiguraci bez úprav tříd entit. Konfigurace rozhraní Fluent API má nejvyšší prioritu a přepíše konvence a datové poznámky.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Required.cs?highlight=11-13)]
 

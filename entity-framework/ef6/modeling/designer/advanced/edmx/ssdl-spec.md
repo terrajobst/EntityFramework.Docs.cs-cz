@@ -40,7 +40,7 @@ Element **Association** může mít následující podřízené elementy (v uved
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **Association** .
 
-| Název atributu | Je povinné | Value                                                                            |
+| Název atributu | Je povinné | Hodnota                                                                            |
 |:---------------|:------------|:---------------------------------------------------------------------------------|
 | **Název**       | Ano         | Název odpovídajícího omezení cizího klíče v podkladové databázi. |
 
@@ -49,7 +49,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **Association** , který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-3CustomerOrders** :
+Následující příklad ukazuje element **Association** , který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **\_FK** :
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -86,7 +86,7 @@ Element **AssociationSet** může mít následující podřízené elementy (v u
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **AssociationSet** .
 
-| Název atributu  | Je povinné | Value                                                                                                |
+| Název atributu  | Je povinné | Hodnota                                                                                                |
 |:----------------|:------------|:-----------------------------------------------------------------------------------------------------|
 | **Název**        | Ano         | Název omezení cizího klíče, který představuje sada přidružení.                          |
 | **Přidružení** | Ano         | Název asociace, který definuje sloupce, které jsou součástí omezení cizího klíče. |
@@ -96,7 +96,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **AssociationSet** , který představuje omezení cizího klíče `FK_CustomerOrders` v podkladové databázi:
+Následující příklad ukazuje element **AssociationSet** , který představuje omezení `FK_CustomerOrders` cizího klíče v podkladové databázi:
 
 ``` xml
  <AssociationSet Name="FK_CustomerOrders"
@@ -197,7 +197,7 @@ Element **DefiningQuery** můžete použít k cíli Microsoft SQL Server Compact
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na **závislý** element.
 
-| Název atributu | Je povinné | Value                                                                                                                                                       |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                       |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Role**       | Ano         | Stejná hodnota jako atribut **role** (Pokud se používá) odpovídajícího elementu end; jinak název tabulky, která obsahuje odkazující sloupec. |
 
@@ -206,7 +206,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na **zá
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element Association, který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-2CustomerOrders** . **Závislý** element určuje sloupec **KódZákazníka** tabulky **Order** jako závislý konec omezení.
+Následující příklad ukazuje element Association, který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **\_CustomerOrders** . **Závislý** element určuje sloupec **KódZákazníka** tabulky **Order** jako závislý konec omezení.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -233,8 +233,8 @@ Element **dokumentace** v úložišti SSDL (Schema Definition Language) je možn
 
 Prvek **dokumentace** může mít následující podřízené prvky (v uvedeném pořadí):
 
--   **Souhrn**: Stručný popis nadřazeného elementu. (žádný nebo jeden element)
--   **Longdescription**: Rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
+-   **Summary**: stručný popis nadřazeného elementu. (žádný nebo jeden element)
+-   **Longdescription**: rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
 
 ### <a name="applicable-attributes"></a>Použitelné atributy
 
@@ -276,18 +276,18 @@ Element **End** může mít následující podřízené elementy (v uvedeném po
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízenou položkou elementu **Association** .
 
-| Název atributu   | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                      |
+| Název atributu   | Je povinné | Hodnota                                                                                                                                                                                                                                                                                                                                                                                      |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**         | Ano         | Plně kvalifikovaný název sady entit SSDL, která je na konci omezení cizího klíče.                                                                                                                                                                                                                                                                                          |
 | **Role**         | Ne          | Hodnota atributu **role** v objektu zabezpečení nebo závislém elementu odpovídajícího prvku elementu ReferentialConstraint (Pokud se používá).                                                                                                                                                                                                                                             |
-| **Násobnost** | Ano         | **1**, **0.. 1**nebo **\*** v závislosti na počtu řádků, které mohou být na konci omezení cizího klíče. <br/> **1** znamená, že v konci omezení cizího klíče existuje přesně jeden řádek. <br/> **0.. 1** znamená, že v konci omezení cizího klíče existuje žádný nebo jeden řádek. <br/> **\*** znamená, že v konci omezení cizího klíče existuje nula, jeden nebo více řádků. |
+| **Násobnost** | Ano         | **1**, **0.. 1**nebo **\*** v závislosti na počtu řádků, které mohou být na konci omezení cizího klíče. <br/> **1** znamená, že v konci omezení cizího klíče existuje přesně jeden řádek. <br/> **0.. 1** znamená, že v konci omezení cizího klíče existuje žádný nebo jeden řádek. <br/> **\*** označuje, že v konci omezení cizího klíče existuje nula, jeden nebo více řádků. |
 
 > [!NOTE]
 > Pro element **End** může být použit libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nemůžou patřit do žádného oboru názvů XML, který je vyhrazený pro CSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
 
 #### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **Association** , který definuje omezení cizího klíče **FK @ no__t-2CustomerOrders** . Hodnoty **násobnosti** zadané u každého elementu **End** označují, že mnoho řádků v tabulce **Orders** může být přidruženo k řádku v tabulce **Customers** , ale k řádku může být přidružen pouze jeden řádek v tabulce **Customers** . v tabulce **Orders** . Kromě toho element **IsDeleted** označuje, že všechny řádky v tabulce **Orders** , které odkazují na konkrétní řádek v tabulce **Customers** , se odstraní, pokud se řádek v tabulce **Customers (zákazníci** ) odstraní.
+Následující příklad ukazuje element **Association** , který definuje omezení cizího klíče **CustomerOrders\_** . Hodnoty **násobnosti** zadané u každého elementu **End** označují, že mnoho řádků v tabulce **Orders** je možné přidružit k řádku v tabulce **Customers** , ale k řádku v tabulce **Orders** může být přidružen pouze jeden řádek v tabulce **Customers** . Kromě toho element **IsDeleted** označuje, že všechny řádky v tabulce **Orders** , které odkazují na konkrétní řádek v tabulce **Customers** , se odstraní, pokud se řádek v tabulce **Customers (zákazníci** ) odstraní.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -321,7 +321,7 @@ Element **End** může mít následující podřízené elementy (v uvedeném po
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízeným elementem elementu **AssociationSet** .
 
-| Název atributu | Je povinné | Value                                                                                                                  |
+| Název atributu | Je povinné | Hodnota                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------|
 | **Sada**  | Ano         | Název sady entit SSDL, která je na konci omezení cizího klíče.                                      |
 | **Role**       | Ne          | Hodnota jednoho z atributů **role** zadaná u jednoho elementu **End** odpovídajícího elementu Association. |
@@ -351,7 +351,7 @@ Následující příklad ukazuje element **EntityContainer** s elementem **Assoc
 
 ## <a name="entitycontainer-element-ssdl"></a>EntityContainer – element (SSDL)
 
-Element **EntityContainer** ve službě Store Schema Definition Language (SSDL) popisuje strukturu podkladového zdroje dat v Entity Framework aplikaci: Sady entit SSDL (definované v elementech EntitySet) reprezentují tabulky v databázi, typy entit SSDL (definované v elementech EntityType) reprezentují řádky v tabulce a sady přidružení (definované v elementech AssociationSet) reprezentují omezení cizího klíče v databáze. Kontejner entit modelu úložiště se mapuje na kontejner entit koncepčního modelu prostřednictvím elementu EntityContainerMapping.
+Element **EntityContainer** v rámci služby Store Schema Definition Language (SSDL) popisuje strukturu podkladového zdroje dat v aplikaci Entity Framework: sady entit SSDL (definované v elementech EntitySet) reprezentují tabulky v databázi, typy entit SSDL (definované v elementech EntityType) reprezentují v databázi omezení cizího klíče. Kontejner entit modelu úložiště se mapuje na kontejner entit koncepčního modelu prostřednictvím elementu EntityContainerMapping.
 
 Element **EntityContainer** může mít nula nebo jeden prvek dokumentace. Pokud je přítomen prvek **dokumentace** , musí předcházet všem ostatním podřízeným elementům.
 
@@ -365,7 +365,7 @@ Element **EntityContainer** může mít nula nebo více z následujících podř
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntityContainer** .
 
-| Název atributu | Je povinné | Value                                                                   |
+| Název atributu | Je povinné | Hodnota                                                                   |
 |:---------------|:------------|:------------------------------------------------------------------------|
 | **Název**       | Ano         | Název kontejneru entity. Tento název nesmí obsahovat tečky (.). |
 
@@ -409,9 +409,9 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 > [!NOTE]
 > Některé atributy (zde nejsou uvedeny) mohou být kvalifikovány s aliasem **úložiště** . Tyto atributy používá Průvodce modelem aktualizace při aktualizaci modelu.
 
-| Název atributu | Je povinné | Value                                                                                    |
+| Název atributu | Je povinné | Hodnota                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
-| **Název**       | Ano         | Název sady entit                                                              |
+| **Název**       | Ano         | Název sady entit.                                                              |
 | **Objektu** | Ano         | Plně kvalifikovaný název typu entity, pro který sada entit obsahuje instance. |
 | **schéma**     | Ne          | Schéma databáze.                                                                     |
 | **Tabulka**      | Ne          | Databázová tabulka                                                                      |
@@ -453,7 +453,7 @@ Element **EntityType** může mít následující podřízené elementy (v uvede
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntityType** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                  |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                  |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**       | Ano         | Název typu entity Tato hodnota je obvykle stejná jako název tabulky, ve které typ entity představuje řádek. Tato hodnota nesmí obsahovat žádné tečky (.). |
 
@@ -501,7 +501,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 > [!NOTE]
 > Některé atributy (zde nejsou uvedeny) mohou být kvalifikovány s aliasem **úložiště** . Tyto atributy používá Průvodce modelem aktualizace při aktualizaci modelu.
 
-| Název atributu             | Je povinné | Value                                                                                                                                                                                                              |
+| Název atributu             | Je povinné | Hodnota                                                                                                                                                                                                              |
 |:---------------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                   | Ano         | Název uložené procedury.                                                                                                                                                                                  |
 | **ReturnType**             | Ne          | Návratový typ uložené procedury.                                                                                                                                                                           |
@@ -581,7 +581,7 @@ Element **IsDeleted** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **IsDeleted** .
 
-| Název atributu | Je povinné | Value                                                                                               |
+| Název atributu | Je povinné | Hodnota                                                                                               |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------|
 | **Akce**     | Ano         | **Cascade** nebo **none**. (Hodnota **s omezením** je platná, ale má stejné chování jako **žádné**.) |
 
@@ -590,7 +590,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **Association** , který definuje omezení cizího klíče **FK @ no__t-2CustomerOrders** . Element **IsDeleted** označuje, že všechny řádky v tabulce **Orders** , které odkazují na konkrétní řádek v tabulce **Customers** , se odstraní, když se řádek v tabulce **Customers** odstraní.
+Následující příklad ukazuje element **Association** , který definuje omezení cizího klíče **CustomerOrders\_** . Element **IsDeleted** označuje, že všechny řádky v tabulce **Orders** , které odkazují na konkrétní řádek v tabulce **Customers** , se odstraní, když se řádek v tabulce **Customers** odstraní.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -624,7 +624,7 @@ Element **Parameter** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které lze použít pro element **Parameter** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                                           |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**       | Ano         | Název parametru                                                                                                                                                                                                      |
 | **Typ**       | Ano         | Typ parametru.                                                                                                                                                                                                             |
@@ -667,7 +667,7 @@ Element **Principal** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **Principal** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                      |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                      |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Role**       | Ano         | Stejná hodnota jako atribut **role** (Pokud se používá) odpovídajícího elementu end; jinak název tabulky, která obsahuje odkazovaný sloupec. |
 
@@ -676,7 +676,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element Association, který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-2CustomerOrders** . Element **Principal** určuje sloupec **KódZákazníka** tabulky **Customer** jako hlavní konec omezení.
+Následující příklad ukazuje element Association, který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **\_CustomerOrders** . Element **Principal** určuje sloupec **KódZákazníka** tabulky **Customer** jako hlavní konec omezení.
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -707,7 +707,7 @@ Element **Property** nemůže mít žádné podřízené elementy.
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **vlastnosti** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                                                                                           |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                                                                                           |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                  | Ano         | Název odpovídajícího sloupce.                                                                                                                                                                                           |
 | **Typ**                  | Ano         | Typ odpovídajícího sloupce.                                                                                                                                                                                           |
@@ -759,7 +759,7 @@ Element **PropertyRef** může mít pouze následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **PropertyRef** .
 
-| Název atributu | Je povinné | Value                                |
+| Název atributu | Je povinné | Hodnota                                |
 |:---------------|:------------|:-------------------------------------|
 | **Název**       | Ano         | Název odkazované vlastnosti |
 
@@ -803,7 +803,7 @@ Pro element **elementu ReferentialConstraint** může být použit libovolný po
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje element **Association** , který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **FK @ no__t-3CustomerOrders** :
+Následující příklad ukazuje element **Association** , který používá element **elementu ReferentialConstraint** k určení sloupců, které se účastní omezení cizího klíče **\_FK** :
 
 ``` xml
  <Association Name="FK_CustomerOrders">
@@ -902,17 +902,17 @@ Element **Schema** může obsahovat nula nebo více z následujících podříze
 
 Element **Schema** používá atribut **Namespace** k definování oboru názvů pro typ entity a objekty přidružení v modelu úložiště. V rámci oboru názvů nemohou mít žádné dva objekty stejný název.
 
-Obor názvů modelu úložiště se liší od oboru názvů XML elementu **Schema** . Obor názvů modelu úložiště (jak je definováno atributem **Namespace** ) je logický kontejner pro typy entit a typy přidružení. Obor názvů XML (uvedený atributem **xmlns** ) elementu **Schema** je výchozí obor názvů pro podřízené elementy a atributy elementu **Schema** . Obory názvů XML ve formátu https://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (kde RRRR a MM představují rok a měsíc) jsou vyhrazeny pro SSDL. Vlastní elementy a atributy nemůžou být v oborech názvů, které mají tento formulář.
+Obor názvů modelu úložiště se liší od oboru názvů XML elementu **Schema** . Obor názvů modelu úložiště (jak je definováno atributem **Namespace** ) je logický kontejner pro typy entit a typy přidružení. Obor názvů XML (uvedený atributem **xmlns** ) elementu **Schema** je výchozí obor názvů pro podřízené elementy a atributy elementu **Schema** . Obory názvů XML formuláře https://schemas.microsoft.com/ado/YYYY/MM/edm/ssdl (kde RRRR a MM představují rok a měsíc) jsou vyhrazené pro SSDL. Vlastní elementy a atributy nemůžou být v oborech názvů, které mají tento formulář.
 
 ### <a name="applicable-attributes"></a>Použitelné atributy
 
 Následující tabulka popisuje atributy, které lze použít pro element **Schema** .
 
-| Název atributu            | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Název atributu            | Je povinné | Hodnota                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Namespace**             | Ano         | Obor názvů modelu úložiště. Hodnota atributu **Namespace** slouží k vytvoření plně kvalifikovaného názvu typu. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store, pak plně kvalifikovaný název třídy **EntityType** je ExampleModel. Store. Customer. <br/> Následující řetězce nelze použít jako hodnotu pro atribut **Namespace** : **System**, **přechodný**nebo **EDM**. Hodnota atributu **Namespace** nemůže být stejná jako hodnota atributu **Namespace** v elementu schématu CSDL. |
-| **Alias**                 | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store a hodnota atributu **alias** je *StorageModel*, pak můžete použít StorageModel. Customer jako plně kvalifikovaný název  **EntityType.**                                                                                                                                                                                                                                                                                    |
-| **Poskytovatel**              | Ano         | Poskytovatel dat                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Alias**                 | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store a hodnota atributu **alias** je *StorageModel*, pak můžete jako plně kvalifikovaný název **objektu EntityType** použít StorageModel. Customer.                                                                                                                                                                                                                                                                                    |
+| **Poskytovatel**              | Ano         | Zprostředkovatel dat.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **ProviderManifestToken** | Ano         | Token, který indikuje poskytovateli, který manifest Provider vrátí. Není definován žádný formát pro token. Hodnoty pro token jsou definovány zprostředkovatelem. Informace o tokenech manifestu poskytovatele SQL Server najdete v tématu SqlClient for Entity Framework.                                                                                                                                                                                                                                                                                                                        |
 
 ### <a name="example"></a>Příklad

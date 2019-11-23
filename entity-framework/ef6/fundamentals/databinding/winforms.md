@@ -13,7 +13,7 @@ ms.locfileid: "72181791"
 # <a name="databinding-with-winforms"></a>Datová vazba s WinForms
 V tomto podrobném návodu se dozvíte, jak navazovat POCO typy na ovládací prvky WinForms (Window Forms) ve formuláři "Master-Detail". Aplikace používá Entity Framework k naplnění objektů daty z databáze, sledování změn a zachování dat v databázi.
 
-Model definuje dva typy, které se účastní relace 1: n: Kategorie (objekt zabezpečení @ no__t-0master) a produkt (závislé na @ no__t-1detail). Nástroje sady Visual Studio pak slouží k navázání typů definovaných v modelu na ovládací prvky WinForms. Rozhraní WinForms pro vázání dat umožňuje navigaci mezi souvisejícími objekty: výběrem řádků v zobrazení Předloha způsobí, že se podrobné zobrazení aktualizuje s odpovídajícími podřízenými daty.
+Model definuje dva typy, které se účastní vztahu 1:1: kategorie (hlavní\\hlavní server) a produkt (podrobnosti o závislých\\ch). Nástroje sady Visual Studio pak slouží k navázání typů definovaných v modelu na ovládací prvky WinForms. Rozhraní WinForms pro vázání dat umožňuje navigaci mezi souvisejícími objekty: výběrem řádků v zobrazení Předloha způsobí, že se podrobné zobrazení aktualizuje s odpovídajícími podřízenými daty.
 
 Snímky obrazovky a výpisy kódu v tomto návodu jsou pořízeny z Visual Studio 2013, ale můžete tento návod dokončit pomocí sady Visual Studio 2012 nebo Visual Studio 2010.
 
@@ -26,7 +26,7 @@ Pokud používáte Visual Studio 2010, je také nutné nainstalovat NuGet. Dalš
 ## <a name="create-the-application"></a>Vytvoření aplikace
 
 -   Otevřít Visual Studio
--   **Soubor-&gt; nový-&gt; projekt...**
+-   **Soubor-&gt; projekt New-&gt;...**
 -   V levém podokně vyberte **Windows** a v pravém podokně klikněte na **Windows FormsApplication** .
 -   Jako název zadejte **WinFormswithEFSample** .
 -   Vybrat **OK**
@@ -46,11 +46,11 @@ Vlastnosti kolekce musí implementovat rozhraní IListSource, aby bylo možné p
 
 -   Přidejte do projektu třídu **ObservableListSource** :
     -   Klikněte pravým tlačítkem myši na název projektu.
-    -   Vybrat **Add-&gt; nová položka**
+    -   Vybrat **Add-&gt; novou položku**
     -   Vyberte **třídu** a jako název třídy zadejte **ObservableListSource** .
 -   Nahraďte kód vygenerovaný ve výchozím nastavení následujícím kódem:
 
-Třída *This umožňuje obousměrnou datovou vazbu a řazení. Třída je odvozena z kolekci ObservableCollection @ no__t-0T @ no__t-1 a přidává explicitní implementaci IListSource. Metoda GetList () IListSource je implementována pro vrácení implementace IBindingList, která zůstává synchronizována s kolekci ObservableCollection. Implementace IBindingList vygenerovaná ToBindingList podporuje řazení. Metoda rozšíření ToBindingList je definována v sestavení EntityFramework.*
+*Tato třída umožňuje obousměrnou datovou vazbu a řazení. Třída je odvozena z kolekci ObservableCollection&lt;T&gt; a přidává explicitní implementaci IListSource. Metoda GetList () IListSource je implementována pro vrácení implementace IBindingList, která zůstává synchronizována s kolekci ObservableCollection. Implementace IBindingList vygenerovaná ToBindingList podporuje řazení. Metoda rozšíření ToBindingList je definována v sestavení EntityFramework.*
 
 ``` csharp
     using System.Collections;
@@ -81,9 +81,9 @@ Třída *This umožňuje obousměrnou datovou vazbu a řazení. Třída je odvoz
 
 V tomto návodu můžete zvolit implementaci modelu pomocí Code First nebo návrháře EF. Proveďte jednu ze dvou následujících částí.
 
-### <a name="option-1-define-a-model-using-code-first"></a>Možnost 1: Definice modelu pomocí Code First
+### <a name="option-1-define-a-model-using-code-first"></a>Možnost 1: definování modelu pomocí Code First
 
-V této části se dozvíte, jak vytvořit model a jeho přidruženou databázi pomocí Code First. Přejděte k další části (**Option 2: Definice modelu pomocí Database First)** , pokud místo toho chcete použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF.
+V této části se dozvíte, jak vytvořit model a jeho přidruženou databázi pomocí Code First. Přejděte k další části (**možnost 2: definice modelu pomocí Database First)** , pokud byste chtěli použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF.
 
 Při použití vývoje Code First obvykle začněte psaním .NET Framework tříd, které definují koncepční (doménový) model.
 
@@ -134,7 +134,7 @@ Při použití vývoje Code First obvykle začněte psaním .NET Framework tří
     }
 ```
 
-Kromě definování entit musíte definovat třídu, která je odvozena z **DbContext** a zpřístupňuje vlastnosti **negenerickými @ no__t-2TEntity @ no__t-3** . Vlastnosti **negenerickými** umožňují, aby kontext věděl, které typy chcete do modelu zahrnout. Typy **DbContext** a **negenerickými** jsou definovány v sestavení EntityFramework.
+Kromě definování entit musíte definovat třídu, která je odvozena z **DbContext** a zpřístupňuje **Negenerickými&lt;vlastnosti TEntity&gt;** . Vlastnosti **negenerickými** umožňují, aby kontext věděl, které typy chcete do modelu zahrnout. Typy **DbContext** a **negenerickými** jsou definovány v sestavení EntityFramework.
 
 Instance DbContext odvozeného typu spravuje objekty entit za běhu, což zahrnuje vyplnění objektů daty z databáze, sledování změn a uchování dat do databáze.
 
@@ -160,9 +160,9 @@ Instance DbContext odvozeného typu spravuje objekty entit za běhu, což zahrnu
 
 Zkompilujte projekt.
 
-### <a name="option-2-define-a-model-using-database-first"></a>Možnost 2: Definice modelu pomocí Database First
+### <a name="option-2-define-a-model-using-database-first"></a>Možnost 2: definování modelu pomocí Database First
 
-V této části se dozvíte, jak použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF. Pokud jste dokončili předchozí část (**Option 1: Definujte model pomocí Code First)** , pak tuto část přeskočte a přejděte rovnou k oddílu **opožděné načítání** .
+V této části se dozvíte, jak použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF. Pokud jste dokončili předchozí oddíl (**možnost 1: Definujte model pomocí Code First)** , pak tuto část přeskočte a přejděte rovnou k oddílu **opožděné načítání** .
 
 #### <a name="create-an-existing-database"></a>Vytvoření existující databáze
 
@@ -176,7 +176,7 @@ Databázový server, který je nainstalovaný se sadou Visual Studio, se liší 
 Pojďme dopředu a vygenerovat databázi.
 
 -   **Zobrazení-&gt; Průzkumník serveru**
--   Klikněte pravým tlačítkem na **datová připojení – &gt; Přidat připojení...**
+-   Klikněte pravým tlačítkem na **datová připojení –&gt; přidat připojení...**
 -   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat Microsoft SQL Server jako zdroj dat
 
     ![Změnit zdroj dat](~/ef6/media/changedatasource.png)
@@ -189,7 +189,7 @@ Pojďme dopředu a vygenerovat databázi.
 
 -   Vyberte **OK** a zobrazí se dotaz, jestli chcete vytvořit novou databázi, a pak vyberte **Ano** .
 
-    ![Vytvořit databázi](~/ef6/media/createdatabase.png)
+    ![Vytvoření databáze](~/ef6/media/createdatabase.png)
 
 -   Nová databáze se nyní zobrazí v Průzkumník serveru, klikněte na ni pravým tlačítkem myši a vyberte **Nový dotaz** .
 -   Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .
@@ -217,7 +217,7 @@ Pojďme dopředu a vygenerovat databázi.
 
 Budeme používat Entity Framework Designer, který je součástí sady Visual Studio, a vytvořit náš model.
 
--   **Projekt-&gt; Přidat novou položku...**
+-   **Projekt –&gt; přidat novou položku...**
 -   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
 -   Jako název zadejte **ProductModel** a klikněte na **OK** .
 -   Spustí se **průvodce model EDM (Entity Data Model)** .
@@ -241,11 +241,11 @@ Pokud pracujete v aplikaci Visual Studio 2010, bude nutné aktualizovat návrhá
 
 -   V Návrháři EF klikněte pravým tlačítkem na prázdný bod modelu a vyberte **Přidat položku pro generování kódu...**
 -   V nabídce vlevo vyberte **online šablony** a vyhledejte **DbContext** .
--   Vyberte **generátor EF 6. x DbContext pro jazyk C @ no__t-1,** jako název zadejte **ProductsModel** a klikněte na Přidat.
+-   Vyberte **generátor EF 6. x DbContext pro jazyk C\#,** jako název zadejte **ProductsModel** a klikněte na Přidat.
 
 #### <a name="updating-code-generation-for-data-binding"></a>Aktualizuje se generování kódu pro datovou vazbu.
 
-EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visual Studio nebo stažené z galerie sady Visual Studio jsou určené pro účely obecného použití. To znamená, že entity vygenerované z těchto šablon mají jednoduché vlastnosti ICollection @ no__t-0T @ no__t-1. Při provádění datových vazeb je ale žádoucí, aby měly vlastnosti kolekce, které implementují IListSource. To je důvod, proč jsme vytvořili třídu ObservableListSource výše a teď se chystáme upravit šablony, aby bylo možné tuto třídu používat.
+EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visual Studio nebo stažené z galerie sady Visual Studio jsou určené pro účely obecného použití. To znamená, že entity vygenerované z těchto šablon mají jednoduché vlastnosti rozhraní ICollection&lt;T&gt;. Při provádění datových vazeb je ale žádoucí, aby měly vlastnosti kolekce, které implementují IListSource. To je důvod, proč jsme vytvořili třídu ObservableListSource výše a teď se chystáme upravit šablony, aby bylo možné tuto třídu používat.
 
 -   Otevřete **Průzkumník řešení** a vyhledejte soubor **ProductModel. edmx.**
 -   Vyhledejte soubor **ProductModel.TT** , který bude vnořen do souboru ProductModel. edmx.
@@ -257,7 +257,7 @@ EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visua
 -   Najde první výskyt "**HashSet –** " a nahradí ho "**ObservableListSource**". Tento výskyt je umístěný přibližně na řádku 50. **Neměňte druhý** výskyt HashSet –, který byl nalezen později v kódu.
 -   Uložte soubor ProductModel.tt. To by mělo způsobit opětovné vygenerování kódu pro entity. Pokud se kód znovu negeneruje automaticky, klikněte pravým tlačítkem na ProductModel.tt a zvolte spustit vlastní nástroj.
 
-Pokud teď otevřete soubor Category.cs (který je vnořený pod ProductModel.tt), měli byste vidět, že kolekce Products má typ **ObservableListSource @ no__t-1Product @ no__t-2**.
+Pokud teď otevřete soubor Category.cs (který je vnořený pod ProductModel.tt), měli byste vidět, že kolekce Products má typ **ObservableListSource&lt;&gt;produktu** .
 
 Zkompilujte projekt.
 
@@ -273,15 +273,15 @@ Při použití typů entit POCO nahrazuje EF opožděné načítání vytvořen�
 
 Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto aplikaci WinForms.
 
--   V hlavní nabídce vyberte **projekt-&gt; Přidat nový zdroj dat...**
-    (v aplikaci Visual Studio 2010 je nutné vybrat **data-&gt; Přidat nový zdroj dat...** )
+-   V hlavní nabídce vyberte **projekt –&gt; přidat nový zdroj dat...**
+    (v aplikaci Visual Studio 2010 je nutné vybrat **data –&gt; přidat nový zdroj dat...** )
 -   V okně zvolte typ zdroje dat vyberte **objekt** a klikněte na **Další** .
 -   V dialogovém okně Vybrat datové objekty rozložte **WinFormswithEFSample** dvakrát a vyberte **kategorie** . není nutné vybírat zdroj dat produktu, protože se k němu dostanete prostřednictvím vlastnosti produktu ve zdroji dat kategorie.
 
     ![Zdroj dat](~/ef6/media/datasource.png)
 
 -   Klikněte na tlačítko **Dokončit.**
-    Pokud se nezobrazí okno zdroje dat, vyberte **zobrazení-&gt; ostatní zdroje dat Windows-&gt;.**
+    Pokud se nezobrazí okno zdroje dat, vyberte **zobrazení-&gt; jiné zdroje dat&gt; Windows.**
 -   Stiskněte ikonu připnutí, aby se okno zdroje dat neautomaticky skrylo. Pokud je okno již viditelné, může být nutné spustit tlačítko Aktualizovat.
 
     ![Zdroj dat 2](~/ef6/media/datasource2.png)
@@ -304,7 +304,7 @@ Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto apl
 
     ![Návrhář – formulář 1](~/ef6/media/form1-designer.png)
 
--   Přidejte obslužnou rutinu události pro tlačítko Uložit dvojitým kliknutím na tlačítko. Tím se přidá obslužná rutina události a budete přinášet k kódu za jeho pozadí. V další části se přidá kód pro obslužnou rutinu události **categoryBindingNavigatorSaveItem @ no__t-1Click** .
+-   Přidejte obslužnou rutinu události pro tlačítko Uložit dvojitým kliknutím na tlačítko. Tím se přidá obslužná rutina události a budete přinášet k kódu za jeho pozadí. Do další části se přidá kód pro obslužnou rutinu události **categoryBindingNavigatorSaveItem\_Click** .
 
 ## <a name="add-the-code-that-handles-data-interaction"></a>Přidat kód, který zpracovává interakci s daty
 

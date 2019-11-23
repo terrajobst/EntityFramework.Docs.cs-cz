@@ -27,7 +27,7 @@ Toto video ukazuje, jak používat typy výčtu s Entity Framework Designer. Tak
 
 **Prezentující**: Helena Kornich
 
-**Video**: [WMV](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.wmv) | [MP4](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-mp4video-enumwithdesiger.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.zip)
+**Video**: [wmv](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.wmv) | [MP4](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-mp4video-enumwithdesiger.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
@@ -37,7 +37,7 @@ K dokončení tohoto Názorného postupu budete muset mít nainstalovanou verzi 
 
 1.  Otevřete Visual Studio 2012
 2.  V nabídce **soubor** přejděte na příkaz **Nový**a potom klikněte na **projekt** .
-3.  V levém podokně klikněte na položku **Visual C @ no__t-1**a potom vyberte šablonu **konzoly** .
+3.  V levém podokně klikněte na položku **Visual C\#** a pak vyberte šablonu **konzoly** .
 4.  Jako název projektu zadejte **EnumEFDesigner** a klikněte na **OK** .
 
 ## <a name="create-a-new-model-using-the-ef-designer"></a>Vytvoření nového modelu pomocí návrháře EF
@@ -58,10 +58,10 @@ Průvodce provede následující akce:
 
 ## <a name="add-a-new-entity-type"></a>Přidat nový typ entity
 
-1.  Klikněte pravým tlačítkem myši na prázdnou oblast návrhové plochy, vyberte **Add-&gt; entita –** zobrazí se dialogové okno nová entita.
+1.  Klikněte pravým tlačítkem myši na prázdnou oblast návrhové plochy, vyberte možnost **přidat&gt; entitu**, otevře se dialogové okno nová entita.
 2.  Zadejte pro název typu **oddělení** a pro název vlastnosti Key zadejte **DepartmentID** a ponechte typ jako typ **Int32** .
 3.  Klikněte na **OK** .
-4.  Klikněte pravým tlačítkem na entitu a vyberte možnost **Přidat skalární vlastnost New-&gt;** .
+4.  Klikněte pravým tlačítkem na entitu a vyberte **Přidat novou&gt; skalární vlastnost** .
 5.  Přejmenujte novou vlastnost na **název** .
 6.  Změnit typ nové vlastnosti na **Int32** (ve výchozím nastavení je nová vlastnost typu String), aby se typ změnil, otevřete okno Vlastnosti a změňte vlastnost Type na **Int32** .
 7.  Přidejte další skalární vlastnost a přejmenujte ji na **rozpočet**, změňte typ na **Decimal** .
@@ -72,7 +72,7 @@ Průvodce provede následující akce:
 
     ![Převést na výčet](~/ef6/media/converttoenum.png)
 
-2.  V dialogovém okně **Přidat výčet** zadejte **DepartmentNames** pro název typu výčtu, změňte podkladový typ na **Int32**a pak přidejte následující členy do typu: Angličtina, matematický a ekonomie
+2.  V dialogovém okně **Přidat výčet** zadejte **DepartmentNames** pro název typu výčtu, změňte podkladový typ na **Int32**a pak přidejte následující členy do typu: angličtina, matematický a ekonomická
 
     ![Přidat typ výčtu](~/ef6/media/addenumtype.png)
 
@@ -95,11 +95,11 @@ Pokud přepnete do okna prohlížeče modelů, uvidíte, že typ byl také přid
 Teď můžeme vygenerovat databázi založenou na modelu.
 
 1.  Klikněte pravým tlačítkem myši na prázdné místo na Entity Designer povrchu a vyberte možnost **Generovat databázi z modelu** .
-2.  Zobrazí se dialogové okno vybrat datové připojení v průvodci generováním databáze, klikněte na tlačítko **nové připojení** zadat **(LocalDB) \\mssqllocaldb** pro název serveru a **EnumTest** pro databázi a klikněte na **OK** .
+2.  Zobrazí se dialogové okno vybrat datové připojení v průvodci generováním databáze, klikněte na tlačítko **nové připojení** zadat **(LocalDB)\\mssqllocaldb** pro název serveru a **EnumTest** pro databázi a klikněte na tlačítko **OK** .
 3.  Dialogové okno s dotazem, zda chcete vytvořit novou databázi, se zobrazí automaticky, klikněte na tlačítko **Ano**.
-4.  Klikněte na tlačítko **Další** a Průvodce vytvořením databáze GENERUJE příkaz DDL (Data Definition Language) pro vytvoření databáze. VYGENEROVANÝ skript DDL se zobrazí v dialogovém okně Souhrn a nastavení – Poznámka, že skript DDL neobsahuje definici tabulky, která je mapována na typ výčtu
+4.  Klikněte na tlačítko **Další** a Průvodce vytvořením databáze generuje pro vytvoření databáze jazyk DDL (Data Definition Language), který VYGENEROVANÝ skript DDL je zobrazen v dialogovém okně Souhrn a nastavení. Všimněte si, že skript DDL neobsahuje definici tabulky, která je mapována na typ výčtu.
 5.  Kliknutím na **Dokončit** kliknutím na Dokončit nespustíte skript DDL.
-6.  Průvodce vytvořením databáze provede následující akce: Otevře soubor **EnumTest. edmx. SQL** v editoru T-SQL, vygeneruje oddíly schématu úložiště a mapování souboru EDMX přidá informace o připojovacím řetězci do souboru App. config.
+6.  Průvodce vytvořením databáze provede následující: otevře **EnumTest. edmx. SQL** v editoru T-SQL vygeneruje oddíly schématu úložiště a mapování souboru EDMX přidá informace o připojovacím řetězci do souboru App. config.
 7.  Klikněte pravým tlačítkem myši v editoru T-SQL a vyberte **Spustit** dialog připojit k serveru, zadejte informace o připojení z kroku 2 a klikněte na **připojit** .
 8.  Chcete-li zobrazit vygenerované schéma, klikněte pravým tlačítkem myši na název databáze v Průzkumník objektů systému SQL Server a vyberte možnost **aktualizovat** .
 

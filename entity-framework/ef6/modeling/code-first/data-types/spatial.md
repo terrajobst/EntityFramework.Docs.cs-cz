@@ -29,7 +29,7 @@ Toto video ukazuje, jak namapovat prostorové typy pomocí Entity Framework Code
 
 **Prezentující**: Helena Kornich
 
-**Video**: [WMV](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
+**Video**: [wmv](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
@@ -39,7 +39,7 @@ K dokončení tohoto Názorného postupu budete muset mít nainstalovanou verzi 
 
 1.  Otevřete Visual Studio 2012
 2.  V nabídce **soubor** přejděte na příkaz **Nový**a potom klikněte na **projekt** .
-3.  V levém podokně klikněte na položku **Visual C @ no__t-1**a potom vyberte šablonu **konzoly** .
+3.  V levém podokně klikněte na položku **Visual C\#** a pak vyberte šablonu **konzoly** .
 4.  Jako název projektu zadejte **SpatialCodeFirst** a klikněte na **OK** .
 
 ## <a name="define-a-new-model-using-code-first"></a>Definování nového modelu pomocí Code First
@@ -67,7 +67,7 @@ public class University
 
 ## <a name="define-the-dbcontext-derived-type"></a>Definice DbContext odvozeného typu
 
-Kromě definování entit musíte definovat třídu, která je odvozena z DbContext a zpřístupňuje Negenerickými @ no__t-0TEntity @ no__t-1 vlastnosti. Vlastnosti Negenerickými @ no__t-0TEntity @ no__t-1 umožňují, aby kontext věděl, které typy chcete do modelu zahrnout.
+Kromě definování entit musíte definovat třídu, která je odvozena z DbContext a zpřístupňuje Negenerickými&lt;vlastnosti TEntity&gt;. Vlastnosti Negenerickými&lt;TEntity&gt; umožňují kontextu zjistit, které typy chcete do modelu zahrnout.
 
 Instance DbContext odvozeného typu spravuje objekty entit za běhu, což zahrnuje vyplnění objektů daty z databáze, sledování změn a uchování dat do databáze.
 
@@ -144,7 +144,7 @@ Všimněte si, že pokud provedete změny modelu po vytvoření databáze, měli
 
 Chcete-li zobrazit databázi a data, postupujte následovně:
 
-1.  V hlavní nabídce sady Visual Studio 2012 vyberte **zobrazení** - @ no__t-2 **Průzkumník objektů systému SQL Server**.
+1.  V hlavní nabídce sady Visual Studio 2012 vyberte možnost **zobrazit** -&gt; **Průzkumník objektů systému SQL Server**.
 2.  Pokud LocalDB není v seznamu serverů, klikněte pravým tlačítkem myši na **SQL Server** a vyberte **Přidat SQL Server** pro připojení k instanci LocalDB použijte výchozí **ověřování systému Windows** .
 3.  Rozbalte uzel LocalDB
 4.  Rozložte složku **databáze** , aby se zobrazila nová databáze, a přejděte do tabulky **univerzity** .

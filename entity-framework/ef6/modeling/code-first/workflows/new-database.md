@@ -11,14 +11,14 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182571"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First k nové databázi
-Toto video a podrobný návod vám poskytnou Úvod do Code Firstho vývoje, který cílí na novou databázi. Tento scénář zahrnuje cílení na databázi, která neexistuje, Code First vytvoří nebo prázdnou databázi, do které Code First přidat nové tabulky. Code First umožňuje definovat model pomocí tříd C @ no__t-0 nebo VB.Net. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
+Toto video a podrobný návod vám poskytnou Úvod do Code Firstho vývoje, který cílí na novou databázi. Tento scénář zahrnuje cílení na databázi, která neexistuje, Code First vytvoří nebo prázdnou databázi, do které Code First přidat nové tabulky. Code First umožňuje definovat model pomocí tříd C\# nebo VB.Net. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
 
 ## <a name="watch-the-video"></a>Přehrát video
 Toto video poskytuje Úvod do Code First vývoje cílící na novou databázi. Tento scénář zahrnuje cílení na databázi, která neexistuje, Code First vytvoří nebo prázdnou databázi, do které Code First přidat nové tabulky. Code First umožňuje definovat model pomocí C# tříd nebo VB.NET. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
 
 **Prezentující**: [Rowan Miller](https://romiller.com/)
 
-**Video**: [WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
+**Video**: [wmv](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
@@ -31,12 +31,12 @@ Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](h
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům.
 
 -   Otevřít Visual Studio
--   **Soubor-&gt; nový-&gt; projekt...**
+-   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **CodeFirstNewDatabaseSample** .
 -   Vybrat **OK**
 
-## <a name="2-create-the-model"></a>2. Vytvoření modelu
+## <a name="2-create-the-model"></a>2. vytvoření modelu
 
 Pojďme definovat velmi jednoduchý model pomocí tříd. Jenom jsme definovali v souboru Program.cs, ale v reálné aplikaci byste své třídy rozdělili do samostatných souborů a potenciálně samostatného projektu.
 
@@ -64,13 +64,13 @@ public class Post
 
 Všimněte si, že vytváříme dvě navigační vlastnosti (blog. post a post. blog) Virtual. To umožňuje funkci opožděného načítání Entity Framework. Opožděné načítání znamená, že obsah těchto vlastností bude automaticky načten z databáze při pokusu o přístup k nim.
 
-## <a name="3-create-a-context"></a>3. Vytvoření kontextu
+## <a name="3-create-a-context"></a>3. vytvoření kontextu
 
-Nyní je čas definovat odvozený kontext, který představuje relaci s databází, a můžeme nám umožnit dotazování a ukládání dat. Definujeme kontext, který je odvozen od typu System. data. entity. DbContext a zpřístupňuje typ Negenerickými @ no__t-0TEntity @ no__t-1 pro každou třídu v našem modelu.
+Nyní je čas definovat odvozený kontext, který představuje relaci s databází, a můžeme nám umožnit dotazování a ukládání dat. Definujeme kontext, který je odvozen z typu System. data. entity. DbContext a zpřístupňuje typ Negenerickými&lt;TEntity&gt; pro každou třídu v našem modelu.
 
 Teď Začínáme používat typy z Entity Framework, takže musíme přidat balíček NuGet EntityFramework.
 
--   **Projekt – &gt; spravovat balíčky NuGet...**
+-   **Projekt –&gt; spravovat balíčky NuGet...**
     Poznámka: Pokud nemáte **balíčky pro správu NuGet...** možnost, měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .
 -   Vyberte **online** kartu.
 -   Výběr balíčku **EntityFramework**
@@ -139,7 +139,7 @@ namespace CodeFirstNewDatabaseSample
 
 To je celý kód, který potřebujeme k zahájení ukládání a načítání dat. Zjevně se trochu děje na pozadí a my se podíváme na to chvilku, ale nejdřív to uvidíme v akci.
 
-## <a name="4-reading--writing-data"></a>4. Čtení & zápisu dat
+## <a name="4-reading--writing-data"></a>4. čtení & zápisu dat
 
 Implementujte metodu Main v Program.cs, jak je znázorněno níže. Tento kód vytvoří novou instanci našeho kontextu a pak ho použije k vložení nového blogu. Pak použije dotaz LINQ k načtení všech blogů z databáze seřazené abecedně podle názvu.
 
@@ -199,7 +199,7 @@ K této databázi se můžete připojit pomocí Průzkumník serveru v aplikaci 
 -   Klikněte pravým tlačítkem na **datová připojení** a vyberte **Přidat připojení...**
 -   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat Microsoft SQL Server jako zdroj dat
 
-    ![Vybrat zdroj dat](~/ef6/media/selectdatasource.png)
+    ![Výběr zdroje dat](~/ef6/media/selectdatasource.png)
 
 -   Připojte se k LocalDB nebo SQL Express v závislosti na tom, který z nich máte nainstalovanou.
 
@@ -209,7 +209,7 @@ Nyní můžeme zkontrolovat schéma, které Code First vytvořili.
 
 DbContext rozpracovali třídy, které se mají zahrnout do modelu, a Prohlédněte si vlastnosti Negenerickými, které jsme definovali. Pak používá výchozí sadu Code First konvence k určení názvů tabulek a sloupců, určování datových typů, hledání primárních klíčů atd. Později v tomto návodu se podíváme na to, jak můžete tyto konvence přepsat.
 
-## <a name="5-dealing-with-model-changes"></a>5. Zvládnutí změn modelu
+## <a name="5-dealing-with-model-changes"></a>5. zvládnutí změn modelu
 
 Teď je čas udělat v našem modelu nějaké změny. když tyto změny provedeme, musíme také aktualizovat schéma databáze. K tomu slouží funkce s názvem Migrace Code First nebo migrace pro krátké.
 
@@ -217,11 +217,11 @@ Migrace nám umožňuje mít seřazenou sadu kroků, které popisují postup upg
 
 Prvním krokem je povolení Migrace Code First pro naše BloggingContext.
 
--   **Nástroje-&gt; knihovna správce balíčků-&gt; konzoly Správce balíčků**
+-   **Nástroje – Správce balíčků knihovny&gt; –&gt; konzolu Správce balíčků**
 -   Spuštění příkazu **Povolit – migrace** v konzole správce balíčků
 -   Do projektu se přidala nová složka migrace, která obsahuje dvě položky:
     -   **Configuration.cs** – tento soubor obsahuje nastavení, která migrace použije pro migraci BloggingContext. Pro tento návod nemusíte nic měnit, ale tady je místo, kde můžete zadat počáteční data, registrovat poskytovatele pro další databáze, měnit obor názvů, v němž jsou tyto migrace generovány atd.
-    -   **&lt;timestamp @ no__t-2\_InitialCreate.cs** – jedná se o první migraci, představuje změny, které již byly aplikovány na databázi, aby se převzala do prázdné databáze, která obsahuje tabulky Blogy a příspěvky. I když umožníme Code First automaticky vytvořit tyto tabulky pro nás, teď jsme se rozhodli, že jsme se rozhodli pro migrace, které jsme převedli na migraci. Code First také zaznamenal v naší místní databázi, že tato migrace již byla použita. Časové razítko v názvu souboru se používá pro účely řazení.
+    -   **&lt;časové razítko&gt;\_InitialCreate.cs** – Toto je vaše první migrace, představuje změny, které již byly pro databázi aplikovány, aby se převzaly do prázdné databáze, která obsahuje tabulky Blogy a příspěvky. I když umožníme Code First automaticky vytvořit tyto tabulky pro nás, teď jsme se rozhodli, že jsme se rozhodli pro migrace, které jsme převedli na migraci. Code First také zaznamenal v naší místní databázi, že tato migrace již byla použita. Časové razítko v názvu souboru se používá pro účely řazení.
 
     Teď provedeme změnu našeho modelu a přidat do třídy blogu vlastnost URL:
 
@@ -262,13 +262,13 @@ namespace CodeFirstNewDatabaseSample.Migrations
 ```
 
 -   Spusťte příkaz **Update-Database** v konzole správce balíčků. Tento příkaz použije všechny nedokončené migrace do databáze. Naše migrace InitialCreate již byla použita, takže migrace budou pouze uplatňovat naši novou migraci AddUrl.
-    Tip: Při volání metody Update-Database můžete použít přepínač **– verbose** pro zobrazení SQL, který se spouští proti databázi.
+    Tip: při volání metody Update-Database můžete použít přepínač **– verbose** a zobrazit tak SQL, který se spouští proti databázi.
 
 Nový sloupec adresa URL je nyní přidán do tabulky Blogy v databázi:
 
 ![Schéma s adresou URL](~/ef6/media/schemawithurl.png)
 
-## <a name="6-data-annotations"></a>6. Datové poznámky
+## <a name="6-data-annotations"></a>6. datové poznámky
 
 Zatím jsme zjistili, že se v EF zjistil model pomocí svých výchozích konvencí, ale v případě, že naše třídy nedodržují konvence, je potřeba, abyste mohli provést další konfiguraci. Existují dvě možnosti. Podíváme se na poznámky k datům v této části a potom rozhraní Fluent API v další části.
 
@@ -293,7 +293,7 @@ public class BloggingContext : DbContext
 }
 ```
 
--   Při pokusu o přidání migrace se zobrazí chyba s informací, že "*EntityType" uživatel nemá definován žádný klíč. Definujte klíč pro tento typ EntityType.* vzhledem k tomu, že EF nemá žádný způsob, jak poznáte, že uživatelské jméno by mělo být primární klíč uživatele.
+-   Při pokusu o přidání migrace se zobrazí chyba*s informací, že uživatel EntityType nemá definován žádný klíč. Definujte klíč pro tento typ EntityType.* vzhledem k tomu, že EF nemá žádný způsob, jak poznáte, že uživatelské jméno by mělo být primární klíč uživatele.
 -   Nyní budeme používat poznámky k datům, takže musíme přidat příkaz using na začátek Program.cs
 
 ```csharp
@@ -334,13 +334,13 @@ Nová tabulka je nyní přidána do databáze:
 -   [DatabaseGeneratedAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.databasegeneratedattribute)
 -   [NotMappedAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.notmappedattribute)
 
-## <a name="7-fluent-api"></a>7. Rozhraní Fluent API
+## <a name="7-fluent-api"></a>7. Fluent API
 
 V předchozí části jsme se podívali na používání datových poznámek k doplnění nebo přepsání toho, co zjistila konvence. Druhým způsobem, jak model nakonfigurovat, je prostřednictvím rozhraní Code First Fluent API.
 
 Většinu konfigurací modelů můžete provádět pomocí jednoduchých datových poznámek. Rozhraní Fluent API je pokročilejším způsobem určení konfigurace modelu, která zahrnuje všechno, co poznámky k datům můžou dělat kromě pokročilejších konfigurací, které nejsou možné u datových poznámek. Datové poznámky a rozhraní API Fluent lze použít společně.
 
-Pokud chcete získat přístup ke službě Fluent API, přepište metodu OnModelCreating v DbContext. Řekněme, že jsme chtěli Přejmenovat sloupec, na který je uživatel. DisplayName uložený, aby se zobrazila zpráva @ no__t-0name.
+Pokud chcete získat přístup ke službě Fluent API, přepište metodu OnModelCreating v DbContext. Řekněme, že jsme chtěli Přejmenovat sloupec, na který je uživatel. DisplayName uložený, aby se zobrazil název\_.
 
 -   Přepsat metodu OnModelCreating na BloggingContext pomocí následujícího kódu
 
@@ -363,7 +363,7 @@ public class BloggingContext : DbContext
 -   Použijte příkaz **Add-Migration ChangeDisplayName** pro vytvoření uživatelského rozhraní migrace a použijte tyto změny v databázi.
 -   Spusťte příkaz **Update-Database** , který použije novou migraci do databáze.
 
-Sloupec DisplayName se teď přejmenoval na zobrazení @ no__t-0name:
+Sloupec DisplayName se teď přejmenoval na zobrazení\_název:
 
 ![Schéma se přejmenováním zobrazovaného názvu](~/ef6/media/schemawithdisplaynamerenamed.png)
 

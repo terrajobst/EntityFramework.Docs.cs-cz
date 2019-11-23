@@ -33,15 +33,15 @@ Mezi RC1 a RC2 jsme změnili z "Entity Framework 7" na "Entity Framework Core". 
 | EntityFramework. Commands 7.0.0-RC1-Final | Microsoft. EntityFrameworkCore. Tools 1.0.0-preview1-Final |
 | EntityFramework.MicrosoftSqlServer.Design 7.0.0-rc1-final | Microsoft.EntityFrameworkCore.SqlServer.Design  1.0.0-rc2-final      |
 
-## <a name="namespaces"></a>Jmenné prostory
+## <a name="namespaces"></a>Obory názvů
 
-Společně s názvy balíčků se obory názvů změnily z `Microsoft.Data.Entity.*` na `Microsoft.EntityFrameworkCore.*`. Tuto změnu můžete zpracovat pomocí rutiny Find/nahrazování `using Microsoft.Data.Entity` s `using Microsoft.EntityFrameworkCore`.
+Společně s názvy balíčků se obory názvů změnily z `Microsoft.Data.Entity.*` na `Microsoft.EntityFrameworkCore.*`. Tuto změnu můžete zpracovat pomocí rutiny Find/Replace `using Microsoft.Data.Entity` s `using Microsoft.EntityFrameworkCore`.
 
 ## <a name="table-naming-convention-changes"></a>Změny v konvenci vytváření názvů tabulek
 
-Významnou změnou funkčnosti, kterou jsme zavedli v RC2, bylo použití názvu vlastnosti `DbSet<TEntity>` pro danou entitě jako názvu tabulky, na kterou se mapuje, místo pouze názvu třídy. Můžete si přečíst další informace o této změně v [souvisejícím problému s oznámením](https://github.com/aspnet/Announcements/issues/167).
+Významnou změnou funkčnosti, kterou jsme zavedli v RC2, bylo použití názvu vlastnosti `DbSet<TEntity>` pro danou entitu jako názvu tabulky, na kterou se mapuje, místo pouze názvu třídy. Můžete si přečíst další informace o této změně v [souvisejícím problému s oznámením](https://github.com/aspnet/Announcements/issues/167).
 
-Pro existující aplikace RC1 doporučujeme přidat následující kód na začátek metody @no__t 0, abyste zachovali strategii vytváření názvů RC1:
+Pro existující aplikace RC1 doporučujeme na začátek metody `OnModelCreating` přidat následující kód, abyste zachovali strategii vytváření názvů RC1:
 
 ``` csharp
 foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -63,7 +63,7 @@ services.AddEntityFramework()
     options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 ```
 
-V RC2 můžete odebrat volání `AddEntityFramework()`, `AddSqlServer()` atd.:
+V RC2 můžete odebrat volání `AddEntityFramework()`, `AddSqlServer()`atd.:
 
 ``` csharp
 services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,7 +81,7 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 ## <a name="passing-in-an-iserviceprovider"></a>Předání do objektu IServiceProvider
 
-Pokud máte kód RC1, který předává `IServiceProvider` do kontextu, byl nyní přesunut do `DbContextOptions`, ale nejedná se o samostatný parametr konstruktoru. Pro nastavení poskytovatele služby použijte `DbContextOptionsBuilder.UseInternalServiceProvider(...)`.
+Pokud máte kód RC1, který předává `IServiceProvider` do kontextu, je nyní přesunut do `DbContextOptions`a nikoli jako parametr samostatného konstruktoru. K nastavení poskytovatele služeb použijte `DbContextOptionsBuilder.UseInternalServiceProvider(...)`.
 
 ### <a name="testing"></a>Testování
 
@@ -103,7 +103,7 @@ services.AddEntityFrameworkSqlServer()
 
 ## <a name="dnx-commands--net-cli-aspnet-core-projects-only"></a>Příkazy DNX = > rozhraní .NET CLI (pouze projekty ASP.NET Core)
 
-Pokud jste dřív použili příkazy `dnx ef` pro projekty ASP.NET 5, teď se přesunuly na příkazy `dotnet ef`. Stejná syntaxe příkazu se pořád používá. Pro informace o syntaxi můžete použít `dotnet ef --help`.
+Pokud jste předtím používali `dnx ef` příkazy pro projekty ASP.NET 5, byly nyní přesunuty do `dotnet ef` příkazů. Stejná syntaxe příkazu se pořád používá. Pro informace o syntaxi můžete použít `dotnet ef --help`.
 
 Způsob registrace příkazů se změnil v RC2, protože DNX nahrazuje rozhraní .NET CLI. Příkazy jsou nyní registrovány v části `tools` v `project.json`:
 

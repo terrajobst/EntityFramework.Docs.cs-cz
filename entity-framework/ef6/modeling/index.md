@@ -14,9 +14,9 @@ ms.locfileid: "72182467"
 
 Model EF ukládá podrobnosti o tom, jak se třídy a vlastnosti aplikace mapují na tabulky a sloupce databáze. Existují dva hlavní způsoby, jak vytvořit model EF:
 
-- **Použití Code First**: Vývojář zapisuje kód pro určení modelu. EF generuje modely a mapování za běhu na základě tříd entit a další konfiguraci modelu poskytovanou vývojářem.
+- **Použití Code First**: vývojář zapisuje kód pro určení modelu. EF generuje modely a mapování za běhu na základě tříd entit a další konfiguraci modelu poskytovanou vývojářem.
 
-- **Pomocí NÁVRHÁŘE EF**: Vývojář nakreslí pole a řádky pro určení modelu pomocí návrháře EF. Výsledný model je uložen jako XML v souboru s příponou EDMX. Objekty domény aplikace se obvykle generují automaticky z koncepčního modelu.
+- **Pomocí NÁVRHÁŘE EF**: vývojář kreslí pole a řádky pro určení modelu pomocí návrháře EF. Výsledný model je uložen jako XML v souboru s příponou EDMX. Objekty domény aplikace se obvykle generují automaticky z koncepčního modelu.
 
 ## <a name="ef-workflows"></a>Workflowy EF
 
@@ -34,7 +34,7 @@ Toto krátké video vysvětluje rozdíly a najdete tu, která je pro vás nejvho
 
 **Prezentující**: [Rowan Miller](https://romiller.com/)
 
-@no__t – 0Which pracovního postupu na palec @ no__t-1 [wmv](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
+![které pracovní postup miniatury](../media/whichworkflow-thumb.png) [wmv](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
 
 Pokud se po sledování videa stále nemusíte rozhodovat, jestli chcete použít návrháře EF nebo Code First, přečtěte si obojí.
 

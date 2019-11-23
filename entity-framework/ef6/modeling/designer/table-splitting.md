@@ -43,10 +43,10 @@ Tento návod používá Visual Studio 2012.
 -   V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další.**
 -   Klikněte na nové připojení. V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB)\\mssqllocaldb**), vyberte metodu ověřování, jako název databáze zadejte **School** a pak klikněte na **OK**.
     Dialogové okno zvolit datové připojení je aktualizováno nastavením připojení k databázi.
--   V dialogovém okně zvolit objekty databáze rozložte uzel **tabulky** a ověřte tabulku **Person** . Tím se přidá zadaná tabulka do **školního** modelu.
+-   V dialogovém okně zvolit objekty databáze rozložte **tabulky** uzel a ověřte tabulku **Person** . Tím se přidá zadaná tabulka do **školního** modelu.
 -   Klikněte na tlačítko **Dokončit**.
 
-Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu. Do modelu jsou přidány všechny objekty, které jste vybrali v dialogovém okně **zvolit objekty** databáze.
+Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu. Do modelu jsou přidány všechny objekty, které jste vybrali v dialogovém okně **zvolit objekty databáze** .
 
 ## <a name="map-two-entities-to-a-single-table"></a>Mapování dvou entit na jednu tabulku
 
@@ -56,21 +56,21 @@ V této části budete entitu **osoba** rozdělit do dvou entit a pak je namapov
 > Entita **osoby** neobsahuje žádné vlastnosti, které by mohly obsahovat velké množství dat. slouží pouze jako příklad.
 
 -   Klikněte pravým tlačítkem myši na prázdnou oblast návrhové plochy, přejděte na **Přidat nový**a klikněte na **entita**.
-    Zobrazí se dialogové okno **nová entita** .
+    Zobrazí se dialogové okno **nová entity** .
 -   Jako **název entity** zadejte **HireInfo** a pro název **Klíčové vlastnosti** **PersonID** .
 -   Klikněte na tlačítko **OK**.
 -   Vytvoří se nový typ entity, který se zobrazí na návrhové ploše.
--   Vyberte vlastnost **ZaměstnánOd** typu entity **osoba** a stiskněte klávesy **CTRL + X** .
--   Vyberte entitu **HireInfo** a stiskněte klávesy **CTRL + V** .
+-   Vyberte vlastnost **zaměstnánod**  **osoby** typu entity a stiskněte klávesy **CTRL + X** .
+-   Vyberte entitu **HireInfo** a stiskněte klávesy **CTRL + V** .
 -   Vytvořte přidružení mezi **osobami** a **HireInfo**. Provedete to tak, že kliknete pravým tlačítkem myši na prázdnou oblast návrhové plochy, najeďte na **Přidat nový**a kliknete na **asociace**.
--   Zobrazí se dialogové okno **Přidat přidružení** . Ve výchozím nastavení je zadán název **PersonHireInfo** .
+-   Zobrazí se dialogové okno **přidat přidružení** . Ve výchozím nastavení je zadán název **PersonHireInfo** .
 -   Zadejte násobnost **1 (jedna)** na obou koncích relace.
 -   Stisknutím klávesy **OK**.
 
-Další krok vyžaduje okno **Podrobnosti** mapování. Pokud toto okno nevidíte, klikněte pravým tlačítkem myši na návrhovou plochu a vyberte **mapování podrobností**.
+Další krok vyžaduje okno s **podrobnostmi mapování** . Pokud toto okno nevidíte, klikněte pravým tlačítkem myši na návrhovou plochu a vyberte **mapování podrobností**.
 
--   Vyberte typ entity **HireInfo** a v okně **Podrobnosti**  **&lt;&gt;** mapováníkliknětenaPřidattabulkunebozobrazení. 
--    V rozevíracím seznamu **&gt;přidat pole tabulky nebo zobrazení vyberte osoba. &lt;** Seznam obsahuje tabulky nebo zobrazení, do kterých lze mapovat vybranou entitu.
+-   Vyberte typ entity **HireInfo** a v okně **Podrobnosti mapování** klikněte **&lt;přidat tabulku nebo zobrazení&gt;**  .
+-   V rozevíracím seznamu **&lt;přidat tabulku nebo zobrazení&gt;**  pole vyberte **osoba** . Seznam obsahuje tabulky nebo zobrazení, do kterých lze mapovat vybranou entitu.
     Ve výchozím nastavení by měly být namapované odpovídající vlastnosti.
 
     ![Mapování](~/ef6/media/mapping.png)
@@ -126,7 +126,7 @@ V důsledku spuštění této aplikace byly v databázi **School** provedeny ná
 
 -   Následující **vložení** bylo provedeno jako výsledek spuštěného kontextu. SaveChanges () a kombinuje data z entit **Person** a **HireInfo**
 
-    ![Insert](~/ef6/media/insert.png)
+    ![Vložit](~/ef6/media/insert.png)
 
 -   Následující **příkaz SELECT** byl proveden jako výsledek spuštěného kontextu. Lidi. FirstOrDefault () a vybere pouze sloupce namapované na **osobu**
 

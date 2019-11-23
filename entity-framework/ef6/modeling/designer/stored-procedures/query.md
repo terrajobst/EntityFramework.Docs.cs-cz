@@ -28,9 +28,9 @@ K dokončení toho návodu budete potřebovat:
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
 -   Otevřete Visual Studio 2012.
--   Vybrat **soubor-&gt; nový-&gt; projekt**
--   V levém podokně klikněte na položku **Visual C @ no__t-1**a potom vyberte šablonu **konzoly** .
--   Do pole název zadejte **EFwithSProcsSample** AS.
+-   Vybrat **soubor-&gt; projekt New-&gt;**
+-   V levém podokně klikněte na položku **Visual C\#** a pak vyberte šablonu **konzoly** .
+-   Jako název zadejte **EFwithSProcsSample** .
 -   Vyberte **OK**.
 
 ## <a name="create-a-model"></a>Vytvoření modelu
@@ -40,14 +40,14 @@ K dokončení toho návodu budete potřebovat:
 -   Jako název souboru zadejte **EFwithSProcsModel. edmx** a pak klikněte na **Přidat**.
 -   V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další**.
 -   Klikněte na **nové připojení**.  
-    V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB) \\mssqllocaldb**), vyberte metodu ověřování, zadejte **School** for název databáze a pak klikněte na tlačítko **OK**.  
+    V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB)\\mssqllocaldb**), vyberte metodu ověřování, jako název databáze zadejte **School** a pak klikněte na **OK**.  
     Dialogové okno zvolit datové připojení je aktualizováno nastavením připojení k databázi.
--   V dialogovém okně zvolte objekty databáze zaškrtněte v **tabulkách** checkbox, aby se vybraly všechny tabulky.  
+-   V dialogovém okně zvolte objekty databáze zaškrtněte políčko **tabulky** pro výběr všech tabulek.  
     V uzlu **uložené procedury a funkce** vyberte také následující uložené procedury: **GetStudentGrades** a **getdepartment**. 
 
     ![Import](~/ef6/media/import.jpg)
 
-    @no__t – 0Starting s Visual Studiem 2012 Návrhář EF podporuje hromadný import uložených procedur. Ve výchozím nastavení je zaškrtnuté políčko **Importovat vybrané uložené procedury a funkce do modelu theentity** . *
+    *Počínaje sadou Visual Studio 2012 Návrhář EF podporuje hromadný import uložených procedur. Ve výchozím nastavení je zaškrtnuté políčko **Importovat vybrané uložené procedury a funkce do modelu theentity** .*
 -   Klikněte na tlačítko **Dokončit**.
 
 Ve výchozím nastavení se obrazec výsledek u každé importované uložené procedury nebo funkce, která vrací více než jeden sloupec, automaticky změní na nový komplexní typ. V tomto příkladu chceme namapovat výsledky **GetStudentGrades** funkce na entitu **StudentGrade** a výsledky třídy **getdepartment** na **none** (**žádná** je výchozí hodnota).
@@ -56,14 +56,14 @@ Pro import funkce, který vrátí typ entity, se sloupce vrácené odpovídajíc
 
 -   Klikněte pravým tlačítkem myši na návrhovou plochu a vyberte možnost **prohlížeč modelů**.
 -   V **prohlížeči modelů**vyberte **importy funkcí**a potom poklikejte na funkci **GetStudentGrades** .
--   V dialogovém okně Upravit import funkce vyberte **entity** And zvolte **StudentGrade**.  
-    *The **funkce Import je** zaškrtávací políčko v horní části dialogového okna **importy funkcí** vám umožní mapovat na sestavitelnou funkci. Pokud toto políčko zaškrtnete, zobrazí se v rozevíracím seznamu **název uložené procedury nebo funkce** pouze funkce s možností složení (funkce vracející tabulku). Pokud toto políčko nezaškrtnete, v seznamu se zobrazí pouze funkce bez možnosti složení.*
+-   V dialogovém okně Upravit import funkce vyberte **entity** a zvolte **StudentGrade**.  
+    *V horní **části dialogového okna importy funkce se** zobrazí zaškrtávací políčko **importovat funkci** , které vám umožní mapovat na sestavitelované funkce. Pokud toto políčko zaškrtnete, zobrazí se v rozevíracím seznamu **název uložené procedury nebo funkce** pouze funkce s možností složení (funkce vracející tabulku). Pokud toto políčko nezaškrtnete, v seznamu se zobrazí pouze funkce bez možnosti složení.*
 
 ## <a name="use-the-model"></a>Použití modelu
 
 Otevřete soubor **program.cs** , kde je definována metoda **Main** . Do funkce Main přidejte následující kód.
 
-Kód volá dva uložené procedury: **GetStudentGrades** (vrátí **StudentGrades** pro zadané *StudentID*) a název- **oddělení** (vrátí název oddělení v parametru Output).  
+Kód volá dva uložené procedury: **GetStudentGrades** (vrátí **StudentGrades** pro zadané *StudentID*) a **getdepartment** (vrátí název oddělení v výstupním parametru).  
 
 ``` csharp
     using (SchoolEntities context = new SchoolEntities())

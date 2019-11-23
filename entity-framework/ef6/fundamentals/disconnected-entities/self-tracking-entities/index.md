@@ -13,7 +13,7 @@ ms.locfileid: "72181719"
 # <a name="self-tracking-entities"></a>Entity pro sledování sebe
 
 > [!IMPORTANT]
-> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například sledovací [entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastní kód s využitím rozhraní API pro sledování změn nízké úrovně.
+> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například [sledované entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastního kódu s využitím rozhraní API pro sledování změn nízké úrovně.
 
 V aplikaci založené na Entity Framework je kontext zodpovědný za sledování změn v objektech. Pak použijte metodu SaveChanges k uchování změn v databázi. Při práci s N-vrstvými aplikacemi jsou objekty entit obvykle odpojeny od kontextu a je nutné se rozhodnout, jak sledovat změny a ohlásit tyto změny zpět do kontextu. Entity s možností sledování (ste) vám mohou pomáhat sledovat změny v libovolné vrstvě a následně tyto změny přehrát do kontextu, který má být uložen.  
 
@@ -21,8 +21,8 @@ Ste použijte pouze v případě, že kontext není k dispozici na úrovni, kde 
 
 Tato položka šablony generuje dvě soubory. TT (textová šablona):  
 
-- Soubor **\<model Name\>.tt** vygeneruje typy entit a pomocnou třídu, která obsahuje logiku sledování změn, která je používána entitami pro sledování změn, a metody rozšíření, které umožňují stav nastavení na entitách pro sledování samy sebe.  
-- **Název \<model @ no__t-2. Soubor Context.tt** vygeneruje odvozený kontext a třídu rozšíření, která obsahuje metody **ApplyChanges –** pro třídy **ObjectContext** a **ObjectSet** . Tyto metody prozkoumají informace o sledování změn, které jsou obsaženy v grafu entit s trasováním, a odvodit tak sadu operací, které je nutné provést k uložení změn v databázi.  
+- **Název\<modelu\>soubor. TT** vygeneruje typy entit a pomocnou třídu, která obsahuje logiku sledování změn, která je používána entitami s trasováním, a metodami rozšíření, které umožňují stav nastavení na entitách pro sledování samy sebe.  
+- **Název\<ho modelu\>. Soubor Context.tt** vygeneruje odvozený kontext a třídu rozšíření, která obsahuje metody **ApplyChanges –** pro třídy **ObjectContext** a **ObjectSet** . Tyto metody prozkoumají informace o sledování změn, které jsou obsaženy v grafu entit s trasováním, a odvodit tak sadu operací, které je nutné provést k uložení změn v databázi.  
 
 ## <a name="get-started"></a>Začínáme  
 
@@ -30,16 +30,16 @@ Začněte tím, že přejdete na stránku s [návodem k samoobslužným entitám
 
 ## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>Funkční hlediska při práci s entitami pro sledování sebe  
 > [!IMPORTANT]
-> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například sledovací [entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastní kód s využitím rozhraní API pro sledování změn nízké úrovně.
+> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například [sledované entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastního kódu s využitím rozhraní API pro sledování změn nízké úrovně.
 
 Při práci s entitami pro sledování samy zvažte následující:  
 
 - Ujistěte se, že váš klientský projekt obsahuje odkaz na sestavení obsahující typy entit. Pokud přidáte do klientského projektu pouze odkaz na službu, projekt klienta bude používat typy proxy serverů WCF a nikoli skutečné typy entit s vlastním sledováním. To znamená, že nebudete dostávat funkce automatizovaného oznamování, které spravují sledování entit na klientovi. Pokud záměrně nechcete zahrnout typy entit, budete muset ručně nastavit informace o sledování změn v klientovi, aby se změny poslaly zpátky do služby.  
 - Volání operace služby by měla být Bezstavová a vytvoří novou instanci kontextu objektu. Doporučujeme také vytvořit kontext objektu v bloku **using** .  
-- Když odešlete graf, který byl změněn v klientovi, do služby a pak v úmyslu pokračovat v práci se stejným grafem na klientovi, je nutné ručně iterovat v grafu a volat metodu **AcceptChanges** u každého objektu pro obnovení změny. Přehled.  
+- Když odešlete graf, který byl změněn v klientovi, do služby a pak v úmyslu pokračovat v práci se stejným grafem na klientovi, je nutné ručně iterovat v grafu a volat metodu **AcceptChanges** u každého objektu pro resetování sledování změn.  
 
-    > Pokud objekty v grafu obsahují vlastnosti s hodnotami generovanými databází (například hodnotami identity nebo souběžnosti), Entity Framework nahradí hodnoty těchto vlastností hodnotami generovanými databází po metodě **SaveChanges** znamená. Můžete implementovat operaci služby pro vrácení uložených objektů nebo seznam vygenerovaných hodnot vlastností pro objekty zpátky do klienta. Klient by pak musel nahradit hodnoty instancí objektů nebo vlastností objektu hodnotami objektů nebo vlastností vrácenými z operace služby.  
-- Sloučení grafů z více žádostí o služby může do výsledného grafu zavést objekty s duplicitními hodnotami klíčů. Entity Framework neodebere objekty s duplicitními klíči při volání metody **ApplyChanges –** , ale místo toho vyvolá výjimku. Abyste se vyhnuli zobrazování grafů s duplicitními hodnotami klíčů, postupujte podle jednoho ze vzorů popsaných na následujícím blogu: @no__t – 0Self – sledování entit: ApplyChanges – a duplicitní entity @ no__t-0.  
+    > Pokud objekty v grafu obsahují vlastnosti s hodnotami generovanými databází (například s hodnotami identity nebo souběžnosti), Entity Framework nahradí hodnoty těchto vlastností hodnotami generovanými databází po volání metody **SaveChanges** . Můžete implementovat operaci služby pro vrácení uložených objektů nebo seznam vygenerovaných hodnot vlastností pro objekty zpátky do klienta. Klient by pak musel nahradit hodnoty instancí objektů nebo vlastností objektu hodnotami objektů nebo vlastností vrácenými z operace služby.  
+- Sloučení grafů z více žádostí o služby může do výsledného grafu zavést objekty s duplicitními hodnotami klíčů. Entity Framework neodebere objekty s duplicitními klíči při volání metody **ApplyChanges –** , ale místo toho vyvolá výjimku. Abyste se vyhnuli zobrazování grafů s duplicitními hodnotami klíčů, postupujte podle jednoho ze vzorů popsaných v následujícím blogu: [entity pro sledování sebe: ApplyChanges – a duplicitní entity](https://go.microsoft.com/fwlink/?LinkID=205119&clcid=0x409).  
 - Když změníte relaci mezi objekty nastavením vlastnosti cizího klíče, navigační vlastnost odkazu je nastavena na hodnotu null a není synchronizována s příslušnou objektovou entitou v klientovi. Po připojení grafu ke kontextu objektu (například po volání metody **ApplyChanges –** ) jsou synchronizovány vlastnosti cizího klíče a navigační vlastnosti.  
 
     > Pokud jste u vztahu cizího klíče zadali kaskádové odstranění, nemusíte mít synchronizovaný navigační vlastnost s příslušným objektem zabezpečení. Odstraníte-li objekt zabezpečení, nebude tato akce rozšířena do závislých objektů. Pokud jste zadali kaskádové odstranění, použijte navigační vlastnosti pro změnu relací místo nastavení vlastnosti cizího klíče.  

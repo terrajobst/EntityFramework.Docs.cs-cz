@@ -84,7 +84,7 @@ namespace TestingDemo
 
 Všimněte si, že vlastnosti Negenerickými v kontextu jsou označeny jako virtuální. To umožní, aby se napodobující rozhraní dědilo z našeho kontextu a přepsalo tyto vlastnosti s napodobnou implementací.  
 
-Pokud používáte Code First pak můžete třídy upravit přímo. Pokud používáte návrháře EF, budete muset upravit šablonu T4, která generuje váš kontext. Otevřete \<model_name @ no__t-1. Soubor Context.tt, který je vnořen do souboru EDMX, vyhledejte následující fragment kódu a přidejte do klíčového slova Virtual, jak je znázorněno na obrázku.  
+Pokud používáte Code First pak můžete třídy upravit přímo. Pokud používáte návrháře EF, budete muset upravit šablonu T4, která generuje váš kontext. Otevřete \<model_name\>. Soubor Context.tt, který je vnořen do souboru EDMX, vyhledejte následující fragment kódu a přidejte do klíčového slova Virtual, jak je znázorněno na obrázku.  
 
 ``` csharp
 public string DbSet(EntitySet entitySet)
@@ -150,7 +150,7 @@ namespace TestingDemo
 
 ## <a name="testing-non-query-scenarios"></a>Testování scénářů nesouvisejících s dotazy  
 
-To je všechno, co musíme udělat pro spuštění testování jiných metod než dotazů. Následující test používá MOQ k vytvoření kontextu. Potom vytvoří Negenerickými @ no__t-0Blog @ no__t-1 a vodiče, aby se vrátily z vlastnosti Blogy daného kontextu. V dalším kroku se pomocí tohoto kontextu vytvoří nový BlogService, který se pak použije k vytvoření nového blogu – pomocí metody AddBlog. Nakonec test ověří, že služba přidala nový blog v kontextu, který se nazývá SaveChanges.  
+To je všechno, co musíme udělat pro spuštění testování jiných metod než dotazů. Následující test používá MOQ k vytvoření kontextu. Potom vytvoří\<Negenerickými blog\> a vodiče, které se vrátí z vlastnosti Blogy daného kontextu. V dalším kroku se pomocí tohoto kontextu vytvoří nový BlogService, který se pak použije k vytvoření nového blogu – pomocí metody AddBlog. Nakonec test ověří, že služba přidala nový blog v kontextu, který se nazývá SaveChanges.  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -182,7 +182,7 @@ namespace TestingDemo
 
 ## <a name="testing-query-scenarios"></a>Testování scénářů dotazů  
 
-Aby bylo možné provádět dotazy proti Negenerickými testu, musíme nastavit implementaci rozhraní IQueryable. Prvním krokem je vytvoření některých dat v paměti – používáme seznam @ no__t-0Blog @ no__t-1. V dalším kroku vytvoříme kontext a Negenerickými @ no__t-0Blog @ no__t-1 a potom rozvedete implementaci IQueryable pro Negenerickými – tím pouze delegujete poskytovatel LINQ to Objects, který funguje se seznamem @ no__t-2T @ no__t-3.  
+Aby bylo možné provádět dotazy proti Negenerickými testu, musíme nastavit implementaci rozhraní IQueryable. Prvním krokem je vytvoření dat v paměti – používáme seznam\<\>blogu. V dalším kroku vytvoříme kontext a Negenerickými\<blog\> potom provedete implementaci implementace IQueryable pro Negenerickými – stačí pouze delegovat poskytovateli LINQ to Objects, který funguje se seznamem\<T\>.  
 
 Pak můžeme vytvořit BlogService na základě našich testů a zajistit, aby se data, která vrátíme z GetAllBlogs, objednala podle názvu.  
 
@@ -235,7 +235,7 @@ Entity Framework 6 představil sadu rozšiřujících metod, které lze použít
 
 Vzhledem k tomu, že Entity Framework dotazy využívají technologii LINQ, jsou metody rozšíření definovány v rozhraních IQueryable a IEnumerable. Protože jsou však určeny pouze pro použití s Entity Framework při pokusu o použití v dotazu LINQ, který není Entity Framework dotazem, se může zobrazit následující chyba:
 
-> Zdroj IQueryable neimplementuje IDbAsyncEnumerable @ no__t-0. Pro Entity Framework asynchronní operace lze použít pouze zdroje, které implementují IDbAsyncEnumerable. Další podrobnosti najdete [http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068).  
+> Zdroj IQueryable neimplementuje IDbAsyncEnumerable{0}. Pro Entity Framework asynchronní operace lze použít pouze zdroje, které implementují IDbAsyncEnumerable. Další podrobnosti najdete v tématu [http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068).  
 
 Zatímco asynchronní metody jsou podporovány pouze při spuštění proti dotazu EF, je vhodné je použít v testu jednotky při spuštění proti Negenerickými testu v paměti.  
 

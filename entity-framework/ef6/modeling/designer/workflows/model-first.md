@@ -18,7 +18,7 @@ Toto video a podrobný návod vám poskytnou Úvod do Model Firstho vývoje pomo
 
 **Prezentující**: [Rowan Miller](https://romiller.com/)
 
-**Video**: [WMV](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
+**Video**: [wmv](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
 
 ## <a name="pre-requisites"></a>Předpoklady
 
@@ -31,16 +31,16 @@ Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](h
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Model First k provádění přístupu k datům:
 
 -   Otevřít Visual Studio
--   **Soubor-&gt; nový-&gt; projekt...**
+-   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **ModelFirstSample** .
 -   Vybrat **OK**
 
-## <a name="2-create-model"></a>2. Vytvořit model
+## <a name="2-create-model"></a>2. vytvoření modelu
 
 Budeme používat Entity Framework Designer, který je součástí sady Visual Studio, a vytvořit náš model.
 
--   **Projekt-&gt; Přidat novou položku...**
+-   **Projekt –&gt; přidat novou položku...**
 -   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
 -   Jako název zadejte **BloggingModel** a klikněte na **OK**. tím se spustí Průvodce model EDM (Entity Data Model).
 -   Vyberte **prázdný model** a klikněte na **Dokončit** .
@@ -51,22 +51,22 @@ Entity Framework Designer se otevře s prázdným modelem. Nyní můžeme do mod
 
 -   Klikněte pravým tlačítkem na návrhovou plochu a vyberte **vlastnosti** .
 -   V okno Vlastnosti změňte **název kontejneru entity** na **BloggingContext**
-    *Toto je název odvozeného kontextu, který bude vygenerován za vás, kontext představuje relaci s databází, což nám umožní dotazování a uložení. data*
--   Klikněte pravým tlačítkem na návrhovou plochu a vyberte **Přidat nový-&gt; entitu...**
+    *je to název odvozeného kontextu, který bude vygenerován za vás, kontext představuje relaci s databází, což nám umožní dotazovat se na data a uložit* je.
+-   Klikněte pravým tlačítkem na návrhovou plochu a vyberte **Přidat novou&gt; entitu...**
 -   Jako název entity zadejte **blog** a jako název klíče **BlogId** a klikněte na **OK** .
 
     ![Přidat entitu blogu](~/ef6/media/addblogentity.png)
 
--   V návrhové ploše klikněte pravým tlačítkem myši na novou entitu a vyberte **Přidat novou &gt; skalární vlastnost**, jako název vlastnosti zadejte **název** .
+-   V návrhové ploše klikněte pravým tlačítkem myši na novou entitu a vyberte **Přidat novou&gt; skalární vlastnost**, jako název vlastnosti zadejte **název** .
 -   Opakujte tento postup, chcete-li přidat vlastnost **URL** .
--   Klikněte pravým tlačítkem na vlastnost **URL** na návrhové ploše a vyberte možnost **vlastnosti**. ve okno Vlastnosti změňte nastavení **Nullable** na **hodnotu true**
-    .*to nám umožní uložit blog do databáze bez přiřazení adresy URL. *
+-   Klikněte pravým tlačítkem na vlastnost **URL** na návrhové ploše a vyberte možnost **vlastnosti**. v části okno Vlastnosti změňte nastavení **Nullable** na **hodnotu true**
+    *to nám umožní uložit blog do databáze bez přiřazení adresy URL* .
 -   Pomocí technik, které jste právě seznámili, přidejte entitu **post** s vlastností klíče **PostId** .
 -   Přidání skalárních vlastností **nadpisu** a **obsahu** k entitě **post**
 
 Teď, když máme několik entit, je čas Přidat přidružení (nebo relaci) mezi nimi.
 
--   Klikněte pravým tlačítkem na návrhovou plochu a vyberte **Přidat přidružení New-&gt;...**
+-   Klikněte pravým tlačítkem na návrhovou plochu a vyberte **Přidat přidružení nové&gt;...**
 -   Nastavte jeden konec bodu relace na **blog** s násobností **jednoho** a druhého koncového bodu pro **publikování** s násobností **mnoha**
     *to znamená, že blog obsahuje mnoho příspěvků a příspěvek patří do jednoho blogu* .
 -   Ujistěte se, že je zaškrtnuté políčko **Přidat vlastnosti cizího klíče do pole "post" entity** , a klikněte na **OK** .
@@ -83,8 +83,8 @@ Pokud pracujete v aplikaci Visual Studio 2010, je nutné provést další kroky 
 
 Nejdřív potřebujeme získat nejnovější verzi Entity Framework z NuGetu.
 
--   **Projekt – &gt; spravovat balíčky NuGet...** 
-    ,*Pokud nemáte balíčky pro **správu NuGet...** , měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .*
+-   **Projekt –&gt; spravovat balíčky NuGet...** 
+    , *jestli nemáte balíčky pro **správu NuGet...** , měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .*
 -   Vyberte **online** kartu.
 -   Výběr balíčku **EntityFramework**
 -   Klikněte na **nainstalovat** .
@@ -93,11 +93,11 @@ Dále je potřeba prohodit náš model a vygenerovat kód, který využívá roz
 
 -   V Návrháři EF klikněte pravým tlačítkem na prázdný bod modelu a vyberte **Přidat položku pro generování kódu...**
 -   V nabídce vlevo vyberte **online šablony** a vyhledejte **DbContext** .
--   Vyberte generátor EF **5. x DbContext pro jazyk C @ no__t-1**, jako název zadejte **BloggingModel** a klikněte na **Přidat** .
+-   Vyberte generátor EF **5. x DbContext pro jazyk C\#** , jako název zadejte **BloggingModel** a klikněte na **Přidat** .
 
     ![Šablona DbContext](~/ef6/media/dbcontexttemplate.png)
 
-## <a name="3-generating-the-database"></a>3. Generování databáze
+## <a name="3-generating-the-database"></a>3. vygenerování databáze
 
 Vzhledem k našemu modelu Entity Framework může vypočítat schéma databáze, které nám umožní ukládat a načítat data pomocí modelu.
 
@@ -120,7 +120,7 @@ Pojďme dopředu a vygenerovat databázi.
 -   Po zobrazení skriptu klikněte na tlačítko **Dokončit** a skript se přidá do projektu a otevře se.
 -   Klikněte pravým tlačítkem na skript a vyberte **Spustit**, budete vyzváni k zadání databáze, ke které se chcete připojit, a zadáním LocalDB nebo SQL Server Express v závislosti na tom, kterou verzi sady Visual Studio používáte.
 
-## <a name="4-reading--writing-data"></a>4. Čtení & zápisu dat
+## <a name="4-reading--writing-data"></a>4. čtení & zápisu dat
 
 Teď, když máme model, je čas ho použít pro přístup k některým datům. Třídy, které použijeme pro přístup k datům, se pro vás automaticky generují na základě souboru EDMX.
 
@@ -172,7 +172,7 @@ ADO.NET Blog
 Press any key to exit...
 ```
 
-## <a name="5-dealing-with-model-changes"></a>5. Zvládnutí změn modelu
+## <a name="5-dealing-with-model-changes"></a>5. zvládnutí změn modelu
 
 Teď je čas udělat v našem modelu nějaké změny. když tyto změny provedeme, musíme také aktualizovat schéma databáze.
 
@@ -182,8 +182,8 @@ Začneme přidáním nové entity uživatele do našeho modelu.
 
     ![Přidat entitu uživatele](~/ef6/media/adduserentity.png)
 
--   Pravým tlačítkem myši klikněte na vlastnost **username (uživatelské jméno** ) na návrhové ploše a vyberte **vlastnosti**. v části okno Vlastnosti změňte nastavení **MaxLength** na **50**
-    .*tím se omezí data, která se dají ukládat v uživatelském jménu na 50. znaky*
+-   Na návrhové ploše klikněte pravým tlačítkem na vlastnost **username** a vyberte **vlastnosti**. v okno Vlastnosti změňte nastavení **MaxLength** na **50**
+    *tím se omezí data, která se dají ukládat v uživatelském jménu na 50 znaků* .
 -   Přidání skalární vlastnosti **DisplayName** do entity **uživatele**
 
 Teď máme aktualizovaný model a teď jsme připraveni aktualizovat databázi tak, aby vyhovovala našemu novému typu entity uživatele.
@@ -192,7 +192,7 @@ Teď máme aktualizovaný model a teď jsme připraveni aktualizovat databázi t
 -   Klikněte na **Dokončit** .
 -   Můžete obdržet upozornění týkající se přepsání stávajícího skriptu DDL a částí mapování a úložiště v modelu, pro obě tato upozornění klikněte na **Ano** .
 -   Otevře se aktualizovaný skript SQL pro vytvoření databáze.  
-    vygenerovaný skript *The odstraní všechny existující tabulky a znovu vytvoří schéma od začátku. To může fungovat pro místní vývoj, ale není životaschopná pro doručování změn do databáze, která už je nasazená. Pokud potřebujete publikovat změny v databázi, která již byla nasazena, budete muset skript upravit nebo použít nástroj porovnání schématu pro výpočet skriptu migrace.*
+    *Skript, který je vygenerován, odstraní všechny existující tabulky a znovu vytvoří schéma od začátku. To může fungovat pro místní vývoj, ale není životaschopná pro doručování změn do databáze, která už je nasazená. Pokud potřebujete publikovat změny v databázi, která již byla nasazena, budete muset skript upravit nebo použít nástroj porovnání schématu pro výpočet migračního skriptu.*
 -   Klikněte pravým tlačítkem na skript a vyberte **Spustit**, budete vyzváni k zadání databáze, ke které se chcete připojit, a zadáním LocalDB nebo SQL Server Express v závislosti na tom, kterou verzi sady Visual Studio používáte.
 
 ## <a name="summary"></a>Souhrn

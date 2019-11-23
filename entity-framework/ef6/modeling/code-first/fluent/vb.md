@@ -11,7 +11,7 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182660"
 ---
 # <a name="fluent-api-with-vbnet"></a>Rozhraní Fluent API s VB.NET
-Code First umožňuje definovat model pomocí tříd C @ no__t-0 nebo VB.NET. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent. Tento návod ukazuje, jak provést konfiguraci rozhraní Fluent API pomocí VB.NET.
+Code First umožňuje definovat model pomocí tříd C\# nebo VB.NET. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent. Tento návod ukazuje, jak provést konfiguraci rozhraní Fluent API pomocí VB.NET.
 
 Tato stránka předpokládá, že máte základní znalosti o Code First. Další informace o Code First najdete v následujících návodech:
 
@@ -29,7 +29,7 @@ Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](h
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům.
 
 -   Otevřít Visual Studio
--   **Soubor-&gt; nový-&gt; projekt...**
+-   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **CodeFirstVBSample** .
 -   Vybrat **OK**
@@ -137,14 +137,14 @@ V tomto kroku definujete typy entit VB.NET POCO, které reprezentují koncepčn�
 
 Chystáme se začít používat typy z Entity Framework, takže musíme přidat balíček NuGet EntityFramework.
 
--   \* * Projekt – &gt; **Spravovat balíčky NuGet...**
+-   \* * Projekt –&gt; **Spravovat balíčky NuGet...**
 > [!NOTE]
 > Pokud nemáte **balíčky pro správu NuGet...** možnost, měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .
 -   Vyberte **online** kartu.
 -   Výběr balíčku **EntityFramework**
 -   Klikněte na **nainstalovat** .
 
-Nyní je čas definovat odvozený kontext, který představuje relaci s databází, a můžeme nám umožnit dotazování a ukládání dat. Definujeme kontext, který je odvozen od typu System. data. entity. DbContext a zpřístupňuje typ Negenerickými @ no__t-0TEntity @ no__t-1 pro každou třídu v našem modelu.
+Nyní je čas definovat odvozený kontext, který představuje relaci s databází, a můžeme nám umožnit dotazování a ukládání dat. Definujeme kontext, který je odvozen z typu System. data. entity. DbContext a zpřístupňuje typ Negenerickými&lt;TEntity&gt; pro každou třídu v našem modelu.
 
 -   Přidejte do projektu novou třídu, jako název třídy zadejte **SchoolContext** .
 -   Nahraďte obsah nové třídy následujícím kódem
@@ -171,7 +171,7 @@ Nyní je čas definovat odvozený kontext, který představuje relaci s databáz
 
 ## <a name="configuring-with-the-fluent-api"></a>Konfigurace pomocí rozhraní Fluent API
 
-V této části se dozvíte, jak používat rozhraní API Fluent ke konfiguraci typů mapování tabulek, vlastností mapování sloupců a vztahů mezi tabulkami @ no__t-0type v modelu. Rozhraní API Fluent se zveřejňuje prostřednictvím typu **DbModelBuilder** a nejčastěji se k němu používá přepsáním metody **OnModelCreating** na **DbContext**.
+V této části se dozvíte, jak používat rozhraní API Fluent ke konfiguraci typů na mapování tabulek, vlastností mapování sloupců a vztahů mezi tabulkami\\typu v modelu. Rozhraní API Fluent se zveřejňuje prostřednictvím typu **DbModelBuilder** a nejčastěji se k němu používá přepsáním metody **OnModelCreating** na **DbContext**.
 
 -   Zkopírujte následující kód a přidejte ho do metody **OnModelCreating** definované v třídě **SchoolContext** . komentáře objasňují, co každé mapování dělá.
 

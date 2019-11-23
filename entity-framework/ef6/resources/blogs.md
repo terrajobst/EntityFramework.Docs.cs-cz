@@ -15,7 +15,7 @@ Kromě dokumentace k produktu může být tyto Blogy zdrojem užitečných infor
 
 ## <a name="ef-team-blogs"></a>Blogy týmu EF
 
-- @no__t – značka blogu 0.NET: Entity Framework @ no__t-0
+- [Blog .NET – Značka: Entity Framework](https://blogs.msdn.microsoft.com/dotnet/tag/entity-framework/)
 - [Blog ADO.NET (už se nepoužívá)](https://blogs.msdn.microsoft.com/adonet/)
 - [Blog pro návrh EF (už se nepoužívá)](https://blogs.msdn.microsoft.com/efdesign/)
 
