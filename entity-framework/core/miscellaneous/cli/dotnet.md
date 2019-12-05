@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 29434c26a503fabb16b43ee8f0c36136a0b5b745
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 5686d28e6847797130476cd858bd3fb611620140
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811974"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824478"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenční informace k nástrojům pro Entity Framework Core – .NET CLI
 
@@ -33,17 +33,17 @@ Postup instalace závisí na typu a verzi projektu:
 
 * `dotnet ef` musí být nainstalovaný jako globální nebo místní nástroj. Většina vývojářů se `dotnet ef` jako globální nástroj nainstaluje pomocí následujícího příkazu:
 
-  ``` console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef
   ```
 
   `dotnet ef` můžete použít také jako místní nástroj. Chcete-li jej použít jako místní nástroj, obnovte závislosti projektu, který deklaruje jako závislost nástrojů pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
 
-* Nainstalujte [.NET Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0)). Sada SDK musí být nainstalována i v případě, že máte nejnovější verzi sady Visual Studio.
+* Nainstalujte [.NET Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0). Sada SDK musí být nainstalována i v případě, že máte nejnovější verzi sady Visual Studio.
 
 * Nainstalujte nejnovější balíček `Microsoft.EntityFrameworkCore.Design`.
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -61,7 +61,7 @@ Příkazy `dotnet ef` jsou součástí .NET Core SDK, ale k povolení příkazů
 
 * Nainstalujte nejnovější stabilní balíček `Microsoft.EntityFrameworkCore.Design`.
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -75,7 +75,7 @@ Příkazy `dotnet ef` jsou součástí .NET Core SDK, ale k povolení příkazů
 
 * Nainstalujte nejnovější verzi balíčku `Microsoft.EntityFrameworkCore.Design` (1. x), například:
 
-  ```console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
   ```
 
@@ -105,7 +105,7 @@ Příkazy `dotnet ef` jsou součástí .NET Core SDK, ale k povolení příkazů
 
 Spusťte následující příkazy, abyste ověřili, že EF Core nástroje rozhraní příkazového řádku jsou správně nainstalované:
 
-  ``` Console
+  ```dotnetcli
   dotnet restore
   dotnet ef
   ```
@@ -175,7 +175,7 @@ Chcete-li určit prostředí pro ASP.NET Core projekty, nastavte před spuštěn
 
 Zruší databázi.
 
-Nastavení
+Možnosti:
 
 |                   | Možnost                   | Popis                                              |
 |:------------------|:-------------------------|:---------------------------------------------------------|
@@ -186,7 +186,7 @@ Nastavení
 
 Aktualizuje databázi na poslední migraci nebo na určenou migraci.
 
-Náhodné
+Argumenty:
 
 | Argument      | Popis                                                                                                                                                                                                                                                     |
 |:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -194,7 +194,7 @@ Náhodné
 
 V následujících příkladech je databáze aktualizována na určenou migraci. První používá název migrace a druhý používá ID migrace:
 
-```console
+```dotnetcli
 dotnet ef database update InitialCreate
 dotnet ef database update 20180904195021_InitialCreate
 ```
@@ -211,14 +211,14 @@ Zobrazí seznam dostupných typů `DbContext`.
 
 Generuje kód pro `DbContext` a typy entit pro databázi. Aby tento příkaz vygeneroval typ entity, musí mít databázová tabulka primární klíč.
 
-Náhodné
+Argumenty:
 
 | Argument       | Popis                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<CONNECTION>` | Připojovací řetězec k databázi. U ASP.NET Core 2. x se hodnota může *jmenovat název =\<název připojovacího řetězce >* . V takovém případě název pochází ze zdrojů konfigurace, které jsou nastaveny pro projekt. |
 | `<PROVIDER>`   | Poskytovatel, který se má použít. Obvykle se jedná o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
-Nastavení
+Možnosti:
 
 |                 | Možnost                                   | Popis                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -233,13 +233,13 @@ Nastavení
 
 Následující příklad vygeneruje všechna schémata a tabulky a vloží nové soubory do složky *modely* .
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 ```
 
 Následující příklad vytvoří pouze tabulky, které jsou vybrány pouze v tabulkách a vytvoří kontext v samostatné složce se zadaným názvem:
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
 ```
 
@@ -247,13 +247,13 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 Přidá novou migraci.
 
-Náhodné
+Argumenty:
 
 | Argument | Popis                |
 |:---------|:---------------------------|
 | `<NAME>` | Název migrace. |
 
-Nastavení
+Možnosti:
 
 |                   | Možnost                             | Popis                                                                                                      |
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
@@ -267,7 +267,7 @@ Zobrazí seznam dostupných migrací.
 
 Odebere poslední migraci (vrátí zpět změny kódu, které byly provedeny pro migraci).
 
-Nastavení
+Možnosti:
 
 |                   | Možnost    | Popis                                                                     |
 |:------------------|:----------|:--------------------------------------------------------------------------------|
@@ -277,14 +277,14 @@ Nastavení
 
 Vygeneruje skript SQL z migrací.
 
-Náhodné
+Argumenty:
 
 | Argument | Popis                                                                                                                                                   |
 |:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<FROM>` | Spouští se migrace. Migrace může být identifikována podle názvu nebo podle ID. Číslo 0 je zvláštní případ, který znamená *před první migrací*. Výchozí hodnota je 0. |
 | `<TO>`   | Koncová migrace. Výchozí hodnota je poslední migrace.                                                                                                         |
 
-Nastavení
+Možnosti:
 
 |                   | Možnost            | Popis                                                        |
 |:------------------|:------------------|:-------------------------------------------------------------------|
@@ -293,17 +293,17 @@ Nastavení
 
 Následující příklad vytvoří skript pro migraci InitialCreate:
 
-```console
+```dotnetcli
 dotnet ef migrations script 0 InitialCreate
 ```
 
 Následující příklad vytvoří skript pro všechny migrace po migraci InitialCreate.
 
-```console
+```dotnetcli
 dotnet ef migrations script 20180904195021_InitialCreate
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Migrace](xref:core/managing-schemas/migrations/index)
 * [Zpětná analýza](xref:core/managing-schemas/scaffolding)

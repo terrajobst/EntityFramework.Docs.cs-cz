@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: aeb3ed1af8725ed6f92e0c0ba022a89b651bff80
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 1121b2bde1ada74ee189287501bc770aeb65e358
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655600"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824435"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
@@ -37,7 +37,7 @@ Chcete-li nainstalovat nebo aktualizovat balíčky NuGet, můžete použít rozh
 
 * Chcete-li nainstalovat nebo aktualizovat poskytovatele služby EF Core SQL Server, použijte následující příkaz .NET Core CLI z příkazového řádku operačního systému:
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
   ```
 
@@ -95,7 +95,7 @@ I když můžete použít `dotnet ef` příkazy z konzoly Správce balíčků, d
 
 Příkazy `dotnet ef` jsou součástí aktuálních verzí .NET Core SDK, ale pokud chcete povolit příkazy v konkrétním projektu, je nutné nainstalovat balíček `Microsoft.EntityFrameworkCore.Design`:
 
-``` Console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 

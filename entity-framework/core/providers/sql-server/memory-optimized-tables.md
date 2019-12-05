@@ -1,28 +1,23 @@
 ---
 title: Microsoft SQL Server poskytovatel databáze – paměťově optimalizované tabulky – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 2e007c82-c6e4-45bb-8129-851b79ec1a0a
+description: Jak používat paměťově optimalizované tabulky s poskytovatelem databáze SQL Server Entity Framework Core
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/05/2019
 uid: core/providers/sql-server/memory-optimized-tables
-ms.openlocfilehash: 7383e74b3f83172f9b8e0eaf9bd09d4e187e87f8
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: a504fb3487aea6dd36abf204a7427095e3d29118
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813486"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824649"
 ---
 # <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>Podpora paměťově optimalizovaných tabulek v SQL Server EF Core poskytovatel databáze
 
-[Paměťově optimalizované tabulky](https://docs.microsoft.com/sql/relational-databases/in-memory-oltp/memory-optimized-tables) jsou funkce SQL Server, kde se nachází celá tabulka v paměti. Druhá kopie dat tabulky je udržována na disku, ale pouze pro účely trvanlivosti. Data v paměťově optimalizovaných tabulkách se při obnovení databáze čtou jenom z disku. Například po restartování serveru.
+[Paměťově optimalizované tabulky](/sql/relational-databases/in-memory-oltp/memory-optimized-tables) jsou funkce SQL Server, kde se nachází celá tabulka v paměti. Druhá kopie dat tabulky je udržována na disku, ale pouze pro účely trvanlivosti. Data v paměťově optimalizovaných tabulkách se při obnovení databáze čtou jenom z disku. Například po restartování serveru.
 
 ## <a name="configuring-a-memory-optimized-table"></a>Konfigurace paměťově optimalizované tabulky
 
-Můžete určit, že tabulka, na kterou je entita mapována, je optimalizovaná pro paměť. Při použití EF Core k vytvoření a údržbě databáze založené na modelu (s migracemi nebo `Database.EnsureCreated()`) bude pro tyto entity vytvořená paměťově optimalizovaná tabulka.
+Můžete určit, že tabulka, na kterou je entita mapována, je optimalizovaná pro paměť. Při použití EF Core k vytvoření a údržbě databáze založené na modelu (buď s [migrací](xref:core/managing-schemas/migrations/index) nebo [EnsureCreated](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreated)) se pro tyto entity vytvoří paměťově optimalizovaná tabulka.
 
-``` csharp
-protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    modelBuilder.Entity<Blog>()
-        .ForSqlServerIsMemoryOptimized();
-}
-```
+[!code-csharp[IsMemoryOptimized](../../../../samples/core/SqlServer/InMemory/InMemoryContext.cs?name=IsMemoryOptimized)]

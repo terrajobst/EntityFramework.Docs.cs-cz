@@ -1,15 +1,16 @@
 ---
 title: Dědičnost (relační databáze) – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
+description: Postup konfigurace dědičnosti typů entit v relační databázi pomocí Entity Framework Core
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/06/2019
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 381d1878007bb78b359eb49649f4356f1e5eb04a
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 30e25aa2968ceab03404baddb46e0ae59fc3ea6b
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655634"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824754"
 ---
 # <a name="inheritance-relational-database"></a>Dědičnost (relační databáze)
 
@@ -23,7 +24,7 @@ Dědičnost v modelu EF se používá k řízení způsobu reprezentace dědičn
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence se dědičnost mapuje pomocí vzoru Table-per-Hierarchy (TPH). K ukládání dat pro všechny typy v hierarchii používá typ TPH jednu tabulku. Sloupec diskriminátoru slouží k identifikaci typu, který každý řádek představuje.
+Ve výchozím nastavení bude dědění mapováno pomocí vzoru Table-per-Hierarchy (TPH). K ukládání dat pro všechny typy v hierarchii používá typ TPH jednu tabulku. Sloupec diskriminátoru slouží k identifikaci typu, který každý řádek představuje.
 
 EF Core bude dědění nastavení pouze v případě, že jsou do modelu explicitně zahrnuty dva nebo více děděných typů (další podrobnosti naleznete v tématu [Dědičnost](../inheritance.md) ).
 
@@ -50,48 +51,14 @@ Rozhraní Fluent API můžete použít ke konfiguraci názvu a typu sloupce disk
 
 V předchozích příkladech je diskriminátor vytvořen jako [vlastnost Shadow](xref:core/modeling/shadow-properties) v základní entitě hierarchie. Vzhledem k tomu, že se jedná o vlastnost v modelu, lze ji nakonfigurovat stejně jako jiné vlastnosti. Například pro nastavení maximální délky při použití výchozího diskriminátoru podle konvence:
 
-```C#
-modelBuilder.Entity<Blog>()
-    .Property("Discriminator")
-    .HasMaxLength(200);
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/DefaultDiscriminator.cs#DiscriminatorConfiguration)]
 
-Diskriminátor lze také namapovat na skutečnou vlastnost CLR v entitě. Příklad:
+Diskriminátor lze také namapovat na vlastnost .NET v entitě a nakonfigurovat ji. Příklad:
 
-```C#
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/NonShadowDiscriminator.cs#NonShadowDiscriminator)]
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasDiscriminator<string>("BlogType");
-    }
-}
+## <a name="shared-columns"></a>Sdílené sloupce
 
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-    public string BlogType { get; set; }
-}
+Pokud mají dva typy entit stejné úrovně vlastnost se stejným názvem, budou ve výchozím nastavení namapovány na dva samostatné sloupce. Pokud jsou ale kompatibilní, můžou být namapované na stejný sloupec:
 
-public class RssBlog : Blog
-{
-    public string RssUrl { get; set; }
-}
-```
-
-Kombinování těchto dvou věcí je možné namapovat mezi diskriminátory na skutečnou vlastnost a nakonfigurovat ji:
-
-```C#
-modelBuilder.Entity<Blog>(b =>
-{
-    b.HasDiscriminator<string>("BlogType");
-
-    b.Property(e => e.BlogType)
-        .HasMaxLength(200)
-        .HasColumnName("blog_type");
-});
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/SharedTPHColumns.cs#SharedTPHColumns)]

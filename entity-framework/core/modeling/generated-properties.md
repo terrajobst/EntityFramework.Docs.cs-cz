@@ -1,15 +1,16 @@
 ---
 title: Generované hodnoty – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
+description: Postup konfigurace generování hodnoty pro vlastnosti při použití Entity Framework Core
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 6643d3c5c9b3363e450e820793f449a41e2eba80
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 7fa3eae5e2edb7b4c40ed4f99ce4a29f367e622a
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655751"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824700"
 ---
 # <a name="generated-values"></a>Vygenerované hodnoty
 
@@ -53,7 +54,7 @@ Podobně jako u `value generated on add`platí, že pokud zadáte hodnotu vlastn
 
 ## <a name="conventions"></a>Konvence
 
-V konvenci nejsou složené primární klíče typu short, int, Long nebo GUID nastavené tak, aby se hodnoty vygenerovaly při přidání. Všechny ostatní vlastnosti se nastaví bez generování hodnoty.
+Ve výchozím nastavení se nesložené primární klíče typu short, int, Long nebo GUID nastaví tak, aby se hodnoty vygenerovaly při přidání. Všechny ostatní vlastnosti se nastaví bez generování hodnoty.
 
 ## <a name="data-annotations"></a>Datové poznámky
 

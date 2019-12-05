@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 72393e96c195af1df5a169025ca2ce7a7acb16bb
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 83f6b819409d502dba17a678d44a0746a4a77f4b
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656212"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824873"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nové funkce v EF Core 2,0
 
-## <a name="net-standard-20"></a>.NET Standard 2,0
+## <a name="net-standard-20"></a>.NET Standard 2.0
 
 EF Core teď cílí na .NET Standard 2,0, což znamená, že může pracovat s .NET Core 2,0, .NET Framework 4.6.1 a dalšími knihovnami, které implementují .NET Standard 2,0.
 Další podrobnosti o tom, co je podporováno, najdete v tématu [podporované implementace rozhraní .NET](../platforms/index.md) .
@@ -72,7 +72,7 @@ Další informace o této funkci najdete v [části vlastní typy entit](xref:co
 
 ### <a name="model-level-query-filters"></a>Filtry dotazů na úrovni modelu
 
-EF Core 2,0 obsahuje novou funkci, která volá filtry dotazů na úrovni modelu. Tato funkce umožňuje predikáty dotazů LINQ (logický výraz je obvykle předán operátoru dotazu LINQ), který má být definován přímo na typech entit v modelu metadat (obvykle v OnModelCreating). Tyto filtry se automaticky použijí na všechny dotazy LINQ, které obsahují typy entit, včetně typů entit, které jsou odkazovány nepřímo, jako je například použití odkazů na navigační vlastnosti include nebo Direct. Mezi běžné aplikace této funkce patří:
+EF Core 2,0 obsahuje novou funkci, která volá filtry dotazů na úrovni modelu. Tato funkce umožňuje predikáty dotazů LINQ (logický výraz je obvykle předán operátoru dotazu LINQ), který má být definován přímo na typech entit v modelu metadat (obvykle v OnModelCreating). Tyto filtry se automaticky použijí na všechny LINQ dotazy zahrnující tyto typy entit, včetně odkazy na typy entit odkazované nepřímo, jako například pomocí zahrnutí nebo přímé navigační vlastnosti. Jsou některé běžné aplikace tuto funkci:
 
 - Obnovitelné odstranění – typy entit definují vlastnost IsDeleted.
 - Víceklientská architektura – typ entity definuje vlastnost TenantId.
@@ -91,12 +91,12 @@ public class BloggingContext : DbContext
     {
         modelBuilder.Entity<Post>().HasQueryFilter(
             p => !p.IsDeleted
-            && p.TenantId == this.TenantId );
+            && p.TenantId == this.TenantId);
     }
 }
 ```
 
-Definujeme filtr na úrovni modelu, který implementuje víceklientské a obnovitelné odstranění instancí typu entity `Post`. Všimněte si použití vlastnosti na úrovni instance DbContext: `TenantId`. Filtry na úrovni modelu budou používat hodnotu ze správné instance kontextu (to znamená instance kontextu, která spouští dotaz).
+Definujeme filtr na úrovni modelu, který implementuje víceklientské a obnovitelné odstranění instancí typu entity `Post`. Všimněte si použití `DbContext` vlastnosti na úrovni instance: `TenantId`. Filtry na úrovni modelu budou používat hodnotu ze správné instance kontextu (to znamená instance kontextu, která spouští dotaz).
 
 Filtry mohou být zakázány pro jednotlivé dotazy LINQ pomocí operátoru IgnoreQueryFilters ().
 
@@ -119,7 +119,7 @@ public class BloggingContext : DbContext
     [DbFunction]
     public static int PostReadCount(int blogId)
     {
-        throw new Exception();
+        throw new NotImplementedException();
     }
 }
 ```
@@ -133,11 +133,11 @@ var query =
     select p;
 ```
 
-Poznamenejte si pár věcí:
+Pár věcí, které stojí za zmínku:
 
-- Podle konvence se název metody používá jako název funkce (v tomto případě uživatelem definovaná funkce) při generování SQL, ale během registrace metody můžete přepsat název a schéma.
+- Podle konvence je název metody používán jako název funkce (v tomto případě uživatelsky definovaná funkce) při generování kódu SQL, ale můžete přepsat název a schéma během registrace metody.
 - V současné době jsou podporovány pouze skalární funkce.
-- V databázi je nutné vytvořit namapovanou funkci. EF Core migrace se postará o jejich vytvoření
+- V databázi je nutné vytvořit namapovanou funkci. EF Core migrace se postará o jejich vytvoření.
 
 ### <a name="self-contained-type-configuration-for-code-first"></a>Samostatná konfigurace typu pro první kód
 
@@ -146,11 +146,11 @@ V EF6 bylo možné zapouzdřit první konfiguraci konkrétního typu entity odvo
 ``` csharp
 class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
-  public void Configure(EntityTypeBuilder<Customer> builder)
-  {
-     builder.HasKey(c => c.AlternateKey);
-     builder.Property(c => c.Name).HasMaxLength(200);
-   }
+    public void Configure(EntityTypeBuilder<Customer> builder)
+    {
+        builder.HasKey(c => c.AlternateKey);
+        builder.Property(c => c.Name).HasMaxLength(200);
+    }
 }
 
 ...
@@ -158,7 +158,7 @@ class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 builder.ApplyConfiguration(new CustomerConfiguration());
 ```
 
-## <a name="high-performance"></a>Vysoký výkon
+## <a name="high-performance"></a>High Performance
 
 ### <a name="dbcontext-pooling"></a>Sdružování DbContext
 
@@ -255,7 +255,7 @@ WHERE ""City"" = @p0
     AND ""ContactTitle"" = @p1
 ```
 
-### <a name="effunctionslike"></a>EF. Functions. like ()
+### <a name="effunctionslike"></a>EF.Functions.Like()
 
 Přidali jsme EF. Vlastnost Functions, kterou mohou používat EF Core nebo poskytovatelé k definování metod, které jsou mapovány na funkce nebo operátory databáze tak, aby mohly být vyvolány v dotazech LINQ. První příklad takové metody je jako ():
 
@@ -299,7 +299,7 @@ public class MyPluralizer : IPluralizer
 }
 ```
 
-## <a name="others"></a>Ostatním uživatelům
+## <a name="others"></a>Jiné
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>Přesunout poskytovatele SQLite ADO.NET do SQLitePCL. Raw
 

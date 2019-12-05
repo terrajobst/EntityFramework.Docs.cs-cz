@@ -1,15 +1,16 @@
 ---
 title: Klíče (primární) – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
+description: Postup při konfiguraci klíčů pro typy entit při použití Entity Framework Core
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/06/2019
 uid: core/modeling/keys
-ms.openlocfilehash: 66c64c389294e8e109a614a2bea8311932660dea
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: fdaccb42259ba9dad97a05c626edd0291ca96cb0
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655951"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824618"
 ---
 # <a name="keys-primary"></a>Klíče (primární)
 
@@ -19,11 +20,14 @@ Jednu z následujících metod lze použít k nastavení nebo vytvoření primá
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence bude vlastnost s názvem `Id` nebo `<type name>Id` nakonfigurovaná jako klíč entity.
+Ve výchozím nastavení bude vlastnost s názvem `Id` nebo `<type name>Id` nakonfigurována jako klíč entity.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/KeyId.cs?name=KeyId&highlight=3)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/KeyTypeNameId.cs?name=KeyIdhighlight=3)]
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/KeyTypeNameId.cs?name=KeyId&highlight=3)]
+
+> [!NOTE]
+> [Vlastní typy entit](xref:core/modeling/owned-entities) používají pro definování klíčů různá pravidla.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
@@ -40,3 +44,12 @@ Pomocí rozhraní Fluent API můžete nakonfigurovat jedinou vlastnost, která b
 Rozhraní Fluent API můžete použít také ke konfiguraci více vlastností, které budou klíč entity (označované jako složený klíč). Složené klíče se dají nakonfigurovat jenom pomocí konvencí rozhraní API Fluent nikdy nenastaví složený klíč a nemůžete použít datové poznámky ke konfiguraci jednoho.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeyComposite.cs?highlight=11,12)]
+
+## <a name="key-types-and-values"></a>Typy a hodnoty klíčů
+
+EF Core podporuje použití vlastností libovolného primitivního typu jako primárního klíče, včetně `string`, `Guid`, `byte[]` a dalších. Ale ne všechny databáze je podporují. V některých případech je možné hodnoty klíče převést na podporovaný typ automaticky, jinak by se měl převod [zadat ručně](xref:core/modeling/value-conversions).
+
+Při přidávání nové entity do kontextu musí mít klíčové vlastnosti vždy jinou než výchozí hodnotu, ale [v databázi budou vygenerovány](xref:core/modeling/generated-properties)některé typy. V takovém případě EF se při přidání entity pro účely sledování pokusí vygenerovat dočasnou hodnotu. Po volání [metody SaveChanges](/dotnet/api/Microsoft.EntityFrameworkCore.DbContext.SaveChanges) se tato dočasná hodnota nahradí hodnotou generovanou databází.
+
+> [!Important]
+> Pokud je vlastnost klíče vygenerovaná databází a při přidání entity je zadaná jiná než výchozí hodnota, pak EF předpokládá, že entita v databázi již existuje a pokusí se ji aktualizovat místo vložení nového. Chcete-li se vyhnout této generaci hodnoty, nebo se podívejte, [jak zadat explicitní hodnoty pro vygenerované vlastnosti](../saving/explicit-values-generated-properties.md).

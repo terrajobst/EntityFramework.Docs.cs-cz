@@ -1,15 +1,15 @@
 ---
 title: Relace – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
+description: Konfigurace vztahů mezi typy entit při použití Entity Framework Core
+author: AndriySvyryd
+ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 1e59ce9e19c12aa5564bc8467dcfcb3be8ee8996
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 452169c902d56fda0a65a5c2846a9b42c80640fd
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655676"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824758"
 ---
 # <a name="relationships"></a>Relace
 
@@ -24,21 +24,25 @@ K popisu vztahů se používá určitý počet výrazů.
 
 * **Závislá entita:** Toto je entita, která obsahuje vlastnosti cizího klíče. V relaci se někdy označuje jako "podřízený".
 
-* **Hlavní entita:** Toto je entita, která obsahuje vlastnosti primárního a alternativního klíče. V relaci se někdy označuje jako "nadřazený".
+* **Hlavní entita:** Toto je entita, která obsahuje vlastnosti primárního nebo alternativního klíče. V relaci se někdy označuje jako "nadřazený".
 
-* **Cizí klíč:** Vlastnosti v závislé entitě, která se používá k uložení hodnot vlastnosti hlavního klíče, se kterou entita souvisí
+* **Cizí klíč:** Vlastnosti v závislé entitě, které se používají k ukládání hodnot hlavních klíčů pro související entitu
 
-* **Hlavní klíč:** Vlastnosti, které jedinečně identifikují hlavní entitu. Může se jednat o primární klíč nebo alternativní klíč.
+* **Hlavní klíč:** Vlastnosti, které jednoznačně identifikují hlavní entitu Může se jednat o primární klíč nebo alternativní klíč.
 
-* **Navigační vlastnost:** Vlastnost definovaná na objektu zabezpečení nebo závislé entitě, která obsahuje odkazy na související entity (y).
+* **Navigační vlastnost:** Vlastnost definovaná na objektu zabezpečení nebo závislé entitě, která odkazuje na související entitu.
 
   * **Navigační vlastnost kolekce:** Navigační vlastnost, která obsahuje odkazy na mnoho souvisejících entit.
 
   * **Referenční navigační vlastnost:** Navigační vlastnost, která obsahuje odkaz na jednu související entitu.
 
   * **Inverzní navigační vlastnost:** Při diskusi na konkrétní navigační vlastnost se tento termín odkazuje na vlastnost navigace na druhém konci relace.
+  
+* **Vztah s odkazem na sebe:** Vztah, ve kterém jsou typy závislých a hlavních entit stejné.
 
-Následující výpis kódu ukazuje vztah 1: n mezi `Blog` a `Post`
+Následující kód ukazuje vztah 1: n mezi `Blog` a `Post`
+
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Entities)]
 
 * `Post` je závislá entita.
 
@@ -54,11 +58,9 @@ Následující výpis kódu ukazuje vztah 1: n mezi `Blog` a `Post`
 
 * `Post.Blog` je inverzní navigační vlastnost `Blog.Posts` (a naopak).
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Entities)]
-
 ## <a name="conventions"></a>Konvence
 
-Podle konvence se vytvoří relace, když je u typu zjištěna vlastnost navigace. Vlastnost je považována za navigační vlastnost, pokud typ, na který odkazuje, nemůže být namapován jako skalární typ aktuálním poskytovatelem databáze.
+Ve výchozím nastavení se relace vytvoří, když je u typu zjištěna vlastnost navigace. Vlastnost je považována za navigační vlastnost, pokud typ, na který odkazuje, nemůže být namapován jako skalární typ aktuálním poskytovatelem databáze.
 
 > [!NOTE]  
 > Relace zjištěné podle konvence budou vždycky cílit na primární klíč hlavní entity. Aby bylo možné cílit na alternativní klíč, je nutné provést další konfiguraci pomocí rozhraní Fluent API.
@@ -69,18 +71,32 @@ Nejběžnějším vzorem relací je mít vlastnosti navigace definované na obou
 
 * Pokud je mezi dvěma typy nalezen pár vlastností navigace, budou nakonfigurovány jako inverzní navigační vlastnosti stejné relace.
 
-* Pokud závislá entita obsahuje vlastnost s názvem `<primary key property name>`, `<navigation property name><primary key property name>`nebo `<principal entity name><primary key property name>` pak bude nakonfigurována jako cizí klíč.
+* Pokud závislá entita obsahuje vlastnost s názvem, který by byl matematice jedním z těchto vzorů, pak se nakonfiguruje jako cizí klíč:
+  * `<navigation property name><principal key property name>`
+  * `<navigation property name>Id`
+  * `<principal entity name><principal key property name>`
+  * `<principal entity name>Id`
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs?name=Entities&highlight=6,15,16)]
 
-> [!WARNING]  
-> Pokud je mezi dvěma typy definováno více vlastností navigace (tj. více než jeden odlišný pár navigace, které navzájem odkazují), nebudou vytvořeny žádné vztahy podle konvence a bude nutné je ručně nakonfigurovat, abyste identifikovali, jak párování vlastností navigace nahoru.
+V tomto příkladu se pro konfiguraci relace použijí zvýrazněné vlastnosti.
+
+> [!NOTE]
+> Pokud je vlastnost primárním klíčem nebo je typu, který není kompatibilní s klíčovým objektem zabezpečení, nebude nakonfigurovaný jako cizí klíč.
+
+> [!NOTE]
+> Před EF Core 3,0 vlastnost s názvem přesně stejná jako vlastnost hlavního klíče [byla také shodná s cizím klíčem](https://github.com/aspnet/EntityFrameworkCore/issues/13274) .
 
 ### <a name="no-foreign-key-property"></a>Žádná vlastnost cizího klíče
 
-I když se doporučuje mít vlastnost cizího klíče definovanou ve třídě závislé entity, není to nutné. Pokud se nenalezne žádná vlastnost cizího klíče, zavede se vlastnost stínového cizího klíče s názvem `<navigation property name><principal key property name>` (Další informace najdete v tématu [vlastnosti stínu](shadow-properties.md) ).
+I když se doporučuje mít vlastnost cizího klíče definovanou ve třídě závislé entity, není to nutné. Pokud se nenalezne žádná vlastnost cizího klíče, zavede se [vlastnost stínového cizího klíče](shadow-properties.md) s názvem `<navigation property name><principal key property name>` nebo `<principal entity name><principal key property name>`, pokud se na závislém typu nenachází žádná navigace.
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/NoForeignKey.cs?name=Entities&highlight=6,15)]
+
+V tomto příkladu je `BlogId` stín cizího klíče, protože před nedokončeným názvem navigace by byl redundantní.
+
+> [!NOTE]
+> Pokud vlastnost se stejným názvem již existuje, bude název vlastnosti stínové kopie zaregistrovaný číslem.
 
 ### <a name="single-navigation-property"></a>Jednoduchá navigační vlastnost
 
@@ -88,7 +104,11 @@ Zahrnutím pouze jedné navigační vlastnosti (bez invertované navigace a žá
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/OneNavigation.cs?name=Entities&highlight=6)]
 
-### <a name="cascade-delete"></a>Kaskádové odstranění
+### <a name="limitations"></a>Omezení
+
+Pokud je mezi dvěma typy definováno více vlastností navigace (to znamená více než pouze jedna dvojice navigačních oblastí, které odkazují na sebe), jsou relace reprezentované navigačními vlastnostmi dvojznačné. Budete je muset ručně nakonfigurovat, aby se vyřešila nejednoznačnost.
+
+### <a name="cascade-delete"></a>Odstranění v kaskádě
 
 Podle konvence se kaskádové odstranění nastaví na *kaskády* pro požadované relace a *ClientSetNull* pro volitelné vztahy. *Cascade* znamená, že jsou také odstraněny závislé entity. *ClientSetNull* znamená, že závislé entity, které nejsou načteny do paměti, zůstanou beze změny a je nutné je ručně odstranit nebo aktualizovat, aby odkazovaly na platnou objektovou entitu. V případě entit, které jsou načteny do paměti, se EF Core pokusí nastavit vlastnosti cizího klíče na hodnotu null.
 
@@ -96,30 +116,27 @@ Rozdíl mezi požadovanými a volitelnými vztahy najdete v části [vyžadovan�
 
 Další podrobnosti o různých chováních při odstraňování a výchozích hodnotách, které používá konvence, najdete v tématu [kaskádová odstranění](../saving/cascade-delete.md) .
 
-## <a name="data-annotations"></a>Datové poznámky
+## <a name="manual-configuration"></a>Ruční konfigurace
 
-Existují dva datové poznámky, které lze použít ke konfiguraci relací, `[ForeignKey]` a `[InverseProperty]`. Jsou k dispozici v oboru názvů `System.ComponentModel.DataAnnotations.Schema`.
+#### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
-### <a name="foreignkey"></a>Klíč ForeignKey
+Pokud chcete nakonfigurovat relaci v rozhraní Fluent API, začněte tím, že určíte navigační vlastnosti, které tvoří relaci. `HasOne` nebo `HasMany` identifikuje navigační vlastnost u typu entity, na které začínáte konfigurovat. Pak řetězení volání `WithOne` nebo `WithMany` k identifikaci invertované navigace. `HasOne`/`WithOne` se používají pro referenční vlastnosti navigace a `HasMany`/`WithMany` se používají pro navigační vlastnosti kolekce.
 
-Pomocí datových poznámek můžete nakonfigurovat, která vlastnost má být použita jako vlastnost cizího klíče pro danou relaci. To se obvykle provádí v případě, že není zjištěna vlastnost cizího klíče podle konvence.
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?highlight=14-16)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?highlight=30)]
-
-> [!TIP]  
-> Anotaci `[ForeignKey]` lze umístit buď do vlastnosti navigace v relaci. Nepotřebujete přejít na navigační vlastnost v třídě závislé entity.
-
-### <a name="inverseproperty"></a>[InverseProperty]
+#### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
 Pomocí datových poznámek můžete nakonfigurovat, jak se mají spárovat vlastnosti navigace na závislých a hlavních entitách. To se obvykle provádí, pokud existuje více než jedna dvojice vlastností navigace mezi dvěma typy entit.
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/InverseProperty.cs?highlight=33,36)]
 
-## <a name="fluent-api"></a>Rozhraní Fluent API
+> [!NOTE]
+> Můžete použít pouze [povinné] u vlastností závislé entity, aby se ovlivnila požadovaná vlastnost vztahu. [Požadováno] při navigaci z hlavní entity je obvykle ignorováno, ale může způsobit, že entita bude závislá na sobě.
 
-Pokud chcete nakonfigurovat relaci v rozhraní Fluent API, začněte tím, že určíte navigační vlastnosti, které tvoří relaci. `HasOne` nebo `HasMany` identifikuje navigační vlastnost u typu entity, na které začínáte konfigurovat. Pak řetězení volání `WithOne` nebo `WithMany` k identifikaci invertované navigace. `HasOne`/`WithOne` se používají pro referenční vlastnosti navigace a `HasMany`/`WithMany` se používají pro navigační vlastnosti kolekce.
+> [!NOTE]
+> Poznámky k datům `[ForeignKey]` a `[InverseProperty]` jsou k dispozici v oboru názvů `System.ComponentModel.DataAnnotations.Schema`. `[Required]` je k dispozici v oboru názvů `System.ComponentModel.DataAnnotations`.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?highlight=14-16)]
+---
 
 ### <a name="single-navigation-property"></a>Jednoduchá navigační vlastnost
 
@@ -129,11 +146,27 @@ Pokud máte pouze jednu navigační vlastnost, existují přetížení `WithOne`
 
 ### <a name="foreign-key"></a>Cizí klíč
 
+#### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
+
 Rozhraní Fluent API můžete použít ke konfiguraci, které vlastnosti by se měly používat jako vlastnost cizího klíče pro danou relaci.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ForeignKey.cs?highlight=17)]
 
-Následující výpis kódu ukazuje, jak nakonfigurovat složený cizí klíč.
+#### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
+
+Pomocí datových poznámek můžete nakonfigurovat, která vlastnost má být použita jako vlastnost cizího klíče pro danou relaci. To se obvykle provádí v případě, že není zjištěna vlastnost cizího klíče podle konvence.
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?highlight=30)]
+
+> [!TIP]  
+> Anotaci `[ForeignKey]` lze umístit buď do vlastnosti navigace v relaci. Nepotřebujete přejít na navigační vlastnost v třídě závislé entity.
+
+> [!NOTE]
+> Vlastnost zadaná pomocí `[ForeignKey]` pro vlastnost navigace nemusí existovat závislého typu. V tomto případě se pro vytvoření stínového cizího klíče použije zadaný název.
+
+---
+
+Následující kód ukazuje, jak nakonfigurovat složený cizí klíč.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?highlight=20)]
 
@@ -149,11 +182,11 @@ Nemusíte nutně zadávat navigační vlastnost. Můžete jednoduše zadat cizí
 
 ### <a name="principal-key"></a>Hlavní klíč
 
-Pokud chcete, aby cizí klíč odkazoval na jinou vlastnost než na primární klíč, můžete pro relaci nakonfigurovat vlastnost klíče zabezpečení pomocí rozhraní Fluent API. Vlastnost, kterou nakonfigurujete jako hlavní klíč, se automaticky nastaví jako alternativní klíč (Další informace najdete v tématu [alternativní klíče](alternate-keys.md) ).
+Pokud chcete, aby cizí klíč odkazoval na jinou vlastnost než na primární klíč, můžete pro relaci nakonfigurovat vlastnost klíče zabezpečení pomocí rozhraní Fluent API. Vlastnost, kterou nakonfigurujete jako hlavní klíč, se automaticky nastaví jako [alternativní klíč](alternate-keys.md).
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
-Následující výpis kódu ukazuje, jak nakonfigurovat složený klíč zabezpečení.
+Následující kód ukazuje, jak nakonfigurovat složený klíč zabezpečení.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=Composite&highlight=11)]
 
@@ -166,17 +199,20 @@ Pomocí rozhraní Fluent API můžete nakonfigurovat, jestli je relace povinná 
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?name=Required&highlight=11)]
 
-### <a name="cascade-delete"></a>Kaskádové odstranění
+> [!NOTE]
+> Volání `IsRequired(false)` také nastaví vlastnost cizího klíče jako volitelnou, pokud není konfigurována jinak.
+
+### <a name="cascade-delete"></a>Odstranění v kaskádě
 
 Rozhraní Fluent API můžete použít ke konfiguraci chování kaskádového odstranění pro daný vztah explicitně.
 
-Podrobné informace o jednotlivých možnostech najdete v části [kaskádová odstranění](../saving/cascade-delete.md) v části ukládání dat.
+Podrobné informace o jednotlivých možnostech najdete v části [kaskádové odstranění](../saving/cascade-delete.md) .
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CascadeDelete.cs?name=CascadeDelete&highlight=11)]
 
 ## <a name="other-relationship-patterns"></a>Další vzory vztahů
 
-### <a name="one-to-one"></a>Jeden k jednomu
+### <a name="one-to-one"></a>Relace jednoho k jednomu jinému
 
 Jedna až jedna relace má referenční navigační vlastnost na obou stranách. Dodržují stejné konvence jako relace 1: n, ale do vlastnosti cizího klíče se zavedl jedinečný index, který zaručí, že k jednotlivým objektům zabezpečení souvisí jenom jedna závislá hodnota.
 
@@ -191,7 +227,7 @@ Při konfiguraci cizího klíče musíte zadat typ závislé entity – Všimně
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?name=OneToOne&highlight=11)]
 
-### <a name="many-to-many"></a>Mnoho k mnoha
+### <a name="many-to-many"></a>Many-to-many
 
 Relace m:n bez třídy entity představující tabulku JOIN se ještě nepodporují. Můžete však znázornit relaci n:n zahrnutím třídy entity pro tabulku JOIN a mapováním dvou samostatných vztahů 1: n.
 

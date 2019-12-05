@@ -1,15 +1,15 @@
 ---
 title: Indexy (relační databáze) – EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 4581e7ba-5e7f-452c-9937-0aaf790ba10a
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/05/2019
 uid: core/modeling/relational/indexes
-ms.openlocfilehash: 7bb74d0bfa6090b597eb988a46f00494e25f233e
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: e14615275f85ee9b6b32d080905465d33963feca
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813636"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824572"
 ---
 # <a name="indexes-relational-database"></a>Indexy (relační databáze)
 
@@ -20,7 +20,7 @@ Index v relační databázi se mapuje na stejný koncept jako index v jádru Ent
 
 ## <a name="conventions"></a>Konvence
 
-Podle konvence jsou indexy pojmenovány `IX_<type name>_<property name>`. U složených indexů `<property name>` se jako seznam názvů vlastností oddělí podtržítko.
+Podle konvence jsou indexy pojmenované `IX_<type name>_<property name>`. U složených indexů se `<property name>` jako podtržítko oddělený seznam názvů vlastností.
 
 ## <a name="data-annotations"></a>Datové poznámky
 
@@ -36,7 +36,7 @@ Můžete také zadat filtr.
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexFilter.cs?name=Model&highlight=9)]
 
-Při použití poskytovatele SQL Server EF Přidá filtr IS NOT NULL pro všechny sloupce s možnou hodnotou null, které jsou součástí jedinečného indexu. K přepsání této konvence můžete uvést `null` hodnotu.
+Při použití poskytovatele SQL Server EF přidá `'IS NOT NULL'` filtr pro všechny sloupce s možnou hodnotou null, které jsou součástí jedinečného indexu. K přepsání této konvence můžete uvést `null`ou hodnotu.
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexNoFilter.cs?name=Model&highlight=10)]
 
@@ -44,4 +44,4 @@ Při použití poskytovatele SQL Server EF Přidá filtr IS NOT NULL pro všechn
 
 Pokud jsou všechny sloupce v dotazu zahrnuté do indexu jako klíčové nebo neklíčové sloupce, můžete nakonfigurovat [indexy se zahrnutými sloupci](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns) a významně tak zvýšit výkon dotazů.
 
-[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/ForSqlServerHasIndex.cs?name=Model)]
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexInclude.cs?name=Model)]

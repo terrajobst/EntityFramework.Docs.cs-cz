@@ -5,32 +5,32 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 6cac695288d9ba84968b7fab6361f55e9b51be67
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 162e5d387bcbfbf1e90baf27fc62dd2ed562ae58
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656093"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824544"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Poskytovatel EF Core Azure Cosmos DB
 
->[!NOTE]
+> [!NOTE]
 > Tento zprostředkovatel je v EF Core 3,0 novinkou.
 
 Tento poskytovatel databáze umožňuje použití Entity Framework Core s Azure Cosmos DB. Poskytovatel se udržuje jako součást [projektu Entity Framework Core](https://github.com/aspnet/EntityFrameworkCore).
 
 Před čtením této části se důrazně doporučuje seznámení s [Azure Cosmos DB dokumentaci](/azure/cosmos-db/introduction) .
 
->[!NOTE]
+> [!NOTE]
 > Tento zprostředkovatel funguje jenom s rozhraním SQL API Azure Cosmos DB.
 
-## <a name="install"></a>Instalace
+## <a name="install"></a>Instalace produktu
 
 Nainstalujte [balíček NuGet Microsoft. EntityFrameworkCore. Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).
 
 ## <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
-``` console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
@@ -89,7 +89,7 @@ Ve výchozím nastavení EF Core vytvoří kontejnery s klíčem oddílu nastave
 
 [!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PartitionKey)]
 
->[!NOTE]
+> [!NOTE]
 >Vlastnost klíče oddílu může být libovolného typu, pokud je [převedena na řetězec](xref:core/modeling/value-conversions).
 
 Po nakonfigurování by vlastnost klíče oddílu měla vždycky mít hodnotu, která není null. Při vystavení dotazu je možné přidat podmínku, která bude obsahovat jeden oddíl.

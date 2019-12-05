@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: fca1b532b34e20aeea1968939af96c692d60d738
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: d46c4bb9ac6c8f718b4da5ecd82d54710d41935f
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813609"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824485"
 ---
 # <a name="getting-started-with-ef-core"></a>Začínáme s EF Core
 
@@ -38,14 +38,14 @@ Nainstalujte následující software:
 
 ## <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet new console -o EFGetStarted
 cd EFGetStarted
 ```
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Otevřít Visual Studio
+* Otevřete sadu Visual Studio.
 * Klikněte na **vytvořit nový projekt** .
 * Vyberte možnost **aplikace konzoly (.NET Core)** se **C#** značkou a klikněte na **Další** .
 * Jako název zadejte **EFGetStarted** a klikněte na **vytvořit** .
@@ -58,7 +58,7 @@ Chcete-li nainstalovat EF Core, nainstalujte balíček pro zprostředkovatele EF
 
 ## <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
@@ -71,7 +71,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
   Install-Package Microsoft.EntityFrameworkCore.Sqlite
   ```
 
-Tip: Balíčky můžete nainstalovat také tak, že kliknete pravým tlačítkem na projekt a vyberete **Spravovat balíčky NuGet** .
+Tip: balíčky můžete nainstalovat také tak, že kliknete pravým tlačítkem na projekt a vyberete **Spravovat balíčky NuGet** .
 
 ---
 
@@ -81,7 +81,7 @@ Definujte třídu kontextu a třídy entit, které tvoří model.
 
 ## <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-* V adresáři projektu vytvořte **model.cs** s následujícím kódem
+* V adresáři projektu vytvořte **model.cs** s následujícím kódem.
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -95,7 +95,7 @@ Definujte třídu kontextu a třídy entit, které tvoří model.
 
 EF Core může také provádět [zpětnou analýzu](../managing-schemas/scaffolding.md) modelu z existující databáze.
 
-Tip: V reálné aplikaci vložíte každou třídu do samostatného souboru a [připojovací řetězec](../miscellaneous/connection-strings.md) vložíte do konfiguračního souboru nebo proměnné prostředí. V případě jednoduchého kurzu je vše obsaženo v jednom souboru.
+Tip: v reálné aplikaci vložíte každou třídu do samostatného souboru a [připojovací řetězec](../miscellaneous/connection-strings.md) umístíte do konfiguračního souboru nebo proměnné prostředí. V případě jednoduchého kurzu je vše obsaženo v jednom souboru.
 
 ## <a name="create-the-database"></a>Vytvoření databáze
 
@@ -105,14 +105,14 @@ V následujících krocích se k vytvoření databáze používají [migrace](xr
 
 * Spusťte následující příkazy:
 
-  ``` Console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef
   dotnet add package Microsoft.EntityFrameworkCore.Design
   dotnet ef migrations add InitialCreate
   dotnet ef database update
   ```
 
-  Tím se nainstaluje [dotnet EF](../miscellaneous/cli/dotnet.md) a návrhový balíček, který je nutný ke spuštění příkazu na projektu. `migrations` Příkaz vytvoří z tohoto příkazu pro vytvoření počáteční sadu tabulek pro tento model. `database update` Příkaz vytvoří databázi a použije novou migraci na ni.
+  Tím se nainstaluje [dotnet EF](../miscellaneous/cli/dotnet.md) a návrhový balíček, který je nutný ke spuštění příkazu na projektu. Příkaz `migrations` vygeneruje migraci k vytvoření počáteční sady tabulek pro model. Příkaz `database update` vytvoří databázi a použije novou migraci na ni.
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -124,7 +124,7 @@ V následujících krocích se k vytvoření databáze používají [migrace](xr
   Update-Database
   ```
 
-  Tím se nainstaluje [nástroje PMC pro EF Core](../miscellaneous/cli/powershell.md). `Add-Migration` Příkaz vytvoří z tohoto příkazu pro vytvoření počáteční sadu tabulek pro tento model. `Update-Database` Příkaz vytvoří databázi a použije novou migraci na ni.
+  Tím se nainstaluje [nástroje PMC pro EF Core](../miscellaneous/cli/powershell.md). Příkaz `Add-Migration` vygeneruje migraci k vytvoření počáteční sady tabulek pro model. Příkaz `Update-Database` vytvoří databázi a použije novou migraci na ni.
 
 ---
 
@@ -138,13 +138,13 @@ V následujících krocích se k vytvoření databáze používají [migrace](xr
 
 ## <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet run
 ```
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Visual Studio používá nekonzistentní pracovní adresář při spuštění konzolových aplikací .NET Core. (viz [dotnet/Project-System # 3619](https://github.com/dotnet/project-system/issues/3619)) Výsledkem je vyjímka vyvolané výjimky: *žádná taková tabulka: Blogy*. Aktualizace pracovního adresáře:
+Visual Studio používá nekonzistentní pracovní adresář při spuštění konzolových aplikací .NET Core. (viz [dotnet/Project-System # 3619](https://github.com/dotnet/project-system/issues/3619)) Výsledkem je výjimka, která je vyvolána: *žádná taková tabulka: Blogy*. Aktualizace pracovního adresáře:
 
 * Klikněte pravým tlačítkem na projekt a vyberte **Upravit soubor projektu** .
 * Hned pod vlastností *targetFramework* přidejte následující:
@@ -153,7 +153,7 @@ Visual Studio používá nekonzistentní pracovní adresář při spuštění ko
   <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
   ```
 
-* Uložte soubor.
+* Soubor uložte.
 
 Teď můžete aplikaci spustit:
 

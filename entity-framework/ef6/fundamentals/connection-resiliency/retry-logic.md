@@ -1,14 +1,14 @@
 ---
 title: Odolnost připojení a logika opakování – EF6
-author: divega
-ms.date: 10/23/2016
+author: AndriySvyryd
+ms.date: 11/20/2019
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: a01216c3399ca4a04943563435eacd0047337a5f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 50e65bed32d0cfcf42746da0d632f9e990424b97
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306579"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824835"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>Odolnost připojení a logika opakování
 > [!NOTE]
@@ -124,77 +124,14 @@ using (var db = new BloggingContext())
 
 Tato funkce není podporována, pokud používáte strategii opakovaného spuštění, protože EF neznáte žádné předchozí operace a postup opakování. Například pokud druhý příkaz SaveChanges neproběhne úspěšně, EF již neobsahuje požadované informace pro opakování prvního volání metody SaveChanges.  
 
-### <a name="workaround-suspend-execution-strategy"></a>Alternativní řešení: Pozastavit strategii provádění  
+### <a name="solution-manually-call-execution-strategy"></a>Řešení: ruční volání strategie provádění  
 
-Jedním z možných alternativních řešení je pozastavit strategii spuštění opakování pro část kódu, která potřebuje použít transakci iniciované uživatelem. Nejjednodušší způsob, jak to provést, je přidat příznak SuspendExecutionStrategy do třídy konfigurace na základě kódu a změnit výraz lambda strategie provádění, který vrátí výchozí (nevratnou) strategii provádění, když je příznak nastaven.  
-
-``` csharp
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.SqlServer;
-using System.Runtime.Remoting.Messaging;
-
-namespace Demo
-{
-    public class MyConfiguration : DbConfiguration
-    {
-        public MyConfiguration()
-        {
-            this.SetExecutionStrategy("System.Data.SqlClient", () => SuspendExecutionStrategy
-              ? (IDbExecutionStrategy)new DefaultExecutionStrategy()
-              : new SqlAzureExecutionStrategy());
-        }
-
-        public static bool SuspendExecutionStrategy
-        {
-            get
-            {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
-            }
-            set
-            {
-                CallContext.LogicalSetData("SuspendExecutionStrategy", value);
-            }
-        }
-    }
-}
-```  
-
-Všimněte si, že k uložení hodnoty příznaku používáme CallContext. To poskytuje podobné funkce jako thread local úložiště, ale je bezpečné ho použít s asynchronním kódem – včetně asynchronního dotazu a uložení s Entity Framework.  
-
-Nyní můžeme pro oddíl kódu, který používá transakci iniciované uživatelem, pozastavit strategii provádění.  
-
-``` csharp
-using (var db = new BloggingContext())
-{
-    MyConfiguration.SuspendExecutionStrategy = true;
-
-    using (var trn = db.Database.BeginTransaction())
-    {
-        db.Blogs.Add(new Blog { Url = "http://msdn.com/data/ef" });
-        db.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-        db.SaveChanges();
-
-        db.Blogs.Add(new Blog { Url = "http://twitter.com/efmagicunicorns" });
-        db.SaveChanges();
-
-        trn.Commit();
-    }
-
-    MyConfiguration.SuspendExecutionStrategy = false;
-}
-```  
-
-### <a name="workaround-manually-call-execution-strategy"></a>Alternativní řešení: Ruční volání strategie provádění  
-
-Další možností je ručně použít strategii spouštění a dát jí celou sadu logiky, která se má spustit, aby se mohla opakovat vše, pokud jedna z operací neproběhne úspěšně. Ještě musíme na základě výše uvedené techniky pozastavit strategii spouštění, aby se všechny kontexty používané uvnitř bloku kódu s opakováním nepokoušely opakovat.  
+Řešením je ruční použití strategie spouštění a přidělení celé sady logiky, která se má spustit, aby se mohla opakovat vše, pokud jedna z operací neproběhne úspěšně. Pokud je spuštěná strategie spouštění odvozená z DbExecutionStrategy, pozastaví se implicitní prováděcí strategie používané v SaveChanges.  
 
 Všimněte si, že všechny kontexty by měly být vytvořeny v rámci bloku kódu, který se má opakovat. Tím se zajistí, že pro každý pokus začneme s čistým stavem.  
 
 ``` csharp
 var executionStrategy = new SqlAzureExecutionStrategy();
-
-MyConfiguration.SuspendExecutionStrategy = true;
 
 executionStrategy.Execute(
     () =>
@@ -214,6 +151,4 @@ executionStrategy.Execute(
             }
         }
     });
-
-MyConfiguration.SuspendExecutionStrategy = false;
 ```  
