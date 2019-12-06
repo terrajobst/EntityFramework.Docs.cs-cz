@@ -225,6 +225,8 @@
                   href: core/providers/sql-server/index.md
                 - name: Paměťově optimalizované tabulky
                   href: core/providers/sql-server/memory-optimized-tables.md
+                - name: Určení možností Azure SQL Database
+                  href: core/providers/sql-server/azure-sql-database.md
             - name: SQLite
               items:
                 - name: Přehled
