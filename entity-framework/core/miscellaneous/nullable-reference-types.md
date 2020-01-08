@@ -4,12 +4,12 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 055f492214596506ce2c28485ade359d175c4ac2
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: 0d05902566b6b166f1267915d9f698ed29dff588
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72445895"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502064"
 ---
 # <a name="working-with-nullable-reference-types"></a>Práce s typy odkazů s možnou hodnotou null
 
@@ -19,14 +19,14 @@ Tato stránka představuje podporu EF Corech typů odkazů s možnou hodnotou nu
 
 ## <a name="required-and-optional-properties"></a>Povinné a volitelné vlastnosti
 
-Hlavní dokumentace k vyžadovaným a volitelným vlastnostem a jejich interakci s odkazem s možnou hodnotou null je stránka [požadovaná a volitelná vlastnost](xref:core/modeling/required-optional) . Doporučujeme, abyste si nejdřív načetli tuto stránku.
+Hlavní dokumentace k vyžadovaným a volitelným vlastnostem a jejich interakci s odkazem s možnou hodnotou null je stránka [požadovaná a volitelná vlastnost](xref:core/modeling/entity-properties#required-and-optional-properties) . Doporučujeme, abyste si nejdřív načetli tuto stránku.
 
 > [!NOTE]
 > Cvičení opatrnosti při povolování typů odkazů s možnou hodnotou null u existujícího projektu: vlastnosti referenčního typu, které byly dříve nakonfigurovány jako volitelné, budou nyní konfigurovány jako povinné, pokud nejsou explicitně opatřeny poznámkami k Nullable. Při správě schématu relační databáze to může způsobit, že se budou vygenerovat migrace, které změní hodnotu vlastnosti Database na sloupec.
 
 ## <a name="dbcontext-and-dbset"></a>DbContext a Negenerickými
 
-Pokud jsou povoleny typy odkazů s možnou C# hodnotou null, kompilátor vygeneruje upozornění pro jakoukoli neinicializovaná vlastnost, která neumožňuje hodnotu null, protože by obsahovala hodnotu null. V důsledku toho se při běžném postupu definování nenullable `DbSet` v kontextu nyní vygeneruje upozornění. EF Core však vždy inicializuje všechny vlastnosti `DbSet` u typů odvozených od DbContext, takže je zaručeno, že nikdy nebudou mít hodnotu null, a to ani v případě, že to kompilátor neví. Proto se doporučuje zachovat vlastnosti `DbSet` s možnou hodnotou null – umožní vám přístup k nim bez kontrol hodnot null – a pro tichá upozornění kompilátoru je explicitně nastavit na hodnotu null s použitím operátoru null-striktní (!):
+Pokud jsou povoleny typy odkazů s možnou C# hodnotou null, kompilátor vygeneruje upozornění pro jakoukoli neinicializovaná vlastnost, která neumožňuje hodnotu null, protože by obsahovala hodnotu null. V důsledku toho se při běžném postupu definování `DbSet` bez hodnoty null v kontextu nyní vygeneruje upozornění. EF Core však vždy inicializuje všechny `DbSet` vlastnosti na typech odvozených od DbContext, takže je zaručeno, že nikdy nebudete mít hodnotu null, a to ani v případě, že to kompilátor neví. Proto se doporučuje zachovat `DbSet` vlastností, které neumožňují hodnotu null – umožňuje přístup k nim bez kontrol hodnot null – a pro tichá upozornění kompilátoru jejich explicitním nastavením na hodnotu null s použitím operátoru null-striktní (!):
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/NullableReferenceTypesContext.cs?name=Context&highlight=3-4)]
 
@@ -65,4 +65,4 @@ Pokud sami zjistíte, že se jedná o spoustu dat, a tyto typy entit jsou v EF C
 
 ## <a name="scaffolding"></a>Generování uživatelského rozhraní
 
-[Funkce C# typu odkazu s možnou hodnotou null](/dotnet/csharp/tutorials/nullable-reference-types) není v současné době v rekonstrukci podporována C# : EF Core vždy generuje kód, který předpokládá, že funkce je vypnuta. Například textové sloupce s možnou hodnotou null budou vygenerované jako vlastnost s typem `string`, ne `string?` s rozhraním API Fluent nebo pomocí datových poznámek, které slouží ke konfiguraci, jestli je vlastnost požadovaná nebo ne. Můžete upravit generovaný kód a nahradit je poznámkami, které C# mají hodnotu null. Podpora generování uživatelského rozhraní pro typy odkazů s možnou hodnotou null je sledována pomocí [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problému.
+[Funkce C# typu odkazu s možnou hodnotou null](/dotnet/csharp/tutorials/nullable-reference-types) není v současné době v rekonstrukci podporována C# : EF Core vždy generuje kód, který předpokládá, že funkce je vypnuta. Například textové sloupce s možnou hodnotou null budou vygenerované jako vlastnost s typem `string`, ne `string?`, s rozhraním API Fluent nebo pomocí datových poznámek, které slouží ke konfiguraci, jestli je vlastnost požadovaná nebo ne. Můžete upravit generovaný kód a nahradit je poznámkami, které C# mají hodnotu null. Podpora generování uživatelského rozhraní pro typy odkazů s možnou hodnotou null je sledována pomocí [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problému.

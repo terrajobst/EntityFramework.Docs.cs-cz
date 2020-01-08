@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 7fa3eae5e2edb7b4c40ed4f99ce4a29f367e622a
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 9c616e157ff1bdb9700f436a7ae2788330fe5d45
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824700"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502029"
 ---
 # <a name="generated-values"></a>Vygenerované hodnoty
 
@@ -34,7 +34,7 @@ V závislosti na použitém poskytovateli databáze mohou být hodnoty generová
 
 Pokud přidáte entitu do kontextu, který má hodnotu přiřazenou k vlastnosti, pak EF se pokusí tuto hodnotu vložit místo vygenerování nového. Vlastnost je považována za přiřazenou hodnotu, pokud není přiřazena výchozí hodnota CLR (`null` pro `string`, `0` pro `int`, `Guid.Empty` pro `Guid`atd.). Další informace najdete v tématu [explicitní hodnoty pro vygenerované vlastnosti](../saving/explicit-values-generated-properties.md).
 
-> [!WARNING]  
+> [!WARNING]
 > Způsob generování hodnoty pro přidané entity bude záviset na používaném poskytovateli databáze. Poskytovatelé databází můžou automaticky nastavit generování hodnot u některých typů vlastností, ale jiné můžou vyžadovat ruční nastavení způsobu generování hodnoty.
 >
 > Například při použití SQL Server se hodnoty automaticky vygenerují pro `GUID` vlastnosti (pomocí SQL Server sekvenčního algoritmu GUID). Pokud však zadáte, že vlastnost `DateTime` je generována při přidání, je nutné nastavit způsob, jakým mají být generovány hodnoty. Jedním ze způsobů, jak to provést, je nakonfigurovat výchozí hodnotu `GETDATE()`, najdete v tématu [výchozí hodnoty](relational/default-values.md).
@@ -52,48 +52,73 @@ Podobně jako u `value generated on add`platí, že pokud zadáte hodnotu vlastn
 >
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.sql)]
 
-## <a name="conventions"></a>Konvence
+## <a name="value-generated-on-add"></a>Hodnota vygenerovaná při přidání
 
-Ve výchozím nastavení se nesložené primární klíče typu short, int, Long nebo GUID nastaví tak, aby se hodnoty vygenerovaly při přidání. Všechny ostatní vlastnosti se nastaví bez generování hodnoty.
+Podle konvence, nesložené primární klíče typu short, int, Long nebo GUID jsou nastaveny tak, aby měly hodnoty generované pro vložené entity, pokud hodnota není poskytována aplikací. Váš poskytovatel databáze obvykle postará o nezbytnou konfiguraci. například numerický primární klíč v SQL Server je automaticky nastaven jako sloupec IDENTITY.
 
-## <a name="data-annotations"></a>Datové poznámky
+Libovolnou vlastnost můžete nakonfigurovat tak, aby se vygenerovala její hodnota pro vložené entity následujícím způsobem:
 
-### <a name="no-value-generation-data-annotations"></a>Žádná generace hodnot (datové poznámky)
+### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="value-generated-on-add-data-annotations"></a>Hodnota vygenerovaná při přidání (datové poznámky)
+### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-> [!WARNING]  
+***
+
+> [!WARNING]
 > To umožňuje, aby EF věděl, že jsou pro přidané entity vygenerovány hodnoty. nezaručujeme tak, že EF nastaví skutečný mechanismus pro generování hodnot. Další podrobnosti najdete v části věnované [hodnotě vygenerované v doplňku](#value-generated-on-add) .
 
-### <a name="value-generated-on-add-or-update-data-annotations"></a>Hodnota vygenerovaná při přidání nebo aktualizaci (datové poznámky)
+### <a name="default-values"></a>Výchozí hodnoty
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+U relačních databází lze nakonfigurovat sloupec s výchozí hodnotou. Pokud je řádek vložen bez hodnoty pro tento sloupec, bude použita výchozí hodnota.
 
-> [!WARNING]  
+Můžete nakonfigurovat výchozí hodnotu vlastnosti:
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValue.cs?name=DefaultValue&highlight=5)]
+
+Můžete také zadat fragment SQL, který se použije k výpočtu výchozí hodnoty:
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValueSql.cs?name=DefaultValueSql&highlight=5)]
+
+Zadáním výchozí hodnoty se vlastnost implicitně nakonfiguruje jako hodnota generovaná při přidání.
+
+## <a name="value-generated-on-add-or-update"></a>Hodnota vygenerovaná při přidání nebo aktualizaci
+
+### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
+
+### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
+
+***
+
+> [!WARNING]
 > To umožňuje, aby EF věděl, že jsou pro přidané nebo aktualizované entity vygenerovány hodnoty. nezaručujeme tak, že EF nastaví skutečný mechanismus pro generování hodnot. Další podrobnosti najdete v části věnované [Přidání nebo aktualizaci](#value-generated-on-add-or-update) .
 
-## <a name="fluent-api"></a>Rozhraní Fluent API
+### <a name="computed-columns"></a>Vypočítané sloupce
 
-Rozhraní Fluent API můžete použít ke změně vzoru pro generování hodnot pro danou vlastnost.
+V některých relačních databázích může být sloupec nakonfigurovaný tak, aby se jeho hodnota vypočítala v databázi, obvykle s výrazem odkazujícím na jiné sloupce:
 
-### <a name="no-value-generation-fluent-api"></a>Bez generování hodnoty (Fluent API)
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=ComputedColumn&highlight=5)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs#Sample)]
+> [!NOTE]
+> V některých případech je hodnota sloupce vypočítána pokaždé, když je načtena (někdy se jim říká *virtuální* sloupce), a v ostatních případech je vypočítána při každé aktualizaci řádku a uložených (někdy označovaných jako *uložené* nebo *trvalé* sloupce). To se liší od jiných poskytovatelů databáze.
 
-### <a name="value-generated-on-add-fluent-api"></a>Hodnota vygenerovaná při přidání (Fluent API)
+## <a name="no-value-generation"></a>Bez generování hodnoty
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs#Sample)]
+Zakázání generování hodnoty na vlastnost je obvykle nezbytné, pokud je konvence nakonfiguruje pro generování hodnoty. Například pokud máte primární klíč typu int, bude implicitně nastaven jako hodnota vygenerovaná při přidání; tuto možnost můžete zakázat prostřednictvím následujících kroků:
 
-> [!WARNING]  
-> `ValueGeneratedOnAdd()` jen pro EF ví, že jsou pro přidané entity vygenerované hodnoty, nezaručuje, že EF nastaví skutečný mechanismus pro generování hodnot.  Další podrobnosti najdete v části věnované [hodnotě vygenerované v doplňku](#value-generated-on-add) .
+### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
-### <a name="value-generated-on-add-or-update-fluent-api"></a>Hodnota vygenerovaná při přidání nebo aktualizaci (Fluent API)
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
-> [!WARNING]  
-> To umožňuje, aby EF věděl, že jsou pro přidané nebo aktualizované entity vygenerovány hodnoty. nezaručujeme tak, že EF nastaví skutečný mechanismus pro generování hodnot. Další podrobnosti najdete v části věnované [Přidání nebo aktualizaci](#value-generated-on-add-or-update) .
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
+
+***
