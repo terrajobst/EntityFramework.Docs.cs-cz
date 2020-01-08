@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 335d4f3a601624f7c994b7dcacefe4ef6798beb3
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 8dae1ab949c77ffa08904b12a5716b729e6913a1
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655603"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502237"
 ---
 # <a name="spatial-data"></a>Prostorová data
 
@@ -19,16 +19,16 @@ ms.locfileid: "73655603"
 
 Prostorová data představují fyzické umístění a tvar objektů. Mnohé databáze poskytují podporu pro tento typ dat, aby je bylo možné indexovat a dotazovat společně s ostatními daty. Mezi běžné scénáře patří dotazování pro objekty v dané vzdálenosti od místa nebo výběr objektu, jehož ohraničení obsahuje dané umístění. EF Core podporuje mapování na prostorové datové typy pomocí knihovny prostorů [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) .
 
-## <a name="installing"></a>Instalují
+## <a name="installing"></a>Instalace nástroje
 
 Aby bylo možné použít prostorová data s EF Core, je nutné nainstalovat příslušný podpůrný balíček NuGet. Který balíček, který potřebujete nainstalovat, závisí na používaném poskytovateli.
 
 Poskytovatel EF Core                        | Prostorový balíček NuGet
 --------------------------------------- | ---------------------
-Microsoft. EntityFrameworkCore. SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
-Microsoft. EntityFrameworkCore. sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
-Microsoft. EntityFrameworkCore. inMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
-Npgsql. EntityFrameworkCore. PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreSQL. NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
+Microsoft.EntityFrameworkCore.SqlServer | [Microsoft. EntityFrameworkCore. SqlServer. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite)
+Microsoft.EntityFrameworkCore.Sqlite    | [Microsoft. EntityFrameworkCore. sqlite. NetTopologySuite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
+Microsoft.EntityFrameworkCore.InMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
+Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore. PostgreSQL. NetTopologySuite](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
 
 ## <a name="reverse-engineering"></a>Zpětná analýza
 
@@ -51,7 +51,7 @@ Existuje několik prostorových datových typů. Typ, který použijete, závis�
 * Geometrie
   * Vyberte
   * LineString
-  * Postupně
+  * Mnohoúhelník
   * GeometryCollection
     * MultiPoint
     * MultiLineString
@@ -207,13 +207,13 @@ var currentCountry = db.Countries
     .FirstOrDefault(c => c.Border.Contains(currentLocation));
 ```
 
-## <a name="sql-server"></a>SQL Server
+## <a name="sql-server"></a>Server SQL
 
 Pokud používáte SQL Server, máte k dispozici několik dalších věcí, o kterých byste měli vědět.
 
 ### <a name="geography-or-geometry"></a>Zeměpisná nebo geometrie
 
-Ve výchozím nastavení jsou prostorové vlastnosti namapovány na `geography` sloupce v SQL Server. Pokud chcete použít `geometry`, nakonfigurujte v modelu [typ sloupce](xref:core/modeling/relational/data-types) .
+Ve výchozím nastavení jsou prostorové vlastnosti namapovány na `geography` sloupce v SQL Server. Pokud chcete použít `geometry`, nakonfigurujte v modelu [typ sloupce](xref:core/modeling/entity-properties#column-data-types) .
 
 ### <a name="geography-polygon-rings"></a>Geografické kroužky mnohoúhelníků
 
@@ -327,7 +327,7 @@ Mnohoúhelník. ExteriorRing | ✔ | ✔ | ✔ | ✔
 Mnohoúhelník. GetInteriorRingN (int) | ✔ | ✔ | ✔ | ✔
 Mnohoúhelník. NumInteriorRings | ✔ | ✔ | ✔ | ✔
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Prostorová data v SQL Server](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [Domovská stránka SpatiaLite](https://www.gaia-gis.it/fossil/libspatialite)

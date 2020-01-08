@@ -3,12 +3,12 @@ title: Přerušující změny v EF Core 3,0 – EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: d614103169837238810fabd0a8889043c851ef14
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: cac166e9e194e512de7d730d27c061e6deaf5191
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824863"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502224"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>Přerušující změny zahrnuté v EF Core 3,0
 
@@ -393,7 +393,7 @@ Tato změna byla provedena za účelem zlepšení prostředí pro scénáře vyt
 
 **Omezení rizik**
 
-Předchozí chování lze obnovit pomocí nastavení na `context.ChangedTracker`.
+Předchozí chování lze obnovit pomocí nastavení na `context.ChangeTracker`.
 Příklad:
 
 ```csharp
@@ -1624,7 +1624,7 @@ Před EF Core 3,0 byl Microsoft. EntityFrameworkCore. Design regulárním balí�
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se jedná o balíček DevelopmentDependency. To znamená, že závislost nebude nijak přesměrovat do jiných projektů a že již nemůžete ve výchozím nastavení odkazovat na své sestavení.
+Počínaje EF Core 3,0 se jedná o balíček DevelopmentDependency. To znamená, že závislost nebude nijak přesměrovat do jiných projektů a že již ve výchozím nastavení nemůžete, aby odkazoval na jeho sestavení.
 
 **Proč**
 
@@ -1632,7 +1632,7 @@ Tento balíček se má použít jenom v době návrhu. Nasazené aplikace by nem
 
 **Omezení rizik**
 
-Pokud potřebujete odkazovat na tento balíček, aby bylo možné přepsat EF Core chování při návrhu, můžete aktualizovat metadata položky aktualizovat PackageReference v projektu. Pokud se na balíček odkazuje přes Microsoft. EntityFrameworkCore. Tools, budete muset do balíčku přidat explicitní PackageReference, aby se změnila jeho metadata.
+Pokud potřebujete odkazovat na tento balíček, aby bylo možné přepsat EF Core chování při návrhu, můžete aktualizovat metadata položky PackageReference v projektu.
 
 ``` xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
@@ -1641,6 +1641,8 @@ Pokud potřebujete odkazovat na tento balíček, aby bylo možné přepsat EF Co
   <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
 </PackageReference>
 ```
+
+Pokud se na balíček odkazuje přes Microsoft. EntityFrameworkCore. Tools, budete muset do balíčku přidat explicitní PackageReference, aby se změnila jeho metadata. Takový explicitní odkaz musí být přidán do jakéhokoli projektu, kde jsou požadovány typy z balíčku.
 
 <a name="SQLitePCL"></a>
 

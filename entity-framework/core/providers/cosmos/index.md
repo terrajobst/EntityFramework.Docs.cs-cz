@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 162e5d387bcbfbf1e90baf27fc62dd2ed562ae58
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 6903aab4911f7478afe3d8987a791ae1c5ccebce
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824544"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502211"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Poskytovatel EF Core Azure Cosmos DB
 
@@ -28,13 +28,13 @@ Před čtením této části se důrazně doporučuje seznámení s [Azure Cosmo
 
 Nainstalujte [balíček NuGet Microsoft. EntityFrameworkCore. Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/).
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Cosmos

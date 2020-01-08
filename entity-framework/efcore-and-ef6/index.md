@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 9fe4905de5bd81fce083d620724b7fad4c6dd11b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 62f7da64bbb6289edd38b877af71fc126e03d0f6
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182056"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502286"
 ---
 # <a name="compare-ef-core--ef6"></a>Porovnání EF Core a EF6
 
@@ -30,7 +30,7 @@ EF Core byla navržena tak, aby poskytovala vývojářské prostředí podobně 
 
 ## <a name="feature-comparison"></a>Porovnání funkcí
 
-EF Core nabízí nové funkce, které se neimplementují v EF6 (například [alternativní klíče](xref:core/modeling/alternate-keys), [dávkové aktualizace](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)a [vyhodnocování smíšeného klienta/databáze v dotazech LINQ](xref:core/querying/client-eval). Ale vzhledem k tomu, že se jedná o nový základ kódu, chybí také některé funkce, které EF6 má.
+EF Core nabízí nové funkce, které se neimplementují v EF6 (například [alternativní klíče](xref:core/modeling/keys#alternate-keys), [dávkové aktualizace](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)a [vyhodnocování smíšeného klienta/databáze v dotazech LINQ](xref:core/querying/client-eval). Ale vzhledem k tomu, že se jedná o nový základ kódu, chybí také některé funkce, které EF6 má.
 
 Následující tabulky porovnávají funkce, které jsou k dispozici v EF Core a EF6. Jedná se o porovnání na vysoké úrovni a neuvádí všechny funkce nebo vysvětluje rozdíly mezi stejnou funkcí v různých verzích EF.
 
@@ -48,29 +48,29 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | Vlastní konvence                                    | Ano      | 1,0 (částečný)                         |
 | Datové poznámky                                      | Ano      | 1.0                                   |
 | Rozhraní Fluent API                                            | Ano      | 1.0                                   |
-| Dědičnost Tabulka na hierarchii (TPH)                | Ano      | 1.0                                   |
-| Dědičnost Tabulka na typ (TPT)                     | Ano      |                                       |
-| Dědičnost Tabulka na konkrétní třídu (TPC)           | Ano      |                                       |
+| Dědičnost: tabulka na hierarchii (TPH)                | Ano      | 1.0                                   |
+| Dědičnost: tabulka na typ (TPT)                     | Ano      |                                       |
+| Dědičnost: tabulka na konkrétní třídu (TPC)           | Ano      |                                       |
 | Vlastnosti stavu stínu                               |          | 1.0                                   |
 | Alternativní klíče                                        |          | 1.0                                   |
 | M:n bez spojení entity                      | Ano      |                                       |
-| Generování klíče: Databáze                              | Ano      | 1.0                                   |
-| Generování klíče: Klient                                |          | 1.0                                   |
+| Generování klíče: databáze                              | Ano      | 1.0                                   |
+| Generování klíče: klient                                |          | 1.0                                   |
 | Komplexní/vlastněné typy                                   | Ano      | 2.0                                   |
 | Prostorová data                                          | Ano      | 2.2                                   |
 | Grafická vizualizace modelu                      | Ano      |                                       |
 | Editor grafického modelu                                | Ano      |                                       |
-| Formát modelu: Kód                                    | Ano      | 1.0                                   |
+| Formát modelu: kód                                    | Ano      | 1.0                                   |
 | Formát modelu: EDMX (XML)                              | Ano      |                                       |
-| Vytvořit model z databáze: Příkazový řádek              | Ano      | 1.0                                   |
+| Vytvořit model z databáze: příkazový řádek              | Ano      | 1.0                                   |
 | Vytvořit model z databáze: Průvodce VS                 | Ano      |                                       |
-| Aktualizovat model z databáze                            | Částečně  |                                       |
+| Aktualizovat model z databáze                            | Částečné  |                                       |
 | Filtry globálních dotazů                                  |          | 2.0                                   |
 | Rozdělení tabulky                                       | Ano      | 2.0                                   |
 | Rozdělování entit                                      | Ano      |                                       |
 | Mapování skalární funkce databáze                      | Slabé     | 2.0                                   |
-| Mapování polí                                         |          | 1.1                                   |
-| Typy odkazů s možnou hodnotou null (C# 8,0)                     |          | 3.0                                   |
+| Mapování pole                                         |          | 1.1                                   |
+| Typy odkazů s možnou hodnotou null (C# 8,0)                     |          | 3,0                                   |
 
 ### <a name="querying-data"></a>Dotazy na data
 
@@ -80,23 +80,23 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | Čitelné vygenerované SQL                                | Slabé     | 1.0                                   |
 | Překlad GroupBy                                   | Ano      | 2.1                                   |
 | Načítají se související data: Eager                           | Ano      | 1.0                                   |
-| Načítají se související data: Eager načítání pro odvozené typy |          | 2.1                                   |
-| Načítají se související data: Psán                            | Ano      | 2.1                                   |
-| Načítají se související data: Explicitně                        | Ano      | 1.1                                   |
-| Nezpracované dotazy SQL: Typy entit                         | Ano      | 1.0                                   |
-| Nezpracované dotazy SQL: Typy entit bez klíčů                 | Ano      | 2.1                                   |
-| Nezpracované dotazy SQL: Vytváření pomocí LINQ                  |          | 1.0                                   |
+| Načítání souvisejících dat: Eager načítání pro odvozené typy |          | 2.1                                   |
+| Načítají se související data: opožděné                            | Ano      | 2.1                                   |
+| Načítají se související data: explicitní                        | Ano      | 1.1                                   |
+| Nezpracované dotazy SQL: typy entit                         | Ano      | 1.0                                   |
+| Nezpracované dotazy SQL: typy entit bez klíčů                 | Ano      | 2.1                                   |
+| Nezpracované dotazy SQL: sestavení pomocí LINQ                  |          | 1.0                                   |
 | Explicitně kompilované dotazy                           | Slabé     | 2.0                                   |
 | Dotazovací jazyk založený na textu (Entity SQL)                | Ano      |                                       |
-| await foreach (C# 8,0)                                |          | 3.0                                   |
+| await foreach (C# 8,0)                                |          | 3,0                                   |
 
 ### <a name="saving-data"></a>Ukládání dat
 
 | **Funkce**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| Sledování změn: Snímek                             | Ano      | 1.0                                   |
-| Sledování změn: Oznámení                         | Ano      | 1.0                                   |
-| Sledování změn: Proxy servery                              | Ano      |                                       |
+| Sledování změn: snímek                             | Ano      | 1.0                                   |
+| Sledování změn: oznámení                         | Ano      | 1.0                                   |
+| Sledování změn: proxy                              | Ano      |                                       |
 | Přístup ke sledovanému stavu                               | Ano      | 1.0                                   |
 | Optimistická souběžnost                                | Ano      | 1.0                                   |
 | Transakce                                          | Ano      | 1.0                                   |
@@ -121,7 +121,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 
 | **Funkce**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| SQL Server                                            | Ano      | 1.0                                   |
+| Server SQL                                            | Ano      | 1.0                                   |
 | MySQL                                                 | Ano      | 1.0                                   |
 | PostgreSQL                                            | Ano      | 1.0                                   |
 | Oracle                                                | Ano      | 1.0                                   |
@@ -130,7 +130,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | DB2                                                   | Ano      | 1.0                                   |
 | Firebird                                              | Ano      | 2.0                                   |
 | Jet (Microsoft Access)                                |          | 2,0 <sup>(1)</sup>                    |
-| Databáze Cosmos                                             |          | 3.0                                   |
+| Cosmos DB                                             |          | 3,0                                   |
 | V paměti (pro testování)                               |          | 1.0                                   |
 
 <sup>1</sup> poskytovatelé SQL Server Compact a jet fungují jenom v .NET Framework (ne v .NET Core).
