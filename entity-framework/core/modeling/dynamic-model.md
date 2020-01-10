@@ -1,26 +1,34 @@
 ---
 title: Střídání mezi několika modely se stejným typem DbContext-EF Core
 author: AndriySvyryd
-ms.date: 12/10/2017
+ms.date: 01/03/2020
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/dynamic-model
-ms.openlocfilehash: 034076b1595894e80b98467354f6c9f139bd7426
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 156d5666cbd9352b274ddc70c99704ca62aeb1fd
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655728"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781128"
 ---
-# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a><span data-ttu-id="0562f-102">Střídání mezi několika modely se stejným typem DbContext</span><span class="sxs-lookup"><span data-stu-id="0562f-102">Alternating between multiple models with the same DbContext type</span></span>
+# <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a><span data-ttu-id="71815-102">Střídání mezi několika modely se stejným typem DbContext</span><span class="sxs-lookup"><span data-stu-id="71815-102">Alternating between multiple models with the same DbContext type</span></span>
 
-<span data-ttu-id="0562f-103">Model sestavený `OnModelCreating` mohl použít vlastnost v kontextu ke změně způsobu sestavení modelu.</span><span class="sxs-lookup"><span data-stu-id="0562f-103">The model built in `OnModelCreating` could use a property on the context to change how the model is built.</span></span> <span data-ttu-id="0562f-104">Můžete například použít k vyloučení určité vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="0562f-104">For example it could be used to exclude a certain property:</span></span>
+<span data-ttu-id="71815-103">Model sestavený v `OnModelCreating` může použít vlastnost v kontextu ke změně způsobu sestavení modelu.</span><span class="sxs-lookup"><span data-stu-id="71815-103">The model built in `OnModelCreating` can use a property on the context to change how the model is built.</span></span> <span data-ttu-id="71815-104">Předpokládejme například, že jste chtěli konfigurovat entitu odlišně v závislosti na některé vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="71815-104">For example, suppose you wanted to configure an entity differently based on some property:</span></span>
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicContext.cs?name=Class)]
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnModelCreating)]
 
-## <a name="imodelcachekeyfactory"></a><span data-ttu-id="0562f-105">IModelCacheKeyFactory</span><span class="sxs-lookup"><span data-stu-id="0562f-105">IModelCacheKeyFactory</span></span>
+<span data-ttu-id="71815-105">Tento kód bohužel nefunguje tak, jak je, protože EF sestaví model a spustí `OnModelCreating` pouze jednou a ukládá do mezipaměti výsledek z důvodů výkonu.</span><span class="sxs-lookup"><span data-stu-id="71815-105">Unfortunately, this code wouldn't work as-is, since EF builds the model and runs `OnModelCreating` only once, caching the result for performance reasons.</span></span> <span data-ttu-id="71815-106">Je však možné připojit se k mechanismu ukládání modelu do mezipaměti, aby měl EF vědět, že vlastnost vytvářející různé modely vytváří různé modely.</span><span class="sxs-lookup"><span data-stu-id="71815-106">However, you can hook into the model caching mechanism to make EF aware of the property producing different models.</span></span>
 
-<span data-ttu-id="0562f-106">Nicméně pokud jste se pokusili provést výše uvedené bez dalších změn, měli byste stejný model pokaždé, když se vytvoří nový kontext pro libovolnou hodnotu `IgnoreIntProperty`.</span><span class="sxs-lookup"><span data-stu-id="0562f-106">However if you tried doing the above without additional changes you would get the same model every time a new context is created for any value of `IgnoreIntProperty`.</span></span> <span data-ttu-id="0562f-107">To je způsobeno tím, že nástroj pro ukládání modelů do mezipaměti EF používá ke zlepšení výkonu pouze vyvoláním `OnModelCreating` jednou a ukládáním do mezipaměti modelu.</span><span class="sxs-lookup"><span data-stu-id="0562f-107">This is caused by the model caching mechanism EF uses to improve the performance by only invoking `OnModelCreating` once and caching the model.</span></span>
+## <a name="imodelcachekeyfactory"></a><span data-ttu-id="71815-107">IModelCacheKeyFactory</span><span class="sxs-lookup"><span data-stu-id="71815-107">IModelCacheKeyFactory</span></span>
 
-<span data-ttu-id="0562f-108">Ve výchozím nastavení předpokládá, že pro jakýkoli daný typ kontextu bude model stejný.</span><span class="sxs-lookup"><span data-stu-id="0562f-108">By default EF assumes that for any given context type the model will be the same.</span></span> <span data-ttu-id="0562f-109">Chcete-li dosáhnout této výchozí implementace `IModelCacheKeyFactory` vrátí klíč, který pouze obsahuje typ kontextu.</span><span class="sxs-lookup"><span data-stu-id="0562f-109">To accomplish this the default implementation of `IModelCacheKeyFactory` returns a key that just contains the context type.</span></span> <span data-ttu-id="0562f-110">Chcete-li toto změnit, je třeba nahradit službu `IModelCacheKeyFactory`.</span><span class="sxs-lookup"><span data-stu-id="0562f-110">To change this you need to replace the `IModelCacheKeyFactory` service.</span></span> <span data-ttu-id="0562f-111">Nová implementace vyžaduje vrácení objektu, který lze porovnat s jinými klíči modelů pomocí metody `Equals`, která přihlíží ke všem proměnným, které mají vliv na model:</span><span class="sxs-lookup"><span data-stu-id="0562f-111">The new implementation needs to return an object that can be compared to other model keys using the `Equals` method that takes into account all the variables that affect the model:</span></span>
+<span data-ttu-id="71815-108">EF používá `IModelCacheKeyFactory` k vygenerování klíčů mezipaměti pro modely; ve výchozím nastavení předpokládá, že pro každý daný typ kontextu bude model stejný, takže výchozí implementace této služby vrátí klíč, který pouze obsahuje typ kontextu.</span><span class="sxs-lookup"><span data-stu-id="71815-108">EF uses the `IModelCacheKeyFactory` to generate cache keys for models; by default, EF assumes that for any given context type the model will be the same, so the default implementation of this service returns a key that just contains the context type.</span></span> <span data-ttu-id="71815-109">Chcete-li vydávat různé modely ze stejného typu kontextu, je nutné nahradit službu `IModelCacheKeyFactory` správnou implementací. vygenerovaný klíč bude porovnán s ostatními klíči modelů pomocí metody `Equals`, přičemž vezme v úvahu všechny proměnné ovlivňující model:</span><span class="sxs-lookup"><span data-stu-id="71815-109">To produce different models from the same context type, you need to replace the `IModelCacheKeyFactory` service with the correct  implementation; the generated key will be compared to other model keys using the `Equals` method, taking into account all the variables that affect the model:</span></span>
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicModelCacheKeyFactory.cs?name=Class)]
+<span data-ttu-id="71815-110">Následující implementace vezme při vytváření klíče mezipaměti modelu `IgnoreIntProperty` v úvahu:</span><span class="sxs-lookup"><span data-stu-id="71815-110">The following implementation takes the `IgnoreIntProperty` into account when producing a model cache key:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicModelCacheKeyFactory.cs?name=DynamicModel)]
+
+<span data-ttu-id="71815-111">Nakonec Zaregistrujte novou `IModelCacheKeyFactory` do `OnConfiguring`vašeho kontextu:</span><span class="sxs-lookup"><span data-stu-id="71815-111">Finally, register your new `IModelCacheKeyFactory` in your context's `OnConfiguring`:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnConfiguring)]
+
+<span data-ttu-id="71815-112">Podívejte se na [úplný ukázkový projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DynamicModel) pro další kontext.</span><span class="sxs-lookup"><span data-stu-id="71815-112">See the [full sample project](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DynamicModel) for more context.</span></span>
