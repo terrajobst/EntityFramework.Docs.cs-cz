@@ -79,18 +79,14 @@
           items:
             - name: Přehled
               href: core/modeling/index.md
-            - name: Zahrnutí a vyloučení typů
-              href: core/modeling/included-types.md
-            - name: Zahrnutí a vyloučení vlastností
-              href: core/modeling/included-properties.md
-            - name: Klíče (primární)
+            - name: Typy entit
+              href: core/modeling/entity-types.md
+            - name: Vlastnosti entit
+              href: core/modeling/entity-properties.md
+            - name: Klíče
               href: core/modeling/keys.md
             - name: Vygenerované hodnoty
               href: core/modeling/generated-properties.md
-            - name: Požadované a volitelné vlastnosti
-              href: core/modeling/required-optional.md
-            - name: Maximální délka
-              href: core/modeling/max-length.md
             - name: Tokeny souběžnosti
               href: core/modeling/concurrency.md
             - name: Stínové vlastnosti
@@ -99,10 +95,10 @@
               href: core/modeling/relationships.md
             - name: Indexy
               href: core/modeling/indexes.md
-            - name: Alternativní klíče
-              href: core/modeling/alternate-keys.md
             - name: Dědičnost
               href: core/modeling/inheritance.md
+            - name: Sekvence
+              href: core/modeling/sequences.md
             - name: Pomocná pole
               href: core/modeling/backing-field.md
             - name: Převody hodnot
@@ -119,36 +115,13 @@
               href: core/modeling/keyless-entity-types.md
             - name: Střídání modelů pomocí stejného DbContext
               href: core/modeling/dynamic-model.md
-            - name: Prostorová data (GIS)
+            - name: Prostorová data
+              displayName: GIS
               href: core/modeling/spatial.md
             - name: Modelování relační databáze
               items:
                 - name: Přehled
                   href: core/modeling/relational/index.md
-                - name: Mapování tabulek
-                  href: core/modeling/relational/tables.md
-                - name: Mapování sloupců
-                  href: core/modeling/relational/columns.md
-                - name: Datové typy
-                  href: core/modeling/relational/data-types.md
-                - name: Primární klíče
-                  href: core/modeling/relational/primary-keys.md
-                - name: Výchozí schéma
-                  href: core/modeling/relational/default-schema.md
-                - name: Vypočítané sloupce
-                  href: core/modeling/relational/computed-columns.md
-                - name: Sekvence
-                  href: core/modeling/relational/sequences.md
-                - name: Výchozí hodnoty
-                  href: core/modeling/relational/default-values.md
-                - name: Indexy
-                  href: core/modeling/relational/indexes.md
-                - name: Omezení cizího klíče
-                  href: core/modeling/relational/fk-constraints.md
-                - name: Alternativní klíče (jedinečná omezení)
-                  href: core/modeling/relational/unique-constraints.md
-                - name: Dědičnost (relační databáze)
-                  href: core/modeling/relational/inheritance.md
         - name: Správa schémat databází
           items:
             - name: Přehled
@@ -321,7 +294,7 @@
                   items:
                     - name: Přehled
                       href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
-                    - name: Názorný postup
+                    - name: Návod
                       href: ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md
             - name: Protokolování a zachytávání
               href: ef6/fundamentals/logging-and-interception.md
@@ -333,7 +306,7 @@
                   href: ef6/fundamentals/performance/ngen.md
                 - name: Použití předem vygenerovaných zobrazení
                   href: ef6/fundamentals/performance/pre-generated-views.md
-            - name: Poskytovatelé
+            - name: Zprostředkovatelé
               items:
                 - name: Přehled
                   href: ef6/fundamentals/providers/index.md
@@ -371,7 +344,7 @@
                   items:
                     - name: Výčty
                       href: ef6/modeling/code-first/data-types/enums.md
-                    - name: Spatial
+                    - name: Prostorové
                       href: ef6/modeling/code-first/data-types/spatial.md
                 - name: Konvence
                   items:
@@ -419,7 +392,7 @@
                       href: ef6/modeling/designer/data-types/complex-types.md
                     - name: Výčty
                       href: ef6/modeling/designer/data-types/enums.md
-                    - name: Spatial
+                    - name: Prostorové
                       href: ef6/modeling/designer/data-types/spatial.md
                 - name: Mapování dělení
                   items:
@@ -465,7 +438,7 @@
                       href: ef6/modeling/designer/advanced/defining-query.md
                     - name: Více sad výsledků
                       href: ef6/modeling/designer/advanced/multiple-result-sets.md
-                    - name: Funkce vracející tabulku
+                    - name: Funkce založené na hodnotách tabulky
                       href: ef6/modeling/designer/advanced/tvfs.md
                 - name: Klávesové zkratky
                   href: ef6/modeling/designer/keyboard-shortcuts.md
