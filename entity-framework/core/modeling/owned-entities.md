@@ -5,17 +5,14 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 7b6d1b3bccbfceb85f03a580ba03a45984d29c74
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 30b91b6e66b6c0f516d1ba12485304b52770cbef
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824605"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781232"
 ---
 # <a name="owned-entity-types"></a>Vlastněné typy entit
-
-> [!NOTE]
-> Tato funkce je v EF Core 2,0 novinkou.
 
 EF Core umožňuje modelovat typy entit, které se mohou u vlastností navigace u jiných typů entit vyskytovat pouze někdy. Ty se nazývají _vlastněné typy entit_. Entita obsahující typ entity, která je vlastníkem, je jeho _vlastník_.
 
@@ -56,7 +53,7 @@ Aby bylo možné pochopit, jak EF Core tyto objekty sledovat, je užitečné vě
 
 Pro konfiguraci kolekce vlastněných typů použijte `OwnsMany` v `OnModelCreating`.
 
-Vlastněné typy potřebují primární klíč. Pokud v typu .NET nejsou k dispozici žádné dobré vlastnosti kandidátů, EF Core se může pokusit vytvořit. Pokud jsou však vlastní typy definovány prostřednictvím kolekce, není dostatek k tomu, abyste vytvořili vlastnost Shadow, která bude fungovat jako cizí klíč, a primární klíč vlastněné instance, stejně jako u `OwnsOne`: pro každý z nich může existovat více vlastněných instancí typu. vlastník, a proto klíč vlastníka není dostatečný, aby poskytoval jedinečnou identitu pro každou vlastní instanci.
+Vlastněné typy potřebují primární klíč. Pokud v typu .NET nejsou k dispozici žádné dobré vlastnosti kandidátů, EF Core se může pokusit vytvořit. Pokud jsou však vlastní typy definovány prostřednictvím kolekce, není třeba pouze vytvořit vlastnost Shadow, která bude fungovat jako cizí klíč, a primární klíč vlastněné instance, jak je určeno pro `OwnsOne`: pro každého vlastníka může existovat více vlastněných instancí typu, a proto klíč vlastníka není dostatečný, aby poskytoval jedinečnou identitu pro každou vlastní instanci.
 
 Mezi ně patří tyto dvě nejjednodušší řešení:
 

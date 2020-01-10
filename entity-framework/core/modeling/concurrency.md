@@ -1,15 +1,15 @@
 ---
 title: Tokeny souběžnosti – EF Core
-author: rowanmiller
-ms.date: 03/03/2018
+author: AndriySvyryd
+ms.date: 01/03/2020
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
-ms.openlocfilehash: db768c1de99000be91d33764ccd3c3924237f8bb
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 8a5f3aa09c2a83d5be0998a11ef2ee8100437514
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197462"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781141"
 ---
 # <a name="concurrency-tokens"></a>Tokeny souběžnosti
 
@@ -18,40 +18,30 @@ ms.locfileid: "71197462"
 
 Vlastnosti konfigurované jako tokeny souběžnosti slouží k implementaci optimistického řízení souběžnosti.
 
-## <a name="conventions"></a>Konvence
+## <a name="configuration"></a>Konfigurace
 
-Podle konvence se vlastnosti nikdy nekonfigurují jako tokeny souběžnosti.
+### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
-## <a name="data-annotations"></a>Datové poznámky
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs?name=Concurrency&highlight=5)]
 
-Můžete použít datové poznámky ke konfiguraci vlastnosti jako tokenu souběžnosti.
+### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs#ConfigureConcurrencyAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs?name=Concurrency&highlight=5)]
 
-## <a name="fluent-api"></a>Rozhraní Fluent API
+***
 
-Rozhraní Fluent API můžete použít ke konfiguraci vlastnosti jako tokenu souběžnosti.
+## <a name="timestamprowversion"></a>Časové razítko/rowversion
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs#ConfigureConcurrencyFluent)]
+Timestamp/rowversion je vlastnost, pro kterou je nová hodnota automaticky generovaná databází pokaždé, když se řádek vloží nebo aktualizuje. Vlastnost je také zpracována jako token souběžnosti, což zajistí, že dojde k výjimce v případě, že se řádek, který aktualizujete, od svého dotazu změnil. Přesné podrobnosti závisí na použitém poskytovateli databáze. pro SQL Server se obvykle používá vlastnost *Byte []* , která se nastaví jako sloupec *rowversion* v databázi.
 
-## <a name="timestamprow-version"></a>Časové razítko nebo verze řádku
+Vlastnost lze nastavit jako časové razítko/rowversion následujícím způsobem:
 
-Časové razítko je vlastnost, ve které databáze generuje novou hodnotu při každém vložení nebo aktualizaci řádku. Vlastnost je také zpracována jako token souběžnosti. Tím zajistíte výjimku, pokud někdo jiný změnil řádek, který se pokoušíte aktualizovat, protože jste se dostali k datům.
+### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
-Způsob, jakým je dosaženo, je až pro používaného poskytovatele databáze. Pro SQL Server se časové razítko obvykle používá u vlastnosti *Byte []* , která bude nastavená jako sloupec *rowversion* v databázi.
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs?name=Timestamp&highlight=7)]
 
-### <a name="conventions"></a>Konvence
+### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
-Podle konvence se vlastnosti nikdy nekonfigurují jako časová razítka.
+[! Code-CSharp [main] (.. /.. /.. /samples/core/Modeling/FluentAPI/Timestamp.cs? název = časové razítko zvýraznění & = 9, 17]
 
-### <a name="data-annotations"></a>Datové poznámky
-
-Pomocí datových poznámek můžete nastavit vlastnost jako časové razítko.
-
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs#ConfigureTimestampAnnotations)]
-
-### <a name="fluent-api"></a>Rozhraní Fluent API
-
-Rozhraní Fluent API můžete použít ke konfiguraci vlastnosti jako časového razítka.
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Timestamp.cs#ConfigureTimestampFluent)]
+***

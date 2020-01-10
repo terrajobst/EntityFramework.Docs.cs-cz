@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
-ms.openlocfilehash: 435a99e34fc5be7935dc7c363ece0629fd497299
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182032"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781011"
 ---
 <div id="main" class="v2">
     <div class="container">
@@ -195,7 +195,8 @@ ms.locfileid: "72182032"
                                                     <a href="/ef/core/providers/sqlite/">SQLite</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/cosmos/">Cosmos @ no__t-1 @ no__t-2</p>
+                                                    <a href="/ef/core/providers/cosmos/">Cosmos</a>
+                                                </p>
                                                 <p>
                                                     <a href="/ef/core/providers/">další…</a>
                                                 </p>
@@ -215,7 +216,7 @@ ms.locfileid: "72182032"
                                             </div>
                                             <div class="cardText">
                                                 <h3>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">⤤ Referenční dokumentace k rozhraním API</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">Referenční materiály k rozhraní API</a>
                                                 </h3>
                                                 <p>
                                                     <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a>
@@ -276,7 +277,7 @@ ms.locfileid: "72182032"
                                                     </div>
                                                 </div>
                                                 <div class="cardText">
-                                                    <h3>⤤ Referenční dokumentace k rozhraním API</h3>
+                                                    <h3>Referenční dokumentace ke knihovně API</h3>
                                                     <p>Projděte si rozhraní API pro Entity Framework 6 uspořádaná podle oborů názvů.</p>
                                                 </div>
                                             </div>
