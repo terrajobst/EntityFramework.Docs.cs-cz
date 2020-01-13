@@ -53,7 +53,7 @@
               href: core/get-started/index.md
             - name: Instalace EF Core
               href: core/get-started/install/index.md
-            - name: ⤤ Kurz o ASP.NET Core
+            - name: Kurz o ASP.NET Core >>
               href: /aspnet/core/data/ef-rp/intro
         - name: Základy
           items:
@@ -118,10 +118,6 @@
             - name: Prostorová data
               displayName: GIS
               href: core/modeling/spatial.md
-            - name: Modelování relační databáze
-              items:
-                - name: Přehled
-                  href: core/modeling/relational/index.md
         - name: Správa schémat databází
           items:
             - name: Přehled
@@ -234,8 +230,8 @@
               href: core/miscellaneous/cli/dbcontext-creation.md
             - name: Služby v době návrhu
               href: core/miscellaneous/cli/services.md
-        - name: ⤤ Referenční dokumentace k rozhraním API EF Core
-          href: 'https://docs.microsoft.com/dotnet/api/?view=efcore-2.1'
+        - name: Referenční dokumentace k rozhraním API EF Core >>
+          href: /dotnet/api/?view=efcore-3.1
     - name: Entity Framework 6
       items:
         - name: Přehled
@@ -542,5 +538,5 @@
                       href: ef6/resources/licenses/ef6/kor.md
                     - name: Ruština
                       href: ef6/resources/licenses/ef6/rus.md
-        - name: ⤤ Referenční dokumentace k rozhraním API EF6
+        - name: Referenční dokumentace k rozhraním API EF6 >>
           href: 'https://docs.microsoft.com/dotnet/api/?view=entity-framework-6.2.0'
