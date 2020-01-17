@@ -3,12 +3,12 @@ title: Globální filtry dotazů – EF Core
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: c9bbb8a5889834ea078ddb7e432863b3d0cf2ffe
-ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
+ms.openlocfilehash: f4ee9b77411290249e763f9cb8492eea61803e91
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/04/2019
-ms.locfileid: "70271461"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124389"
 ---
 # <a name="global-query-filters"></a>Globální filtry dotazů
 
@@ -43,7 +43,7 @@ Predikátu výraz předaný _HasQueryFilter_ volání se teď automaticky použi
 > Všimněte si použití úrovně pole instance DbContext: `_tenantId` slouží k nastavení aktuálního tenanta. Filtry na úrovni modelu bude používat hodnotu z instance správného kontextu (to znamená, instance, který spouští dotaz).
 
 > [!NOTE]
-> V současné době není možné definovat více filtrů dotazů na stejnou entitu. použije se jenom poslední z nich. Můžete však definovat jeden filtr s více podmínkami pomocí logického operátoru _and_ ([ `&&` v C# ](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)).
+> V současné době není možné definovat více filtrů dotazů na stejnou entitu. použije se jenom poslední z nich. Můžete však definovat jeden filtr s více podmínkami pomocí logického operátoru _and_ ([`&&` in C# ](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)).
 
 ## <a name="disabling-filters"></a>Zakázání filtrů
 
@@ -55,5 +55,4 @@ Může být zakázané filtry pro jednotlivé dotazy LINQ pomocí `IgnoreQueryFi
 
 Globální filtry dotazů mají následující omezení:
 
-* Filtry nemůže obsahovat odkazy na navigační vlastnosti.
 * Filtry je možné definovat pouze pro kořenový typ Entity hierarchie dědičnosti.

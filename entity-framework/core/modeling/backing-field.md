@@ -4,58 +4,58 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: 288440a4494117fe59d27187e24424c4d2fd44ab
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 20cf9dc9b0d556f29680bce588bcbdc4ea48fa74
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811873"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124376"
 ---
 # <a name="backing-fields"></a>Pomocná pole
 
-> [!NOTE]  
-> Tato funkce je v EF Core 1,1 novinkou.
+Zálohovací pole umožňují EF čtení a zápis do pole, nikoli jako vlastnost. To může být užitečné, pokud je zapouzdření ve třídě používáno k omezení použití nebo rozšíření sémantiky pro přístup k datům pomocí kódu aplikace, ale tato hodnota by měla být načtena z databáze nebo zapsána do databáze bez použití těchto omezení nebo vylepšení.
 
-Zálohovací pole umožňují EF čtení a zápis do pole, nikoli jako vlastnost. To může být užitečné, pokud je zapouzdření ve třídě používáno k omezení použití nebo rozšíření sémantiky pro přístup k datům pomocí kódu aplikace, ale tato hodnota by měla být načtena z databáze nebo zapsána do databáze bez použití těchto omezení/ prvky.
+## <a name="basic-configuration"></a>Základní konfigurace
 
-## <a name="conventions"></a>Konvence
-
-Podle konvence se pro danou vlastnost (uvedená v pořadí podle priority) zobrazí následující pole jako zálohovaná pole. Pole jsou zjištěna pouze pro vlastnosti, které jsou zahrnuty v modelu. Další informace o tom, které vlastnosti jsou zahrnuty v modelu, najdete v tématu [zahrnutí & s výjimkou vlastností](included-properties.md).
+Podle konvence se pro danou vlastnost (uvedená v pořadí podle priority) zobrazí následující pole jako zálohovaná pole. 
 
 * `_<camel-cased property name>`
 * `_<property name>`
 * `m_<camel-cased property name>`
 * `m_<property name>`
 
+V následující ukázce je vlastnost `Url` nakonfigurovaná tak, aby měla `_url` jako své pole pro zálohování:
+
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/BackingField.cs#Sample)]
 
-Pokud je nakonfigurováno zálohovací pole, EF přepíše přímo do tohoto pole při vyhodnocování instancí entit z databáze (místo použití vlastnosti setter). Pokud EF potřebuje číst nebo zapsat hodnotu v jinou dobu, bude tuto vlastnost používat, pokud je to možné. Například pokud EF potřebuje aktualizovat hodnotu pro vlastnost, použije vlastnost setter, pokud je definována. Je-li vlastnost určena pouze pro čtení, bude zapsána do pole.
+Všimněte si, že pole pro zálohování jsou zjištěna pouze pro vlastnosti, které jsou součástí modelu. Další informace o tom, které vlastnosti jsou zahrnuty v modelu, najdete v tématu [zahrnutí & s výjimkou vlastností](included-properties.md).
 
-## <a name="data-annotations"></a>Datové poznámky
+Můžete také nakonfigurovat pole pro zálohování explicitně, např. Pokud název pole neodpovídá výše uvedeným konvencím:
 
-U zálohovaných polí nelze konfigurovat datové poznámky.
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs?name=BackingField&highlight=5)]
 
-## <a name="fluent-api"></a>Rozhraní Fluent API
+## <a name="field-and-property-access"></a>Přístup k polím a vlastnostem
 
-Rozhraní Fluent API můžete použít ke konfiguraci pole pro zálohování pro vlastnost.
+Ve výchozím nastavení bude EF vždy číst a zapisovat do pole zálohování – za předpokladu, že je správně nakonfigurovaný – a nikdy vlastnost nepoužije. EF ale taky podporuje i další vzory přístupu. Například následující příklad dá pokyn EF k zápisu do pole zálohování pouze v době, kdy je vyhodnocování, a pro použití vlastnosti ve všech ostatních případech:
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs?name=BackingFieldAccessMode&highlight=6)]
 
-### <a name="controlling-when-the-field-is-used"></a>Řízení při použití pole
+Kompletní sadu podporovaných možností najdete v tématu [PropertyAccessMode enum](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode) .
 
-Můžete nakonfigurovat, kdy EF používá pole nebo vlastnost. Podporované možnosti najdete ve [výčtu PropertyAccessMode](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode) .
+> [!NOTE]
+> U EF Core 3,0 se výchozí režim přístupu k vlastnostem změnil z `PreferFieldDuringConstruction` na `PreferField`.
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs#Sample)]
+## <a name="field-only-properties"></a>Vlastnosti pouze polí
 
-### <a name="fields-without-a-property"></a>Pole bez vlastnosti
+V modelu můžete také vytvořit koncepční vlastnost, která nemá odpovídající vlastnost CLR v třídě entity, ale místo toho používá pole k uložení dat v entitě. To se liší od [vlastností stín](shadow-properties.md), kde jsou data uložená v sledování změn, nikoli v typu CLR entity. Vlastnosti pouze pole se obvykle používají, pokud třída entity používá metody, nikoli vlastnosti pro získání nebo nastavení hodnot, nebo v případech, kdy by pole neměly být vystavena vůbec v doménovém modelu (např. primární klíče).
 
-V modelu můžete také vytvořit koncepční vlastnost, která nemá odpovídající vlastnost CLR v třídě entity, ale místo toho používá pole k uložení dat v entitě. To se liší od [vlastností stín](shadow-properties.md), kde jsou data uložená v sledování změn. To se obvykle používá, pokud třída entity používá metody k získání nebo nastavení hodnot.
-
-EF můžete zadat název pole v rozhraní `Property(...)` API. Pokud neexistuje žádná vlastnost se zadaným názvem, pak bude v EF Hledat pole.
+Vlastnost pouze pro pole můžete nakonfigurovat zadáním názvu v rozhraní `Property(...)` API:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldNoProperty.cs#Sample)]
 
-Pokud třída entity neobsahuje žádnou vlastnost, můžete použít metodu `EF.Property(...)` v dotazu LINQ pro odkazování na vlastnost, která je koncepčně součástí modelu.
+EF se pokusí najít vlastnost CLR se zadaným názvem nebo pole, pokud vlastnost nebyla nalezena. Pokud není nalezena vlastnost ani pole, bude místo toho nastavena vlastnost Shadow.
+
+Možná budete muset odkazovat na vlastnost jenom pro pole z dotazů LINQ, ale tato pole jsou obvykle soukromá. Můžete použít metodu `EF.Property(...)` v dotazu LINQ pro odkazování na pole:
 
 ``` csharp
 var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));

@@ -4,12 +4,12 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 0d05902566b6b166f1267915d9f698ed29dff588
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: c16a475c363320cd18804a4efe78ccae1ae22f0d
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502064"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124350"
 ---
 # <a name="working-with-nullable-reference-types"></a>Práce s typy odkazů s možnou hodnotou null
 
@@ -38,9 +38,9 @@ Požadované navigační vlastnosti představují další potíže: i když pro 
 
 Jedním ze způsobů, jak s těmito scénáři pracovat, je mít vlastnost nepovolující hodnotu null s [polem](xref:core/modeling/backing-field), které je k dispozici jako null:
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Order.cs?range=12-17)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Order.cs?range=10-17)]
 
-Vzhledem k tomu, že navigační vlastnost nemůže mít hodnotu null, je nakonfigurovaná požadovaná navigace. a pokud je navigace správně načtená, bude závislý přístup prostřednictvím vlastnosti. Pokud je však vlastnost k dispozici bez předchozího správného načtení související entity, je vyvolána událost InvalidOperationException, protože kontrakt rozhraní API byl nesprávně použit.
+Vzhledem k tomu, že navigační vlastnost nemůže mít hodnotu null, je nakonfigurovaná požadovaná navigace. a pokud je navigace správně načtená, bude závislý přístup prostřednictvím vlastnosti. Pokud je však vlastnost k dispozici bez předchozího správného načtení související entity, je vyvolána událost InvalidOperationException, protože kontrakt rozhraní API byl nesprávně použit. Všimněte si, že EF musí být nakonfigurován tak, aby vždy měl přístup k zálohovacímu poli a nikoli vlastnosti, protože spoléhá na to, že je možné číst hodnotu, i když je nastavená hodnota. Projděte si dokumentaci o [zálohovaných polích](xref:core/modeling/backing-field) , jak to provést, a zvažte zadání `PropertyAccessMode.Field`, abyste se ujistili, že je konfigurace správná.
 
 Terser alternativou je možné jednoduše inicializovat vlastnost na hodnotu null s použitím operátoru null-striktní (!):
 
@@ -63,6 +63,7 @@ K podobnému problému dochází při zahrnutí více úrovní vztahů mezi voli
 
 Pokud sami zjistíte, že se jedná o spoustu dat, a tyto typy entit jsou v EF Corech dotazech převážně v podstatě (nebo výhradně), zvažte, že vlastnosti navigace neumožňují hodnotu null a nakonfigurujete je jako volitelné prostřednictvím rozhraní Fluent API nebo datových poznámek. Tím se odeberou všechna upozornění kompilátoru a zůstane relace volitelná; Pokud jsou však vaše entity procházeny mimo EF Core, můžete sledovat hodnoty null, i když jsou vlastnosti poznámy jako neumožňující hodnotu null.
 
-## <a name="scaffolding"></a>Generování uživatelského rozhraní
+## <a name="limitations"></a>Omezení
 
-[Funkce C# typu odkazu s možnou hodnotou null](/dotnet/csharp/tutorials/nullable-reference-types) není v současné době v rekonstrukci podporována C# : EF Core vždy generuje kód, který předpokládá, že funkce je vypnuta. Například textové sloupce s možnou hodnotou null budou vygenerované jako vlastnost s typem `string`, ne `string?`, s rozhraním API Fluent nebo pomocí datových poznámek, které slouží ke konfiguraci, jestli je vlastnost požadovaná nebo ne. Můžete upravit generovaný kód a nahradit je poznámkami, které C# mají hodnotu null. Podpora generování uživatelského rozhraní pro typy odkazů s možnou hodnotou null je sledována pomocí [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problému.
+* Zpětná analýza v současné době nepodporuje [ C# 8 typů odkazů s možnou hodnotou null (NRTs)](/dotnet/csharp/tutorials/nullable-reference-types): EF Core vždy generuje C# kód, který předpokládá, že funkce je vypnutá. Například textové sloupce s možnou hodnotou null budou vygenerované jako vlastnost s typem `string`, ne `string?`, s rozhraním API Fluent nebo pomocí datových poznámek, které slouží ke konfiguraci, jestli je vlastnost požadovaná nebo ne. Můžete upravit generovaný kód a nahradit je poznámkami, které C# mají hodnotu null. Podpora generování uživatelského rozhraní pro typy odkazů s možnou hodnotou null je sledována pomocí [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)problému.
+* U veřejného prostoru rozhraní API EF Core se ještě nepoužila možnost použití hodnoty null (veřejné rozhraní API je null-oblivious), což znamená, že při zapnuté funkci NRT je někdy nevhodný. To zahrnuje zejména asynchronní operátory LINQ vystavené EF Core, jako je například [FirstOrDefaultAsync](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_). Tento postup vám plánujeme vyřešit pro vydání 5,0.

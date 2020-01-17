@@ -1,82 +1,52 @@
 ---
-title: Co je nového – EF Core
-author: divega
-ms.date: 02/20/2018
+title: EF Core vydání a plánování
+author: ajcvickers
+ms.date: 01/14/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 2ca4915fca515b4bdbfeb77bc7b02f15ce1704b6
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 8d74c24021fd62c5c5d944eaf3973b344fdb1e9c
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197723"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124402"
 ---
-# <a name="whats-new-in-ef-core"></a>Co je nového v EF Core
+# <a name="ef-core-releases-and-planning"></a>EF Core vydání a plánování
 
-## <a name="recent-releases"></a>Poslední verze
+## <a name="stable-releases"></a>Stabilní verze
 
-- **EF Core 3,0** (nejnovější stabilní verze) 
-  - [Nové funkce](xref:core/what-is-new/ef-core-3.0/index) 
-  - Zásadní [změny](xref:core/what-is-new/ef-core-3.0/breaking-changes) , o kterých byste měli vědět při upgradu
-- [EF Core 2.2](xref:core/what-is-new/ef-core-2.2)
-- [EF Core 2,1](xref:core/what-is-new/ef-core-2.1) (nejnovější dlouhodobá verze podpory)
+| Vydaná verze | Cílová architektura | Platnost do | Odkazy
+|:--------|------------------|-----------------|------
+| [EF Core 3,1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.1) | .NET Standard 2.0 | 3\. prosince 2022 (LTS) | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
+| [EF Core 3,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.1) | .NET Standard 2.1 | 3\. března 2020 | [Oznámení](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [přerušující změny](ef-core-3.0/breaking-changes.md)
+| ~~[EF Core 2,2](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.6)~~ | .NET Standard 2.0 | Konec platnosti 23. prosince 2019 | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-2/)
+| [EF Core 2.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.1.14) | .NET Standard 2.0 | 21. srpna 2021 (LTS) | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-1/)
+| ~~[EF Core 2,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.0.3)~~ | .NET Standard 2.0 | Platnost od 1. října 2018 | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-0/)
+| ~~[EF Core 1,1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.1.6)~~ | .NET Standard 1,3 | Vypršení od června 27 2019 | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-1-1/)
+| ~~[EF Core 1,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.0.6)~~ | .NET Standard 1,3 | Vypršení od června 27 2019 | [Ohlášen](https://devblogs.microsoft.com/dotnet/entity-framework-core-1-0-0-available/)
 
-## <a name="product-roadmap"></a>Plán produktu
+Informace o konkrétních platformách podporovaných jednotlivými EF Core vydání najdete v tématu [podporované platformy](../platforms/index.md) .
 
-> [!IMPORTANT]
-> Počítejte s tím, že sady funkcí a plány budoucích verzí se vždycky mění, a i když se pokusíme tuto stránku uchovávat v aktuálním stavu, nemusí se po celou dobu projevit naše nejnovější plány.
+Informace o vypršení platnosti podpory a verzích LTS (dlouhodobá podpora) najdete v tématu [zásady podpory rozhraní .NET](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) .
 
-### <a name="future-releases"></a>Budoucí verze
+## <a name="guidance-on-updating-to-new-releases"></a>Pokyny k aktualizaci nových verzí
 
-- **EF Core 3,1**  
-  - V části aktivní vývoj
-  - Bude obsahovat [vylepšení malého výkonu, kvality a stability](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.1.0+sort%3Areactions-desc) .
-  - Plánováno jako vydaná Dlouhodobá podpora (LTS)
-  - Aktuálně plánováno pro prosinec 2019
-- **EF Core "vNext"**   
-  - Další hlavní verze EF Core pro dodávání společně s .NET 5
-  - Plánování této verze ještě není spuštěné a neoznámily se žádné funkce.  
+* Podporované verze jsou opravené z důvodu zabezpečení a dalších kritických chyb. Vždy používejte nejnovější opravu dané verze. Například pro EF Core 2,1 použijte 2.1.14.
+* Aktualizace hlavních verzí (například z EF Core 2 na EF Core 3) často přerušují změny. Důkladné testování se doporučuje při aktualizaci v různých hlavních verzích. Odkazy na předchozí změny najdete na stránce s pokyny pro práci s zásadními změnami.
+* Aktualizace podverze obvykle neobsahují závažné změny. Důkladné testování však stále doporučujeme, protože nové funkce mohou zavádět regrese.
 
-### <a name="schedule"></a>Plán
+## <a name="ef-core-50"></a>EF Core 5,0
 
-Plán vydaných verzí pro EF Core je synchronizovaný s plánem vydaných [verzí .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md).
+EF Core vydání se zarovnají s [plánem dodávek .NET Core](https://github.com/dotnet/core/blob/master/roadmap.md). Další plánovaná stabilní verze je **EF Core 5,0**naplánovaná na 2020. listopadu.
 
-### <a name="backlog"></a>Nevyřízená položka
+[Plán vysoké úrovně pro EF Core 5,0](ef-core-5.0/plan.md) byl vytvořen pomocí podrobného [procesu plánování](release-planning.md)vydaných verzí.
 
-[Milník nevyřízených položek](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc) v našem sledování problémů obsahuje problémy, které očekáváme pracovat na Someday, nebo se domníváme, že by se mohl vypořádat někdo z komunity.
-Zákazníci jsou připraveni na tyto problémy odeslat komentáře a hlasy.
-Přispěvatelé, kteří chtějí pracovat na jakémkoli z těchto problémů, doporučujeme nejprve začít diskusi o tom, jak se k nim přiblíží.
+Váš názor na plánování je důležitý. Nejlepším způsobem, jak určit důležitost problému, je hlasovat (palec) pro daný problém na GitHubu. Tato data se pak budou předávat do procesu plánování pro další vydání.
 
-Nikdy nezaručujeme, že budeme pracovat na všech daných funkcích v konkrétní verzi EF Core.
-Stejně jako u všech softwarových projektů, priorit, plánů vydání a dostupných prostředků se můžou kdykoli změnit.
-Pokud ale máme v úmyslu vyřešit problém v konkrétním časovém období, přiřadíme ho k milníku vydání namísto milníku nevyřízených položek.
-V rámci našeho [procesu plánování](#release-planning-process)vydaných verzí se rutinním způsobem přesouváme problémy mezi nevyřízenými položkami a milníky vydání.
+### <a name="get-it-now"></a>Získejte ho hned teď!
 
-Můžeme problém uzavřít, pokud ho neplánujeme na jejich řešení.
-Můžeme ale znovu posuzovat problém, který jsme dřív uzavřeli, když získáme nové informace.
+Balíčky EF Core 5,0 jsou **nyní k dispozici** jako [každodenní sestavení](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md). 
 
-### <a name="release-planning-process"></a>Proces plánování vydaných verzí
+Použití denních buildů představuje skvělý způsob, jak najít problémy a co nejdříve poskytnout zpětnou vazbu. Dřív získáme takovou zpětnou vazbu, což je pravděpodobnější, že se bude jednat ještě před dalším oficiálním vydáním. Pracujeme na tom, abychom každodenní sestavení v dobrém tvaru zachovali spuštěním více než 55 000 testů na jednu platformu pro každé sestavení.
 
-Často se dostanete na to, jak si vybíráme konkrétní funkce, které se dají použít k přechodu do konkrétní verze.
-Naše nevyřízené položky si nemusí automaticky překládat do plánů vydání.
-Přítomnost funkce v EF6 také automaticky neznamená, že je nutné implementovat funkci v EF Core.
-
-Je obtížné podrobně pořídit celý proces, který se používá k naplánování vydání verze.
-Většina z nich se zabývá konkrétními funkcemi, příležitostmi a prioritami a samotný proces se také vyvíjí v každé verzi.
-Můžeme ale shrnout běžné otázky, které se snažíme zodpovědět při rozhodování o tom, co se má v následujících případech pracovat:
-
-1. **Kolik vývojářů se domníváme, že tuto funkci budou používat a kolik lepších funkcí bude mít aplikace nebo prostředí?** K zodpovězení této otázky shromažďujeme názory z mnoha zdrojů – komentáře a hlasy na problémech jsou jedním z těchto zdrojů.
-
-2. **Jaká řešení můžou lidé využít, pokud tuto funkci ještě neimplementujete?** Mnoho vývojářů může například namapovat spojovací tabulku tak, aby fungovala s nedostatečným množstvím nativních podpor. Zjevně ne všichni vývojáři to dělají, ale mnoho z nich se může v našem rozhodnutí počítat jako faktor.
-
-3. **Implementuje Tato funkce architekturu EF Core tak, aby se nám přesunula blíž k implementaci dalších funkcí?** Snažíme se upřednostnit funkce, které fungují jako stavební bloky pro další funkce. Například entity kontejneru objektů a dat můžou přispět k přesunu na více než mnoho podpory a konstruktory entit mají povolené naše opožděné načítání.
-
-4. **Je funkce bodem rozšiřitelnosti?** Doporučujeme upřednostnit body rozšiřitelnosti oproti normálním funkcím, protože umožňují vývojářům připojovat vlastní chování a kompenzovat všechny chybějící funkce.
-
-5. **Jaká je součinnost funkce při použití v kombinaci s jinými produkty?** Dáváme jim funkce, které umožňují nebo významně vylepšit možnosti použití EF Core s jinými produkty, jako je například .NET Core, nejnovější verze sady Visual Studio, Microsoft Azure a tak dále.
-
-6. **Jaké jsou dovednosti, které mají lidé k dispozici pro práci na funkci, a jak tyto prostředky nejlépe využít?** Každý člen týmu EF a naši Přispěvatelé komunity mají různé úrovně zkušeností v různých oblastech, takže je nutné odpovídajícím způsobem naplánovat. I v případě, že chceme mít "veškerou práci na palubě", která bude fungovat na konkrétní funkci, jako jsou překlady GroupBy, nebo m:n, což by nebylo praktické.
-
-Jak bylo zmíněno dříve, proces se vyvíjí v každé verzi.
-V budoucnu se pokusíme přidat další příležitosti pro členy komunity, které budou poskytovat vstupy do našich plánů vydávání.
-Například chceme, aby bylo snazší zkontrolovat návrhy konceptů funkcí a samotného plánu vydání.
+Balíčky Preview se budou do NuGet dodávat později v roce.
