@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 6903aab4911f7478afe3d8987a791ae1c5ccebce
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 7451ce6e8d5d7078b3f56a6865aa7698e6fc63ca
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502211"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888119"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>Poskytovatel EF Core Azure Cosmos DB
 
@@ -52,7 +52,7 @@ Podobně jako u jiných poskytovatelů je prvním krokem volání [UseCosmos](/d
 [!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
-> Koncový bod a klíč se tady pevně zakódované pro jednoduchost, ale v produkční aplikaci by se měly [ukládat securily](/aspnet/core/security/app-secrets#secret-manager) .
+> Koncový bod a klíč jsou zde pevně zakódované pro jednoduchost, ale v produkční aplikaci by se měly [bezpečně ukládat](/aspnet/core/security/app-secrets#secret-manager).
 
 V tomto příkladu `Order` je jednoduchá entita s odkazem na [vlastní typ](../../modeling/owned-entities.md) `StreetAddress`.
 

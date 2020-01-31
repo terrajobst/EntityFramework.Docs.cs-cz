@@ -1,82 +1,79 @@
 ---
-title: Porovnání Entity Framework 6 a Entity Framework Core-EF
-description: Poskytuje pokyny k výběru mezi Entity Framework 6 a Entity Framework Core.
-author: rowanmiller
-ms.date: 10/27/2016
+title: Porovnat EF6 a EF Core
+description: Pokyny k výběru mezi EF6 a EF Core.
+author: ajcvickers
+ms.date: 01/23/2019
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 62f7da64bbb6289edd38b877af71fc126e03d0f6
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: e28c7d0299e5089f56fb0795d00917cfc30f5cf1
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502286"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888145"
 ---
 # <a name="compare-ef-core--ef6"></a>Porovnání EF Core a EF6
 
-Entity Framework je objektově-relační Mapovač (O/RM) pro .NET. Tento článek porovnává dvě verze: Entity Framework 6 a Entity Framework Core.
+## <a name="ef-core"></a>EF Core
 
-## <a name="entity-framework-6"></a>Entity Framework 6
+Entity Framework Core ([EF Core](../core/index.md)) je moderní objekt – Mapovač databáze pro .NET. Podporuje dotazy LINQ, sledování změn, aktualizace a migrace schématu.
 
-Entity Framework 6 (EF6) je vyzkoušená technologie pro přístup k datům. Byla poprvé vydána v 2008 jako součást .NET Framework 3,5 SP1 a Visual Studio 2008 SP1. Počínaje verzí 4,1 se dodává jako balíček NuGet [EntityFramework](https://www.nuget.org/packages/EntityFramework/) . EF6 běží na .NET Framework 4. x a .NET Core od 3,0. a vyšší.
+EF Core pracuje s SQL Server/SQL Azure, SQLite, Azure Cosmos DB, MySQL, PostgreSQL a mnoha dalšími databázemi prostřednictvím [modelu modulů plug-in zprostředkovatele databáze](../core/providers/index.md).
 
-EF6 bude i nadále podporován produkt a bude dál zobrazovat opravy chyb a menší vylepšení.
+## <a name="ef6"></a>EF6
 
-## <a name="entity-framework-core"></a>Entity Framework Core
-
-Entity Framework Core (EF Core) je kompletní přepis EF6, který byl poprvé vydán v 2016. Dodává se do balíčků NuGet, hlavní z nich je [Microsoft. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/). EF Core je produkt pro různé platformy, který běží na .NET Core.
-
-EF Core byla navržena tak, aby poskytovala vývojářské prostředí podobně jako EF6. Většina rozhraní API nejvyšší úrovně zůstává stejná, takže EF Core se budou dobře rozumět vývojářům, kteří používali EF6.
+Entity Framework 6 ([EF6](../ef6/index.md)) je objektově-relační Mapovač navržený pro .NET Framework, ale s podporou pro .NET Core. EF6 je stabilní, podporovaný produkt, ale už se aktivně nevyvíjí.
 
 ## <a name="feature-comparison"></a>Porovnání funkcí
 
-EF Core nabízí nové funkce, které se neimplementují v EF6 (například [alternativní klíče](xref:core/modeling/keys#alternate-keys), [dávkové aktualizace](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)a [vyhodnocování smíšeného klienta/databáze v dotazech LINQ](xref:core/querying/client-eval). Ale vzhledem k tomu, že se jedná o nový základ kódu, chybí také některé funkce, které EF6 má.
+EF Core nabízí nové funkce, které se v EF6 neimplementují. Ne všechny funkce EF6 se ale v EF Core v tuto chvíli implementují.
 
-Následující tabulky porovnávají funkce, které jsou k dispozici v EF Core a EF6. Jedná se o porovnání na vysoké úrovni a neuvádí všechny funkce nebo vysvětluje rozdíly mezi stejnou funkcí v různých verzích EF.
+Následující tabulky porovnávají funkce, které jsou k dispozici v EF Core a EF6. Jedná se o porovnání na vysoké úrovni, které neobsahuje seznam všech funkcí nebo vysvětluje rozdíly mezi stejnou funkcí v různých verzích EF.
 
 Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 
 ### <a name="creating-a-model"></a>Vytvoření modelu
 
-| **Funkce**                                           | **EF 6** | **EF Core**                           |
+| **Funkce**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Základní mapování třídy                                   | Ano      | 1.0                                   |
 | Konstruktory s parametry                          |          | 2.1                                   |
 | Převody hodnot vlastností                            |          | 2.1                                   |
 | Mapované typy bez klíčů                             |          | 2.1                                   |
 | Konvence                                           | Ano      | 1.0                                   |
-| Vlastní konvence                                    | Ano      | 1,0 (částečný)                         |
+| Vlastní konvence                                    | Ano      | 1,0 (částečně; [#214](https://github.com/dotnet/efcore/issues/214)) |
 | Datové poznámky                                      | Ano      | 1.0                                   |
 | Rozhraní Fluent API                                            | Ano      | 1.0                                   |
 | Dědičnost: tabulka na hierarchii (TPH)                | Ano      | 1.0                                   |
-| Dědičnost: tabulka na typ (TPT)                     | Ano      |                                       |
-| Dědičnost: tabulka na konkrétní třídu (TPC)           | Ano      |                                       |
+| Dědičnost: tabulka na typ (TPT)                     | Ano      | Plánováno na 5,0 ([#2266](https://github.com/dotnet/efcore/issues/2266)) |
+| Dědičnost: tabulka na konkrétní třídu (TPC)           | Ano      | Roztáhnout na 5,0 ([#3170](https://github.com/dotnet/efcore/issues/3170)) <sup>(1)</sup> |
 | Vlastnosti stavu stínu                               |          | 1.0                                   |
 | Alternativní klíče                                        |          | 1.0                                   |
-| M:n bez spojení entity                      | Ano      |                                       |
+| Navigace m:n                              | Ano      | Plánováno na 5,0 ([#19003](https://github.com/dotnet/efcore/issues/19003)) |
+| M:n bez spojení entity                      | Ano      | V backlogu ([#1368](https://github.com/dotnet/efcore/issues/1368)) |
 | Generování klíče: databáze                              | Ano      | 1.0                                   |
 | Generování klíče: klient                                |          | 1.0                                   |
 | Komplexní/vlastněné typy                                   | Ano      | 2.0                                   |
 | Prostorová data                                          | Ano      | 2.2                                   |
-| Grafická vizualizace modelu                      | Ano      |                                       |
-| Editor grafického modelu                                | Ano      |                                       |
 | Formát modelu: kód                                    | Ano      | 1.0                                   |
-| Formát modelu: EDMX (XML)                              | Ano      |                                       |
 | Vytvořit model z databáze: příkazový řádek              | Ano      | 1.0                                   |
-| Vytvořit model z databáze: Průvodce VS                 | Ano      |                                       |
-| Aktualizovat model z databáze                            | Částečné  |                                       |
+| Aktualizovat model z databáze                            | Částečné  | V backlogu ([#831](https://github.com/dotnet/efcore/issues/831)) |
 | Filtry globálních dotazů                                  |          | 2.0                                   |
 | Rozdělení tabulky                                       | Ano      | 2.0                                   |
-| Rozdělování entit                                      | Ano      |                                       |
+| Rozdělování entit                                      | Ano      | Roztáhnout na 5,0 ([#620](https://github.com/dotnet/efcore/issues/620)) <sup>(1)</sup> |
 | Mapování skalární funkce databáze                      | Slabé     | 2.0                                   |
-| Mapování pole                                         |          | 1.1                                   |
+| Mapování polí                                         |          | 1.1                                   |
 | Typy odkazů s možnou hodnotou null (C# 8,0)                     |          | 3,0                                   |
+| Grafická vizualizace modelu                      | Ano      | Žádná podpora není plánována <sup>(2)</sup>     |
+| Editor grafického modelu                                | Ano      | Žádná podpora není plánována <sup>(2)</sup>     |
+| Formát modelu: EDMX (XML)                              | Ano      | Žádná podpora není plánována <sup>(2)</sup>     |
+| Vytvořit model z databáze: Průvodce VS                 | Ano      | Žádná podpora není plánována <sup>(2)</sup>     |
 
 ### <a name="querying-data"></a>Dotazy na data
 
-| **Funkce**                                           | **EF6**  | **EF Core**                           |
+| **Funkce**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| LINQ – dotazy                                          | Ano      | 1,0 (probíhá zpracování složitých dotazů) |
+| LINQ – dotazy                                          | Ano      | 1.0                                   |
 | Čitelné vygenerované SQL                                | Slabé     | 1.0                                   |
 | Překlad GroupBy                                   | Ano      | 2.1                                   |
 | Načítají se související data: Eager                           | Ano      | 1.0                                   |
@@ -87,79 +84,78 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | Nezpracované dotazy SQL: typy entit bez klíčů                 | Ano      | 2.1                                   |
 | Nezpracované dotazy SQL: sestavení pomocí LINQ                  |          | 1.0                                   |
 | Explicitně kompilované dotazy                           | Slabé     | 2.0                                   |
-| Dotazovací jazyk založený na textu (Entity SQL)                | Ano      |                                       |
 | await foreach (C# 8,0)                                |          | 3,0                                   |
+| Dotazovací jazyk založený na textu (Entity SQL)                | Ano      | Žádná podpora není plánována <sup>(2)</sup>     |
 
 ### <a name="saving-data"></a>Ukládání dat
 
-| **Funkce**                                           | **EF6**  | **EF Core**                           |
+| **Funkce**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Sledování změn: snímek                             | Ano      | 1.0                                   |
 | Sledování změn: oznámení                         | Ano      | 1.0                                   |
-| Sledování změn: proxy                              | Ano      |                                       |
+| Sledování změn: proxy                              | Ano      | Sloučeno pro 5,0 ([#10949](https://github.com/dotnet/efcore/issues/10949)) |
 | Přístup ke sledovanému stavu                               | Ano      | 1.0                                   |
 | Optimistická souběžnost                                | Ano      | 1.0                                   |
 | Transakce                                          | Ano      | 1.0                                   |
 | Dávkování příkazů                                |          | 1.0                                   |
-| Mapování uložených procedur                              | Ano      |                                       |
+| Mapování uložených procedur                              | Ano      | V backlogu ([#245](https://github.com/dotnet/efcore/issues/245)) |
 | Odpojená rozhraní API nízké úrovně grafu                     | Slabé     | 1.0                                   |
-| Odpojený graf od konce do konce                         |          | 1,0 (částečný)                         |
+| Odpojený graf od konce do konce                         |          | 1,0 (částečně; [#5536](https://github.com/dotnet/efcore/issues/5536)) |
 
 ### <a name="other-features"></a>Další funkce
 
-| **Funkce**                                           | **EF6**  | **EF Core**                           |
+| **Funkce**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Migrace                                            | Ano      | 1.0                                   |
 | Rozhraní API pro vytváření a odstraňování databází                       | Ano      | 1.0                                   |
 | Počáteční data                                             | Ano      | 2.1                                   |
 | Odolnost připojení                                 | Ano      | 1.1                                   |
-| Zavěšení životního cyklu (události, zachycení)                | Ano      |                                       |
-| Jednoduché protokolování (Database. log)                         | Ano      |                                       |
+| Zachycovače                                          | Ano      | 3,0                                   |
+| Události                                                | Ano      | 3,0 (částečně; [#626](https://github.com/dotnet/efcore/issues/626)) |
+| Jednoduché protokolování (Database. log)                         | Ano      | Sloučeno pro 5,0 ([#1199](https://github.com/dotnet/efcore/issues/1199)) |
 | Sdružování DbContext                                     |          | 2.0                                   |
 
-### <a name="database-providers"></a>Poskytovatelé databází
+### <a name="database-providers-sup3sup"></a>Poskytovatelé databáze <sup>(3)</sup>
 
-| **Funkce**                                           | **EF6**  | **EF Core**                           |
+| **Funkce**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | Server SQL                                            | Ano      | 1.0                                   |
 | MySQL                                                 | Ano      | 1.0                                   |
 | PostgreSQL                                            | Ano      | 1.0                                   |
 | Oracle                                                | Ano      | 1.0                                   |
 | SQLite                                                | Ano      | 1.0                                   |
-| SQL Server Compact                                    | Ano      | 1,0 <sup>(1)</sup>                    |
+| SQL Server Compact                                    | Ano      | 1,0 <sup>(4)</sup>                    |
 | DB2                                                   | Ano      | 1.0                                   |
 | Firebird                                              | Ano      | 2.0                                   |
-| Jet (Microsoft Access)                                |          | 2,0 <sup>(1)</sup>                    |
-| Cosmos DB                                             |          | 3,0                                   |
+| Jet (Microsoft Access)                                |          | 2,0 <sup>(4)</sup>                    |
+| Azure Cosmos DB                                       |          | 3,0                                   |
 | V paměti (pro testování)                               |          | 1.0                                   |
 
-<sup>1</sup> poskytovatelé SQL Server Compact a jet fungují jenom v .NET Framework (ne v .NET Core).
+<sup>1</sup> cíle Stretch se pro danou verzi pravděpodobně nedosáhnou. Pokud se ale vše dostanou, pokusíme se je načíst do.
 
-### <a name="net-implementations"></a>Implementace rozhraní .NET
+<sup>2</sup> některé funkce EF6 nebudou implementovány v EF Core. Tyto funkce závisí buď na EF6's podkladové model EDM (Entity Data Model) (EDM), nebo jsou komplexní funkce s poměrně nízkou návratností investic. Vždy jsme provedli zpětnou vazbu, ale zatímco EF Core v EF6 povoluje mnoho věcí, není to pro EF Core vhodné pro podporu všech funkcí EF6.
 
-| **Funkce**                                           | **EF6**            | **EF Core**                           |
-|:------------------------------------------------------|:-------------------|:--------------------------------------|
-| .NET Framework                                        | Ano                | 1,0 (odebrané v 3,0)                  |
-| .NET Core                                             | Ano (přidáno v 6,3) | 1.0                                   |
-| Mono & Xamarin                                        |                    | 1,0 (probíhající)                     |
-| UWP                                                   |                    | 1,0 (probíhající)                     |
+<sup>3</sup> EF Core poskytovatelé databáze, které implementují třetí strany, můžou při aktualizaci na nové hlavní verze EF Core zpozdit. Další informace najdete v tématu [poskytovatelé databáze](../core/providers/index.md) .
+
+<sup>4</sup> poskytovatelé SQL Server Compact a jet fungují jenom v .NET Framework (ne v .NET Core).
+
+### <a name="supported-platforms"></a>Podporované platformy
+
+EF Core 3,1 běží na .NET Core a .NET Framework pomocí .NET Standard 2,0. EF Core 5,0 se ale na .NET Framework nespustí. Další podrobnosti najdete v tématu [platformy](../core/platforms/index.md) .
+
+EF 6.4 běží na .NET Core a .NET Framework, a to prostřednictvím cílení na více platforem.
 
 ## <a name="guidance-for-new-applications"></a>Doporučení pro nové aplikace
 
-Pokud jsou splněné obě následující podmínky, zvažte použití EF Core pro novou aplikaci:
-* Aplikace potřebuje funkce .NET Core. Další informace najdete v tématu [Výběr mezi .NET Core a .NET Framework pro serverové aplikace](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server).
-* EF Core podporuje všechny funkce, které aplikace vyžaduje. Pokud chybí požadovaná funkce, podívejte se na plán [EF Core](xref:core/what-is-new/index) , kde zjistíte, jestli v budoucnu existují plány pro jejich podporu. 
-
-Zvažte použití EF6, pokud jsou splněny obě následující podmínky:
-* Aplikace se spustí v systému Windows a .NET Framework 4,0 nebo novějším.
-* EF6 podporuje všechny funkce, které aplikace vyžaduje.
+U všech nových aplikací použijte EF Core pro .NET Core, pokud aplikace nepotřebuje něco, co je [podporováno pouze v .NET Framework](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server).
 
 ## <a name="guidance-for-existing-ef6-applications"></a>Doporučení pro existující aplikace s EF6
 
-Vzhledem k zásadním změnám v EF Core Nedoporučujeme přesunovat aplikaci EF6, aby EF Core, pokud neexistuje přesvědčivý důvod k provedení změny. Pokud chcete přejít na EF Core, abyste mohli používat nové funkce, ujistěte se, že víte o jeho omezeních. Další informace najdete v tématu [přenos z EF6 na EF Core](porting/index.md). **Přesunutí z EF6 na EF Core je víc než při upgradu na port.**
+EF Core není náhradou za EF6. Přesunutí z EF6 na EF Core bude nejspíš vyžadovat změny aplikace.
 
-## <a name="next-steps"></a>Další kroky
+Při přesunu aplikace EF6 do .NET Core:
+* Používejte EF6, pokud je kód pro přístup k datům stabilní a není pravděpodobně možné vyvíjet nebo potřebovat nové funkce.
+* Port, který se má EF Core při vývoji kódu pro přístup k datům nebo pokud aplikace potřebuje nové funkce, které jsou k dispozici pouze v EF Core.
+* Pro výkon se také často provádí přenos do EF Core. Ale ne všechny scénáře jsou rychlejší, proto udělejte jako první profilaci.
 
-Další informace najdete v dokumentaci:
-* <xref:core/index>
-* <xref:ef6/index>
+Další informace najdete v [článku o přechodu z EF6 na EF Core](porting/index.md).
