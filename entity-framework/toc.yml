@@ -21,7 +21,7 @@
           href: core/index.md
         - name: Vydané verze a plánování
           items:
-            - name: Přehled
+            - name: Aktuální a plánované vydané verze (plán)
               href: core/what-is-new/index.md
             - name: Proces plánování vydaných verzí
               href: core/what-is-new/release-planning.md
