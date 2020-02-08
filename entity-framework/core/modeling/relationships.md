@@ -4,12 +4,12 @@ description: Konfigurace vztahů mezi typy entit při použití Entity Framework
 author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 6b3e0636bfa266b78baafe1b6e318c9707294560
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
+ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502185"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77051404"
 ---
 # <a name="relationships"></a>Relace
 
@@ -26,9 +26,9 @@ K popisu vztahů se používá určitý počet výrazů.
 
 * **Hlavní entita:** Toto je entita, která obsahuje vlastnosti primárního nebo alternativního klíče. V relaci se někdy označuje jako "nadřazený".
 
-* **Cizí klíč:** Vlastnosti v závislé entitě, které se používají k ukládání hodnot hlavních klíčů pro související entitu
-
 * **Hlavní klíč:** Vlastnosti, které jednoznačně identifikují hlavní entitu Může se jednat o primární klíč nebo alternativní klíč.
+
+* **Cizí klíč:** Vlastnosti v závislé entitě, které se používají k ukládání hodnot hlavních klíčů pro související entitu
 
 * **Navigační vlastnost:** Vlastnost definovaná na objektu zabezpečení nebo závislé entitě, která odkazuje na související entitu.
 
@@ -48,9 +48,9 @@ Následující kód ukazuje vztah 1: n mezi `Blog` a `Post`
 
 * `Blog` je hlavní entitou.
 
-* `Post.BlogId` je cizí klíč.
-
 * `Blog.BlogId` je hlavní klíč (v tomto případě je to primární klíč, nikoli alternativní klíč).
+
+* `Post.BlogId` je cizí klíč.
 
 * `Post.Blog` je navigační vlastnost odkazu
 
@@ -58,7 +58,7 @@ Následující kód ukazuje vztah 1: n mezi `Blog` a `Post`
 
 * `Post.Blog` je inverzní navigační vlastnost `Blog.Posts` (a naopak).
 
-## <a name="conventions"></a>Konvence
+## <a name="conventions"></a>Zásady
 
 Ve výchozím nastavení se relace vytvoří, když je u typu zjištěna vlastnost navigace. Vlastnost je považována za navigační vlastnost, pokud typ, na který odkazuje, nemůže být namapován jako skalární typ aktuálním poskytovatelem databáze.
 
@@ -180,7 +180,7 @@ Pomocí přetížení řetězců `HasForeignKey(...)` můžete nakonfigurovat vl
 
 #### <a name="foreign-key-constraint-name"></a>Název omezení cizího klíče
 
-Podle konvence při cílení na relační databázi jsou omezení cizího klíče pojmenována FK_<dependent type name>_<principal type name>_<foreign key property name>. Pro složené cizí klíče se <foreign key property name> jako podtržítko oddělený seznam názvů vlastností cizích klíčů.
+Podle konvence při cílení na relační databázi jsou omezení cizího klíče pojmenována FK_<dependent type name> _<principal type name>_ <foreign key property name>. Pro složené cizí klíče se <foreign key property name> jako podtržítko oddělený seznam názvů vlastností cizích klíčů.
 
 Název omezení můžete také nakonfigurovat následujícím způsobem:
 
@@ -228,7 +228,7 @@ Podrobné informace o jednotlivých možnostech najdete v části [kaskádové o
 
 ## <a name="other-relationship-patterns"></a>Další vzory vztahů
 
-### <a name="one-to-one"></a>Relace jednoho k jednomu jinému
+### <a name="one-to-one"></a>Jeden k jednomu
 
 Jedna až jedna relace má referenční navigační vlastnost na obou stranách. Dodržují stejné konvence jako relace 1: n, ale do vlastnosti cizího klíče se zavedl jedinečný index, který zaručí, že k jednotlivým objektům zabezpečení souvisí jenom jedna závislá hodnota.
 
