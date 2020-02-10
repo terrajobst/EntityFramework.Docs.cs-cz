@@ -19,9 +19,9 @@
       items:
         - name: Přehled
           href: core/index.md
-        - name: Vydané verze a plánování
+        - name: Vydané verze a plánování (plán)
           items:
-            - name: Aktuální a plánované vydané verze (plán)
+            - name: Aktuální a plánované vydané verze
               href: core/what-is-new/index.md
             - name: Proces plánování vydaných verzí
               href: core/what-is-new/release-planning.md
@@ -29,6 +29,8 @@
               items:
                 - name: Základní plán
                   href: core/what-is-new/ef-core-5.0/plan.md
+                - name: Co je nového?
+                  href: core/what-is-new/ef-core-5.0/whatsnew.md
             - name: EF Core 3.0
               items:
                 - name: Nové funkce
