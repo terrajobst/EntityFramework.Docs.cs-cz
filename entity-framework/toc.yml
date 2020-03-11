@@ -126,7 +126,7 @@
             - name: Prostorová data
               displayName: GIS
               href: core/modeling/spatial.md
-        - name: Správa schémat databází
+        - name: Správa databázových schémat
           items:
             - name: Přehled
               href: core/managing-schemas/index.md
@@ -148,17 +148,17 @@
               href: core/managing-schemas/ensure-created.md
             - name: Zpětná analýza (generování uživatelského rozhraní)
               href: core/managing-schemas/scaffolding.md
-        - name: Dotazování na data
+        - name: Dotazování dat
           items:
             - name: Přehled
               href: core/querying/index.md
-            - name: Vyhodnocení klienta vs. serveru
+            - name: Vyhodnocení rozdílu mezi klientem a serverem
               href: core/querying/client-eval.md
-            - name: Sledování vs. nesledování
+            - name: Porovnání stavu se sledováním a bez sledování
               href: core/querying/tracking.md
             - name: Komplexní operátory dotazů
               href: core/querying/complex-query-operators.md
-            - name: Načítání souvisejících dat
+            - name: Načtení souvisejících dat
               href: core/querying/related-data.md
             - name: Asynchronní dotazy
               href: core/querying/async.md
@@ -168,7 +168,7 @@
               href: core/querying/filters.md
             - name: Značky dotazů
               href: core/querying/tags.md
-            - name: Jak funguje dotaz
+            - name: Jak fungují dotazy
               href: core/querying/how-query-works.md
         - name: Ukládání dat
           items:
@@ -226,7 +226,7 @@
               href: core/providers/provider-log.md
         - name: Nástroje a rozšíření
           href: core/extensions/index.md
-        - name: "Referenční dokumentace pro použití v\_příkazovém řádku"
+        - name: "Referenční dokumentace k\_příkazovému řádku"
           items:
             - name: Přehled
               href: core/miscellaneous/cli/index.md
@@ -268,7 +268,7 @@
               href: ef6/fundamentals/async.md
             - name: Konfigurace
               items:
-                - name: Založená na kódu
+                - name: Na základě kódu
                   href: ef6/fundamentals/configuring/code-based.md
                 - name: Konfigurační soubor
                   href: ef6/fundamentals/configuring/config-file.md
@@ -280,11 +280,11 @@
               href: ef6/fundamentals/connection-management.md
             - name: Odolnost připojení
               items:
-                - name: Logika pro opakování
+                - name: Logika opakování
                   href: ef6/fundamentals/connection-resiliency/retry-logic.md
                 - name: Selhání potvrzení transakce
                   href: ef6/fundamentals/connection-resiliency/commit-failures.md
-            - name: Datové vazby
+            - name: Datová vazba
               items:
                 - name: WinForms
                   href: ef6/fundamentals/databinding/winforms.md
@@ -306,7 +306,7 @@
               items:
                 - name: Důležité informace o výkonu (dokument white paper)
                   href: ef6/fundamentals/performance/perf-whitepaper.md
-                - name: Použití technologie NGEN
+                - name: Použití NGEN
                   href: ef6/fundamentals/performance/ngen.md
                 - name: Použití předem vygenerovaných zobrazení
                   href: ef6/fundamentals/performance/pre-generated-views.md
@@ -344,7 +344,7 @@
                   href: ef6/modeling/code-first/data-annotations.md
                 - name: Objekty DbSet
                   href: ef6/modeling/code-first/dbsets.md
-                - name: Datové typy
+                - name: Typy dat
                   items:
                     - name: Výčty
                       href: ef6/modeling/code-first/data-types/enums.md
@@ -416,13 +416,13 @@
                       href: ef6/modeling/designer/stored-procedures/query.md
                     - name: Aktualizace
                       href: ef6/modeling/designer/stored-procedures/cud.md
-                - name: Mapování relací
+                - name: Mapování vztahů
                   href: ef6/modeling/designer/relationships.md
                 - name: Více diagramů
                   href: ef6/modeling/designer/multiple-diagrams.md
                 - name: Výběr verze modulu runtime
                   href: ef6/modeling/designer/select-runtime-version.md
-                - name: Vytvoření kódu
+                - name: Generování kódu
                   items:
                     - name: Přehled
                       href: ef6/modeling/designer/codegen/index.md
@@ -446,11 +446,11 @@
                       href: ef6/modeling/designer/advanced/tvfs.md
                 - name: Klávesové zkratky
                   href: ef6/modeling/designer/keyboard-shortcuts.md
-        - name: Dotazování na data
+        - name: Dotazování dat
           items:
             - name: Přehled
               href: ef6/querying/index.md
-            - name: Load – metoda
+            - name: Metoda načtení
               href: ef6/querying/load-method.md
             - name: Místní data
               href: ef6/querying/local-data.md
@@ -478,7 +478,7 @@
               href: ef6/saving/transactions.md
             - name: Ověřování dat
               href: ef6/saving/validation.md
-        - name: Další prostředky
+        - name: Další zdroje
           items:
             - name: Blogy
               href: ef6/resources/blogs.md
@@ -486,7 +486,7 @@
               href: ef6/resources/case-studies.md
             - name: Přispět
               href: ef6/resources/contribute.md
-            - name: Získání nápovědy
+            - name: Podpora
               href: ef6/resources/get-help.md
             - name: Slovníček
               href: ef6/resources/glossary.md
@@ -547,4 +547,4 @@
                     - name: Ruština
                       href: ef6/resources/licenses/ef6/rus.md
         - name: Referenční dokumentace k rozhraním API EF6 >>
-          href: 'https://docs.microsoft.com/dotnet/api/?view=entity-framework-6.2.0'
+          href: /dotnet/api/?view=entity-framework-6.2.0
