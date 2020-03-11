@@ -5,32 +5,32 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
 ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655804"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416667"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
-Tento článek ukazuje základní vzory pro konfiguraci `DbContext` prostřednictvím `DbContextOptions` pro připojení k databázi pomocí konkrétního poskytovatele EF Core a volitelného chování.
+Tento článek ukazuje základní vzory konfigurace `DbContext` přes `DbContextOptions` pro připojení k databázi pomocí konkrétního poskytovatele EF Core a volitelného chování.
 
 ## <a name="design-time-dbcontext-configuration"></a>Konfigurace DbContext v době návrhu
 
-EF Core nástroje pro návrh, jako třeba [migrace](xref:core/managing-schemas/migrations/index) , musí být schopné zjistit a vytvořit pracovní instanci typu `DbContext`, aby bylo možné shromáždit podrobnosti o typech entit aplikace a jak se mapují ke schématu databáze. Tento proces může být automatický, dokud může nástroj snadno vytvořit `DbContext` tak, že bude nakonfigurován podobně jako v době běhu.
+EF Core nástroje pro návrh, jako třeba [migrace](xref:core/managing-schemas/migrations/index) , musí být schopné zjistit a vytvořit pracovní instanci `DbContext` typu, aby bylo možné shromáždit podrobnosti o typech entit aplikace a jak se mapují ke schématu databáze. Tento proces může být automatický, dokud nástroj snadno vytvoří `DbContext` tak, že bude nakonfigurován podobně jako v době běhu.
 
-I když jakýkoliv model, který poskytuje potřebné informace o konfiguraci `DbContext` může pracovat v době běhu, nástroje, které vyžadují použití `DbContext` v době návrhu, mohou pracovat pouze s omezeným počtem vzorů. Tyto informace jsou podrobněji popsány v části [vytváření kontextu při návrhu](xref:core/miscellaneous/cli/dbcontext-creation) .
+I když jakýkoliv model, který poskytuje potřebné informace o konfiguraci `DbContext` může pracovat v době běhu, nástroje, které vyžadují použití `DbContext` v době návrhu, můžou fungovat jenom s omezeným počtem vzorů. Tyto informace jsou podrobněji popsány v části [vytváření kontextu při návrhu](xref:core/miscellaneous/cli/dbcontext-creation) .
 
 ## <a name="configuring-dbcontextoptions"></a>Konfigurace DbContextOptions
 
 `DbContext` musí mít instanci `DbContextOptions`, aby bylo možné provést jakoukoli práci. Instance `DbContextOptions` obsahuje konfigurační informace, jako například:
 
-- Poskytovatel databáze, který má být použit, který je obvykle vybrán vyvoláním metody, jako je například `UseSqlServer` nebo `UseSqlite`. Tyto metody rozšíření vyžadují odpovídající balíček poskytovatele, například `Microsoft.EntityFrameworkCore.SqlServer` nebo `Microsoft.EntityFrameworkCore.Sqlite`. Metody jsou definovány v oboru názvů `Microsoft.EntityFrameworkCore`.
+- Poskytovatel databáze, který se má použít, který je obvykle vybraný vyvoláním metody, jako je `UseSqlServer` nebo `UseSqlite`. Tyto metody rozšíření vyžadují odpovídající balíček poskytovatele, například `Microsoft.EntityFrameworkCore.SqlServer` nebo `Microsoft.EntityFrameworkCore.Sqlite`. Metody jsou definovány v oboru názvů `Microsoft.EntityFrameworkCore`.
 - Jakýkoli potřebný připojovací řetězec nebo identifikátor instance databáze, který se obvykle předává jako argument pro metodu výběru poskytovatele uvedenou výše.
 - Jakékoli volitelné selektory chování na úrovni poskytovatele, obvykle také zřetězené uvnitř volání metody výběru poskytovatele
 - Všechny obecné selektory chování EF Core, obvykle zřetězené po nebo před metodou selektoru poskytovatele
 
-V následujícím příkladu je nakonfiguruje `DbContextOptions` pro použití poskytovatele SQL Server, připojení obsažené v proměnné `connectionString`, časový limit příkazu na úrovni poskytovatele a selektoru EF Core chování, které provádí všechny dotazy spouštěné v rámci `DbContext` [No-Tracking](xref:core/querying/tracking#no-tracking-queries) . ve výchozím nastavení:
+Následující příklad nakonfiguruje `DbContextOptions` k použití poskytovatele SQL Server, připojení obsaženému v proměnné `connectionString`, časový limit příkazu na úrovni poskytovatele a selektoru EF Core chování, které provádí všechny dotazy spouštěné ve výchozím nastavení `DbContext`ho [No](xref:core/querying/tracking#no-tracking-queries) :
 
 ``` csharp
 optionsBuilder
@@ -39,15 +39,15 @@ optionsBuilder
 ```
 
 > [!NOTE]  
-> Metody selektoru poskytovatele a další výše uvedené metody selektoru chování jsou rozšiřující metody pro třídy možností `DbContextOptions` nebo specifické pro poskytovatele. Aby bylo možné mít přístup k těmto metodám rozšíření, možná budete muset mít v oboru obor názvů (obvykle `Microsoft.EntityFrameworkCore`) a zahrnout do projektu další závislosti balíčků.
+> Metody selektoru poskytovatele a další výše uvedené metody selektoru chování jsou rozšiřující metody pro `DbContextOptions` nebo třídy možností specifické pro poskytovatele. Aby bylo možné mít přístup k těmto metodám rozšíření, může být nutné mít obor názvů (obvykle `Microsoft.EntityFrameworkCore`) v oboru a zahrnovat další závislosti balíčků v projektu.
 
 `DbContextOptions` lze dodávat do `DbContext` přepsáním metody `OnConfiguring` nebo externě prostřednictvím argumentu konstruktoru.
 
-Pokud jsou oba použity, `OnConfiguring` se použije jako poslední a může přepsat možnosti zadané v argumentu konstruktoru.
+V případě použití obou je `OnConfiguring` použito jako poslední a může přepsat možnosti zadané v argumentu konstruktoru.
 
 ### <a name="constructor-argument"></a>Argument konstruktoru
 
-Konstruktor může jednoduše přijmout `DbContextOptions`, jak je znázorněno níže:
+Váš konstruktor může jednoduše přijmout `DbContextOptions` následujícím způsobem:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -79,7 +79,7 @@ using (var context = new BloggingContext(optionsBuilder.Options))
 
 Můžete také inicializovat `DbContextOptions` v rámci samotného kontextu. I když můžete použít tuto techniku pro základní konfiguraci, obvykle budete potřebovat získat určité podrobnosti o konfiguraci z vnějšku, např. připojovací řetězec databáze. To se dá udělat s rozhraním API konfigurace nebo jakýmkoli jiným způsobem.
 
-Chcete-li v rámci kontextu inicializovat `DbContextOptions`, přepište metodu `OnConfiguring` a zavolejte metody na poskytnuté `DbContextOptionsBuilder`:
+Chcete-li inicializovat `DbContextOptions` v rámci kontextu, přepište metodu `OnConfiguring` a zavolejte metody na poskytnuté `DbContextOptionsBuilder`:
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -109,7 +109,7 @@ using (var context = new BloggingContext())
 
 EF Core podporuje použití `DbContext` s kontejnerem vkládání závislostí. Typ DbContext lze přidat do kontejneru služby pomocí metody `AddDbContext<TContext>`.
 
-`AddDbContext<TContext>` nastaví typ DbContext, `TContext` a odpovídající `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služby.
+`AddDbContext<TContext>` provedou typ DbContext, `TContext`a odpovídající `DbContextOptions<TContext>` k dispozici pro vkládání z kontejneru služby.
 
 Další informace o vkládání závislostí najdete v další části o [přečtení](#more-reading) .
 
@@ -166,31 +166,31 @@ var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 
 ## <a name="avoiding-dbcontext-threading-issues"></a>Předcházení problémům s vlákny DbContext
 
-Entity Framework Core nepodporuje spouštění více paralelních operací na stejné instanci `DbContext`. To zahrnuje paralelní spuštění asynchronních dotazů a jakékoli explicitní souběžné použití z více vláken. Proto vždy asynchronní volání `await` okamžitě nebo pro operace, které se spouštějí paralelně, použijte samostatné instance `DbContext`.
+Entity Framework Core nepodporuje spouštění více paralelních operací ve stejné instanci `DbContext`. To zahrnuje paralelní spuštění asynchronních dotazů a jakékoli explicitní souběžné použití z více vláken. Proto vždy `await` asynchronní volání okamžitě nebo pro operace, které se spouštějí paralelně, použijte samostatné instance `DbContext`.
 
-Když EF Core detekuje souběžný pokus o použití instance `DbContext`, zobrazí se `InvalidOperationException` se zprávou, například:
+Když EF Core detekuje pokus o použití instance `DbContext` souběžně, zobrazí se `InvalidOperationException` zpráva podobná této:
 
 > Druhá operace začala v tomto kontextu před dokončením předchozí operace. To je obvykle způsobeno různými vlákny pomocí stejné instance DbContext, ale členy instance nejsou zaručeny jako bezpečné pro přístup z více vláken.
 
 Pokud se souběžný přístup nedetekuje, může to mít za následek nedefinované chování, chyby aplikace a poškození dat.
 
-Existují běžné chyby, které můžou neúmyslně způsobit souběžný přístup na stejnou instanci `DbContext`:
+Existují běžné chyby, které můžou neúmyslně způsobit souběžný přístup ke stejné instanci `DbContext`:
 
 ### <a name="forgetting-to-await-the-completion-of-an-asynchronous-operation-before-starting-any-other-operation-on-the-same-dbcontext"></a>Forgetting na čekání na dokončení asynchronní operace před spuštěním jakékoli jiné operace na stejném DbContext
 
-Asynchronní metody umožňují EF Core iniciovat operace, které přistupují k databázi neblokujícím způsobem. Pokud však volající neočekává dokončení jedné z těchto metod a pokračuje v provádění dalších operací s `DbContext`, stav `DbContext` může být (a pravděpodobně bude) poškozen.
+Asynchronní metody umožňují EF Core iniciovat operace, které přistupují k databázi neblokujícím způsobem. Pokud ale volající neočekává dokončení jedné z těchto metod a pokračuje v provádění dalších operací s `DbContext`, může být stav `DbContext` (a velmi pravděpodobně) poškozený.
 
 Vždy čekají EF Core asynchronní metody okamžitě.  
 
 ### <a name="implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection"></a>Implicitní sdílení instancí DbContext napříč více vlákny prostřednictvím injektáže závislosti
 
-Metoda rozšíření [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) registruje ve výchozím nastavení typy `DbContext` s [vymezenou životností](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) .
+Metoda rozšíření [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) registruje `DbContext` typů s [vymezenou životností](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) ve výchozím nastavení.
 
-To je bezpečné před souběžným problémům s přístupem v aplikacích ASP.NET Core, protože v daný okamžik probíhá pouze jedno vlákno, které spouští každou žádost klienta, a protože každý požadavek získá samostatný rozsah vkládání závislostí (a proto samostatnou instanci `DbContext`).
+To je bezpečné před souběžnými problémy s přístupem v aplikacích ASP.NET Core, protože v daný okamžik probíhá pouze jedno vlákno, které spouští jednotlivé požadavky klienta, a protože každý požadavek získá samostatný rozsah vkládání závislostí (a tedy samostatnou `DbContext` instanci).
 
-Nicméně jakýkoli kód, který explicitně spustí více vláken paralelně, musí zajistit, aby se instance `DbContext` nikdy nepoužily současně.
+Nicméně jakýkoli kód, který explicitně spustí více vláken paralelně, musí zajistit, aby se instance `DbContext` nepoužily současně.
 
-Pomocí injektáže závislostí lze dosáhnout toho, že buď zaregistrujete kontext jako obor a vytvoříte obory (s použitím `IServiceScopeFactory`) pro každé vlákno, nebo registrací `DbContext` jako přechodné (pomocí přetížení `AddDbContext`, které používá parametr `ServiceLifetime`).
+Pomocí injektáže závislosti lze dosáhnout toho, že buď zaregistrujete kontext jako obor a vytvoříte obory (pomocí `IServiceScopeFactory`) pro každé vlákno, nebo registrací `DbContext` jako přechodný (pomocí přetížení `AddDbContext`, který přebírá parametr `ServiceLifetime`).
 
 ## <a name="more-reading"></a>Další čtení
 

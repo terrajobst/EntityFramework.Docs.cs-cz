@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: dc6110a0-80a0-4370-8190-cea942841cee
 ms.openlocfilehash: 841aec645abdb2a56076d0b70bfb2614b0acafb4
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72446008"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419459"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>Zlepšení výkonu při spuštění pomocí NGen
 > [!NOTE]
@@ -56,7 +56,7 @@ Při rozhodování o tom, která sestavení pro generování nativních imagí v
 
 - **Hlavní sestavení modulu runtime EntityFramework. dll**: Typická aplikace založená na EF spouští z tohoto sestavení značný objem kódu při spuštění nebo při prvním přístupu k databázi. V důsledku toho vytváření nativních imagí tohoto sestavení bude mít za následek největší nárůst výkonu při spuštění.  
 - **Jakékoli sestavení poskytovatele EF používané vaší aplikací**: čas spuštění může také mírně těžit z generování nativních bitových kopií. Například pokud aplikace používá poskytovatele EF pro SQL Server budete chtít vygenerovat nativní bitovou kopii pro EntityFramework. SqlServer. dll.  
-- **Sestavení vaší aplikace a další závislosti**: [dokumentace Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) obsahuje obecná kritéria pro výběr sestavení, která se mají vygenerovat nativní bitové kopie, a dopad nativních imagí na zabezpečení, pokročilých možností, jako je "pevný vazba ", scénáře, jako je například použití nativních imagí ve scénářích ladění a profilace atd.  
+- **Sestavení vaší aplikace a další závislosti**: [dokumentace Ngen. exe](https://msdn.microsoft.com/library/6t9t5wcf.aspx) obsahuje obecná kritéria pro výběr sestavení, která se mají vygenerovat nativní bitové kopie, a dopad nativních imagí na zabezpečení, pokročilých možností, jako je například "pevná vazba", scénářů, jako je například použití nativních imagí ve scénářích ladění a profilování atd.  
 
 > [!TIP]
 > Nezapomeňte pečlivě změřit dopad použití nativních imagí na výkon při spuštění i na celkový výkon aplikace a porovnejte je s aktuálními požadavky. I když nativní bitové kopie budou obecně pomáhat zlepšit výkon při spuštění a v některých případech snižuje využití paměti, ne všechny scénáře budou mít stejnou výhodu. Například při spuštění ustáleného stavu (to znamená, že jakmile se všechny metody používané aplikací vyvolaly nejméně jednou) kód generovaný kompilátorem JIT může ve skutečnosti vracet poněkud lepší výkon než nativní bitové kopie.  

@@ -5,18 +5,18 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 30b91b6e66b6c0f516d1ba12485304b52770cbef
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.openlocfilehash: da4a459fbc40010fc14190204c8ed66fe0495b84
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781232"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416458"
 ---
 # <a name="owned-entity-types"></a>Vlastněné typy entit
 
 EF Core umožňuje modelovat typy entit, které se mohou u vlastností navigace u jiných typů entit vyskytovat pouze někdy. Ty se nazývají _vlastněné typy entit_. Entita obsahující typ entity, která je vlastníkem, je jeho _vlastník_.
 
-Vlastněné entity jsou v podstatě součástí vlastníka a nemůže existovat bez nich, jsou koncepčně podobné [agregacím](https://martinfowler.com/bliki/DDD_Aggregate.html). To znamená, že vlastněný typ je podle definice na závislé straně vztahu s vlastníkem.
+Vlastněné entity jsou v podstatě součástí vlastníka a nemůže existovat bez nich, jsou koncepčně podobné [agregacím](https://martinfowler.com/bliki/DDD_Aggregate.html). To znamená, že vlastněná entita je podle definice na závislé straně vztahu s vlastníkem.
 
 ## <a name="explicit-configuration"></a>Explicitní konfigurace
 
@@ -38,7 +38,7 @@ Pokud je vlastnost `ShippingAddress` soukromá v typu `Order`, můžete použít
 
 [!code-csharp[OwnsOneString](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneString)]
 
-Podívejte se na [úplný ukázkový projekt](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) pro další kontext.
+Podívejte se na [úplný ukázkový projekt](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) pro další kontext.
 
 ## <a name="implicit-keys"></a>Implicitní klíče
 

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
 ms.openlocfilehash: d40cff4ddccf43a394ef4f244653372a5a89b05a
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182453"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418355"
 ---
 # <a name="database-first"></a>Database First
 Toto video a podrobný návod vám poskytnou Úvod do Database Firstho vývoje pomocí Entity Framework. Database First umožňuje zpětně analyzovat model z existující databáze. Model je uložen v souboru EDMX (. edmx rozšíření) a lze jej zobrazit a upravit v Entity Framework Designer. Třídy, ve kterých pracujete ve vaší aplikaci, jsou automaticky generovány ze souboru EDMX.
@@ -20,7 +20,7 @@ Toto video představuje úvod do Database First vývoje pomocí Entity Framework
 
 **Video**: [wmv](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 Abyste mohli dokončit tento návod, budete muset mít nainstalovanou aspoň Visual Studio 2010 nebo Visual Studio 2012.
 
@@ -41,7 +41,7 @@ Databázový server, který je nainstalovaný se sadou Visual Studio, se liší 
 
 Pojďme dopředu a vygenerovat databázi.
 
--   Otevřít Visual Studio
+-   Otevřete sadu Visual Studio.
 -   **Zobrazení-&gt; Průzkumník serveru**
 -   Klikněte pravým tlačítkem na **datová připojení –&gt; přidat připojení...**
 -   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat Microsoft SQL Server jako zdroj dat
@@ -83,11 +83,11 @@ CREATE TABLE [dbo].[Posts] (
 
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Database First k provádění přístupu k datům:
 
--   Otevřít Visual Studio
+-   Otevřete sadu Visual Studio.
 -   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **DatabaseFirstSample** .
--   Vybrat **OK**
+-   Vyberte **OK**.
 
  
 

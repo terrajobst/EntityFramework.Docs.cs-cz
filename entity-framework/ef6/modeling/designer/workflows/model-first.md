@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
 ms.openlocfilehash: 1b37805beb3d33f0b6dad2577a8abb3ea8f7b1e4
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182444"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418103"
 ---
 # <a name="model-first"></a>Model First
 Toto video a podrobný návod vám poskytnou Úvod do Model Firstho vývoje pomocí Entity Framework. Model First umožňuje vytvořit nový model pomocí Entity Framework Designer a pak z modelu vygenerovat schéma databáze. Model je uložen v souboru EDMX (. edmx rozšíření) a lze jej zobrazit a upravit v Entity Framework Designer. Třídy, ve kterých pracujete ve vaší aplikaci, jsou automaticky generovány ze souboru EDMX.
@@ -20,7 +20,7 @@ Toto video a podrobný návod vám poskytnou Úvod do Model Firstho vývoje pomo
 
 **Video**: [wmv](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 Abyste mohli dokončit tento návod, budete muset mít nainstalovanou aplikaci Visual Studio 2010 nebo Visual Studio 2012.
 
@@ -30,11 +30,11 @@ Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](h
 
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Model First k provádění přístupu k datům:
 
--   Otevřít Visual Studio
+-   Otevřete sadu Visual Studio.
 -   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **ModelFirstSample** .
--   Vybrat **OK**
+-   Vyberte **OK**.
 
 ## <a name="2-create-model"></a>2. vytvoření modelu
 
@@ -189,7 +189,7 @@ Začneme přidáním nové entity uživatele do našeho modelu.
 Teď máme aktualizovaný model a teď jsme připraveni aktualizovat databázi tak, aby vyhovovala našemu novému typu entity uživatele.
 
 -   Klikněte pravým tlačítkem myši na návrhovou plochu a vyberte možnost **Generovat databázi z modelu...** , Entity Framework vypočítá skript pro opětovné vytvoření schématu na základě aktualizovaného modelu.
--   Klikněte na **Dokončit** .
+-   Klikněte na **Dokončit**.
 -   Můžete obdržet upozornění týkající se přepsání stávajícího skriptu DDL a částí mapování a úložiště v modelu, pro obě tato upozornění klikněte na **Ano** .
 -   Otevře se aktualizovaný skript SQL pro vytvoření databáze.  
     *Skript, který je vygenerován, odstraní všechny existující tabulky a znovu vytvoří schéma od začátku. To může fungovat pro místní vývoj, ale není životaschopná pro doručování změn do databáze, která už je nasazená. Pokud potřebujete publikovat změny v databázi, která již byla nasazena, budete muset skript upravit nebo použít nástroj porovnání schématu pro výpočet migračního skriptu.*

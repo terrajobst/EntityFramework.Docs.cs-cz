@@ -4,24 +4,24 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 6d8cf117dfd94524a53e10bb4a23c2a44c4c8e7b
-ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
+ms.openlocfilehash: 07646e6ead845c38537945a03367ac7f50784236
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56459169"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416639"
 ---
 # <a name="connection-resiliency"></a>Odolnost připojení
 
-Odolnost připojení automaticky opakuje neúspěšné databázových příkazů. Funkci lze použít s libovolnou databází zadáním "strategie provádění", která zapouzdří logiku potřebnou pro zjišťování chyb a opakování příkazů. EF Core poskytovatelé může poskytovat přizpůsobené jejich konkrétní databázi podmínky při selhání a zásady opakování optimální strategií provádění.
+Odolnost připojení automaticky opakuje neúspěšné příkazy databáze. Funkci lze použít s libovolnou databází poskytnutím "strategie provádění", která zapouzdřuje logiku potřebnou k detekci selhání a opakování příkazů. Poskytovatelé EF Core můžou poskytovat strategie spouštění přizpůsobené konkrétním stavům selhání databáze a optimálním zásadám opakování.
 
-Jako příklad zprostředkovatele SQL Server obsahuje strategie provádění, která je specificky přizpůsobit, aby SQL Server (včetně SQL Azure). Zná typy výjimek, které umožňují opakovaný pokus a má účelné výchozí hodnoty pro maximální počet opakovaných pokusů, zpoždění mezi opakovanými pokusy apod.
+Například poskytovatel SQL Server zahrnuje strategii provádění, která je určena speciálně pro SQL Server (včetně SQL Azure). Informace o typech výjimek, které se dají opakovat, a má rozumné výchozí hodnoty pro maximální počet opakování, zpoždění mezi opakovanými pokusy atd.
 
-Strategie provádění je zadaný při konfiguraci možnosti pro váš kontext. Toto je obvykle v `OnConfiguring` metoda odvozené kontextu:
+Při konfiguraci možností pro váš kontext je určena strategie provádění. Obvykle se jedná o metodu `OnConfiguring` vašeho odvozeného kontextu:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
 
-nebo v `Startup.cs` pro aplikace ASP.NET Core:
+nebo v `Startup.cs` pro aplikaci ASP.NET Core:
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
@@ -33,9 +33,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="custom-execution-strategy"></a>Strategie provádění vlastní
+## <a name="custom-execution-strategy"></a>Vlastní strategie provádění
 
-Je mechanismus pro registraci strategie vlastní provádění vlastní, pokud chcete změnit výchozí hodnoty.
+Existuje mechanismus, jak zaregistrovat vlastní strategii spouštění, pokud chcete změnit některou z výchozích hodnot.
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -49,61 +49,61 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ## <a name="execution-strategies-and-transactions"></a>Strategie provádění a transakce
 
-Strategie provádění, která automaticky opakovat při selhání musí být schopný k přehrání každou operaci v bloku opakování, které se nedaří. Při opakování jsou povolené, bude každá operace, které můžete provádět prostřednictvím EF Core vyvolaly provozu. To znamená, že každý dotaz a každé volání `SaveChanges()` bude zopakován jako celek, pokud dojde k přechodnému selhání.
+Strategie provádění, která se automaticky opakuje při selhání, musí být schopná přehrát všechny operace v bloku opakování, který se nezdaří. Když jsou povoleny opakované pokusy, každá operace, kterou provedete prostřednictvím EF Core, se stal svou vlastní operací vyvolaly. To znamená, že každý dotaz a každé volání `SaveChanges()` se bude opakovat jako jednotka, pokud dojde k přechodnému selhání.
 
-Nicméně pokud váš kód zahájí transakci pomocí `BeginTransaction()` definujete vlastní skupinu operací, které je potřeba za jednotku považuje a všechno, co je uvnitř transakce bude nutné je znovu přehrát musí dojít k selhání. Při pokusu provést při použití strategie provádění obdržíte výjimku podobný tomuto:
+Nicméně pokud váš kód inicializuje transakci pomocí `BeginTransaction()` definujete vlastní skupinu operací, které je třeba považovat za jednotku, a všechno, co se v transakci musí přehrát, dojde k selhání. Pokud se pokusíte provést tuto operaci při použití strategie provádění, obdržíte výjimku podobnou následující:
 
-> InvalidOperationException: Strategie provádění nakonfigurované "SqlServerRetryingExecutionStrategy" nepodporuje transakce iniciované uživatelem. Použití strategie provádění vrácený "DbContext.Database.CreateExecutionStrategy()" provádět všechny operace v transakci jako vyvolaly jednotky.
+> InvalidOperationException: nakonfigurovaná strategie provádění SqlServerRetryingExecutionStrategy nepodporuje transakce iniciované uživatelem. K provedení všech operací v transakci jako jednotky vyvolaly použijte strategii spuštění vrácenou funkcí DbContext. Database. CreateExecutionStrategy ().
 
-Řešením je vyvolat s všechno, co představuje delegáta, který je nutné spustit ručně strategie provádění. Pokud dojde k přechodnému selhání, strategie provádění znovu vyvolá delegáta.
+Řešením je ručně vyvolat strategii spouštění s delegátem, který představuje všechno, co je třeba provést. Pokud dojde k přechodnému selhání, strategie provádění znovu vyvolá delegáta.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#ManualTransaction)]
 
-Tento přístup můžete použít také s okolí transakce.
+Tento přístup lze také použít s ambientních transakcí.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#AmbientTransaction)]
 
-## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>Chyba při potvrzení transakce a problém idempotence
+## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>Selhání potvrzení transakce a problém idempotence
 
-Obecně platí Pokud dojde k selhání připojení aktuální transakce je vrácena zpět. Nicméně pokud připojení se ukončí, když je transakce vrácení potvrzené výsledný stav transakce není znám. Najdete v tomto [blogový příspěvek](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) další podrobnosti.
+Obecně platí, že pokud dojde k selhání připojení, aktuální transakce se vrátí zpět. Pokud je ale připojení vyřazeno, zatímco probíhá potvrzení transakce, výsledný stav transakce není známý. 
 
-Ve výchozím nastavení, strategie provádění opakování operace, jako když transakce byla vrácena zpět, ale pokud se nejedná o případ výsledkem bude výjimky Pokud nový stav databáze není kompatibilní nebo může vést k **poškození dat** Pokud operace není závislý na konkrétní stav, například při vkládání nový řádek s automaticky generované hodnoty klíče.
+Ve výchozím nastavení strategie spouštění zopakuje operaci, jako kdyby byla transakce vrácena zpět, ale pokud to ale není, bude výsledkem výjimka, pokud je stav nového databáze nekompatibilní nebo může způsobit **poškození dat** , pokud se operace nespoléhá na určitý stav, například při vložení nového řádku s automaticky generovanými hodnotami klíče.
 
-Chcete-li to vyřešit několika způsoby.
+Existuje několik způsobů, jak s nimi pracovat.
 
-### <a name="option-1---do-almost-nothing"></a>Možnost 1 - proveďte (téměř) nic
+### <a name="option-1---do-almost-nothing"></a>Možnost 1 – do (téměř) nic
 
-Pravděpodobnost selhání připojení během zápisu transakce tak může být přijatelný pro vaše aplikace právě selhat, pokud dojde k tomuto stavu dochází.
+Pravděpodobnost selhání připojení během potvrzení transakce je nízká, takže může být přijatelné, aby vaše aplikace v případě, že k této situaci skutečně dojde, nedošlo k chybě.
 
-Musíte ale Vyhněte se použití klíče generované úložištěm, aby se zajistilo, že místo přidání duplicitní řádek je vyvolána výjimka. Zvažte použití klientem generovaná hodnota GUID nebo generátor hodnot na straně klienta.
+Je však nutné se vyhnout použití klíčů generovaných úložištěm, aby bylo zajištěno, že bude vyvolána výjimka namísto přidání duplicitního řádku. Zvažte použití hodnoty GUID generované klientem nebo generátoru hodnot na straně klienta.
 
-### <a name="option-2---rebuild-application-state"></a>Možnost 2 - stavu opětovné sestavení aplikace
+### <a name="option-2---rebuild-application-state"></a>Možnost 2 – opětovné sestavení stavu aplikace
 
-1. Zrušit aktuální `DbContext`.
-2. Vytvořte nový `DbContext` a obnovení stavu aplikace z databáze.
-3. Informujte uživatele, že poslední operaci možná nebyly úspěšně dokončeny.
+1. Zahodí aktuální `DbContext`.
+2. Vytvořte novou `DbContext` a obnovte stav aplikace z databáze.
+3. Informujte uživatele, že poslední operace nemusí být úspěšně dokončena.
 
 ### <a name="option-3---add-state-verification"></a>Možnost 3 – Přidání ověření stavu
 
-Pro většinu operací, které mění stav databáze je možné přidat kód, který kontroluje, zda byla úspěšná. Poskytuje metody rozšíření pro lepší pochopení – EF `IExecutionStrategy.ExecuteInTransaction`.
+Pro většinu operací, které mění stav databáze je možné přidat kód, který kontroluje, zda bylo úspěšné. EF poskytuje metodu rozšíření, která usnadňuje `IExecutionStrategy.ExecuteInTransaction`.
 
-Tato metoda začíná a potvrzení transakce a přijímá také funkci `verifySucceeded` parametr, který je voláno, když dojde k přechodné chybě během zápisu transakce.
+Tato metoda začíná a potvrdí transakci a také přijímá funkci v parametru `verifySucceeded`, který je vyvolán, když dojde k přechodné chybě během zápisu transakce.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Verification)]
 
 > [!NOTE]
-> Tady `SaveChanges` vyvolání `acceptAllChangesOnSuccess` nastavena na `false` chcete vyhnout změně stavu `Blog` entitu, kterou chcete `Unchanged` Pokud `SaveChanges` proběhne úspěšně. Díky tomu opakování stejné operace potvrzení nezdaří a transakce je vrácena zpět.
+> Zde je `SaveChanges` vyvolána s `acceptAllChangesOnSuccess` nastavenou na `false`, aby nedošlo ke změně stavu `Blog` entity na `Unchanged`, pokud `SaveChanges` úspěšné. To umožňuje opakovat stejnou operaci, pokud se potvrzení nezdařilo a transakce je vrácena zpět.
 
-### <a name="option-4---manually-track-the-transaction"></a>Možnost 4 - manuálně sledovat transakce
+### <a name="option-4---manually-track-the-transaction"></a>Možnost 4 – ruční sledování transakce
 
-Pokud chcete použít klíče generované úložištěm nebo potřebujete obecný způsob zpracování selhání potvrzení změn, které nejsou závislé na operace prováděné každou transakci, může přiřadit ID, které je zaškrtnuté políčko, pokud se potvrzení nezdaří.
+Pokud potřebujete použít klíče generované úložištěm nebo potřebujete obecný způsob zpracování selhání potvrzení, které není závislé na operaci provedené jednotlivými transakce, může být přiřazeno ID, které je zaškrtnuto, když se potvrzení nezdaří.
 
-1. Přidáte tabulku do databáze, která slouží ke sledování stavu transakce.
-2. Vložte řádek do tabulky na začátku každé transakci.
-3. Pokud se nepovede při potvrzení změn, zkontrolujte přítomnost odpovídající řádek v databázi.
-4. Pokud je potvrzení úspěšné, odstraňte odpovídající řádek, aby se zabránilo růst v tabulce.
+1. Přidejte tabulku do databáze použité ke sledování stavu transakcí.
+2. Vloží řádek do tabulky na začátku každé transakce.
+3. Pokud během potvrzení dojde k chybě připojení, vyhledejte přítomnost odpovídajícího řádku v databázi.
+4. Pokud je potvrzení úspěšné, odstraňte odpovídající řádek, abyste se vyhnuli nárůstu tabulky.
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Tracking)]
 
 > [!NOTE]
-> Ujistěte se, že má kontext použitý pro ověření strategie provádění definován tak, že připojení je pravděpodobně znovu během ověřování selže, pokud došlo k selhání během zápisu transakce.
+> Ujistěte se, že kontext použitý pro ověření má strategii spuštění definovanou v případě, že během ověřování dojde k chybě při potvrzení transakce.

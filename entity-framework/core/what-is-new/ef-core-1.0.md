@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 uid: core/what-is-new/ef-core-1.0
 ms.openlocfilehash: 2cd2a54d75ed3f0caa8b674dfb56babcfcc13592
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655855"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417522"
 ---
 # <a name="features-included-in-ef-core-10"></a>Funkce, které jsou součástí EF Core 1,0
 
@@ -121,7 +121,7 @@ Znamená, že `SaveChanges` je vždy atomická (to znamená, že buď zcela usp�
 
 Poskytuje lepší výkon tím, že dávkuje více příkazů pro vložení, aktualizaci a odstranění do jediného převodu do databáze.
 
-## <a name="query"></a>Dotazy
+## <a name="query"></a>Dotaz
 
 ### <a name="basic-linq-support"></a>Základní podpora LINQ
 

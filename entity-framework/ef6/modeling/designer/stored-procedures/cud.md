@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
 ms.openlocfilehash: bdb0df969c33d5ad3f103bfa9af6002c9c2bb9b3
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813551"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418320"
 ---
 # <a name="designer-cud-stored-procedures"></a>CUD uložené procedury návrháře
 
@@ -29,7 +29,7 @@ Při mapování operací CUD na uložené procedury platí následující požad
 - Pokud server vygeneruje hodnotu primárního klíče pro vložený řádek, musíte tuto hodnotu namapovat zpátky na klíčovou vlastnost entity. V následujícím příkladu vrátí **InsertPerson** uloženou proceduru nově vytvořený primární klíč jako součást sady výsledků uložených procedur. Primární klíč je namapován na klíč entity (**PersonID**) pomocí **&lt;funkce přidat vazby výsledku&gt;**  funkci návrháře EF.
 - Volání uložených procedur jsou namapována 1:1 s entitami v koncepčním modelu. Například Pokud implementujete hierarchii dědičnosti v koncepčním modelu a poté namapujete uložené procedury CUD pro **nadřazený objekt** (základní) a **podřízené** (odvozené) entity, uložením **podřízených** změn budou volána pouze uložené procedury pro **nadřazený** **objekt.**
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 K dokončení toho návodu budete potřebovat:
 

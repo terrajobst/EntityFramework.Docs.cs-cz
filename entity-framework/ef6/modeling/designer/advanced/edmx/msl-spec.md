@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 13ae7bc1-74b4-4ee4-8d73-c337be841467
 ms.openlocfilehash: 8990d1373ea2121ce11337a43dbcdf3b9e1532bd
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182558"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418730"
 ---
 # <a name="msl-specification"></a>Specifikace MSL
 Specifikace jazyka MSL (Mapping Specification Language) je jazyk založený na jazyce XML, který popisuje mapování mezi koncepčním modelem a modelem úložiště aplikace Entity Framework.
@@ -94,8 +94,8 @@ Následující tabulka popisuje atributy, které se vztahují na element **Assoc
 | Název atributu     | Je povinné | Hodnota                                                                                                                                                                             |
 |:-------------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Vlastností** | Ano         | Název asociace, který je namapován.                                                                                                                                 |
-| **from**           | Ano         | Hodnota atributu **FromRole** vlastnosti navigace, která odpovídá mapovanému přidružení. Další informace naleznete v tématu element NavigationProperty (CSDL). |
-| **To**             | Ano         | Hodnota atributu **ToRole** vlastnosti navigace, která odpovídá mapovanému přidružení. Další informace naleznete v tématu element NavigationProperty (CSDL).   |
+| **Výsledkem**           | Ano         | Hodnota atributu **FromRole** vlastnosti navigace, která odpovídá mapovanému přidružení. Další informace naleznete v tématu element NavigationProperty (CSDL). |
+| **Komu**             | Ano         | Hodnota atributu **ToRole** vlastnosti navigace, která odpovídá mapovanému přidružení. Další informace naleznete v tématu element NavigationProperty (CSDL).   |
 
 ### <a name="example"></a>Příklad
 

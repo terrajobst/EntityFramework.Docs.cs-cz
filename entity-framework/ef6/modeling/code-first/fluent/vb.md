@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
 ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824826"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419057"
 ---
 # <a name="fluent-api-with-vbnet"></a>Rozhraní Fluent API s VB.NET
 Code First umožňuje definovat model pomocí tříd C\# nebo VB.NET. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent. Tento návod ukazuje, jak provést konfiguraci rozhraní Fluent API pomocí VB.NET.

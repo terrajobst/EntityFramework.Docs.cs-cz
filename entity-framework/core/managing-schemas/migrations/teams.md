@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/teams
 ms.openlocfilehash: 6c17c56277821159962884aef72d46c624442e20
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655548"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416768"
 ---
 # <a name="migrations-in-team-environments"></a>Migrace v týmových prostředích
 
@@ -48,7 +48,7 @@ b.Property<string>("Alias");
 >>>>>>> Theirs
 ```
 
-Pokud se setkáte s tímto druhem konfliktu, vyřešte ho tím, že znovu vytvoříte migraci. Postupujte podle těchto kroků:
+Pokud se setkáte s tímto druhem konfliktu, vyřešte ho tím, že znovu vytvoříte migraci. Postupujte následovně:
 
 1. Před sloučením přerušit sloučení a vrátit se zpátky do svého pracovního adresáře
 2. Odebrání migrace (ale zachovat změny modelu)

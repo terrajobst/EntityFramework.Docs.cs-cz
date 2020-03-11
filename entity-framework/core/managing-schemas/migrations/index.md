@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
 ms.openlocfilehash: dc0c1ae1a03c98c6f230557dc0bdd4d29ec191dd
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502198"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416856"
 ---
 # <a name="migrations"></a>Migrace
 
@@ -28,7 +28,7 @@ Migrace zahrnuje nástroje příkazového řádku a rozhraní API, které vám p
 > [!TIP]
 > Pokud je `DbContext` v jiném sestavení než projekt po spuštění, můžete explicitně zadat cílové a spouštěné projekty buď v [nástrojích konzoly Správce balíčků](xref:core/miscellaneous/cli/powershell#target-and-startup-project) , nebo v [.NET Core CLIch nástrojích](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project).
 
-## <a name="install-the-tools"></a>Nainstalujte si nástroje.
+## <a name="install-the-tools"></a>Instalace nástrojů
 
 Instalace [nástrojů příkazového řádku](xref:core/miscellaneous/cli/index):
 
@@ -39,13 +39,13 @@ Instalace [nástrojů příkazového řádku](xref:core/miscellaneous/cli/index)
 
 Po [Definování počátečního modelu](xref:core/modeling/index)je čas vytvořit databázi. Chcete-li přidat počáteční migraci, spusťte následující příkaz.
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
 ```
 
-### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration InitialCreate
@@ -68,13 +68,13 @@ Do projektu se v adresáři **migrace** přidají tři soubory:
 
 V dalším kroku použijte migraci na databázi a vytvořte schéma.
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database
@@ -86,13 +86,13 @@ Update-Database
 
 Po provedení změn v modelu EF Core nemusí být schéma databáze synchronizované. Pokud ho chcete uvést v aktuálním stavu, přidejte další migraci. Název migrace lze použít jako zprávu potvrzení v systému správy verzí. Například můžete zvolit název jako *AddProductReviews* , pokud je změna novou třídou entity pro recenze.
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add AddProductReviews
 ```
 
-### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration AddProductReviews
@@ -147,13 +147,13 @@ migrationBuilder.DropColumn(
 
 Pomocí příslušného příkazu použijte migraci na databázi.
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database
@@ -166,22 +166,22 @@ Update-Database
 Někdy je vhodné přidat migraci bez provedení jakýchkoli změn modelu. V takovém případě přidání nové migrace vytvoří soubory kódu s prázdnými třídami. Tuto migraci můžete přizpůsobit tak, aby prováděla operace, které přímo nesouvisejí s modelem EF Core. Tímto způsobem můžete chtít spravovat tyto věci:
 
 * Fulltextové vyhledávání
-* Funkce
+* Functions
 * Uložené procedury
-* Aktivační procedury
+* Triggery
 * Zobrazení
 
 ## <a name="remove-a-migration"></a>Odebrání migrace
 
 Někdy můžete přidat migraci a zajistěte, abyste před použitím v modelu EF Core provedli další změny. K odebrání poslední migrace použijte tento příkaz.
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations remove
 ```
 
-### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Remove-Migration
@@ -195,13 +195,13 @@ Po odebrání migrace můžete provést další změny modelu a znovu ho přidat
 
 Pokud jste již v databázi použili migraci (nebo několik migrací), ale potřebujete je vrátit zpět, můžete použít stejný příkaz pro použití migrace, ale zadejte název migrace, na kterou se chcete vrátit.
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update LastGoodMigration
 ```
 
-### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Update-Database LastGoodMigration
@@ -213,13 +213,13 @@ Update-Database LastGoodMigration
 
 Při ladění migrací nebo jejich nasazení do provozní databáze je užitečné vygenerovat skript SQL. Skript pak může být dále revidován pro přesnost a vyladěný tak, aby vyhovoval potřebám provozní databáze. Skript se dá použít i ve spojení s technologií nasazení. Základní příkaz je následující.
 
-### <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations script
 ```
 
-### <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Script-Migration
@@ -252,4 +252,4 @@ myDbContext.Database.Migrate();
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace najdete v tématu <xref:core/miscellaneous/cli/index>.
+Další informace naleznete v tématu <xref:core/miscellaneous/cli/index>.

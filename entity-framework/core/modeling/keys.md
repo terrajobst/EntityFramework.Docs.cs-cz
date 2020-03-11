@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/keys
 ms.openlocfilehash: abd65a5ea079a49fd7a3bbc84a9337f6ee19fab1
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502003"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416465"
 ---
 # <a name="keys"></a>Klíče
 
@@ -25,11 +25,11 @@ Podle konvence bude vlastnost s názvem `Id` nebo `<type name>Id` nakonfigurovan
 
 Jednu vlastnost můžete nastavit jako primární klíč entity následujícím způsobem:
 
-## <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
+## <a name="data-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/KeySingle.cs?name=KeySingle&highlight=3)]
 
-## <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
+## <a name="fluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeySingle.cs?name=KeySingle&highlight=4)]
 

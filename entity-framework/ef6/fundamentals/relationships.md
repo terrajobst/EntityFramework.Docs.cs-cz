@@ -3,15 +3,16 @@ title: Relace, navigační vlastnosti a cizí klíče – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: cc7160f2d0ab7ac0c6009f820441c88590cacfaf
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 892e872e3cb11ea95084cf6d9ab43c8d500bc0de
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655866"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419351"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>Relace, navigační vlastnosti a cizí klíče
-Toto téma poskytuje přehled o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje také pokyny k tomu, jak namapovat a manipulovat s relacemi.
+
+Tento článek poskytuje přehled o tom, jak Entity Framework spravuje vztahy mezi entitami. Poskytuje také pokyny k tomu, jak namapovat a manipulovat s relacemi.
 
 ## <a name="relationships-in-ef"></a>Vztahy v EF
 

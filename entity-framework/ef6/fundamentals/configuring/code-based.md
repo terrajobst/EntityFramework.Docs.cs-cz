@@ -1,37 +1,37 @@
 ---
-title: Konfigurace založená na kódu - EF6
+title: Konfigurace založená na kódu – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
 ms.openlocfilehash: 079a4ab30af74eac8b1f51ece5801ff40a867a29
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59619282"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417867"
 ---
-# <a name="code-based-configuration"></a>Konfigurace založená na kódu
+# <a name="code-based-configuration"></a>Konfigurace na základě kódu
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Konfigurace aplikace Entity Framework se dá nastavit v konfiguračním souboru (app.config/web.config) nebo prostřednictvím kódu. Ten se označuje jako konfigurace založená na kódu.  
+Konfiguraci pro aplikaci Entity Framework lze zadat v konfiguračním souboru (App. config/Web. config) nebo prostřednictvím kódu. Druhá je známá jako Konfigurace založená na kódu.  
 
-Konfigurace v konfiguračním souboru je popsána v tématu [samostatný článek](config-file.md). Konfigurační soubor má přednost před konfigurace založená na kódu. Jinými slovy, pokud parametr konfigurace nastaven v obou kódu a konfiguračním souboru, pak nastavení v konfiguračním souboru se používá.  
+Konfigurace v konfiguračním souboru je popsána v [samostatném článku](config-file.md). Konfigurační soubor má přednost před konfigurací založenou na kódu. Jinými slovy, pokud je možnost konfigurace nastavena v kódu i v konfiguračním souboru, bude použito nastavení v konfiguračním souboru.  
 
-## <a name="using-dbconfiguration"></a>Pomocí DbConfiguration  
+## <a name="using-dbconfiguration"></a>Použití DbConfiguration  
 
-Konfigurace založená na kódu EF6 a vyšší je dosaženo vytvořením podtřída System.Data.Entity.Config.DbConfiguration. Při vytvoření podtřídy DbConfiguration by měla dodržovat následující pokyny:  
+Konfigurace na základě kódu v EF6 a výše se dosahuje vytvořením podtříd třídy System. data. entity. config. DbConfiguration. Při DbConfigurationí podtříd by měly být dodrženy následující pokyny:  
 
-- Vytvořte pouze jednu třídu DbConfiguration pro vaši aplikaci. Tato třída určuje nastavení v celé doméně aplikace.  
-- Umístěte DbConfiguration třídu do stejného sestavení jako vaší třídy DbContext. (Najdete v článku *přesunutí DbConfiguration* části, pokud chcete toto nastavení změnit.)  
-- Poskytněte vaše třída DbConfiguration veřejný konstruktor bez parametrů.  
-- Nastavit možnosti konfigurace voláním chráněné metody DbConfiguration z v rámci tohoto konstruktoru.  
+- Pro svou aplikaci vytvořte pouze jednu třídu DbConfiguration. Tato třída určuje nastavení pro šířku domény pro aplikaci.  
+- Třídu DbConfiguration umístěte do stejného sestavení jako třídu DbContext. (Pokud ho chcete změnit, přečtěte si část *přesunutí DbConfiguration* .)  
+- Poskytněte třídu DbConfiguration veřejný konstruktor bez parametrů.  
+- Nastavte možnosti konfigurace voláním chráněných metod DbConfiguration z tohoto konstruktoru.  
 
-Dodržení těchto pokynů umožňuje EF mohli objevit a používat vaše konfigurace automaticky podle i nástroje, který potřebuje přístup k modelu a při spuštění aplikace.  
+Podle těchto pokynů umožňuje EF zjistit a použít konfiguraci automaticky pomocí nástrojů, které potřebují přístup k vašemu modelu a při spuštění aplikace.  
 
 ## <a name="example"></a>Příklad  
 
-Třídy odvozené od DbConfiguration může vypadat takto:  
+Třída odvozená z DbConfiguration může vypadat takto:  
 
 ``` csharp
 using System.Data.Entity;
@@ -51,13 +51,13 @@ namespace MyNamespace
 }
 ```  
 
-Tato třída EF nastaví automaticky opakovat operace databáze se nezdařilo - a použití místní databáze pro databáze, které jsou vytvořeny pomocí konvence z Code First pomocí strategie provádění SQL Azure –.  
+Tato třída nastaví EF, aby používala strategii spouštění SQL Azure – k automatickému opakování neúspěšných operací databáze a k použití místní databáze pro databáze, které jsou vytvořeny pomocí konvence z Code First.  
 
 ## <a name="moving-dbconfiguration"></a>Přesunutí DbConfiguration  
 
-Existují případy, kdy není možné umístit DbConfiguration třídu do stejného sestavení jako vaší třídy DbContext. Například může mít dvě DbContext třídy každý v různých sestaveních. Existují dvě možnosti pro tento.  
+Existují případy, kdy není možné umístit třídu DbConfiguration do stejného sestavení jako třídu DbContext. Například můžete mít dvě třídy DbContext v různých sestaveních. Existují dvě možnosti, jak to zpracovat.  
 
-První možností je použít konfigurační soubor pro zadání instance DbConfiguration používat. Provedete to tak, nastavte atribut codeConfigurationType oddílu objektu entityFramework. Příklad:  
+První možností je použít konfigurační soubor k určení instance DbConfiguration, která se má použít. Pokud to chcete provést, nastavte atribut codeConfigurationType oddílu entityFramework. Příklad:  
 
 ``` xml
 <entityFramework codeConfigurationType="MyNamespace.MyDbConfiguration, MyAssembly">
@@ -65,9 +65,9 @@ První možností je použít konfigurační soubor pro zadání instance DbConf
 </entityFramework>
 ```  
 
-Hodnota codeConfigurationType musí být sestavení a oboru názvů kvalifikovaný název třídy DbConfiguration.  
+Hodnota codeConfigurationType musí být sestavení a kvalifikovaný název oboru názvů vaší třídy DbConfiguration.  
 
-Druhou možností je umístit DbConfigurationTypeAttribute na třídě kontextu. Příklad:  
+Druhou možností je umístit DbConfigurationTypeAttribute na svou kontextovou třídu. Příklad:  
 
 ``` csharp  
 [DbConfigurationType(typeof(MyDbConfiguration))]
@@ -76,7 +76,7 @@ public class MyContextContext : DbContext
 }
 ```  
 
-Hodnota předaná do atributu může být typ DbConfiguration – jak je znázorněno výše - nebo řetězec názvu typu kvalifikovaný pro sestavení a oboru názvů. Příklad:  
+Hodnota předaná atributu může být buď váš typ DbConfiguration, jak je znázorněno výše, nebo sestavení a kvalifikovaný název typu řetězce pro obor názvů. Příklad:  
 
 ``` csharp
 [DbConfigurationType("MyNamespace.MyDbConfiguration, MyAssembly")]
@@ -85,28 +85,28 @@ public class MyContextContext : DbContext
 }
 ```  
 
-## <a name="setting-dbconfiguration-explicitly"></a>Nastavení DbConfiguration explicitně  
+## <a name="setting-dbconfiguration-explicitly"></a>Explicitní nastavení DbConfiguration  
 
-Existují určité situace, kdy může být potřeba konfigurace předtím, než se použil libovolný typ DbContext. Příklady zahrnují:  
+V některých situacích se může stát, že se konfigurace bude potřebovat předtím, než se použije libovolný DbContext typ. Mezi příklady patří:  
 
 - Použití DbModelBuilder k sestavení modelu bez kontextu  
-- Pomocí některé jiné nástroj/framework kód, který využívá DbContext, kde se používá tento kontext předtím, než se používá kontext aplikace  
+- Použití některého jiného rozhraní Framework/Utility, který využívá DbContext, kde se tento kontext používá předtím, než se použije kontext aplikace.  
 
-V takových situacích je EF tak není možné zjistit konfiguraci automaticky a musí místo toho proveďte jednu z následujících akcí:  
+V takových situacích EF nemůže najít konfiguraci automaticky a místo toho je nutné provést jednu z následujících akcí:  
 
-- Nastavit typ DbConfiguration v konfiguračním souboru, jak je popsáno v *přesunutí DbConfiguration* výše uvedené části
-- Zavolejte statickou metodu DbConfiguration.SetConfiguration během spuštění aplikace  
+- V konfiguračním souboru nastavte typ DbConfiguration, jak je popsáno v části *posunutí DbConfiguration* výše.
+- Při spuštění aplikace zavolat statickou metodu DbConfiguration. SetConfiguration  
 
 ## <a name="overriding-dbconfiguration"></a>Přepsání DbConfiguration  
 
-Existují určité situace, kdy potřebujete přepsat konfiguraci nastavení v DbConfiguration. Není to obvykle vývojáři aplikací, ale spíše poskytovatelů třetích stran a moduly plug-in, které nelze použít odvozenou třídu DbConfiguration.  
+Existují situace, kdy potřebujete přepsat konfigurační sadu v DbConfiguration. Obvykle to neprovádí vývojáři aplikací, ale spíše poskytovatelé třetích stran a moduly plug-in, které nemůžou používat odvozenou třídu DbConfiguration.  
 
-V tomto případě umožňuje objektu EntityFramework obslužné rutiny události k registraci, který můžete upravit existující konfiguraci těsně před je uzamčen.  Také poskytuje metodu sugar speciálně pro nahrazení jakoukoli službu vrácený EF lokátoru služeb. To je, jak je určena pro použití:  
+V takovém případě EntityFramework umožňuje registraci obslužné rutiny události, která může upravit existující konfiguraci těsně před tím, než je uzamčena.  Také poskytuje cukrovou metodu specifickou pro nahrazení jakékoli služby vrácené lokátorem služby EF. To je způsob, jakým se má použít:  
 
-- Při spuštění aplikace (před použitím EF) modul plug-in nebo zprostředkovatele měli zaregistrovat metodu obslužné rutiny události pro tuto událost. (Všimněte si, že to musíte provést před vytvořením aplikace pomocí EF.)  
-- Obslužná rutina události zavolá ReplaceService pro každou službu, která potřebuje vyměnit.  
+- Při spuštění aplikace (před použitím EF) musí modul plug-in nebo poskytovatel zaregistrovat metodu obslužné rutiny události pro tuto událost. (Všimněte si, že k tomu musí dojít předtím, než aplikace použije EF.)  
+- Obslužná rutina události provede volání ReplaceService pro každou službu, která musí být nahrazena.  
 
-Například chcete-li nahradit IDbConnectionFactory a DbProviderService by zaregistrovat obslužnou rutinu podobný následujícímu:  
+Například chcete-li nahradit IDbConnectionFactory a DbProviderService, zaregistrujte obslužnou rutinu podobným způsobem:  
 
 ``` csharp
 DbConfiguration.Loaded += (_, a) =>
@@ -116,10 +116,10 @@ DbConfiguration.Loaded += (_, a) =>
    };
 ```  
 
-V kódu nad MyProviderServices a MyConnectionFactory představují vaše implementace služby.  
+V kódu nad MyProviderServices a MyConnectionFactory představuje vaše implementace služby.  
 
-Můžete také přidat další závislosti obslužné rutiny pro docílíte stejného efektu.  
+Můžete také přidat další obslužné rutiny závislostí a získat tak stejný efekt.  
 
-Všimněte si, že můžete také zabalit DbProviderFactory tímto způsobem, ale udělat to ovlivní pouze EF a ne používá DbProviderFactory mimo EF. Z tohoto důvodu budete pravděpodobně chtít zabalení DbProviderFactory máte před i nadále.  
+Všimněte si, že můžete také zabalit DbProviderFactory tímto způsobem, ale v takovém případě bude ovlivněn pouze EF a nikoli použití DbProviderFactory mimo EF. Z tohoto důvodu budete pravděpodobně chtít dál zabalit DbProviderFactory jako dříve.  
 
-Je třeba také zachovat v paměti služby, které běží externě do vaší aplikace – například při spuštění migrace v konzole Správce balíčků. Když spustíte migraci z konzoly, pokusí se najít vaše DbConfiguration. Jestli se budou získávat zabalené služby však závisí, ve kterém obslužné rutiny událostí zaregistrované. Pokud je registrován jako součást procesu vytváření vaší DbConfiguration by se měl spustit kód a služby by měl získat zabalena. Obvykle to nebude tento případ a to znamená, že nástroje nedostali zabalené služby.  
+Měli byste taky pamatovat na služby, které spouštíte externě v aplikaci – například při spuštění migrace z konzoly Správce balíčků. Při spuštění migrace z konzoly se pokusí najít vaše DbConfiguration. Nicméně bez ohledu na to, zda bude zabalené služby záviset na tom, kde obslužná rutina události zaregistruje. Pokud je zaregistrován jako součást konstrukce DbConfiguration, pak by měl být spuštěn kód a služba by měla být zabalena. Obvykle se nejedná o tento případ a to znamená, že nástroj nezíská zabalené služby.  

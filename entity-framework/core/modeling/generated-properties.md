@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
 ms.openlocfilehash: 9c616e157ff1bdb9700f436a7ae2788330fe5d45
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502029"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416344"
 ---
 # <a name="generated-values"></a>Vygenerované hodnoty
 
@@ -58,11 +58,11 @@ Podle konvence, nesložené primární klíče typu short, int, Long nebo GUID j
 
 Libovolnou vlastnost můžete nakonfigurovat tak, aby se vygenerovala její hodnota pro vložené entity následujícím způsobem:
 
-### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
@@ -87,11 +87,11 @@ Zadáním výchozí hodnoty se vlastnost implicitně nakonfiguruje jako hodnota 
 
 ## <a name="value-generated-on-add-or-update"></a>Hodnota vygenerovaná při přidání nebo aktualizaci
 
-### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
@@ -113,11 +113,11 @@ V některých relačních databázích může být sloupec nakonfigurovaný tak,
 
 Zakázání generování hodnoty na vlastnost je obvykle nezbytné, pokud je konvence nakonfiguruje pro generování hodnoty. Například pokud máte primární klíč typu int, bude implicitně nastaven jako hodnota vygenerovaná při přidání; tuto možnost můžete zakázat prostřednictvím následujících kroků:
 
-### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
 

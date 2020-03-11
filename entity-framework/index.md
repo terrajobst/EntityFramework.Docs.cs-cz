@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
 ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781011"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416926"
 ---
 <div id="main" class="v2">
     <div class="container">
@@ -24,7 +24,7 @@ ms.locfileid: "75781011"
                         <ul id="entityfmwk1" class="cardsC">
                             <li>
                                 <div class="container intro">
-                                    <p>Entity Framework je mapovač relací objektů (O/RM), který vývojářům na platformě .NET umožňuje pracovat s databází s použitím objektů .NET. Díky tomu není nutná většina kódu pro přístup k datům, který vývojáři obvykle musí vytvářet.</p>
+                                    <p>Entity Framework je mapovač relací objektů (O/RM), který vývojářům na platformě .NET umožňuje pracovat s databází s použitím objektů .NET. Šetří vývojářům práci, protože nemusejí psát většinu kódu pro přístup k datům.</p>
                                 </div>
                             </li>
                             <li>
@@ -277,7 +277,7 @@ ms.locfileid: "75781011"
                                                     </div>
                                                 </div>
                                                 <div class="cardText">
-                                                    <h3>Referenční dokumentace ke knihovně API</h3>
+                                                    <h3>Referenční materiály k rozhraní API</h3>
                                                     <p>Projděte si rozhraní API pro Entity Framework 6 uspořádaná podle oborů názvů.</p>
                                                 </div>
                                             </div>

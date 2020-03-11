@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
 ms.openlocfilehash: 2c5e6f1b3f60862124bafcac42e8859a7591f8e6
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812147"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416958"
 ---
 # <a name="data-validation"></a>Ověřování dat
 > [!NOTE]
@@ -158,7 +158,7 @@ Na rozdíl od ověření, které poskytuje rozhraní Fluent API, tento výsledek
 
 ![Obrázek 2](~/ef6/media/figure02.png)
 
-## <a name="dbcontextvalidateentity"></a>DbContext. ValidateEntity
+## <a name="dbcontextvalidateentity"></a>DbContext.ValidateEntity
 
 `DbContext` má přepisovatelný způsob nazvaný `ValidateEntity`. Když zavoláte `SaveChanges`, Entity Framework tuto metodu zavolá pro každou entitu v mezipaměti, jejíž stav není `Unchanged`. Logiku ověřování můžete umístit přímo sem nebo dokonce použít k volání metody, například `Blog.Validate` metoda přidaná v předchozí části.
 

@@ -1,21 +1,21 @@
 ---
-title: Nezpracované dotazy SQL - EF6
+title: Nezpracované dotazy SQL – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
 ms.openlocfilehash: 168aee67186535bf2a50705e86bfc5a88147e369
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283781"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417093"
 ---
 # <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
-Entity Framework umožňuje dotazování pomocí jazyka LINQ pomocí tříd entit. Mohou však nastat situace, které chcete spouštět dotazy s využitím nezpracovaná SQL přímo na databázi. To zahrnuje volání uložené procedury, které mohou být užitečné pro Code First modely, které se aktuálně nepodporují mapování na uložené procedury. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+Entity Framework umožňuje dotazování pomocí LINQ s vašimi třídami entit. Nicméně mohou nastat situace, kdy budete chtít spouštět dotazy pomocí nezpracovaného SQL přímo proti databázi. To zahrnuje volání uložených procedur, které mohou být užitečné pro Code First modely, které aktuálně nepodporují mapování na uložené procedury. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-## <a name="writing-sql-queries-for-entities"></a>Psaní dotazů SQL pro entity  
+## <a name="writing-sql-queries-for-entities"></a>Zápis dotazů SQL pro entity  
 
-Metoda SqlQuery na DbSet umožňuje neupraveného dotazu SQL má být proveden zápis, který vrátí instance entity. Vrácených objektů bude sledovat podle kontextu, stejně jako by se použily, pokud byly vrácené dotazu LINQ. Příklad:  
+Metoda SqlQuery v Negenerickými umožňuje napsat nezpracovaný dotaz SQL, který bude vracet instance entit. Vrácené objekty budou sledovány kontextem stejně, jako by byly vráceny dotazem LINQ. Příklad:  
 
 ``` csharp  
 using (var context = new BloggingContext())
@@ -24,15 +24,15 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že stejně jako u dotazů LINQ dotaz není udělat, dokud jsou uvedené výsledky – v předchozím příkladu to provádí pomocí volání ToList.  
+Všimněte si, že stejně jako u dotazů LINQ není dotaz proveden, dokud nejsou výčty výsledků – v předchozím příkladu je provedeno volání ToList –.  
 
-Pokaždé, když se nezpracované dotazy SQL jsou určeny pro dva důvody měli věnovat pozornost. Nejprve by měly být napsány dotaz k zajištění, že vrátí jenom entity, které jsou v zásadě požadovaného typu. Například při použití funkce, jako je dědičnost je snadné napsat dotaz, který bude vytvářet entity, které jsou chybného typu CLR.  
+Při každém zápisu nezpracovaných dotazů SQL ze dvou důvodů by měla být provedena péče. Nejprve by měl být vytvořen dotaz, aby bylo zajištěno, že bude vracet pouze entity, které jsou skutečně požadovaného typu. Například při použití funkcí, jako je dědičnost, je snadné napsat dotaz, který vytvoří entity, které mají nesprávný typ CLR.  
 
-Za druhé některé typy neupraveného dotazu SQL vystavit potenciální ohrožení zabezpečení, zejména útoky prostřednictvím injektáže SQL. Ujistěte se, že správným způsobem pro ochranu před těmito útoky použít parametry v dotazu.  
+Za druhé, některé typy nezpracovaných dotazů SQL zveřejňují potenciální bezpečnostní rizika, zejména při útokech prostřednictvím injektáže SQL. Ujistěte se, že používáte parametry v dotazu správným způsobem ochrany proti takovým útokům.  
 
 ### <a name="loading-entities-from-stored-procedures"></a>Načítání entit z uložených procedur  
 
-DbSet.SqlQuery můžete použít k načtení entity z výsledků uloženou proceduru. Například následující kód volá vlastníka. GetBlogs procedury v databázi:  
+Pomocí Negenerickými. SqlQuery můžete načíst entity z výsledků uložené procedury. Například následující kód volá dbo. Procedura getbloges v databázi:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Můžete také předat parametry uložené procedury pomocí následující syntaxe:  
+Můžete také předat parametry uložené proceduře pomocí následující syntaxe:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,9 +52,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-## <a name="writing-sql-queries-for-non-entity-types"></a>Psaní dotazů SQL pro typy bez entit  
+## <a name="writing-sql-queries-for-non-entity-types"></a>Zápis dotazů SQL pro typy bez entit  
 
-Jazyka SQL vracející instance libovolného typu, včetně primitivní typy, je možné vytvořit pomocí metody SqlQuery ve třídě databáze. Příklad:  
+Dotaz SQL vracející instance libovolného typu, včetně primitivních typů, lze vytvořit pomocí metody SqlQuery třídy Database. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -64,11 +64,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Výsledky vrácené SqlQuery v databázi se nikdy sledovat pomocí kontextu i v případě, objekty jsou instancemi typu entity.  
+Výsledky vrácené z SqlQuery v databázi nikdy nebudou sledovány kontextem, i když jsou objekty instance typu entity.  
 
-## <a name="sending-raw-commands-to-the-database"></a>Odesílání nezpracovaná příkazů do databáze  
+## <a name="sending-raw-commands-to-the-database"></a>Posílání nezpracovaných příkazů do databáze  
 
-Příkazy bez dotazu je odeslat do databáze pomocí metody ExecuteSqlCommand v databázi. Příklad:  
+Příkazy jiného typu než dotaz lze odeslat do databáze pomocí metody ExecuteSqlCommand v databázi. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -78,8 +78,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že jsou všechny změny dat v databázi pomocí ExecuteSqlCommand neprůhledné kontextu dokud entity jsou načteny nebo znovu načíst z databáze.  
+Všimněte si, že všechny změny provedené v datech v databázi pomocí ExecuteSqlCommand jsou neprůhledné do kontextu, dokud se entity nenačte nebo znovu načtou z databáze.  
 
 ### <a name="output-parameters"></a>Výstupní parametry  
 
-Pokud se používají výstupních parametrů, jejich hodnoty nebudou dostupné, dokud nebude mít zcela načíst výsledky. Je to z důvodu základní chování DbDataReader naleznete v tématu [načítání dat pomocí čtečky dat](https://go.microsoft.com/fwlink/?LinkID=398589) další podrobnosti.  
+Pokud se používají výstupní parametry, jejich hodnoty nebudou k dispozici, dokud nebudou výsledky zcela načteny. Důvodem je základní chování DbDataReader. Další informace najdete v tématu [načtení dat pomocí objektu DataReader](https://go.microsoft.com/fwlink/?LinkID=398589) .  

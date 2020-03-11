@@ -3,12 +3,12 @@ title: Co je nového v EF Core 5,0
 author: ajcvickers
 ms.date: 01/29/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew.md
-ms.openlocfilehash: e858379cc46abbef999fd32a3685e1d522524889
-ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
+ms.openlocfilehash: 65d7bd43e8a00c77fd6091a74c677635710d03e3
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77052030"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417964"
 ---
 # <a name="whats-new-in-ef-core-50"></a>Co je nového v EF Core 5,0
 
@@ -30,7 +30,7 @@ To znamená, že poskytuje jednoduchý způsob, jak získat protokoly z EF Core,
 
 Předběžná dokumentace je součástí [týdenního stavu EF pro 5. prosince 2019](https://github.com/dotnet/efcore/issues/15403#issuecomment-562332863).
 
-Další dokumentaci sleduje problém [#2085](https://github.com/aspnet/EntityFramework.Docs/issues/2085).
+Další dokumentaci sleduje problém [#2085](https://github.com/dotnet/EntityFramework.Docs/issues/2085).
 
 ### <a name="simple-way-to-get-generated-sql"></a>Jednoduchý způsob, jak získat vygenerovaný SQL
 
@@ -38,7 +38,7 @@ EF Core 5,0 zavádí metodu rozšíření `ToQueryString`, která vrátí SQL, k
 
 Do [9. ledna 2020 se do týdenního stavu EF](https://github.com/dotnet/efcore/issues/19549#issuecomment-572823246)zahrnuje předběžná dokumentace.
 
-Další dokumentaci sleduje problém [#1331](https://github.com/aspnet/EntityFramework.Docs/issues/1331).
+Další dokumentaci sleduje problém [#1331](https://github.com/dotnet/EntityFramework.Docs/issues/1331).
 
 ### <a name="enhanced-debug-views"></a>Rozšířená zobrazení ladění
 
@@ -48,7 +48,7 @@ Pro EF Core 5,0 jsme provedli zobrazení modelu pro čtení a přidání nového
 
 Předběžná dokumentace je zahrnutá ve [stavu týden EF pro 12. prosince 2019](https://github.com/dotnet/efcore/issues/15403#issuecomment-565196206).
 
-Další dokumentaci sleduje problém [#2086](https://github.com/aspnet/EntityFramework.Docs/issues/2086).
+Další dokumentaci sleduje problém [#2086](https://github.com/dotnet/EntityFramework.Docs/issues/2086).
 
 ### <a name="connection-or-connection-string-can-be-changed-on-initialized-dbcontext"></a>V inicializovaných DbContext se dá změnit připojení nebo připojovací řetězec.
 
@@ -56,7 +56,7 @@ Nyní je snazší vytvořit instanci DbContext bez připojení nebo připojovac�
 Připojení nebo připojovací řetězec se teď dá v instanci kontextu taky připojit.
 To umožňuje stejné instanci kontextu dynamicky se připojovat k různým databázím.
 
-Dokumentace je sledována pomocí [#2075](https://github.com/aspnet/EntityFramework.Docs/issues/2075)problému.
+Dokumentace je sledována pomocí [#2075](https://github.com/dotnet/EntityFramework.Docs/issues/2075)problému.
 
 ### <a name="change-tracking-proxies"></a>Proxy se sledováním změn
 
@@ -64,7 +64,7 @@ EF Core teď můžou generovat proxy a moduly runtime, které automaticky implem
 Ty pak nahlásí změny hodnot u vlastností entity přímo na EF Core a nemusíte přitom Hledat změny.
 Nicméně proxy se dodávají s vlastní sadou omezení, takže nejsou pro všechny.
 
-Dokumentace je sledována pomocí [#2076](https://github.com/aspnet/EntityFramework.Docs/issues/2076)problému.
+Dokumentace je sledována pomocí [#2076](https://github.com/dotnet/EntityFramework.Docs/issues/2076)problému.
 
 ### <a name="improved-handling-of-database-null-semantics"></a>Vylepšené zpracování sémantiky s hodnotou null databáze
 
@@ -73,32 +73,32 @@ C#na druhé straně zachází s hodnotou null jako s definovanou hodnotou, kter�
 EF Core ve výchozím nastavení překládá dotazy tak, aby používaly C# sémantiku null.
 EF Core 5,0 významně vylepšuje efektivitu těchto překladů.
 
-Dokumentace je sledována pomocí [#1612](https://github.com/aspnet/EntityFramework.Docs/issues/1612)problému.
+Dokumentace je sledována pomocí [#1612](https://github.com/dotnet/EntityFramework.Docs/issues/1612)problému.
 
 ### <a name="indexer-properties"></a>Vlastnosti indexeru
 
 EF Core 5,0 podporuje mapování vlastností C# indexeru.
 To umožňuje entitám fungovat jako vaky objektů a dat, kde jsou sloupce namapovány na pojmenované vlastnosti v kontejneru.
 
-Dokumentace je sledována pomocí [#2018](https://github.com/aspnet/EntityFramework.Docs/issues/2018)problému.
+Dokumentace je sledována pomocí [#2018](https://github.com/dotnet/EntityFramework.Docs/issues/2018)problému.
 
 ### <a name="generation-of-check-constraints-for-enum-mappings"></a>Generování omezení CHECK pro mapování výčtu
 
 Migrace EF Core 5,0 teď můžou generovat kontrolní omezení pro mapování vlastností výčtu.
-Například:
+Příklad:
 
 ```SQL
 MyEnumColumn VARCHAR(10) NOT NULL CHECK (MyEnumColumn IN('Useful', 'Useless', 'Unknown'))
 ```
 
-Dokumentace je sledována pomocí [#2082](https://github.com/aspnet/EntityFramework.Docs/issues/2082)problému.
+Dokumentace je sledována pomocí [#2082](https://github.com/dotnet/EntityFramework.Docs/issues/2082)problému.
 
 ### <a name="query-translations-for-more-datetime-constructs"></a>Překlady dotazů pro další konstrukce DateTime
 
 Dotazy obsahující nové konstrukce DataTime jsou nyní přeloženy.
 Také SQL Server funkce DateDiffWeek je nyní namapována.
 
-Dokumentace je sledována pomocí [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problému.
+Dokumentace je sledována pomocí [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problému.
 
 ### <a name="query-translations-for-more-byte-array-constructs"></a>Překlady dotazů pro další konstrukce bajtových polí
 
@@ -106,18 +106,18 @@ Dotazy používající vlastnosti Contains, Length, SequenceEqual atd. on Byte [
 
 Předběžná dokumentace je součástí [týdenního stavu EF pro 5. prosince 2019](https://github.com/dotnet/efcore/issues/15403#issuecomment-562332863).
 
-Další dokumentaci sleduje problém [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079).
+Další dokumentaci sleduje problém [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079).
 
 ### <a name="query-translation-for-reverse"></a>Přesměrovat dotaz na zpětný překlad
 
 Dotazy používající `Reverse` jsou nyní přeloženy.
-Například:
+Příklad:
 
 ```CSharp
 context.Employees.OrderBy(e => e.EmployeeID).Reverse()
 ```
 
-Dokumentace je sledována pomocí [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problému.
+Dokumentace je sledována pomocí [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problému.
 
 ### <a name="query-translation-for-bitwise-operators"></a>Převod dotazů pro bitové operátory
 
@@ -127,10 +127,10 @@ Dotazy používající bitové operátory jsou nyní přeloženy ve více příp
 context.Orders.Where(o => ~o.OrderID == negatedId)
 ```
 
-Dokumentace je sledována pomocí [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problému.
+Dokumentace je sledována pomocí [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problému.
 
 ### <a name="query-translation-for-strings-on-cosmos"></a>Překlad dotazů pro řetězce v Cosmos
 
 Dotazy, které používají metody řetězce Contains, StartsWith a EndsWith, jsou nyní přeloženy při použití poskytovatele Azure Cosmos DB.
 
-Dokumentace je sledována pomocí [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079)problému.
+Dokumentace je sledována pomocí [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079)problému.

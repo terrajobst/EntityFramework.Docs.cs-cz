@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
 ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921780"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418166"
 ---
 # <a name="designer-table-splitting"></a>Rozdělení tabulky návrháře
 Tento návod ukazuje, jak namapovat více typů entit na jednu tabulku úpravou modelu pomocí Entity Framework Designer (EF Designer).
@@ -19,7 +19,7 @@ Následující obrázek ukazuje hlavní okna, která se používají při práci
 
 ![Návrhář EF](~/ef6/media/efdesigner.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 K dokončení toho návodu budete potřebovat:
 
@@ -65,7 +65,7 @@ V této části budete entitu **osoba** rozdělit do dvou entit a pak je namapov
 -   Vytvořte přidružení mezi **osobami** a **HireInfo**. Provedete to tak, že kliknete pravým tlačítkem myši na prázdnou oblast návrhové plochy, najeďte na **Přidat nový**a kliknete na **asociace**.
 -   Zobrazí se dialogové okno **přidat přidružení** . Ve výchozím nastavení je zadán název **PersonHireInfo** .
 -   Zadejte násobnost **1 (jedna)** na obou koncích relace.
--   Stisknutím klávesy **OK**.
+-   Stiskněte **OK**.
 
 Další krok vyžaduje okno s **podrobnostmi mapování** . Pokud toto okno nevidíte, klikněte pravým tlačítkem myši na návrhovou plochu a vyberte **mapování podrobností**.
 
@@ -79,7 +79,7 @@ Další krok vyžaduje okno s **podrobnostmi mapování** . Pokud toto okno ne
 -   Na návrhové ploše klikněte pravým tlačítkem na přidružení a vyberte **vlastnosti**.
 -   V okně **vlastnosti** vyberte vlastnost **referenčních omezení** a klikněte na tlačítko se třemi tečkami.
 -   V rozevíracím seznamu **hlavní objekty** vyberte **osoba** .
--   Stisknutím klávesy **OK**.
+-   Stiskněte **OK**.
 
  
 

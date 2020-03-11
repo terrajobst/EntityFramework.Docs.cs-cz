@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
 ms.openlocfilehash: eb7948eafb1322cabcf69b47bd5411f762fe8498
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182586"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418991"
 ---
 # <a name="code-first-migrations-with-an-existing-database"></a>Migrace Code First s existující databází
 > [!NOTE]

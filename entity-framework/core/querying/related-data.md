@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: bfabe8fd5b0a64edd5d97baff3beab9d712f1c20
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 915aaa41beb495a046f2d6260e9c3b174d5f3031
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654636"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417675"
 ---
 # <a name="loading-related-data"></a>Načítání souvisejících dat
 
@@ -20,7 +20,7 @@ Entity Framework Core umožňuje v modelu použít navigační vlastnosti pro na
 * **Opožděné načítání** znamená, že související data jsou transparentně načítána z databáze, pokud je k ní přistupovaná vlastnost navigace.
 
 > [!TIP]  
-> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.
+> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.
 
 ## <a name="eager-loading"></a>Eager načítání
 
@@ -114,7 +114,7 @@ Obsah `School` navigace všech lidí, kteří Studenté můžou načítat eagerl
   context.People.Include("School").ToList()
   ```
 
-## <a name="explicit-loading"></a>Explicitní načítání
+## <a name="explicit-loading"></a>explicitní načítání
 
 Můžete explicitně načíst navigační vlastnost prostřednictvím rozhraní `DbContext.Entry(...)` API.
 
@@ -134,7 +134,7 @@ Můžete také filtrovat, které související entity jsou načteny do paměti.
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#NavQueryFiltered)]
 
-## <a name="lazy-loading"></a>Opožděné načítání
+## <a name="lazy-loading"></a>opožděné načítání
 
 Nejjednodušším způsobem, jak použít opožděné načítání, je nainstalovat balíček [Microsoft. EntityFrameworkCore. proxy](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) a povolit mu volání `UseLazyLoadingProxies`. Příklad:
 

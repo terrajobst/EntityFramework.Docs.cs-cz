@@ -5,16 +5,16 @@ ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
 ms.openlocfilehash: 28a13879416a52cbe8035c23013f16390c75c4c9
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656182"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416332"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) je vyzkoušený a testovaný objektově-relační Mapovač (O/RM) pro .NET s mnoha roky vývoje a stabilizací funkcí.
 
-EF6 v případě O/RM snižuje nesoulad mezi relačními a objektově orientovanými světů a umožňuje vývojářům psát aplikace, které pracují s daty uloženými v relačních databázích pomocí objektů .NET se silnými typy, které reprezentují doména aplikace a eliminují nutnost velké části kódu "domovníace" přístupu k datům, které obvykle potřebují zapisovat.
+EF6 v/RM snižuje nesoulad mezi relačními a objektově orientovanými světů a umožňuje vývojářům psát aplikace, které pracují s daty uloženými v relačních databázích pomocí objektů .NET se silnými typy, které představují doménu aplikace, a eliminují nutnost velké části kódu "domovníace" přístupu k datům, které obvykle potřebují zapisovat.
 
 EF6 implementuje spoustu oblíbených funkcí O/RM:
 - Mapování tříd entit [POCO](xref:ef6/resources/glossary#poco) , které nezávisí na žádných typech EF
@@ -38,9 +38,9 @@ EF6 implementuje spoustu oblíbených funkcí O/RM:
 EF Core je moderní, odlehčená a rozšiřitelná verze Entity Framework, která má velmi podobné možnosti a výhody EF6.
 EF Core je kompletní přepisování a obsahuje mnoho nových funkcí, které nejsou v EF6 k dispozici, i když stále chybí některé z nejpokročilejších možností mapování EF6.
 Pokud sada funkcí vyhovuje vašim požadavkům, zvažte použití EF Core v nových aplikacích.
-[Compare EF Core & EF6](xref:efcore-and-ef6/index) prověřuje tuto volbu podrobněji.
+[Compare EF Core &AMP; EF6](xref:efcore-and-ef6/index) prověřuje tuto volbu podrobněji.
 
-## <a name="get-startedxrefef6get-started"></a>[Začínáme](xref:ef6/get-started)
+## <a name="get-started"></a>[Začínáme](xref:ef6/get-started)
 
 Přidejte do svého projektu balíček NuGet EntityFramework nebo nainstalujte [Entity Framework Tools pro Visual Studio](https://aka.ms/AA6i8c5). Pak Sledujte videa, přečtěte si kurzy a pokročilou dokumentaci, která vám pomůžou s tím, aby vám EF6.
 

@@ -1,38 +1,38 @@
 ---
-title: Uložené procedury s více sad výsledků dotazu - EF6
+title: Uložené procedury s více sadami výsledků – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1b3797f9-cd3d-4752-a55e-47b84b399dc1
 ms.openlocfilehash: 098ed88ba52e211965baf3660f0e51bd74c71efd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489307"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418702"
 ---
-# <a name="stored-procedures-with-multiple-result-sets"></a>Uložené procedury s více sad výsledků dotazu
-Někdy při použití uložených procedur, je potřeba vrátit více než jeden výsledek nastavit. Tento scénář se často používá ke snížení počtu databáze má zpáteční převod vyžaduje k vytváření na jedné obrazovce. Před EF5 Entity Framework by umožnilo uloženou proceduru, která se má volat, ale pouze vrátí první sadu výsledků do volajícího kódu.
+# <a name="stored-procedures-with-multiple-result-sets"></a>Uložené procedury s více sadami výsledků
+Při použití uložených procedur budete někdy potřebovat vrátit více sad výsledků. Tento scénář se běžně používá ke snížení počtu přenosů databáze potřebných k vytvoření jedné obrazovky. Před EF5 by Entity Framework umožnila volání uložené procedury, ale vrátila pouze první sadu výsledků na volající kód.
 
-Tento článek vám ukáže dva způsoby, které můžete použít pro přístup k více než jednu sadu výsledků z uložené procedury v Entity Framework. Ten, který používá jenom kódu a pracuje s kód nejprve a EF designeru a ten, který pracuje pouze s EF designeru. Nástroje a podpora rozhraní API pro to měl vylepšit v budoucnu verze Entity Framework.
+Tento článek vám ukáže dva způsoby, jak můžete použít pro přístup k více než jedné sadě výsledků z uložené procedury v Entity Framework. Ten, který používá pouze kód a pracuje s prvním kódem a návrhářem EF a jedním, který pracuje pouze s návrhářem EF. Podpora nástrojů a rozhraní API pro tuto verzi by se měla zlepšit v budoucích verzích Entity Framework.
 
 ## <a name="model"></a>Model
 
-V příkladech v tomto článku se používá základní blogu a příspěvky model, kdy blogu má mnoho příspěvky a příspěvek patří do jedné blogu. Budeme používat uložené procedury v databázi, která vrátí všechny blogů a příspěvky podobný následujícímu:
+Příklady v tomto článku využívají základní blog a model příspěvků, kde blog obsahuje mnoho příspěvků a příspěvek patří do jednoho blogu. V databázi použijeme uloženou proceduru, která vrátí všechny blogy a příspěvky, třeba takto:
 
 ``` SQL
     CREATE PROCEDURE [dbo].[GetAllBlogsAndPosts]
     AS
-        SELECT * FROM dbo.Blogs
-        SELECT * FROM dbo.Posts
+        SELECT * FROM dbo.Blogs
+        SELECT * FROM dbo.Posts
 ```
 
-## <a name="accessing-multiple-result-sets-with-code"></a>Přístup k více výsledku nastaví s kódem
+## <a name="accessing-multiple-result-sets-with-code"></a>Přístup k více sadám výsledků s kódem
 
-Můžeme spouštět kód na použití k nezpracované SQL příkaz ke spuštění našich uložené procedury. Výhodou tohoto přístupu je, že pracuje s kód nejprve a EF designeru.
+Ke spuštění naší uložené procedury můžeme použít kód pro vydání nezpracovaného příkazu SQL. Výhodou tohoto přístupu je, že funguje jak jako první, tak i v Návrháři EF.
 
-Pokud chcete získat více výsledku nastaví práci, kterou potřebujeme vyřadit ObjectContext rozhraní API pomocí rozhraní IObjectContextAdapter.
+Aby bylo možné získat více sad výsledků, potřebujeme vyřadit rozhraní ObjectContext API pomocí rozhraní IObjectContextAdapter.
 
-Jakmile budeme mít objektu ObjectContext jsme přeložit výsledky našich uložené procedury do entity, které můžete sledovat a použít v EF jako za normálních okolností použijte metodu přeložit. Následující příklad kódu ukazuje to v akci.
+Jakmile budeme mít ObjectContext, můžeme použít metodu překladu k překladu výsledků naší uložené procedury do entit, které lze sledovat a používat v EF jako normální. Následující příklad kódu ukazuje tuto v akci.
 
 ``` csharp
     using (var db = new BloggingContext())
@@ -82,33 +82,33 @@ Jakmile budeme mít objektu ObjectContext jsme přeložit výsledky našich ulo�
     }
 ```
 
-Metoda přeložit přijímá čtecí modul, který jsme dostali, když jsme spouštěli postup, název objektu EntitySet a MergeOption. Název objektu EntitySet budou stejné jako vlastnost DbSet odvozené kontextu. Výčet MergeOption řídí, jak se zpracovává výsledky, pokud již stejná entita existuje v paměti.
+Metoda přeložit přijme čtenář, který jsme dostali, když jsme provedli proceduru, název EntitySet a MergeOption. Název objektu EntitySet bude stejný jako vlastnost Negenerickými v odvozeném kontextu. Výčet MergeOption řídí způsob zpracování výsledků, pokud už stejná entita existuje v paměti.
 
-Tady jsme iteraci prostřednictvím kolekce blogy před říkáme NextResult, to je důležité, uvedené výše uvedený kód vzhledem k tomu, že první sada výsledek musí být využity ještě před přesunem do další sadu výsledků.
+Tady procházíme kolekcí blogů před voláním NextResult, to je důležité pro výše uvedený kód, protože první sada výsledků musí být spotřebovaná před přechodem na další sadu výsledků.
 
-Po přeložit dvě metody jsou volány pak blogu a po entity jsou sledovány objektem EF stejným způsobem jako jiné entitě a proto se dají upravit nebo odstranit a uložit jako za normálních okolností.
-
->[!NOTE]
-> EF nepřebírá žádné mapování v úvahu při vytváření entit pomocí metody přeložit. Budou se jednoduše shodovat s názvy sloupců v sadě s názvy vlastností ve třídách výsledků.
+Po volání dvou metod překladu jsou entity blog a post sledovány pomocí EF stejným způsobem jako u jakékoli jiné entity, a proto je lze upravit nebo odstranit a uložit jako normální.
 
 >[!NOTE]
-> Pokud máte opožděné načtení povoleno, přístup k vlastnosti příspěvky na jednom z blogu entity, které pak EF bude připojení k databázi laxně načíst všechny příspěvky, i v případě, že jsme všechny již načtena. Je to proto EF nemůže vědět, jestli jste načetli všechny příspěvky nebo pokud existují další databáze. Pokud chcete předejít, pak budete muset zakázat opožděné načtení.
-
-## <a name="multiple-result-sets-with-configured-in-edmx"></a>Více sad výsledků dotazu pomocí nakonfigurovaného v EDMX
+> EF nebere v úvahu žádné mapování při vytváření entit pomocí metody přeložit. Bude jednoduše odpovídat názvům sloupců v sadě výsledků s názvy vlastností ve třídách.
 
 >[!NOTE]
-> Je potřeba cílit rozhraní .NET Framework 4.5, abyste mohli nakonfigurovat více sad výsledků dotazu v EDMX. Pokud se zaměřujete na rozhraní .NET 4.0, můžete použít metodu založený na kódu je znázorněno v předchozí části.
+> Pokud máte povolené opožděné načítání, budete mít přístup k vlastnosti příspěvky v jedné z entit blogu a potom se EF připojí k databázi, aby laxně vytvářená načíst všechny příspěvky, a to i v případě, že jsme je už načetli. Je to proto, že EF nemůže zjistit, zda jste načetli všechny příspěvky nebo zda jsou v databázi více. Pokud se k tomu chcete vyhnout, budete muset zakázat opožděné načítání.
 
-Pokud používáte EF designeru, můžete také změnit váš model, tak, aby věděl o sadách jiné výsledky, které budou vráceny. Jednu věc, kterou potřebujete vědět, než je ručně, nástrojů není více výsledků nastavit vědět, takže budete muset ručně upravit soubor edmx. Úpravy souboru edmx, jako je to bude fungovat, ale je také přeruší ověření modelu v sadě Visual Studio. Proto pokud ověření modelu se vždy zobrazí chyby.
+## <a name="multiple-result-sets-with-configured-in-edmx"></a>Více sad výsledků s nakonfigurovaným ve EDMX
 
--   Pokud to chcete udělat, budete muset přidat uložené procedury do modelu, stejně jako jeden výsledek dotazu sady.
--   Jakmile budete mít, to je nutné klikněte pravým tlačítkem na model a vyberte **otevřít v programu...** potom **Xml**
+>[!NOTE]
+> Aby bylo možné v EDMX nakonfigurovat více sad výsledků, je třeba cílit na .NET Framework 4,5. Pokud cílíte na rozhraní .NET 4,0, můžete použít metodu založenou na kódu uvedenou v předchozí části.
+
+Pokud používáte návrháře EF, můžete také upravit model tak, aby znal o různých sadách výsledků, které budou vráceny. Jedna věc, kterou je třeba znát před ručním nastavením, je, že nástroj nepracuje s více sadami výsledků, takže budete muset ručně upravit soubor EDMX. Upravený soubor EDMX bude fungovat, ale bude také přerušit ověřování modelu v VS. Takže pokud ověříte svůj model, vždycky se zobrazí chyby.
+
+-   Aby to bylo možné, musíte do modelu přidat uloženou proceduru, stejně jako pro jeden dotaz sady výsledků dotazu.
+-   Až to budete mít, musíte kliknout pravým tlačítkem na model a vybrat **otevřít s...** pak **XML**
 
     ![Otevřít jako](~/ef6/media/openas.png)
 
-Jakmile budete mít modelu otevřít ve formátu XML, je nutné provést následující kroky:
+Jakmile máte model otevřený jako XML, musíte provést následující kroky:
 
--   V modelu najdete komplexní typ a funkci importu:
+-   Najděte komplexní typ a import funkcí v modelu:
 
 ``` xml
     <!-- CSDL content -->
@@ -131,10 +131,10 @@ Jakmile budete mít modelu otevřít ve formátu XML, je nutné provést násled
     </edmx:ConceptualModels>
 ```
 
- 
+ 
 
 -   Odebrat komplexní typ
--   Aktualizace importované funkce tak, aby je namapován na entity, v našem případě to bude vypadat nějak takto:
+-   Aktualizujte import funkce tak, aby se namapovala na vaše entity, v našem případě bude vypadat jako v následujícím příkladu:
 
 ``` xml
     <FunctionImport Name="GetAllBlogsAndPosts">
@@ -143,9 +143,9 @@ Jakmile budete mít modelu otevřít ve formátu XML, je nutné provést násled
     </FunctionImport>
 ```
 
-Říká modelu, že dvě kolekce, jeden z článků blogu a jeden příspěvek položek, které se vrátí uloženou proceduru.
+Tímto způsobem se dozvíte, že uložená procedura vrátí dvě kolekce, jednu z položek blogu a jednu z položek post.
 
--   Najděte prvek mapování funkce:
+-   Vyhledejte element mapování funkcí:
 
 ``` xml
     <!-- C-S mapping content -->
@@ -168,7 +168,7 @@ Jakmile budete mít modelu otevřít ve formátu XML, je nutné provést násled
     </edmx:Mappings>
 ```
 
--   Nahraďte mapování výsledku s jednou pro každou entitu, se vrací, jako je následující:
+-   Nahraďte mapování výsledků jedním z těchto vrácených entit, například následující:
 
 ``` xml
     <ResultMapping>
@@ -188,9 +188,9 @@ Jakmile budete mít modelu otevřít ve formátu XML, je nutné provést násled
     </ResultMapping>
 ```
 
-Je také možné mapovat sad výsledků pro komplexní typy, jako jsou vytvořeny ve výchozím nastavení. Provedete to tak můžete vytvořit nový komplexní typ, místo aby odebrala a používat komplexní typy všude, měli používat názvy entit ve výše uvedených příkladech.
+Je také možné namapovat sady výsledků na komplexní typy, jako je například ta vytvořená ve výchozím nastavení. Chcete-li to provést, vytvořte nový komplexní typ místo odebrání a používejte komplexní typy všude, kde jste používali názvy entit v předchozích příkladech.
 
-Jakmile tato mapování se změnily, můžete uložit model a spusťte následující kód pro použití uložené procedury:
+Po změně těchto mapování můžete model Uložit a spustit následující kód pro použití uložené procedury:
 
 ``` csharp
     using (var db = new BlogEntities())
@@ -214,8 +214,8 @@ Jakmile tato mapování se změnily, můžete uložit model a spusťte následuj
 ```
 
 >[!NOTE]
-> Když ručně upravíte soubor edmx pro váš model ho budou přepsány, pokud někdy znovu generovat model z databáze.
+> Pokud ručně upravíte soubor EDMX pro model, bude přepsán, pokud model někdy znovu vygenerujete z databáze.
 
 ## <a name="summary"></a>Souhrn
 
-Tady jsme ukázalo dva různé způsoby přístupu k několika výsledku nastaví používající nástroj Entity Framework. Obou z nich jsou rovněž platné v závislosti na vaší situaci a předvolby a můžete zvolit ten, který se zdá být nejvhodnější pro vaše okolností. Je naplánovaná, podporu pro více výsledků, bude sady vylepšené v budoucích verzích rozhraní Entity Framework a že provedením kroků v tomto dokumentu už bude nutné.
+Tady jsme ukázali dvě různé metody přístupu k několika sadám výsledků pomocí Entity Framework. Oba z nich jsou stejně platné v závislosti na vaší situaci a preferencích a měli byste zvolit ten, který se pro vaše situace jeví jako nejvhodnější. Plánuje se, že podpora více sad výsledků bude v budoucích verzích Entity Framework vylepšená a že provedení kroků v tomto dokumentu už nebude nutné.

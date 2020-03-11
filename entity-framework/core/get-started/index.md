@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: 8aea40b9caaf454bc06d4991fd403e1ad0ff9b93
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 0e7a1ee159cdf5b72448fe6d73c972975b1ab95b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502016"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416883"
 ---
 # <a name="getting-started-with-ef-core"></a>Začínáme s EF Core
 
@@ -17,17 +17,17 @@ V tomto kurzu vytvoříte konzolovou aplikaci .NET Core, která provádí přís
 
 Můžete postupovat podle kurzu pomocí sady Visual Studio ve Windows nebo pomocí .NET Core CLI ve Windows, macOS nebo Linux.
 
-[Podívejte se na ukázku tohoto článku na GitHubu](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted).
+[Podívejte se na ukázku tohoto článku na GitHubu](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/GetStarted).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Nainstalujte následující software:
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-* [Sada .NET Core 3,0 SDK](https://www.microsoft.com/net/download/core).
+* [.NET Core SDK](https://www.microsoft.com/net/download/core).
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019 verze 16,3 nebo novější](https://www.visualstudio.com/downloads/) s touto úlohou:
   * **Vývoj pro různé platformy .NET Core** (v **jiných sad nástrojů**)
@@ -36,14 +36,14 @@ Nainstalujte následující software:
 
 ## <a name="create-a-new-project"></a>Vytvoření nového projektu
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new console -o EFGetStarted
 cd EFGetStarted
 ```
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Otevřete sadu Visual Studio.
 * Klikněte na **vytvořit nový projekt** .
@@ -56,13 +56,13 @@ cd EFGetStarted
 
 Chcete-li nainstalovat EF Core, nainstalujte balíček pro zprostředkovatele EF Corech databází, které chcete cílit. V tomto kurzu se používá SQLite, protože běží na všech platformách, které .NET Core podporuje. Seznam dostupných zprostředkovatelů najdete v tématu [poskytovatelé databází](../providers/index.md).
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **Nástroje > Správce balíčků NuGet > konzole správce balíčků**
 * Spusťte následující příkazy:
@@ -79,11 +79,11 @@ Tip: balíčky můžete nainstalovat také tak, že kliknete pravým tlačítkem
 
 Definujte třídu kontextu a třídy entit, které tvoří model.
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 * V adresáři projektu vytvořte **model.cs** s následujícím kódem.
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Klikněte pravým tlačítkem na projekt a vyberte **přidat > třídy** .
 * Jako název zadejte **model.cs** a klikněte na **Přidat** .
@@ -101,7 +101,7 @@ Tip: v reálné aplikaci vložíte každou třídu do samostatného souboru a [p
 
 V následujících krocích se k vytvoření databáze používají [migrace](xref:core/managing-schemas/migrations/index) .
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 * Spusťte následující příkazy:
 
@@ -114,7 +114,7 @@ V následujících krocích se k vytvoření databáze používají [migrace](xr
 
   Tím se nainstaluje [dotnet EF](../miscellaneous/cli/dotnet.md) a návrhový balíček, který je nutný ke spuštění příkazu na projektu. Příkaz `migrations` vygeneruje migraci k vytvoření počáteční sady tabulek pro model. Příkaz `database update` vytvoří databázi a použije novou migraci na ni.
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V **konzole správce balíčků** spusťte následující příkazy.
 
@@ -136,13 +136,13 @@ V následujících krocích se k vytvoření databáze používají [migrace](xr
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet run
 ```
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Visual Studio používá nekonzistentní pracovní adresář při spuštění konzolových aplikací .NET Core. (viz [dotnet/Project-System # 3619](https://github.com/dotnet/project-system/issues/3619)) Výsledkem je výjimka, která je vyvolána: *žádná taková tabulka: Blogy*. Aktualizace pracovního adresáře:
 
@@ -153,7 +153,7 @@ Visual Studio používá nekonzistentní pracovní adresář při spuštění ko
   <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
   ```
 
-* Soubor uložte.
+* Soubor uložte
 
 Teď můžete aplikaci spustit:
 

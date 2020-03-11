@@ -1,29 +1,29 @@
 ---
-title: Zpracování konfliktů souběžnosti - EF6
+title: Zpracování konfliktů souběžnosti – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
 ms.openlocfilehash: 81ae186201fdfac331b1d4e7836b222545fe78b5
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489151"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419690"
 ---
 # <a name="handling-concurrency-conflicts"></a>Zpracování konfliktů souběžnosti
-Optimistická souběžnost zahrnuje optimisticky pokusu o uložení vaší entity k databázi v naději, že nedošlo ke změně tamní data od entita byla načtena. Ukázalo se, která byla data změněna, je vyvolána výjimka, a musíte vyřešit konflikt, než se pokusíte uložit znovu. Toto téma popisuje způsob zpracování těchto výjimek v rozhraní Entity Framework. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+Optimistická souběžnost zahrnuje optimistický pokus o uložení vaší entity do databáze v případě, že data, která se od načtení entity nezměnila. Pokud dojde k tomu, že se data změnila, je vyvolána výjimka a před dalším pokusem o uložení je nutné konflikt vyřešit. Toto téma popisuje, jak zpracovat takové výjimky v Entity Framework. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-Tento příspěvek není vhodné místo pro úplnou diskusi o optimistického řízení souběžnosti. Následující části se předpokládá základní znalost souběžnosti řešení a zobrazení schémat pro běžné úlohy.  
+Tento příspěvek není vhodným místem pro úplnou diskuzi o optimistické souběžnosti. V následujících částech se předpokládá několik znalostí o řešení souběžnosti a zobrazení vzorů pro běžné úlohy.  
 
-Ujistěte se, mnohé z těchto vzorců použití témata v [práce s hodnotami vlastností](~/ef6/saving/change-tracking/property-values.md).  
+Mnohé z těchto vzorů využívají témata popsaná v tématu [práce s hodnotami vlastností](~/ef6/saving/change-tracking/property-values.md).  
 
-Řešení potíží s souběžnosti, při použití nezávislé přidružení (kde cizí klíč není namapována na vlastnost ve vaší entitě) je mnohem obtížnější než při použití přidružení cizího klíče. Proto pokud se chystáte provést rozlišení souběžnosti v aplikaci se doporučuje vždy mapování cizí klíče do entity. Následující příklady předpokládají, že používáte přidružení cizího klíče.  
+Řešení problémů souběžnosti při používání nezávislých přidružení (kde cizí klíč není namapovaný na vlastnost ve vaší entitě) je mnohem obtížnější než při použití přidružení cizího klíče. Proto pokud v aplikaci provedete překlad souběžnosti, doporučujeme, abyste vždy namapovali cizí klíče do svých entit. Všechny níže uvedené příklady předpokládají, že používáte přidružení cizího klíče.  
 
-DbUpdateConcurrencyException je vyvolané SaveChanges zjištěném optimistického řízení souběžnosti výjimka při pokusu o uložení entity, která využívá přidružení cizího klíče.  
+Rozhraní SaveChanges vyvolá DbUpdateConcurrencyException při zjištění výjimky optimistického zpracování při pokusu o uložení entity, která používá přidružení cizího klíče.  
 
-## <a name="resolving-optimistic-concurrency-exceptions-with-reload-database-wins"></a>Řešení výjimek optimistického řízení souběžnosti s Reload (databáze služby wins)  
+## <a name="resolving-optimistic-concurrency-exceptions-with-reload-database-wins"></a>Řešení optimistických výjimek souběžnosti s opětovným načtením (databáze WINS)  
 
-Znovu načíst metodu je možné přepsat aktuální hodnoty entity s hodnotami v databázi. Entita potom obvykle dostane zpět uživateli v nějaké podobě a musí pokusit znovu proveďte své změny a znovu ho uložit. Příklad:  
+Metodu reload lze použít k přepsání aktuálních hodnot entity o hodnoty nyní v databázi. Entita se pak většinou vrátí uživateli v nějakém formuláři a musí se pokusit znovu provést změny a znovu je uložit. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,18 +52,18 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Nastavení zarážky na volání SaveChanges a následně upravit entitu, která se ukládá v databázi pomocí jiného nástroje, jako jsou SQL Management Studio je dobrým způsobem, jak simulovat výjimky souběžnosti. Může také vložení řádku před SaveChanges aktualizace databáze přímo pomocí třídy SqlCommand. Příklad:  
+Dobrým způsobem, jak simulovat výjimku souběžnosti, je nastavit zarážku na volání metody SaveChanges a pak upravit entitu, která je ukládána v databázi pomocí jiného nástroje, jako je například SQL Management Studio. Můžete také vložit řádek před metodou SaveChanges a aktualizovat databázi přímo pomocí metody SqlCommand. Příklad:  
 
 ``` csharp
 context.Database.SqlCommand(
     "UPDATE dbo.Blogs SET Name = 'Another Name' WHERE BlogId = 1");
 ```  
 
-Metoda položky na DbUpdateConcurrencyException vrátí instance DbEntityEntry pro entity, které se nepovedlo aktualizovat. (Tato vlastnost aktuálně vždy vrátí jednu hodnotu pro problémy s souběžnosti. Může vrátit více hodnot pro výjimky obecné aktualizace.) Alternativu v některých situacích může být k získání položek pro všechny entity, které může být potřeba znovu načíst z databáze a znovu načtěte volání pro každý z nich.  
+Metoda Entries v DbUpdateConcurrencyException vrací instance DbEntityEntry pro entity, které se nepodařilo aktualizovat. (Tato vlastnost v současné době vždy vrací jedinou hodnotu pro problémy souběžnosti. Může vrátit více hodnot pro obecné výjimky aktualizace.) Alternativou v některých situacích může být získání položek pro všechny entity, které mohou být nutné z databáze znovu načteny, a volání pro každý z nich.  
 
-## <a name="resolving-optimistic-concurrency-exceptions-as-client-wins"></a>Řešení výjimek optimistického řízení souběžnosti jako klient služby wins  
+## <a name="resolving-optimistic-concurrency-exceptions-as-client-wins"></a>Řešení optimistických výjimek souběžnosti jako služby WINS klienta  
 
-V příkladu výše, který používá nové načtení se někdy označuje jako databáze wins nebo úložiště služby wins, protože hodnoty v této entitě jsou přepsány hodnoty z databáze. Někdy můžete chtít provést opak a přepsání hodnot v databázi s hodnotami aktuálně v dané entitě. To se někdy označuje jako klient wins a je možné díky získání aktuální hodnoty v databázi a nastavit je jako původní hodnoty pro entitu. (Viz [práce s hodnotami vlastností](~/ef6/saving/change-tracking/property-values.md) informace o aktuální a původní hodnoty.) Příklad:  
+Výše uvedený příklad, který používá opětovné načtení, se někdy nazývá databáze WINS nebo ukládá službu WINS, protože hodnoty v entitě jsou přepsány hodnotami z databáze. Někdy můžete chtít provést opak a přepsat hodnoty v databázi hodnotami, které jsou aktuálně v entitě. Tato situace se někdy označuje jako klient WINS a je možné ji provést získáním aktuálních hodnot databáze a jejich nastavením jako původní hodnoty pro entitu. (Informace o aktuálních a původních hodnotách naleznete v tématu [Working with Property Values](~/ef6/saving/change-tracking/property-values.md) .) Například:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -92,9 +92,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-## <a name="custom-resolution-of-optimistic-concurrency-exceptions"></a>Vlastní řešení výjimek optimistického řízení souběžnosti  
+## <a name="custom-resolution-of-optimistic-concurrency-exceptions"></a>Vlastní rozlišení optimistických výjimek souběžnosti  
 
-Někdy můžete chtít kombinací hodnot aktuálně v databázi s hodnotami aktuálně v dané entitě. To obvykle vyžaduje některé vlastní logiku nebo uživatelské interakce. Například mohou představovat formulář obsahující aktuálních hodnot, hodnot v databázi, uživateli a výchozí sadu přeložit hodnoty. Uživatel by pak upravte přeložit hodnoty podle potřeby a bylo by tyto přeložit hodnoty, které se neuloží do databáze. To lze provést pomocí objektů DbPropertyValues vrácená CurrentValues a GetDatabaseValues na záznam entity. Příklad:  
+Někdy můžete chtít kombinovat hodnoty, které jsou aktuálně v databázi, s hodnotami, které jsou aktuálně v entitě. To obvykle vyžaduje určitou vlastní logiku nebo interakci s uživatelem. Například můžete zobrazit formulář pro uživatele obsahující aktuální hodnoty, hodnoty v databázi a výchozí sadu vyřešených hodnot. Uživatel pak podle potřeby upraví vyřešené hodnoty a bude to vyřešené hodnoty, které se uloží do databáze. To se dá udělat pomocí objektů DbPropertyValues vrácených z CurrentValues a GetDatabaseValues v záznamu entity. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -143,9 +143,9 @@ public void HaveUserResolveConcurrency(DbPropertyValues currentValues,
 }
 ```  
 
-## <a name="custom-resolution-of-optimistic-concurrency-exceptions-using-objects"></a>Vlastní řešení pomocí objektů výjimek optimistického řízení souběžnosti  
+## <a name="custom-resolution-of-optimistic-concurrency-exceptions-using-objects"></a>Vlastní rozlišení optimistické výjimky souběžnosti pomocí objektů  
 
-Výše uvedený kód používá DbPropertyValues instance pro předávání kolem aktuálního, databáze a vyřešení hodnoty. V některých případech může být jednodušší použít instance typu entity pro tuto. To lze provést pomocí metody ToObject a SetValues DbPropertyValues. Příklad:  
+Výše uvedený kód používá instance DbPropertyValues pro předávání aktuálních, databázových a vyřešených hodnot. V některých případech může být pro tuto situaci snazší použít instance typu entity. To lze provést pomocí metod ToObject a SetValues DbPropertyValues. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())

@@ -1,31 +1,31 @@
 ---
-title: Kód anotací dat při prvním - EF6
+title: Code First datové poznámky – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: fcd01aef7303573001460b352f8099b2cc6e224a
-ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
+ms.openlocfilehash: 9fac2a90c46d78ff5fd632800cc0050276467773
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2019
-ms.locfileid: "68286482"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419183"
 ---
-# <a name="code-first-data-annotations"></a>Kód první datové poznámky
+# <a name="code-first-data-annotations"></a>Code First datové poznámky
 > [!NOTE]
-> **EF4.1 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 4.1. Pokud používáte starší verzi, některé nebo všechny tyto informace se nevztahují.
+> **EF 4.1 a vyšší pouze** – funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 4,1. Pokud používáte starší verzi, některé nebo všechny tyto informace se nevztahují.
 
-Obsah na této stránce jsou upraveny z článku původně vytvořeny pomocí Julie Lerman (\<http://thedatafarm.com>).
+Obsah na této stránce je přizpůsoben z článku, který původně napsal Julie Lerman (\<http://thedatafarm.com>).
 
-Entity Framework Code First umožňuje používat vaše vlastní třídy domény k vyjádření modelu EF využívá k provedení dotazu, změňte sledování a aktualizuje se funkce. Kód nejprve využívá programovací model označovány jako "úmluva nad konfigurací." Kód nejprve převezme, Entity Framework pro vytváření tříd a v takovém případě budou automaticky fungovat možnostmi, jak provést její úlohy. Ale pokud tříd nepostupujte podle těchto konvence, máte možnost přidání konfigurace do vaší třídy, které poskytují EF s požadovanými informacemi.
+Entity Framework Code First umožňuje použít vlastní třídy domény k reprezentaci modelu, na kterém se EF spoléhá, aby prováděl dotazování, sledování změn a aktualizaci funkcí. Code First využívá programovací model, který je označován jako "konvence před konfigurací". Code First předpokládá, že vaše třídy dodržují konvence Entity Framework a v takovém případě bude automaticky fungovat, jak provést úlohu. Nicméně pokud vaše třídy nedodržují tyto konvence, máte možnost Přidat konfigurace do tříd a poskytnout EF základní informace o požadavcích.
 
-Kód nejprve poskytuje dva způsoby, jak tyto konfigurace přidat do vaší třídy. Jeden používá jednoduché atributy, které volá DataAnnotations a druhý je použití Code First Fluent API, která vám poskytuje způsob, jak popisují konfiguraci toho, v kódu.
+Code First poskytuje dva způsoby, jak přidat tyto konfigurace do tříd. Jedna z nich používá jednoduché atributy s názvem DataAnnotations a druhá používá Code First rozhraní API Fluent, které poskytuje způsob, jak v kódu imperativně popsat konfigurace.
 
-Tento článek se zaměří na používání DataAnnotations (v oboru názvů System.ComponentModel.DataAnnotations) ke konfiguraci třídy – zvýraznění nejčastěji potřebných konfigurací. DataAnnotations také rozumí počet aplikací .NET, jako je například technologie ASP.NET MVC, která umožňuje tyto aplikace využívat stejné poznámky k ověření na straně klienta.
+Tento článek se zaměří na použití DataAnnotations (v oboru názvů System. ComponentModel. DataAnnotations) ke konfiguraci tříd – zvýrazňování nejčastěji potřebných konfigurací. K dataannotationům se rozumí také řada aplikací .NET, jako je ASP.NET MVC, což umožňuje těmto aplikacím využívat stejné poznámky pro ověřování na straně klienta.
 
 
 ## <a name="the-model"></a>Model
 
-Vám předvedu první DataAnnotations kódu pomocí jednoduchého páru tříd: Blog a příspěvku.
+Ukážeme Code First dataanotace pomocí jednoduché dvojice tříd: blog a příspěvek.
 
 ``` csharp
     public class Blog
@@ -47,15 +47,15 @@ Vám předvedu první DataAnnotations kódu pomocí jednoduchého páru tříd: 
     }
 ```
 
-Jsou, blogu a příspěvku třídy pohodlně postupujte podle úmluvy první kód a vyžadují žádné vylepšení umožňující EF kompatibilitou. Ale můžete také použít poznámky vám poskytneme Další informace o třídách a databáze, ke které jsou mapovány na EF.
+V takovém případě se třídy blogů a post vhodně řídí konvencí Code First a nevyžadují žádné vylepšení pro povolení kompatibility EF. Poznámky však můžete použít také k poskytnutí dalších informací k EF o třídách a databázi, ke které jsou mapovány.
 
  
 
-## <a name="key"></a>Key
+## <a name="key"></a>Klíč
 
-Entity Framework spoléhá na každé entitě s hodnotou klíče, který se používá pro entitu pro sledování. Jeden konvence Code First je implicitní klíčové vlastnosti; Kód nejprve bude hledat vlastnost s názvem "Id" nebo kombinace názvu třídy a "Id", jako je například "BlogId". Tato vlastnost bude mapovat na sloupec primárního klíče v databázi.
+Entity Framework spoléhá na každou entitu, která má hodnotu klíče, která se používá ke sledování entit. Jedna konvence Code First je implicitní vlastnosti klíče; Code First bude hledat vlastnost s názvem "ID" nebo kombinaci názvu třídy a "ID", například "BlogId". Tato vlastnost bude namapována na sloupec primárního klíče v databázi.
 
-Třídy blogu a účtovat podle Tato konvence. Co když se nepovedlo? Co když blogu použít název *PrimaryTrackingKey* místo, nebo dokonce *foo*? Pokud kód nejprve nenajde vlastnost, která odpovídá tato konvence vyvolá výjimku z důvodu požadavku Entity Framework, že musí mít vlastnost klíče. Poznámka klíče můžete použít k určení vlastností, které se má použít jako EntityKey.
+Blogové a poštovní třídy se budou řídit touto konvencí. Co když neudělal? Co když blog místo toho použil název *PrimaryTrackingKey* nebo dokonce i *foo*? Pokud kód nenalezne vlastnost, která odpovídá této konvenci, vyvolá výjimku z důvodu požadavku Entity Framework, že musíte mít vlastnost Key. Klíčovou poznámku můžete použít k určení, která vlastnost se má použít jako EntityKey.
 
 ``` csharp
     public class Blog
@@ -68,13 +68,13 @@ Třídy blogu a účtovat podle Tato konvence. Co když se nepovedlo? Co když b
     }
 ```
 
-Pokud jste nejdřív pomocí kódu je funkce generování databáze, blogu tabulka bude obsahovat sloupec primárního klíče s názvem PrimaryTrackingKey, který je definovaný i jako identitu ve výchozím nastavení.
+Pokud používáte funkci generování databáze prvního kódu, tabulka blogu bude mít sloupec primárního klíče s názvem PrimaryTrackingKey, který je ve výchozím nastavení definován jako identita.
 
-![Blog tabulky s primárním klíčem](~/ef6/media/jj591583-figure01.png)
+![Tabulka blogu s primárním klíčem](~/ef6/media/jj591583-figure01.png)
 
 ### <a name="composite-keys"></a>Složené klíče
 
-Entity Framework podporuje složené klíče – primární klíče, které se skládají z více než jednu vlastnost. Například můžete mít Passport třídy, jejichž primární klíč je kombinací PassportNumber a IssuingCountry.
+Entity Framework podporuje složené klíče – primární klíče, které se skládají z více než jedné vlastnosti. Například můžete mít třídu služby Passport, jejíž primární klíč je kombinací hodnot PassportNumber a IssuingCountry.
 
 ``` csharp
     public class Passport
@@ -88,14 +88,14 @@ Entity Framework podporuje složené klíče – primární klíče, které se s
     }
 ```
 
-Pokus o použití ve vašem modelu EF třídu výše by výsledkem `InvalidOperationException`:
+Pokus o použití výše uvedené třídy v modelu EF má za následek `InvalidOperationException`:
 
-*Nepovedlo se určit složený primární klíče řazení pro typ "Passport". Použijte ColumnAttribute nebo metodu HasKey k určení pořadí pro složený primární klíče.*
+*Nelze určit řazení složených primárních klíčů pro typ Passport. Použijte metodu ColumnAttribute nebo Haskey – k určení objednávky složených primárních klíčů.*
 
-Chcete-li použít složené klíče, Entity Framework vyžaduje, abyste k definování objednávku ke klíčové vlastnosti. Můžete to provést s použitím sloupce Poznámka k určení pořadí.
+Aby bylo možné používat složené klíče, Entity Framework vyžaduje, abyste definovali pořadí vlastností klíče. Můžete to provést pomocí anotace sloupce a určit objednávku.
 
 >[!NOTE]
-> Hodnota pořadí je relativní (a ne na základě indexu), můžete použít všechny hodnoty. Například 100 až 200 bude přijatelné namísto 1 a 2.
+> Hodnota Order je relativní (spíše než index založený na indexu), takže lze použít jakékoli hodnoty. Například 100 a 200 by byly přijatelné místo 1 a 2.
 
 ``` csharp
     public class Passport
@@ -111,9 +111,9 @@ Chcete-li použít složené klíče, Entity Framework vyžaduje, abyste k defin
     }
 ```
 
-Pokud máte entity složené cizí klíče, musíte zadat stejný sloupec řazení, který jste použili pro odpovídající vlastnosti primárního klíče.
+Pokud máte entity se složenými cizími klíči, je nutné zadat stejné řazení sloupců, které jste použili pro příslušné vlastnosti primárního klíče.
 
-Pouze relativní řazení v rámci vlastnosti cizího klíče musí být stejný přesné hodnoty přiřazené k **pořadí** nemusí odpovídat. Například ve třídě následující 3 a 4 by mohla být zastoupen 1 a 2.
+Pouze relativní řazení v rámci vlastností cizích klíčů musí být stejné, přesné hodnoty přiřazené k **objednávce** nemusejí odpovídat. Například v následujících třídách lze použít místo 1 a 2 na úrovni 3 a 4.
 
 ``` csharp
     public class PassportStamp
@@ -135,63 +135,63 @@ Pouze relativní řazení v rámci vlastnosti cizího klíče musí být stejný
     }
 ```
 
-## <a name="required"></a>Požadováno
+## <a name="required"></a>Požaduje se
 
-Poznámka vyžaduje říká EF vyžádáním určité vlastnosti.
+Požadovaná Poznámka oznamuje EF, že je požadována konkrétní vlastnost.
 
-Přidání vyžaduje vlastnost názvu vynutí EF (a MVC) ujistěte se, že vlastnost obsahuje data.
+Přidání vyžadované pro vlastnost title vynutí EF (a MVC), aby bylo zajištěno, že vlastnost obsahuje data.
 
 ``` csharp
     [Required]
     public string Title { get; set; }
 ```
 
-Žádný další kód nebo změny kódu v aplikaci aplikace MVC provede ověřování na straně klienta, dokonce i dynamické vytvoření zprávu pomocí názvy vlastností a poznámek.
+Aplikace MVC provede ověřování na straně klienta, a to i v případě, že v aplikaci nejsou žádné další změny kódu nebo kódu, a to i při dynamickém vytváření zprávy pomocí názvů vlastností a poznámek.
 
-![Vytvoření stránky s názvem je povinné chyba](~/ef6/media/jj591583-figure02.png)
+![Při vytváření stránky s nadpisem se vyžaduje chyba.](~/ef6/media/jj591583-figure02.png)
 
-Požadovaný atribut ovlivní také generován databázový tím, že namapovanou vlastnost Null. Všimněte si, že pole název se změnil na "not null".
+Požadovaný atribut bude mít vliv také na vygenerovanou databázi tím, že namapuje vlastnost, která není null. Všimněte si, že pole název se změnilo na hodnotu not null.
 
 >[!NOTE]
-> V některých případech nemusí být možné pro sloupec v databázi být null, i když tato vlastnost je vyžadovaná. Například při použití dat TPH dědičnosti strategie pro více typů je uložené v jediné tabulce. Pokud odvozený typ obsahuje požadovanou vlastnost sloupec nelze nastavit jako Null protože ne všechny typy v hierarchii, bude mít tato vlastnost.
+> V některých případech nemusí být možné, aby sloupec v databázi mohl mít hodnotu null, i když je požadovaná vlastnost. Pokud například použijete strategii dědičnosti TPH pro více typů, uloží se do jedné tabulky. Pokud odvozený typ obsahuje povinnou vlastnost, sloupec nemůže být nastaven na hodnotu null, protože ne všechny typy v hierarchii budou mít tuto vlastnost.
 
  
 
-![Blogy tabulky](~/ef6/media/jj591583-figure03.png)
+![Tabulka blogů](~/ef6/media/jj591583-figure03.png)
 
  
 
 ## <a name="maxlength-and-minlength"></a>MaxLength a MinLength
 
-Atributy MaxLength a MinLength umožňují zadat další vlastnosti ověření, stejně jako u požadované.
+Atributy MaxLength a MinLength umožňují zadat další ověření vlastností, stejně jako u požadovaných.
 
-Tady je BloggerName s požadavky na délku. Tento příklad také ukazuje, jak kombinovat atributy.
+Tady je požadavek blogger s požadavky na délku. Příklad také ukazuje, jak kombinovat atributy.
 
 ``` csharp
     [MaxLength(10),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Poznámka MaxLength ovlivní databázi nastavením vlastnosti length na 10.
+Poznámka MaxLength bude mít vliv na databázi nastavením délky vlastnosti na hodnotu 10.
 
-![Blogy tabulka zobrazující maximální délka pro sloupec BloggerName](~/ef6/media/jj591583-figure04.png)
+![Tabulka blogů zobrazující maximální délku sloupce blogger](~/ef6/media/jj591583-figure04.png)
 
-Poznámka MVC na straně klienta a poznámky na straně serveru EF 4.1 dodrží i toto ověření znovu dynamické vytvoření chybová zpráva: "Pole BloggerName musí být typu řetězce nebo pole s maximální délkou"10"." Tato zpráva je trochu dlouhý. Mnoho anotace umožňují zadat chybovou zprávu s atributem chybová zpráva.
+Poznámka na straně klienta MVC a Poznámka k serveru EF 4,1 na straně serveru budou respektovat toto ověření, znovu dynamicky sestavit chybovou zprávu: "pole blogger musí být řetězec nebo typ pole s maximální délkou 10." Tato zpráva je trochu dlouhá. Mnoho poznámek vám umožní zadat chybovou zprávu s atributem ErrorMessage.
 
 ``` csharp
     [MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Můžete také zadat chybová zpráva v poznámce požadované.
+V požadované anotaci můžete také zadat ErrorMessage.
 
-![Vytvoření stránky se vlastní chybová zpráva](~/ef6/media/jj591583-figure05.png)
+![Vytvořit stránku s vlastní chybovou zprávou](~/ef6/media/jj591583-figure05.png)
 
  
 
 ## <a name="notmapped"></a>NotMapped
 
-První konvence kódu určí, že všech vlastností, které je podporované datového typu je reprezentován v databázi. Ale to není vždy případ ve svých aplikacích. Například může mít vlastnost ve třídě blogu, který vytvoří kódu na základě názvu a BloggerName polí. Tato vlastnost se dají vytvářet dynamicky a není potřeba ukládat. Můžete označit všechny vlastnosti, které se nemapují na databázi s poznámkou NotMapped například tuto vlastnost BlogCode.
+První konvence kódu určuje, že všechny vlastnosti, které jsou podporovaným datovým typem, jsou v databázi reprezentovány. Nejedná se ale vždy o případ ve vašich aplikacích. Můžete mít například vlastnost ve třídě blog, která vytvoří kód založený na názvu a poli blogger. Tuto vlastnost lze vytvořit dynamicky a není nutné ji ukládat. Můžete označit všechny vlastnosti, které se mapují k databázi, pomocí anotace NotMapped, jako je tato vlastnost BlogCode.
 
 ``` csharp
     [NotMapped]
@@ -206,9 +206,9 @@ První konvence kódu určí, že všech vlastností, které je podporované dat
 
  
 
-## <a name="complextype"></a>Typ ComplexType
+## <a name="complextype"></a>Elementu
 
-Není k popisu entity domény mezi sadu tříd a potom vrstvy těchto tříd k popisu úplnou entitu. Můžete například přidat třídu s názvem BlogDetails do modelu.
+Není neobvyklé popsání doménových entit v rámci sady tříd a následnou vrstvou těchto tříd, abyste popsali úplnou entitu. Do modelu můžete například přidat třídu s názvem BlogDetails.
 
 ``` csharp
     public class BlogDetails
@@ -220,9 +220,9 @@ Není k popisu entity domény mezi sadu tříd a potom vrstvy těchto tříd k p
     }
 ```
 
-Všimněte si, že BlogDetails nemá libovolného typu klíčovou vlastnost. V návrhu na základě domény BlogDetails označuje jako objekt hodnoty. Entity Framework odkazují na objekty hodnotu jako komplexní typy.  Komplexní typy nelze sledovat na své vlastní.
+Všimněte si, že BlogDetails nemá žádný typ klíčové vlastnosti. V návrhu založeném na doméně se BlogDetails označuje jako objekt hodnoty. Entity Framework odkazuje na objekty hodnot jako komplexní typy.  Komplexní typy nelze sledovat samostatně.
 
-Nicméně jako vlastnost ve třídě blogu BlogDetails ho budou sledovány jako součást objektu blogu. Aby code first pro to rozpoznat je třeba označit třídu BlogDetails jako element ComplexType.
+Nicméně jako vlastnost ve třídě blogu BlogDetails bude sledována jako součást objektu blogu. Aby kód nejprve rozpoznal, je nutné označit třídu BlogDetails jako ComplexType.
 
 ``` csharp
     [ComplexType]
@@ -235,105 +235,105 @@ Nicméně jako vlastnost ve třídě blogu BlogDetails ho budou sledovány jako 
     }
 ```
 
-Nyní můžete přidat vlastnost ve třídě blogu k reprezentaci BlogDetails pro tento blog.
+Nyní můžete do třídy blogu přidat vlastnost, která bude představovat BlogDetails pro daný blog.
 
 ``` csharp
         public BlogDetails BlogDetail { get; set; }
 ```
 
-V databázi v blogu tabulce bude obsahovat všechny vlastnosti včetně vlastnosti obsažené v jeho vlastnost BlogDetail blogu. Ve výchozím nastavení každý z nich je před názvem komplexní typ, BlogDetail.
+V databázi bude tabulka blogu obsahovat všechny vlastnosti blogu včetně vlastností obsažených ve vlastnosti BlogDetail. Ve výchozím nastavení předá každý z nich název komplexního typu, BlogDetail.
 
-![Blog tabulku s komplexní typ](~/ef6/media/jj591583-figure06.png)
+![Tabulka blogu se složitým typem](~/ef6/media/jj591583-figure06.png)
 
 
-## <a name="concurrencycheck"></a>Atribut ConcurrencyCheck
+## <a name="concurrencycheck"></a>ConcurrencyCheck
 
-Poznámka atribut ConcurrencyCheck umožňuje označit jednu nebo více vlastností, které má být použit pro souběžnost kontroly v databázi, když uživatel upraví nebo odstraní entitu. Pokud jste pracovali s EF designeru, ten je v souladu s nastavení vlastnosti režim ConcurrencyMode na pevný.
+ConcurrencyCheck anotace umožňuje označit jednu nebo více vlastností, které mají být použity pro kontrolu souběžnosti v databázi, když uživatel upraví nebo odstraní entitu. Pokud jste pracovali s návrhářem EF, tato možnost se zarovnává s nastavením vlastnosti ConcurrencyMode na pevnou.
 
-Podívejme se, jak atribut ConcurrencyCheck funguje tak, že přidáte BloggerName vlastnosti.
+Pojďme se podívat, jak ConcurrencyCheck funguje tím, že ho přidáte do vlastnosti blogger.
 
 ``` csharp
     [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-Při volání SaveChanges, protože atribut ConcurrencyCheck Poznámka u pole BloggerName původní hodnota dané vlastnosti se použije v aktualizaci. Příkaz se pokusí najít správný řádek pomocí filtrování pouze na hodnotě klíče, ale také u původní hodnoty BloggerName.  Tady jsou důležité části příkazu UPDATE odeslán do databáze, ve kterém uvidíte příkaz aktualizuje řádek, který má PrimaryTrackingKey je 1 a BloggerName z "Julie", který byl původní hodnotu při tomto blogu byla načtena z databáze.
+Při volání metody SaveChanges z důvodu ConcurrencyCheck poznámky v poli Blogger se v aktualizaci použije původní hodnota této vlastnosti. Příkaz se pokusí vyhledat správný řádek filtrováním nejen na hodnotu klíče, ale také na původní hodnotě blogger.  Tady jsou důležité části příkazu UPDATE odeslaného do databáze, kde vidíte, že příkaz aktualizuje řádek, který má PrimaryTrackingKey, je 1 a blogger pro "Julie", což byla původní hodnota, když byl tento blog načten z databáze.
 
 ``` SQL
     where (([PrimaryTrackingKey] = @4) and ([BloggerName] = @5))
     @4=1,@5=N'Julie'
 ```
 
-Pokud do té doby někdo bloggeru název pro tento blog, tato aktualizace se nezdaří a získáte DbUpdateConcurrencyException, které budete potřebovat pro zpracování.
+Pokud někdo mezitím změnil název blogger pro tento blog, tato aktualizace se nezdaří a získáte DbUpdateConcurrencyException, který budete muset zpracovat.
 
  
 
 ## <a name="timestamp"></a>Časové razítko
 
-Je běžné použití pole rowversion nebo časového razítka pro kontrolu souběžnosti. Ale místo použití atribut ConcurrencyCheck poznámky, můžete použít konkrétnější anotaci časového razítka jako typ vlastnosti je bajtové pole. Kód nejprve bude považovat za vlastnosti časového razítka stejný atribut ConcurrencyCheck vlastnosti, ale také pomohou zajistit, že pole databáze, které kód nejprve vytvoří hodnotu Null. Máte jenom jednu vlastnost časového razítka v dané třídě.
+Je obvyklejší používat rowversion nebo pole timestamp pro kontrolu souběžnosti. Místo toho, abyste použili anotaci ConcurrencyCheck, můžete použít konkrétnější anotaci časového razítka, pokud je typ vlastnosti bajtové pole. Kód nejprve zpracuje vlastnosti časového razítka stejně jako vlastnosti ConcurrencyCheck, ale také zajistí, že pole databáze, které kód poprvé generuje, nemůže mít hodnotu null. V dané třídě lze mít pouze jednu vlastnost časového razítka.
 
-Přidávání do třídy blogu následující vlastnost:
+Přidání následující vlastnosti do třídy blogu:
 
 ``` csharp
     [Timestamp]
     public Byte[] TimeStamp { get; set; }
 ```
 
-výsledky v kódu nejprve vytvořit sloupec časového razítka Null v tabulce databáze.
+Výsledkem je, že kód nejprve vytvoří sloupec časového razítka bez hodnoty null v tabulce databáze.
 
-![Blogy tabulku se sloupci razítko času](~/ef6/media/jj591583-figure07.png)
+![Tabulka blogů se sloupcem s časovým razítkem](~/ef6/media/jj591583-figure07.png)
 
  
 
-## <a name="table-and-column"></a>Tabulky a sloupce
+## <a name="table-and-column"></a>Tabulka a sloupec
 
-Pokud umožníte tím Code First vytvořit databázi, můžete změnit název tabulky a sloupce, které se vytváří. Code First můžete použít také k existující databázi. Ale to není vždy případ, že názvy tříd a vlastností ve vaší doméně shodovat s názvy tabulek a sloupců ve vaší databázi.
+Pokud Code First vytvořit databázi, možná budete chtít změnit názvy tabulek a sloupců, které vytváří. Code First můžete použít i u existující databáze. Nejedná se vždy o případ, že názvy tříd a vlastností ve vaší doméně odpovídají názvům tabulek a sloupců ve vaší databázi.
 
-Moje třída se nazývá blogu a podle konvence kódu nejprve předpokládá, že to se namapuje na tabulku s názvem blogy. Pokud se nejedná o tento případ můžete zadat název tabulky s atributem tabulky. Zde například Poznámka je určení, že název tabulky je InternalBlogs.
+Moje třída je pojmenovaná jako blog a podle konvence. jako první předpokládáme, že se namapuje na tabulku s názvem Blogy. Pokud tomu tak není, můžete zadat název tabulky s atributem Table. Například Poznámka určuje, že název tabulky je InternalBlogs.
 
 ``` csharp
     [Table("InternalBlogs")]
     public class Blog
 ```
 
-Poznámka sloupec je další nimiž v určeném atributy pro mapovanou sloupec. Můžete stanovit, název, datový typ nebo dokonce pořadí, ve kterém se zobrazí sloupec v tabulce. Tady je příklad sloupce atributu.
+Anotace sloupce je více dobře při zadávání atributů namapovaného sloupce. Můžete určit název, datový typ nebo i pořadí, ve kterém se sloupec v tabulce zobrazuje. Tady je příklad atributu sloupce.
 
 ``` csharp
     [Column("BlogDescription", TypeName="ntext")]
     public String Description {get;set;}
 ```
 
-Nepleťte si Atribut TypeName sloupce s DataAnnotation datového typu. Datový typ se má poznámka použít pro uživatelské rozhraní a je ignorován Code First.
+Nepleťte si atribut TypeName sloupce s datovým typem DataAnnotation. DataType je anotace, která se používá pro uživatelské rozhraní a je ignorována Code First.
 
-Tady je tabulka po je byly znovu vygenerovány. InternalBlogs změnil název tabulky a sloupce s popisem od komplexní typ je nyní BlogDescription. Protože v poznámce byl zadán název, kód nejprve nebudeme používat konvenci od názvu sloupce s názvem komplexního typu.
+Tady je tabulka, která se po opětovném vygenerování znovu vygenerovala. Název tabulky se změnil na InternalBlogs a sloupec Description ze komplexního typu je teď BlogDescription. Vzhledem k tomu, že název byl zadán v anotaci, kód nejprve nepoužije konvenci začátku názvu sloupce s názvem komplexního typu.
 
-![Blogy tabulku a sloupec přejmenovat](~/ef6/media/jj591583-figure08.png)
+![Přejmenování tabulky a sloupce blogů](~/ef6/media/jj591583-figure08.png)
 
  
 
 ## <a name="databasegenerated"></a>DatabaseGenerated
 
-Důležité databázové funkce je schopnost mít vypočítané vlastnosti. Pokud máte mapování Code First tříd do tabulek, které obsahují vypočítané sloupce, nechcete, aby rozhraní Entity Framework a pokuste se aktualizovat tyto sloupce. Ale být vhodné EF vracet tyto hodnoty z databáze po vložení nebo aktualizovaná data. Poznámka DatabaseGenerated můžete označit, že tyto vlastnosti ve třídě spolu s vypočítané výčtu. Jiných výčtech k žádným nedošlo a Identity.
+Důležité funkce databáze je možnost mít vypočítané vlastnosti. Pokud namapujete Code First třídy na tabulky, které obsahují počítané sloupce, nechcete, aby se Entity Framework pokusit tyto sloupce aktualizovat. Ale chcete, aby EF vrátil tyto hodnoty z databáze poté, co jste vložili nebo aktualizovali data. Můžete použít poznámku DatabaseGenerated k označení těchto vlastností ve třídě spolu s vypočítaným výčtem. Jiné výčty jsou žádné a identita.
 
 ``` csharp
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated { get; set; }
 ```
 
-Můžete použít databáze, které jsou generovány pro sloupce bajtů nebo jako časové razítko, pokud kód je nejprve generování databáze, v opačném případě byste měli používat jenom to při odkazující na stávající databáze, protože kód nejprve nebude schopna určit vzorec pro počítaný sloupec.
+Databázi, která je vygenerována ve sloupcích bajtů nebo časových razítek, můžete použít, když kód poprvé generuje databázi. v opačném případě byste měli tuto možnost používat pouze při přechodu na existující databáze, protože kód nejprve nebude schopen určit vzorec pro vypočítaný sloupec.
 
-Řekli, která ve výchozím nastavení, klíčová vlastnost, která je celé číslo se stanou klíč identity v databázi. Která budou stejné jako nastavení DatabaseGenerated DatabaseGeneratedOption.Identity. Pokud nechcete, aby to přijde klíč identity, můžete nastavit hodnotu na DatabaseGeneratedOption.None.
+Přečtěte si, že ve výchozím nastavení se klíčovou vlastností, která je celé číslo, stane klíč identity v databázi. To by bylo stejné jako nastavení DatabaseGenerated na DatabaseGeneratedOption. identity. Pokud nechcete, aby to byl klíč identity, můžete nastavit hodnotu na DatabaseGeneratedOption. None.
 
  
 
 ## <a name="index"></a>Index
 
 > [!NOTE]
-> **EF6.1 a vyšší pouze** – atribut indexu byla zavedena v Entity Framework 6.1. Pokud používáte starší verzi informace v této části se nevztahují.
+> **EF 6.1 a vyšší pouze** – atribut indexu byl představen v Entity Framework 6,1. Pokud používáte starší verzi, informace v této části se nevztahují.
 
-Můžete vytvořit index na jeden nebo více sloupců pomocí **IndexAttribute**. Přidání atributu na jeden nebo více vlastností se způsobit EF k vytvoření odpovídající index v databázi při vytváření databáze, nebo generování uživatelského rozhraní k odpovídající položce **CreateIndex** zavolá, pokud používáte migrace Code First.
+Index můžete vytvořit na jednom nebo více sloupcích pomocí **IndexAttribute**. Přidáním atributu k jedné nebo více vlastnostem dojde k tomu, že EF vytvoří odpovídající index v databázi při vytváření databáze nebo pokud používáte Migrace Code First, uživatelské rozhraní odpovídající volání **CreateIndex** .
 
-Například následující kód způsobí indexu vytvářen **hodnocení** sloupec **příspěvky** tabulky v databázi.
+Například následující kód bude mít za následek vytvoření indexu ve sloupci **hodnocení** tabulky **příspěvky** v databázi.
 
 ``` csharp
     public class Post
@@ -347,14 +347,14 @@ Například následující kód způsobí indexu vytvářen **hodnocení** sloup
     }
 ```
 
-Ve výchozím nastavení, bude mít název indexu **IX\_&lt;název vlastnosti&gt;**  (IX\_hodnocení v předchozím příkladu). Můžete také zadat název pro index ale. Následující příklad určuje, že index s názvem **PostRatingIndex**.
+Ve výchozím nastavení se index jmenuje **ix\_&lt;název vlastnosti&gt;** (IX\_hodnocení v předchozím příkladu). Můžete také zadat název indexu, i když. Následující příklad určuje, že index by měl mít název **PostRatingIndex**.
 
 ``` csharp
     [Index("PostRatingIndex")]
     public int Rating { get; set; }
 ```
 
-Indexy jsou ve výchozím nastavení, není jedinečný, ale můžete použít **IsUnique** s názvem parametru k určení, že index musí být jedinečné. Následující příklad představuje jedinečný index na **uživatele**pro přihlašovací jméno.
+Ve výchozím nastavení indexy nejsou jedinečné, ale k určení toho, zda má být index jedinečný, lze použít parametr s příponou " **Unique** ". Následující příklad zavádí jedinečný index pro přihlašovací jméno **uživatele**.
 
 ``` csharp
     public class User
@@ -369,9 +369,9 @@ Indexy jsou ve výchozím nastavení, není jedinečný, ale můžete použít *
     }
 ```
 
-### <a name="multiple-column-indexes"></a>Sloupec indexů
+### <a name="multiple-column-indexes"></a>Indexy s více sloupci
 
-Indexy, které přesahují do více sloupců je určené vlastností se stejným názvem ve více poznámek Index pro danou tabulku. Při vytváření indexů více sloupci, je třeba zadat pořadí sloupců v indexu. Například následující kód vytvoří index více sloupců na **hodnocení** a **BlogId** volá **IX\_BlogIdAndRating**. **BlogId** je první sloupec v indexu a **hodnocení** je druhý.
+Indexy, které jsou rozloženy na více sloupcích, jsou určeny pomocí stejného názvu v několika poznámkách indexu pro danou tabulku. Při vytváření indexů s více sloupci musíte zadat objednávku pro sloupce v indexu. Například následující kód vytvoří index s více sloupci **hodnocení** a **BlogId** s názvem **IX\_BlogIdAndRating**. **BlogId** je první sloupec v indexu a **hodnocení** je druhé.
 
 ``` csharp
     public class Post
@@ -388,16 +388,16 @@ Indexy, které přesahují do více sloupců je určené vlastností se stejným
 
  
 
-## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Relace atributů: InverseProperty a cizí klíč
+## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>Atributy vztahu: InverseProperty a klíč ForeignKey
 
 > [!NOTE]
-> Tato stránka obsahuje informace o nastavení relace v modelu Code First pomocí datových poznámek. Obecné informace o relacích v EF a jak přistupovat k a manipulaci s daty pomocí relací najdete v tématu [vztahy a navigačních vlastností](~/ef6/fundamentals/relationships.md). *
+> Tato stránka poskytuje informace o nastavení vztahů v Code First modelu pomocí datových poznámek. Obecné informace o relacích v EF a o tom, jak přistupovat k datům a pracovat s nimi pomocí vztahů, najdete v tématu [relace & vlastnosti navigace](~/ef6/fundamentals/relationships.md). *
 
-První konvence kódu se postará o nejběžnějších relace v modelu, ale existují případy, kdy je potřebuje pomoc.
+První konvence kódu postará o nejběžnější vztahy v modelu, ale v některých případech je potřeba, aby vám pomohla.
 
-Změna názvu klíčová vlastnost ve třídě blogu vytvoří problém s jeho vztah k příspěvku. 
+Změna názvu klíčové vlastnosti ve třídě blogu vytvořila problém se vztahem k příspěvku. 
 
-Při generování databáze, kód nejprve uvidí BlogId vlastnost ve třídě Post a rozpozná, podle konvence, že se shoduje názvem třídy plus "Id", jako cizí klíč třídy blogu. Ale neexistuje žádná vlastnost BlogId ve třídě blogu. Řešení pro tento je vytvořit vlastnost navigace v příspěvku a používat cizí DataAnnotation ke kódu nejprve porozumět postupu při vytvoření vztahu mezi dvěma třídami – pomocí vlastnosti Post.BlogId – jak se dá zadat omezení databáze.
+Při generování databáze kód nejprve uvidí vlastnost BlogId ve třídě post a rozpoznává ji podle konvence, která odpovídá názvu třídy plus "ID" jako cizímu klíči pro třídu blogu. Ve třídě blogu ale není žádná vlastnost BlogId. Řešením pro tuto metodu je vytvoření navigační vlastnosti v příspěvku a použití cizího dataanotace k tomu, abyste si před kódem usnadnili vytváření vztahů mezi dvěma třídami – pomocí vlastnosti post. BlogId – a určení omezení v databáze.
 
 ``` csharp
     public class Post
@@ -413,20 +413,20 @@ Při generování databáze, kód nejprve uvidí BlogId vlastnost ve třídě Po
     }
 ```
 
-Omezení v databázi znázorňuje relaci mezi InternalBlogs.PrimaryTrackingKey a Posts.BlogId. 
+Omezení v databázi zobrazuje relaci mezi InternalBlogs. PrimaryTrackingKey a post. BlogId. 
 
-![vztah mezi InternalBlogs.PrimaryTrackingKey a Posts.BlogId](~/ef6/media/jj591583-figure09.png)
+![vztah mezi InternalBlogs. PrimaryTrackingKey a post. BlogId](~/ef6/media/jj591583-figure09.png)
 
-InverseProperty se používá v případě, že máte více vztahů mezi třídami.
+InverseProperty se používá, pokud máte více vztahů mezi třídami.
 
-Ve třídě příspěvek můžete chtít sledovat, který napsal příspěvek na blog a také ji upravila. Tady jsou dvě nové navigační vlastnosti pro třídu příspěvku.
+V rámci třídy post můžete chtít sledovat, kdo napsal Blogový příspěvek, a kdo ho upravil. Tady jsou dvě nové navigační vlastnosti pro třídu post.
 
 ``` csharp
     public Person CreatedBy { get; set; }
     public Person UpdatedBy { get; set; }
 ```
 
-Také budete muset přidat v třídě osoba odkazuje tyto vlastnosti. Třída osoba má vlastnosti navigace zpět na příspěvek, jeden pro všechny příspěvky autorem osoby a jeden pro všechny příspěvky aktualizoval tuto osobu.
+Také budete muset přidat do třídy Person, na kterou odkazují tyto vlastnosti. Třída Person má navigační vlastnosti zpátky na příspěvek, jednu pro všechny příspěvky napsané osobou a jednu pro všechny příspěvky, které tato osoba aktualizovala.
 
 ``` csharp
     public class Person
@@ -438,11 +438,11 @@ Také budete muset přidat v třídě osoba odkazuje tyto vlastnosti. Třída os
     }
 ```
 
-Kód nejprve není schopen odpovídat vlastnosti ve dvou tříd sama o sobě. Databázové tabulky pro příspěvky měli mít jeden cizí klíč pro osoby CreatedBy a jeden pro osobu, UpdatedBy ale kód nejprve vytvoří čtyři vlastnosti cizího klíče: Osoba\_Id, osoba\_Id1, CreatedBy\_Id a UpdatedBy\_ID.
+První kód nemůže porovnat vlastnosti ve dvou třídách sama o sobě. Databázová tabulka pro příspěvky by měla mít jeden cizí klíč pro osobu CreatedBy a jednu pro osobu UpdatedBy, ale kód nejprve vytvoří čtyři vlastnosti cizího klíče: Person\_ID, person\_Id1, CreatedBy\_ID a UpdatedBy\_ID.
 
-![Příspěvky tabulku s velmi cizí klíče](~/ef6/media/jj591583-figure10.png)
+![Tabulka příspěvků s dalšími cizími klíči](~/ef6/media/jj591583-figure10.png)
 
-Chcete-li vyřešit tyto problémy, můžete použít poznámku InverseProperty k určení zarovnání vlastnosti.
+Chcete-li tyto problémy vyřešit, můžete použít poznámku InverseProperty a zadat zarovnání vlastností.
 
 ``` csharp
     [InverseProperty("CreatedBy")]
@@ -452,14 +452,14 @@ Chcete-li vyřešit tyto problémy, můžete použít poznámku InverseProperty 
     public List<Post> PostsUpdated { get; set; }
 ```
 
-Protože vlastnost PostsWritten osobně ví, že to se vztahuje na typu příspěvku, vytvoří vztah Post.CreatedBy. PostsUpdated podobně připojí Post.UpdatedBy. A kód nejprve nevytvoří velmi cizí klíče.
+Vzhledem k tomu, že vlastnost PostsWritten v osobě ví, že se jedná o typ příspěvku, vytvoří relaci pro post. CreatedBy. Podobně se PostsUpdated připojí k post. UpdatedBy. A Code First nevytvoří nadbytečné cizí klíče.
 
-![Tabulka příspěvky bez dalších cizí klíče](~/ef6/media/jj591583-figure11.png)
+![Tabulka příspěvků bez dalších cizích klíčů](~/ef6/media/jj591583-figure11.png)
 
  
 
 ## <a name="summary"></a>Souhrn
 
-DataAnnotations nejen umožňují popsat ověřování na straně klienta a serveru ve třídách první kódu, ale také umožňují vylepšit a dokonce i opravit předpoklady, které kód nejprve vytvoří o třídách podle jeho vytváření. S DataAnnotations nelze jenom jednotky generování schématu databáze, ale můžete také namapovat první třídy kódu k existující databázi.
+Pomocí dataanotace nemůžete pouze popsat ověřování na straně klienta a serveru v kódu jako první třídy, ale také vám umožní vylepšit a dokonce opravit předpoklady, které kód poprvé provede pro vaše třídy na základě jeho konvencí. S dataanotacemi nemůžete pouze generovat schéma databáze, ale můžete také namapovat první třídy kódu na stávající databázi.
 
-Když jsou flexibilní, mějte na paměti, poskytující DataAnnotations pouze většinu běžně potřebné změny konfigurace provedené na váš kód první třídy. Ke konfiguraci třídy pro některý ze hraniční případy, by měl vypadat mechanismu, který alternativní konfiguraci, Code First rozhraní Fluent API.
+I když jsou velmi flexibilní, mějte na paměti, že dataanotace poskytují pouze nejčastěji potřebné změny konfigurace, které můžete provést na svých třídách Code First. Pokud chcete konfigurovat třídy pro některé z hraničních případů, měli byste se podívat na alternativní konfigurační mechanismus Code First Fluent API.

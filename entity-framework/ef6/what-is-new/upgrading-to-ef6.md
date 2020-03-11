@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
 ms.openlocfilehash: 4395a9c117a6cf38e7fc08f11ee689d6fffa6fed
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182101"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419652"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Upgrade na Entity Framework 6
 
@@ -70,7 +70,7 @@ Obecné pravidlo pro změny oboru názvů je, že jakýkoliv typ v System. data.
 - System. data. Objects. ObjectContext = > System. data. **Entita. Core** Objects. ObjectContext  
 - System. data. Objects. DataClasses. RelationshipManager = > System. data. **Entita. Core** Objects. DataClasses. RelationshipManager  
 
-Tyto typy jsou v *základních* oborech názvů, protože nejsou používány přímo pro většinu aplikací založených na DbContext. Některé typy, které byly součástí System. data. entity. dll, jsou stále používány často a přímo pro aplikace založené na DbContext, a proto nebyly přesunuty do *základních* oborů názvů. Toto jsou:
+Tyto typy jsou v *základních* oborech názvů, protože nejsou používány přímo pro většinu aplikací založených na DbContext. Některé typy, které byly součástí System. data. entity. dll, jsou stále používány často a přímo pro aplikace založené na DbContext, a proto nebyly přesunuty do *základních* oborů názvů. Jsou to:
 
 - System. data. EntityState = > System. data. **Entita**. EntityState  
 - System. data. Objects. DataClasses. EdmFunctionAttribute = > System. data. **Entita. DbFunctionAttribute**  

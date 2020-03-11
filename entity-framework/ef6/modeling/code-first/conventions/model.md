@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
 ms.openlocfilehash: c873e9a216bd9bd1934f2149ae6af602072f3608
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656171"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419169"
 ---
 # <a name="model-based-conventions"></a>Konvence založené na modelu
 > [!NOTE]
@@ -83,7 +83,7 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 
 Dalším složitějším příkladem konvencí založených na modelu v akci je Konfigurace způsobu, jakým jsou pojmenovány nezávislé asociace (IAs).  Jedná se o situaci, kdy se používají konvence modelu, protože služba ověřování v Internetu je vygenerovaná v rámci modelu, ke kterému má přístup rozhraní DbModelBuilder API.  
 
-Když EF generuje výjimku IA, vytvoří sloupec s názvem EntityType_KeyName. Například pro asociaci s názvem Customer se sloupcem klíč s názvem CustomerId by vygeneroval sloupec s názvem Customer_CustomerId. Následující konvence obchází znak "\_" mimo název sloupce, který je generován pro platformu IA.  
+Když EF generuje výjimku IA, vytvoří sloupec s názvem EntityType_KeyName. Například pro přidružení s názvem zákazník se sloupcem klíče s názvem CustomerId by vygeneroval sloupec s názvem Customer_CustomerId. Následující konvence obchází znak "\_" mimo název sloupce, který je generován pro platformu IA.  
 
 ``` csharp
 using System.Data.Entity;
@@ -207,6 +207,6 @@ public class BlogContext : DbContext
 }
 ```  
 
-## <a name="notes"></a>Poznámky  
+## <a name="notes"></a>Poznámky:  
 
 Seznam konvencí, které aktuálně používá Entity Framework, je k dispozici v dokumentaci MSDN: [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).  Tento seznam je načítán přímo z našeho zdrojového kódu.  Zdrojový kód pro Entity Framework 6 je k dispozici na [GitHubu](https://github.com/aspnet/entityframework6/) a mnohé z konvencí používaných v Entity Framework jsou dobré počáteční body pro vlastní konvence založené na modelu.  

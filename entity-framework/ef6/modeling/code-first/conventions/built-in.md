@@ -1,29 +1,29 @@
 ---
-title: První vytváření – EF6 kódu
+title: Konvence Code First – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bc644573-c2b2-4ed7-8745-3c37c41058ad
 ms.openlocfilehash: 4d03a32db5d84eb37c22617a95005b272172a65d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490997"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419288"
 ---
-# <a name="code-first-conventions"></a>První konvence kódu
-Code First umožňuje popisuje model s použitím tříd jazyka C# nebo Visual Basic .NET. Základní obrazec modelu je zjišťován pomocí konvencí. Konvence jsou sady pravidel, která se používají pro automatickou konfiguraci konceptuálního modelu podle definice tříd při práci se službou Code First. Konvence jsou definovány v oboru názvů System.Data.Entity.ModelConfiguration.Conventions.  
+# <a name="code-first-conventions"></a>Code First konvence
+Code First umožňuje popsat model pomocí C# nebo Visual Basic třídy .NET. Základní tvar modelu se detekuje pomocí konvencí. Konvence jsou sady pravidel, které se používají k automatické konfiguraci koncepčního modelu na základě definic třídy při práci s Code First. Konvence jsou definovány v oboru názvů System. data. entity. ModelConfiguration. Conventions.  
 
-Model lze dále konfigurovat pomocí anotacemi dat nebo rozhraní fluent API. Prioritu konfiguraci prostřednictvím rozhraní fluent API následovat anotacemi dat a vytváření názvů. Další informace najdete v části [anotacemi dat](~/ef6/modeling/code-first/data-annotations.md), [rozhraní Fluent API – vztahy](~/ef6/modeling/code-first/fluent/relationships.md), [Fluent API – typy a vlastnosti](~/ef6/modeling/code-first/fluent/types-and-properties.md) a [Fluent API s využitím VB.NET](~/ef6/modeling/code-first/fluent/vb.md).  
+Model můžete dále konfigurovat pomocí datových poznámek nebo rozhraní Fluent API. Přednost je dána konfiguraci prostřednictvím rozhraní Fluent API, po kterém následují datové poznámky a potom konvence. Další informace najdete v tématu [datové poznámky](~/ef6/modeling/code-first/data-annotations.md), [Fluent API-Relationships](~/ef6/modeling/code-first/fluent/relationships.md), [typy rozhraní API Fluent & vlastnosti](~/ef6/modeling/code-first/fluent/types-and-properties.md) a [Fluent API pomocí VB.NET](~/ef6/modeling/code-first/fluent/vb.md).  
 
-Podrobný seznam Code First konvence je k dispozici v [dokumentace k rozhraní API](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx). Toto téma obsahuje základní informace o konvencích použitých ji Code First.  
+Podrobný seznam konvencí Code First najdete v [dokumentaci k rozhraní API](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx). Toto téma poskytuje přehled konvencí používaných nástrojem Code First.  
 
-## <a name="type-discovery"></a>Typ zjišťování  
+## <a name="type-discovery"></a>Zjišťování typů  
 
-Při použití vývoje Code First obvykle začnete vytvořením tříd rozhraní .NET Framework, které definují model koncepční (domény). Kromě definování třídy, je také potřeba nechat **DbContext** vědět, jaké typy, které chcete zahrnout do modelu. K tomuto účelu můžete definovat, která je odvozena z třídy kontextu **DbContext** a zveřejňuje **DbSet** vlastnosti pro typy, které mají být součástí modelu. Kód nejprve bude obsahovat tyto typy a také se o přijetí změn v odkazovaných typů, i v případě, že odkazované typy jsou definovány v jiném sestavení.  
+Při použití vývoje Code First obvykle začněte psaním .NET Framework tříd, které definují koncepční (doménový) model. Kromě definování tříd musíte také dát **DbContext** informace o tom, které typy chcete do modelu zahrnout. Chcete-li to provést, Definujte třídu kontextu, která je odvozena z **DbContext** a zpřístupňuje vlastnosti **negenerickými** pro typy, které mají být součástí modelu. Code First budou tyto typy zahrnovat a budou také vyžádané v jakémkoli odkazovaném typu, a to i v případě, že jsou odkazované typy definovány v jiném sestavení.  
 
-Pokud vaše typy účastnit v hierarchii dědičnosti, stačí definovat **DbSet** vlastnost pro základní třídu a odvozené typy budou přidány automaticky, pokud jsou ve stejném sestavení jako základní třídy.  
+Pokud se vaše typy účastní hierarchie dědičnosti, je dostačující definovat vlastnost **negenerickými** pro základní třídu a odvozené typy budou automaticky zahrnuty, pokud jsou ve stejném sestavení jako základní třída.  
 
-V následujícím příkladu je zaznamenána pouze jedna **DbSet** vlastnosti definované v **SchoolEntities** třídy (**oddělení**). Tato vlastnost kód nejprve používá ke zjišťování a získává všechny odkazované typy.  
+V následujícím příkladu je definována pouze jedna vlastnost **negenerickými** ve třídě **SchoolEntities** (**departments**). Code First tuto vlastnost používá ke zjišťování a vyžádání v jakémkoli odkazovaném typu.  
 
 ``` csharp
 public class SchoolEntities : DbContext
@@ -69,15 +69,15 @@ public partial class OnsiteCourse : Course
 }
 ```  
 
-Pokud chcete vyloučit z modelu typ, použijte **NotMapped** atribut nebo **DbModelBuilder.Ignore** rozhraní fluent API.  
+Pokud chcete vyloučit typ z modelu, použijte atribut **NotMapped** nebo **DbModelBuilder. Ignore** Fluent API.  
 
 ```  csharp
 modelBuilder.Ignore<Department>();
 ```  
 
-## <a name="primary-key-convention"></a>Primární klíče konvence  
+## <a name="primary-key-convention"></a>Konvence primárního klíče  
 
-Kód nejprve odvodí, že vlastnost je primární klíč, pokud je vlastnost třídy s názvem "ID" (nerozlišuje velikost písmen) nebo název třídy následovaný "ID". Pokud je číselného typu vlastnost primárního klíče nebo identifikátor GUID bude nakonfigurován jako sloupec identity.  
+Code First odvodí, že vlastnost je primární klíč, pokud je vlastnost u třídy pojmenována "ID" (nerozlišuje malá a velká písmena) nebo název třídy následovaný "ID". Pokud je typ vlastnosti primárního klíče číslo nebo GUID, bude nakonfigurovaný jako sloupec identity.  
 
 ``` csharp
 public class Department
@@ -90,15 +90,15 @@ public class Department
 }
 ```  
 
-## <a name="relationship-convention"></a>Vztah konvence  
+## <a name="relationship-convention"></a>Konvence vztahů  
 
-Navigační vlastnosti v Entity Framework, poskytují způsob, jak procházet vztah mezi dvěma typy entit. Každý objekt může mít navigační vlastnost pro každý vztah, ve kterém se podílí. Navigační vlastnosti umožňují přejít a spravovat vztahy v obou směrech, vrací buď odkaz na objekt (Pokud je násobnost buď jeden nebo nula nebo jedna) nebo celé kolekci (Pokud je násobnost mnoho). Kód nejprve odvodí relace založené na navigační vlastnosti definované ve vašich typů.  
+V Entity Framework navigační vlastnosti poskytují způsob, jak procházet relaci mezi dvěma typy entit. Každý objekt může mít navigační vlastnost pro každý vztah, ve kterém se účastní. Navigační vlastnosti umožňují procházet a spravovat relace v obou směrech, vracet buď Referenční objekt (Pokud je násobnost buď jedna, nebo nula, nebo-jedna), nebo kolekci (Pokud je násobnost mnoho). Code First odvodí vztahy na základě navigačních vlastností definovaných ve vašich typech.  
 
-Kromě vlastnosti navigace doporučujeme vám, že složku zahrnujete vlastnosti cizího klíče na typy, které představují závislé objekty. Cizí klíč pro daný vztah představuje jakoukoli vlastnost se stejným typem dat jako hlavní vlastnost primárního klíče a s názvem, který následuje jedna z následujících formátů: "\<název navigační vlastnosti\>\<instančního objektu Název vlastnost primárního klíče\>","\<název instančního objektu třídy\>\<vlastnost primárního klíče název\>", nebo"\<název instančního objektu vlastnost primárního klíče\>". Pokud se nenajde více shod prioritu v uvedeném pořadí. Detekce cizích klíčů se nerozlišují malá a velká písmena. Pokud vlastnost cizího klíče se zjistí, Code First odvodí násobnost relací podle možnosti použití hodnoty Null cizího klíče. Pokud je vlastnost s možnou hodnotou Null vztah je registrované jako volitelné. předávala relace podle potřeby.  
+Kromě navigačních vlastností doporučujeme, abyste do typů, které reprezentují závislé objekty, zahrnuli vlastnosti cizího klíče. Jakákoli vlastnost se stejným datovým typem jako primární vlastnost primárního klíče a s názvem, který následuje jeden z následujících formátů, představuje cizí klíč pro relaci: '\<název vlastnosti navigace\>\<hlavní název vlastnosti primárního klíče\>', '\<název třídy zabezpečení\>\<primární klíč vlastnosti název\>', nebo '\<hlavní primární klíč vlastnosti\>'. Pokud je nalezeno více shod, bude přednost uvedena v pořadí uvedeném výše. Detekce cizího klíče nerozlišuje velká a malá písmena. Když je zjištěna vlastnost cizího klíče, Code First odvodí násobnost relace na základě hodnoty null cizího klíče. Pokud je vlastnost nastavena na hodnotu null, je relace registrována jako volitelná; v opačném případě bude relace registrována podle potřeby.  
 
-Pokud není cizí klíč na závislé entity s možnou hodnotou Null, pak Code First nastaví kaskádové odstranění relace. Pokud cizí klíč na závislé entita může mít hodnotu Null, Code First nenastaví kaskádové odstranění na relaci a při odstranění objektu zabezpečení cizí klíč se nastaví na hodnotu null. Násobnost a kaskádové odstranění chování detekoval konvence lze přepsat pomocí rozhraní fluent API.  
+Pokud cizímu klíči na závislé entitě není nabývat hodnoty null, Code First nastaví kaskádové odstranění v relaci. Pokud je cizí klíč na závislé entitě Nullable, Code First v relaci nenastavuje kaskádové odstranění a při odstranění objektu zabezpečení se cizí klíč nastaví na hodnotu null. Chování násobnosti a kaskádového odstranění zjištěné konvencí lze přepsat pomocí rozhraní Fluent API.  
 
-V následujícím příkladu navigačních vlastností a cizí klíče slouží k definování vztahů mezi třídami oddělení a kurzu.  
+V následujícím příkladu jsou k definování vztahu mezi třídami oddělení a kurzu použity navigační vlastnosti a cizí klíč.  
 
 ``` csharp
 public class Department
@@ -128,11 +128,11 @@ public class Course
 ```  
 
 > [!NOTE]
-> Pokud máte více vztahů mezi stejné typy (Předpokládejme například, že definujete **osoba** a **knihy** třídy, kde **osoba** třída obsahuje  **ReviewedBooks** a **AuthoredBooks** navigačních vlastností a **knihy** třída obsahuje **Autor** a  **Kontrolor** navigační vlastnosti) budete muset ručně konfigurovat vztahy pomocí anotacemi dat nebo rozhraní fluent API. Další informace najdete v tématu [anotacemi dat – vztahy](~/ef6/modeling/code-first/data-annotations.md) a [rozhraní Fluent API – vztahy](~/ef6/modeling/code-first/fluent/relationships.md).  
+> Pokud máte více vztahů mezi stejnými typy (například Předpokládejme, že definujete třídy **Person** a **Book** , kde třída **Person** obsahuje navigační vlastnosti **ReviewedBooks** a **AuthoredBooks** a třída **Book** obsahuje navigační vlastnosti **autora** a **kontrolora** ), je nutné ručně nakonfigurovat relace pomocí datových poznámek nebo rozhraní Fluent API. Další informace najdete v tématech [datové poznámky – vztahy](~/ef6/modeling/code-first/data-annotations.md) a [Fluent API-Relationships](~/ef6/modeling/code-first/fluent/relationships.md).  
 
-## <a name="complex-types-convention"></a>Konvence komplexní typy  
+## <a name="complex-types-convention"></a>Konvence komplexních typů  
 
-Při Code First umožňuje zjistit primární klíč nelze odvodit, kde žádný primární klíč je zaregistrované prostřednictvím anotací dat nebo rozhraní fluent API definice třídy, pak typ automaticky zaregistrována jako komplexního typu. Komplexní typ detekce také vyžaduje, typ nebude mít vlastnosti, které odkazují na typy entit a neodkazuje na jiný typ vlastnost kolekce. Daný následující definice tříd Code First by odvodit, který **podrobnosti** je komplexní typ, protože nemá primární klíč.  
+Když Code First zjistí definici třídy, kde nelze odvodit primární klíč, a žádný primární klíč není zaregistrován prostřednictvím datových poznámek nebo rozhraní API Fluent, pak je typ automaticky registrován jako složitý typ. Detekce komplexního typu také vyžaduje, aby typ neměl vlastnosti, které odkazují na typy entit a neodkazuje se na vlastnost kolekce na jiném typu. S ohledem na následující definice tříd Code First by byly odvodit, že **Podrobnosti** jsou komplexní typ, protože nemá žádný primární klíč.  
 
 ``` csharp
 public partial class OnsiteCourse : Course
@@ -153,13 +153,13 @@ public class Details
 }
 ```  
 
-## <a name="connection-string-convention"></a>Připojovací řetězec konvence  
+## <a name="connection-string-convention"></a>Konvence připojovacího řetězce  
 
-Další informace o konvence, DbContext používá ke zjišťování připojení pro použití podívejte [připojení a modely](~/ef6/fundamentals/configuring/connection-strings.md).  
+Další informace o konvencích, které DbContext používá ke zjištění připojení pro použití, najdete v tématu [připojení a modely](~/ef6/fundamentals/configuring/connection-strings.md).  
 
-## <a name="removing-conventions"></a>Odebrání konvence  
+## <a name="removing-conventions"></a>Odebírají se konvence.  
 
-Můžete odebrat všechny konvence definovaný v oboru názvů System.Data.Entity.ModelConfiguration.Conventions. Následující příklad odebere **PluralizingTableNameConvention**.  
+Můžete odebrat libovolné konvence definované v oboru názvů System. data. entity. ModelConfiguration. Conventions. Následující příklad odebere **PluralizingTableNameConvention**.  
 
 ``` csharp
 public class SchoolEntities : DbContext
@@ -178,4 +178,4 @@ public class SchoolEntities : DbContext
 
 ## <a name="custom-conventions"></a>Vlastní konvence  
 
-Vlastní konvence jsou podporovány v EF6 a vyšší. Další informace najdete v části [první konvence kódu vlastní](~/ef6/modeling/code-first/conventions/custom.md).
+Vlastní konvence jsou podporované v EF6 a vyšší. Další informace najdete v tématu [Vlastní konvence Code First](~/ef6/modeling/code-first/conventions/custom.md).

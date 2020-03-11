@@ -1,70 +1,70 @@
 ---
-title: Vazby dat s WPF – EF6
+title: Vázání dat pomocí WPF-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
 ms.openlocfilehash: 1933988277d3be8fecc02fced3293f2b7f80c901
-ms.sourcegitcommit: ae399f9f3d1bae2c446b552247bd3af3ca5a2cf9
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48575662"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416594"
 ---
-# <a name="databinding-with-wpf"></a>Vazby dat s WPF
-Tento podrobný návod ukazuje, jak svázat ovládací prvky WPF ve formě "hlavní podrobnosti" typy POCO. Aplikace používá rozhraní API Entity Framework pro naplnění objekty s daty z databáze, sledování změn a uložení dat do databáze.
+# <a name="databinding-with-wpf"></a>Vázání dat pomocí WPF
+V tomto podrobném návodu se dozvíte, jak navazovat POCO typy na ovládací prvky WPF ve formuláři "Master-Detail". Aplikace používá rozhraní Entity Framework API k naplnění objektů daty z databáze, sledování změn a zachování dat v databázi.
 
-Model definuje dva typy, které se účastní vztahu jednoho k několika: **kategorie** (hlavní\\hlavní) a **produktu** (závislé\\podrobnosti). Nástroje sady Visual Studio se použije k vytvoření vazby typy definované v modelu, který má ovládacích prvků WPF. Navigace mezi související objekty umožňuje rozhraní datové vazby WPF: výběr řádků v zobrazení předlohy způsobí, že podrobné zobrazení aktualizace pomocí odpovídající podřízená data.
+Model definuje dva typy, které se účastní vztahu 1:1: **kategorie** (hlavní\\hlavní server) a **produkt** (podrobnosti o závislých\\ch). Nástroje sady Visual Studio pak slouží k navázání typů definovaných v modelu na ovládací prvky WPF. Rozhraní WPF pro datovou vazbu umožňuje navigaci mezi souvisejícími objekty: výběrem řádků v zobrazení Předloha způsobí, že se podrobné zobrazení aktualizuje s odpovídajícími podřízenými daty.
 
-Snímky obrazovky a výpis kódu v tomto názorném postupu pocházejí ze sady Visual Studio 2013, ale můžete dokončit tento návod s Visual Studio 2012 nebo Visual Studio 2010.
+Snímky obrazovky a výpisy kódu v tomto návodu jsou pořízeny z Visual Studio 2013, ale můžete tento návod dokončit pomocí sady Visual Studio 2012 nebo Visual Studio 2010.
 
-## <a name="use-the-object-option-for-creating-wpf-data-sources"></a>Pomocí možnosti 'Object' pro vytvoření zdroje dat pro WPF
+## <a name="use-the-object-option-for-creating-wpf-data-sources"></a>Použití možnosti Object pro vytváření zdrojů dat WPF
 
-V předchozí verzi rozhraní Entity Framework jsme použili doporučujeme používat **databáze** při vytváření nového zdroje dat založené na modelu vytvářené pomocí návrháře EF možnost. To bylo, protože kontext, který je odvozen od objektu ObjectContext a tříd entit, které jsou odvozeny z EntityObject vygeneruje návrháře. Pomocí možnosti databáze by usnadňuje psaní nejlepší kód pro interakci s této plochy rozhraní API.
+V předchozí verzi Entity Framework jsme použili k doporučení použití možnosti **databáze** při vytváření nového zdroje dat založeného na modelu vytvořeném pomocí návrháře EF. Důvodem je, že návrhář vygeneroval kontext, který je odvozen z třídy ObjectContext a entity, které jsou odvozeny z objektů EntityObject. Použití možnosti databáze vám pomůže při psaní nejlepšího kódu pro interakci s tímto povrchem rozhraní API.
 
-Ať už EF pro Visual Studio 2012 a Visual Studio 2013 vygenerovat kontext, který je odvozen od položky DbContext spolu s jednoduchou tříd entit POCO. Pomocí sady Visual Studio 2010 doporučujeme přechodem na šablony generování kódu, který používá kontext databáze, jak je popsáno dále v tomto návodu.
+Návrháři EF pro Visual Studio 2012 a Visual Studio 2013 generují kontext, který je odvozený z DbContext společně s jednoduchými třídami POCO entit. V rámci sady Visual Studio 2010 doporučujeme odkládací šablonu pro generování kódu, která používá DbContext, jak je popsáno dále v tomto návodu.
 
-Při použití plochy rozhraní DbContext API byste měli použít **objekt** možnosti při vytváření nového zdroje dat, jak je znázorněno v tomto názorném postupu.
+Při použití plochy rozhraní API DbContext byste měli použít možnost **objektu** při vytváření nového zdroje dat, jak je znázorněno v tomto návodu.
 
-V případě potřeby můžete [vrátit k generování kódu na základě ObjectContext](~/ef6/modeling/designer/codegen/legacy-objectcontext.md) pro modely vytvořené pomocí EF designeru.
+V případě potřeby se můžete [vrátit na generování kódu založeného na ObjectContext](~/ef6/modeling/designer/codegen/legacy-objectcontext.md) pro modely vytvořené pomocí návrháře EF.
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
-Musíte mít Visual Studio 2013, Visual Studio 2012 nebo Visual Studio 2010 nainstalovaný k dokončení tohoto návodu.
+Pro dokončení tohoto Názorného postupu musíte mít nainstalovanou Visual Studio 2013, Visual Studio 2012 nebo Visual Studio 2010.
 
-Pokud používáte Visual Studio 2010, musíte také nainstalovat NuGet. Další informace najdete v tématu [instalace balíčků NuGet](https://docs.microsoft.com/nuget/install-nuget-client-tools).  
+Pokud používáte Visual Studio 2010, je také nutné nainstalovat NuGet. Další informace najdete v tématu [instalace NuGet](https://docs.microsoft.com/nuget/install-nuget-client-tools).  
 
 ## <a name="create-the-application"></a>Vytvoření aplikace
 
--   Otevřít Visual Studio
--   **Soubor –&gt; nové –&gt; projektu...**
--   Vyberte **Windows** v levém podokně a **WPFApplication** v pravém podokně
--   Zadejte **WPFwithEFSample** jako název
--   Vyberte **OK**
+-   Otevřete sadu Visual Studio.
+-   **Soubor-&gt; projekt New-&gt;...**
+-   V levém podokně vyberte **Windows** a **WPFApplication** v pravém podokně.
+-   Jako název zadejte **WPFwithEFSample** 
+-   Vybrat **OK**
 
-## <a name="install-the-entity-framework-nuget-package"></a>Nainstalovat balíček NuGet pro rozhraní Entity Framework
+## <a name="install-the-entity-framework-nuget-package"></a>Instalace balíčku Entity Framework NuGet
 
--   V Průzkumníku řešení klikněte pravým tlačítkem myši na **WinFormswithEFSample** projektu
--   Vyberte **spravovat balíčky NuGet...**
--   V dialogovém okně Spravovat balíčky NuGet vyberte **Online** kartě a zvolte **EntityFramework** balíčku
--   Klikněte na tlačítko **instalace**  
+-   V Průzkumník řešení klikněte pravým tlačítkem na projekt **WinFormswithEFSample** .
+-   Vyberte **Spravovat balíčky NuGet...**
+-   V dialogovém okně Spravovat balíčky NuGet vyberte kartu **online** a zvolte balíček **EntityFramework** .
+-   Klikněte na **nainstalovat** .  
     >[!NOTE]
-    > Kromě EntityFramework sestavení je také přidán odkaz na System.ComponentModel.DataAnnotations. Pokud projekt obsahuje odkaz na System.Data.Entity, pak se odebere při instalaci balíčku objektu EntityFramework. Sestavení System.Data.Entity se už používá pro aplikace Entity Framework 6.
+    > Kromě sestavení EntityFramework je také přidáno odkaz na System. ComponentModel. DataAnnotations. Pokud má projekt odkaz na System. data. entity, bude po instalaci balíčku EntityFramework odebrán. Sestavení System. data. entity již není používáno pro Entity Framework 6 aplikací.
 
-## <a name="define-a-model"></a>Definovat Model
+## <a name="define-a-model"></a>Definování modelu
 
-V tomto návodu jste se rozhodli implementují model Code First nebo EF designeru. Proveďte jeden z následujících dvou částech.
+V tomto návodu můžete zvolit implementaci modelu pomocí Code First nebo návrháře EF. Proveďte jednu ze dvou následujících částí.
 
-### <a name="option-1-define-a-model-using-code-first"></a>Možnost 1: Definujte Model pomocí Code First
+### <a name="option-1-define-a-model-using-code-first"></a>Možnost 1: definování modelu pomocí Code First
 
-Tato část ukazuje, jak vytvořit model a jeho přidružená databáze pomocí Code First. Přejít k další části (**možnost 2: definovat model pomocí Database First)** Pokud byste chtěli raději použít první databázi vrátit pracovníkovi modelu z databáze pomocí EF designeru
+V této části se dozvíte, jak vytvořit model a jeho přidruženou databázi pomocí Code First. Přejděte k další části (**možnost 2: definice modelu pomocí Database First)** , pokud byste chtěli použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF.
 
-Při použití vývoje Code First obvykle začnete vytvořením tříd rozhraní .NET Framework, které definují model koncepční (domény).
+Při použití vývoje Code First obvykle začněte psaním .NET Framework tříd, které definují koncepční (doménový) model.
 
--   Přidejte novou třídu do **WPFwithEFSample:**
-    -   Klikněte pravým tlačítkem na název projektu
-    -   Vyberte **přidat**, pak **nová položka**
-    -   Vyberte **třídy** a zadejte **produktu** pro název třídy
--   Nahradit **produktu** třídy definice s následujícím kódem:
+-   Přidat novou třídu do **WPFwithEFSample:**
+    -   Klikněte pravým tlačítkem myši na název projektu.
+    -   Výběr položky **Přidat**a **Nová položka**
+    -   Vyberte **třídu** a jako název třídy zadejte  **produktu** .
+-   Nahraďte definici třídy  **produktu** následujícím kódem:
 
 ``` csharp
     namespace WPFwithEFSample
@@ -100,13 +100,13 @@ Při použití vývoje Code First obvykle začnete vytvořením tříd rozhraní
     }
 ```
 
-**Produkty** vlastnost **kategorie** třídy a **kategorie** vlastnost **produktu** třídy jsou navigační vlastnosti. Navigační vlastnosti v Entity Framework, poskytují způsob, jak procházet vztah mezi dvěma typy entit.
+Vlastnost **Products** **u vlastnosti Category třídy a** **kategorie** u třídy **produkt** je vlastností navigace. V Entity Framework navigační vlastnosti poskytují způsob, jak procházet relaci mezi dvěma typy entit.
 
-Kromě definování entit, budete muset definovat třídu, která je odvozena od položky DbContext a zveřejňuje DbSet&lt;TEntity&gt; vlastnosti. DbSet&lt;TEntity&gt; vlastnosti umožňují kontextu vědět, jaké typy, které chcete zahrnout do modelu.
+Kromě definování entit musíte definovat třídu, která je odvozena z DbContext a zpřístupňuje Negenerickými&lt;vlastnosti TEntity&gt;. Vlastnosti Negenerickými&lt;TEntity&gt; umožňují kontextu zjistit, které typy chcete do modelu zahrnout.
 
-Instance typu DbContext odvozené spravuje objekty entity za běhu, který obsahuje naplnění objekty s daty z databáze, změňte sledování a zachovává data do databáze.
+Instance DbContext odvozeného typu spravuje objekty entit za běhu, což zahrnuje vyplnění objektů daty z databáze, sledování změn a uchování dat do databáze.
 
--   Přidat nový **ProductContext** třídy do projektu s následující definice:
+-   Přidejte do projektu novou třídu **ProductContext** s následující definicí:
 
 ``` csharp
     using System.Data.Entity;
@@ -123,39 +123,39 @@ Instance typu DbContext odvozené spravuje objekty entity za běhu, který obsah
 
 Zkompilujte projekt.
 
-### <a name="option-2-define-a-model-using-database-first"></a>Možnost 2: Definujte model pomocí Database First
+### <a name="option-2-define-a-model-using-database-first"></a>Možnost 2: definování modelu pomocí Database First
 
-Tato část ukazuje způsob použití Database First provést zpětnou analýzu modelu z databáze pomocí EF designeru. Pokud jste dokončili předchozí části (**možnost 1: definovat model pomocí Code First)**, tuto část přeskočit a přejít rovnou do **opožděné načtení** oddílu.
+V této části se dozvíte, jak použít Database First k zpětné analýze modelu z databáze pomocí návrháře EF. Pokud jste dokončili předchozí oddíl (**možnost 1: Definujte model pomocí Code First)** , pak tuto část přeskočte a přejděte rovnou k oddílu **opožděné načítání** .
 
-#### <a name="create-an-existing-database"></a>Vytvořit existující databáze
+#### <a name="create-an-existing-database"></a>Vytvoření existující databáze
 
-Obvykle Pokud cílíte na existující databázi, které se už vytvořili, ale v tomto návodu budeme potřebovat vytvořit databázi pro přístup k.
+Když cílíte na existující databázi, bude už vytvořená, ale pro tento návod musíme pro přístup vytvořit databázi.
 
-Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio, které jste nainstalovali:
+Databázový server, který je nainstalovaný se sadou Visual Studio, se liší v závislosti na verzi sady Visual Studio, kterou jste nainstalovali:
 
--   Pokud používáte Visual Studio 2010 vytvoříte databázi SQL Express.
--   Pokud používáte sadu Visual Studio 2012 pak vytvoříte [LocalDB](https://msdn.microsoft.com/library/hh510202.aspx) databáze.
+-   Pokud používáte Visual Studio 2010, budete vytvářet databázi SQL Express.
+-   Pokud používáte Visual Studio 2012, budete vytvářet databázi [LocalDB](https://msdn.microsoft.com/library/hh510202.aspx) .
 
-Pojďme tedy vygenerovala databáze.
+Pojďme dopředu a vygenerovat databázi.
 
--   **Zobrazení –&gt; Průzkumníka serveru**
--   Klikněte pravým tlačítkem na **datová připojení -&gt; přidat připojení...**
--   Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat jako zdroj dat Microsoft SQL Server
+-   **Zobrazení-&gt; Průzkumník serveru**
+-   Klikněte pravým tlačítkem na **datová připojení –&gt; přidat připojení...**
+-   Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat Microsoft SQL Server jako zdroj dat
 
     ![Změnit zdroj dat](~/ef6/media/changedatasource.png)
 
--   Připojení k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali a zadejte **produkty** jako název databáze
+-   Připojte se buď k LocalDB nebo SQL Express v závislosti na tom, který z nich jste nainstalovali, a jako název databáze zadejte **produkty** .
 
-    ![Přidat připojení LocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![Přidat LocalDB připojení](~/ef6/media/addconnectionlocaldb.png)
 
-    ![Přidat připojení Express](~/ef6/media/addconnectionexpress.png)
+    ![Přidat Express připojení](~/ef6/media/addconnectionexpress.png)
 
--   Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**
+-   Vyberte **OK** a zobrazí se dotaz, jestli chcete vytvořit novou databázi, a pak vyberte **Ano** .
 
-    ![Vytvoření databáze](~/ef6/media/createdatabase.png)
+    ![Create Database](~/ef6/media/createdatabase.png)
 
--   Nové databáze se teď budou zobrazovat v Průzkumníku serveru, klikněte pravým tlačítkem myši na něj a vyberte **nový dotaz**
--   Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**
+-   Nová databáze se nyní zobrazí v Průzkumník serveru, klikněte na ni pravým tlačítkem myši a vyberte **Nový dotaz** .
+-   Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .
 
 ``` SQL
     CREATE TABLE [dbo].[Categories] (
@@ -176,88 +176,88 @@ Pojďme tedy vygenerovala databáze.
     ALTER TABLE [dbo].[Products] ADD CONSTRAINT [FK_dbo.Products_dbo.Categories_CategoryId] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Categories] ([CategoryId]) ON DELETE CASCADE
 ```
 
-#### <a name="reverse-engineer-model"></a>Zpětná analýza modelu
+#### <a name="reverse-engineer-model"></a>Model zpětného analýz
 
-My budeme používat Entity Framework Designer, která je součástí sady Visual Studio, k vytvoření našeho modelu.
+Budeme používat Entity Framework Designer, který je součástí sady Visual Studio, a vytvořit náš model.
 
 -   **Projekt –&gt; přidat novou položku...**
--   Vyberte **Data** v levé nabídce a potom **datový Model Entity ADO.NET**
--   Zadejte **ProductModel** jako název a klikněte na **OK**
--   Tím se spustí **Průvodce datovým modelem Entity**
--   Vyberte **Generovat z databáze** a klikněte na tlačítko **další**
+-   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**
+-   Jako název zadejte **ProductModel** a klikněte na **OK** .
+-   Spustí se **průvodce model EDM (Entity Data Model)** .
+-   Vyberte **Generovat z databáze** a klikněte na **Další** .
 
-    ![Zvolte Model obsahu](~/ef6/media/choosemodelcontents.png)
+    ![Zvolit obsah modelu](~/ef6/media/choosemodelcontents.png)
 
--   Vyberte připojení k databázi vytvořené v první části, zadejte **ProductContext** jako název připojovacího řetězce a klikněte na tlačítko **další**
+-   Vyberte připojení k databázi, kterou jste vytvořili v první části, jako název připojovacího řetězce zadejte **ProductContext** a klikněte na **Další** .
 
-    ![Zvolte připojení](~/ef6/media/chooseyourconnection.png)
+    ![Zvolit připojení](~/ef6/media/chooseyourconnection.png)
 
--   Klikněte na zaškrtávací políčko vedle "Tables" k importu všech tabulek a klikněte na tlačítko 'Dokončit'
+-   Kliknutím na zaškrtávací políčko vedle tabulky naimportujete všechny tabulky a kliknete na Dokončit.
 
-    ![Vyberte objekty](~/ef6/media/chooseyourobjects.png)
+    ![Zvolit vaše objekty](~/ef6/media/chooseyourobjects.png)
 
-Po dokončení procesu zpětné analýzy nový model je přidána do projektu a zpřístupnili k zobrazení v Návrháři Entity Framework. Soubor App.config má také byla přidána do projektu s podrobnostmi o připojení pro databázi.
+Po dokončení procesu zpětného zpracování se do projektu přidá nový model, který jste otevřeli, abyste mohli zobrazit Entity Framework Designer. Do projektu byl také přidán soubor App. config s podrobnostmi o připojení pro databázi.
 
-#### <a name="additional-steps-in-visual-studio-2010"></a>Další kroky v sadě Visual Studio 2010
+#### <a name="additional-steps-in-visual-studio-2010"></a>Další kroky v aplikaci Visual Studio 2010
 
-Pokud pracujete v sadě Visual Studio 2010 je potřeba aktualizovat EF designeru používat EF6 generování kódu.
+Pokud pracujete v aplikaci Visual Studio 2010, bude nutné aktualizovat návrháře EF, aby používal generování kódu EF6.
 
--   Klikněte pravým tlačítkem na prázdné místo modelu v EF designeru a vyberte **přidat položku generování kódu...**
--   Vyberte **Online šablon** v levé nabídce a vyhledejte **DbContext**
--   Vyberte **EF 6.x DbContext generátor pro jazyk C\#,** zadejte **ProductsModel** jako název a klikněte na tlačítko Přidat
+-   V Návrháři EF klikněte pravým tlačítkem na prázdný bod modelu a vyberte **Přidat položku pro generování kódu...**
+-   V nabídce vlevo vyberte **online šablony** a vyhledejte **DbContext** .
+-   Vyberte **generátor EF 6. x DbContext pro jazyk C\#,** jako název zadejte **ProductsModel** a klikněte na Přidat.
 
-#### <a name="updating-code-generation-for-data-binding"></a>Aktualizuje se generování kódu pro vytváření datových vazeb
+#### <a name="updating-code-generation-for-data-binding"></a>Aktualizuje se generování kódu pro datovou vazbu.
 
-EF generuje kód z modelu pomocí šablon T4. Šablony součástí sady Visual Studio nebo stáhnout z Galerie sady Visual Studio jsou určené pro obecné účely použití. To znamená, že entity vygenerované z těchto šablon mít jednoduché rozhraní ICollection&lt;T&gt; vlastnosti. Při provádění data vazby pomocí grafického subsystému WPF je však žádoucí použít **kolekci ObservableCollection** pro vlastnosti kolekce tak, že WPF může udržovat přehled o provedené změny kolekce. Za tímto účelem jsme se k úpravě šablony pro použití kolekci ObservableCollection.
+EF generuje kód z modelu pomocí šablon T4. Šablony dodávané se sadou Visual Studio nebo stažené z galerie sady Visual Studio jsou určené pro účely obecného použití. To znamená, že entity vygenerované z těchto šablon mají jednoduché vlastnosti rozhraní ICollection&lt;T&gt;. Při vytváření datových vazeb pomocí WPF je však žádoucí použít **kolekci ObservableCollection** pro vlastnosti kolekce, aby WPF mohl sledovat změny provedené v kolekcích. K tomuto účelu budeme upravovat šablony, aby používaly kolekci ObservableCollection.
 
--   Otevřít **Průzkumníka řešení** a najít **ProductModel.edmx** souboru
--   Najít **ProductModel.tt** souboru, který se vnoří pod ProductModel.edmx souboru
+-   Otevřete **Průzkumník řešení** a vyhledejte soubor **ProductModel. edmx.**
+-   Vyhledejte soubor **ProductModel.TT** , který bude vnořen do souboru ProductModel. edmx.
 
-    ![Šablona Model WPF produktu](~/ef6/media/wpfproductmodeltemplate.png)
+    ![Šablona modelu produktu WPF](~/ef6/media/wpfproductmodeltemplate.png)
 
--   Poklikejte na soubor ProductModel.tt ho otevřete v editoru sady Visual Studio
--   Najít a nahradit dva výskyty "**rozhraní ICollection**"s"**kolekci ObservableCollection**". Toto jsou přibližně v řádcích 296 a 484.
--   Najít a nahradit první výskyt "**HashSet**"s"**kolekci ObservableCollection**". Výskyt této události je umístěn přibližně na řádku 50. **Ne** nahraďte druhým výskytem HashSet najdete dále v kódu.
--   Najít a nahradit jenom výskyt "**System.Collections.Generic**"s"**System.Collections.ObjectModel**". Tento soubor je umístěn přibližně na řádku 424.
--   Uložte soubor ProductModel.tt. To by měl způsobí, že kód pro entity být znovu vygenerován. Pokud kód automaticky neobnoví, klikněte pravým tlačítkem na ProductModel.tt a zvolte možnost "Spustit vlastní nástroj".
+-   Poklikejte na soubor ProductModel.tt a otevře se v editoru Visual studia.
+-   Vyhledejte a nahraďte dva výskyty "**ICollection**" pomocí "**kolekci ObservableCollection**". Ty se nacházejí přibližně na řádcích 296 a 484.
+-   Najde první výskyt "**HashSet –** " a nahradí ho "**kolekci ObservableCollection**". Tento výskyt je umístěný přibližně na řádku 50. **Neměňte druhý** výskyt HashSet –, který byl nalezen později v kódu.
+-   Vyhledejte a nahraďte pouze výskyt "**System. Collections. Generic**" pomocí "**System. Collections. ObjectModel**". To se nachází přibližně na řádku 424.
+-   Uložte soubor ProductModel.tt. To by mělo způsobit opětovné vygenerování kódu pro entity. Pokud se kód znovu negeneruje automaticky, klikněte pravým tlačítkem na ProductModel.tt a zvolte spustit vlastní nástroj.
 
-Pokud nyní otevřete soubor Category.cs (což je vnořený ProductModel.tt), pak byste měli vidět, že má kolekce produktů typ **kolekci ObservableCollection&lt;produktu&gt;**.
+Pokud teď otevřete soubor Category.cs (který je vnořený pod ProductModel.tt), měli byste vidět, že kolekce Products má typ **kolekci observablecollection&lt;&gt;produktu** .
 
 Zkompilujte projekt.
 
-## <a name="lazy-loading"></a>Opožděné načtení
+## <a name="lazy-loading"></a>Opožděné načítání
 
-**Produkty** vlastnost **kategorie** třídy a **kategorie** vlastnost **produktu** třídy jsou navigační vlastnosti. Navigační vlastnosti v Entity Framework, poskytují způsob, jak procházet vztah mezi dvěma typy entit.
+Vlastnost **Products** **u vlastnosti Category třídy a** **kategorie** u třídy **produkt** je vlastností navigace. V Entity Framework navigační vlastnosti poskytují způsob, jak procházet relaci mezi dvěma typy entit.
 
-EF poskytuje možnost načtení souvisejících entit z databáze automaticky při prvním přístupu navigační vlastnost. S tímto typem načítání (označované jako opožděné načtení) mějte na paměti, že při prvním přístupu ke každé vlastnosti navigace samostatný dotaz se spustí na databázi není-li obsah již v kontextu.
+EF vám nabízí možnost načítat související entity z databáze automaticky při prvním přístupu k vlastnosti navigace. U tohoto typu načítání (tzv. opožděné načítání) mějte na paměti, že při prvním přístupu k jednotlivým vlastnostem navigace se v databázi spustí samostatný dotaz, pokud obsah ještě není v kontextu.
 
-Při použití typů entit POCO, EF dosahuje opožděné načtení vytváření instancí typů odvozených proxy za běhu a potom přepsáním virtuálních vlastností ve třídách přidat hook načítání. Pokud chcete získat opožděné načtení souvisejících objektů, je třeba deklarovat navigace gettery vlastností jako **veřejné** a **virtuální** (**Overridable** v jazyce Visual Basic), a je třída nesmí být **zapečetěné** (**NotOverridable** v jazyce Visual Basic). Při použití databáze první navigačních vlastností se automaticky provede virtuální povolit opožděné načtení. V části Code First jsme zvolili, navigačních vlastností virtuální ze stejného důvodu
+Při použití typů entit POCO nahrazuje EF opožděné načítání vytvořením instancí odvozených typů proxy během běhu a následným přepsáním virtuálních vlastností ve třídách, aby bylo možné přidat zavěšení zatížení. Chcete-li získat opožděné načítání souvisejících objektů, je nutné deklarovat metody Get vlastnosti navigace jako **veřejné** a **virtuální** (**přepsatelné** v Visual Basic) a třídu nesmí být **zapečetěna** (**NotOverridable** v Visual Basic). Při použití Database First navigační vlastnosti se automaticky vypnuly virtuálním, aby bylo možné povolit opožděné načítání. V části Code First jsme se rozhodli, aby navigační vlastnosti byly ve stejném důsledku virtuální.
 
-## <a name="bind-object-to-controls"></a>Vytvoření vazby objektů k ovládacím prvkům
+## <a name="bind-object-to-controls"></a>Svázání objektu s ovládacími prvky
 
-Přidání třídy, které jsou definovány v modelu jako zdroj dat pro tuto aplikaci WPF.
+Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto aplikaci WPF.
 
--   Dvakrát klikněte na panel **souboru MainWindow.xaml** v Průzkumníku řešení otevřete hlavní formulář
+-   Poklikejte na **MainWindow. XAML** v Průzkumník řešení k otevření hlavního formuláře.
 -   V hlavní nabídce vyberte **projekt –&gt; přidat nový zdroj dat...**
-    (v sadě Visual Studio 2010, je nutné vybrat **dat –&gt; přidat nový zdroj dat...** )
--   V seznamu zvolte Typewindow zdroje dat, vyberte **objekt** a klikněte na tlačítko **další**
--   Vyberte datové objekty dialogu nejextrémnějších **WPFwithEFSample** dvěma časy a vyberte **kategorie**  
-    *Není nutné vybrat **produktu** zdroje dat, protože jsme se na portálu **produktu**vlastnost **kategorie** zdroj dat*  
+    (v aplikaci Visual Studio 2010 je nutné vybrat **data –&gt; přidat nový zdroj dat...** )
+-   Ve formuláři zvolte zdroj dat Typewindow vyberte **objekt** a klikněte na **Další** .
+-   V dialogovém okně Vybrat datové objekty odložte **WPFwithEFSample** dvakrát a vyberte **kategorii** .  
+    *Nemusíte vybírat zdroj dat **produktu** , protože se k němu dostanete prostřednictvím vlastnosti **produktu**ve zdroji dat **kategorie** .*  
 
-    ![Vyberte datové objekty](~/ef6/media/selectdataobjects.png)
+    ![Vybrat datové objekty](~/ef6/media/selectdataobjects.png)
 
--   Klikněte na tlačítko **dokončit.**
--   Otevření okna zdrojů dat vedle okna souboru MainWindow.xaml *Pokud okna zdroje dat se nezobrazuje, vyberte **zobrazení –&gt; ostatní Windows -&gt; zdroje dat***
--   Stiskněte ikonu připínáčku tak okna zdroje dat není automaticky skrýt. Budete muset stiskněte tlačítko Aktualizovat, pokud už je okno viditelné.
+-   Klikněte na **Dokončit**.
+-   Okno zdroje dat je otevřeno vedle okna MainWindow. XAML *, pokud se nezobrazí okno zdroje dat, vyberte možnost **zobrazit –&gt; jiné zdroje dat&gt; Windows***  .
+-   Stiskněte ikonu připnutí, aby se okno zdroje dat neautomaticky skrylo. Pokud je okno již viditelné, může být nutné spustit tlačítko Aktualizovat.
 
     ![Zdroje dat](~/ef6/media/datasources.png)
 
--   Vyberte **kategorie** zdroje dat a přetáhněte ji na formuláři.
+-   Vyberte zdroj dat **kategorie** a přetáhněte jej na formuláři.
 
-Tímto se stalo při přetažení jsme tento zdroj:
+Při přetažení tohoto zdroje došlo k následujícímu:
 
--   **CategoryViewSource** prostředků a **categoryDataGrid** ovládací prvek byl přidán do XAML 
--   Vlastnost DataContext v elementu nadřazené mřížky byla nastavená na "{StaticResource **categoryViewSource** }". **CategoryViewSource** prostředků slouží jako zdroj vazby pro vnější\\nadřazeného elementu mřížky. Hodnota kontextu DataContext vnitřní elementy mřížky pak dědit z nadřazené mřížky (vlastnost ItemsSource categoryDataGrid je nastavená na "{vazba}")
+-   Prostředek **categoryViewSource** a ovládací prvek **categoryDataGrid** byly přidány do jazyka XAML. 
+-   Vlastnost DataContext v nadřazeném elementu gridu se nastavila na {StaticResource **categoryViewSource** }. Prostředek **categoryViewSource** slouží jako zdroj vazby pro vnější\\nadřazený prvek mřížky. Vnitřní elementy mřížky pak zdědí hodnotu DataContext z nadřazené mřížky (vlastnost ItemsSource categoryDataGrid je nastavená na {Binding}).
 
 ``` xml
     <Window.Resources>
@@ -278,34 +278,34 @@ Tímto se stalo při přetažení jsme tento zdroj:
     </Grid>
 ```
 
-## <a name="adding-a-details-grid"></a>Přidání podrobností mřížky
+## <a name="adding-a-details-grid"></a>Přidání mřížky podrobností
 
-Když teď máme mřížky zobrazíte kategorie Pojďme přidáte podrobnosti mřížce se zobrazí související produkty.
+Teď, když máme mřížku pro zobrazení kategorií, přidáme k zobrazení přidružených produktů tabulku podrobností.
 
--   Vyberte **produkty** vlastnosti v rámci **kategorie** zdroje dat a přetáhněte ji na formuláři.
-    -   **CategoryProductsViewSource** prostředků a **productDataGrid** mřížky jsou přidány do XAML
-    -   Cesta vazby pro tento prostředek nastavená na produkty
-    -   Rozhraní datové vazby WPF zajistí, že pouze produkty, které souvisejí se do vybrané kategorie se zobrazí v **productDataGrid**
--   Z panelu nástrojů přetáhněte **tlačítko** do formuláře. Nastavte **název** vlastnost **buttonSave** a **obsahu** vlastnost **Uložit**.
+-   Vyberte vlastnost **Products** ze zdroje dat **kategorie** a přetáhněte ji do formuláře.
+    -   Prostředek **categoryProductsViewSource** a **productDataGrid** mřížka se přidají do XAML.
+    -   Cesta vazby pro tento prostředek je nastavená na Products.
+    -   Architektura pro datovou vazbu WPF zajišťuje, aby se v **productDataGrid** zobrazovaly jenom produkty související s vybranou kategorií.
+-   Přetáhněte **tlačítko** myši na panelu nástrojů do formuláře. Nastavte vlastnost **Name** na **ButtonSave** a vlastnost **Content** , která se má **Uložit**.
 
 Formulář by měl vypadat nějak takto:
 
-![Návrhář](~/ef6/media/designer.png) 
+![Designer](~/ef6/media/designer.png) 
 
-## <a name="add-code-that-handles-data-interaction"></a>Přidejte kód, který zpracovává Data interakce
+## <a name="add-code-that-handles-data-interaction"></a>Přidat kód, který zpracovává interakci s daty
 
-Je čas přidat několik obslužných rutin událostí do hlavního okna.
+Je čas přidat do hlavního okna nějaké obslužné rutiny událostí.
 
--   V okně, XAML, klikněte na  **&lt;okno** elementu, tato možnost vybere hlavní okno
--   V **vlastnosti** okna zvolte **události** v pravém horním rohu, pak poklikejte na textové pole na pravé straně **Loaded** popisek
+-   V okně XAML klikněte na prvek **&lt;okno** . tím se vybere hlavní okno.
+-   V okně **vlastnosti** zvolte **události** v pravém horním rohu a potom poklikejte na textové pole napravo od **načteného** popisku.
 
-    ![Hlavní okno Vlastnosti](~/ef6/media/mainwindowproperties.png)
+    ![Vlastnosti hlavního okna](~/ef6/media/mainwindowproperties.png)
 
--   Také přidat **klikněte na tlačítko** události **Uložit** tlačítko dvojitým kliknutím na tlačítko Uložit v návrháři. 
+-   Přidejte také událost **Click** pro tlačítko **Uložit** dvojitým kliknutím na tlačítko Uložit v návrháři. 
 
-To přináší do kódu pro formulář, budeme vám teď upravovat kód, který použije ProductContext přístup k datům. Aktualizujte kód pro hlavního okna MainWindow, jak je znázorněno níže.
+Tím se vám zobrazí kód na pozadí pro formulář. teď kód upravíte, aby se k přístupu k datům používal ProductContext. Aktualizujte kód pro MainWindow, jak je znázorněno níže.
 
-Kód deklaruje instanci dlouhotrvající **ProductContext**. **ProductContext** objekt se používá k dotazování a ukládání dat do databáze. **Dispose()** na **ProductContext** instance se nazývá pak z přepsané **OnClosing** metody. V komentářích ke kódu obsahují podrobné informace o co kód dělá.
+Kód deklaruje dlouhodobě běžící instanci **ProductContext**. Objekt **ProductContext** se používá k dotazování a ukládání dat do databáze. Metoda **Dispose ()** v instanci **ProductContext** je pak volána z přepsané metody při **zavírání** . Komentáře kódu poskytují podrobné informace o tom, co kód dělá.
 
 ``` csharp
     using System.Data.Entity;
@@ -382,17 +382,17 @@ Kód deklaruje instanci dlouhotrvající **ProductContext**. **ProductContext** 
 
 ## <a name="test-the-wpf-application"></a>Testování aplikace WPF
 
--   Kompilace a spuštění aplikace. Pokud jste použili Code First, pak uvidíte, že **WPFwithEFSample.ProductContext** databáze se vytvoří za vás.
--   Zadejte název kategorie v mřížce a produktu důležití v mřížce dolů *nezadávejte nic v ID sloupce, protože primární klíč je generován databází*
+-   Zkompilujte a spusťte aplikaci. Pokud jste použili Code First, zobrazí se vám pro vás vytvořená databáze **WPFwithEFSample. ProductContext** .
+-   Zadejte název kategorie v horní mřížce a názvy produktů v dolním mřížce *nezadávají žádné údaje ve SLOUPCÍCH ID, protože primární klíč je vygenerovaný databází* .
 
-    ![Hlavní okno se nové kategorie a produkty](~/ef6/media/screen1.png)
+    ![Hlavní okno s novými kategoriemi a produkty](~/ef6/media/screen1.png)
 
--   Stisknutím klávesy **Uložit** tlačítko pro uložení dat do databáze
+-   Kliknutím na tlačítko **Uložit** uložte data do databáze.
 
-Po volání na DbContext **SaveChanges()**, ID jsou vyplněna podle hodnot v databázi vygeneruje. Protože jsme volat **Refresh()** po **SaveChanges()** **DataGrid** ovládací prvky jsou aktualizovány s novými hodnotami.
+Po volání **metody SaveChanges ()** pro DbContext se identifikátory naplní hodnotami generovanými databází. Protože jsme volali **Refresh ()** po **metody SaveChanges ()** , ovládací prvky **DataGrid** jsou aktualizovány také novými hodnotami.
 
-![Hlavní okno s ID vyplní](~/ef6/media/screen2.png)
+![Hlavní okno s vyplněnými ID](~/ef6/media/screen2.png)
 
 ## <a name="additional-resources"></a>Další prostředky
 
-Další informace o vytváření datových vazeb do kolekce pomocí grafického subsystému WPF, naleznete v tématu [v tomto tématu](https://docs.microsoft.com/dotnet/framework/wpf/data/data-binding-overview#binding-to-collections) v dokumentaci k WPF.  
+Další informace o datové vazbě na kolekce pomocí WPF naleznete v [tomto tématu](https://docs.microsoft.com/dotnet/framework/wpf/data/data-binding-overview#binding-to-collections) v dokumentaci k platformě WPF.  

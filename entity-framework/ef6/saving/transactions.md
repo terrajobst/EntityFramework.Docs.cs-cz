@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
 ms.openlocfilehash: 7030dc675993339f72c935f6b430cead85fecb7f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306527"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419683"
 ---
 # <a name="working-with-transactions"></a>Práce s transakcemi
 > [!NOTE]
@@ -39,14 +39,14 @@ Před EF6 Entity Framework nastaly při otevírání samotného databázového p
 
 Počínaje EF6 Framework nyní poskytuje:  
 
-1. **Database.BeginTransaction()** : Jednodušší způsob, jak uživatel spustit a dokončit transakce samotné v rámci existující DbContext – umožňuje kombinovat několik operací v rámci stejné transakce a tedy všechny potvrzené nebo všechny provedené zpátky jako jeden. Umožňuje také uživateli snadněji zadat úroveň izolace transakce.  
+1. **Database. BeginTransaction ()** : snazší způsob, jak uživatel spustit a dokončit transakce samotné v rámci existující DbContext – umožňuje kombinovat několik operací v rámci stejné transakce a tedy všechny potvrzené nebo všechny vrátit se změnami jako jeden. Umožňuje také uživateli snadněji zadat úroveň izolace transakce.  
 2. **Database. UseTransaction ()** : umožňuje DbContext použít transakci, která byla spuštěna mimo Entity Framework.  
 
 ### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>Kombinování několika operací do jedné transakce v rámci stejného kontextu  
 
 **Database. BeginTransaction ()** má dvě přepsání – jedna, která přijímá explicitní [IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx) a jednu, která nepřijímá žádné argumenty a používá výchozí IsolationLevel z podkladového poskytovatele databáze. Obě přepsání vrátí objekt **DbContextTransaction** , který poskytuje metody **potvrzení ()** a **vrácení zpět ()** , které provádějí potvrzení a vrácení zpět v podkladové transakci úložiště.  
 
-**DbContextTransaction** má být uvolněna, jakmile bude potvrzena nebo vrácena zpět. Jedním ze způsobů, jak toho dosáhnout, je **použití (...). {...}** syntaxe, která bude automaticky volat **Dispose ()** při dokončení bloku using:  
+**DbContextTransaction** má být uvolněna, jakmile bude potvrzena nebo vrácena zpět. Jedním ze způsobů, jak toho dosáhnout, je **použití (...) {...}** . syntaxe, která bude automaticky volat **Dispose ()** při dokončení bloku using:  
 
 ``` csharp
 using System;
@@ -188,8 +188,8 @@ Nová funkce odolnosti připojení nefunguje s transakcemi iniciované uživatel
 
 ### <a name="asynchronous-programming"></a>Asynchronní programování  
 
-Přístup, který je popsaný v předchozích částech, nepotřebuje žádné další možnosti ani nastavení pro práci [s asynchronními dotazy a](~/ef6/fundamentals/async.md
-)metodami úspory. Mějte ale na paměti, že v závislosti na tom, co v rámci asynchronních metod provedete, to může způsobit dlouhotrvající transakce – což může způsobit zablokování nebo blokování, které je pro výkon celé aplikace špatné.  
+Přístup, který je popsaný v předchozích částech, nepotřebuje žádné další možnosti ani nastavení pro práci s [asynchronními dotazy a metodami úspory](~/ef6/fundamentals/async.md
+). Mějte ale na paměti, že v závislosti na tom, co v rámci asynchronních metod provedete, to může způsobit dlouhotrvající transakce – což může způsobit zablokování nebo blokování, které je pro výkon celé aplikace špatné.  
 
 ### <a name="transactionscope-transactions"></a>Transakce TransactionScope  
 

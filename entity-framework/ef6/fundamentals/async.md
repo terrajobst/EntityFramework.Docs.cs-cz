@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
 ms.openlocfilehash: 0642dc13e7aa3906fa1495031c62701fc16f0192
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181836"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417978"
 ---
 # <a name="async-query-and-save"></a>Asynchronní dotazování a ukládání
 > [!NOTE]

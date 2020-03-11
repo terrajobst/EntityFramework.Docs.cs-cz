@@ -1,21 +1,21 @@
 ---
-title: Správa připojení - EF6
+title: Správa připojení – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ecaa5a27-b19e-4bf9-8142-a3fb00642270
 ms.openlocfilehash: a6352bbbc38c38bd5f30536736ec969056df2c7d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489333"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417985"
 ---
 # <a name="connection-management"></a>Správa připojení
-Tato stránka popisuje chování Entity Framework s ohledem na předávání připojení do kontextu a funkce **Database.Connection.Open()** rozhraní API.  
+Tato stránka popisuje chování Entity Framework s ohledem na předávání připojení do kontextu a funkce **databáze. Connection. Open ()** API.  
 
-## <a name="passing-connections-to-the-context"></a>Předávání připojení ke kontextu  
+## <a name="passing-connections-to-the-context"></a>Předávání připojení do kontextu  
 
-### <a name="behavior-for-ef5-and-earlier-versions"></a>Chování EF5 a starší verze  
+### <a name="behavior-for-ef5-and-earlier-versions"></a>Chování pro EF5 a starší verze  
 
 Existují dva konstruktory, které přijímají připojení:  
 
@@ -24,12 +24,12 @@ public DbContext(DbConnection existingConnection, bool contextOwnsConnection)
 public DbContext(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
 ```  
 
-Je možné použít, ale budete muset vyřešit několik omezení:  
+Je možné je použít, ale musíte vyřešit několik omezení:  
 
-1. Pokud předáte otevřené připojení na jeden z následujících pak při prvním rozhraní se pokusí použít, pokud je vyvolána výjimka InvalidOperationException říká ji nelze znovu otevřít již otevřeného připojení.  
-2. Příznak contextOwnsConnection je interpretována jako jestli nadřízené připojení úložiště by mělo být uvolněno při uvolnění kontextu. Ale bez ohledu na to, že nastavení připojení úložiště je vždy uzavřen, při uvolnění kontextu. Takže pokud máte více než jeden DbContext pomocí stejného připojení uvolnění podle kontextu, je nejprve připojení zavře (podobně Pokud jste kombinovat existující připojení ADO.NET s DbContext, DbContext vždy připojení zavře při jeho uvolnění) .  
+1. Pokud předáte otevřené připojení k některé z těchto kroků, při prvním pokusu o jeho použití se spustí příkaz InvalidOperationException, že nemůže znovu otevřít již otevřené připojení.  
+2. Příznak contextOwnsConnection je interpretován tak, zda by mělo být zdrojové připojení úložiště uvolněno při uvolnění kontextu. Bez ohledu na toto nastavení je připojení úložiště vždy uzavřeno, když je kontext vyřazen. Takže pokud máte více než jeden DbContext se stejným připojením, jako by se odstranila jakákoli kontextová připojení, bude připojení ukončeno (podobně, pokud jste nastavili kombinaci stávajícího ADO.NET připojení s DbContext, DbContext bude připojení vždycky po vyřazení trvale ukončit). .  
 
-Je možné obejít omezení na první nad úspěšným ukončeném připojení a pouze provádění kódu, který by se otevřely se po všech kontextech byly vytvořeny:  
+Výše uvedené omezení můžete obejít tak, že předáte uzavřená připojení a spustíte jenom kód, který by ho otevřel po vytvoření všech kontextů:  
 
 ``` csharp
 using System.Collections.Generic;
@@ -71,11 +71,11 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-Druhé omezení jenom znamená, že potřebujete nepoužívejte disposing některý z objektů DbContext, dokud nebudete připraveni pro připojení bude uzavřen.  
+Druhé omezení znamená, že musíte upustit od odstranění všech objektů DbContext, dokud nebudete připraveni na uzavření připojení.  
 
-### <a name="behavior-in-ef6-and-future-versions"></a>Chování v budoucích verzích a EF6  
+### <a name="behavior-in-ef6-and-future-versions"></a>Chování v EF6 a budoucích verzích  
 
-V budoucích verzích a EF6 uvolněn objekt DbContext má stejné dva konstruktory, ale už nevyžaduje, aby předaný konstruktoru připojení ukončeno při obdržení. Tohle je teď možné:  
+V EF6 a budoucích verzích má DbContext stejné dva konstruktory, ale již nevyžaduje, aby bylo připojení předané do konstruktoru uzavřeno při jeho přijetí. To je teď možné:  
 
 ``` csharp
 using System.Collections.Generic;
@@ -123,24 +123,24 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-Také příznak contextOwnsConnection teď řídí, zda připojení je uzavřen i uvolněno při uvolnění uvolněn objekt DbContext. Takže ve výše uvedeném příkladu připojení není ukončeno v kontextu uvolněn (řádek 32), jako by byl v předchozích verzích EF, ale místo toho, když je uvolněn samotné připojení (40 řádků).  
+Příznak contextOwnsConnection nyní také určuje, zda je připojení uzavřeno a odstraněno, když je DbContext vyřazeno. Takže v předchozím příkladu není připojení uzavřeno, když je kontext vyřazen (řádek 32), protože by byl v předchozích verzích EF, ale místo toho, když je samotné připojení vyřazeno (řádek 40).  
 
-Samozřejmě je stále možné pro objekt DbContext převzít kontrolu nad připojení (pouze sada contextOwnsConnection hodnotu true, nebo použijte jednu z dalších konstruktory) Pokud tedy chcete.  
+Samozřejmě je stále možné, aby DbContext mohl převzít kontrolu nad připojením (stačí nastavit contextOwnsConnection na hodnotu true nebo použít jeden z dalších konstruktorů), pokud to chcete.  
 
 > [!NOTE]
-> Při použití transakcí se tento nový model se několik dalších důležitých informací. Podrobnosti najdete v tématu [práce s transakcí](~/ef6/saving/transactions.md).  
+> Při použití transakcí s tímto novým modelem existují další okolnosti. Podrobnosti najdete v tématu [práce s transakcemi](~/ef6/saving/transactions.md).  
 
-## <a name="databaseconnectionopen"></a>Database.Connection.Open()  
+## <a name="databaseconnectionopen"></a>Database. Connection. Open ()  
 
-### <a name="behavior-for-ef5-and-earlier-versions"></a>Chování EF5 a starší verze  
+### <a name="behavior-for-ef5-and-earlier-versions"></a>Chování pro EF5 a starší verze  
 
-V dřívějších verzích a EF5 je chyba tak, aby **ObjectContext.Connection.State** nebyla aktualizována tak, aby odrážely o skutečném stavu nadřízené připojení úložiště. Například pokud jste spustili následující kód je může být vrácen stav **uzavřeno** i v případě, že ve skutečnosti základní ukládání připojení je **otevřít**.  
+V EF5 a dřívějších verzích je chyba, například **objekt ObjectContext. Connection. State** se neaktualizoval tak, aby odrážel skutečný stav základního připojení úložiště. Například pokud jste provedli následující kód, můžete vrátit stav **Uzavřeno** , i když je ve skutečnosti **otevřené**základní připojení úložiště.  
 
 ``` csharp
 ((IObjectContextAdapter)context).ObjectContext.Connection.State
 ```  
 
-Samostatně, je-li otevřít připojení k databázi pomocí volání Database.Connection.Open() bude otevřen až při příštím spuštění dotazu, nebo volat nic, která vyžaduje připojení k databázi (například SaveChanges()) ale za základní ukládání, připojení bude ukončeno. Kontext se pak znovu otevřete a znovu ukončete připojení pokaždé, když jiná operace databáze se vyžaduje:  
+Samostatně, pokud otevřete připojení databáze voláním Database. Connection. Open (), bude otevřeno až do příštího spuštění dotazu nebo volání cokoli, co vyžaduje připojení k databázi (například SaveChanges ()), ale poté, co příslušné úložiště dostanou. připojení bude zavřeno. Kontext pak znovu otevřete a znovu uzavřete připojení, kdykoli je potřeba jiná databázová operace:  
 
 ``` csharp
 using System;
@@ -184,14 +184,14 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-### <a name="behavior-in-ef6-and-future-versions"></a>Chování v budoucích verzích a EF6  
+### <a name="behavior-in-ef6-and-future-versions"></a>Chování v EF6 a budoucích verzích  
 
-EF6 a budoucí verze přesměrovali jsme si přístup, pokud volající kód zvolí možnost otevření připojení pomocí volání kontextu. Database.Connection.Open() pak má dobrý důvod pro to a rozhraní bude předpokládat, že chce kontrolu nad otevření a zavření připojení a se už připojení automaticky zavře.  
+Pro EF6 a budoucí verze jsme převzali přístup, že pokud se volající kód rozhodne otevřít připojení pomocí volajícího kontextu. Database. Connection. Open () pak má dobrý důvod k tomu, že se tak předpokládá, že bude mít za to kontrolu nad otevřením a zavřením připojení a nebude už připojení automaticky ukončeno.  
 
 > [!NOTE]
-> To může potenciálně vést k připojení, které jsou otevřené pro dlouho proto používejte opatrně.  
+> To může potenciálně vést k otevření připojení, která jsou otevřená po dlouhou dobu, takže se bude používat opatrně.  
 
-Také jsme aktualizovali kód tak, aby ObjectContext.Connection.State nyní uchovává informace o stavu nadřízené připojení správně.  
+Také jsme aktualizovali kód tak, aby objekt ObjectContext. Connection. State nyní správně sledoval stav základního připojení.  
 
 ``` csharp
 using System;

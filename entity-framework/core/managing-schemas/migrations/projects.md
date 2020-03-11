@@ -5,17 +5,17 @@ ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/projects
 ms.openlocfilehash: 89b7f50fe750c2953aa75efcdffcb1a5199ce90c
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824410"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416813"
 ---
 # <a name="using-a-separate-migrations-project"></a>Použití samostatného projektu migrace
 
 Můžete chtít ukládat migrace v jiném sestavení, než jaké obsahuje vaše `DbContext`. Tuto strategii můžete také použít k údržbě několika skupin migrace, například jednoho pro vývoj a další pro upgrady typu Release-to-Release.
 
-Postup...
+Požadovaná akce...
 
 1. Vytvořte novou knihovnu tříd.
 
@@ -45,13 +45,13 @@ Postup...
 
 Pokud jste provedli vše správně, měli byste být schopni přidat do projektu nové migrace.
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
+## <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add NewMigration --project MyApp.Migrations
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+## <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration NewMigration -Project MyApp.Migrations

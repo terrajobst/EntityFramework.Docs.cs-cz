@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 09/16/2019
 uid: core/miscellaneous/cli/dbcontext-creation
 ms.openlocfilehash: f44f0648678af5a70e5171d69692bde1c1d5e0eb
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655530"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416740"
 ---
 # <a name="design-time-dbcontext-creation"></a>Vytváření DbContext v době návrhu
 
@@ -36,14 +36,14 @@ Pokud DbContext nelze získat od poskytovatele služby Application Service, nás
 
 ## <a name="from-a-design-time-factory"></a>Z továrny v době návrhu
 
-Můžete také sdělit nástroje, jak vytvořit DbContext implementací rozhraní `IDesignTimeDbContextFactory<TContext>`: Pokud třída implementující toto rozhraní je nalezena v jednom projektu jako odvozená `DbContext` nebo v projektu po spuštění aplikace, nástroje vycházejí z druhého. způsob vytvoření DbContext a místo toho použít objekt pro vytváření v době návrhu.
+Můžete také sdělit nástroje, jak vytvořit DbContext implementací rozhraní `IDesignTimeDbContextFactory<TContext>`: Pokud třída implementující toto rozhraní je nalezena v jednom projektu jako odvozená `DbContext` nebo v projektu po spuštění aplikace, nástroje vycházejí z jiných způsobů vytváření DbContext a místo toho používají továrnu v době návrhu.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/CommandLine/BloggingContextFactory.cs)]
 
 > [!NOTE]
 > Parametr `args` se v tuto chvíli nepoužívá. Existuje [problém][8] sledující možnost zadat argumenty pro dobu návrhu z nástrojů.
 
-Továrna v době návrhu může být obzvláště užitečná, pokud je třeba nakonfigurovat DbContext jinak než v době návrhu, a to v případě, že konstruktor `DbContext` přebírá další parametry nejsou registrovány v DI, pokud nepoužíváte parametr DI, nebo z nějakého důvodu pro třídu `Main` vaší ASP.NET Core aplikace raději nepoužívejte metodu `BuildWebHost`.
+Továrna v době návrhu může být obzvláště užitečná, pokud je třeba nakonfigurovat DbContext jinak než v době návrhu, a to v případě, že konstruktor `DbContext` přebírá další parametry nejsou registrovány v DI, pokud nepoužíváte hodnotu DI, nebo z nějakého důvodu nemusíte mít `BuildWebHost` metodu ve třídě `Main` vaší ASP.NET Core aplikace.
 
   [1]: xref:core/managing-schemas/migrations/index
   [2]: xref:core/miscellaneous/configuring-dbcontext

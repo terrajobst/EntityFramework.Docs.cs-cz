@@ -1,39 +1,39 @@
 ---
-title: Ukázkové databáze školy - EF6
+title: Ukázková databáze School – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e83a6a06-e63b-4530-8656-614bf609b12b
 ms.openlocfilehash: 1e9dc98edb8590021bbf3393e9edda1929d505e0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490711"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416996"
 ---
-# <a name="school-sample-database"></a>Ukázkové databáze školy
-Toto téma obsahuje schéma a data pro databázi School. Ukázkovou školní databázi se používá na různých místech v dokumentaci rozhraní Entity Framework.  
+# <a name="school-sample-database"></a>Ukázková školní databáze
+Toto téma obsahuje schéma a data pro školní databázi. Ukázková školní databáze se používá na různých místech v celé Entity Framework dokumentaci.  
 
 > [!NOTE]
-> Databázový server, který se instaluje se sadou Visual Studio se liší v závislosti na verzi sady Visual Studio používáte. Zobrazit [verze Visual Studio](~/ef6/what-is-new/visual-studio.md) podrobnosti o tom, jak používat.  
+> Databázový server, který je nainstalovaný se sadou Visual Studio, se liší v závislosti na verzi sady Visual Studio, kterou používáte. Podrobnosti o tom, co se má použít, najdete v tématu [vydání sady Visual Studio](~/ef6/what-is-new/visual-studio.md) .  
 
-Tady jsou kroky k vytvoření databáze:
+V této části najdete postup vytvoření databáze:
 
-- Otevřít Visual Studio  
-- **Zobrazení** -> **Průzkumníka serveru**  
-- Klikněte pravým tlačítkem na **datová připojení** -> **přidat připojení...**  
-- Pokud jste ještě nepřipojili k databázi z Průzkumníka serveru předtím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat  
-- Připojte se k LocalDB nebo SQL Express, v závislosti na tom, co jste nainstalovali  
-- Zadejte **School** jako název databáze  
-- Vyberte **OK** a zobrazí se výzva, pokud chcete vytvořit novou databázi, vyberte **Ano**  
-- Nová databáze se teď budou zobrazovat v Průzkumníku serveru  
+- Otevřete sadu Visual Studio.  
+- **Zobrazit** -> **Průzkumník serveru**  
+- Klikněte pravým tlačítkem na **datová připojení** -> **Přidat připojení...**  
+- Pokud jste se k databázi nepřipojili z Průzkumník serveru před tím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat  
+- Připojte se k LocalDB nebo SQL Express v závislosti na tom, který z nich máte nainstalovanou.  
+- Jako název databáze zadejte **School** .  
+- Vyberte **OK** a zobrazí se dotaz, jestli chcete vytvořit novou databázi, a pak vyberte **Ano** .  
+- Nová databáze se nyní zobrazí v Průzkumník serveru  
 - Pokud používáte Visual Studio 2012 nebo novější
-    - Klikněte pravým tlačítkem na databázi v Průzkumníku serveru a vyberte **nový dotaz**  
-    - Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **spouštění**  
+    - Klikněte pravým tlačítkem na databázi v Průzkumník serveru a vyberte **Nový dotaz** .  
+    - Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .  
 - Pokud používáte Visual Studio 2010  
-    - Vyberte **Data** -> **jazyka Transact SQL Editor** -> **nové připojení dotazu...**  
-    - Zadejte **. \SQLEXPRESS** jako název serveru a klikněte na **OK**  
-    - Vyberte **STESample** databázi z rozevíracího seznamu v horní části editoru dotazů  
-    - Zkopírujte následující příkaz SQL na nový dotaz a pak klikněte pravým tlačítkem myši na dotazu a vyberte **provést SQL**  
+    - Vyberte **Data** -> **Editor Transact SQL** -> **nové připojení dotazu...**  
+    - Jako název serveru zadejte **.\SQLEXPRESS** a klikněte na **OK** .  
+    - Vyberte databázi **STESample** v rozevíracím seznamu v horní části editoru dotazů.  
+    - Zkopírujte následující příkaz SQL do nového dotazu, potom klikněte pravým tlačítkem na dotaz a vyberte **Spustit SQL** .  
 
 ``` SQL  
 SET ANSI_NULLS ON

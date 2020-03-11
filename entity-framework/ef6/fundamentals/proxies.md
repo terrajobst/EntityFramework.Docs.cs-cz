@@ -1,21 +1,21 @@
 ---
-title: Práce s proxy - EF6
+title: Práce s proxy servery – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 869ee4dc-06f1-471d-8e0e-0a1a2bc59c30
 ms.openlocfilehash: 8f7d2e8b41ece28efe8d1df3b0679e6e4510d64a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489814"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419337"
 ---
 # <a name="working-with-proxies"></a>Práce s proxy servery
-Při vytváření instancí typů entit POCO, Entity Framework často vytváří instance dynamicky generované odvozeného typu, který funguje jako proxy pro entitu. Tento proxy server přepíše některé virtuální vlastnosti entity, chcete-li vložit háky pro provádění akcí automaticky při přístupu k vlastnosti. Tento mechanismus je například použít pro podporu opožděné načtení vztahů. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+Při vytváření instancí Entity Framework typů entit POCO často vytváří instance dynamicky generovaného odvozeného typu, který funguje jako proxy pro entitu. Tento proxy Přepisuje některé virtuální vlastnosti entity, aby mohl vkládat háky pro provádění akcí automaticky při získání k vlastnosti. Například tento mechanismus slouží k podpoře opožděného načítání vztahů. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-## <a name="disabling-proxy-creation"></a>Zakazuje vytváření proxy serveru  
+## <a name="disabling-proxy-creation"></a>Zákaz vytváření proxy serveru  
 
-Někdy je užitečné pro Entity Framework zabránit ve vytváření instancí serveru proxy. Například serializaci instancí bez proxy serveru je mnohem jednodušší než serializaci instancí proxy serveru. Vytváření proxy server vypnete tím, že zrušíte ProxyCreationEnabled příznak. V konstruktoru kontext je pohromadě, můžete to udělat. Příklad:  
+Někdy je užitečné zabránit Entity Framework vytváření proxy instancí. Například serializace instancí, které nejsou proxy, je výrazně snazší než serializace instancí proxy serveru. Vytvoření proxy serveru může být vypnuté zrušením příznaku ProxyCreationEnabled. Jedno místo, které lze provést, je v konstruktoru vašeho kontextu. Příklad:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -30,11 +30,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Všimněte si, že EF nevytvoří proxy pro typy tam, kde není nic pro proxy server provést. To znamená, že se také můžete vyhnout proxy servery tak, že typy, které jsou zapečetěné a/nebo mít žádné virtuální vlastnosti.  
+Všimněte si, že EF nevytvoří proxy pro typy, kde není nic pro to, aby mohl proxy dělat. To znamená, že se můžete také vyhnout PROXYm typům, které mají zapečetěné nebo nemají žádné virtuální vlastnosti.  
 
-## <a name="explicitly-creating-an-instance-of-a-proxy"></a>Explicitní vytvoření instance serveru proxy  
+## <a name="explicitly-creating-an-instance-of-a-proxy"></a>Explicitní vytvoření instance proxy  
 
-Instance serveru proxy se nevytvoří, pokud vytvoříte instanci entity pomocí operátoru new. Nemusí se jednat o problém, ale pokud budete muset vytvořit instanci proxy serveru (například tak, aby opožděné načtení nebo proxy server sledování změn bude fungovat) pak můžete tak učinit pomocí metody Create DbSet. Příklad:  
+Instance proxy nebude vytvořena, pokud vytvoříte instanci entity pomocí operátoru new. Nemusí se jednat o problém, ale pokud potřebujete vytvořit proxy instanci (například tak, aby fungovalo opožděné načítání nebo sledování změn proxy), můžete tak učinit pomocí metody Create Negenerickými. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -43,7 +43,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Obecné verzi vytvořit lze použít, pokud chcete vytvořit instanci typu odvozené entity. Příklad:  
+Obecnou verzi objektu Create lze použít, pokud chcete vytvořit instanci odvozeného typu entity. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,17 +52,17 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že metody Create přidat nebo připojit ke kontextu vytvořené entity.  
+Všimněte si, že metoda Create nepřidá do kontextu vytvořenou entitu ani ji nepřipojí.  
 
-Všimněte si, že metody Create pouze vytvoří instance samotného typu entity při vytváření typ proxy entity by nemají žádnou hodnotu, protože nic nedělali. Například pokud typ entity je zapečetěná a/nebo nemá žádné virtuální vlastnosti pak vytvořit pouze vytvoří instanci typu entity.  
+Všimněte si, že metoda Create vytvoří pouze instanci samotného typu entity, pokud vytvoření typu proxy pro entitu nemá žádnou hodnotu, protože by nedošlo k žádným chybám. Například pokud je typ entity zapečetěný nebo nemá žádné virtuální vlastnosti, pak vytvořit vytvoří instanci typu entity.  
 
-## <a name="getting-the-actual-entity-type-from-a-proxy-type"></a>Získávání skutečné entity typu z typu proxy  
+## <a name="getting-the-actual-entity-type-from-a-proxy-type"></a>Získání skutečného typu entity z typu proxy  
 
-Proxy server typů mají názvy, které vypadat přibližně takto:  
+Typy proxy mají názvy, které vypadají přibližně takto:  
 
-System.Data.Entity.DynamicProxies.Blog_5E43C6C196972BF0754973E48C9C941092D86818CD94005E9A759B70BF6E48E6  
+System. data. entity. DynamicProxies. Blog_5E43C6C196972BF0754973E48C9C941092D86818CD94005E9A759B70BF6E48E6  
 
-Najít typ entity pro tento typ proxy serveru pomocí metody Metoda GetObjectType z objektu ObjectContext. Příklad:  
+Typ entity pro tento typ proxy serveru můžete najít pomocí metody GetObjectType z ObjectContext. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -72,4 +72,4 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Upozorňujeme, že pokud typ předaný Metoda GetObjectType, vrátí se stále instance typu entity, která není typu proxy potom je typ entity. To znamená, že použijete tuto metodu můžete vždy získat typ skutečné entity bez jakékoli další kontroly a zjistěte, jestli typ je typ proxy serveru, nebo ne.  
+Všimněte si, že pokud typ předaný metodě GetObjectType je instancí typu entity, který není typem proxy serveru, typ entity se pořád vrátí. To znamená, že tuto metodu můžete vždy použít k získání skutečného typu entity bez jakékoli jiné kontroly, aby se zobrazilo, zda typ je typ proxy serveru nebo ne.  

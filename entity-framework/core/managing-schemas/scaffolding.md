@@ -6,17 +6,17 @@ ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
 ms.openlocfilehash: 1ba9352d261f1c131b0d70f8cdad2128d9afaefe
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824464"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416761"
 ---
 # <a name="reverse-engineering"></a>Zpětná analýza
 
 Zpětná analýza je proces třídy typu entity vytváření uživatelského rozhraní a třída DbContext založená na schématu databáze. Dá se udělat pomocí příkazu `Scaffold-DbContext` nástrojů EF Core konzoly Správce balíčků (PMC) nebo příkazu `dotnet ef dbcontext scaffold` rozhraní příkazového řádku (CLI) rozhraní .NET.
 
-## <a name="installing"></a>Instalace nástroje
+## <a name="installing"></a>Instalace
 
 Před zpětnou metodologií budete muset nainstalovat buď [nástroje PMC](xref:core/miscellaneous/cli/powershell) (pouze Visual Studio), nebo nástroje rozhraní příkazového [řádku](xref:core/miscellaneous/cli/dotnet). Podrobnosti najdete v tématu odkazy.
 

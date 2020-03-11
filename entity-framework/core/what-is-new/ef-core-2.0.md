@@ -5,15 +5,15 @@ ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
 ms.openlocfilehash: 83f6b819409d502dba17a678d44a0746a4a77f4b
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824873"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417494"
 ---
 # <a name="new-features-in-ef-core-20"></a>Nové funkce v EF Core 2,0
 
-## <a name="net-standard-20"></a>.NET Standard 2.0
+## <a name="net-standard-20"></a>.NET Standard 2,0
 
 EF Core teď cílí na .NET Standard 2,0, což znamená, že může pracovat s .NET Core 2,0, .NET Framework 4.6.1 a dalšími knihovnami, které implementují .NET Standard 2,0.
 Další podrobnosti o tom, co je podporováno, najdete v tématu [podporované implementace rozhraní .NET](../platforms/index.md) .
@@ -211,7 +211,7 @@ using (var db = new CustomerContext())
 
 EF Core podporuje automatickou generaci hodnot klíčů prostřednictvím různých mechanismů. Při použití této funkce je vygenerována hodnota, pokud je klíčovou vlastností výchozí hodnota CLR, obvykle nula nebo null. To znamená, že graf entit lze předat `DbContext.Attach` nebo `DbSet.Attach` a EF Core označí tyto entity, které mají klíč již nastaven jako `Unchanged`, zatímco ty entity, které nemají sadu klíčů, budou označeny jako `Added`. Díky tomu je při použití vygenerovaných klíčů snadné připojit graf smíšených nových a existujících entit. `DbContext.Update` a `DbSet.Update` fungují stejným způsobem, s tím rozdílem, že entity se sadou klíčů jsou označené jako `Modified` namísto `Unchanged`.
 
-## <a name="query"></a>Dotazy
+## <a name="query"></a>Dotaz
 
 ### <a name="improved-linq-translation"></a>Vylepšený překlad LINQ
 
@@ -225,7 +225,7 @@ Tato práce zlepšuje SQL generovaný pro spojení skupin. Spojení skupin jsou 
 
 C#6 zavedla se interpolace řetězců, funkce C# , která umožňuje, aby byly výrazy přímo vloženy do řetězcových literálů a poskytovaly dobrý způsob sestavování řetězců za běhu. V EF Core 2,0 jsme přidali speciální podporu pro interpolované řetězce do našich dvou primárních rozhraní API, která přijímají nezpracované řetězce SQL: `FromSql` a `ExecuteSqlCommand`. Tato nová podpora umožňuje C# použití řetězcové interpolace v bezpečném způsobu. To je způsobem, který chrání před běžnými chybami při vkládání kódu SQL, ke kterým může dojít při dynamickém vytváření kódu SQL za běhu.
 
-Tady je příklad:
+Zde naleznete příklad:
 
 ``` csharp
 var city = "London";
@@ -299,7 +299,7 @@ public class MyPluralizer : IPluralizer
 }
 ```
 
-## <a name="others"></a>Jiné
+## <a name="others"></a>Ostatní
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>Přesunout poskytovatele SQLite ADO.NET do SQLitePCL. Raw
 

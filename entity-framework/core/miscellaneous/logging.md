@@ -4,17 +4,17 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 1a3863ee5f508c1fd393d4ec2c25c46ab8634f00
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: e8adc39ec01ff75112b03446a488df6199cc7041
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502094"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416580"
 ---
-# <a name="logging"></a>protokolování
+# <a name="logging"></a>Protokolování
 
 > [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging) na Githubu.
+> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging) tohoto článku můžete zobrazit na GitHubu.
 
 ## <a name="aspnet-core-applications"></a>ASP.NET Core aplikací
 
@@ -33,11 +33,11 @@ EF Core protokolování vyžaduje ILoggerFactory, který je sám nakonfigurovan�
 
 Po instalaci příslušných balíčků by aplikace měla vytvořit singleton nebo globální instanci třídy LoggerFactory. Například pomocí protokolovacího nástroje konzoly:
 
-### <a name="version-30tabv3"></a>[Verze 3,0](#tab/v3)
+### <a name="version-3x"></a>[Verze 3. x](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#DefineLoggerFactory)]
 
-### <a name="version-2xtabv2"></a>[Verze 2. x](#tab/v2)
+### <a name="version-2x"></a>[Verze 2. x](#tab/v2)
 
 > [!NOTE]
 > Následující ukázka kódu používá konstruktor `ConsoleLoggerProvider`, který byl zastaralý ve verzi 2,2 a nahrazen v 3,0. Při použití 2,2 je bezpečné ignorovat a potlačit upozornění.
@@ -60,11 +60,11 @@ Tato instance typu Singleton/Global by pak měla být zaregistrovaná v EF Core 
 
 Aplikace může řídit, co se protokoluje, konfigurací filtru v ILoggerProvider. Příklad:
 
-### <a name="version-30tabv3"></a>[Verze 3,0](#tab/v3)
+### <a name="version-3x"></a>[Verze 3. x](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContextWithFiltering.cs#DefineLoggerFactory)]
 
-### <a name="version-2xtabv2"></a>[Verze 2. x](#tab/v2)
+### <a name="version-2x"></a>[Verze 2. x](#tab/v2)
 
 > [!NOTE]
 > Následující ukázka kódu používá konstruktor `ConsoleLoggerProvider`, který byl zastaralý ve verzi 2,2 a nahrazen v 3,0. Při použití 2,2 je bezpečné ignorovat a potlačit upozornění.

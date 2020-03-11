@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: c6ae6d8f-1ace-47db-ad47-b1718f1ba082
 ms.openlocfilehash: 92a763b84a04d3ce7ec0853ef2a4852356cf7997
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182523"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418565"
 ---
 # <a name="enum-support---ef-designer"></a>Podpora výčtu – Návrhář EF
 > [!NOTE]
@@ -29,7 +29,7 @@ Toto video ukazuje, jak používat typy výčtu s Entity Framework Designer. Tak
 
 **Video**: [wmv](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.wmv) | [MP4](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-mp4video-enumwithdesiger.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/0/7/A/07ADECC9-7893-415D-9F20-8B97D46A37EC/HDI-ITPro-MSDN-winvideo-enumwithdesiger.zip)
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 K dokončení tohoto Názorného postupu budete muset mít nainstalovanou verzi sady Visual Studio 2012, Ultimate, Premium, Professional nebo web Express.
 
@@ -46,7 +46,7 @@ K dokončení tohoto Názorného postupu budete muset mít nainstalovanou verzi 
 2.  V nabídce vlevo vyberte **data** a v podokně šablony vyberte **ADO.NET model EDM (Entity Data Model)** .
 3.  Jako název souboru zadejte **EnumTestModel. edmx** a pak klikněte na **Přidat** .
 4.  Na stránce průvodce model EDM (Entity Data Model) vyberte v dialogovém okně Vybrat obsah modelu možnost **prázdný model** .
-5.  Klikněte na **Dokončit** .
+5.  Klikněte na **Dokončit**.
 
 Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu.
 
@@ -60,7 +60,7 @@ Průvodce provede následující akce:
 
 1.  Klikněte pravým tlačítkem myši na prázdnou oblast návrhové plochy, vyberte možnost **přidat&gt; entitu**, otevře se dialogové okno nová entita.
 2.  Zadejte pro název typu **oddělení** a pro název vlastnosti Key zadejte **DepartmentID** a ponechte typ jako typ **Int32** .
-3.  Klikněte na **OK** .
+3.  Klikněte na tlačítko **OK**.
 4.  Klikněte pravým tlačítkem na entitu a vyberte **Přidat novou&gt; skalární vlastnost** .
 5.  Přejmenujte novou vlastnost na **název** .
 6.  Změnit typ nové vlastnosti na **Int32** (ve výchozím nastavení je nová vlastnost typu String), aby se typ změnil, otevřete okno Vlastnosti a změňte vlastnost Type na **Int32** .

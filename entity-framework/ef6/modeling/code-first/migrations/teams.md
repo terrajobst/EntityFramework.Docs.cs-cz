@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
 ms.openlocfilehash: b3c4c35d636caf4ddd251dd78e026587abc57d42
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182603"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418887"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>Migrace Code First v týmových prostředích
 > [!NOTE]

@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 2dce1a50-7d84-4856-abf6-2763dd9be99d
 uid: efcore-and-ef6/porting/port-code
 ms.openlocfilehash: 0a99eac2091c07d8bcf7d4e5e4bdc2afcaeee810
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181219"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419635"
 ---
 # <a name="porting-an-ef6-code-based-model-to-ef-core"></a>Přenos EF6 modelu založeného na kódu do EF Core
 
@@ -31,7 +31,7 @@ Většina rozhraní API, která používáte v EF6, jsou v oboru názvů `System
 
 Jak je popsáno v tématu [zajistěte, aby pro vaši aplikaci fungovala EF Core](ensure-requirements.md), EF Core má méně Magic k detekci databáze, ke které se chcete připojit. V odvozeném kontextu bude nutné přepsat metodu `OnConfiguring` a nastavit připojení k databázi pomocí rozhraní API pro konkrétního poskytovatele databáze.
 
-Většina EF6ch aplikací ukládá připojovací řetězec do souborů aplikace `App/Web.config`. V EF Core si tento připojovací řetězec načetli pomocí rozhraní API `ConfigurationManager`. Aby bylo možné používat toto rozhraní API, možná budete muset přidat odkaz na sestavení rozhraní `System.Configuration`.
+Většina EF6ch aplikací ukládá připojovací řetězec do souboru aplikací `App/Web.config`. V EF Core si tento připojovací řetězec načetli pomocí rozhraní `ConfigurationManager` API. Možná budete muset přidat odkaz na sestavení rozhraní `System.Configuration` Framework, abyste mohli používat toto rozhraní API.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -54,7 +54,7 @@ V tomto okamžiku se jedná o adresování chyb kompilace a revizi kódu, abyste
 
 Neexistuje žádný vhodný způsob, jak přenést existující migrace EF6 do EF Core.
 
-Je-li to možné, je vhodné předpokládat, že všechny předchozí migrace z EF6 byly použity v databázi, a pak začít migrovat schéma z tohoto bodu pomocí EF Core. K tomuto účelu byste použili příkaz `Add-Migration` k přidání migrace, jakmile je model předaný do EF Core. Veškerý kód byste pak odebrali z metod `Up` a `Down` v rámci vygenerované migrace. Další migrace se budou porovnávat s modelem, když se tato počáteční migrace vygenerovala z uživatelského rozhraní.
+Je-li to možné, je vhodné předpokládat, že všechny předchozí migrace z EF6 byly použity v databázi, a pak začít migrovat schéma z tohoto bodu pomocí EF Core. Chcete-li to provést, použijte příkaz `Add-Migration` pro přidání migrace, jakmile je model předaný do EF Core. Pak byste odebrali veškerý kód z `Up` a `Down` metod pro vygenerované migrace. Další migrace se budou porovnávat s modelem, když se tato počáteční migrace vygenerovala z uživatelského rozhraní.
 
 ## <a name="test-the-port"></a>Otestování portu
 

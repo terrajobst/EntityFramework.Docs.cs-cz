@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 952cb891d145a47666f1d506ec00f066be9f245d
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 390d89398ebfdf015804749e71ff0b61d3f278d3
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654743"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417553"
 ---
 # <a name="using-transactions"></a>Použití transakcí
 
 Transakce umožňují zpracovávat několik databázových operací atomovou způsobem. Pokud je transakce potvrzena, budou všechny operace v databázi úspěšně provedeny. Pokud se transakce vrátí zpět, v databázi se nepoužije žádná operace.
 
 > [!TIP]  
-> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Transactions/) tohoto článku můžete zobrazit na GitHubu.
+> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Transactions/) tohoto článku můžete zobrazit na GitHubu.
 
 ## <a name="default-transaction-behavior"></a>Výchozí chování transakce
 

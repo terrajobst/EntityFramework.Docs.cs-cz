@@ -1,34 +1,34 @@
 ---
-title: Automatické migrace Code First - EF6
+title: Automatické Migrace Code First – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
 ms.openlocfilehash: 2713afaf09707b7696e90464aac9945c2d82d274
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283911"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418998"
 ---
-# <a name="automatic-code-first-migrations"></a>Migrace automatické Code First
-Automatické migrace můžete pomocí migrace Code First bez nutnosti soubor kódu ve vašem projektu u každé změny, které provedete. Ne všechny změny mohou být automaticky použity – například přejmenování sloupců vyžadují použití migrace založené na kódu.
+# <a name="automatic-code-first-migrations"></a>Automatické Migrace Code First
+Automatické migrace umožňují použít Migrace Code First bez souboru kódu v projektu pro každou změnu, kterou provedete. Ne všechny změny lze použít automaticky – například přejmenování sloupců vyžaduje použití migrace založené na kódu.
 
 > [!NOTE]
-> Tento článek předpokládá, že víte, jak pomocí migrace Code First v základní scénáře. Pokud ne, pak budete muset přečíst [migrace Code First](~/ef6/modeling/code-first/migrations/index.md) než budete pokračovat.
+> V tomto článku se dozvíte, jak používat Migrace Code First v základních scénářích. Pokud to neuděláte, budete muset před pokračováním přečíst [migrace Code First](~/ef6/modeling/code-first/migrations/index.md) .
 
 ## <a name="recommendation-for-team-environments"></a>Doporučení pro Týmová prostředí
 
-Můžete intersperse migrace automatické a založený na kódu, ale to se nedoporučuje v týmu vývojové scénáře. Pokud jsou součástí týmu vývojářů, které používají správy zdrojových kódů měli byste použít buď čistě automatickou migrací nebo migrací čistě založený na kódu. Dané omezení automatické migrace doporučujeme pomocí migrace založené na kódu v prostředí team.
+Můžete prokládat automatické migrace a migrace na základě kódu, ale nedoporučuje se ve scénářích vývoje týmu. Pokud jste součástí týmu vývojářů, kteří používají správu zdrojového kódu, měli byste buď použít čistě automatické migrace nebo čistě migrace založené na kódu. Vzhledem k omezením automatických migrací doporučujeme použití migrace na základě kódu v týmových prostředích.
 
-## <a name="building-an-initial-model--database"></a>Vytváření počáteční modelu & databáze
+## <a name="building-an-initial-model--database"></a>Vytvoření počátečního & databáze modelu
 
-Než začneme pomocí migrace musíte projekt a model Code First pro práci s. V tomto návodu budeme používat kanonickém **blogu** a **příspěvek** modelu.
+Než začneme používat migrace, potřebujeme projekt a model Code First, se kterým pracujete. V tomto návodu budeme používat kanonický **blog** a model **post** .
 
--   Vytvořte nový **MigrationsAutomaticDemo** konzolové aplikace
--   Přidejte nejnovější verzi **EntityFramework** balíček NuGet do projektu
-    -   **Nástroje –&gt; Správce balíčků knihoven –&gt; Konzola správce balíčků**
-    -   Spustit **Install-Package EntityFramework** příkazu
--   Přidat **Model.cs** souboru s kódem je uvedeno níže. Tento kód definuje jedinou **blogu** třídu, která tvoří náš model domény a **BlogContext** třídu, která je náš kontext platforem EF Code First
+-   Vytvořit novou konzolovou aplikaci **MigrationsAutomaticDemo**
+-   Přidejte do projektu nejnovější verzi balíčku NuGet **EntityFramework** .
+    -   **Nástroje –&gt; správce balíčků knihovny –&gt; konzolu Správce balíčků**
+    -   Spuštění příkazu **Install-Package EntityFramework**
+-   Přidejte soubor **model.cs** s kódem zobrazeným níže. Tento kód definuje jednu třídu **blogu** , která poskytuje náš doménový model a třídu **BlogContext** , která je náš Code First kontextem EF.
 
   ``` csharp
       using System.Data.Entity;
@@ -51,7 +51,7 @@ Než začneme pomocí migrace musíte projekt a model Code First pro práci s. V
       }
   ```
 
--   Když teď máme modelu je čas ji používat pro přístup k datům. Aktualizace **Program.cs** souboru s kódem je uvedeno níže.
+-   Teď, když máme model, je čas ho použít k provedení přístupu k datům. Aktualizujte soubor **program.cs** pomocí kódu uvedeného níže.
 
   ``` csharp
       using System;
@@ -83,51 +83,51 @@ Než začneme pomocí migrace musíte projekt a model Code First pro práci s. V
       }
   ```
 
--   Spusťte aplikaci a uvidíte, že **MigrationsAutomaticCodeDemo.BlogContext** databáze se vytvoří za vás.
+-   Spusťte aplikaci a zobrazí se vám pro vás vytvořená databáze **MigrationsAutomaticCodeDemo. BlogContext** .
 
-    ![Databáze LocalDB](~/ef6/media/databaselocaldb.png)
+    ![LocalDB databáze](~/ef6/media/databaselocaldb.png)
 
-## <a name="enabling-migrations"></a>Povolení migrace
+## <a name="enabling-migrations"></a>Povolování migrací
 
-Je čas provést některé další změny našeho modelu.
+Je čas udělat další změny v našem modelu.
 
--   Umožňuje zavést vlastnost adresa Url blogu třídy.
+-   Pojďme do třídy blogu přivést vlastnost URL.
 
 ``` csharp
     public string Url { get; set; }
 ```
 
-Pokud chcete aplikaci spustit znovu získali byste s oznámením InvalidOperationException *model zálohování kontextu 'BlogContext' byl změněn, protože byla vytvořena databáze. Zvažte použití migrace Code First k aktualizaci databáze (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *).*
+Pokud byste chtěli aplikaci znovu spustit, měli byste obdržet zprávu, že došlo ke *změně modelu zálohování kontextu ' BlogContext ', protože databáze byla vytvořena. Pokud chcete aktualizovat databázi (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *)* , zvažte použití migrace Code First.
 
-Jak výjimku naznačuje, je čas začít pomocí migrace Code First. Protože chceme použít automatické migrace teď ještě chvíli Zůstaneme k určení **– EnableAutomaticMigrations** přepnout.
+Vzhledem k tomu, že výjimka navrhuje, je čas začít používat Migrace Code First. Vzhledem k tomu, že chceme používat automatické migrace, zadáváme přepínač **– EnableAutomaticMigrations** .
 
--   Spustit **povolení migrace – EnableAutomaticMigrations** příkaz v balíčku správce konzoly tento příkaz má přidat **migrace** složku do projektu. Tato nová složka obsahuje jeden soubor:
+-   V konzole správce balíčků spusťte příkaz **Povolit – migrace – EnableAutomaticMigrations** . Tento příkaz přidal do našeho projektu složku **migrace** . Tato nová složka obsahuje jeden soubor:
 
--   **Třída konfigurace.** Tato třída umožňuje konfigurovat chování migrace pro váš kontext. V tomto návodu budeme používat jenom výchozí konfiguraci.
-    *Vzhledem k tomu, že existuje pouze jeden kontext Code First ve vašem projektu, má povolení migrace automaticky vyplněna tato konfigurace se vztahuje na typ kontextu.*
+-   **Třída Configuration** Tato třída umožňuje nakonfigurovat, jak se budou migrace chovat pro váš kontext. V tomto návodu použijeme jenom výchozí konfiguraci.
+    *Vzhledem k tomu, že v projektu existuje jen jeden Code First kontext, Enable – migrace se automaticky vyplní v kontextu typu, pro který je tato konfigurace platná.*
 
- 
+ 
 
-## <a name="your-first-automatic-migration"></a>První automatické migrace
+## <a name="your-first-automatic-migration"></a>Vaše první Automatická migrace
 
-Migrace Code First má dva primární příkazy, které se chystáte seznámit se s.
+Migrace Code First má dva primární příkazy, se kterými se seznámíte.
 
--   **Přidejte migraci** bude generování uživatelského rozhraní další migrace na základě změn, které jste provedli pro váš model, od vytvoření posledního migrace
--   **Aktualizace databáze** se použije čekající migrace do databáze
+-   **Přidání – při migraci** dojde k další migraci vygenerované na základě změn, které jste provedli v modelu od vytvoření poslední migrace.
+-   **Aktualizace – databáze** bude používat všechny nedokončené migrace do databáze.
 
-Budeme vyhnout pomocí migrace přidat (Pokud jsme skutečně potřeba) a zaměřit se na umožníte tím migrace Code First automaticky vypočítá a změny aplikujte. Použijeme **aktualizace databáze** zobrazíte migrace Code First chcete nasdílet změny do našeho modelu (Nový **Blog.Ur**vlastnost l) k databázi.
+Nebudeme používat příkaz Přidat migraci (pokud to opravdu nepotřebujeme) a soustředit se na to, aby Migrace Code First automaticky počítaly a používaly změny. Pojďme použít **Update-Database** a získat migrace Code First pro vložení změn do našeho modelu (nová vlastnost **blog. ur**l) do databáze.
 
--   Spustit **aktualizace databáze** příkazu v konzole Správce balíčků.
+-   Spusťte příkaz **Update-Database** v konzole správce balíčků.
 
-**MigrationsAutomaticDemo.BlogContext** databáze je teď aktualizovaný zahrnout **Url** sloupec v **blogy** tabulky.
+Databáze **MigrationsAutomaticDemo. BlogContext** se teď aktualizovala tak, aby obsahovala sloupec **URL** v tabulce **Blogy** .
 
- 
+ 
 
-## <a name="your-second-automatic-migration"></a>Druhý automatické migrace
+## <a name="your-second-automatic-migration"></a>Druhá Automatická migrace
 
-Vytvoříme další změnit a nechat migrace Code First automaticky odešlete změny do databáze pro nás.
+Pojďme udělat další změnu a nechat Migrace Code First automaticky vložit změny do databáze pro nás.
 
--   Můžeme také přidat nový **příspěvek** třídy
+-   Pojďme také přidat novou třídu **post**
 
 ``` csharp
     public class Post
@@ -142,33 +142,33 @@ Vytvoříme další změnit a nechat migrace Code First automaticky odešlete zm
     }
 ```
 
--   Přidáme také **příspěvky** kolekce **blogu** třídy formuláře druhém konci vztahu mezi **blogu** a **příspěvku**
+-   Do třídy **blog** přidáme také kolekci **příspěvky** , která bude tvořit druhý konec relace mezi **blogem** a **příspěvkem** .
 
 ``` csharp
     public virtual List<Post> Posts { get; set; }
 ```
 
-Teď pomocí **aktualizace databáze** uveďte aktuální databázi. Nyní můžeme zadat **– Verbose** příznak, kde můžete zobrazit SQL, na kterém běží migrace Code First.
+Nyní použijte **příkaz Update-Database** k uvedení databáze do aktuálního stavu. Tentokrát je nutné zadat příznak **– verbose** , abyste viděli SQL, na kterém je spuštěný migrace Code First.
 
--   Spustit **aktualizace databáze – Verbose** příkazu v konzole Správce balíčků.
+-   Spusťte příkaz **Update-Database – verbose** v konzole správce balíčků.
 
-## <a name="adding-a-code-based-migration"></a>Přidání kódu na základě migrace
+## <a name="adding-a-code-based-migration"></a>Přidání migrace na základě kódu
 
-Nyní Pojďme se podívat na něco jsme mohli chtít používat založený na kódu pro migraci.
+Teď se podíváme na něco, co můžeme použít k použití migrace na základě kódu pro.
 
--   Přidejme **hodnocení** vlastnost **blogu** třídy
+-   Pojďme do třídy **blogu** přidat vlastnost **hodnocení** .
 
 ``` csharp
     public int Rating { get; set; }
 ```
 
-Právě spouštět **aktualizace databáze** tak, aby nabízel tyto změny do databáze. Ale přidáváme neumožňující **Blogs.Rating** sloupce, pokud není žádná existující data v tabulce ji získat přiřadí výchozí CLR datového typu pro nový sloupec (hodnocení je celé číslo, takže, který bude **0**). Chcete zadat výchozí hodnotu, ale **3** tak v tomto existujícím řádků **blogy** tabulky budou začínat vrazíme hodnocení.
-Teď pomocí příkazu přidat migrace zapsat tuto změnu si migrace založené na kódu tak, že jsme ho můžete upravit. **Přidat migrace** příkazu, umožníte nám tyto migrace pojmenujte, stačí pojmenujme náš **AddBlogRating**.
+Můžeme pouze spustit rutinu **Update-Database** , aby byly tyto změny nabízeny do databáze. Přidáváme ale do tabulky Blogy, které neumožňují hodnotu null **.** Pokud v tabulce existují nějaká existující data, zobrazí se mu výchozí hodnota CLR pro nový sloupec (hodnocení je celé číslo, takže by to bylo **0**). Ale chceme zadat výchozí hodnotu **3** , aby se stávající řádky v tabulce **Blogy** spouštěly se hodnocením dát.
+Pojďme pomocí příkazu Add-Migration zapsat tuto změnu do migrace založené na kódu, aby ji bylo možné upravovat. Příkaz **Add-Migration** nám umožňuje dát těmto migracim název, Pojďme ale volat náš **AddBlogRating**.
 
--   Spustit **přidat migrace AddBlogRating** příkazu v konzole Správce balíčků.
--   V **migrace** složky teď máme nový **AddBlogRating** migrace. Název souboru migraci je pevně předem s časovým razítkem Nápověda k řazení. Pojďme upravit generovaného kódu můžete zadat výchozí hodnotu 3 pro Blog.Rating (řádek 10 v následujícím kódu)
+-   Spusťte příkaz **Add-Migration AddBlogRating** v konzole správce balíčků.
+-   Ve složce **migrace** teď máme novou migraci **AddBlogRating** . Název souboru migrace je předem vyřešen s časovým razítkem, které vám pomůžou s řazením. Pojďme upravit generovaný kód a zadat výchozí hodnotu 3 pro blog. hodnocení (řádek 10 v kódu níže)
 
-*Migrace obsahuje také soubor kódu na pozadí, který zachycuje některá metadata. Tato metadata vám umožní migrace Code First k replikaci automatické migrace, které jsme provedli před migrací tento založený na kódu. To je důležité, pokud jiný vývojář chce spusťte naše migrace, nebo když je čas nasazení naší aplikace.*
+*Migrace má také soubor kódu na pozadí, který zachycuje některá metadata. Tato metadata umožní Migrace Code First replikovat automatické migrace, které jsme provedli před migrací na základě kódu. To je důležité, pokud jiný vývojář chce spustit naše migrace nebo když je čas nasadit naši aplikaci.*
 
 ``` csharp
     namespace MigrationsAutomaticDemo.Migrations
@@ -191,24 +191,24 @@ Teď pomocí příkazu přidat migrace zapsat tuto změnu si migrace založené 
     }
 ```
 
-Naše upravených migrace je v pořádku, takže použijeme **aktualizace databáze** uveďte aktuální databázi.
+Naše upravená migrace je dobrá, takže použijeme **příkaz Update-Database** , aby se databáze aktualizovala v aktuálním stavu.
 
--   Spustit **aktualizace databáze** příkazu v konzole Správce balíčků.
+-   Spusťte příkaz **Update-Database** v konzole správce balíčků.
 
 ## <a name="back-to-automatic-migrations"></a>Zpět na automatické migrace
 
-Jsme teď můžete přepnout zpět na automatické migrace pro jednodušší změny. Migrace Code First se postará o provedení migrace automatické a založený na kódu ve správném pořadí na základě metadat, který ukládá v souboru kódu na pozadí pro každou migraci založený na kódu.
+Nyní je zdarma přejít zpět na automatické migrace pro naše jednodušší změny. Migrace Code First se postará o provádění automatických migrací a migrace na základě kódu ve správném pořadí na základě metadat, která ukládá do souboru kódu na pozadí pro každou migraci na základě kódu.
 
--   Přidejme do našeho modelu Post.Abstract vlastnost
+-   Pojďme do našeho modelu přidat vlastnost post. abstract.
 
 ``` csharp
     public string Abstract { get; set; }
 ```
 
-Teď můžeme použít **aktualizace databáze** zobrazíte migrace Code First nasdílejte tuto změnu do databáze pomocí automatickou migraci.
+Nyní můžeme pomocí funkce **Update-Database** získat migrace Code First k odeslání této změny do databáze pomocí automatické migrace.
 
--   Spustit **aktualizace databáze** příkazu v konzole Správce balíčků.
+-   Spusťte příkaz **Update-Database** v konzole správce balíčků.
 
 ## <a name="summary"></a>Souhrn
 
-V tomto návodu jste viděli, jak používat automatické migrace tak, aby nabízel modelu změn v databázi. Také jste viděli, jak generování uživatelského rozhraní a spusťte založený na kódu migrace mezi automatické migrace, když potřebujete větší kontrolu.
+V tomto návodu jste zjistili, jak používat automatické migrace k vložení změn modelu do databáze. Zjistili jste také, jak vygenerovat a spustit migrace na základě kódu v rámci automatických migrací, když potřebujete větší kontrolu.

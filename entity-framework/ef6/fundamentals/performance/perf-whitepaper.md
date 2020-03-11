@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
 ms.openlocfilehash: 07eb605f0d39f0c1bcfe781540525180f0dd0b22
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181676"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419445"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>Požadavky na výkon pro EF 4, 5 a 6
 Autorem David Obando, Eric Dettinger a ostatními
@@ -41,7 +41,7 @@ Pojďme se podívat na podrobný pohled na čas strávený prováděním dotazu 
 
 | Kódování uživatelských zápisů                                                                                     | Akce                    | Dopad na výkon EF4                                                                                                                                                                                                                                                                                                                                                                                                        | Dopad na výkon EF5                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Dopad na výkon EF6                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `using(var db = new MyContext())` <br/> `{`                                                          | Vytvoření kontextu          | Střední                                                                                                                                                                                                                                                                                                                                                                                                                        | Střední                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `using(var db = new MyContext())` <br/> `{`                                                          | Vytvoření kontextu          | Střednědobé používání                                                                                                                                                                                                                                                                                                                                                                                                                        | Střednědobé používání                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Vytvoření výrazu dotazu | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                           | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `  var c1 = q1.First();`                                                                             | Provádění dotazů LINQ      | -Načítání metadat: vysoké, ale v mezipaměti <br/> -Zobrazení generace: potenciálně velmi vysoké, ale v mezipaměti <br/> -Vyhodnocení parametrů: střední <br/> -Překlad dotazů: střední <br/> -Materializer generace: střední, ale v mezipaměti <br/> – Provádění databázového dotazu: potenciálně vysoké <br/> + Připojení. otevřít <br/> + Command. ExecuteReader <br/> + DataReader. Read <br/> Materializace objektu: střední <br/> -Vyhledávání identity: střední | -Načítání metadat: vysoké, ale v mezipaměti <br/> -Zobrazení generace: potenciálně velmi vysoké, ale v mezipaměti <br/> -Vyhodnocení parametrů: nízká <br/> – Překlad dotazů: střední, ale v mezipaměti <br/> -Materializer generace: střední, ale v mezipaměti <br/> – Provádění databázových dotazů: potenciálně vysoké (lepší dotazy v některých situacích) <br/> + Připojení. otevřít <br/> + Command. ExecuteReader <br/> + DataReader. Read <br/> Materializace objektu: střední <br/> -Vyhledávání identity: střední | -Načítání metadat: vysoké, ale v mezipaměti <br/> -View Generation: Medium, ale v mezipaměti <br/> -Vyhodnocení parametrů: nízká <br/> – Překlad dotazů: střední, ale v mezipaměti <br/> -Materializer generace: střední, ale v mezipaměti <br/> – Provádění databázových dotazů: potenciálně vysoké (lepší dotazy v některých situacích) <br/> + Připojení. otevřít <br/> + Command. ExecuteReader <br/> + DataReader. Read <br/> Materializace objektu: střední (rychlejší než EF5) <br/> -Vyhledávání identity: střední |
 | `}`                                                                                                  | Připojení. Zavřít          | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                           | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -51,7 +51,7 @@ Pojďme se podívat na podrobný pohled na čas strávený prováděním dotazu 
 
 | Kódování uživatelských zápisů                                                                                     | Akce                    | Dopad na výkon EF4                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Dopad na výkon EF5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Dopad na výkon EF6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `using(var db = new MyContext())` <br/> `{`                                                          | Vytvoření kontextu          | Střední                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Střední                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `using(var db = new MyContext())` <br/> `{`                                                          | Vytvoření kontextu          | Střednědobé používání                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Střednědobé používání                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | Vytvoření výrazu dotazu | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `  var c1 = q1.First();`                                                                             | Provádění dotazů LINQ      | -Vyhledání metadat při ~~načítání~~ : ~~vysoká, ale~~ nízká úroveň mezipaměti <br/> -Vyhledávání ~~generace~~ zobrazení: ~~potenciálně velmi vysoké, ale málo v mezipaměti~~ <br/> -Vyhodnocení parametrů: střední <br/> – Vyhledávání ~~překladu~~ dotazů: střední <br/> – Vyhledávání ~~generace~~ materializer: ~~střední, ale nedostatek paměti~~ <br/> – Provádění databázového dotazu: potenciálně vysoké <br/> + Připojení. otevřít <br/> + Command. ExecuteReader <br/> + DataReader. Read <br/> Materializace objektu: střední <br/> -Vyhledávání identity: střední | -Vyhledání metadat při ~~načítání~~ : ~~vysoká, ale~~ nízká úroveň mezipaměti <br/> -Vyhledávání ~~generace~~ zobrazení: ~~potenciálně velmi vysoké, ale málo v mezipaměti~~ <br/> -Vyhodnocení parametrů: nízká <br/> – Vyhledávání ~~překladu~~ dotazů: ~~střední, ale málo v mezipaměti~~ <br/> – Vyhledávání ~~generace~~ materializer: ~~střední, ale nedostatek paměti~~ <br/> – Provádění databázových dotazů: potenciálně vysoké (lepší dotazy v některých situacích) <br/> + Připojení. otevřít <br/> + Command. ExecuteReader <br/> + DataReader. Read <br/> Materializace objektu: střední <br/> -Vyhledávání identity: střední | -Vyhledání metadat při ~~načítání~~ : ~~vysoká, ale~~ nízká úroveň mezipaměti <br/> -Vyhledávání ~~generace~~ zobrazení: ~~střední, ale nedostatek paměti~~ <br/> -Vyhodnocení parametrů: nízká <br/> – Vyhledávání ~~překladu~~ dotazů: ~~střední, ale málo v mezipaměti~~ <br/> – Vyhledávání ~~generace~~ materializer: ~~střední, ale nedostatek paměti~~ <br/> – Provádění databázových dotazů: potenciálně vysoké (lepší dotazy v některých situacích) <br/> + Připojení. otevřít <br/> + Command. ExecuteReader <br/> + DataReader. Read <br/> Materializace objektu: střední (rychlejší než EF5) <br/> -Vyhledávání identity: střední |
 | `}`                                                                                                  | Připojení. Zavřít          | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Nízká                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
@@ -104,12 +104,12 @@ Pokud ručně provedete úpravy souborů schématu pro model, budete muset znovu
 
 Pomocí EDMGen můžete také vygenerovat zobrazení pro soubor EDMX – dříve odkazované téma MSDN popisuje, jak přidat událost před sestavením, aby to bylo možné, ale to je složité a v některých případech je to možné. Obecně je snazší použít šablonu T4 k vygenerování zobrazení, když je model v souboru EDMX.
 
-Blog týmu ADO.NET má příspěvek, který popisuje, jak použít šablonu T4 pro generování zobrazení ( \<http://blogs.msdn.com/b/adonet/archive/2008/06/20/how-to-use-a-t4-template-for-view-generation.aspx>). Tento příspěvek zahrnuje šablonu, kterou lze stáhnout a přidat do projektu. Šablona byla napsána pro první verzi Entity Framework, takže není zaručena práce s nejnovějšími verzemi Entity Framework. Můžete si však stáhnout aktuálnější sadu šablon pro generování zobrazení pro Entity Framework 4 a 5from galerii sady Visual Studio:
+Blog týmu ADO.NET obsahuje příspěvek, který popisuje, jak používat šablonu T4 pro generování zobrazení (\<http://blogs.msdn.com/b/adonet/archive/2008/06/20/how-to-use-a-t4-template-for-view-generation.aspx>). Tento příspěvek zahrnuje šablonu, kterou lze stáhnout a přidat do projektu. Šablona byla napsána pro první verzi Entity Framework, takže není zaručena práce s nejnovějšími verzemi Entity Framework. Můžete si však stáhnout aktuálnější sadu šablon pro generování zobrazení pro Entity Framework 4 a 5from galerii sady Visual Studio:
 
 -   VB.NET: \<http://visualstudiogallery.msdn.microsoft.com/118b44f2-1b91-4de2-a584-7a680418941d>
--   C\#: \<http://visualstudiogallery.msdn.microsoft.com/ae7730ce-ddab-470f-8456-1b313cd2c44d>
+-   \#jazyka C: \<http://visualstudiogallery.msdn.microsoft.com/ae7730ce-ddab-470f-8456-1b313cd2c44d>
 
-Pokud používáte Entity Framework 6 můžete získat zobrazení T4 generování šablon z Galerie sady Visual Studio na \<http://visualstudiogallery.msdn.microsoft.com/18a7db90-6705-4d19-9dd1-0a6c23d0751f>.
+Pokud používáte Entity Framework 6, můžete z galerie sady Visual Studio získat šablony T4 pro generování zobrazení v \<http://visualstudiogallery.msdn.microsoft.com/18a7db90-6705-4d19-9dd1-0a6c23d0751f>.
 
 ### <a name="24-reducing-the-cost-of-view-generation"></a>2,4 snížení nákladů na generaci zobrazení
 
@@ -133,12 +133,12 @@ Je důležité přeznačit, že předběžně vygenerování zobrazení v Entity
 
 Při použití EDMGen nebo Entity Designer v aplikaci Visual Studio získáte FKs ve výchozím nastavení a pro přepínání mezi FKs a službou IAs stačí pouze jeden příznak CheckBox nebo příkazového řádku.
 
-Pokud máte velký Code First model, bude použití nezávislých přidružení mít stejný účinek na generování zobrazení. Tomuto dopadu se můžete vyhnout zahrnutím vlastností cizích klíčů na třídy pro závislé objekty, i když někteří vývojáři to považují za znečišťující jejich objektový model. Můžete najít další informace o této skutečnosti do \<http://blog.oneunicorn.com/2011/12/11/whats-the-deal-with-mapping-foreign-keys-using-the-entity-framework/>.
+Pokud máte velký Code First model, bude použití nezávislých přidružení mít stejný účinek na generování zobrazení. Tomuto dopadu se můžete vyhnout zahrnutím vlastností cizích klíčů na třídy pro závislé objekty, i když někteří vývojáři to považují za znečišťující jejich objektový model. Další informace o tomto tématu najdete v \<http://blog.oneunicorn.com/2011/12/11/whats-the-deal-with-mapping-foreign-keys-using-the-entity-framework/>.
 
 | Při použití      | Postup                                                                                                                                                                                                                                                                                                                              |
 |:----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Entity Designer | Po přidání přidružení mezi dvěma entitami se ujistěte, že máte referenční omezení. Referenční omezení určují Entity Framework použití cizích klíčů namísto nezávislých přidružení. Další podrobnosti najdete \<http://blogs.msdn.com/b/efdesign/archive/2009/03/16/foreign-keys-in-the-entity-framework.aspx>. |
-| EDMGen          | Při použití EDMGen k vygenerování souborů z databáze se vaše cizí klíče budou dodržovat a přidají se do modelu jako takové. Další informace o různých možnostech, které jsou vystavené EDMGen [http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx).                           |
+| EDMGen          | Při použití EDMGen k vygenerování souborů z databáze se vaše cizí klíče budou dodržovat a přidají se do modelu jako takové. Další informace o různých možnostech, které zveřejňuje EDMGen, najdete v [http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx).                           |
 | Code First      | Informace o tom, jak zahrnout vlastnosti cizích klíčů do závislých objektů při použití Code First, najdete v části "konvence vztahu" v tématu [konvence Code First](~/ef6/modeling/code-first/conventions/built-in.md) .                                                                                              |
 
 #### <a name="242-moving-your-model-to-a-separate-assembly"></a>2.4.2 přesunutí modelu do samostatného sestavení
@@ -175,7 +175,7 @@ Při hledání se pomocí hodnoty primárního klíče pokusí najít entitu sle
 
 Při použití Find se dá vzít v úvahu výkon. Volání této metody ve výchozím nastavení spustí ověřování mezipaměti objektů za účelem zjištění změn, které jsou stále nečekají na potvrzení databáze. Tento proces může být velmi nákladný, pokud je v mezipaměti objektů velký počet objektů nebo pokud je v grafu rozsáhlých objektů přidaných do mezipaměti objektů, ale může být také zakázán. V některých případech můžete vnímat v pořadí podle velikosti rozdílu v volání metody Find, pokud zakážete automatické rozpoznávání změn. Druhé pořadí velikostí je však vnímano, když je objekt ve skutečnosti v mezipaměti, a když je nutné načíst objekt z databáze. Tady je příklad grafu s měřeními provedenými pomocí některých mikrosrovnávacích testů vyjádřených v milisekundách s zatížením 5000 entit:
 
-![.Net 4,5, logaritmické měřítko](~/ef6/media/net45logscale.png ".NET 4,5 – logaritmické měřítko")
+![Logaritmické měřítko .NET 4,5](~/ef6/media/net45logscale.png ".NET 4,5 – logaritmické měřítko")
 
 Příklad hledání s automatickým rozpoznáním změn je zakázaný:
 
@@ -248,7 +248,7 @@ Pro ukázku účinku ukládání do mezipaměti plánu dotazů na výkon vaší 
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
 | Vytváření výčtu všech dotazů 18723                                          | 124          | 125,4      | 124,3        | 125,3      |
 | Zamezení čištění (jenom prvních 800 dotazů, bez ohledu na složitost)  | 41,7         | 5.5        | 40.5         | 5.4        |
-| Jenom dotazy AggregatingSubtotals (celkem 178 – zabrání se tak sweep) | 39,5         | 4.5        | 38,1         | 4.6        |
+| Jenom dotazy AggregatingSubtotals (celkem 178 – zabrání se tak sweep) | 39,5         | 4,5        | 38,1         | 4.6        |
 
 *Všechny časy v sekundách.*
 
@@ -396,7 +396,7 @@ Entity Framework také podporuje ukládání metadat do mezipaměti. To je v pod
 4.  ItemCollection se pravidelně kontroluje pro použití. Pokud se zjistí, že se pracovní prostor v poslední době nepoužil, bude pro vyčištění vyhodnocený jako při příštím čištění mezipaměti.
 5.  Pouze vytvořením EntityConnection dojde k vytvoření mezipaměti metadat (i když kolekce položek v ní nebudou inicializovány, dokud nebude připojení otevřeno). Tento pracovní prostor zůstane v paměti, dokud algoritmus ukládání do mezipaměti nezjistí, že se nepoužívá.
 
-Zákaznický poradní tým zapsala blogový příspěvek popisuje uchovávající odkaz na objektu ItemCollection předejdete "vyřazení" při použití velkých modelů: \<http://blogs.msdn.com/b/appfabriccat/archive/2010/10/22/metadataworkspace-reference-in-wcf-services.aspx>.
+Poradní tým pro zákazníky napsal Blogový příspěvek, který popisuje, že drží odkaz na ItemCollection, aby se předešlo "vyřazení" při použití velkých modelů: \<http://blogs.msdn.com/b/appfabriccat/archive/2010/10/22/metadataworkspace-reference-in-wcf-services.aspx>.
 
 #### <a name="342-the-relationship-between-metadata-caching-and-query-plan-caching"></a>3.4.2 vztah mezi mezipamětí metadat a mezipamětí plánu dotazů
 
@@ -411,7 +411,7 @@ Tato implementace ukládání do mezipaměti druhé úrovně je vložená funkce
 #### <a name="351-additional-references-for-results-caching-with-the-wrapping-provider"></a>3.5.1 další odkazy na výsledky ukládání do mezipaměti u poskytovatele zabalení
 
 -   Julie Lerman napsala "ukládání do mezipaměti druhé úrovně v Entity Framework a v článku věnovaném službě Windows Azure" na webu MSDN, který obsahuje informace o tom, jak aktualizovat poskytovatele obálky pro použití ukládání do mezipaměti Windows serveru AppFabric: [https://msdn.microsoft.com/magazine/hh394143.aspx](https://msdn.microsoft.com/magazine/hh394143.aspx)
--   Pokud pracujete s Entity Framework 5, na blogu týmu má příspěvek, který popisuje, jak pracovat s poskytovateli ukládání do mezipaměti pro Entity Framework 5: \<http://blogs.msdn.com/b/adonet/archive/2010/09/13/ef-caching-with-jarek-kowalski-s-provider.aspx>. Obsahuje taky šablonu T4, která vám usnadní automatizaci přidání ukládání do mezipaměti na druhé úrovni do vašeho projektu.
+-   Pokud pracujete s Entity Framework 5, blog týmu obsahuje příspěvek, který popisuje, jak získat věci běžící s poskytovatelem ukládání do mezipaměti pro Entity Framework 5: \<http://blogs.msdn.com/b/adonet/archive/2010/09/13/ef-caching-with-jarek-kowalski-s-provider.aspx>. Obsahuje taky šablonu T4, která vám usnadní automatizaci přidání ukládání do mezipaměti na druhé úrovni do vašeho projektu.
 
 ## <a name="4-autocompiled-queries"></a>4 autokompilované dotazy
 
@@ -424,7 +424,7 @@ Entity Framework detekuje, kdy je nutné znovu zkompilovat dotaz, a to tak, že 
 -   Změna MergeOption přidruženého k vašemu dotazu. Dotaz uložený v mezipaměti se nepoužije, místo toho se spustí kompilátor plánování a nově vytvořený plán se uloží do mezipaměti.
 -   Změna hodnoty předané možnosti ContextOptions. UseCSharpNullComparisonBehavior. Získáte stejný efekt jako změny MergeOption.
 
-Další podmínky můžou zabránit vašemu dotazu v používání mezipaměti. Mezi běžné příklady patří:
+Další podmínky můžou zabránit vašemu dotazu v používání mezipaměti. Obvyklými příklady jsou:
 
 -   Použití&gt;IEnumerable&lt;T Obsahuje&lt;&gt;(hodnota T).
 -   Použití funkcí, které vytváří dotazy s konstantami.
@@ -647,14 +647,14 @@ Entity Framework nabízí několik různých způsobů dotazování. Podíváme 
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
 ```
 
-**IT**
+**Výhody**
 
 -   Vhodné pro CUD operace.
 -   Plně vyhodnocené objekty.
 -   Nejjednodušší pro zápis pomocí syntaxe integrované do programovacího jazyka.
 -   Dobrý výkon.
 
-**Cons**
+**Nevýhody**
 
 -   Některá technická omezení, jako například:
     -   Vzorce používající DefaultIfEmpty pro dotazy VNĚJŠÍho spojení mají za následek složitější dotazy než jednoduché příkazy VNĚJŠÍho spojení v Entity SQL.
@@ -676,13 +676,13 @@ var q = context.Products.AsNoTracking()
                         .Where(p => p.Category.CategoryName == "Beverages");
 ```
 
-**IT**
+**Výhody**
 
 -   Vylepšený výkon v pravidelných dotazech LINQ.
 -   Plně vyhodnocené objekty.
 -   Nejjednodušší pro zápis pomocí syntaxe integrované do programovacího jazyka.
 
-**Cons**
+**Nevýhody**
 
 -   Není vhodné pro operace CUD.
 -   Některá technická omezení, jako například:
@@ -703,13 +703,13 @@ Tento konkrétní dotaz explicitně neurčuje, že není sledován, ale vzhledem
 ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName = 'Beverages'");
 ```
 
-**IT**
+**Výhody**
 
 -   Vhodné pro CUD operace.
 -   Plně vyhodnocené objekty.
 -   Podporuje ukládání plánu dotazů do mezipaměti.
 
-**Cons**
+**Nevýhody**
 
 -   Zahrnuje textové řetězce dotazů, které jsou lépe náchylné k chybě uživatele, než je konstrukce dotazu integrována do jazyka.
 
@@ -728,11 +728,11 @@ using (EntityDataReader reader = cmd.ExecuteReader(CommandBehavior.SequentialAcc
 }
 ```
 
-**IT**
+**Výhody**
 
 -   Podporuje ukládání plánů dotazů do mezipaměti v rozhraní .NET 4,0 (všechny ostatní typy dotazů v rozhraní .NET 4,5 podporují ukládání plánů do mezipaměti).
 
-**Cons**
+**Nevýhody**
 
 -   Zahrnuje textové řetězce dotazů, které jsou lépe náchylné k chybě uživatele, než je konstrukce dotazu integrována do jazyka.
 -   Není vhodné pro operace CUD.
@@ -764,13 +764,13 @@ var beverages = context.ExecuteStoreQuery<Product>(
 );
 ```
 
-**IT**
+**Výhody**
 
 -   Všeobecně nejrychlejší výkon, protože kompilátor plánu je obejít.
 -   Plně vyhodnocené objekty.
 -   Vhodný pro CUD operace při použití z Negenerickými.
 
-**Cons**
+**Nevýhody**
 
 -   Dotaz je text a náchylný k chybám.
 -   Dotaz je vázaný na konkrétní back-end pomocí sémantiky úložiště namísto koncepční sémantiky.
@@ -787,13 +787,13 @@ private static readonly Func<NorthwindEntities, string, IQueryable<Product>> pro
 var q = context.InvokeProductsForCategoryCQ("Beverages");
 ```
 
-**IT**
+**Výhody**
 
 -   Poskytuje až 7% zlepšení výkonu oproti pravidelným dotazům LINQ.
 -   Plně vyhodnocené objekty.
 -   Vhodné pro CUD operace.
 
-**Cons**
+**Nevýhody**
 
 -   Zvýšení složitosti a režie programování.
 -   Zvýšení výkonu se při vytváření nad kompilovaným dotazem ztratí.
@@ -803,7 +803,7 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 
 Jednoduché mikrosrovnávací testy, u kterých nebyl při vytváření kontextu kladen test. V kontrolovaném prostředí jsme naměřeni dotazování na 5000 časů pro sadu entit, které nejsou v mezipaměti. Tato čísla se budou považovat za upozornění: nereflektují se na skutečná čísla vytvořená aplikací, ale místo toho jsou velmi přesné měření toho, jak velká část rozdílu při dotazování je porovnávána. jablka na jablka s výjimkou nákladů na vytvoření nového kontextu.
 
-| EF  | Test                                 | Čas (MS) | Paměť   |
+| EF  | Test                                 | Čas (MS) | Memory (Paměť)   |
 |:----|:-------------------------------------|:----------|:---------|
 | EF5 | ObjectContext ESQL                   | 2414      | 38801408 |
 | EF5 | Dotaz LINQ pro ObjectContext             | 2692      | 38277120 |
@@ -825,7 +825,7 @@ Mikrosrovnávací testy jsou velmi citlivé na malé změny v kódu. V tomto př
 
 Pro porovnání reálného výkonu různých možností dotazu jsme vytvořili 5 samostatných variant testů, kde používáme jinou možnost dotazování pro výběr všech produktů, jejichž název kategorie je "nápoje". Každá iterace zahrnuje náklady na vytvoření kontextu a náklady na vyhodnocováníy všech vrácených entit. než se vybere součet 1000 časovanéch iterací, neuplynulý čas spuštění 10 iterací. Zobrazené výsledky jsou medián pořízený z 5 spuštění každého testu. Další informace naleznete v příloze B, která obsahuje kód pro test.
 
-| EF  | Test                                        | Čas (MS) | Paměť   |
+| EF  | Test                                        | Čas (MS) | Memory (Paměť)   |
 |:----|:--------------------------------------------|:----------|:---------|
 | EF5 | ObjectContext – příkaz entity                | 621       | 39350272 |
 | EF5 | DbContext dotaz SQL v databázi             | 825       | 37519360 |
@@ -871,15 +871,15 @@ Dalším aspektem výkonu při použití Entity Framework je strategie dědično
 
 Pokud váš model používá dědění TPT, generované dotazy budou složitější než ty, které jsou vygenerovány jinými strategiemi dědičnosti, což může vést k delší době spuštění v úložišti.  Generování dotazů přes TPT model a vyhodnotit výsledných objektů bude obecně trvat déle.
 
-"Důležité informace o výkonu při použití dědičnosti TPT (tabulka na jeden typ) v Entity Framework" najdete v příspěvku blogu MSDN: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>.
+V příspěvku na blogu MSDN Entity Framework příspěvek na blogu MSDN: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>se podívejte na téma požadavky na výkon při použití TPT (tabulka podle typu).
 
 #### <a name="711-avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 zamezení TPT v aplikacích Model First nebo Code First
 
 Když vytvoříte model přes existující databázi, která má schéma TPT, nemáte mnoho možností. Ale při vytváření aplikace pomocí Model First nebo Code First byste se měli vyhnout dědičnosti TPT pro problémy s výkonem.
 
-Při použití Model First v průvodci Entity Designer získáte TPT pro jakoukoliv dědičnost v modelu. Pokud chcete přepnout na strategii TPH dědičnosti s první Model, můžete použít "Entity návrháře databáze generování Power Pack" k dispozici z Galerie sady Visual Studio ( \<http://visualstudiogallery.msdn.microsoft.com/df3541c3-d833-4b65-b942-989e7ec74c87/>).
+Při použití Model First v průvodci Entity Designer získáte TPT pro jakoukoliv dědičnost v modelu. Pokud chcete pomocí Model First přepnout na strategii dědičnosti TPH, můžete použít sadu Power Pack "Entity Designer generování databáze" dostupnou v galerii sady Visual Studio (\<http://visualstudiogallery.msdn.microsoft.com/df3541c3-d833-4b65-b942-989e7ec74c87/>).
 
-Při použití Code First ke konfiguraci mapování modelu s děděním bude EF standardně používat TPH, takže všechny entity v hierarchii dědičnosti budou namapovány na stejnou tabulku. V části "Mapování s rozhraní Fluent API" z "Kód první v entitě Framework4.1" článek v časopise MSDN Magazine ( [http://msdn.microsoft.com/magazine/hh126815.aspx](https://msdn.microsoft.com/magazine/hh126815.aspx)) pro další podrobnosti.
+Při použití Code First ke konfiguraci mapování modelu s děděním bude EF standardně používat TPH, takže všechny entity v hierarchii dědičnosti budou namapovány na stejnou tabulku. Další podrobnosti najdete v části "mapování pomocí rozhraní Fluent API" v článku "Code First v Entity Framework 4.1" na webu MSDN Magazine ( [http://msdn.microsoft.com/magazine/hh126815.aspx](https://msdn.microsoft.com/magazine/hh126815.aspx)).
 
 ### <a name="72-upgrading-from-ef4-to-improve-model-generation-time"></a>7,2 upgrade z EF4 na zlepšení času generování modelu
 
@@ -899,7 +899,7 @@ Je potřeba poznamenat, že při generování SSDL se zatížení téměř zcela
 
 ### <a name="73-splitting-large-models-with-database-first-and-model-first"></a>7,3 rozdělení velkých modelů pomocí Database First a Model First
 
-Když se zvětší velikost modelu, plocha návrháře bude nenáročná a bude obtížné ji používat. Model s více než 300 entitami obvykle považujeme za příliš velký, aby bylo možné efektivně používat návrháře. V následujícím příspěvku blogu popisuje několik možností pro rozdělení velkých modelů: \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>.
+Když se zvětší velikost modelu, plocha návrháře bude nenáročná a bude obtížné ji používat. Model s více než 300 entitami obvykle považujeme za příliš velký, aby bylo možné efektivně používat návrháře. Následující Blogový příspěvek popisuje několik možností pro rozdělení velkých modelů: \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>.
 
 Příspěvek byl napsaný pro první verzi Entity Framework, ale postup se pořád týká.
 
@@ -915,7 +915,7 @@ Nastavení pole ContextTypeName také zabraňuje funkčnímu problému, kde Enti
 
 Entity Framework umožňuje používat vlastní datové třídy spolu s datovým modelem, aniž by bylo nutné provádět jakékoli úpravy samotných datových tříd. To znamená, že s datovým modelem můžete použít "objekty CLR" ve starém Old "(POCO), jako například existující objekty domény. Tyto POCO datové třídy (označované také jako trvalá ignorování objektů), které jsou mapovány na entity, které jsou definovány v datovém modelu, podporují většinu stejného chování dotazu, vložení, aktualizace a odstranění jako typy entit, které jsou generovány nástroji model EDM (Entity Data Model).
 
-Entity Framework může také vytvořit proxy třídy odvozené z vašich typů POCO, které se používají, pokud chcete povolit funkce, jako je opožděné načítání a automatické sledování změn v entitách POCO. Třídy POCO musí splňovat určité požadavky umožňující Entity Framework pro použití proxy, jak je popsáno zde: [http://msdn.microsoft.com/library/dd468057.aspx](https://msdn.microsoft.com/library/dd468057.aspx).
+Entity Framework může také vytvořit proxy třídy odvozené z vašich typů POCO, které se používají, pokud chcete povolit funkce, jako je opožděné načítání a automatické sledování změn v entitách POCO. Třídy POCO musí splňovat určité požadavky, aby Entity Framework mohl používat proxy, jak je popsáno zde: [http://msdn.microsoft.com/library/dd468057.aspx](https://msdn.microsoft.com/library/dd468057.aspx).
 
 Nepravděpodobné sledování proxy serverů upozorní správce stavu objektu pokaždé, když kterákoli z vlastností vašich entit má změnu hodnoty, takže Entity Framework ví skutečný stav entit po celou dobu. K tomu je potřeba přidat události oznámení do těla metod setter vašich vlastností a nechat správce stavu objektů takové události zpracovat. Všimněte si, že vytvoření entity proxy serveru bude obvykle dražší než vytváření neproxy entity POCO z důvodu přidané sady událostí vytvořených pomocí Entity Framework.
 
@@ -1141,7 +1141,7 @@ Stejně jako u opožděného načítání budou kompromisy více dotazy pro men�
 
 Entity Framework aktuálně nepodporuje opožděné načítání skalárních nebo složitých vlastností. V případech, kdy máte tabulku, která obsahuje velký objekt, jako je například objekt BLOB, můžete použít rozdělení tabulky k oddělení velkých vlastností do samostatné entity. Předpokládejme například, že máte tabulku produktů, která obsahuje sloupec fotografie varbinary. Pokud nepotřebujete k této vlastnosti v dotazech často přístup, můžete použít rozdělování tabulky a přenést do nich pouze části entity, které běžně potřebujete. Entita představující fotografii produktu bude načtena pouze v případě, že ji výslovně budete potřebovat.
 
-Dobrý prostředek, který ukazuje, jak povolit rozdělení tabulky je Gil Fink "Tabulky rozdělení v Entity Framework" blogový příspěvek: \<http://blogs.microsoft.co.il/blogs/gilf/archive/2009/10/13/table-splitting-in-entity-framework.aspx>.
+Dobrým prostředkem, který ukazuje, jak povolit rozdělování tabulky, je rozdělení tabulky Gil Fink na Blogový příspěvek Entity Framework: \<http://blogs.microsoft.co.il/blogs/gilf/archive/2009/10/13/table-splitting-in-entity-framework.aspx>.
 
 ## <a name="9-other-considerations"></a>9 dalších otázek
 
@@ -1179,7 +1179,7 @@ finally
 }
 ```
 
-Před vypnutím AutoDetectChanges je dobré pochopit, že to může způsobit, že Entity Framework ztratí schopnost sledovat určité informace o změnách, které se na těchto entitách konají. Pokud je zpracování chybné, může to způsobit nekonzistenci dat ve vaší aplikaci. Další informace o vypnutí AutoDetectChanges najdete v článku \<http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>.
+Před vypnutím AutoDetectChanges je dobré pochopit, že to může způsobit, že Entity Framework ztratí schopnost sledovat určité informace o změnách, které se na těchto entitách konají. Pokud je zpracování chybné, může to způsobit nekonzistenci dat ve vaší aplikaci. Pokud chcete získat další informace o vypnutí AutoDetectChanges, přečtěte si \<http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>.
 
 ### <a name="93-context-per-request"></a>kontext 9,3 na požadavek
 
@@ -1226,7 +1226,7 @@ V příkladu dotazu výše byl rozdíl výkonu menší než 2% v mikrotestu bě�
 
 Entity Framework 6 zavádí podporu asynchronních operací při spuštění v rozhraní .NET 4,5 nebo novějším. U aplikací, u kterých se v/v v/v nepoužívá spor, bude výhodná použití asynchronních operací dotazů a ukládání. Pokud vaše aplikace neutrpěla kolize vstupu/výstupu, použití Async bude v optimálních případech spouštěno synchronně a vracet výsledek za stejné množství jako synchronní volání, nebo v nejhorším případě jednoduše odložit provádění na asynchronní úlohu a přidat další Tim e pro dokončení vašeho scénáře.
 
-Informace o tom, jak asynchronní programovací práce, který vám pomůže rozhodování o tom, pokud asynchronní zlepší výkon vaší aplikace navštívíte [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Další informace o použití asynchronních operací na Entity Framework najdete v tématu [asynchronní dotazování a ukládání](~/ef6/fundamentals/async.md
+Informace o fungování asynchronního programování, které vám pomůžou při rozhodování o tom, jestli Async zvýší výkon vaší aplikace, najdete [http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx). Další informace o použití asynchronních operací na Entity Framework najdete v tématu [asynchronní dotazování a ukládání](~/ef6/fundamentals/async.md
 ).
 
 ### <a name="96-ngen"></a>9,6 NGEN
@@ -1247,17 +1247,17 @@ Když zvolíte použití EDMX a Code First, je důležité znát, že flexibilit
 
 ### <a name="101-using-the-visual-studio-profiler"></a>10,1 použití profileru sady Visual Studio
 
-Pokud máte problémy s výkonem Entity Framework, můžete použít Profiler, jako je ten, který je součástí sady Visual Studio, a zjistit, kde aplikace tráví svůj čas. Toto je nástroj, který jsme použili k vygenerování výsečové grafy v blogovém příspěvku "Zkoumání výkonu technologie ADO.NET Entity Framework – část 1" ( \<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) , které uvádí, kde Entity Framework stráví času během studené a horké dotazy.
+Pokud máte problémy s výkonem Entity Framework, můžete použít Profiler, jako je ten, který je součástí sady Visual Studio, a zjistit, kde aplikace tráví svůj čas. Tento nástroj jsme použili k vygenerování výsečových grafů v tématu "zkoumání výkonu ADO.NET Entity Framework-Part 1" blogového příspěvku (\<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>), který ukazuje, kde Entity Framework stráví čas během studených a tepléch dotazů.
 
-"Profilování Entity Framework pomocí programu Visual Studio 2010 profiler" na blogu, který je popsán v článku poradní tým pro data a modelování, zobrazuje reálný příklad použití profileru k prozkoumání problému s výkonem.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Tento příspěvek byl napsaný pro aplikaci pro Windows. Pokud potřebujete profilovat webovou aplikaci, nástroje Windows Performance Record (WPR) a Windows Performance Analyzer (WPA) můžou pracovat lépe než při práci ze sady Visual Studio. Požadavku webové části a WPA jsou součástí Windows Performance Toolkit, který je součástí sady Windows Assessment and Deployment Kit ( [http://www.microsoft.com/download/details.aspx?id=39982](https://www.microsoft.com/download/details.aspx?id=39982)).
+"Profilování Entity Framework pomocí programu Visual Studio 2010 profiler" na blogu, který je popsán v článku poradní tým pro data a modelování, zobrazuje reálný příklad použití profileru k prozkoumání problému s výkonem.  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. Tento příspěvek byl napsaný pro aplikaci pro Windows. Pokud potřebujete profilovat webovou aplikaci, nástroje Windows Performance Record (WPR) a Windows Performance Analyzer (WPA) můžou pracovat lépe než při práci ze sady Visual Studio. WPR a WPA jsou součástí sady Windows Performance Toolkit, která je součástí sady Windows Assessment and Deployment Kit ( [http://www.microsoft.com/download/details.aspx?id=39982](https://www.microsoft.com/download/details.aspx?id=39982)).
 
 ### <a name="102-applicationdatabase-profiling"></a>Profilace aplikace/databáze 10,2
 
 Nástroje, jako je profiler integrovaný do sady Visual Studio, vás informují o tom, kde vaše aplikace stráví čas.  K dispozici je jiný typ profileru, který provádí dynamickou analýzu běžící aplikace v produkčním prostředí nebo v předprodukčním prostředí v závislosti na potřebách a hledá běžné nástrah a anti-vzory přístupu k databázi.
 
-Jsou dva komerčně dostupný profilery Profiler Entity Framework ( \<http://efprof.com>) a ORMProfiler ( \<http://ormprofiler.com>).
+K dispozici jsou dva komerčně dostupné profilery Entity Framework Profiler (\<http://efprof.com>) a ORMProfiler (\<http://ormprofiler.com>).
 
-Pokud je vaše aplikace MVC aplikací pomocí Code First, můžete použít MiniProfileru StackExchange. Scott Hanselman popisuje tento nástroj na svém blogu na: \<http://www.hanselman.com/blog/NuGetPackageOfTheWeek9ASPNETMiniProfilerFromStackExchangeRocksYourWorld.aspx>.
+Pokud je vaše aplikace MVC aplikací pomocí Code First, můžete použít MiniProfileru StackExchange. Scott Hanselman popisuje tento nástroj ve svém blogu na adrese: \<http://www.hanselman.com/blog/NuGetPackageOfTheWeek9ASPNETMiniProfilerFromStackExchangeRocksYourWorld.aspx>.
 
 Další informace o profilování aktivity databáze vaší aplikace najdete v článku o katalogu MSDN Julie Lerman [s názvem aktivita databáze profilace v Entity Framework](https://msdn.microsoft.com/magazine/gg490349.aspx).
 
@@ -1288,7 +1288,7 @@ Pokud chcete povolit protokolování databáze bez opětovné kompilace a použ�
   </interceptors>
 ```
 
-Další informace o tom, jak přidat protokolování bez opětovné kompilace přejít na \<http://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/>.
+Další informace o tom, jak přidat protokolování bez opětovné kompilace, najdete v tématu \<http://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/>.
 
 ## <a name="11-appendix"></a>11. Dodatek
 

@@ -1,43 +1,43 @@
 ---
-title: Práce s stavy entity - EF6
+title: Práce s entitami stavů – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: acb27f46-3f3a-4179-874a-d6bea5d7120c
 ms.openlocfilehash: ef0e8d5a5a9d66adab7046088c49d8cd472edc8a
-ms.sourcegitcommit: e5f9ca4aa41e64141fa63a1e5fcf4d4775d67d24
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52899649"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419697"
 ---
-# <a name="working-with-entity-states"></a>Práce s stavy entity
-Toto téma zahrnuje přidání a připojit entity do kontextu a jak Entity Framework zpracovává během SaveChanges.
-Sledování stavu entity, pokud jsou připojeny k kontextu, ale v odpojeném nebo N-vrstvá scénáře můžete nechat EF vědět, jednotlivých stavech entity musí být v postará Entity Framework.
-Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+# <a name="working-with-entity-states"></a>Práce s entitami stavů
+V tomto tématu se dozvíte, jak přidat a připojit entity k kontextu a jak je Entity Framework zpracovávat během metody SaveChanges.
+Entity Framework se postará o sledování stavu entit, když jsou připojeni k kontextu, ale v případě odpojených nebo N-vrstvých scénářů můžete v EF zjistit, v jakém stavu by měly být vaše entity.
+Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-## <a name="entity-states-and-savechanges"></a>Stavy entity a SaveChanges
+## <a name="entity-states-and-savechanges"></a>Stavy entit a metody SaveChanges
 
-Entita může být v jednom z pěti stavů fronty definovaných výčtem EntityState. Tyto stavy jsou:  
+Entita může být v jednom z pěti stavů, jak je definováno výčtem EntityState. Tyto stavy jsou:  
 
-- Přidání: Entita sledován správou kontextu, ale dosud neexistuje v databázi  
-- Beze změny: Entita sledován správou kontextu a existuje v databázi a její hodnoty vlastností se neliší od hodnot v databázi  
-- Upravené: Entita sledován správou kontextu a v databázi existuje a byly změněny některé nebo všechny příslušné hodnoty vlastnosti  
-- Odstraněné: Entita sledován správou kontextu existuje v databázi, ale byl označen k odstranění v databázi při dalším je volána metoda SaveChanges  
-- Odpojit: entity není sledována podle kontextu  
+- Přidáno: entita je sledována kontextem, ale ještě neexistuje v databázi.  
+- Nezměněno: entita je sledována kontextem a existuje v databázi a její hodnoty vlastností se nezměnily z hodnot v databázi.  
+- Změněno: entita je sledována kontextem a existuje v databázi a některé nebo všechny její hodnoty vlastností byly změněny.  
+- Odstraněno: entita je sledována kontextem a existuje v databázi, ale byla označena pro odstranění z databáze při volání dalšího volání metody SaveChanges.  
+- Odpojeno: entita není sledována kontextem.  
 
-SaveChanges provádí různé věci pro entity v různých stavech:  
+SaveChanges používá pro entity v různých stavech různé věci:  
 
-- Beze změny entity nejsou přistupovala SaveChanges. Aktualizace se neodešlou do databáze pro entity v nezměněném stavu.  
-- Přidání entity jsou vloženy do databáze a pak budou beze změn při SaveChanges vrátí.  
-- Změny entity jsou aktualizována v databázi a pak budou beze změn při SaveChanges vrátí.  
-- Odstraněné entity jsou odstraněna z databáze a potom se odpojí z kontextu.  
+- Nezměněné entity nejsou nijak ovlivněny pomocí metody SaveChanges. Aktualizace nejsou odesílány do databáze pro entity v nezměněném stavu.  
+- Přidané entity jsou vloženy do databáze a pak se nezměnily, když se funkce SaveChanges vrátí.  
+- Změněné entity jsou aktualizovány v databázi a pak se nezměnily, když se funkce SaveChanges vrátí.  
+- Odstraněné entity se odstraní z databáze a pak se odpojí z kontextu.  
 
-Následující příklady ukazují způsoby, ve kterém lze změnit stav entity nebo grafu entity.  
+Následující příklady znázorňují způsoby, kterými lze změnit stav entity nebo grafu entity.  
 
-## <a name="adding-a-new-entity-to-the-context"></a>Přidání nové entity v kontextu  
+## <a name="adding-a-new-entity-to-the-context"></a>Přidání nové entity do kontextu  
 
-Nová entita lze přidat do kontextu pomocí volání metody Add u DbSet.
-To umístí entity do stavu Added, což znamená, že ho bude vložen do databáze při příštím, která je volána metoda SaveChanges.
+Do kontextu lze přidat novou entitu voláním metody Add v Negenerickými.
+Tím se entita vloží do přidaného stavu, což znamená, že se při příštím volání metody SaveChanges vloží do databáze.
 Příklad:  
 
 ``` csharp
@@ -49,7 +49,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Dalším způsobem, jak přidat nové entity v kontextu je změna stavu na přidání. Příklad:  
+Dalším způsobem, jak přidat novou entitu do kontextu, je změnit její stav na přidáno. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -60,8 +60,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Nakonec můžete přidat nové entity v kontextu podle zapojení až jinou entitu, která je již sledován.
-To může být tak, že přidáte nové entity pro navigační vlastnost kolekce z druhé entity nebo tak, že nastavíte vlastnost navigace odkaz z druhé entity tak, aby odkazoval na nové entity. Příklad:  
+Nakonec můžete přidat novou entitu do kontextu tím, že ji připojíte k jiné entitě, která je již sledována.
+To může být přidání nové entity do navigační vlastnosti kolekce jiné entity nebo nastavením navigační vlastnosti odkazu jiné entity, která odkazuje na novou entitu. Příklad:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -77,11 +77,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že u všech těchto příkladech, pokud má entita, přidává odkazy na jiné entity, které nejsou ještě sledovat pak tyto nové entity se také zařadí do kontextu a budou při příštím, která je volána metoda SaveChanges vložena do databáze.  
+Všimněte si, že pro všechny tyto příklady, pokud přidávaná entita obsahuje odkazy na jiné entity, které ještě nejsou sledovány, budou tyto nové entity přidány také do kontextu a při příštím volání metody SaveChanges budou vloženy do databáze.  
 
-## <a name="attaching-an-existing-entity-to-the-context"></a>Připojení existující entity v kontextu  
+## <a name="attaching-an-existing-entity-to-the-context"></a>Připojení existující entity k kontextu  
 
-Pokud máte v databázi, ale které se aktuálně nesleduje podle kontextu můžete v kontextu ke sledování entity pomocí metody připojit na DbSet existuje entita, která už znáte. Entita bude v nezměněném stavu v kontextu. Příklad:  
+Pokud máte entitu, kterou víte, že již v databázi existuje, ale není aktuálně sledována kontextem, můžete určit, aby kontext sledoval entitu pomocí metody Attach v Negenerickými. Entita bude v kontextu v nezměněném stavu. Příklad:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -96,9 +96,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že žádné změny provedené do databáze, pokud SaveChanges je volána bez provádění jakékoli manipulaci s připojenými entity. Je to proto, že entita je v nezměněném stavu.  
+Všimněte si, že v databázi nebudou provedeny žádné změny, pokud je volána metoda SaveChanges bez jakékoli jiné manipulace s připojenou entitou. Je to proto, že entita je ve stavu Unchanged.  
 
-Dalším způsobem, jak připojit stávající entity v kontextu je změnit její stav Unchanged. Příklad:  
+Dalším způsobem, jak připojit existující entitu k kontextu, je změnit svůj stav na nezměněný. Příklad:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -113,11 +113,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že pro oba tyto příklady Pokud entita připojovaný obsahuje odkazy na jiné entity, které ještě nejsou sledovány pak tyto nové entity se taky připojit ke kontextu v nezměněném stavu.  
+Všimněte si, že v obou těchto příkladech platí, že pokud entita, která je připojena, odkazuje na jiné entity, které ještě nejsou sledovány, budou tyto nové entity také připojeny k tomuto kontextu v nezměněném stavu.  
 
-## <a name="attaching-an-existing-but-modified-entity-to-the-context"></a>Připojení existující ale upravená entita v kontextu  
+## <a name="attaching-an-existing-but-modified-entity-to-the-context"></a>Připojení existující ale změněné entity k kontextu  
 
-Pokud máte entity, o kterém víte už existuje v databázi, ale které může byly provedeny změny můžete v kontextu připojte entitu a nastavit jeho stav Modified.
+Máte-li entitu, kterou víte již v databázi existuje, ale na kterou mohly být provedeny změny, můžete určit, že má kontext připojit entitu a nastavit jeho stav na změněno.
 Příklad:  
 
 ``` csharp
@@ -133,14 +133,14 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Při změně stavu na změněné všechny vlastnosti entity se označí jako upravená a hodnoty všech vlastností se odešlou do databáze, když je volána metoda SaveChanges.  
+Když změníte stav na změněno, všechny vlastnosti entity budou označeny jako upravené a všechny hodnoty vlastností budou odeslány do databáze při volání metody SaveChanges.  
 
-Všimněte si, že pokud entita připojovaný obsahuje odkazy na jiné entity, které ještě nejsou sledovány, pak tyto nové entity se připojit ke kontextu v nezměněném stavu – nebude automaticky se stane změněno.
-Pokud máte více entit, které je třeba označit změněné byste měli nastavit stav zvlášť pro každý z těchto entit.  
+Všimněte si, že pokud připojená entita obsahuje odkazy na jiné entity, které ještě nejsou sledovány, budou tyto nové entity připojeny k tomuto kontextu v nezměněném stavu – nebudou automaticky upraveny.
+Pokud máte více entit, které je třeba označit jako změněné, měli byste nastavit stav pro každou z těchto entit jednotlivě.  
 
-## <a name="changing-the-state-of-a-tracked-entity"></a>Změna stavu sledovaného entity  
+## <a name="changing-the-state-of-a-tracked-entity"></a>Změna stavu sledované entity  
 
-Můžete změnit stav entity, která je již sledován nastavením vlastnosti stavu na vstupu. Příklad:  
+Stav entity, která je již sledována, můžete změnit nastavením vlastnosti stav na jejím vstupu. Příklad:  
 
 ``` csharp
 var existingBlog = new Blog { BlogId = 1, Name = "ADO.NET Blog" };
@@ -156,13 +156,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že volání přidat nebo připojit pro entitu, která je již sledován je také možné změny stavu entity. Například volání připojení pro entitu, která je aktuálně ve stavu Added se změní jeho stav Unchanged.  
+Všimněte si, že volání metody Add nebo Attach pro entitu, která je již sledována, lze také použít ke změně stavu entity. Například volání metody attach pro entitu, která je aktuálně ve stavu přidáno, změní svůj stav na nezměněný.  
 
 ## <a name="insert-or-update-pattern"></a>Vložit nebo aktualizovat vzor  
 
-Běžným vzorem pro některé aplikace je přidání entity jako nový (výsledkem vložení databáze) nebo připojit entitu jako existující a označte ji jako změněnou (výsledkem je aktualizace databáze) v závislosti na hodnotě primární klíč.
-Například při použití primárních klíčů databáze generované celé číslo je běžné zacházet se žádný klíč jako nové a nenulové klíč jako existující.
-Tento vzor lze dosáhnout nastavením stavu entity podle kontrolu hodnoty primárního klíče. Příklad:  
+Běžným vzorem pro některé aplikace je přidání entity jako nového (výsledkem vložení do databáze) nebo připojení entity jako existující a její označení jako upravené (výsledkem aktualizace databáze) v závislosti na hodnotě primárního klíče.
+Například při použití databáze generované celočíselnými klíči je běžné zacházet se entitou s nulovým klíčem jako novou a entitou s nenulovým klíčem jako stávající.
+Tento vzor lze dosáhnout nastavením stavu entity na základě kontroly hodnoty primárního klíče. Příklad:  
 
 ``` csharp
 public void InsertOrUpdate(Blog blog)
@@ -178,4 +178,4 @@ public void InsertOrUpdate(Blog blog)
 }
 ```  
 
-Všimněte si, že při změně stavu na změněné všechny vlastnosti entity se označí jako upravená a hodnoty všech vlastností se odešlou do databáze, když je volána metoda SaveChanges.  
+Všimněte si, že když změníte stav na změněno, všechny vlastnosti entity budou označeny jako upravené a všechny hodnoty vlastností budou odeslány do databáze při volání metody SaveChanges.  

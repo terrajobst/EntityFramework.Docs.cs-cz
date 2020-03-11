@@ -1,82 +1,82 @@
 ---
-title: Více diagramů za Model - EF6
+title: Více diagramů na model – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b95db5c8-de8d-43bd-9ccc-5df6a5e25e1b
 ms.openlocfilehash: e78b927a147143629ac5b73e23edf439ba6d0264
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283612"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418292"
 ---
-# <a name="multiple-diagrams-per-model"></a>Více diagramů podle modelu
+# <a name="multiple-diagrams-per-model"></a>Více diagramů na model
 > [!NOTE]
-> **EF5 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 5. Pokud používáte starší verzi, některé nebo všechny informace neplatí.
+> **EF5 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 5. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.
 
-Toto video a stránce ukazuje, jak rozdělit do více diagramů pomocí návrháře Entity Framework (EF designeru) modelu. Můžete chtít tuto funkci používat, když se stane příliš velký, aby umožňuje zobrazit nebo upravit model.
+Toto video a stránka ukazuje, jak rozdělit model do více diagramů pomocí Entity Framework Designer (EF Designer). Tuto funkci můžete chtít použít, když je váš model moc velký, aby se mohl zobrazit nebo upravit.
 
-V dřívějších verzích EF designeru může mít pouze jeden diagram na soubor EDMX. Od verze Visual Studio 2012, můžete použít EF designeru pro rozdělení souboru EDMX do více diagramů.
+V dřívějších verzích návrháře EF bylo možné mít pro každý soubor EDMX pouze jeden diagram. Počínaje sadou Visual Studio 2012 můžete pomocí návrháře EF rozdělit soubor EDMX do více diagramů.
 
-## <a name="watch-the-video"></a>Podívejte se na video
-Toto video ukazuje, jak rozdělit do více diagramů pomocí návrháře Entity Framework (EF designeru) modelu. Můžete chtít tuto funkci používat, když se stane příliš velký, aby umožňuje zobrazit nebo upravit model.
+## <a name="watch-the-video"></a>Přehrát video
+Toto video ukazuje, jak rozdělit model do více diagramů pomocí Entity Framework Designer (EF Designer). Tuto funkci můžete chtít použít, když je váš model moc velký, aby se mohl zobrazit nebo upravit.
 
-**Přednášející:**: Julia Kornich
+**Prezentující**: Helena Kornich
 
-**Video**: [WMV](https://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-winvideo-multiplediagrams.wmv) | [MP4](https://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-mp4video-multiplediagrams.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-winvideo-multiplediagrams.zip)
+**Video**: [wmv](https://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-winvideo-multiplediagrams.wmv) | [MP4](https://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-mp4video-multiplediagrams.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-winvideo-multiplediagrams.zip)
 
-## <a name="ef-designer-overview"></a>Přehled EF designeru
+## <a name="ef-designer-overview"></a>Přehled návrháře EF
 
-Při vytváření modelu pomocí Průvodce datovým modelem Entity EF designeru soubor .edmx je vytvořen a přidán do vašeho řešení. Tento soubor definuje obrazec entity a jak jsou mapovány do databáze.
+Když vytvoříte model pomocí Průvodce model EDM (Entity Data Model) návrháře EF, vytvoří se soubor. edmx a přidá se do vašeho řešení. Tento soubor definuje tvar entit a jejich mapování na databázi.
 
-EF designeru se skládá z následujících součástí:
+Návrhář EF se skládá z následujících součástí:
 
--   Vizuální návrhová plocha pro úpravy modelu. Můžete vytvořit, upravit nebo odstranit entit a přidružení.
--   A **prohlížeč modelu** okno, které poskytuje zobrazení stromu modelu.  Entity a jejich přidružení se nacházejí v části *\[%{ModelName/\]* složky. Databázové tabulky a omezení jsou umístěné v části  *\[%{ModelName/\]*. Složka Store.
--   A **podrobnosti mapování** okno pro zobrazení a úprava mapování. Typy entit a přidružení můžete namapovat na databázové tabulky, sloupce a uložené procedury. 
+-   Vizuální návrhová plocha pro úpravu modelu. Můžete vytvářet, upravovat nebo odstraňovat entity a přidružení.
+-    **Prohlížeč modelů** okno, které poskytuje stromové zobrazení modelu.  Entity a jejich přidružení jsou umístěné pod *\[\]* složky. Tabulky a omezení databáze jsou umístěny pod *\[\]* . Složka úložiště
+-   Okno **podrobností mapování** pro zobrazení a úpravy mapování Můžete namapovat typy entit nebo přidružení k databázovým tabulkám, sloupcům a uloženým procedurám. 
 
-Po dokončení Průvodce datovým modelem Entity automaticky otevření okna návrhové plochy. Pokud prohlížeč modelu se nezobrazuje, klikněte pravým tlačítkem na hlavní návrhové ploše a vyberte **prohlížeč modelu**.
+Po dokončení průvodce model EDM (Entity Data Model) se automaticky otevře okno vizuální návrh plochy. Pokud není prohlížeč modelů viditelný, klikněte pravým tlačítkem myši na hlavní návrhovou plochu a vyberte možnost **prohlížeč modelů**.
 
-Následující snímek obrazovky ukazuje soubor .edmx otevřen v EF designeru. Snímek obrazovky ukazuje vizuální návrhová plocha (nalevo) a **prohlížeč modelu** okno (napravo).
+Následující snímek obrazovky ukazuje soubor. edmx otevřený v Návrháři EF. Snímek obrazovky ukazuje vizuální návrhovou plochu (vlevo) a **prohlížeč modelů** okno (napravo).
 
-![EF designeru 2](~/ef6/media/efdesigner2.png)
+![EF Designer 2](~/ef6/media/efdesigner2.png)
 
-Chcete-li v EF designeru operaci vrátit zpět, klikněte na tlačítko Ctrl-Z.
+Chcete-li vrátit zpět operaci prováděnou v Návrháři EF, klikněte na tlačítko CTRL-Z.
 
 ## <a name="working-with-diagrams"></a>Práce s diagramy
 
-Ve výchozím nastavení vytvoří EF designeru volá Diagram1 jeden diagram. Pokud máte diagramu s velkým množstvím entit a přidružení, bude nejvíc jako logicky rozdělit. Od verze Visual Studio 2012, můžete zobrazit koncepčního modelu ve více diagramů.   
+Ve výchozím nastavení Návrhář EF vytvoří jeden diagram nazvaný Diagram1. Pokud máte diagram s velkým počtem entit a přidružení, budete ho chtít nejlépe rozdělit logicky. Počínaje sadou Visual Studio 2012 můžete zobrazit koncepční model ve více diagramech.   
 
-Jak budete přidávat nové diagramy, se zobrazí ve složce diagramy v okně prohlížeče modelu. Chcete-li přejmenovat diagram: Vyberte diagramu v okně prohlížeče modelu, jednou klikněte na název a zadejte nový název.  Můžete také klikněte pravým tlačítkem na název diagramu a vybrat **přejmenovat**.
+Při přidávání nových diagramů se zobrazí ve složce diagramy v okně Prohlížeč modelů. Přejmenování diagramu: v okně prohlížeče modelů vyberte diagram, klikněte jednou na název a zadejte nový název.  Můžete také kliknout pravým tlačítkem myši na název diagramu a vybrat možnost **Přejmenovat**.
 
-Název diagramu se zobrazí vedle názvu souboru EDMX, v editoru sady Visual Studio. Například Model1.edmx\[Diagram1\].
+Název diagramu se zobrazí vedle názvu souboru. edmx v editoru sady Visual Studio. Například Model1. edmx\[Diagram1\].
 
-![DiagramName](~/ef6/media/diagramname.png)
+![Schéma](~/ef6/media/diagramname.png)
 
-Diagramy obsah (tvar a barva entit a přidružení) je uložen v. edmx.diagram souboru. Chcete-li zobrazit tento soubor, vyberte Průzkumníka řešení a rozbalit soubor .edmx. 
+Obsah diagramů (tvar a barva entit a přidružení) je uložený v souboru. edmx. diagram. Chcete-li zobrazit tento soubor, vyberte Průzkumník řešení a rozložte soubor. edmx. 
 
 ![DiagramFiles](~/ef6/media/diagramfiles.png)
 
-Byste neměli upravovat. edmx.diagram soubor ručně, obsah tohoto souboru možná přepsána EF designeru.
- 
+Soubor. edmx. diagram byste neměli upravovat ručně. obsah tohoto souboru je možná přepsaný návrhářem EF.
+ 
 ## <a name="splitting-entities-and-associations-into-a-new-diagram"></a>Rozdělení entit a přidružení do nového diagramu
 
-Můžete vybrat entit na existující diagram (stiskněte a podržte klávesu Shift vyberte více entit). Klikněte pravým tlačítkem myši a vyberte **přesunout do nového diagramu**. Je vytvořen nový diagram a vybrané entity a jejich přidružení se přesunula do diagramu.
+V existujícím diagramu můžete vybrat entity (při výběru více entit podržte klávesu Shift). Klikněte pravým tlačítkem myši a vyberte **přesunout do nového diagramu**. Vytvoří se nový diagram a vybrané entity a jejich přidružení se přesunou do diagramu.
 
-Alternativně můžete klikněte pravým tlačítkem na složku diagramy v prohlížeči modelů a vybrat **přidat nový Diagram.** Můžete pak přetáhněte a umístěte entity ze složky typy entit v modelu prohlížeče na návrhovou plochu.
+Případně můžete kliknout pravým tlačítkem na složku diagramy v prohlížeči modelů a vybrat **Přidat nový diagram.** Pak můžete přetahovat entity ze složky typy entit v prohlížeči modelu na návrhovou plochu.
 
-Můžete také vyjmout nebo zkopírovat entity (pomocí klávesy Ctrl-X nebo Ctrl-C) z jednoho diagramu a vložit (pomocí klávesy Ctrl-V) na straně druhé. Pokud diagram, do které se chystáte vložit entita již obsahuje entity se stejným názvem, nová entita bude vytvořen a přidán do modelu.  Příklad: Diagram2 obsahuje entitu oddělení. Pak na Diagram2 vložte jiného oddělení. Department1 entity je vytvořen a přidán do koncepčního modelu.   
+Můžete také vyjmout nebo kopírovat entity (pomocí kláves CTRL-X nebo CTRL-C) z jednoho diagramu a vložit (pomocí klávesy CTRL-V) na druhé straně. Pokud diagram, do kterého chcete entitu vložit, již obsahuje entitu se stejným názvem, vytvoří se nová entita, která se přidá do modelu.  Příklad: diagram2 obsahuje entitu oddělení. Pak do diagram2 vložíte jiné oddělení. Entita Department1 je vytvořena a přidána do koncepčního modelu.   
 
-Zahrnout související entity v diagramu, rick klepněte na entitu a vyberte **zahrnout související**. To bude vytvořte kopii souvisejících entit a přidružení zadaného diagramu.
+Pokud chcete do diagramu zahrnout související entity, Rick klikněte na entitu a vyberte **zahrnout související**. Tato akce vytvoří kopii souvisejících entit a přidružení v zadaném diagramu.
 
-## <a name="changing-the-color-of-entities"></a>Změna barvy entity
+## <a name="changing-the-color-of-entities"></a>Změna barvy entit
 
-Kromě modelu rozdělit do více diagramů, můžete také změnit barvy entity.
+Kromě rozdělení modelu do více diagramů můžete také měnit barvy entit.
 
-Chcete-li změnit barvu, vyberte entity (nebo více entit) na návrhové ploše. Potom klikněte pravým tlačítkem myši a vyberte **vlastnosti**. V okně Vlastnosti vyberte **Barva výplně** vlastnost. Zadejte barvu pomocí platná barva názvu (například Red) nebo platný RGB (například 255, 128, 128). 
+Chcete-li změnit barvu, vyberte entitu (nebo více entit) na návrhové ploše. Pak klikněte pravým tlačítkem myši a vyberte možnost **vlastnosti**. V okno Vlastnosti vyberte vlastnost **Barva výplně** . Zadejte barvu buď pomocí platného názvu barvy (například Red), nebo platného RGB (například 255, 128, 128). 
 
 ![Barva](~/ef6/media/color.png)
 
 ## <a name="summary"></a>Souhrn
 
-V tomto tématu jsme se podívali na tom, jak rozdělit do více diagramů modelu a také jak určit jinou barvu entity pomocí Entity Framework Designer. 
+V tomto tématu jsme se podívali na to, jak rozdělit model do více diagramů a také jak zadat jinou barvu pro entitu pomocí Entity Framework Designer. 

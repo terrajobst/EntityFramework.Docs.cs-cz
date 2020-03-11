@@ -7,11 +7,11 @@ ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
 ms.openlocfilehash: b911a2da493e20c4e4ce6f1e25024bd0efd38b44
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656130"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417820"
 ---
 # <a name="provider-impacting-changes"></a>Změny s dopadem na poskytovatele
 
@@ -19,13 +19,13 @@ Tato stránka obsahuje odkazy na žádosti o přijetí změn provedené v úlož
 
 Tento protokol Začínáme změnami z 2,1 na 2,2. Před 2,1 jsme použili [`providers-beware`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware) a [`providers-fyi`](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi) popisky pro naše problémy a žádosti o přijetí změn.
 
-## <a name="22-----30"></a>2,2---> 3,0
+## <a name="22-----30"></a>2.2 ---> 3.0
 
 Počítejte s tím, že mnoho [změn na úrovni aplikace](../what-is-new/ef-core-3.0/breaking-changes.md) bude mít vliv i na poskytovatele.
 
 * <https://github.com/aspnet/EntityFrameworkCore/pull/14022>
   * Odebrala se zastaralá rozhraní API a sbalená volitelná parametr přetížení.
-  * Odebrané DatabaseColumn. GetUnderlyingStoreType ()
+  * Removed DatabaseColumn.GetUnderlyingStoreType()
 * <https://github.com/aspnet/EntityFrameworkCore/pull/14589>
   * Odebrána zastaralá rozhraní API
 * <https://github.com/aspnet/EntityFrameworkCore/pull/15044>
@@ -65,7 +65,7 @@ Počítejte s tím, že mnoho [změn na úrovni aplikace](../what-is-new/ef-core
 * <https://github.com/aspnet/EntityFrameworkCore/pull/15288>
   * Osazení dat se refaktoruje na veřejné rozhraní API, aby nedocházelo k nutnosti používat interní typy. To by mělo mít vliv pouze na nerelační zprostředkovatele, protože osazení je zpracováváno základní relační třídou pro všechny relační zprostředkovatele.
 
-## <a name="21-----22"></a>2,1---> 2,2
+## <a name="21-----22"></a>2.1 ---> 2.2
 
 ### <a name="test-only-changes"></a>Pouze změny testů
 

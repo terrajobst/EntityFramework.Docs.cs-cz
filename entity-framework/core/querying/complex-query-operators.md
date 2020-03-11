@@ -4,19 +4,19 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 2e187a2a-4072-4198-9040-aaad68e424fd
 uid: core/querying/complex-query-operators
-ms.openlocfilehash: 350a7fa6a3ee1de16bad4b63e10842f9356a1b60
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 44c2695ea003da043925740a52596fd27da638f8
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72186258"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417741"
 ---
 # <a name="complex-query-operators"></a>Komplexní operátory dotazů
 
 Jazykově integrovaný dotaz (LINQ) obsahuje mnoho složitých operátorů, které kombinují více zdrojů dat nebo provádí komplexní zpracování. Ne všechny operátory LINQ mají vhodné překlady na straně serveru. V některých případech se dotaz v jednom formuláři přeloží na server, ale pokud je výsledek stejný, nepřeloží se i v případě, že je napsaný v jiném formuláři. Tato stránka popisuje některé ze složitých operátorů a jejich podporované variace. V budoucích verzích můžeme rozpoznat více vzorů a přidat jejich odpovídající překlady. Je také důležité vzít v úvahu, že podpora překladu mezi poskytovateli se liší. Konkrétní dotaz, který je přeložen v SqlServer, nemusí fungovat pro databáze SQLite.
 
 > [!TIP]
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying) na Githubu.
+> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.
 
 ## <a name="join"></a>Spojit
 
@@ -117,7 +117,7 @@ Agregační operátory EF Core podporovány jsou následující.
 - LongCount
 - Maximum
 - Minimum
-- Sum
+- Součet
 
 ## <a name="left-join"></a>Vlevo připojit
 

@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 5686d28e6847797130476cd858bd3fb611620140
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 7dc7a4404820a7c935648169cc6ff8d0f0118d87
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824478"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416747"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Referenční informace k nástrojům pro Entity Framework Core – .NET CLI
 
@@ -39,7 +39,7 @@ Postup instalace závisí na typu a verzi projektu:
 
   `dotnet ef` můžete použít také jako místní nástroj. Chcete-li jej použít jako místní nástroj, obnovte závislosti projektu, který deklaruje jako závislost nástrojů pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
 
-* Nainstalujte [.NET Core SDK 3,0](https://dotnet.microsoft.com/download/dotnet-core/3.0). Sada SDK musí být nainstalována i v případě, že máte nejnovější verzi sady Visual Studio.
+* Nainstalujte [.NET Core SDK](https://www.microsoft.com/net/download/core).
 
 * Nainstalujte nejnovější balíček `Microsoft.EntityFrameworkCore.Design`.
 
@@ -175,7 +175,7 @@ Chcete-li určit prostředí pro ASP.NET Core projekty, nastavte před spuštěn
 
 Zruší databázi.
 
-Možnosti:
+Nastavení
 
 |                   | Možnost                   | Popis                                              |
 |:------------------|:-------------------------|:---------------------------------------------------------|
@@ -218,7 +218,7 @@ Argumenty:
 | `<CONNECTION>` | Připojovací řetězec k databázi. U ASP.NET Core 2. x se hodnota může *jmenovat název =\<název připojovacího řetězce >* . V takovém případě název pochází ze zdrojů konfigurace, které jsou nastaveny pro projekt. |
 | `<PROVIDER>`   | Poskytovatel, který se má použít. Obvykle se jedná o název balíčku NuGet, například: `Microsoft.EntityFrameworkCore.SqlServer`.                                                                                           |
 
-Možnosti:
+Nastavení
 
 |                 | Možnost                                   | Popis                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -253,7 +253,7 @@ Argumenty:
 |:---------|:---------------------------|
 | `<NAME>` | Název migrace. |
 
-Možnosti:
+Nastavení
 
 |                   | Možnost                             | Popis                                                                                                      |
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
@@ -267,7 +267,7 @@ Zobrazí seznam dostupných migrací.
 
 Odebere poslední migraci (vrátí zpět změny kódu, které byly provedeny pro migraci).
 
-Možnosti:
+Nastavení
 
 |                   | Možnost    | Popis                                                                     |
 |:------------------|:----------|:--------------------------------------------------------------------------------|
@@ -284,7 +284,7 @@ Argumenty:
 | `<FROM>` | Spouští se migrace. Migrace může být identifikována podle názvu nebo podle ID. Číslo 0 je zvláštní případ, který znamená *před první migrací*. Výchozí hodnota je 0. |
 | `<TO>`   | Koncová migrace. Výchozí hodnota je poslední migrace.                                                                                                         |
 
-Možnosti:
+Nastavení
 
 |                   | Možnost            | Popis                                                        |
 |:------------------|:------------------|:-------------------------------------------------------------------|
@@ -303,7 +303,7 @@ Následující příklad vytvoří skript pro všechny migrace po migraci Initia
 dotnet ef migrations script 20180904195021_InitialCreate
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Migrace](xref:core/managing-schemas/migrations/index)
 * [Zpětná analýza](xref:core/managing-schemas/scaffolding)

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: a4af4b1a-40f4-48cc-b2e0-fa8f5d9d5419
 ms.openlocfilehash: b20d1f99f1da9c53a8a164fccc461e07d19c879d
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182545"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418723"
 ---
 # <a name="ssdl-specification"></a>Specifikace SSDL
 Soubor SSDL (Schema Definition Language) je jazyk založený na jazyce XML, který popisuje model úložiště aplikace Entity Framework.
@@ -89,7 +89,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 | Název atributu  | Je povinné | Hodnota                                                                                                |
 |:----------------|:------------|:-----------------------------------------------------------------------------------------------------|
 | **Název**        | Ano         | Název omezení cizího klíče, který představuje sada přidružení.                          |
-| **Přidružení** | Ano         | Název asociace, který definuje sloupce, které jsou součástí omezení cizího klíče. |
+| **Řídí** | Ano         | Název asociace, který definuje sloupce, které jsou součástí omezení cizího klíče. |
 
 > [!NOTE]
 > Pro element **AssociationSet** lze použít libovolný počet atributů poznámky (vlastní atributy XML). Vlastní atributy ale nepatří do žádného oboru názvů XML, který je vyhrazený pro SSDL. Plně kvalifikované názvy všech dvou vlastních atributů nemůžou být stejné.
@@ -413,7 +413,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
 | **Název**       | Ano         | Název sady entit.                                                              |
 | **Objektu** | Ano         | Plně kvalifikovaný název typu entity, pro který sada entit obsahuje instance. |
-| **schéma**     | Ne          | Schéma databáze.                                                                     |
+| **XSD**     | Ne          | Schéma databáze.                                                                     |
 | **Tabulka**      | Ne          | Databázová tabulka                                                                      |
 
 > [!NOTE]
@@ -511,7 +511,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na eleme
 | **NiladicFunction**        | Ne          | **True** , pokud je funkce funkce niladic<sup>2</sup> ; V opačném případě **NEPRAVDA** .                                                                                                                                   |
 | **IsComposable**           | Ne          | **True** , pokud je funkce sestavitelnou funkcí<sup>3</sup> ; V opačném případě **NEPRAVDA** .                                                                                                                                |
 | **ParameterTypeSemantics** | Ne          | Výčet definující sémantiku typu, která se používá k vyřešení přetížení funkce. Výčet je definován v manifestu zprostředkovatele podle definice funkce. Výchozí hodnota je **AllowImplicitConversion**. |
-| **schéma**                 | Ne          | Název schématu, ve kterém je uložená procedura definovaná.                                                                                                                                                   |
+| **XSD**                 | Ne          | Název schématu, ve kterém je uložená procedura definovaná.                                                                                                                                                   |
 
 <sup>1</sup> integrovaná funkce je funkce, která je definována v databázi. Informace o funkcích, které jsou definovány v modelu úložiště, naleznete v tématu CommandText element (SSDL).
 
@@ -631,7 +631,7 @@ Následující tabulka popisuje atributy, které lze použít pro element **Para
 | **Mode**       | Ne          | **In**, **out**nebo **InOut** v závislosti na tom, zda je parametr vstupní, výstupní nebo vstupní/výstupní parametr.                                                                                                                |
 | **MaxLength**  | Ne          | Maximální délka parametru.                                                                                                                                                                                            |
 | **Číslic**  | Ne          | Přesnost parametru.                                                                                                                                                                                                 |
-| **Kapacity**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
+| **Škálování**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
 | **SRID**       | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro parametry prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
 > [!NOTE]
@@ -716,7 +716,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na prvek
 | **MaxLength**             | Ne          | Maximální délka odpovídajícího sloupce.                                                                                                                                                                                 |
 | **FixedLength**           | Ne          | **True** nebo **false** v závislosti na tom, jestli se odpovídající hodnota sloupce uloží jako řetězec s pevnou délkou.                                                                                                              |
 | **Číslic**             | Ne          | Přesnost odpovídajícího sloupce.                                                                                                                                                                                      |
-| **Kapacity**                 | Ne          | Měřítko odpovídajícího sloupce.                                                                                                                                                                                          |
+| **Škálování**                 | Ne          | Měřítko odpovídajícího sloupce.                                                                                                                                                                                          |
 | **Unicode**               | Ne          | **True** nebo **false** v závislosti na tom, jestli se odpovídající hodnota sloupce uloží jako řetězec Unicode.                                                                                                                   |
 | **Velké**             | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
 | **SRID**                  | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
@@ -910,8 +910,8 @@ Následující tabulka popisuje atributy, které lze použít pro element **Sche
 
 | Název atributu            | Je povinné | Hodnota                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |:--------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**             | Ano         | Obor názvů modelu úložiště. Hodnota atributu **Namespace** slouží k vytvoření plně kvalifikovaného názvu typu. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store, pak plně kvalifikovaný název třídy **EntityType** je ExampleModel. Store. Customer. <br/> Následující řetězce nelze použít jako hodnotu pro atribut **Namespace** : **System**, **přechodný**nebo **EDM**. Hodnota atributu **Namespace** nemůže být stejná jako hodnota atributu **Namespace** v elementu schématu CSDL. |
-| **Alias**                 | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store a hodnota atributu **alias** je *StorageModel*, pak můžete jako plně kvalifikovaný název **objektu EntityType** použít StorageModel. Customer.                                                                                                                                                                                                                                                                                    |
+| **Hosting**             | Ano         | Obor názvů modelu úložiště. Hodnota atributu **Namespace** slouží k vytvoření plně kvalifikovaného názvu typu. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store, pak plně kvalifikovaný název třídy **EntityType** je ExampleModel. Store. Customer. <br/> Následující řetězce nelze použít jako hodnotu pro atribut **Namespace** : **System**, **přechodný**nebo **EDM**. Hodnota atributu **Namespace** nemůže být stejná jako hodnota atributu **Namespace** v elementu schématu CSDL. |
+| **Zástupný**                 | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v oboru názvů ExampleModel. Store a hodnota atributu **alias** je *StorageModel*, pak můžete jako plně kvalifikovaný název **objektu EntityType** použít StorageModel. Customer.                                                                                                                                                                                                                                                                                    |
 | **Poskytovatel**              | Ano         | Zprostředkovatel dat.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **ProviderManifestToken** | Ano         | Token, který indikuje poskytovateli, který manifest Provider vrátí. Není definován žádný formát pro token. Hodnoty pro token jsou definovány zprostředkovatelem. Informace o tokenech manifestu poskytovatele SQL Server najdete v tématu SqlClient for Entity Framework.                                                                                                                                                                                                                                                                                                                        |
 
@@ -1074,5 +1074,5 @@ Následující tabulka obsahuje popis omezujících vlastností, které jsou pod
 | **FixedLength** | Určuje, zda může být délka hodnoty sloupce odlišná.                                                                                                                                                                                                  |
 | **MaxLength**   | Určuje maximální délku hodnoty sloupce.                                                                                                                                                                                                           |
 | **Číslic**   | Pro vlastnosti typu **Decimal**určuje počet číslic, které může mít hodnota vlastnosti. Pro vlastnosti typu **Time**, **DateTime**a **DateTimeOffset**určuje počet číslic pro zlomkovou část hodnoty sloupce v sekundách. |
-| **Kapacity**       | Určuje počet číslic vpravo od desetinné čárky pro hodnotu sloupce.                                                                                                                                                                      |
+| **Škálování**       | Určuje počet číslic vpravo od desetinné čárky pro hodnotu sloupce.                                                                                                                                                                      |
 | **Unicode**     | Určuje, zda je hodnota sloupce uložena jako Unicode.                                                                                                                                                                                                    |

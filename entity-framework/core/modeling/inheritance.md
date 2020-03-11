@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 10/27/2016
 uid: core/modeling/inheritance
 ms.openlocfilehash: 507854e3acc0347adee612e516b3e2e0b10f55cf
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502162"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417293"
 ---
 # <a name="inheritance"></a>Dědičnost
 
@@ -31,7 +31,7 @@ Do modelu můžete zahrnout typy tím, že vystavíte Negenerickými pro každý
 
 Tento model je namapován na následující schéma databáze (Poznamenejte si implicitně vytvořený sloupec *diskriminátorů* , který určuje, který typ *blogu* je uložený v jednotlivých řádcích):
 
-![obrázek](_static/inheritance-tph-data.png)
+![image](_static/inheritance-tph-data.png)
 
 >[!NOTE]
 > Sloupce databáze se při použití mapování typu TPH automaticky v případě potřeby nepovolují s možnou hodnotou null. Například sloupec *RssUrl* může mít hodnotu null, protože běžné instance *blogu* tuto vlastnost nemají.

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
 ms.openlocfilehash: 86389e4a3a3bac46e2a4cf2da648a4b19e29f3c3
-ms.sourcegitcommit: 299011fc4bd576eed58a4274f967639fa13fec53
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886558"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417971"
 ---
 # <a name="configuration-file-settings"></a>Nastavení konfiguračního souboru
 Entity Framework umožňuje zadat řadu nastavení z konfiguračního souboru. V obecném EF se řídí principem konvence pro konfiguraci: všechna nastavení popisovaná v tomto příspěvku mají výchozí chování, stačí se starat o změnu nastavení jenom v případě, že výchozí hodnota už nevyhovuje vašim požadavkům.  
@@ -38,7 +38,7 @@ Oddíl **entityFramework** byl automaticky přidán do konfiguračního souboru 
 
 [Tato stránka](~/ef6/fundamentals/configuring/connection-strings.md) obsahuje další podrobnosti o tom, jak Entity Framework Určuje databázi, která se má použít, včetně připojovacích řetězců v konfiguračním souboru.  
 
-Připojovací řetězce přecházejí do standardního elementu connectionStrings a nevyžadují oddíl **entityFramework** .  
+Připojovací řetězce přecházejí do standardního elementu **connectionStrings** a nevyžadují oddíl **entityFramework** .  
 
 Modely založené na Code First používají normální připojovací řetězce ADO.NET. Příklad:  
 
@@ -90,9 +90,9 @@ Před EF6 Entity Framework se museli v rámci základního poskytovatele ADO.NET
 
 Normálně nebudete muset registrovat poskytovatele sami. To se obvykle provede poskytovatelem, když ho nainstalujete.  
 
-Poskytovatelé jsou zaregistrovaní zahrnutím elementu **Provider** do podřízené části poskytovatelé oddílu **entityFramework** . Existují dva povinné atributy pro položku zprostředkovatele:  
+Poskytovatelé jsou zaregistrovaní zahrnutím elementu **Provider** do podřízené části **poskytovatelé** oddílu **entityFramework** . Existují dva povinné atributy pro položku zprostředkovatele:  
 
-- invariantní identifikuje základního poskytovatele ADO.NET, který je cílem tohoto poskytovatele EF.  
+- **invariantní** identifikuje základního poskytovatele ADO.NET, který je cílem tohoto poskytovatele EF.  
 - **Type** je kvalifikovaný název typu sestavení pro implementaci zprostředkovatele EF.  
 
 > [!NOTE]
@@ -145,7 +145,7 @@ Ve výchozím nastavení to způsobí, že soubor protokolu bude při každém s
 </interceptors>
 ```  
 
-Další informace o **DatabaseLogger** a registrech zachycení najdete v blogovém příspěvku [EF 6,1: Zapínání protokolování bez opětovné](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)kompilace.  
+Další informace o **DatabaseLogger** a registrech zachycení najdete v blogovém příspěvku [EF 6,1: Zapnutí protokolování bez opětovné kompilace](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/).  
 
 ## <a name="code-first-default-connection-factory"></a>Code First výchozí objekt pro vytváření připojení  
 
@@ -180,7 +180,7 @@ Například SqlCeConnectionFactory, který je součástí Entity Framework, vyž
 </entityFramework>
 ```  
 
-Pokud nenastavíte výchozí objekt pro vytváření připojení, Code First používá SqlConnectionFactory a odkazuje na `.\SQLEXPRESS`. SqlConnectionFactory má také konstruktor, který umožňuje přepsat části připojovacího řetězce. Pokud chcete použít jinou instanci SQL Server, než `.\SQLEXPRESS` můžete použít tento konstruktor k nastavení serveru.  
+Pokud nenastavíte výchozí objekt pro vytváření připojení, Code First používá SqlConnectionFactory, přejděte na `.\SQLEXPRESS`. SqlConnectionFactory má také konstruktor, který umožňuje přepsat části připojovacího řetězce. Pokud chcete použít instanci SQL Server jinou než `.\SQLEXPRESS` můžete tento konstruktor použít k nastavení serveru.  
 
 Následující konfigurace způsobí, že Code First používat **MyDatabaseServer** pro kontexty, které nemají explicitní sadu připojovacích řetězců.  
 
@@ -240,7 +240,7 @@ Parametry konstruktoru používají stejnou syntaxi jako výchozí objekty pro v
 
 Můžete nakonfigurovat jeden z generických inicializátorů databáze, které jsou součástí Entity Framework. Atribut **Type** používá formát .NET Framework pro obecné typy.  
 
-Například pokud používáte migrace Code First, můžete nakonfigurovat databázi, která se má automaticky migrovat pomocí `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` inicializátoru.  
+Například pokud používáte Migrace Code First, můžete nakonfigurovat databázi, která se má migrovat automaticky pomocí inicializátoru `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>`.  
 
 ``` xml
 <contexts>

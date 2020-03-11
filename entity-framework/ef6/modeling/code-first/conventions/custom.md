@@ -1,33 +1,33 @@
 ---
-title: Vlastní kód první konvence - EF6
+title: Vlastní konvence Code First – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
 ms.openlocfilehash: cfd7f7cad532dca5227793c04d7d91e977ea5e4e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489841"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419225"
 ---
-# <a name="custom-code-first-conventions"></a>První vytváření vlastního kódu
+# <a name="custom-code-first-conventions"></a>Vlastní konvence Code First
 > [!NOTE]
-> **EF6 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny informace neplatí.
+> **EF6 pouze** funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.
 
-Při použití Code First modelu se počítá od tříd pomocí sady konvence. Výchozí hodnota [první konvence kódu](~/ef6/modeling/code-first/conventions/built-in.md) určit věci, třeba která vlastnost se stane primární klíč entity, názvu entity se mapuje na tabulku a jaké hodnot precision a scale desítkové sloupec má ve výchozím nastavení.
+Při použití Code First se model počítá z vašich tříd pomocí sady konvencí. Výchozí [konvence Code First](~/ef6/modeling/code-first/conventions/built-in.md) určují věci, jako je například vlastnost, která se změní na primární klíč entity, název tabulky, na kterou se entita mapuje, a jaká přesnost a velikost sloupce desetinného čísla mají ve výchozím nastavení.
 
-Někdy těchto výchozích konvencí nejsou ideální pro váš model, a je nutné je obejít tím, že nakonfigurujete jednotlivé entity pomocí anotacemi dat nebo rozhraní Fluent API. Vlastní první konvence kódu umožňují definovat vlastní zásady odvíjející, které poskytují výchozí konfigurační hodnoty pro váš model. V tomto názorném postupu se podíváme na různé typy vlastní konvence a jak každý z nich vytvořit.
+Tyto výchozí konvence jsou někdy ideální pro váš model a vy je budete muset vyřešit tak, že nakonfigurujete mnoho jednotlivých entit pomocí datových poznámek nebo rozhraní API Fluent. Vlastní konvence Code First umožňují definovat vlastní konvence, které pro váš model poskytují výchozí nastavení konfigurace. V tomto návodu budeme prozkoumat různé typy vlastních konvencí a postup, jak je vytvořit.
 
 
-## <a name="model-based-conventions"></a>Vytváření názvů založených na modelu
+## <a name="model-based-conventions"></a>Konvence založené na modelu
 
-Tato stránka popisuje DbModelBuilder rozhraní API pro vlastní konvence. Toto rozhraní API by mělo být dostatečné pro většinu vlastní konvence vytváření. Existuje ale také možnost vytvářet založené na modelu konvencí – konvence, které pracují s finálního modelu, jakmile se vytvoří – pro pokročilé scénáře zpracování. Další informace najdete v tématu [založené na modelu konvencí](~/ef6/modeling/code-first/conventions/model.md).
+Tato stránka pokrývá rozhraní DbModelBuilder API pro vlastní konvence. Toto rozhraní API by mělo být dostačující pro vytváření většiny vlastních konvencí. Existuje však také možnost vytvářet konvence založené na modelu, které zpracovávají konečný model po jeho vytvoření – pro zpracování pokročilých scénářů. Další informace najdete v tématu [konvence založené na modelu](~/ef6/modeling/code-first/conventions/model.md).
 
- 
+ 
 
-## <a name="our-model"></a>Náš Model
+## <a name="our-model"></a>Náš model
 
-Začněme tím, že definování jednoduchého modelu, můžeme použít s naší konvence. Přidejte následující třídy do projektu.
+Pojďme začít definováním jednoduchého modelu, který můžeme použít s našimi konvencemi. Do projektu přidejte následující třídy.
 
 ``` csharp
     using System;
@@ -62,13 +62,13 @@ Začněme tím, že definování jednoduchého modelu, můžeme použít s naš�
     }
 ```
 
- 
+ 
 
-## <a name="introducing-custom-conventions"></a>Úvod do vytváření vlastního
+## <a name="introducing-custom-conventions"></a>Představujeme vlastní konvence
 
-Napíšeme úmluvy, který konfiguruje všechny vlastnosti s názvem klíče se primární klíč pro daný typ entity.
+Pojďme napsat konvenci, která nakonfiguruje libovolnou vlastnost s názvem klíč na primární klíč pro svůj typ entity.
 
-Konvence jsou povolené na tvůrce modelu, který se dá dostat tak, že přepíšete OnModelCreating v kontextu. Aktualizace třídy ProductContext následujícím způsobem:
+V Tvůrci modelů jsou povoleny konvence, které mohou být zpřístupněny přepsáním OnModelCreating v kontextu. Aktualizujte třídu ProductContext následujícím způsobem:
 
 ``` csharp
     public class ProductContext : DbContext
@@ -89,9 +89,9 @@ Konvence jsou povolené na tvůrce modelu, který se dá dostat tak, že přepí
     }
 ```
 
-Nyní, žádné vlastnosti v náš model s názvem klíče budou nakonfigurované jako primární klíč entity, ať jeho součástí.
+Teď bude jakákoli vlastnost v našem modelu s názvem Key nakonfigurovaná jako primární klíč jakékoli entity jeho součásti.
 
-Může také neposkytujeme naše konvence konkrétnější pomocí filtrování podle typu vlastnosti, které budeme konfigurace:
+Naše konvence můžeme také lépe specifikovat filtrováním typu vlastnosti, kterou chceme nakonfigurovat:
 
 ``` csharp
     modelBuilder.Properties<int>()
@@ -99,9 +99,9 @@ Může také neposkytujeme naše konvence konkrétnější pomocí filtrování 
                 .Configure(p => p.IsKey());
 ```
 
-Tím se nakonfiguruje všechny vlastnosti volá klíčem k zajištění primární klíče jejich entity, ale pouze v případě, že se celé číslo.
+Tím se nakonfigurují všechny vlastnosti s názvem klíč jako primární klíč své entity, ale jenom v případě, že se jedná o celé číslo.
 
-Zajímavé funkce IsKey metody je, že je sčítání. To znamená, že pokud zavoláte na více vlastností IsKey a se stanou součástí složený klíč. Jeden výstrahou to je, že pokud zadáte více vlastností pro klíč musíte zadat také objednávky pro tyto vlastnosti. Toto lze provést zavoláním HasColumnOrder metoda podobná níže uvedenému příkladu:
+Zajímavou funkcí metody vlastností IsKey nastavenou je, že je aditivní. To znamená, že pokud voláte vlastností IsKey nastavenou u více vlastností a všechny budou stávají součástí složeného klíče. Tato výstraha je taková, že když pro klíč zadáte více vlastností, musíte zadat také pořadí těchto vlastností. To lze provést voláním metody HasColumnOrder, například:
 
 ``` csharp
     modelBuilder.Properties<int>()
@@ -113,24 +113,24 @@ Zajímavé funkce IsKey metody je, že je sčítání. To znamená, že pokud za
                 .Configure(x => x.IsKey().HasColumnOrder(2));
 ```
 
-Tento kód se nakonfiguruje typy v náš model má složený klíč skládající se z klíčový sloupec int a ve sloupci Název řetězce. Pokud jsme v Návrháři zobrazení modelu by vypadalo takto:
+Tento kód nakonfiguruje typy v našem modelu tak, aby měly složený klíč tvořený sloupcem klíče int a sloupce názvu řetězce. Pokud se model zobrazuje v návrháři, může vypadat takto:
 
 ![složený klíč](~/ef6/media/compositekey.png)
 
-Další příklad konvence vlastnost je konfigurace všechny vlastnosti data a času v mé modelu mapovat na typ datetime2 v systému SQL Server namísto data a času. Toho můžete dosáhnout s následujícími možnostmi:
+Dalším příkladem konvence vlastností je nakonfigurovat všechny vlastnosti DateTime v modelu můj model tak, aby se místo hodnoty DateTime namapovaly na datetime2 typ v SQL Server. Můžete to dosáhnout následujícím způsobem:
 
 ``` csharp
     modelBuilder.Properties<DateTime>()
                 .Configure(c => c.HasColumnType("datetime2"));
 ```
 
- 
+ 
 
-## <a name="convention-classes"></a>Vytváření názvů tříd
+## <a name="convention-classes"></a>Třídy konvence
 
-Dalším způsobem definování konvence je použít k zapouzdření vaše konvence vytváření názvů tříd. Při použití konvence třídy vytvořit typ, který dědí z třídy vytváření názvů v oboru názvů System.Data.Entity.ModelConfiguration.Conventions.
+Dalším způsobem definování konvencí je použití třídy konvence k zapouzdření vaší konvence. Při použití třídy konvence pak vytvoříte typ, který dědí z třídy konvence v oboru názvů System. data. entity. ModelConfiguration. Convention.
 
-Můžeme vytvořit třídu konvence s konvencí datetime2, který jsme vám ukázali výše následujícím způsobem:
+Můžete vytvořit třídu konvence s konvencí datetime2, kterou jsme dříve zjistili pomocí následujícího postupu:
 
 ``` csharp
     public class DateTime2Convention : Convention
@@ -143,7 +143,7 @@ Můžeme vytvořit třídu konvence s konvencí datetime2, který jsme vám uká
     }
 ```
 
-Chcete-li zjistit EF používat tato konvence je přidat do kolekce konvence OnModelCreating, což bude v případě, že jste postupovali podle spolu s návodu vypadat například takto:
+Chcete-li, aby EF používalo tuto konvenci, přidejte ji do kolekce konvence v OnModelCreating, kterou jste měli v případě, že budete postupovat podle pokynů společně s návodem, bude vypadat takto:
 
 ``` csharp
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -156,13 +156,13 @@ Chcete-li zjistit EF používat tato konvence je přidat do kolekce konvence OnM
     }
 ```
 
-Jak je vidět, že můžeme přidat instanci naše konvence ke kolekci konvence. Dědění z konvencí poskytuje pohodlný způsob seskupení a konvence sdílení napříč týmy nebo projekty. Můžete například mít knihovny tříd pomocí společnou sadu konvence, že všechny vaše organizace projekty použití.
+Jak vidíte, přidáme instanci naší konvence do kolekce konvence. Dědění z konvence nabízí pohodlný způsob seskupování a sdílení v rámci týmů nebo projektů. Můžete například mít knihovnu tříd se společnou sadou konvencí, kterou používají všechny projekty vaší organizace.
 
- 
+ 
 
 ## <a name="custom-attributes"></a>Vlastní atributy
 
-Další skvělé konvence slouží k povolení nové atributy pro použití při konfiguraci modelu. Pro znázornění, Pojďme vytvořit atribut, který můžete použít k označení vlastnosti řetězce jako kódování Unicode.
+Dalším velkým používáním konvencí je povolit použití nových atributů při konfiguraci modelu. Pro ilustraci si vytvoříme atribut, který můžeme použít k označení vlastností řetězce jako jiné než Unicode.
 
 ``` csharp
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
@@ -171,7 +171,7 @@ Další skvělé konvence slouží k povolení nové atributy pro použití při
     }
 ```
 
-Teď vytvoříme konvence použití tohoto atributu na náš model:
+Nyní vytvoříme konvenci pro použití tohoto atributu pro náš model:
 
 ``` csharp
     modelBuilder.Properties()
@@ -179,13 +179,13 @@ Teď vytvoříme konvence použití tohoto atributu na náš model:
                 .Configure(c => c.IsUnicode(false));
 ```
 
-S touto konvencí jsme můžete přidat atribut NonUnicode k některé z našich vlastnosti řetězce, které znamená, že sloupce v databázi se uloží jako varchar místo nvarchar.
+V této úmluvě můžeme přidat atribut nepodporující sadu Unicode do žádné z našich vlastností řetězce, což znamená, že sloupec v databázi bude uložen jako varchar namísto typu nvarchar.
 
-Jedna věc, kterou byste měli znát Tato konvence je, že když vložíte NonUnicode atribut na nic jiného než vlastnost řetězce a vyvolá výjimku. Dělá to, protože nelze nakonfigurovat IsUnicode v jakéhokoli typu než řetězce. Pokud k tomu dojde, pak můžete vytvořit vaše konvence konkrétnější, tak, aby odfiltruje cokoli, co není řetězec.
+Jednou z věcí k této konvenci je, že pokud zadáte atribut nepodporující kódování Unicode na jinou hodnotu než vlastnost řetězce, vyvolá se výjimka. To je způsobeno tím, že nemůžete nakonfigurovat kódování UTF pro jakýkoliv typ jiný než řetězec. Pokud k tomu dojde, můžete nastavit konkrétní konvenci tak, aby odfiltroval cokoli, co není řetězec.
 
-Při výše konvence se dá použít pro definování uživatelských atributů, které je jiné rozhraní API, které může být mnohem jednodušší, pokud chcete použít, zejména, pokud chcete použít vlastnosti z třídy atributů.
+I když výše uvedená konvence funguje pro definování vlastních atributů, existuje jiné rozhraní API, které může být mnohem jednodušší, zejména v případě, že chcete použít vlastnosti z třídy atributů.
 
-V tomto příkladu budeme aktualizovat naše atribut a změňte ji na atribut IsUnicode tak vypadá takto:
+V tomto příkladu budeme aktualizovat náš atribut a změnit ho na atribut typu s kódováním Unicode, aby vypadal takto:
 
 ``` csharp
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
@@ -200,7 +200,7 @@ V tomto příkladu budeme aktualizovat naše atribut a změňte ji na atribut Is
     }
 ```
 
-Jakmile budeme mít, jsme nastavili bool na naše atribut říct úmluvy Určuje, jestli vlastnost by měla být v kódování Unicode. Můžeme to udělat v konvenci, která jsme již díky přístupu do ClrProperty třídu konfigurace takto:
+Jakmile to máme, můžeme pro náš atribut nastavit bool, která určuje, jestli má být vlastnost nastavená na Unicode. To jsme mohli udělat v konvenci, kterou už máme přístup k ClrProperty třídy konfigurace, jako je tato:
 
 ``` csharp
     modelBuilder.Properties()
@@ -208,7 +208,7 @@ Jakmile budeme mít, jsme nastavili bool na naše atribut říct úmluvy Určuje
                 .Configure(c => c.IsUnicode(c.ClrPropertyInfo.GetCustomAttribute<IsUnicode>().Unicode));
 ```
 
-Toto je docela jednoduché, ale není tak stručnější hodí pomocí Having metodu vytváření rozhraní API. S metoda má parametr typu Func&lt;PropertyInfo, T&gt; která přijímá PropertyInfo stejný jako Where metody, ale očekává se vrátit objekt. Pokud vrácený objekt má hodnotu null, pak vlastnost nenakonfigurují, což znamená, že můžete filtrovat vlastnosti s ní stejně jako Where, ale se liší, bude také zaznamenání vráceného objektu a předejte metodě konfigurace. Tento postup funguje takto:
+To je dostatečně snadné, ale existuje stručnější způsob, jak toho dosáhnout pomocí metody rozhraní API pro konvence. Metoda having má parametr typu Func&lt;PropertyInfo, T&gt;, který přijímá PropertyInfo stejné jako metoda Where, ale očekává se, že vrátí objekt. Pokud je vrácený objekt null, vlastnost nebude nakonfigurována, což znamená, že můžete vyfiltrovat vlastnosti, které mají, stejně jako v případě, že se ale liší v tom, že bude také zachytit vrácený objekt a předat ho metodě configure. To funguje podobně jako u následujících:
 
 ``` csharp
     modelBuilder.Properties()
@@ -216,15 +216,15 @@ Toto je docela jednoduché, ale není tak stručnější hodí pomocí Having me
                 .Configure((config, att) => config.IsUnicode(att.Unicode));
 ```
 
-Vlastní atributy nejsou pouze z důvodu použití Having metoda, je užitečné kdekoli, budete muset o něco, co se na filtrování při konfiguraci typy nebo vlastnosti.
+Vlastní atributy nejsou jediným důvodem, proč použít metodu having, je užitečné všude, kde je třeba mít důvod na něco, co filtrujete při konfiguraci typů nebo vlastností.
 
- 
+ 
 
 ## <a name="configuring-types"></a>Konfigurace typů
 
-Zatím byly všechny naše konvence pro vlastnosti, ale existuje jiné oblasti vytváření rozhraní API pro konfiguraci typy ve vašem modelu. Možnosti jsou podobné zásady, které jsme zatím viděli, ale možnosti konfigurace uvnitř bude na entitu namísto vlastnosti úrovně.
+Všechny naše konvence byly proto pro vlastnosti, ale existuje další oblast rozhraní API konvence pro konfiguraci typů v modelu. Prostředí je podobné konvencím, které jsme doposud viděli, ale možnosti v části konfigurovat budou na entitě namísto úrovně vlastností.
 
-Jednou z věcí, které mohou být velmi užitečné pro typ úrovně konvence je změna zásady vytváření tabulky mapování na stávajícím schématu, která se liší od výchozí EF nebo vytvořit novou databázi pomocí jiné zásady vytváření názvů. K tomu potřeba nejdřív metodu, která může přijmout TypeInfo pro typ v náš model a vrátit, co by měl být název tabulky pro daný typ:
+Jedna z věcí, ke kterým se konvence na úrovni typů může skutečně hodit, je změna zásady vytváření názvů tabulek, buď k namapování na existující schéma, které se liší od výchozího nastavení EF, nebo k vytvoření nové databáze s různými konvencemi vytváření názvů. Abychom to mohli udělat, nejdřív potřebujeme metodu, která může přijmout volání TypeInfo pro typ v našem modelu a vracet, jak by měl být název tabulky tohoto typu:
 
 ``` csharp
     private string GetTableName(Type type)
@@ -235,20 +235,20 @@ Jednou z věcí, které mohou být velmi užitečné pro typ úrovně konvence j
     }
 ```
 
-Tato metoda přebírá typ a vrátí řetězec, který používá malé místo CamelCase podtržítky. V našem modelu to znamená, že třída ProductCategory budou zmapována do tabulky nazvané produktu\_místo oddělovaly kategorie.
+Tato metoda přebírá typ a vrátí řetězec, který používá malá písmena s podtržítky namísto CamelCase. V našem modelu to znamená, že třída ProductCategory bude namapována na tabulku s názvem produkt\_kategorie místo na ProductCategories.
 
-Jakmile budeme mít metody říkáme mu v konvenci takto:
+Až tuto metodu máme, můžeme ji volat v konvenci, jako je tato:
 
 ``` csharp
     modelBuilder.Types()
                 .Configure(c => c.ToTable(GetTableName(c.ClrType)));
 ```
 
-Tato konvence nakonfiguruje všechny typy v náš model mapovat na název tabulky, která je vrácena z našich GetTableName metody. Tato konvence je ekvivalentem k volání metody ToTable pro každou entitu v modelu s použitím rozhraní Fluent API.
+Tato konvence nakonfiguruje všechny typy v našem modelu pro mapování na název tabulky, který je vrácen z naší metody GetTable. Tato konvence je ekvivalentem volání metody ToTable pro každou entitu v modelu pomocí rozhraní Fluent API.
 
-Poznámka o tomto je, že při volání bude trvat ToTable EF, řetězec, který zadáte jako název tabulky přesné, bez jakékoli pluralizace, kterou by obvykle provádět při určování názvů tabulek. To je důvod, proč je název tabulky z našich konvence produkt\_kategorie místo produktu\_kategorií. Můžeme vyřešit, v našem konvence tím, že zavoláte na službu pluralizace sami.
+Všimněte si, že když zavoláte ToTable EF, převezme řetězec, který zadáte jako přesný název tabulky, bez jakékoli plurality, která by obvykle při určování názvů tabulek. Důvodem je, že název tabulky z naší konvence je produkt\_kategorie místo kategorií produktů\_. Můžeme to vyřešit v naší úmluvě tím, že zavoláte dodržovali služby pro pluralitování.
 
-V následujícím kódu budeme používat [řešení závislostí](~/ef6/fundamentals/configuring/dependency-resolution.md) funkce přidá EF6 načtení pluralizace služby, které byste použili EF a pluralize naše název tabulky.
+V následujícím kódu budeme používat funkci [překladu závislosti](~/ef6/fundamentals/configuring/dependency-resolution.md) přidanou v EF6 k načtení služby pro pojmenování, kterou použil EF, a doplnit jednotné našeho názvu tabulky.
 
 ``` csharp
     private string GetTableName(Type type)
@@ -264,11 +264,11 @@ V následujícím kódu budeme používat [řešení závislostí](~/ef6/fundame
 ```
 
 > [!NOTE]
-> Obecné verzi GetService je rozšiřující metodu v oboru názvů System.Data.Entity.Infrastructure.DependencyResolution, budete muset přidat, pomocí příkazu pro váš kontext, aby bylo možné ho použít.
+> Obecná verze GetService je metoda rozšíření v oboru názvů System. data. entity. Infrastructure. DependencyResolution, budete muset přidat příkaz using do svého kontextu, aby ho bylo možné použít.
 
 ### <a name="totable-and-inheritance"></a>ToTable a dědičnost
 
-Další důležitý aspekt ToTable je, že pokud namapujete typ explicitně do dané tabulky, je možné změnit mapování strategie, kterou bude používat EF. Při volání ToTable pro každý typ v hierarchii dědičnosti, předá název typu jako název tabulky, jak jsme to udělali výše, pak změníte výchozí strategie mapování na hierarchii tabulky (TPH) na typ tabulky (TPT). Nejlepší způsob, jak to popisují je whith konkrétní příklad:
+Dalším důležitým aspektem ToTable je, že pokud explicitně namapujete typ na danou tabulku, můžete změnit strategii mapování, kterou EF bude používat. Pokud zavoláte ToTable pro každý typ v hierarchii dědičnosti, dáte název typu jako název tabulky, jako jsme výše, a pak změníte výchozí strategii mapování tabulky na typ (TPT) na typ Table-per-Type (). Nejlepším způsobem, jak to popsat, je whith konkrétní příklad:
 
 ``` csharp
     public class Employee
@@ -283,27 +283,27 @@ Další důležitý aspekt ToTable je, že pokud namapujete typ explicitně do d
     }
 ```
 
-Ve výchozím nastavení zaměstnance a správce jsou namapovány na stejnou tabulku (zaměstnanci) v databázi. V tabulce bude obsahovat zaměstnancům i sloupec diskriminátoru, která vám dá vědět, jaký typ instance je uložen v jednotlivých řádcích. Toto je TPH mapování je jedné tabulky v hierarchii. Ale při volání ToTable na obou clase pak každý typ bude místo toho mapovat na svou vlastní tabulku, označované také jako TPT vzhledem k tomu, že každý typ má svou vlastní tabulku.
+Ve výchozím nastavení jsou zaměstnanci i manažer namapováni na stejnou tabulku (zaměstnanci) v databázi. Tabulka bude obsahovat zaměstnance i manažery se sloupcem diskriminátoru, který vám sdělí, jaký typ instance je uložený v jednotlivých řádcích. Toto je mapování typu TPH, protože pro hierarchii existuje jedna tabulka. Nicméně pokud voláte ToTable na obou Classe, pak každý typ bude mapován na vlastní tabulku, označovanou také jako TPT, protože každý typ má svou vlastní tabulku.
 
 ``` csharp
     modelBuilder.Types()
                 .Configure(c=>c.ToTable(c.ClrType.Name));
 ```
 
-Výše uvedený kód se namapuje do struktury tabulky, který vypadá takto:
+Výše uvedený kód se namapuje na strukturu tabulky, která vypadá nějak takto:
 
-![Tpt příklad](~/ef6/media/tptexample.jpg)
+![Příklad TPT](~/ef6/media/tptexample.jpg)
 
-Můžete-li tomu zabránit a udržovat TPH výchozí mapování několika způsoby:
+Můžete tomu předejít a zachovat výchozí mapování TPH několika způsoby:
 
-1.  Volání ToTable se stejným názvem tabulky pro každý typ v hierarchii.
-2.  ToTable volejte pouze pro základní třídy v hierarchii, v našem příkladu, která by byla zaměstnance.
+1.  Pro každý typ v hierarchii zavolejte ToTable se stejným názvem tabulky.
+2.  Volejte ToTable jenom pro základní třídu hierarchie, v našem příkladu, který by byl zaměstnanec.
 
- 
+ 
 
-## <a name="execution-order"></a>Pořadí provádění
+## <a name="execution-order"></a>Pořadí spouštění
 
-Konvence pracovat v posledním způsobem wins, stejná jako rozhraní Fluent API. Co to znamená, že je, že pokud napíšete dvě vytváření názvů, které se stejným nastavením možnosti této vlastnosti a pak poslední z nich ke spuštění služby wins. Například v následujícím kódu maximální délka všechny řetězce nastavená na 500, ale potom nakonfigurujeme všechny vlastnosti název v modelu, který má mít maximální délku 250.
+Konvence fungují jako poslední způsob služby WINS, stejně jako rozhraní Fluent API. To znamená, že pokud píšete dvě konvence, které nakonfigurují stejnou možnost stejné vlastnosti, pak poslední z nich spustí službu WINS. Například v kódu níže je maximální délka všech řetězců nastavená na 500, ale my nakonfigurujeme všechny vlastnosti s názvem název v modelu tak, aby měly maximální délku 250.
 
 ``` csharp
     modelBuilder.Properties<string>()
@@ -314,23 +314,23 @@ Konvence pracovat v posledním způsobem wins, stejná jako rozhraní Fluent API
                 .Configure(c => c.HasMaxLength(250));
 ```
 
-Protože konvence pro nastavení maximální délky na 250 je po ten, který nastaví všechny řetězce na 500, všechny vlastnosti v našich modelu jako název budou mít MaxLength 250 při libovolné řetězce, jako jsou popisy, 500. Pomocí konvencí tímto způsobem znamená, že můžete zadat obecné konvence pro typy nebo vlastnosti v modelu a poté toto pro podmnožiny, které se liší.
+Vzhledem k tomu, že konvence, která má nastavit maximální délku na 250, je po jedné, která nastaví všechny řetězce na 500, všechny vlastnosti s názvem v našem modelu budou mít hodnotu MaxLength 250, zatímco jakékoli jiné řetězce, například popisy, by byly 500. Použití konvencí tímto způsobem znamená, že můžete zadat obecnou konvenci pro typy nebo vlastnosti v modelu a pak je overide pro podmnožiny, které jsou odlišné.
 
-Rozhraní Fluent API a anotacemi dat lze použít také k přepsání konvence ve zvláštních případech. V našem příkladu rozhraní Fluent API měli použili k nastavení maximální délka vlastnosti pak jsme může mít ji umístit před nebo po konvence, protože konkrétnější rozhraní Fluent API vyhraje přes obecnější konvence konfigurace.
+Rozhraní Fluent API a datové poznámky lze použít také k přepsání konvence v určitých případech. Pokud jsme v našem příkladu používali rozhraní Fluent API k nastavení maximální délky vlastnosti, můžeme ji vložit před nebo po této konvenci, protože konkrétnější rozhraní API Fluent se podaří v obecnější konvenci konfigurace.
 
- 
+ 
 
-## <a name="built-in-conventions"></a>Integrované konvence
+## <a name="built-in-conventions"></a>Předdefinované konvence
 
-Protože konvence vlastní mohou být ovlivněny výchozích konvencí Code First, může být užitečné pro přidání konvence pro spuštění před nebo po jiném konvence. K tomu můžete použít metody AddBefore a AddAfter konvence kolekce na odvozené DbContext. Následující kód přidejte třídu konvence jsme vytvořili dříve, tak, aby se spustí před integrovaná v klíčových zjišťování konvence.
+Vzhledem k tomu, že vlastní konvence můžou být ovlivněné výchozími konvencemi Code First, může být užitečné přidat konvence, které se spustí před nebo po jiné úmluvě. K tomu můžete použít metody AddBefore a AddAfter kolekce konvence na odvozeném DbContext. Následující kód by přidal třídu konvence, kterou jsme vytvořili dříve, aby se spustila před integrovanou konvencí zjišťování klíčů.
 
 ``` csharp
     modelBuilder.Conventions.AddBefore<IdKeyDiscoveryConvention>(new DateTime2Convention());
 ```
 
-To bude nejvíc použití při přidávání vytváření názvů, které je potřeba spustit před nebo po integrované konvence, seznam integrované vytváření najdete tady: [System.Data.Entity.ModelConfiguration.Conventions Namespace](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx) .
+Tato možnost se bude přecházet z největšího počtu použití při přidávání konvencí, které je třeba spustit před nebo po předdefinovaných konvencích. seznam integrovaných konvencí najdete tady: [System. data. entity. ModelConfiguration. Conventions obor názvů](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx).
 
-Můžete také odebrat vytváření názvů, které nechcete použít pro váš model. K odebrání konvence, použijte metodu odebrat. Tady je příklad odebrání PluralizingTableNameConvention.
+Můžete také odebrat konvence, které nechcete použít pro váš model. Chcete-li odebrat konvenci, použijte metodu Remove. Tady je příklad odebrání PluralizingTableNameConvention.
 
 ``` csharp
     protected override void OnModelCreating(DbModelBuilder modelBuilder)

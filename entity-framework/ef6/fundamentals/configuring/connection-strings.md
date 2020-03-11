@@ -1,29 +1,29 @@
 ---
-title: Připojovací řetězce a modelů – EF6
+title: Připojovací řetězce a modely – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 294bb138-978f-4fe2-8491-fdf3cd3c60c4
 ms.openlocfilehash: 2c9f084107e4de7f5439bf0082b46a3b538496e0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490740"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419295"
 ---
-# <a name="connection-strings-and-models"></a>Připojovací řetězce a modelů
-Toto téma popisuje, jak Entity Framework zjistí připojení k databázi, a jak ho změnit. Oba modely vytvořené pomocí Code First a EF designeru jsou popsané v tomto tématu.  
+# <a name="connection-strings-and-models"></a>Připojovací řetězce a modely
+V tomto tématu se dozvíte, jak Entity Framework zjistit, které databázové připojení se má použít, a jak ho můžete změnit. V tomto tématu jsou uvedeny modely vytvořené pomocí Code First a Návrhář EF.  
 
-Obvykle aplikace Entity Framework používá třídy odvozené od položky DbContext. Tato odvozená třída bude volat jeden z konstruktorů na základní třídy DbContext do ovládacího prvku:  
+Obvykle aplikace Entity Framework používá třídu odvozenou z DbContext. Tato odvozená třída zavolá jeden z konstruktorů základní třídy DbContext, který bude řídit:  
 
-- Jak se kontext připojení k databázi – to znamená, jak připojovací řetězec se nenašel nebo používané  
-- Zda kontextu použije vypočítat model s použitím Code First nebo načtení modelu vytvářené pomocí návrháře EF  
-- Další pokročilé možnosti  
+- Jak se bude kontext připojovat k databázi – to znamená, jak se našel nebo používá připojovací řetězec  
+- Zda bude kontext používat výpočet modelu pomocí Code First nebo načtení modelu vytvořeného pomocí návrháře EF  
+- Další rozšířené možnosti  
 
-Následující fragmenty ukazují některé ze způsobů, jak konstruktory kontext databáze. je možné použít.  
+Následující fragmenty znázorňují některé způsoby, jak lze použít konstruktory DbContext.  
 
 ## <a name="use-code-first-with-connection-by-convention"></a>Použití Code First s připojením podle konvence  
 
-Pokud jste neudělali žádné další konfiguraci ve vaší aplikaci, následným voláním konstruktoru bez parametrů na DbContext způsobí DbContext spouštění v režimu Code First pomocí připojení k databázi vytvoření konvencí. Příklad:  
+Pokud jste v aplikaci neudělali žádnou jinou konfiguraci, pak volání konstruktoru bez parametrů na DbContext způsobí, že DbContext se spustí v režimu Code First s připojením k databázi vytvořeným pomocí konvence. Příklad:  
 
 ``` csharp  
 namespace Demo.EF
@@ -38,13 +38,13 @@ namespace Demo.EF
 }
 ```  
 
-V tomto příkladu DbContext používá obor názvů kvalifikovaný název vaší odvozené kontextu class—Demo.EF.BloggingContext—as název databáze a vytváří připojovací řetězec pro tuto databázi pomocí SQL Express nebo LocalDB. Pokud jsou oba nainstalovány, SQL Express se použije.  
+V tomto příkladu DbContext používá kvalifikovaný název oboru názvů vaší odvozené třídy kontextu – demo. EF. BloggingContext – jako název databáze a vytváří připojovací řetězec pro tuto databázi pomocí SQL Express nebo LocalDB. Pokud jsou obě nainstalovány, bude použit SQL Express.  
 
-Visual Studio 2010 ve výchozím nastavení a Visual Studio 2012 obsahuje SQL Express a dále zahrnuje LocalDB. Během instalace balíčku EntityFramework NuGet zkontroluje, které databázový server je k dispozici. Balíček NuGet pak aktualizuje konfigurační soubor tak, že nastavíte výchozí databázový server, který Code First používá při vytváření připojení podle konvence. Pokud je spuštěn systém SQL Express, bude použit. Pokud není k dispozici SQL Express LocalDB se bude zapsán jako výchozí místo. Do konfiguračního souboru jsou provedeny žádné změny, pokud již obsahuje nastavení pro výchozí objekt factory připojení.  
+Visual Studio 2010 obsahuje SQL Express ve výchozím nastavení a Visual Studio 2012 a novější zahrnuje LocalDB. Během instalace zkontroluje balíček NuGet EntityFramework, který databázový server je k dispozici. Balíček NuGet pak aktualizuje konfigurační soubor nastavením výchozího databázového serveru, který Code First používá při vytváření připojení podle konvence. Pokud je spuštěn SQL Express, bude použit. Pokud SQL Express není k dispozici, LocalDB se místo toho zaregistruje jako výchozí. V konfiguračním souboru nejsou provedeny žádné změny, pokud již obsahuje nastavení pro výchozí objekt pro vytváření připojení.  
 
-## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>Použití Code First s připojením podle konvence a zadaný název databáze  
+## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>Použít Code First s připojením podle konvence a zadaného názvu databáze  
 
-Pokud jste neudělali žádné další konfiguraci ve vaší aplikaci, pak volání konstruktoru řetězec na kontext databáze s názvem databáze, kterou chcete použít způsobí DbContext spouštění v režimu Code First pomocí připojení k databázi vytvořené pomocí konvence na databázi Tento název. Příklad:  
+Pokud jste v aplikaci neudělali žádnou jinou konfiguraci, pak voláním konstruktoru String v DbContext s názvem databáze, který chcete použít, způsobí, že DbContext se spustí v režimu Code First s připojením k databázi vytvořeným konvencí do databáze nástroje. Tento název. Příklad:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -56,11 +56,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-V tomto příkladu DbContext používá "BloggingDatabase" jako název databáze a vytváří připojovací řetězec pro tuto databázi pomocí SQL Express (nainstalovaný sadou Visual Studio 2010) nebo LocalDB (nainstalované s Visual Studio 2012). Pokud jsou oba nainstalovány, SQL Express se použije.  
+V tomto příkladu DbContext používá jako název databáze "BloggingDatabase" a vytvoří připojovací řetězec pro tuto databázi pomocí SQL Express (nainstalovaného se sadou Visual Studio 2010) nebo LocalDB (instaluje se s Visual Studiem 2012). Pokud jsou obě nainstalovány, bude použit SQL Express.  
 
-## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>Použít s připojovacím řetězcem v souboru app.config/web.config Code First  
+## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>Použít Code First s připojovacím řetězcem v souboru App. config/Web. config  
 
-Můžete vložit připojovací řetězec v souboru app.config nebo web.config. Příklad:  
+Do souboru App. config nebo Web. config se můžete rozhodnout připojovací řetězec. Příklad:  
 
 ``` xml  
 <configuration>
@@ -72,9 +72,9 @@ Můžete vložit připojovací řetězec v souboru app.config nebo web.config. P
 </configuration>
 ```  
 
-Toto je snadný způsob, jak zjistit kontext databáze. Chcete-li použít databázový server, než systém SQL Express nebo LocalDB – výše uvedený příklad určuje databázi systému SQL Server Compact Edition.  
+Toto je jednoduchý způsob, jak říct, že DbContext používat databázový server jiný než SQL Express nebo LocalDB – výše uvedený příklad určuje databázi edice SQL Server Compact.  
 
-Pokud název připojovacího řetězce odpovídá názvu váš kontext (s nebo bez kvalifikace názvů) pak ji bude nalezen podle DbContext při použití konstruktor bez parametrů. Pokud název připojovacího řetězce se liší od názvu kontextu poznáte kontext databáze. Chcete použít toto připojení v režimu Code First předáním název připojovacího řetězce do konstruktoru DbContext. Příklad:  
+Pokud se název připojovacího řetězce shoduje s názvem vašeho kontextu (buď s kvalifikací oboru názvů nebo bez něj), bude nalezen pomocí DbContext, pokud je použit konstruktor bez parametrů. Pokud se název připojovacího řetězce liší od názvu vašeho kontextu, pak můžete DbContext použít toto připojení v režimu Code First předáním názvu připojovacího řetězce konstruktoru DbContext. Příklad:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -86,7 +86,7 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Alternativně můžete použít formuláře "name =\<název připojovacího řetězce\>" pro řetězec předaný konstruktoru DbContext. Příklad:  
+Alternativně můžete použít formát "název =\<připojovací řetězec název\>" pro řetězec předaný konstruktoru DbContext. Příklad:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -98,13 +98,13 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Tento formulář umožňuje explicitní očekáváte, že připojovací řetězec k nalezena v konfiguračním souboru. Bude vyvolána výjimka, pokud nebyl nalezen připojovací řetězec s daným názvem.  
+Tento formulář vám umožní explicitně, abyste očekávali, že se připojovací řetězec nachází v konfiguračním souboru. Pokud nebyl nalezen připojovací řetězec se zadaným názvem, bude vyvolána výjimka.  
 
-## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>Databáze a Model první připojovacím řetězcem v souboru app.config/web.config  
+## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>Databáze/Model First s připojovacím řetězcem v souboru App. config/Web. config  
 
-Modely vytvořené pomocí EF designeru se liší od Code First, že váš model již existuje a není generován z kódu při spuštění aplikace. Model obvykle existuje jako soubor EDMX ve vašem projektu.  
+Modely vytvořené pomocí návrháře EF se liší od Code First v tom, že váš model již existuje a není generován z kódu při spuštění aplikace. Model obvykle existuje v projektu jako soubor EDMX.  
 
-Návrhář přidá připojovacího řetězce služby EF do souboru app.config nebo web.config. Tento připojovací řetězec je speciální, protože obsahuje informace o tom, jak najít informace v souboru EDMX. Příklad:  
+Návrhář přidá připojovací řetězec EF do souboru App. config nebo Web. config. Tento připojovací řetězec je speciální v tom, že obsahuje informace o tom, jak najít informace v souboru EDMX. Příklad:  
 
 ``` xml  
 <configuration>  
@@ -124,7 +124,7 @@ Návrhář přidá připojovacího řetězce služby EF do souboru app.config ne
 </configuration>
 ```  
 
-EF designeru také vygeneruje kód, který dává pokyn kontext databáze. Chcete použít toto připojení tím, že předáte název připojovacího řetězce do konstruktoru DbContext. Příklad:  
+Návrhář EF také vygeneruje kód, který instruuje DbContext k použití tohoto připojení předáním názvu připojovacího řetězce konstruktoru DbContext. Příklad:  
 
 ``` csharp  
 public class NorthwindContext : DbContext
@@ -136,13 +136,13 @@ public class NorthwindContext : DbContext
 }
 ```  
 
-DbContext věděl, může se načíst existující model (nikoli výpočet z kódu pomocí Code First) vzhledem k tomu, že připojovací řetězec je řetězec připojení EF obsahující podrobnosti o použití modelu.  
+DbContext ví, že načte existující model (místo použití Code First k jeho výpočtu z kódu), protože připojovací řetězec je připojovací řetězec EF, který obsahuje podrobnosti o modelu, který se má použít.  
 
-## <a name="other-dbcontext-constructor-options"></a>Další možnosti konstruktor DbContext  
+## <a name="other-dbcontext-constructor-options"></a>Další možnosti konstruktoru DbContext  
 
-Třídy DbContext obsahuje další konstruktory a vzorce používání, které umožňují některé pokročilejší scénáře. Zde jsou některé z těchto:  
+Třída DbContext obsahuje další konstruktory a vzory použití, které umožňují několik pokročilejších scénářů. Některé z těchto akcí:  
 
-- Třída DbModelBuilder můžete použít k sestavení modelu Code First bez vytvoření instance instanci DbContext. Výsledek tohoto objektu je objekt DbModel. Můžete předat tento objekt DbModel do jednoho z konstruktorů kontext databáze. když budete chtít vytvořit instanci DbContext.  
-- Úplný připojovací řetězec můžete předat DbContext namísto pouze název řetězce databázi nebo připojení. Ve výchozím nastavení tento připojovací řetězec se používá zprostředkovatele System.Data.SqlClient; To můžete změnit tak, že nastavíte na různé implementace IConnectionFactory do kontextu. Database.DefaultConnectionFactory.  
-- Můžete použít existující objekt DbConnection předáním konstruktoru DbContext. Pokud je objekt připojení instance EntityConnection, bude model zadané v připojení používané spíše než výpočtu pomocí modelu kódu nejprve. Pokud je objekt instancí jiný typ – například SqlConnection – pak kontextu bude používat pro režim Code First.  
-- Existující objekt ObjectContext může předat DbContext konstruktor pro vytvoření DbContext zabalení existujícího kontextu. To lze použít pro existující aplikace, které používají objekt ObjectContext, ale které chtějí využít nabídky DbContext v některé části aplikace.  
+- Třídu DbModelBuilder můžete použít k sestavení modelu Code First bez vytváření instancí instance DbContext. Výsledkem tohoto je objekt DbModel. Až budete připraveni vytvořit instanci DbContext, můžete tento objekt DbModel předat jednomu z konstruktorů DbContext.  
+- Můžete předat úplný připojovací řetězec k DbContext místo pouze databáze nebo názvu připojovacího řetězce. Ve výchozím nastavení se tento připojovací řetězec používá společně se zprostředkovatelem System. data. SqlClient; To lze změnit nastavením jiné implementace IConnectionFactory na kontext. Database. DefaultConnectionFactory.  
+- Existující objekt DbConnection můžete použít tak, že ho předáte konstruktoru DbContext. Pokud je objekt připojení instancí EntityConnection, použije se místo výpočtu modelu pomocí Code First model zadaný v připojení. Pokud je objekt instancí nějakého jiného typu, například SqlConnection, pak ho kontext použije pro režim Code First.  
+- Můžete předat existující ObjectContext konstruktoru DbContext a vytvořit DbContext pro zabalení stávajícího kontextu. Tato možnost se dá použít pro existující aplikace, které používají ObjectContext, ale které chtějí využít DbContext v některých částech aplikace.  

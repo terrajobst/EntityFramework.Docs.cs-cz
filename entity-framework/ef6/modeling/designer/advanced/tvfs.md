@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: f019c97b-87b0-4e93-98f4-2c539f77b2dc
 ms.openlocfilehash: 35684196dcd7b708a8feeb1eca3096e8d4e555ec
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182526"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418695"
 ---
 # <a name="table-valued-functions-tvfs"></a>Funkce vracející tabulku (TVF)
 > [!NOTE]
@@ -28,7 +28,7 @@ TVF jsou velmi podobné uloženým procedurám s jedním klíčovým rozdílem: 
 
 [Wmv](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 K dokončení tohoto návodu budete potřebovat:
 
@@ -38,7 +38,7 @@ K dokončení tohoto návodu budete potřebovat:
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
-1.  Otevřít Visual Studio
+1.  Otevřete sadu Visual Studio.
 2.  V nabídce **soubor** přejděte na příkaz **Nový**a potom klikněte na **projekt** .
 3.  V levém podokně klikněte na položku **Visual C\#** a pak vyberte šablonu **konzoly** .
 4.  Jako název projektu zadejte **TVF** a klikněte na **OK** .

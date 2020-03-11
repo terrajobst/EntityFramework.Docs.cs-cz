@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 51c8b6f4517a3f87821ed1e4e2d60549e06ed39d
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 6e92b869d691d0224abf1997d9eb7ea035489c5d
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656056"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417612"
 ---
 # <a name="cascade-delete"></a>Kaskádové odstranění
 
@@ -19,7 +19,7 @@ EF Core implementuje několik různých chování při odstraňování a umožň
 
 ## <a name="delete-behaviors"></a>Chování při odstranění
 
-Chování při odstranění jsou definovaná v typu enumerátoru *DeleteBehavior* a dají se předat rozhraní API pro *odstranění* Fluent, které určuje, jestli se má odstranit objekt zabezpečení nebo nadřazená entita nebo závažnost vztahu k závislým/podřízeným entitám. mají vedlejší efekt na závislých nebo podřízených entitách.
+Chování při odstranění jsou definovaná v typu enumerátoru *DeleteBehavior* a dají se předat rozhraní API pro *odstranění* Fluent, abyste mohli řídit, jestli odstranění objektu zabezpečení nebo nadřazené entity nebo závažnosti vztahu k závislým nebo podřízeným entitám má mít vedlejší vliv na závislé nebo podřízené entity.
 
 Existují tři akce, které EF může provést při odstranění objektu zabezpečení nebo nadřazené entity nebo při jeho vztahu k podřízenému objektu:
 
@@ -41,9 +41,9 @@ U volitelných vztahů (cizí klíč s možnou hodnotou null) _je_ možné ulož
 | Název chování               | Vliv na závislé nebo podřízené objekty v paměti    | Vliv na závislé nebo podřízené v databázi  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
 | **Nášejí**                 | Entity jsou odstraněny                   | Entity jsou odstraněny                   |
-| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Žádné                                   |
+| **ClientSetNull** (výchozí) | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Žádná                                   |
 | **SetNull**                 | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. | Vlastnosti cizího klíče jsou nastaveny na hodnotu null. |
-| **Omezit**                | Žádné                                   | Žádné                                   |
+| **Omezit**                | Žádná                                   | Žádná                                   |
 
 ### <a name="required-relationships"></a>Požadované relace
 
@@ -52,9 +52,9 @@ Pro požadované relace (cizí klíč, který nesmí mít hodnotu null), _není_
 | Název chování         | Vliv na závislé nebo podřízené objekty v paměti | Vliv na závislé nebo podřízené v databázi |
 |:----------------------|:------------------------------------|:--------------------------------------|
 | **Kaskádová** (výchozí) | Entity jsou odstraněny                | Entity jsou odstraněny                  |
-| **ClientSetNull**     | SaveChanges vyvolá                  | Žádné                                  |
+| **ClientSetNull**     | SaveChanges vyvolá                  | Žádná                                  |
 | **SetNull**           | SaveChanges vyvolá                  | SaveChanges vyvolá                    |
-| **Omezit**          | Žádné                                | Žádné                                  |
+| **Omezit**          | Žádná                                | Žádná                                  |
 
 V tabulkách uvedených výše může *žádný* z nich dojít k porušení omezení. Například pokud je odstraněna objekt hlavní/podřízená entita, ale není provedena žádná akce pro změnu cizího klíče závislého nebo podřízeného objektu, databáze pravděpodobně vyvolá operaci SaveChanges z důvodu narušení cizího omezení.
 
@@ -75,7 +75,7 @@ Na nejvyšší úrovni:
 
 ## <a name="entity-deletion-examples"></a>Příklady odstranění entit
 
-Níže uvedený kód je součástí [ukázky](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , kterou je možné stáhnout a spustit. Ukázka ukazuje, co se stane pro každé chování při odstraňování volitelných i požadovaných relací při odstranění nadřazené entity.
+Níže uvedený kód je součástí [ukázky](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , kterou je možné stáhnout a spustit. Ukázka ukazuje, co se stane pro každé chování při odstraňování volitelných i požadovaných relací při odstranění nadřazené entity.
 
 [!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
@@ -186,7 +186,7 @@ Pojďme si projít každou variantou, abychom porozuměli tomu, co se děje.
 
 ## <a name="delete-orphans-examples"></a>Odstranit osamocené příklady
 
-Níže uvedený kód je součástí [ukázky](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , kterou je možné stáhnout a spustit. Ukázka ukazuje, co se stane pro každé chování při odstraňování volitelných i požadovaných vztahů, pokud je v relaci mezi nadřazeným objektem, hlavním prvkem a jeho podřízenými a závislými prvky vážně. V tomto příkladu je relace závažná odebráním závislých a podřízených prvků (příspěvků) z navigační vlastnosti kolekce na objektu hlavní nebo nadřazené (blog). Chování je však stejné, pokud je odkaz z závislého nebo podřízeného objektu na objekt zabezpečení nebo nadřazený je namísto hodnoty null.
+Níže uvedený kód je součástí [ukázky](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/) , kterou je možné stáhnout a spustit. Ukázka ukazuje, co se stane pro každé chování při odstraňování volitelných i požadovaných vztahů, pokud je v relaci mezi nadřazeným objektem, hlavním prvkem a jeho podřízenými a závislými prvky vážně. V tomto příkladu je relace závažná odebráním závislých a podřízených prvků (příspěvků) z navigační vlastnosti kolekce na objektu hlavní nebo nadřazené (blog). Chování je však stejné, pokud je odkaz z závislého nebo podřízeného objektu na objekt zabezpečení nebo nadřazený je namísto hodnoty null.
 
 [!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 

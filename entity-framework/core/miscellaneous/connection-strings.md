@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
 ms.openlocfilehash: ed89d6d09b15b0dea7fd8bc3ff3e3f631495ecb7
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149111"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416587"
 ---
 # <a name="connection-strings"></a>Připojovací řetězce
 
@@ -31,9 +31,9 @@ Aplikace WinForms, WPF a ASP.NET 4 mají vyzkoušený a testovaný vzor připojo
 ```
 
 > [!TIP]  
-> Toto `providerName` nastavení není vyžadováno u EF Core připojovacích řetězců uložených v souboru App. config, protože poskytovatel databáze je nakonfigurován prostřednictvím kódu.
+> Nastavení `providerName` není vyžadováno u EF Core připojovacích řetězců uložených v App. config, protože poskytovatel databáze je nakonfigurován prostřednictvím kódu.
 
-Pak můžete přečíst připojovací řetězec pomocí `ConfigurationManager` rozhraní API v `OnConfiguring` metodě vašeho kontextu. Je možné, že budete muset přidat odkaz na `System.Configuration` sestavení rozhraní, abyste mohli používat toto rozhraní API.
+Pak můžete přečíst připojovací řetězec pomocí rozhraní `ConfigurationManager` API v metodě `OnConfiguring` vašeho kontextu. Možná budete muset přidat odkaz na sestavení rozhraní `System.Configuration` Framework, abyste mohli používat toto rozhraní API.
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -65,9 +65,9 @@ public class BloggingContext : DbContext
 }
 ```
 
-## <a name="aspnet-core"></a>ASP.NET Core
+## <a name="aspnet-core"></a>Jádro ASP.NET
 
-V ASP.NET Core je konfigurační systém velmi flexibilní a připojovací řetězec mohl být uložen v proměnné prostředí, `appsettings.json`v úložišti tajného klíče uživatele nebo v jiném zdroji konfigurace. Další podrobnosti najdete v [části věnované konfiguraci v dokumentaci k ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html) . Následující příklad ukazuje připojovací řetězec uložený v `appsettings.json`.
+V ASP.NET Core je konfigurační systém velmi flexibilní a připojovací řetězec mohl být uložen v `appsettings.json`, proměnné prostředí, úložišti tajných klíčů uživatele nebo jiném zdroji konfigurace. Další podrobnosti najdete v [části věnované konfiguraci v dokumentaci k ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html) . Následující příklad ukazuje připojovací řetězec uložený v `appsettings.json`.
 
 ``` json
 {
@@ -77,7 +77,7 @@ V ASP.NET Core je konfigurační systém velmi flexibilní a připojovací řet�
 }
 ```
 
-Kontext je obvykle nakonfigurovaný v `Startup.cs` rámci s připojovacím řetězcem čteným z konfigurace. Všimněte si `GetConnectionString()` , že metoda hledá hodnotu konfigurace, jejíž klíč `ConnectionStrings:<connection string name>`je. Chcete-li použít tuto metodu rozšíření, je nutné importovat obor názvů [Microsoft. Extensions. Configuration](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration) .
+Kontext je obvykle nakonfigurován v `Startup.cs` s připojovacím řetězcem čteným z konfigurace. Všimněte si, že metoda `GetConnectionString()` hledá hodnotu konfigurace, jejíž klíč je `ConnectionStrings:<connection string name>`. Chcete-li použít tuto metodu rozšíření, je nutné importovat obor názvů [Microsoft. Extensions. Configuration](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration) .
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)

@@ -1,21 +1,21 @@
 ---
-title: Definování DbSets - EF6
+title: Definování DbSets-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4528a509-ace7-4dfb-8065-1b833f5e03a0
 ms.openlocfilehash: 045b22d2b9d26804948689dd7c9dd694baadda7e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488995"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419092"
 ---
 # <a name="defining-dbsets"></a>Definování DbSets
-Při vývoji se kód prvního pracovního postupu můžete definovat odvozené DbContext, který reprezentuje relaci s databází a zveřejňuje DbSet pro každý typ v modelu. Toto téma popisuje různé způsoby, jak můžete definovat vlastnosti DbSet.  
+Při vývoji pomocí pracovního postupu Code First definujete odvozenou DbContext, která představuje vaši relaci s databází a zpřístupňuje Negenerickými pro každý typ v modelu. Toto téma popisuje různé způsoby, jak můžete definovat vlastnosti Negenerickými.  
 
-## <a name="dbcontext-with-dbset-properties"></a>Kontext databáze s vlastnostmi DbSet  
+## <a name="dbcontext-with-dbset-properties"></a>DbContext s vlastnostmi Negenerickými  
 
-Běžné Code First příkladů je DbContext s veřejné vlastnosti automatické DbSet pro typy entity z modelu. Příklad:  
+Běžný případ zobrazený v Code First příklady je mít DbContext s veřejnými automatickými Negenerickými vlastnostmi pro typy entit vašeho modelu. Příklad:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -25,11 +25,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Při použití v režimu Code First, bude to jako typy entit, jakož i jiné typy, které jsou dostupné z těchto konfigurací konfigurace blogů a příspěvky. Kromě toho DbContext automaticky zavolá metodu setter pro každou z těchto vlastností lze nastavit instanci odpovídající DbSet.  
+Při použití v režimu Code First Tato akce nakonfiguruje Blogy a příspěvky jako typy entit a také nakonfiguruje další typy, které jsou z nich dosažitelné. Kromě toho DbContext automaticky volá metodu setter pro každou z těchto vlastností pro nastavení instance příslušného Negenerickými.  
 
-## <a name="dbcontext-with-idbset-properties"></a>Kontext databáze s vlastnostmi IDbSet  
+## <a name="dbcontext-with-idbset-properties"></a>DbContext s vlastnostmi IDbSet  
 
-Existují situace, jako je například při vytváření mocks nebo napodobeniny, kde je další užitečné k deklaraci vlastnosti sady pomocí rozhraní. V takových případech IDbSet rozhraní může být zastoupen DbSet. Příklad:  
+Existují situace, například při vytváření návrhů nebo napodobenin, kde je užitečnější k deklaraci vlastností sady pomocí rozhraní. V takových případech lze rozhraní IDbSet použít místo Negenerickými. Příklad:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -39,11 +39,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Tento kontext funguje přesně stejným způsobem jako kontext, který se používá třídu DbSet sady vlastností.  
+Tento kontext funguje naprosto stejným způsobem jako kontext, který používá třídu Negenerickými pro jeho vlastnosti set.  
 
-## <a name="dbcontext-with-read-only-set-properties"></a>Nastavit vlastnosti DbContext s jen pro čtení  
+## <a name="dbcontext-with-read-only-set-properties"></a>DbContext s vlastnostmi sady jen pro čtení  
 
-Pokud nechcete, aby k vystavení veřejné metody setter pro DbSet nebo IDbSet vlastností můžete místo toho vytvořit vlastnosti jen pro čtení a vytvoření instancí sady sami. Příklad:  
+Pokud nechcete zveřejnit veřejné metody setter pro vlastnosti Negenerickými nebo IDbSet, můžete místo toho vytvořit vlastnosti jen pro čtení a vytvořit instance sady sami. Příklad:  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -60,6 +60,6 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Všimněte si, že DbContext ukládá do mezipaměti instance DbSet vrátil z metody Set tak, aby každá z těchto vlastností vrátí stejnou instanci pokaždé, když je volána.  
+Všimněte si, že DbContext ukládá do mezipaměti instanci Negenerickými vrácenou z metody set, aby každá z těchto vlastností vrátila stejnou instanci pokaždé, když je volána.  
 
-Zjišťování typů entit pro Code First lze použít stejně jako jako to udělá za vlastnosti veřejné metody getter a setter.  
+Zjišťování typů entit pro Code First funguje stejným způsobem jako u vlastností s veřejnými metodami getter a setter.  

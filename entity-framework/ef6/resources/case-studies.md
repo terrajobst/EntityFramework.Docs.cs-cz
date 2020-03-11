@@ -1,56 +1,56 @@
 ---
-title: Případové studie pro Entity Framework - EF6
+title: Případové studie Entity Framework – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cd5d3ae3-717d-4095-a2ef-0e8fd72b1a2f
 ms.openlocfilehash: d7982a3f89ac1e57b48039d828f287adf6dc5068
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490873"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417079"
 ---
-# <a name="microsoft-case-studies-for-entity-framework"></a>Případové studie společnosti Microsoft pro Entity Framework
-Případové studie na této stránce zvýrazněte několik skutečné produkční projekty, které jste použili Entity Framework.
+# <a name="microsoft-case-studies-for-entity-framework"></a>Případové studie Microsoftu pro Entity Framework
+Případové studie na této stránce zvýrazňují několik skutečných produkčních projektů, které jsou zaměstnané Entity Framework.
 > [!NOTE]
-> Podrobné verzích tyto případové studie, už nejsou k dispozici na webu společnosti Microsoft. Proto jsme odebrali odkazy.
+> Podrobné verze těchto případových studií již nejsou k dispozici na webu společnosti Microsoft. Proto byly odkazy odebrány.
 
 ## <a name="epicor"></a>Epicor
-Epicor je velkých softwarových globální společnost (s více než 400 vývojáři), který vyvíjí řešení plánování ERP (Enterprise Resource) pro společnosti, ve víc než 150 zemích.
-Jejich produktem, Epicor 9, je založená na Service-Oriented architektury (SOA) pomocí rozhraní .NET Framework.
-Potýkají s mnoha požadavky zákazníků o podporu pro Language Integrated Query (LINQ) a také chce snížit zatížení na back-end serverech SQL, tým se rozhodli upgradovat na Visual Studio 2010 a rozhraní .NET Framework 4.0.
-Pomocí Entity Framework 4.0, studenti mohli k dosažení těchto cílů a zároveň výrazně zjednodušuje vývoj a údržbu.
-Zejména rozhraní Entity Framework bohatou podporu T4 můžou úplnou kontrolu nad jejich generovaný kód a automaticky vytvářet v ukládání výkonu funkce, jako je předem kompilovaných dotazy a ukládání do mezipaměti.
+Epicor je velká globální softwarová společnost (s více než 400 vývojáři), která vyvíjí řešení pro plánování podnikových zdrojů (ERP) pro společnosti ve více než 150 zemích.
+Nejdůležitější produkt Epicor 9 je založený na architektuře SOA (Service-orientované) pomocí .NET Framework.
+V rámci řady zákaznických žádostí o poskytnutí podpory jazyka LINQ (Language Integrated Query) a také pro omezení zatížení na svých back-end SQL serverech se tým rozhodl upgradovat na Visual Studio 2010 a .NET Framework 4,0.
+Pomocí Entity Framework 4,0 byly schopné dosáhnout těchto cílů a také významně zjednodušit vývoj a údržbu.
+Konkrétně podpora bohatých T4 Entity Framework jim umožní plně ovládat jejich vygenerovaný kód a automaticky vytvářet v funkcích pro ukládání výkonu, jako jsou předem kompilované dotazy a ukládání do mezipaměti.
 
-> "Můžeme regulovat některé testy výkonu nedávno s existujícím kódem a jsme byli schopni snížit požadavky na systém SQL Server 90 procent.
-To je z důvodu rozhraní ADO.NET Entity Framework 4." – Erik Johnsonem, viceprezident, produktový výzkum  
+> "Provedli jsme některé testy výkonu v poslední době se stávajícím kódem a nemohli jsme omezit požadavky na SQL Server o 90 procent.
+Důvodem je, že ADO.NET Entity Framework 4. " – Erik Johnsonem, viceprezident, výzkumný produkt  
 
-## <a name="veracity-solutions"></a>Pravdivosti řešení
-Získá plánování akcí softwarového systému, která se má být obtížné udržovat a rozšířit nad dlouhodobě, používá pravdivosti řešení sady Visual Studio 2010 znovu zapsat jako výkonný a snadným ovládáním Rich Internet Application založená na technologii Silverlight 4.
-Použití .NET RIA Services, studenti mohli rychle sestavit vrstvu služby jako nadstavby rozhraní Entity Framework, která zabránit zdvojení kódu a povolené pro běžné ověření a logika ověřování napříč úrovněmi.  
+## <a name="veracity-solutions"></a>Řešení s pravdivostí
+Získali jsme softwarový systém pro plánování událostí, který se bude obtížně udržovat a rozšířit na dlouhodobá řešení s využitím sady Visual Studio 2010 k jeho novému zápisu jako výkonné a snadno použitelné bohatý internetovou aplikaci postavenou na Silverlight 4.
+Pomocí služeb .NET RIA byly schopné rychle vytvořit vrstvu služby nad Entity Framework, která se vyhnout duplicitám kódu a povolují se pro běžné ověřování a logiku ověřování napříč úrovněmi.  
 
-> "Jsme se prodávají na rozhraní Entity Framework při bylo poprvé dostupné a Entity Framework 4 ukázal být ještě lepší.
-Vylepšené nástroje a je jednodušší pracovat s edmx soubory, které definují konceptuální model, úložiště modelu a mapování mezi tyto modely... S rozhraním Entity Framework, můžu získat této vrstvy přístupu k datům práce za den a sestavte ho si, jak se můžu obrátit.
-Entity Framework je naše vrstvy přístupu k datům de facto stane; Nevím, proč kdokoli by to mohlo hodit." – Joe McBride, hlavní vývojář
+> "Při prvním zavedení jsme prodali Entity Framework a Entity Framework 4 bylo prověřeno ještě lepší.
+Vylepšení nástrojů a je snazší manipulovat se soubory. edmx, které definují koncepční model, model úložiště a mapování mezi těmito modely... Pomocí Entity Framework můžu získat tuto vrstvu přístupu k datům za den – a vytvořit ji při tom, jak mám.
+Entity Framework je naše de facto Data Access Layer; Nevím, proč ji nikdo nepoužívá. " – Jan McBride, vedoucí vývojář
 
-## <a name="nec-display-solutions-of-america"></a>Společnost NEC zobrazení řešení amerických
-Společnost NEC chtěli vstupují na trh pro digitální reklamu založené na místě s řešením mít prospěch inzerenty a vlastníci sítě a zvyšte svou vlastní výnosy.
-K tomu, že spuštění pár webových aplikací, které automatizaci ručních procesů vyžaduje tradiční ad kampaně.
-Lokality byly vytvořeny s použitím technologie ASP.NET, Silverlight 3, AJAX a služby WCF, spolu s Entity Framework v datové vrstvě přístupu ke komunikaci s SQL Server 2008.
+## <a name="nec-display-solutions-of-america"></a>Řešení pro zobrazení NEC v Americe
+NEC chtěli přejít na trh s využitím digitálního reklamního inzerce pomocí řešení pro zvýhodnění inzerentů a vlastníků sítě a zvýšit svoje vlastní výnosy.
+Za tímto účelem se spustí dvojice webových aplikací, které automatizují ruční procesy vyžadované v tradiční kampani služby AD.
+Weby byly sestaveny pomocí ASP.NET, Silverlight 3, AJAX a WCF, spolu s Entity Framework ve vrstvě přístupu k datům, aby se nacházely SQL Server 2008.
 
-> "S SQL serverem, jsme popisovač jsme může zajistit si tak propustnost, potřebujeme k poskytování inzerenty a sítím pomocí informací v reálném čase a spolehlivost pomáhá zajistit, že informace v naší nejdůležitější aplikace bude mít vždycky k dispozici"-Mike Corcoran Ředitel IT
+> "Díky SQL Server jsme zjistili propustnost, kterou potřebujeme k poskytování inzerentů a sítí s informacemi v reálném čase a spolehlivosti, aby bylo zajištěno, že informace v klíčových aplikacích, které budou vždy k dispozici, budou mít vždycky k dispozici"-Jan Corcoran, Ředitelka IT
 
-## <a name="darwin-dimensions"></a>Dimenze Darwin
-Pomocí technologie Microsoft široký rozsah, tým na adrese Darwin nedodá vytvořit Evolver - online avatar portál, příjemci můžou použít k vytvoření působivé, živoucí avatary pro použití hry, animace a sociální sítě stránky.
-Produktivita výhody rozhraní Entity Framework a přijímání změn v komponenty, jako jsou Windows Workflow Foundation (WF) a Windows Server AppFabric (mezipaměť vysoce škálovatelných aplikací v paměti) bylo možné poskytovat úžasné produktu v 35 % menší tým dobu vývoje.
-Přestože máte aktivovanou členové týmu rozdělit mezi více zemí, tým procesu agilního vývoje s týdenních vydáních.
+## <a name="darwin-dimensions"></a>Darwin – dimenze
+Při použití široké škály technologií Microsoftu tým v Darwin nastavil pro vytváření a na portálu online avatary, které můžou zákazníci použít k vytváření působivých Lifelike avatary pro použití v hrách, animacích a stránkách sociálních sítí.
+S výhodami pro produktivitu Entity Framework a načtením z komponent, jako je programovací model Windows Workflow Foundation (WF) a Windows Server AppFabric (vysoce škálovatelná mezipaměť aplikace v paměti), tým mohl dodat úžasné produkt 35% méně. čas vývoje.
+Navzdory tomu, že se členové týmu rozdělují mezi více zemí, tým po procesu agilního vývoje s týdenními verzemi.
 
- > "Snažíme nevytvářet technologie pro saké technologie. Jako při spuštění je důležité, že můžeme využívat technologie, která šetří čas a peníze.
- .NET je volba pro rychlé a cenově výhodný vývoj". – Zachary Olsen, architekt  
+ > "Zkusíme, abychom nevytvořili technologii pro účely. Jako spuštění je klíčové, že využíváme technologii, která šetří čas a peníze.
+ Rozhraní .NET bylo volbou pro rychlý a nákladově efektivní vývoj. " – Zachary Olsen, architekt  
 
-## <a name="silverware"></a>Stříbrné nádobí
-S více než 15 letech zkušeností s vývojem POS (POS) řešení pro malé a střední restaurace skupiny vývojový tým na stříbrné nádobí nedodá k vylepšení svých produktů s více funkcemi na podnikové úrovni k upoutání pozornosti větší restaurace řetězců.
-Pomocí nejnovější verze sady vývojových nástrojů od Microsoftu, studenti mohli vytvářet nové řešení čtyřikrát rychleji než dřív.
-LINQ a Entity Framework snazší přesun z Crystal Reports do systému SQL Server 2008 a SQL Server Reporting Services (SSRS) pro svá úložiště dat a sestav, jako jsou klíčové nové funkce.
+## <a name="silverware"></a>Silverware
+S více než 15 lety zkušeností při vývoji řešení pro malé a středních Restaurace v prodeji je vývojový tým na Silverware nastavený tak, aby vylepšil svůj produkt o více funkcí na podnikové úrovni, aby se daly přilákat větší řetězy restaurací.
+Pomocí nejnovější verze vývojářských nástrojů od Microsoftu bylo možné vytvořit nové řešení čtyřikrát rychleji než dřív.
+Klíčové nové funkce, jako LINQ a Entity Framework, usnadňují přesun ze sestav Crystal Reports do SQL Server 2008 a SQL Server Reporting Services (SSRS) pro potřeby jejich ukládání a vytváření sestav.
 
-> "Správa počáteční datum je klíčem k úspěchu stříbrné nádobí – a to je důvod, proč jsme se rozhodli přijmout, SQL Reporting." -Nicholas Romanidis, ředitel IT / technické softwaru
+> "Efektivní správa dat je klíč k úspěchu SilverWare – a je to proto, že jsme se rozhodli přijmout SQL Reporting." – Nicholas Romanidis, ředitel oddělení IT/softwaru

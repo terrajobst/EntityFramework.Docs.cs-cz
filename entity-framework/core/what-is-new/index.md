@@ -1,24 +1,24 @@
 ---
 title: EF Core vydání a plánování
 author: ajcvickers
-ms.date: 01/29/2020
+ms.date: 03/03/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 0704b624a50d0736fefbb5633e9e7e657499a703
-ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
+ms.openlocfilehash: 2c41f65d1fead8430a39c6230a0f22506686504e
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2020
-ms.locfileid: "76888072"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417959"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core vydání a plánování
 
 ## <a name="stable-releases"></a>Stabilní verze
 
-| Vydaná verze | Cílová architektura | Podporováno až do | Odkazy
+| Vydat | Cílová architektura | Platnost do | Odkazy
 |:--------|------------------|-----------------|------
-| [EF Core 3,1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.1) | .NET Standard 2,0 | 3\. prosince 2022 (LTS) | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
-| [EF Core 3,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.1) | .NET Standard 2.1 | 3\. března 2020 | [Oznámení](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [přerušující změny](ef-core-3.0/breaking-changes.md)
+| [EF Core 3,1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.2) | .NET Standard 2,0 | 3\. prosince 2022 (LTS) | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
+| ~~[EF Core 3,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.3)~~ | .NET Standard 2.1 | Konec platnosti 3. března 2020 | [Oznámení](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [přerušující změny](ef-core-3.0/breaking-changes.md)
 | ~~[EF Core 2,2](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.6)~~ | .NET Standard 2,0 | Konec platnosti 23. prosince 2019 | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-2/)
 | [EF Core 2.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.1.14) | .NET Standard 2,0 | 21. srpna 2021 (LTS) | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-1/)
 | ~~[EF Core 2,0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.0.3)~~ | .NET Standard 2,0 | Platnost od 1. října 2018 | [Ohlášen](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-0/)

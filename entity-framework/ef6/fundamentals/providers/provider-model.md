@@ -4,11 +4,11 @@ author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
 ms.openlocfilehash: 8bda3f51e8934f2add862c30e60f1185f068c515
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181614"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419358"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Model poskytovatele Entity Framework 6
 
@@ -16,7 +16,7 @@ Model poskytovatele Entity Framework povoluje použití Entity Framework s různ
 
 Byly vyžadovány určité změny, jak EF spolupracuje s poskytovateli, aby bylo možné vydat EF v rámci licence Open Source. Tyto změny vyžadují nové sestavení zprostředkovatelů EF proti sestavením EF6 spolu s novými mechanismy pro registraci zprostředkovatele.
 
-## <a name="rebuilding"></a>Znovu sestavit
+## <a name="rebuilding"></a>Nové sestavení
 
 EF6 je nyní součástí základního kódu, který byl dřív součástí .NET Framework, jako sestavení mimo pásmo (OOB). Podrobnosti o tom, jak sestavovat aplikace pro EF6, najdete na stránce [aktualizace aplikací pro EF6](~/ef6/what-is-new/upgrading-to-ef6.md) . V těchto pokynech bude také potřeba znovu sestavit poskytovatele.
 
@@ -28,7 +28,7 @@ Zprostředkovatel EF je ve skutečnosti kolekce služeb specifických pro poskyt
 
 ### <a name="dbproviderfactory"></a>DbProviderFactory
 
-EF závisí na typu odvozeném z typu [System. data. Common. DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) pro provádění všech přístupů k databázi nízké úrovně. DbProviderFactory není ve skutečnosti součástí EF, ale je to třída v .NET Framework, která slouží vstupnímu bodu pro poskytovatele ADO.NET, který může být použit v EF, jiné O/RMs nebo přímo aplikací pro získání instancí připojení, příkazů, parametrů a Další abstrakce ADO.NET ve zprostředkovateli nezávislá způsobem. Další informace o DbProviderFactory najdete v [dokumentaci MSDN pro ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
+EF závisí na typu odvozeném z typu [System. data. Common. DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx) pro provádění všech přístupů k databázi nízké úrovně. DbProviderFactory není ve skutečnosti součástí EF, ale je to třída v .NET Framework, která slouží vstupnímu bodu pro poskytovatele ADO.NET, který může být použit v EF, jiné O/RMs nebo přímo v aplikaci k získání instancí připojení, příkazů, parametrů a dalších ADO.NET abstrakcí v poskytovateli nezávislá. Další informace o DbProviderFactory najdete v [dokumentaci MSDN pro ADO.NET](https://msdn.microsoft.com/library/a6cd7c08.aspx).
 
 ### <a name="dbproviderservices"></a>DbProviderServices
 
@@ -36,7 +36,7 @@ EF závisí na typu odvozeném od DbProviderServices pro poskytování dalších
 
 Další podrobnosti o základních funkcích implementace DbProviderServices najdete na [webu MSDN](https://msdn.microsoft.com/library/ee789835.aspx). Upozorňujeme však, že od doby psaní těchto informací není pro EF6 aktualizováno, i když je většina konceptů stále platná. SQL Server a SQL Server Compact implementace DbProviderServices jsou také vráceny do [Open Source základu kódu](https://github.com/aspnet/EntityFramework6/) a mohou sloužit jako užitečné odkazy pro jiné implementace.
 
-Ve starších verzích EF byla implementace DbProviderServices k použití získána přímo od poskytovatele ADO.NET. To bylo provedeno přetypováním DbProviderFactory na IServiceProvider a voláním metody GetService. Tím se úzce propojí poskytovatel EF s DbProviderFactory. Tento spojovací kód zablokoval EF z .NET Framework, a proto pro EF6 toto těsné spojení bylo odebráno a implementace DbProviderServices je nyní registrována přímo v konfiguračním souboru aplikace nebo v kódu na základě kódu. Konfigurace popsaná podrobněji v části _registrace DbProviderServices_
+Ve starších verzích EF byla implementace DbProviderServices k použití získána přímo od poskytovatele ADO.NET. To bylo provedeno přetypováním DbProviderFactory na IServiceProvider a voláním metody GetService. Tím se úzce propojí poskytovatel EF s DbProviderFactory. Tento spojovací bod zablokoval EF z .NET Framework, a proto pro EF6 bylo odebráno toto těsné propojení a implementace DbProviderServices je nyní registrována přímo v konfiguračním souboru aplikace nebo v konfiguraci založené na kódu, jak je popsáno dále v části Další informace níže v části _registrace DbProviderServices_ .
 
 ## <a name="additional-services"></a>Další služby
 
@@ -62,7 +62,7 @@ Toto je volitelná služba, která umožňuje použití migrace EF pro generová
 
 ### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection, String, HistoryContextFactory >
 
-Toto je volitelná služba, která umožňuje poskytovateli nakonfigurovat mapování HistoryContext na tabulku `__MigrationHistory`, kterou používají migrace EF. HistoryContext je Code First DbContext a dá se nakonfigurovat pomocí normálního rozhraní API Fluent, aby se změnily položky, jako je název tabulky a specifikace mapování sloupců. Výchozí implementace této služby vracené EF pro všechny poskytovatele můžou fungovat pro daný databázový server, pokud jsou všechna výchozí mapování tabulek a sloupců podporovaná zprostředkovatelem. V takovém případě poskytovatel nemusí poskytovat implementaci této služby.
+Toto je volitelná služba, která umožňuje poskytovateli nakonfigurovat mapování HistoryContext k tabulce `__MigrationHistory` používané migracemi EF. HistoryContext je Code First DbContext a dá se nakonfigurovat pomocí normálního rozhraní API Fluent, aby se změnily položky, jako je název tabulky a specifikace mapování sloupců. Výchozí implementace této služby vracené EF pro všechny poskytovatele můžou fungovat pro daný databázový server, pokud jsou všechna výchozí mapování tabulek a sloupců podporovaná zprostředkovatelem. V takovém případě poskytovatel nemusí poskytovat implementaci této služby.
 
 ### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
 

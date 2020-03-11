@@ -1,54 +1,54 @@
 ---
-title: Testování s SQLite – EF Core
+title: Testování pomocí EF Core SQLite
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 7a2b75e2-1875-4487-9877-feff0651b5a6
 uid: core/miscellaneous/testing/sqlite
-ms.openlocfilehash: e8ff204a09d50064b4f0d4376f02b05c8681ac25
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: f7f847d8c766c0d4d7577ea6760ee72a17f84933
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562530"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417300"
 ---
 # <a name="testing-with-sqlite"></a>Testování s SQLite
 
-SQLite má režim v paměti, která umožňuje používat k psaní testů pro relační databázi, bez režie skutečné databázových operací SQLite.
+SQLite má režim v paměti, který umožňuje použít SQLite k zápisu testů na relační databázi bez režie pro skutečné databázové operace.
 
 > [!TIP]  
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) na Githubu
+> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) najdete v tomto článku na GitHubu.
 
 ## <a name="example-testing-scenario"></a>Ukázkový scénář testování
 
-Vezměte v úvahu následující služba, která umožňuje provádět některé operace související s blogy kódu aplikace. Interně používá `DbContext` , která se připojuje k databázi SQL serveru. Bylo by užitečné přepínat tímto kontextem za účelem připojení k databázi SQLite v paměti tak, aby jsme zápisu efektivních testů pro tuto službu bez nutnosti upravovat kód, nebo dělat spoustu práce pro vytvoření testu double kontextu.
+Vezměte v úvahu následující službu, která umožňuje, aby kód aplikace prováděl některé operace týkající se blogů. Interně používá `DbContext`, které se připojují k databázi SQL Server. Pro připojení k databázi SQLite v paměti by bylo vhodné tento kontext prohodit, aby bylo možné zapsat efektivní testy pro tuto službu, aniž by bylo nutné kód upravovat, nebo udělat spoustu práce, aby bylo možné vytvořit test Double v kontextu.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
 
-## <a name="get-your-context-ready"></a>Připravte váš kontext
+## <a name="get-your-context-ready"></a>Připravte svůj kontext
 
-### <a name="avoid-configuring-two-database-providers"></a>Nechcete konfigurovat dva poskytovatelé databází
+### <a name="avoid-configuring-two-database-providers"></a>Nekonfigurují se dva poskytovatelé databáze.
 
-Ve vašich testech se chystáte externě nakonfigurovat místní na použití poskytovatele InMemory. Pokud konfigurujete poskytovatele databáze tak, že přepíšete `OnConfiguring` v kontextu, pak budete muset přidat některé podmíněný kód tak, aby, pokud ještě nebyl nakonfigurován pouze konfigurace poskytovatele databáze.
+V testech provedete externě konfiguraci kontextu pro použití poskytovatele inMemory. Pokud konfigurujete poskytovatele databáze přepsáním `OnConfiguring` v kontextu, budete muset přidat nějaký podmíněný kód, abyste měli jistotu, že jste poskytovatele databáze nakonfigurovali jenom v případě, že ještě není nakonfigurovaný.
 
 > [!TIP]  
-> Pokud používáte ASP.NET Core, by neměla od svého poskytovatele databáze je nakonfigurovaný mimo kontext (v souboru Startup.cs) musí tento kód.
+> Pokud používáte ASP.NET Core, neměli byste tento kód potřebovat, protože váš poskytovatel databáze je nakonfigurovaný mimo kontext (v Startup.cs).
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
 
-### <a name="add-a-constructor-for-testing"></a>Přidejte konstruktor pro účely testování
+### <a name="add-a-constructor-for-testing"></a>Přidání konstruktoru pro testování
 
-Nejjednodušší způsob, jak povolit testování na jinou databázi je upravit kontext k vystavení konstruktor, který přijímá `DbContextOptions<TContext>`.
+Nejjednodušší způsob, jak povolit testování v jiné databázi, je upravit svůj kontext, aby vystavoval konstruktor, který přijímá `DbContextOptions<TContext>`.
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
 
 > [!TIP]  
-> `DbContextOptions<TContext>` říká kontextu veškeré jeho nastavení, jako je například pro připojení k databázi. Toto je stejný objekt, který je sestavený používané metody OnConfiguring váš kontext.
+> `DbContextOptions<TContext>` informuje kontext o všech nastaveních, například o tom, ke které databázi se chcete připojit. Jedná se o stejný objekt, který je sestaven spuštěním metody při konfiguraci v kontextu.
 
 ## <a name="writing-tests"></a>Zápis testů
 
-Klíčem k testování s tímto poskytovatelem je možnost předat kontext, který má použít SQLite a řízení rozsahu databázi v paměti. Obor databáze je řízena otevírání a zavírání připojení. Databáze je vymezen na dobu, po kterou je připojení otevřeno. Obvykle chcete vyčistit databázi pro každou metodu testu.
+Klíč k testování pomocí tohoto poskytovatele je schopnost sdělit kontextu použití SQLite a řídit obor databáze v paměti. Rozsah databáze je řízen otevřením a zavřením připojení. Databáze je vymezena na dobu, po kterou je připojení otevřeno. Obvykle požadujete pro každou testovací metodu čistou databázi.
 
 >[!TIP]
-> Chcete-li použít `SqliteConnection()` a `.UseSqlite()` metody rozšíření, odkaz na balíček NuGet [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/).
+> Pokud chcete použít `SqliteConnection()` a metodu rozšíření `.UseSqlite()`, odkazujte na balíček NuGet [Microsoft. EntityFrameworkCore. sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/).
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]

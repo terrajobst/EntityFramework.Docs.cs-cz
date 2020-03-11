@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: c54255f4-253f-49eb-bec8-ad7927ac2fa3
 ms.openlocfilehash: 642e5977ecbbf0c474cac1ceae19d33a135aa875
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182601"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418775"
 ---
 # <a name="csdl-specification"></a>Specifikace CSDL
 Jazyk CSDL (konceptuální schéma Definition Language) je jazyk založený na jazyce XML, který popisuje entity, vztahy a funkce tvořící koncepční model aplikace řízené daty. Tento koncepční model lze použít Entity Framework nebo WCF Data Services. Metadata popsaná pomocí CSDL používá Entity Framework k mapování entit a vztahů, které jsou definovány v koncepčním modelu na zdroj dat. Další informace najdete v tématu Specifikace [SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md) a [specifikace MSL](~/ef6/modeling/designer/advanced/edmx/msl-spec.md).
@@ -47,7 +47,7 @@ Element **Association** může mít následující podřízené elementy (v uved
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **Association** .
 
-| Název atributu | Je povinné | Value                        |
+| Název atributu | Je povinné | Hodnota                        |
 |:---------------|:------------|:-----------------------------|
 | **Název**       | Ano         | Název přidružení. |
 
@@ -110,10 +110,10 @@ Atribut **Association** určuje typ přidružení, které sada přidružení obs
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **AssociationSet** .
 
-| Název atributu  | Je povinné | Value                                                                                                                                                             |
+| Název atributu  | Je povinné | Hodnota                                                                                                                                                             |
 |:----------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Název**        | Ano         | Název sady entit Hodnota atributu **Name** nemůže být stejná jako hodnota atributu **Association** .                                 |
-| **Přidružení** | Ano         | Plně kvalifikovaný název asociace, který sada přidružení obsahuje instance. Přidružení musí být ve stejném oboru názvů jako sada přidružení. |
+| **Název**        | Ano         | Název sady entit. Hodnota atributu **Name** nemůže být stejná jako hodnota atributu **Association** .                                 |
+| **Řídí** | Ano         | Plně kvalifikovaný název asociace, který sada přidružení obsahuje instance. Přidružení musí být ve stejném oboru názvů jako sada přidružení. |
 
  
 
@@ -163,16 +163,16 @@ Element **CollectionType** v jazyce CSDL (konceptuální schéma Definition Lang
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **CollectionType** . Všimněte si, že atributy **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**a **kolace** platí pouze pro kolekce **EDMSimpleTypes**.
 
-| Název atributu                                                          | Je povinné | Value                                                                                                                                                                                                                            |
+| Název atributu                                                          | Je povinné | Hodnota                                                                                                                                                                                                                            |
 |:------------------------------------------------------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Typ**                                                                | Ne          | Typ kolekce.                                                                                                                                                                                                      |
+| **Typ**                                                                | Ne          | Typ kolekce                                                                                                                                                                                                      |
 | **Povoleno**                                                            | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                 |
-| > Ve službě CSDL V1 musí mít vlastnost komplexního typu `Nullable="False"`. |             |                                                                                                                                                                                                                                  |
+| > V CSDL V1 musí mít vlastnost komplexního typu `Nullable="False"`. |             |                                                                                                                                                                                                                                  |
 | **Hodnot**                                                        | Ne          | Výchozí hodnota vlastnosti                                                                                                                                                                                               |
 | **MaxLength**                                                           | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                        |
 | **FixedLength**                                                         | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                           |
 | **Číslic**                                                           | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                             |
-| **Kapacity**                                                               | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                 |
+| **Škálování**                                                               | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                 |
 | **SRID**                                                                | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů.   Další informace najdete v tématech [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx) . |
 | **Unicode**                                                             | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                                |
 | **Velké**                                                           | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                    |
@@ -260,12 +260,12 @@ Element **complexType** může mít následující podřízené elementy (v uved
 
 Následující tabulka popisuje atributy, které lze použít pro element **complexType** .
 
-| Název atributu                                                                                                 | Je povinné | Value                                                                                                                                                                               |
+| Název atributu                                                                                                 | Je povinné | Hodnota                                                                                                                                                                               |
 |:---------------------------------------------------------------------------------------------------------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Name                                                                                                           | Ano         | Název komplexního typu. Název komplexního typu nemůže být stejný jako název jiného komplexního typu, typu entity nebo asociace, který je v rámci oboru modelu. |
+| Název                                                                                                           | Ano         | Název komplexního typu. Název komplexního typu nemůže být stejný jako název jiného komplexního typu, typu entity nebo asociace, který je v rámci oboru modelu. |
 | BaseType                                                                                                       | Ne          | Název jiného komplexního typu, který je základním typem komplexního typu, který je definován. <br/> [!NOTE]                                                                     |
 | > Tento atribut nelze použít v CSDL v1. Dědičnost pro komplexní typy není v této verzi podporována. |             |                                                                                                                                                                                     |
-| Abstraktní                                                                                                       | Ne          | **True** nebo **false** (výchozí hodnota) v závislosti na tom, zda je komplexní typ abstraktní typ. <br/> [!NOTE]                                                                  |
+| Shrnutí                                                                                                       | Ne          | **True** nebo **false** (výchozí hodnota) v závislosti na tom, zda je komplexní typ abstraktní typ. <br/> [!NOTE]                                                                  |
 | > Tento atribut nelze použít v CSDL v1. Komplexní typy v této verzi nemohou být abstraktní typy.         |             |                                                                                                                                                                                     |
 
  
@@ -350,7 +350,7 @@ Následující příklad používá element **DefiningExpression** k definován�
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na **závislý** element.
 
-| Název atributu | Je povinné | Value                                                                |
+| Název atributu | Je povinné | Hodnota                                                                |
 |:---------------|:------------|:---------------------------------------------------------------------|
 | **Role**       | Ano         | Název typu entity na závislém konci přidružení. |
 
@@ -386,12 +386,12 @@ Následující příklad ukazuje element **elementu ReferentialConstraint** , kt
 
 ## <a name="documentation-element-csdl"></a>Element dokumentace (CSDL)
 
-Element **dokumentace** v jazyce CSDL (konceptuální schéma Definition Language) lze použít k poskytnutí informací o objektu, který je definován v nadřazeném elementu. V souboru. edmx, pokud je prvek **dokumentace** podřízenosti prvku, který se zobrazí jako objekt na návrhové ploše návrháře EF (například entita, asociace nebo vlastnost), obsah elementu **dokumentace** se zobrazí v Okno **vlastností** sady Visual Studio pro daný objekt.
+Element **dokumentace** v jazyce CSDL (konceptuální schéma Definition Language) lze použít k poskytnutí informací o objektu, který je definován v nadřazeném elementu. V souboru EDMX, pokud je prvek **dokumentace** podřízenosti prvku, který se zobrazuje jako objekt na návrhové ploše návrháře EF (například entita, asociace nebo vlastnost), obsah elementu **dokumentace** se zobrazí v okně **vlastností** sady Visual Studio pro daný objekt.
 
 Prvek **dokumentace** může mít následující podřízené prvky (v uvedeném pořadí):
 
--   **Souhrn**: Stručný popis nadřazeného elementu. (žádný nebo jeden element)
--   **Longdescription**: Rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
+-   **Summary**: stručný popis nadřazeného elementu. (žádný nebo jeden element)
+-   **Longdescription**: rozsáhlý popis nadřazeného elementu. (žádný nebo jeden element)
 -   Prvky poznámky (nula nebo více prvků)
 
 ### <a name="applicable-attributes"></a>Použitelné atributy
@@ -437,11 +437,11 @@ Element **End** může mít následující podřízené elementy (v uvedeném po
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízenou položkou elementu **Association** .
 
-| Název atributu   | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Název atributu   | Je povinné | Hodnota                                                                                                                                                                                                                                                                                                                                                                                                              |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**         | Ano         | Název typu entity na jednom konci přidružení.                                                                                                                                                                                                                                                                                                                                                         |
 | **Role**         | Ne          | Název zakončení přidružení. Pokud není zadaný žádný název, použije se název typu entity na konci přidružení.                                                                                                                                                                                                                                                                                           |
-| **Násobnost** | Ano         | **1**, **0.. 1**nebo **\*** v závislosti na počtu instancí typu entity, které mohou být na konci přidružení. <br/> **1** znamená, že na konci přidružení existuje přesně jedna instance typu entity. <br/> **0.. 1** znamená, že na konci přidružení existují žádné nebo jedna instance typu entity. <br/> **\*** označuje, že na konci přidružení existují žádné instance typu entity s hodnotou nula, jedna nebo více. |
+| **Násobnost** | Ano         | **1**, **0.. 1**nebo **\*** v závislosti na počtu instancí typu entity, které mohou být na konci přidružení. <br/> **1** znamená, že na konci přidružení existuje přesně jedna instance typu entity. <br/> **0.. 1** znamená, že na konci přidružení existují žádné nebo jedna instance typu entity. <br/> **\*** označuje, že na konci přidružení existují žádné instance typu entity nula, jedna nebo více. |
 
  
 
@@ -482,7 +482,7 @@ Element **End** může mít následující podřízené elementy (v uvedeném po
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **End** , pokud je podřízeným elementem elementu **AssociationSet** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                                 |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                                 |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Sada**  | Ano         | Název elementu **EntitySet** , který definuje jeden element end nadřazeného elementu **AssociationSet** . Element **EntitySet** musí být definován ve stejném kontejneru entity jako nadřazený element **AssociationSet** . |
 | **Role**       | Ne          | Název zakončení sady přidružení Pokud se atribut **role** nepoužívá, název zakončení sady přidružení bude název sady entit.                                                                   |
@@ -536,7 +536,7 @@ Element **EntityContainer** můžete roztáhnout tak, aby zahrnoval obsah jinéh
 
 Následující tabulka popisuje atributy, které lze použít pro element **using** .
 
-| Název atributu | Je povinné | Value                                                           |
+| Název atributu | Je povinné | Hodnota                                                           |
 |:---------------|:------------|:----------------------------------------------------------------|
 | **Název**       | Ano         | Název kontejneru entity.                               |
 | **Nachází**    | Ne          | Název jiného kontejneru entity v rámci stejného oboru názvů. |
@@ -591,9 +591,9 @@ Element **EntitySet** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které lze použít pro element **EntitySet** .
 
-| Název atributu | Je povinné | Value                                                                                    |
+| Název atributu | Je povinné | Hodnota                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------|
-| **Název**       | Ano         | Název sady entit                                                              |
+| **Název**       | Ano         | Název sady entit.                                                              |
 | **Objektu** | Ano         | Plně kvalifikovaný název typu entity, pro který sada entit obsahuje instance. |
 
  
@@ -671,7 +671,7 @@ Element **EntityType** může mít následující podřízené elementy (v uvede
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **EntityType** .
 
-| Název atributu                                                                                                                                  | Je povinné | Value                                                                                            |
+| Název atributu                                                                                                                                  | Je povinné | Hodnota                                                                                            |
 |:------------------------------------------------------------------------------------------------------------------------------------------------|:------------|:-------------------------------------------------------------------------------------------------|
 | **Název**                                                                                                                                        | Ano         | Název typu entity                                                                     |
 | **BaseType**                                                                                                                                    | Ne          | Název jiného typu entity, který je základním typem entity typu, který je definován.  |
@@ -722,7 +722,7 @@ Element **enumType** může mít následující podřízené elementy (v uveden�
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **enumType** .
 
-| Název atributu     | Je povinné | Value                                                                                                                                                                                         |
+| Název atributu     | Je povinné | Hodnota                                                                                                                                                                                         |
 |:-------------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**           | Ano         | Název typu entity                                                                                                                                                                  |
 | **Příznak**        | Ne          | **Hodnota true** nebo **false**v závislosti na tom, zda lze typ výčtu použít jako sadu příznaků. Výchozí hodnota je **false.** .                                                                     |
@@ -768,7 +768,7 @@ Návratový typ pro funkci musí být zadán buď pomocí elementu **ReturnType*
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **Function** .
 
-| Název atributu | Je povinné | Value                              |
+| Název atributu | Je povinné | Hodnota                              |
 |:---------------|:------------|:-----------------------------------|
 | **Název**       | Ano         | Název funkce          |
 | **ReturnType** | Ne          | Typ vrácený funkcí |
@@ -815,7 +815,7 @@ Návratový typ pro funkci musí být zadán buď pomocí elementu **ReturnType*
 
 Následující tabulka popisuje atributy, které lze použít pro element **FunctionImport** .
 
-| Název atributu   | Je povinné | Value                                                                                                                                                                                                 |
+| Název atributu   | Je povinné | Hodnota                                                                                                                                                                                                 |
 |:-----------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**         | Ano         | Název importované funkce                                                                                                                                                                    |
 | **ReturnType**   | Ne          | Typ, který funkce vrátí. Nepoužívejte tento atribut, pokud funkce nevrátí hodnotu. V opačném případě musí být hodnotou kolekce ComplexType, EntityType nebo EDMSimpleType.        |
@@ -907,10 +907,10 @@ Použití **názvu** a **adresy** pro klíč entity je rozumnou volbou, protože
 
 Následující tabulka popisuje atributy, které lze použít pro element **FunctionImport** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                    |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                    |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Název**       | Ano         | Název člena.                                                                                                                                                                  |
-| **Hodnota**      | Ne          | Hodnota člena. Ve výchozím nastavení má první člen hodnotu 0 a hodnota každého úspěšného enumerátoru se zvýší o 1. Může existovat více členů se stejnými hodnotami. |
+| **Název**       | Ano         | Název členu                                                                                                                                                                  |
+| **Hodnota**      | Ne          | Hodnota člena Ve výchozím nastavení má první člen hodnotu 0 a hodnota každého úspěšného enumerátoru se zvýší o 1. Může existovat více členů se stejnými hodnotami. |
 
  
 
@@ -940,7 +940,7 @@ Element **NavigationProperty** definuje vlastnost navigace, která poskytuje odk
 
 Všimněte si, že navigační vlastnosti jsou volitelné na obou typech entit na konci přidružení. Definujete-li vlastnost navigace na jednom typu entity na konci přidružení, nemusíte definovat vlastnost navigace na typu entity na druhém konci přidružení.
 
-Datový typ vrácený navigační vlastností je určen násobností jeho vzdáleného zakončení přidružení. Předpokládejme například, že vlastnost navigace **OrdersNavProp**existuje v typu entity **zákazníka** a prochází přidružení 1:1 mezi **zákazníkem** a **objednávkou**. Vzhledem k tomu, že vzdálené zakončení přidružení pro navigační vlastnost má násobnost mnoho (\*), je jeho datovým typem kolekce ( **pořadí**). Podobně platí, že pokud v typu entity **objednávky** existuje navigační vlastnost **CustomerNavProp**, její datový typ by byl **zákazníkem** , protože násobnost vzdáleného elementu end je jedna (1).
+Datový typ vrácený navigační vlastností je určen násobností jeho vzdáleného zakončení přidružení. Předpokládejme například, že vlastnost navigace **OrdersNavProp**existuje v typu entity **zákazníka** a prochází přidružení 1:1 mezi **zákazníkem** a **objednávkou**. Vzhledem k tomu, že vzdálené zakončení přidružení pro navigační vlastnost má mnoho (\*), je jeho datovým typem kolekce ( **pořadí**). Podobně platí, že pokud v typu entity **objednávky** existuje navigační vlastnost **CustomerNavProp**, její datový typ by byl **zákazníkem** , protože násobnost vzdáleného elementu end je jedna (1).
 
 Element **NavigationProperty** může mít následující podřízené elementy (v uvedeném pořadí):
 
@@ -951,9 +951,9 @@ Element **NavigationProperty** může mít následující podřízené elementy 
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **NavigationProperty** .
 
-| Název atributu   | Je povinné | Value                                                                                                                                                                                                                                            |
+| Název atributu   | Je povinné | Hodnota                                                                                                                                                                                                                                            |
 |:-----------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Název**         | Ano         | Název navigační vlastnosti                                                                                                                                                                                                             |
+| **Název**         | Ano         | Název navigační vlastnosti.                                                                                                                                                                                                             |
 | **Vztah** | Ano         | Název asociace, který je v rámci oboru modelu.                                                                                                                                                                                |
 | **ToRole**       | Ano         | Konec přidružení, na kterém končí navigace. Hodnota atributu **ToRole** musí být stejná jako hodnota jednoho z atributů **role** definované v jednom z elementů Association (definovaných v elementu AssociationEnd).       |
 | **FromRole**     | Ano         | Konec přidružení, ze kterého začíná navigace. Hodnota atributu **FromRole** musí být stejná jako hodnota jednoho z atributů **role** definované v jednom z elementů Association (definovaných v elementu AssociationEnd). |
@@ -1005,7 +1005,7 @@ Element **IsDeleted** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **IsDeleted** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                                         |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Akce**     | Ano         | **Cascade** nebo **none**. V případě, že se **kaskády**odstraní, odstraní se závislé typy entit při odstranění typu objektu zabezpečení. Pokud **žádný**není, typy závislých entit nebudou odstraněny při odstranění typu hlavní entity. |
 
@@ -1049,14 +1049,14 @@ Element **Parameter** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **Parameter** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                                           |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                                           |
 |:---------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**       | Ano         | Název parametru                                                                                                                                                                                                      |
 | **Typ**       | Ano         | Typ parametru. Hodnota musí být **EDMSimpleType** nebo komplexní typ, který je v rámci oboru modelu.                                                                                                             |
 | **Mode**       | Ne          | **In**, **out**nebo **InOut** v závislosti na tom, zda je parametr vstupní, výstupní nebo vstupní/výstupní parametr.                                                                                                                |
 | **MaxLength**  | Ne          | Maximální povolená délka parametru.                                                                                                                                                                                    |
 | **Číslic**  | Ne          | Přesnost parametru.                                                                                                                                                                                                 |
-| **Kapacity**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
+| **Škálování**      | Ne          | Měřítko parametru.                                                                                                                                                                                                     |
 | **SRID**       | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro parametry prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 
  
@@ -1106,16 +1106,16 @@ Element **Parameter** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **Parameter** .
 
-| Název atributu   | Je povinné | Value                                                                                                                                                                                                                           |
+| Název atributu   | Je povinné | Hodnota                                                                                                                                                                                                                           |
 |:-----------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**         | Ano         | Název parametru                                                                                                                                                                                                      |
-| **Typ**         | Ne          | Typ parametru. Parametr může být libovolný z následujících typů (nebo kolekcí těchto typů): <br/> **EdmSimpleType** <br/> entity type <br/> complex type <br/> typ řádku <br/> odkazový typ                             |
+| **Typ**         | Ne          | Typ parametru. Parametr může být libovolný z následujících typů (nebo kolekcí těchto typů): <br/> **EdmSimpleType** <br/> entity type <br/> complex type <br/> Typ řádku <br/> odkazový typ                             |
 | **Povoleno**     | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda vlastnost může mít hodnotu **null** .                                                                                                                          |
 | **Hodnot** | Ne          | Výchozí hodnota vlastnosti                                                                                                                                                                                              |
 | **MaxLength**    | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
 | **FixedLength**  | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
 | **Číslic**    | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Kapacity**        | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **Škálování**        | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
 | **SRID**         | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**      | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
 | **Velké**    | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
@@ -1155,7 +1155,7 @@ Element **Principal** může mít následující podřízené elementy (v uveden
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **Principal** .
 
-| Název atributu | Je povinné | Value                                                                |
+| Název atributu | Je povinné | Hodnota                                                                |
 |:---------------|:------------|:---------------------------------------------------------------------|
 | **Role**       | Ano         | Název typu entity na hlavním konci přidružení. |
 
@@ -1213,7 +1213,7 @@ Následující omezující vlastnosti lze použít na prvek **vlastnosti** : **N
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **vlastnosti** .
 
-| Název atributu                                                         | Je povinné | Value                                                                                                                                                                                                                           |
+| Název atributu                                                         | Je povinné | Hodnota                                                                                                                                                                                                                           |
 |:-----------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                                                               | Ano         | Název vlastnosti                                                                                                                                                                                                       |
 | **Typ**                                                               | Ano         | Typ hodnoty vlastnosti. Typ hodnoty vlastnosti musí být **EDMSimpleType** nebo komplexní typ (určený plně kvalifikovaným názvem), který je v rozsahu modelu.                                                 |
@@ -1223,7 +1223,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na prvek
 | **MaxLength**                                                          | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
 | **FixedLength**                                                        | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
 | **Číslic**                                                          | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Kapacity**                                                              | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **Škálování**                                                              | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
 | **SRID**                                                               | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**                                                            | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
 | **Velké**                                                          | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
@@ -1290,7 +1290,7 @@ Element **Property** může mít libovolný počet podřízených elementů pozn
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **vlastnosti** .
 
-| Název atributu                                                     | Je povinné | Value                                                                                                                                                                                                                           |
+| Název atributu                                                     | Je povinné | Hodnota                                                                                                                                                                                                                           |
 |:-------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                                                           | Ano         | Název vlastnosti                                                                                                                                                                                                       |
 | **Typ**                                                           | Ano         | Typ hodnoty vlastnosti.                                                                                                                                                                                                 |
@@ -1300,7 +1300,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na prvek
 | **MaxLength**                                                      | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
 | **FixedLength**                                                    | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
 | **Číslic**                                                      | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Kapacity**                                                          | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **Škálování**                                                          | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
 | **SRID**                                                           | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**                                                        | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
 | **Velké**                                                      | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
@@ -1356,7 +1356,7 @@ Element **PropertyRef** může mít jako podřízené elementy pouze prvky pozn�
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **PropertyRef** .
 
-| Název atributu | Je povinné | Value                                |
+| Název atributu | Je povinné | Hodnota                                |
 |:---------------|:------------|:-------------------------------------|
 | **Název**       | Ano         | Název odkazované vlastnosti |
 
@@ -1427,7 +1427,7 @@ Element **hodnota ReferenceType** může mít následující podřízené elemen
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **hodnota ReferenceType** .
 
-| Název atributu | Je povinné | Value                                         |
+| Název atributu | Je povinné | Hodnota                                         |
 |:---------------|:------------|:----------------------------------------------|
 | **Typ**       | Ano         | Název odkazovaného typu entity |
 
@@ -1534,7 +1534,7 @@ Návratový typ funkce lze zadat buď pomocí atributu **Type** elementu **Retur
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na element **ReturnType** (Function).
 
-| Název atributu | Je povinné | Value                              |
+| Název atributu | Je povinné | Hodnota                              |
 |:---------------|:------------|:-----------------------------------|
 | **ReturnType** | Ne          | Typ vrácený funkcí |
 
@@ -1574,7 +1574,7 @@ Návratový typ funkce je zadán s atributem **Type** elementu **ReturnType** (F
 
 Následující tabulka popisuje atributy, které lze použít na element **ReturnType** (FunctionImport).
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                 |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                 |
 |:---------------|:------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**       | Ne          | Typ, který funkce vrátí. Hodnotou musí být kolekce ComplexType, EntityType nebo EDMSimpleType.                                                                                      |
 | **Sada**  | Ne          | Pokud funkce vrátí kolekci typů entit, hodnota **objektu EntitySet** musí být sada entit, do které kolekce patří. V opačném případě nesmí být použit atribut **EntitySet** . |
@@ -1671,10 +1671,10 @@ Obor názvů koncepčního modelu je jiný než obor názvů XML elementu **Sche
 
 Následující tabulka popisuje atributy, které lze použít pro element **Schema** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 |:---------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**  | Ano         | Obor názvů koncepčního modelu. Hodnota atributu **Namespace** slouží k vytvoření plně kvalifikovaného názvu typu. Pokud je například **EntityType** s názvem *Zákazník* v jednoduchém oboru názvů. example. model, pak plně kvalifikovaný název **objektu EntityType** je SimpleExampleModel. Customer. <br/> Následující řetězce nelze použít jako hodnotu pro atribut **Namespace** : **System**, **přechodný**nebo **EDM**. Hodnota atributu **Namespace** nemůže být stejná jako hodnota atributu **Namespace** v elementu schématu SSDL. |
-| **Alias**      | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v jednoduchém oboru názvů. example. model a hodnota atributu **alias** je *model*, pak můžete použít model. Customer jako plně kvalifikovaný název **objektu EntityType.**                                                                                                                                                                                                                                                                                                     |
+| **Hosting**  | Ano         | Obor názvů koncepčního modelu. Hodnota atributu **Namespace** slouží k vytvoření plně kvalifikovaného názvu typu. Pokud je například **EntityType** s názvem *Zákazník* v jednoduchém oboru názvů. example. model, pak plně kvalifikovaný název **objektu EntityType** je SimpleExampleModel. Customer. <br/> Následující řetězce nelze použít jako hodnotu pro atribut **Namespace** : **System**, **přechodný**nebo **EDM**. Hodnota atributu **Namespace** nemůže být stejná jako hodnota atributu **Namespace** v elementu schématu SSDL. |
+| **Zástupný**      | Ne          | Identifikátor použitý místo názvu oboru názvů. Pokud je například **EntityType** s názvem *Zákazník* v jednoduchém oboru názvů. example. model a hodnota atributu **alias** je *model*, pak můžete použít model. Customer jako plně kvalifikovaný název **objektu EntityType.**                                                                                                                                                                                                                                                                                                     |
 
  
 
@@ -1760,7 +1760,7 @@ Element **TypeRef** může mít následující podřízené elementy (v uvedené
 
 Následující tabulka popisuje atributy, které mohou být aplikovány na prvek **TypeRef** . Všimněte si, že atributy **DefaultValue**, **MaxLength**, **FixedLength**, **Precision**, **Scale**, **Unicode**a **kolace** se vztahují pouze na **EDMSimpleTypes**.
 
-| Název atributu                                                     | Je povinné | Value                                                                                                                                                                                                                           |
+| Název atributu                                                     | Je povinné | Hodnota                                                                                                                                                                                                                           |
 |:-------------------------------------------------------------------|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Typ**                                                           | Ne          | Název odkazovaného typu                                                                                                                                                                                          |
 | **Povoleno**                                                       | Ne          | **True** (výchozí hodnota) nebo **false** v závislosti na tom, zda vlastnost může mít hodnotu null. <br/> [!NOTE]                                                                                                                |
@@ -1769,7 +1769,7 @@ Následující tabulka popisuje atributy, které mohou být aplikovány na prvek
 | **MaxLength**                                                      | Ne          | Maximální délka hodnoty vlastnosti.                                                                                                                                                                                       |
 | **FixedLength**                                                    | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec s pevnou délkou.                                                                                                                          |
 | **Číslic**                                                      | Ne          | Přesnost hodnoty vlastnosti.                                                                                                                                                                                            |
-| **Kapacity**                                                          | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
+| **Škálování**                                                          | Ne          | Měřítko hodnoty vlastnosti.                                                                                                                                                                                                |
 | **SRID**                                                           | Ne          | Identifikátor odkazu prostorového systému Platné pouze pro vlastnosti prostorových typů. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx). |
 | **Unicode**                                                        | Ne          | **True** nebo **false** v závislosti na tom, jestli se hodnota vlastnosti uloží jako řetězec Unicode.                                                                                                                               |
 | **Velké**                                                      | Ne          | Řetězec, který určuje pořadí kompletování, které má být použito ve zdroji dat.                                                                                                                                                   |
@@ -1820,10 +1820,10 @@ Element **using** může mít následující podřízené prvky:
 
 Následující tabulka popisuje atributy, které lze použít pro element **using** .
 
-| Název atributu | Je povinné | Value                                                                                                                                                                              |
+| Název atributu | Je povinné | Hodnota                                                                                                                                                                              |
 |:---------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Namespace**  | Ano         | Název importovaného oboru názvů.                                                                                                                                                |
-| **Alias**      | Ano         | Identifikátor použitý místo názvu oboru názvů. I když je tento atribut vyžadován, není vyžadováno, aby byl použit místo názvu oboru názvů k získání názvů objektů. |
+| **Hosting**  | Ano         | Název importovaného oboru názvů.                                                                                                                                                |
+| **Zástupný**      | Ano         | Identifikátor použitý místo názvu oboru názvů. I když je tento atribut vyžadován, není vyžadováno, aby byl použit místo názvu oboru názvů k získání názvů objektů. |
 
  
 
@@ -1834,7 +1834,7 @@ Následující tabulka popisuje atributy, které lze použít pro element **usin
 
 ### <a name="example"></a>Příklad
 
-Následující příklad ukazuje **použití** prvku, který je použit pro import oboru názvů, který je definován jinde. Všimněte si, že obor názvů pro zobrazený element **schématu** je `BooksModel`. Vlastnost `Address` na**EntityType** `Publisher` je komplexní typ, který je definován v oboru názvů `ExtendedBooksModel` (importované pomocí elementu **using** ).
+Následující příklad ukazuje **použití** prvku, který je použit pro import oboru názvů, který je definován jinde. Všimněte si, že obor názvů pro zobrazený element **schématu** je `BooksModel`. Vlastnost `Address` na `Publisher`**EntityType** je komplexní typ, který je definován v oboru názvů `ExtendedBooksModel` (importované pomocí elementu **using** ).
 
 ``` xml
  <Schema xmlns="https://schemas.microsoft.com/ado/2009/11/edm"
@@ -1923,7 +1923,7 @@ Následující kód načte metadata v atributu anotace a zapíše je do konzoly:
 ```
  
 
-Výše uvedený kód předpokládá, že soubor `School.csdl` je ve výstupním adresáři projektu a že jste do projektu přidali následující příkazy `Imports` a `Using`:
+Výše uvedený kód předpokládá, že soubor `School.csdl` je ve výstupním adresáři projektu a že jste přidali následující `Imports` a `Using` příkazy do projektu:
 
 ``` csharp
  using System.Data.Metadata.Edm;
@@ -1993,7 +1993,7 @@ Následující kód načte metadata v prvku anotace a zapíše jej do konzoly:
 ```
  
 
-Výše uvedený kód předpokládá, že soubor School. csdl je ve výstupním adresáři projektu a že jste do projektu přidali následující příkazy `Imports` a `Using`:
+Výše uvedený kód předpokládá, že soubor School. csdl je ve výstupním adresáři projektu a že jste přidali následující `Imports` a `Using` příkazů do projektu:
 
 ``` csharp
  using System.Data.Metadata.Edm;
@@ -2011,22 +2011,22 @@ Následující tabulka uvádí primitivní datové typy, které podporuje CSDL. 
 | EDMSimpleType                    | Popis                                                | Použitelné omezující vlastnosti                                                        |
 |:---------------------------------|:-----------------------------------------------------------|:-------------------------------------------------------------------------|
 | **EDM. Binary**                   | Obsahuje binární data.                                      | MaxLength, FixedLength, Nullable, default                                |
-| **EDM. Boolean**                  | Obsahuje hodnotu **true** nebo **false**.                  | Nullable, výchozí                                                        |
+| **Edm.Boolean**                  | Obsahuje hodnotu **true** nebo **false**.                  | Nullable, výchozí                                                        |
 | **EDM. Byte**                     | Obsahuje 8bitové celočíselnou hodnotu bez znaménka.                  | Přesnost, Nullable, výchozí                                             |
 | **EDM. DateTime**                 | Představuje datum a čas.                                | Přesnost, Nullable, výchozí                                             |
-| **EDM. DateTimeOffset**           | Obsahuje datum a čas jako posun v minutách od času GMT. | Přesnost, Nullable, výchozí                                             |
+| **Edm.DateTimeOffset**           | Obsahuje datum a čas jako posun v minutách od času GMT. | Přesnost, Nullable, výchozí                                             |
 | **EDM. Decimal**                  | Obsahuje číselnou hodnotu s pevnou přesností a škálováním.   | Přesnost, Nullable, výchozí                                             |
-| **EDM. Double**                   | Obsahuje číslo s plovoucí desetinnou čárkou s přesností na 15 číslic.   | Přesnost, Nullable, výchozí                                             |
+| **Edm.Double**                   | Obsahuje číslo s plovoucí desetinnou čárkou s přesností na 15 číslic.   | Přesnost, Nullable, výchozí                                             |
 | **EDM. float**                    | Obsahuje číslo s plovoucí desetinnou čárkou s přesností na 7 číslic.   | Přesnost, Nullable, výchozí                                             |
 | **EDM. GUID**                     | Obsahuje jedinečný identifikátor o velikosti 16 bajtů.                      | Přesnost, Nullable, výchozí                                             |
 | **EDM. Int16**                    | Obsahuje 16bitová celočíselnou hodnotu se znaménkem.                    | Přesnost, Nullable, výchozí                                             |
-| **EDM. Int32**                    | Obsahuje podepsaná 32 celočíselná hodnota.                    | Přesnost, Nullable, výchozí                                             |
-| **EDM. Int64**                    | Obsahuje podepsaná 64 celočíselná hodnota.                    | Přesnost, Nullable, výchozí                                             |
+| **Edm.Int32**                    | Obsahuje podepsaná 32 celočíselná hodnota.                    | Přesnost, Nullable, výchozí                                             |
+| **Edm.Int64**                    | Obsahuje podepsaná 64 celočíselná hodnota.                    | Přesnost, Nullable, výchozí                                             |
 | **EDM. SByte**                    | Obsahuje 8bitové celočíselnou hodnotu se znaménkem.                     | Přesnost, Nullable, výchozí                                             |
-| **EDM. String**                   | Obsahuje znaková data.                                   | Unicode, FixedLength, MaxLength, kolace, přesnost, Nullable, default |
+| **Edm.String**                   | Obsahuje znaková data.                                   | Unicode, FixedLength, MaxLength, kolace, přesnost, Nullable, default |
 | **EDM. time**                     | Obsahuje denní dobu.                                    | Přesnost, Nullable, výchozí                                             |
 | **EDM. geografie**                |                                                            | Nullable, Default, SRID                                                  |
-| **EDM. GeographyPoint**           |                                                            | Nullable, Default, SRID                                                  |
+| **Edm.GeographyPoint**           |                                                            | Nullable, Default, SRID                                                  |
 | **EDM. GeographyLineString**      |                                                            | Nullable, Default, SRID                                                  |
 | **EDM. GeographyPolygon**         |                                                            | Nullable, Default, SRID                                                  |
 | **EDM. GeographyMultiPoint**      |                                                            | Nullable, Default, SRID                                                  |
@@ -2055,18 +2055,18 @@ Následující tabulka obsahuje popis omezujících vlastností, které jsou pod
 > [!NOTE]
 > Informace o datových typech v koncepčním modelu naleznete v tématu typy konceptuálních modelů (CSDL).
 
-| Omezující               | Popis                                                                                                                                                                                                                                                   | Platná pro                                                                                                                                                                                                                                                                                                                                                                           | Používá se pro generování databáze. | Používáno modulem runtime |
+| Omezující               | Popis                                                                                                                                                                                                                                                   | Platí pro                                                                                                                                                                                                                                                                                                                                                                           | Používá se pro generování databáze. | Používáno modulem runtime |
 |:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------|:--------------------|
-| **Velké**       | Určuje pořadí kompletování (nebo řazení sekvence), které se má použít při provádění operací porovnání a řazení u hodnot vlastnosti.                                                                                                               | **EDM. String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
+| **Velké**       | Určuje pořadí kompletování (nebo řazení sekvence), které se má použít při provádění operací porovnání a řazení u hodnot vlastnosti.                                                                                                               | **Edm.String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
 | **ConcurrencyMode** | Označuje, že hodnota vlastnosti by měla být použita pro kontroly optimistického řízení souběžnosti.                                                                                                                                                                    | Všechny vlastnosti **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Ne                               | Ano                 |
 | **Výchozí**         | Určuje výchozí hodnotu vlastnosti, pokud není při vytváření instance zadána žádná hodnota.                                                                                                                                                                       | Všechny vlastnosti **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Ano                              | Ano                 |
 | **FixedLength**     | Určuje, zda může být délka hodnoty vlastnosti odlišná.                                                                                                                                                                                                  | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
 | **MaxLength**       | Určuje maximální délku hodnoty vlastnosti.                                                                                                                                                                                                           | **EDM. Binary**, **EDM. String**                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ne                  |
 | **Povoleno**        | Určuje, zda vlastnost může mít hodnotu **null** .                                                                                                                                                                                                     | Všechny vlastnosti **EDMSimpleType**                                                                                                                                                                                                                                                                                                                                                     | Ano                              | Ano                 |
 | **Číslic**       | Pro vlastnosti typu **Decimal**určuje počet číslic, které může mít hodnota vlastnosti. Pro vlastnosti typu **Time**, **DateTime**a **DateTimeOffset**určuje počet číslic pro zlomkovou část hodnoty vlastnosti v sekundách. | **EDM. DateTime**, **EDM. DateTimeOffset**, **EDM. Decimal**, **EDM. time**                                                                                                                                                                                                                                                                                                              | Ano                              | Ne                  |
-| **Kapacity**           | Určuje počet číslic vpravo od desetinné čárky pro hodnotu vlastnosti.                                                                                                                                                                      | **EDM. Decimal**                                                                                                                                                                                                                                                                                                                                                                      | Ano                              | Ne                  |
+| **Škálování**           | Určuje počet číslic vpravo od desetinné čárky pro hodnotu vlastnosti.                                                                                                                                                                      | **EDM. Decimal**                                                                                                                                                                                                                                                                                                                                                                      | Ano                              | Ne                  |
 | **SRID**            | Určuje ID referenčního systému prostorového systému. Další informace najdete v tématu [SRID](https://en.wikipedia.org/wiki/SRID) a [SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx).                                                              | **EDM. geografie, Edm. GeographyPoint, Edm. GeographyLineString, Edm. GeographyPolygon, Edm. GeographyMultiPoint, Edm. GeographyMultiLineString, Edm. GeographyMultiPolygon, Edm. geografie, Edm. Geometry, Edm. GeometryPoint, EDM. GeometryLineString, Edm. GeometryPolygon, Edm. GeometryMultiPoint, Edm. GeometryMultiLineString, Edm. GeometryMultiPolygon, Edm. GeometryCollection** | Ne                               | Ano                 |
-| **Unicode**         | Určuje, zda je hodnota vlastnosti uložena jako Unicode.                                                                                                                                                                                                    | **EDM. String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ano                 |
+| **Unicode**         | Určuje, zda je hodnota vlastnosti uložena jako Unicode.                                                                                                                                                                                                    | **Edm.String**                                                                                                                                                                                                                                                                                                                                                                       | Ano                              | Ano                 |
 
 >[!NOTE]
 > Při generování databáze z koncepčního modelu Průvodce generováním databáze rozpozná hodnotu atributu **StoreGeneratedPattern** elementu **Property** , pokud je v následujícím oboru názvů: https://schemas.microsoft.com/ado/2009/02/edm/annotation. Podporované hodnoty atributu jsou **identity** a **počítané**. Hodnota **identity** vytvoří sloupec databáze s hodnotou identity, která je vygenerována v databázi. Hodnota **počítaná** vygeneruje sloupec s hodnotou, která je vypočítána v databázi.

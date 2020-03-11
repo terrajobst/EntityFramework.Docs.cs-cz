@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 06baa6e1-d680-4a95-845b-81305c87a962
 ms.openlocfilehash: a9c54fbc14dd02ce5d4d91449a0d5f9e72f7f0f7
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182506"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418537"
 ---
 # <a name="spatial---ef-designer"></a>Prostor – Návrhář EF
 > [!NOTE]
@@ -31,7 +31,7 @@ Toto video ukazuje, jak namapovat prostorové typy pomocí Entity Framework Desi
 
 **Video**: [wmv](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 K dokončení tohoto Názorného postupu budete muset mít nainstalovanou verzi sady Visual Studio 2012, Ultimate, Premium, Professional nebo web Express.
 
@@ -48,7 +48,7 @@ K dokončení tohoto Názorného postupu budete muset mít nainstalovanou verzi 
 2.  V nabídce vlevo vyberte **data** a v podokně šablony vyberte **ADO.NET model EDM (Entity Data Model)** .
 3.  Jako název souboru zadejte **UniversityModel. edmx** a pak klikněte na **Přidat** .
 4.  Na stránce průvodce model EDM (Entity Data Model) vyberte v dialogovém okně Vybrat obsah modelu možnost **prázdný model** .
-5.  Klikněte na **Dokončit** .
+5.  Klikněte na **Dokončit**.
 
 Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu.
 
@@ -62,7 +62,7 @@ Průvodce provede následující akce:
 
 1.  Klikněte pravým tlačítkem myši na prázdnou oblast návrhové plochy, vyberte možnost **přidat&gt; entitu**, otevře se dialogové okno nová entita.
 2.  Zadejte **univerzita** pro název typu a jako název vlastnosti zadejte **UniversityID** . ponechte typ jako **Int32** .
-3.  Klikněte na **OK** .
+3.  Klikněte na tlačítko **OK**.
 4.  Klikněte pravým tlačítkem na entitu a vyberte **Přidat novou&gt; skalární vlastnost** .
 5.  Přejmenujte novou vlastnost na **název** .
 6.  Přidejte další skalární vlastnost a přejmenujte ji na **umístění** otevřít okno Vlastnosti a změňte typ nové vlastnosti na **geografie** .

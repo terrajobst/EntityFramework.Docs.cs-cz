@@ -1,157 +1,157 @@
 ---
-title: Komplexní typy – EF designeru - EF6
+title: Komplexní typy – Návrhář EF – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9a8228ef-acfd-4575-860d-769d2c0e18a1
 ms.openlocfilehash: a3c5578acee23688c04772d2dd0a2221779af562
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489905"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418649"
 ---
-# <a name="complex-types---ef-designer"></a>Komplexní typy – EF designeru
-Toto téma ukazuje, jak namapovat komplexní typy se Návrhář Entity Framework (EF designeru) a zadávat dotazy na entity, které obsahují vlastností komplexního typu.
+# <a name="complex-types---ef-designer"></a>Komplexní typy – Návrhář EF
+Toto téma ukazuje, jak namapovat komplexní typy pomocí Entity Framework Designer (EF Designer) a jak se dotazovat na entity, které obsahují vlastnosti komplexního typu.
 
-Následující obrázek znázorňuje hlavní windows, které se používají při práci s EF designeru.
+Následující obrázek ukazuje hlavní okna, která se používají při práci s návrhářem EF.
 
-![EF designeru](~/ef6/media/efdesigner.png)
+![Návrhář EF](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
-> Při vytváření konceptuální model, upozornění na nenamapované entit a přidružení může zobrazit v seznamu chyb. Tato upozornění můžete ignorovat, protože až zvolíte, aby se vygenerovala databáze z modelu, chyby zmizí.
+> Při sestavování koncepčního modelu se může zobrazit upozornění týkající se nemapovaných entit a přidružení v Seznam chyb. Tato upozornění můžete ignorovat, protože po výběru databáze z modelu budou tyto chyby pryč.
 
 ## <a name="what-is-a-complex-type"></a>Co je komplexní typ
 
-Komplexní typy jsou vlastnosti neskalární typy entit, které umožňují Skalární vlastnosti, které chcete být uspořádány v rámci entit. Stejně jako entity komplexní typy skládat z Skalární vlastnosti nebo dalších vlastností komplexního typu.
+Komplexní typy jsou jiné než skalární vlastnosti typů entit, které umožňují organizovat skalární vlastnosti v rámci entit. Podobně jako entity, komplexní typy sestávají z skalárních vlastností nebo jiných vlastností komplexního typu.
 
-Při práci s objekty, které představují komplexní typy, mějte na paměti toto:
+Při práci s objekty, které reprezentují komplexní typy, mějte na paměti následující:
 
--   Komplexní typy nemají klíče a proto nemůže existovat nezávisle na sobě. Komplexní typy může existovat pouze jako typy entit nebo jiné komplexní typy vlastností.
--   Komplexní typy nemůže být součástí přidružení a nesmí obsahovat navigační vlastnosti.
--   Komplexní typ vlastnosti nemohou být **null**. ** InvalidOperationException ** dochází při **DbContext.SaveChanges** se nazývá a komplexní objekt s hodnotou null. Může být Skalární vlastnosti komplexních objektů **null**.
--   Komplexní typy nemůžou dědit z jiné komplexní typy.
--   Je nutné definovat jako komplexní typ **třídy**. 
--   EF zjistí změny členů na komplexní typ objektu při **DbContext.DetectChanges** je volána. Zavolá rozhraní Entity Framework **metoda DetectChanges** automaticky kdy jsou volány následující členy: **DbSet.Find**, **DbSet.Local**, **DbSet.Remove**, **DbSet.Add**, **DbSet.Attach**, **DbContext.SaveChanges**, **DbContext.GetValidationErrors**, **DbContext.Entry**, **DbChangeTracker.Entries**.
+-   Komplexní typy nemají klíče, a proto nemohou existovat nezávisle. Komplexní typy mohou existovat pouze jako vlastnosti typů entit nebo jiných komplexních typů.
+-   Komplexní typy se nemůžou účastnit přidružení a nemůžou obsahovat navigační vlastnosti.
+-   Vlastnosti komplexního typu nemohou mít **hodnotu null**. K hodnotě **InvalidOperationException **dojde, pokud je volána metoda **DbContext. SaveChanges** a byl zjištěn složitý objekt s hodnotou null. Skalární vlastnosti komplexních objektů mohou mít **hodnotu null**.
+-   Komplexní typy nemůžou dědit z jiných komplexních typů.
+-   Komplexní typ musíte definovat jako **třídu**. 
+-   EF detekuje změny členů v objektu komplexního typu, když je volána metoda **DbContext. DetectChanges** . Entity Framework volá automaticky **DetectChanges** při volání následujících členů: **negenerickými. Find**, **negenerickými. Local**, **negenerickými. Remove**, **negenerickými. Add**, **negenerickými. Attach**, **DbContext. SaveChanges**, **DbContext. GetValidationErrors**, **DbContext. entry**, **DbChangeTracker. Entries**.
 
-## <a name="refactor-an-entitys-properties-into-new-complex-type"></a>Refaktorovat vlastnosti Entity novou komplexní typ
+## <a name="refactor-an-entitys-properties-into-new-complex-type"></a>Refaktorování vlastností entity do nového komplexního typu
 
-Pokud už máte v konceptuálním modelu entity můžete chtít Refaktorovat některých vlastností do vlastností komplexního typu.
+Pokud již máte entitu ve koncepčním modelu, můžete chtít Refaktorovat některé vlastnosti do vlastnosti komplexního typu.
 
-Na návrhové ploše, vyberte jednu nebo více vlastností (s výjimkou navigačních vlastností) entity, klikněte pravým tlačítkem a vyberte **Refaktorovat -&gt; přesunout na nový komplexní typ**.
+Na návrhové ploše vyberte jednu nebo více vlastností (kromě vlastností navigace) entity, klikněte pravým tlačítkem myši a vyberte **refaktoring –&gt; přesunout na nový komplexní typ**.
 
 ![Refaktorovat](~/ef6/media/refactor.png)
 
-Nový komplexní typ s vybranou vlastností se přidá do **prohlížeč modelu**. Komplexní typ je přiřazen výchozí název.
+Do **prohlížeče modelu**se přidá nový komplexní typ s vybranými vlastnostmi. Komplexnímu typu je udělen výchozí název.
 
-Komplexní vlastnosti nově vytvořeného typu nahradí vybraných vlastností. Jsou zachovány všechny mapování vlastností.
+Komplexní vlastnost nově vytvořeného typu nahradí vybrané vlastnosti. Všechna mapování vlastností jsou zachována.
 
 ![Refaktorovat 2](~/ef6/media/refactor2.png)
 
-## <a name="create-a-new-complex-type"></a>Vytvořte nový komplexní typ
+## <a name="create-a-new-complex-type"></a>Vytvořit nový komplexní typ
 
-Můžete také vytvořit nový komplexní typ, který obsahuje vlastnosti existující entity.
+Můžete také vytvořit nový komplexní typ, který neobsahuje vlastnosti existující entity.
 
-Klikněte pravým tlačítkem na **komplexní typy** složky přejděte v prohlížeči modelů **komplexní typ funkce operací AddNew...** . Alternativně můžete vybrat **komplexní typy** složky a stiskněte klávesu **vložit** kláves na klávesnici.
+Klikněte pravým tlačítkem na složku **komplexních typů** v prohlížeči modelů, přejděte na **komplexní typ AddNew...** . Případně můžete vybrat složku **komplexních typů** a stisknout klávesu **INSERT** na klávesnici.
 
 ![Přidat nový komplexní typ](~/ef6/media/addnewcomplextype.png)
 
-Nový komplexní typ se přidá do složky s výchozím názvem. Nyní můžete přidat vlastnosti typu.
+Do složky s výchozím názvem se přidá nový komplexní typ. Nyní můžete do typu přidat vlastnosti.
 
-## <a name="add-properties-to-a-complex-type"></a>Přidání vlastností komplexního typu.
+## <a name="add-properties-to-a-complex-type"></a>Přidání vlastností do komplexního typu
 
-Vlastnosti komplexní typ může být Skalární typy nebo existující komplexní typy. Komplexní typ vlastnosti však nesmí obsahovat Kruhové odkazy. Například komplexní typ **OnsiteCourseDetails** nemůže mít vlastnost komplexního typu **OnsiteCourseDetails**.
+Vlastnosti komplexního typu mohou být skalární typy nebo existující komplexní typy. Vlastnosti komplexního typu ale nemůžou mít cyklické odkazy. Například komplexní typ **OnsiteCourseDetails** nemůže mít vlastnost komplexního typu **OnsiteCourseDetails**.
 
-Přidat vlastnost na komplexní typ v některém z níže uvedených způsobů.
+Vlastnost můžete do komplexního typu přidat libovolným způsobem uvedeným níže.
 
--   Klikněte pravým tlačítkem na komplexní typ v modelu prohlížeč, přejděte na **přidat**, přejděte na **skalární vlastnost** nebo **komplexní vlastnost**, pak vyberte typ požadované vlastnosti. Alternativně můžete vybrat komplexní typ a potom stiskněte klávesu **vložit** kláves na klávesnici.  
+-   V prohlížeči modelů klikněte pravým tlačítkem myši na komplexní typ, přejděte na **Přidat**a pak na **skalární vlastnost** nebo **komplexní vlastnost**a pak vyberte požadovaný typ vlastnosti. Případně můžete vybrat složitý typ a pak na klávesnici stisknout klávesu **Insert** .  
 
-    ![Přidání vlastností komplexního typu](~/ef6/media/addpropertiestocomplextype.png)
+    ![Přidat vlastnosti do komplexního typu](~/ef6/media/addpropertiestocomplextype.png)
 
-    Komplexní typ s výchozím názvem je přidána nová vlastnost.
+    Do komplexního typu se přidá nová vlastnost s výchozím názvem.
 
-- OR –
+- Ani
 
--   Klikněte pravým tlačítkem na vlastnost entity na **EF designeru** ploše a vyberte možnost **kopírování**, klikněte pravým tlačítkem na komplexní typ, **prohlížeč modelu** a vyberte  **Vložit**.
+-   Klikněte pravým tlačítkem na plochu **Návrháře EF** a vyberte **Kopírovat**, klikněte pravým tlačítkem na komplexní typ v **prohlížeči modelů** a vyberte **Vložit**.
 
-## <a name="rename-a-complex-type"></a>Přejmenovat komplexního typu.
+## <a name="rename-a-complex-type"></a>Přejmenování komplexního typu
 
-Při přejmenování komplexní typ, se aktualizují všechny odkazy na typ v celém projektu.
+Při přejmenování komplexního typu jsou všechny odkazy na typ aktualizovány v celém projektu.
 
--   Pomalu klikněte dvakrát na komplexní typ **prohlížeč modelu**.
+-   Pomalu dvakrát klikněte na komplexní typ v **prohlížeči modelů**.
     Název bude vybrán a v režimu úprav.
 
-- OR –
+- Ani
 
--   Klikněte pravým tlačítkem na komplexní typ **prohlížeč modelu** a vyberte **přejmenovat**.
+-   V **prohlížeči modelů** klikněte pravým tlačítkem na komplexní typ a vyberte **Přejmenovat**.
 
-- OR –
+- Ani
 
--   Vyberte komplexní typ v prohlížeči modelů a stisknutím klávesy F2.
+-   V prohlížeči modelů vyberte složitý typ a stiskněte klávesu F2.
 
-- OR –
+- Ani
 
--   Klikněte pravým tlačítkem na komplexní typ **prohlížeč modelu** a vyberte **vlastnosti**. Upravit název v **vlastnosti** okna.
+-   V **prohlížeči modelů** klikněte pravým tlačítkem na komplexní typ a vyberte **vlastnosti**. Upravte název v okně **vlastnosti** .
 
-## <a name="add-an-existing-complex-type-to-an-entity-and-map-its-properties-to-table-columns"></a>Přidat existující komplexního typu Entity a namapujte jeho vlastnosti na sloupce tabulky
+## <a name="add-an-existing-complex-type-to-an-entity-and-map-its-properties-to-table-columns"></a>Přidání existujícího komplexního typu k entitě a mapování vlastností na sloupce tabulky
 
-1.  Klikněte pravým tlačítkem na entitu, přejdete na **přidat nový**a vyberte **komplexní vlastnost**.
-    Komplexní vlastnost s výchozím názvem se přidá k entitě. Výchozí typ (zvolit existující komplexní typy) je přiřazen k vlastnosti.
-2.  Přiřaďte požadovaného typu vlastnosti v **vlastnosti** okna.
-    Po přidání vlastnosti komplexní typ entity, je nutné mapovat na sloupce tabulky její vlastnosti.
-3.  Klikněte pravým tlačítkem na typ entity na návrhové ploše nebo na **prohlížeč modelu** a vyberte **mapování tabulky**.
-    Mapování tabulky se zobrazí v **podrobnosti mapování** okna.
-4.  Rozbalte **mapuje &lt;název tabulky&gt;**  uzlu.
-    A **mapování sloupců** uzel se objeví.
-5.  Rozbalte **mapování sloupců** uzlu.
-    Zobrazí se seznam všech sloupců v tabulce. Výchozí vlastnosti (pokud existuje) který mapovat sloupce, které jsou uvedeny v části **/vlastnost Value** záhlaví.
-6.  Vyberte sloupec, který chcete propojit a klikněte pravým tlačítkem na příslušné **/vlastnost Value** pole.
-    Zobrazí se rozevírací seznam Skalární vlastnosti.
-7.  Vyberte příslušnou vlastnost.
+1.  Klikněte pravým tlačítkem na entitu, přejděte na **Přidat nový**a vyberte **složitá vlastnost**.
+    Do entity se přidá vlastnost komplexního typu s výchozím názvem. K vlastnosti je přiřazen výchozí typ (zvoleno z existujících komplexních typů).
+2.  Přiřaďte požadovaný typ k vlastnosti v okně **vlastnosti** .
+    Po přidání vlastnosti komplexního typu do entity je nutné namapovat její vlastnosti na sloupce tabulky.
+3.  Pravým tlačítkem myši klikněte na typ entity na návrhové ploše nebo v **prohlížeči modelů** a vyberte **mapování tabulek**.
+    Mapování tabulek se zobrazí v okně **Podrobnosti mapování** .
+4.  Rozbalte uzel **mapy pro &lt;název tabulky&gt;**  Node.
+    Zobrazí se uzel  **mapování sloupců** .
+5.  Rozbalte uzel **mapování sloupců** .
+    Zobrazí se seznam všech sloupců v tabulce. Výchozí vlastnosti (pokud existují), na které jsou sloupce namapovány pod položkou **hodnota nebo vlastnost** záhlaví.
+6.  Vyberte sloupec, který chcete namapovat, a potom klikněte pravým tlačítkem na odpovídající **hodnotu nebo vlastnost** pole.
+    Zobrazí se rozevírací seznam všech skalárních vlastností.
+7.  Vyberte odpovídající vlastnost.
 
-    ![Komplexní typ mapy](~/ef6/media/mapcomplextype.png)
+    ![Mapování komplexního typu](~/ef6/media/mapcomplextype.png)
 
 8.  Opakujte kroky 6 a 7 pro každý sloupec tabulky.
 
 >[!NOTE]
-> Pokud chcete odstranit mapování sloupce, vyberte sloupec, který chcete namapovat a potom klikněte na tlačítko **/vlastnost Value** pole. Vyberte **odstranit** z rozevíracího seznamu.
+> Chcete-li odstranit mapování sloupce, vyberte sloupec, který chcete namapovat, a poté klikněte na pole **hodnota nebo vlastnost** . Pak v rozevíracím seznamu vyberte **Odstranit** .
 
-## <a name="map-a-function-import-to-a-complex-type"></a>Mapování importované funkce komplexního typu.
+## <a name="map-a-function-import-to-a-complex-type"></a>Mapování importu funkce na komplexní typ
 
-Funkce jsou založeny na uložené procedury. Mapování importované funkce na komplexní typ, sloupců vrácený odpovídající uložené procedury musí odpovídat vlastnosti komplexní typ, číslo a musí mít typy úložišť, které jsou kompatibilní s typy vlastností.
+Importy funkcí jsou založeny na uložených procedurách. Chcete-li namapovat import funkce na komplexní typ, sloupce vrácené odpovídajícím uloženým postupem musí odpovídat vlastností komplexního typu v Number a musí mít typy úložiště, které jsou kompatibilní s typy vlastností.
 
--   Dvakrát klikněte na importované funkce, která chcete namapovat komplexního typu.
+-   Dvakrát klikněte na importovanou funkci, kterou chcete namapovat na komplexní typ.
 
-    ![Imports – funkce](~/ef6/media/functionimports.png)
+    ![Importy funkcí](~/ef6/media/functionimports.png)
 
--   Zadejte nastavení pro nové importované funkce takto:
-    -   Zadejte uloženou proceduru, pro kterou vytváříte importované funkce v **název uložené procedury** pole. Toto pole je rozevírací seznam, který zobrazuje všechny uložené procedury v modelu úložiště.
-    -   Zadejte název v importované funkce **importovat název funkce** pole.
-    -   Vyberte **komplexní** jako návratový typ a pak zadejte konkrétní komplexní návratový typ zvolením příslušného typu z rozevíracího seznamu.
+-   Zadejte nastavení nového importu funkce následujícím způsobem:
+    -   Zadejte uloženou proceduru, pro kterou vytváříte import funkce v poli **název uložené procedury** . Toto pole obsahuje rozevírací seznam, který zobrazuje všechny uložené procedury v modelu úložiště.
+    -   Zadejte název importované funkce v poli  **importovat název funkce** .
+    -   Jako návratový typ vyberte **složitý** a pak v rozevíracím seznamu zvolte vhodný typ, a pak zadejte konkrétní komplexní návratový typ.
 
-        ![Upravit importované funkce](~/ef6/media/editfunctionimport.png)
+        ![Upravit import funkce](~/ef6/media/editfunctionimport.png)
 
--   Klikněte na tlačítko **OK**.
-    Položka import funkce je vytvořena v konceptuálním modelu.
+-   Klikněte na tlačítko **OK**.
+    V koncepčním modelu se vytvoří položka importování funkce.
 
-### <a name="customize-column-mapping-for-function-import"></a>Mapování importované funkce sloupec
+### <a name="customize-column-mapping-for-function-import"></a>Přizpůsobení mapování sloupce pro import funkce
 
--   Importovaná funkce v prohlížeči modelů klikněte pravým tlačítkem a vyberte **Import mapování funkcí**.
-    **Podrobnosti mapování** okna se zobrazí a zobrazí výchozí mapování importované funkce. Šipky označují mapování mezi hodnot sloupců a hodnot vlastností. Ve výchozím nastavení názvy sloupců jsou předpokládá se, že stejné jako názvy vlastností komplexního typu. Výchozí názvy sloupců se zobrazí v šedé textu.
--   V případě potřeby změňte názvy sloupců tak, aby odpovídaly názvy sloupců, které jsou vráceny pomocí uložené procedury, která odpovídá na importované funkce.
+-   V prohlížeči modelů klikněte pravým tlačítkem na import funkce a vyberte **mapování importu funkcí**.
+    Zobrazí se okno **Podrobnosti mapování** a zobrazí se výchozí mapování pro import funkce. Šipky označují mapování mezi hodnotami sloupce a hodnotami vlastností. Ve výchozím nastavení se názvy sloupců považují za stejné jako názvy vlastností komplexního typu. Výchozí názvy sloupců se zobrazí v šedém textu.
+-   V případě potřeby změňte názvy sloupců tak, aby odpovídaly názvům sloupců, které jsou vráceny uloženou procedurou, která odpovídá importu funkce.
 
-## <a name="delete-a-complex-type"></a>Odstranit komplexního typu.
+## <a name="delete-a-complex-type"></a>Odstranění komplexního typu
 
-Když odstraníte komplexní typ, typ je odstraněn z Koncepční model a budou odstraněny mapování pro všechny instance daného typu. Odkazy na typ se ale neaktualizují. Například, pokud má entita komplexní vlastnost typu ComplexType1 a ComplexType1 se odstraní v **prohlížeč modelu**, odpovídající vlastnost entity není aktualizován. Model nebude ověřit, protože obsahuje entitu, která odkazuje na odstraněný komplexního typu. Můžete aktualizovat nebo odstranit odkazy na odstraněný komplexních typů pomocí návrháře entit.
+Při odstranění komplexního typu se odstraní typ z konceptuálního modelu a mapování pro všechny instance typu budou odstraněna. Odkazy na tento typ však nejsou aktualizovány. Například Pokud entita má vlastnost komplexního typu typu ComplexType1 a ComplexType1 je v **prohlížeči modelů**odstraněna, není aktualizována odpovídající vlastnost entity. Model nebude ověřen, protože obsahuje entitu, která odkazuje na odstraněný komplexní typ. Odkazy na odstraněné komplexní typy můžete aktualizovat nebo odstranit pomocí Entity Designer.
 
--   Komplexní typ v prohlížeči modelů klikněte pravým tlačítkem a vyberte **odstranit**.
+-   V prohlížeči modelů klikněte pravým tlačítkem na komplexní typ a vyberte **Odstranit**.
 
-- OR –
+- Ani
 
--   Vyberte komplexní typ v prohlížeči modelů a na klávesnici stiskněte klávesu Delete.
+-   V prohlížeči modelů vyberte složitý typ a stiskněte klávesu DELETE na klávesnici.
 
-## <a name="query-for-entities-containing-properties-of-complex-type"></a>Dotazy na entity obsahující vlastnosti tohoto komplexního typu
+## <a name="query-for-entities-containing-properties-of-complex-type"></a>Dotaz na entity obsahující vlastnosti komplexního typu
 
-Následující kód ukazuje, jak spustit dotaz, který vrátí kolekci entit typu objektů, které obsahují komplexní typ vlastnosti.
+Následující kód ukazuje, jak spustit dotaz, který vrací kolekci objektů typu entity, které obsahují vlastnost komplexního typu.
 
 ``` csharp
     using (SchoolEntities context = new SchoolEntities())

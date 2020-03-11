@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 9/13/2019
 uid: core/modeling/keyless-entity-types
-ms.openlocfilehash: 129e24b154ba32583435aeb742dbf478350344e8
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 520c9ed93240c05deee36fa527a3757490fd7082
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824659"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417314"
 ---
 # <a name="keyless-entity-types"></a>Typy entit bez klíčů
 
@@ -47,7 +47,7 @@ Některé z hlavních scénářů použití pro typy entit bez klíčů jsou:
 
 ## <a name="mapping-to-database-objects"></a>Mapování databázových objektů
 
-Mapování typu entity bez klíčů k databázovému objektu se dosahuje pomocí rozhraní API pro `ToTable` nebo `ToView` Fluent. Z pohledu EF Core je určený v této metodě objekt databáze _zobrazení_, to znamená, že je považován za zdroj dotazu jen pro čtení a nemůže být cílem příkazu update, insert nebo operace odstranění. To však neznamená, že objekt databáze je skutečně vyžadován pro zobrazení databáze. Může se případně jednat o databázovou tabulku, která bude považována za jen pro čtení. U regulárních typů entit EF Core předpokládá, že databázový objekt zadaný v metodě `ToTable` lze považovat za _tabulku_, což znamená, že se dá použít jako zdroj dotazu, ale také cílený na operace aktualizace, odstranění a vložení. Ve skutečnosti můžete zadat název databáze zobrazení v `ToTable` a všechno, co by mělo fungovat bez problémů jako zobrazení konfigurován tak, aby umožnit aktualizaci modelové databáze.
+Mapování typu entity bez klíčů k databázovému objektu se dosahuje pomocí rozhraní API pro `ToTable` nebo `ToView` Fluent. Z perspektivy EF Core je databázový objekt zadaný v této metodě _zobrazení_, což znamená, že je považován za zdroj dotazu jen pro čtení a nemůže být cílem operace Update, INSERT nebo DELETE. To však neznamená, že objekt databáze je skutečně vyžadován pro zobrazení databáze. Může se případně jednat o databázovou tabulku, která bude považována za jen pro čtení. U regulárních typů entit EF Core předpokládá, že databázový objekt zadaný v metodě `ToTable` lze považovat za _tabulku_, což znamená, že se dá použít jako zdroj dotazu, ale také cílený na operace aktualizace, odstranění a vložení. Ve skutečnosti můžete zadat název zobrazení databáze v `ToTable` a vše by mělo fungovat, pokud je v databázi nakonfigurované tak, aby bylo možné aktualizovat.
 
 > [!NOTE]
 > `ToView` předpokládá, že objekt již v databázi existuje a nebude vytvořen migracemi.
@@ -57,7 +57,7 @@ Mapování typu entity bez klíčů k databázovému objektu se dosahuje pomocí
 Následující příklad ukazuje, jak použít typy entit bez klíčů k dotazování zobrazení databáze.
 
 > [!TIP]
-> Můžete zobrazit v tomto článku [ukázka](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) na Githubu.
+> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes) tohoto článku můžete zobrazit na GitHubu.
 
 Nejprve definujte jsme jednoduchý model blogu a příspěvek:
 

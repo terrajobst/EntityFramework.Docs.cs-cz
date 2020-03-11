@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
 ms.openlocfilehash: 34866ddbbf81f090a064af148a612dd354ae9401
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824808"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418957"
 ---
 # <a name="using-migrateexe"></a>Použití souboru migrovat. exe
 Migrace Code First lze použít k aktualizaci databáze v rámci sady Visual Studio, ale lze ji provést také pomocí nástroje příkazového řádku migrovat. exe. Tato stránka poskytuje rychlý přehled o tom, jak pomocí nástroje Migration. exe provádět migrace v databázi.

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
 ms.openlocfilehash: f1ce44e7b00ec4c60a81ed850ce5c9d866495e1b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181759"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419526"
 ---
 # <a name="working-with-disconnected-entities"></a>Práce s odpojenými entitami
 V aplikaci založené na Entity Framework je kontextová třída zodpovědná za zjištění změn použitých u sledovaných entit. Volání metody SaveChanges uchovává změny sledované kontextem databáze. Při práci s n-vrstvými aplikacemi jsou objekty entit obvykle měněny během odpojení od kontextu a Vy musíte rozhodnout, jak sledovat změny a ohlásit tyto změny zpět do kontextu. Toto téma popisuje různé možnosti, které jsou k dispozici při použití Entity Framework s odpojenými entitami.   
@@ -30,4 +30,4 @@ Sledování změn u libovolných grafů entit během odpojení od kontextu EF je
 Tuto šablonu lze použít s modely vytvořenými pomocí návrháře EF, ale nelze je použít s Code Firstmi modely. Další informace najdete v tématu [entity pro sledování sebe](self-tracking-entities/index.md).  
 
 > [!IMPORTANT]
-> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například sledovací [entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastní kód s využitím rozhraní API pro sledování změn nízké úrovně.
+> Nedoporučujeme používat šablonu samoobslužné sledování – entity. Bude dál k dispozici jenom pro podporu stávajících aplikací. Pokud vaše aplikace vyžaduje práci s odpojenými grafy entit, zvažte další alternativy, jako jsou například [sledované entity](https://trackableentities.github.io/), což je technologie podobná entitám s vlastním sledováním, které jsou aktivně vyvíjené komunitou, nebo psaním vlastního kódu s využitím rozhraní API pro sledování změn nízké úrovně.

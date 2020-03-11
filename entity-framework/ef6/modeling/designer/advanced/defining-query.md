@@ -1,75 +1,75 @@
 ---
-title: Definování dotazu – EF designeru - EF6
+title: Definování dotazu-EF Designer – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
 ms.openlocfilehash: b1589dc12ccb50754c2e950932a2d82bc4869f6b
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489469"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418796"
 ---
-# <a name="defining-query---ef-designer"></a>Definování dotazu – EF designeru
-Tento návod ukazuje, jak přidat, definování dotazů a odpovídající entita typ modelu pomocí EF designeru. Definování dotazu se běžně používá k zajištění funkce podobné, která poskytuje zobrazení databáze, ale zobrazení je definováno v modelu, ne databáze. Definování dotazu umožňuje provedení příkazu SQL, který je zadán v **DefiningQuery** prvek souboru .edmx. Další informace najdete v tématu **DefiningQuery** v [specifikace SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
+# <a name="defining-query---ef-designer"></a>Definice dotazu – Návrhář EF
+Tento návod ukazuje, jak přidat definiční dotaz a odpovídající typ entity do modelu pomocí návrháře EF. Definiční dotaz se běžně používá k poskytování funkcí podobných těm, které poskytuje zobrazení databáze, ale zobrazení je definováno v modelu, nikoli v databázi. Definiční dotaz umožňuje spustit příkaz SQL, který je určen v **DefiningQuery** elementu souboru. edmx. Další informace najdete v tématu **DefiningQuery** ve [specifikaci SSDL](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md).
 
-Při použití definice dotazů, máte také definovat typ entity v modelu. Typ entity se používá k poskytování data vystavená prostřednictvím definice dotazu. Všimněte si, že data prezentované prostřednictvím tohoto typu entity je jen pro čtení.
+Při použití definování dotazů musíte také definovat typ entity v modelu. Typ entity se používá k vytvoření Surface dat vystavených definičním dotazem. Všimněte si, že data provedená prostřednictvím tohoto typu entity jsou jen pro čtení.
 
-Parametrizované dotazy nejde provést, protože definice dotazů. Data však můžete aktualizovat pomocí mapování insert, update a delete funkce typ entity tohoto rovin dat pro uložené procedury. Další informace najdete v tématu [Insert, Update a Delete pomocí uložené procedury](~/ef6/modeling/designer/stored-procedures/cud.md).
+Parametrizované dotazy nelze provést jako definování dotazů. Data se ale dají aktualizovat mapováním funkcí INSERT, Update a DELETE typu entity, která doplňují data do uložených procedur. Další informace najdete v tématu [vkládání, aktualizace a odstraňování s uloženými procedurami](~/ef6/modeling/designer/stored-procedures/cud.md).
 
-Toto téma ukazuje, jak provádět následující úlohy.
+V tomto tématu se dozvíte, jak provádět následující úlohy.
 
--   Přidat dotaz definující
--   Přidat typ Entity do modelu
--   Definování dotazu mapovat na typ Entity
+-   Přidat definiční dotaz
+-   Přidání typu entity do modelu
+-   Namapujte definiční dotaz na typ entity.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 K dokončení toho návodu budete potřebovat:
 
-- Nejnovější verzi sady Visual Studio.
-- [Ukázkové databáze školy](~/ef6/resources/school-database.md).
+- Poslední verze sady Visual Studio.
+- [Ukázková databáze školy](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
-Tento názorný postup je pomocí sady Visual Studio 2012 nebo novější.
+Tento návod používá aplikaci Visual Studio 2012 nebo novější.
 
--   Otevřít Visual Studio.
--   Na **souboru** nabídky, přejděte k **nový**a potom klikněte na tlačítko **projektu**.
--   V levém podokně klikněte na tlačítko **Visual C\#** a pak vyberte **konzolovou aplikaci** šablony.
--   Zadejte **DefiningQuerySample** jako název projektu a klikněte na tlačítko **OK**.
+-   Otevřete sadu Visual Studio.
+-   V nabídce **soubor** přejděte na příkaz **Nový**a klikněte na **projekt**.
+-   V levém podokně klikněte na položku **Visual C\#** a pak vyberte šablonu **Konzolová aplikace** .
+-   Jako název projektu zadejte **DefiningQuerySample** a klikněte na **OK**.
 
- 
+ 
 
-## <a name="create-a-model-based-on-the-school-database"></a>Vytvořit Model založený na databáze školy
+## <a name="create-a-model-based-on-the-school-database"></a>Vytvoření modelu založeného na školní databázi
 
--   Klikněte pravým tlačítkem na název projektu v Průzkumníku řešení, přejděte na **přidat**a potom klikněte na tlačítko **nová položka**.
--   Vyberte **Data** v levé nabídce a pak vyberte **datový Model Entity ADO.NET** v podokně šablon.
--   Zadejte **DefiningQueryModel.edmx** pro název souboru a pak klikněte na tlačítko **přidat**.
--   V dialogovém okně Výběr obsahu modelu vyberte **Generovat z databáze**a potom klikněte na tlačítko **Další**.
--   Klikněte na tlačítko nové připojení. V dialogovém okně Vlastnosti připojení zadat název serveru (například **(localdb)\\mssqllocaldb**), vyberte metodu ověřování, zadejte **School** pro název databáze a pak Klikněte na tlačítko **OK**.
-    Dialogové okno Vybrat datové připojení se aktualizuje se nastavení připojení databáze.
--   V dialogovém okně Zvolte vaše databázové objekty, zkontrolujte, **tabulky** uzlu. Tato možnost přidá všech tabulek, které **School** modelu.
--   Klikněte na tlačítko **Dokončit**.
--   V Průzkumníku řešení klikněte pravým tlačítkem myši **DefiningQueryModel.edmx** a vyberte možnost **otevřít v programu...** .
--   Vyberte **Editor (textový) XML**.
+-   Klikněte pravým tlačítkem myši na název projektu v Průzkumník řešení, přejděte na **Přidat**a klikněte na **Nová položka**.
+-   V nabídce vlevo vyberte **data** a v podokně šablony vyberte **ADO.NET model EDM (Entity Data Model)** .
+-   Jako název souboru zadejte **DefiningQueryModel. edmx** a pak klikněte na **Přidat**.
+-   V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další**.
+-   Klikněte na nové připojení. V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB)\\mssqllocaldb**), vyberte metodu ověřování, jako název databáze zadejte **School** a pak klikněte na **OK**.
+    Dialogové okno zvolit datové připojení je aktualizováno nastavením připojení k databázi.
+-   V dialogovém okně zvolit objekty databáze zaškrtněte uzel **tabulky** . Tím se do **školního** modelu přidá všechny tabulky.
+-   Klikněte na tlačítko **Dokončit**.
+-   V Průzkumník řešení klikněte pravým tlačítkem na soubor **DefiningQueryModel. edmx** a vyberte **otevřít s...** .
+-   Vyberte **Editor XML (text)** .
 
     ![Editor XML](~/ef6/media/xmleditor.png)
 
--   Klikněte na tlačítko **Ano** Pokud se zobrazí výzva s následující zprávou:
+-   Po zobrazení výzvy s následující zprávou klikněte na **Ano** :
 
     ![Upozornění 2](~/ef6/media/warning2.png)
 
- 
+ 
 
-## <a name="add-a-defining-query"></a>Přidat dotaz definující
+## <a name="add-a-defining-query"></a>Přidat definiční dotaz
 
-V tomto kroku, který budeme používat editoru XML, který chcete přidat, definování dotazů a zadejte entitu do části SSDL soubor .edmx. 
+V tomto kroku použijeme editor XML k přidání definičního dotazu a typu entity do oddílu SSDL souboru. edmx. 
 
--   Přidat **objektu EntitySet** prvek do části SSDL soubor .edmx (řádku 5 až 13). Zadejte následující informace:
-    -   Pouze **název** a **EntityType** atributy **objektu EntitySet** zadávají se element.
-    -   Plně kvalifikovaný název typu entity se používá v **EntityType** atribut.
-    -   Je zadaný příkaz jazyka SQL, který se spustí v **DefiningQuery** elementu.
+-   Přidejte element **EntitySet** do oddílu SSDL souboru. edmx (řádek 5 až 13). Určete následující nastavení:
+    -   Jsou zadány pouze atributy **Name** a **EntityType** elementu **EntitySet** .
+    -   Plně kvalifikovaný název typu entity se používá v atributu **EntityType** .
+    -   Příkaz jazyka SQL, který má být spuštěn, je určen v prvku  **DefiningQuery** .
 
 ``` xml
     <!-- SSDL content -->
@@ -88,10 +88,10 @@ V tomto kroku, který budeme používat editoru XML, který chcete přidat, defi
           <EntitySet Name="Course" EntityType="SchoolModel.Store.Course" store:Type="Tables" Schema="dbo" />
 ```
 
--   Přidat **EntityType** prvek do části SSDL edmx. soubor jak je znázorněno níže. Vezměte na vědomí následující:
-    -   Hodnota **název** atribut odpovídá hodnotě **EntityType** atribut **objektu EntitySet** element výše, i když plně kvalifikovaný název Typ entity se používá v **EntityType** atribut.
-    -   Názvy vlastností, které odpovídají názvům sloupce vrácený příkazem SQL v **DefiningQuery** – element (viz výše).
-    -   V tomto příkladu klíč entity tvoří tři vlastnosti zajistit jedinečnou hodnotu klíče.
+-   Přidejte element **EntityType** do oddílu SSDL v. edmx. souboru, jak je znázorněno níže. Je třeba počítat s následujícím:
+    -   Hodnota atributu **Name** odpovídá hodnotě atributu **EntityType** v elementu **EntitySet** výše, i když je plně kvalifikovaný název typu entity použit v atributu **EntityType** .
+    -   Názvy vlastností odpovídají názvům sloupců vráceným příkazem SQL v elementu **DefiningQuery** (výše).
+    -   V tomto příkladu se klíč entity skládá ze tří vlastností, aby se zajistila hodnota jedinečného klíče.
 
 ``` xml
     <EntityType Name="GradeReport">
@@ -119,40 +119,40 @@ V tomto kroku, který budeme používat editoru XML, který chcete přidat, defi
 ```
 
 >[!NOTE]
-> Pokud později spustíte **aktualizace modelu průvodce** dialogového okna, všechny změny provedené v modelu úložiště, včetně definice dotazů, bude přepsán.
+> Pokud budete později spouštět dialog **Průvodce aktualizací modelu** , budou přepsány všechny změny modelu úložiště, včetně definování dotazů.
 
- 
+ 
 
-## <a name="add-an-entity-type-to-the-model"></a>Přidat typ Entity do modelu
+## <a name="add-an-entity-type-to-the-model"></a>Přidání typu entity do modelu
 
-V tomto kroku přidáme typ entity pro koncepční model pomocí EF designeru.  Vezměte na vědomí následující:
+V tomto kroku přidáme typ entity do koncepčního modelu pomocí návrháře EF.  Vezměte na vědomí následující:
 
--   **Název** entity odpovídá hodnotě **EntityType** atribut **objektu EntitySet** element výše.
--   Názvy vlastností, které odpovídají názvům sloupce vrácený příkazem SQL v **DefiningQuery** element výše.
--   V tomto příkladu klíč entity tvoří tři vlastnosti zajistit jedinečnou hodnotu klíče.
+-   **Název** entity odpovídá hodnotě atributu **EntityType** v elementu **EntitySet** výše.
+-   Názvy vlastností odpovídají názvům sloupců vráceným příkazem SQL ve výše uvedeném elementu **DefiningQuery** .
+-   V tomto příkladu se klíč entity skládá ze tří vlastností, aby se zajistila hodnota jedinečného klíče.
 
-Otevřete model v EF designeru.
+Otevřete model v Návrháři EF.
 
--   Dvakrát klikněte DefiningQueryModel.edmx.
--   Řekněme, že **Ano** následující zprávu:
+-   Dvakrát klikněte na DefiningQueryModel. edmx.
+-   Řekněte **Ano** pro následující zprávu:
 
     ![Upozornění 2](~/ef6/media/warning2.png)
 
- 
+ 
 
-V návrháři entit, které poskytuje návrhové ploše pro úpravy váš model, se zobrazí.
+Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu.
 
--   Klikněte pravým tlačítkem na Návrhář ploše a vyberte možnost **přidat nový**-&gt;**Entity...** .
--   Zadejte **GradeReport** u názvu entity a **CourseID** pro **vlastnost Key**.
--   Klikněte pravým tlačítkem myši **GradeReport** entity a vyberte **přidat nový** - &gt; **skalární vlastnost**.
--   Změnit výchozí název vlastnosti, která má **FirstName**.
--   Přidat jiné Skalární vlastnosti a určit **LastName** pro název.
--   Přidat jiné Skalární vlastnosti a určit **na podnikové úrovni** pro název.
--   V **vlastnosti** okno Změnit **na podnikové úrovni**společnosti **typ** vlastnost **desítkové**.
--   Vyberte **FirstName** a **LastName** vlastnosti.
--   V **vlastnosti** okno Změnit **EntityKey** hodnoty vlastnosti **True**.
+-   Klikněte pravým tlačítkem myši na plochu návrháře a vyberte **Přidat novou**-&gt;**entitu...** .
+-   Zadejte **GradeReport** pro název entity a **CourseID** pro **klíčovou vlastnost**.
+-   Klikněte pravým tlačítkem na entitu **GradeReport** a vyberte **přidat novou**-&gt; **skalární vlastnost**.
+-   Změňte výchozí název vlastnosti na **FirstName**.
+-   Přidejte další skalární vlastnost a jako název zadejte **LastName** .
+-   Přidejte další skalární vlastnost a jako název zadejte **třídu** .
+-   V okně **vlastnosti** změňte vlastnost **typ** **třídy**na hodnotu **Decimal**.
+-   Vyberte vlastnosti **FirstName** a **LastName** .
+-   V okně **vlastnosti** změňte hodnotu vlastnosti **EntityKey** na hodnotu **true**.
 
-V důsledku toho byly přidány následující prvky do **CSDL** část souboru .edmx.
+V důsledku toho byly do oddílu **CSDL** souboru. edmx přidány následující prvky.
 
 ``` xml
     <EntitySet Name="GradeReport" EntityType="SchoolModel.GradeReport" />
@@ -162,19 +162,19 @@ V důsledku toho byly přidány následující prvky do **CSDL** část souboru 
     </EntityType>
 ```
 
- 
+ 
 
-## <a name="map-the-defining-query-to-the-entity-type"></a>Definování dotazu mapovat na typ Entity
+## <a name="map-the-defining-query-to-the-entity-type"></a>Namapujte definiční dotaz na typ entity.
 
-V tomto kroku použijeme okno Podrobnosti o mapování pro mapování koncepční a typy entit úložiště.
+V tomto kroku použijeme okno Podrobnosti mapování k mapování typů koncepčních a entit úložišť.
 
--   Klikněte pravým tlačítkem myši **GradeReport** entity na návrhové ploše a vyberte **mapování tabulky,**.  
-    **Podrobnosti mapování** se zobrazí okno.
--   Vyberte **GradeReport** z **&lt;přidat tabulku nebo zobrazení&gt;** rozevíracího seznamu (umístěný ve skupinovém rámečku **tabulky**s).  
-    Výchozí mapování mezi koncepční a úložiště **GradeReport** zobrazí typ entity.  
-    ![Mapování Details3](~/ef6/media/mappingdetails.png)
+-   Na návrhové ploše klikněte pravým tlačítkem na entitu **GradeReport** a vyberte **mapování tabulky**.  
+    Zobrazí se okno **Podrobnosti mapování** .
+-   Vyberte **GradeReport** z **&lt;přidat tabulku nebo zobrazení&gt;** rozevírací seznam (umístěný v **tabulce**s).  
+    Zobrazí se výchozí mapování mezi typem entity koncepčního a **GradeReportho** úložiště.  
+    Mapování ![Details3](~/ef6/media/mappingdetails.png)
 
-V důsledku toho **elementu EntitySetMapping** prvek se přidá do části mapování souboru .edmx. 
+V důsledku toho se prvek **EntitySetMapping** přidá do oddílu mapování v souboru. edmx. 
 
 ``` xml
     <EntitySetMapping Name="GradeReports">
@@ -191,11 +191,11 @@ V důsledku toho **elementu EntitySetMapping** prvek se přidá do části mapov
 
 -   Zkompilujte aplikaci.
 
- 
+ 
 
-## <a name="call-the-defining-query-in-your-code"></a>Definování dotazu volání v kódu
+## <a name="call-the-defining-query-in-your-code"></a>Volání definičního dotazu ve vašem kódu
 
-Definování dotazu teď můžete spustit pomocí **GradeReport** typu entity. 
+Nyní můžete spustit definiční dotaz pomocí typu entity **GradeReport** . 
 
 ``` csharp
     using (var context = new SchoolEntities())

@@ -1,21 +1,21 @@
 ---
-title: Dotazování a hledání entit - EF6
+title: Dotazování a hledání entit – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
 ms.openlocfilehash: 29a86817e250a2f53ecaa73e8fa4bf93452f0497
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489788"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417168"
 ---
 # <a name="querying-and-finding-entities"></a>Dotazování a hledání entit
-Toto téma popisuje různé způsoby, můžete zadat dotaz na data pomocí Entity Frameworku, včetně LINQ a metodu Find. Postupy uvedené v tomto tématu se vztahují jak na modely vytvořené pomocí EF designeru a Code First.  
+Toto téma popisuje různé způsoby, jak se můžete dotazovat na data pomocí Entity Framework, včetně LINQ a metody Find. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
 
-## <a name="finding-entities-using-a-query"></a>Hledání pomocí dotazu entity  
+## <a name="finding-entities-using-a-query"></a>Hledání entit pomocí dotazu  
 
-DbSet a IDbSet implementující rozhraní IQueryable a proto může sloužit jako výchozí bod pro psaní dotazu LINQ na databázi. Toto není vhodné místo pro podrobnou diskuzi o LINQ, ale tady je několik jednoduchých příkladů:  
+Negenerickými a IDbSet implementují rozhraní IQueryable a dají se použít jako výchozí bod pro zápis dotazu LINQ na databázi. Nejedná se o příslušné místo pro podrobné diskuzi LINQ, ale tady je několik jednoduchých příkladů:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -32,30 +32,30 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Všimněte si, že DbSet IDbSet vždy vytvořit dotazy na databázi a bude vždy zahrnovat odezvy databáze, i v případě, že entity, které vrátil již existují v kontextu. Dotaz je proveden v databázi při:  
+Všimněte si, že Negenerickými a IDbSet vždy vytvářejí dotazy na databázi a budou vždy zahrnovat zpáteční cestu k databázi i v případě, že vrácené entity již existují v kontextu. Dotaz je proveden na databázi v těchto případech:  
 
-- Ve výčtu **foreach** (C#) nebo **pro každou** – příkaz (Visual Basic).  
-- Kolekce operací je uveden jako [ToArray](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary), nebo [ToList](https://msdn.microsoft.com/library/bb342261).  
-- Operátory LINQ, jako například [první](https://msdn.microsoft.com/library/bb291976) nebo [jakékoli](https://msdn.microsoft.com/library/bb337697) jsou určené v nejkrajnější část dotazu.  
-- Tyto metody jsou volány: [zatížení](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) rozšiřující metody na DbSet, [DbEntityEntry.Reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx)a Database.ExecuteSqlCommand.  
+- Je vyhodnocen pomocí příkazu **foreach** (C#) nebo **for each** (Visual Basic).  
+- Je vyhodnocena operací shromažďování, například [ToArray –](https://msdn.microsoft.com/library/bb298736), [ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary)nebo [ToList –](https://msdn.microsoft.com/library/bb342261).  
+- V krajní části dotazu jsou zadány operátory LINQ, například [First](https://msdn.microsoft.com/library/bb291976) nebo [Any](https://msdn.microsoft.com/library/bb337697) .  
+- Jsou volány následující metody: metoda rozšíření [Load](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) na Negenerickými, [DbEntityEntry. reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx)a Database. ExecuteSqlCommand.  
 
-Když výsledky jsou vráceny z databáze, jsou objekty, které neexistují v rámci připojit ke kontextu. Pokud objekt je již v kontextu, je vrácen existující objekt (jsou aktuální a původní hodnoty vlastností objektu v položce **není** přepsání hodnot v databázi).  
+Při vrácení výsledků z databáze jsou objekty, které v kontextu neexistují, připojeny k tomuto kontextu. Pokud objekt již v kontextu je, je vrácen stávající objekt (aktuální a původní hodnoty vlastností objektu v **položce nejsou** přepsány hodnotami databáze).  
 
-Při provádění dotazu entity, které byly přidány do kontextu, ale ještě nebyly uloženy do databáze, nebudou zobrazeny jako součást sady výsledků dotazu. Chcete-li získat data, která je v kontextu, najdete v článku [místních dat](~/ef6/querying/local-data.md).  
+Když provedete dotaz, entity, které byly přidány do kontextu, ale ještě nebyly uloženy do databáze, nebudou vráceny jako součást sady výsledků dotazu. Pokud chcete získat data, která jsou v kontextu, přečtěte si téma [místní data](~/ef6/querying/local-data.md).  
 
-Pokud dotaz vrací žádné řádky z databáze, výsledkem bude prázdnou kolekci, spíše než **null**.  
+Pokud dotaz nevrátí z databáze žádné řádky, bude výsledkem prázdná kolekce, nikoli **hodnota null**.  
 
-## <a name="finding-entities-using-primary-keys"></a>Vyhledávání entit pomocí primárních klíčů  
+## <a name="finding-entities-using-primary-keys"></a>Hledání entit pomocí primárních klíčů  
 
-Metoda hledání na DbSet používá hodnotu primárního klíče pokusí se najít entitu sledován pomocí funkce kontextu. Pokud subjektem nebyl nalezen v kontextu se být dotaz odesílat do databáze se najít entitu existuje. Pokud subjektem nebyl nalezen v kontextu nebo v databázi, je vrácena hodnota Null.  
+Metoda Find v Negenerickými používá k pokusu o nalezení entity sledované kontextem hodnotu primárního klíče. Pokud se entita v kontextu nenajde, odešle se dotaz do databáze, kde se nachází entita. Pokud entita nebyla nalezena v kontextu nebo v databázi, je vrácena hodnota null.  
 
-Hledání se liší od použití dotazu významné dvěma způsoby:  
+Hledání se liší od použití dotazu dvěma významnými způsoby:  
 
-- Cesty k databázi se provádí pouze v případě entita s daným klíčem nebyl nalezen v kontextu.  
-- Hledání vrátí entity, které jsou ve stavu Added. To je, najít, vrátí entity, které byly přidány do kontextu, ale ještě nebyly uloženy do databáze.  
-### <a name="finding-an-entity-by-primary-key"></a>Vyhledávání podle primárního klíče entity  
+- Zpáteční cesta k databázi bude provedena pouze v případě, že se entita s daným klíčem nenajde v kontextu.  
+- Hledání vrátí entity, které jsou ve stavu přidáno. To znamená, že příkaz find vrátí entity, které byly přidány do kontextu, ale ještě nebyly uloženy do databáze.  
+### <a name="finding-an-entity-by-primary-key"></a>Hledání entity podle primárního klíče  
 
-Následující kód ukazuje některá použití hledání:  
+Následující kód ukazuje některé použití najít:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -76,9 +76,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-### <a name="finding-an-entity-by-composite-primary-key"></a>Vyhledávání podle složený primární klíč entity  
+### <a name="finding-an-entity-by-composite-primary-key"></a>Hledání entity pomocí složeného primárního klíče  
 
-Entity Framework umožňuje vaší entity, které mají složených klíčů – to je klíč, který se skládá z více než jednu vlastnost. Například můžete mít BlogSettings entity, která představuje nastavení uživatele pro konkrétní blogu. Vzhledem k tomu, že uživatel bude mít vždy jen jeden BlogSettings pro každý blog, který můžete zvolili, primární klíč BlogSettings kombinací BlogId a uživatelské jméno. Následující kód se pokusí najít BlogSettings s BlogId = 3 a uživatelské jméno = "johndoe1987":  
+Entity Framework umožňuje vašim entitám mít složené klíče – což je klíč, který se skládá z více než jedné vlastnosti. Můžete mít například entitu BlogSettings, která představuje nastavení uživatele pro konkrétní blog. Vzhledem k tomu, že uživatel bude mít pro každý blog jenom jednu BlogSettings, můžete zvolit, aby primární klíč BlogSettings kombinaci BlogId a username. Následující kód se pokusí najít BlogSettings s BlogId = 3 a username = "johndoe1987":  
 
 ``` csharp  
 using (var context = new BloggingContext())
@@ -87,4 +87,4 @@ using (var context = new BloggingContext())
 }
 ```  
 
-Mějte na paměti, když máte složených klíčů budete muset použít ColumnAttribute nebo rozhraní fluent API Pokud chcete zadat řazení pro vlastnosti složený klíč. Volání hledání musíte použít toto pořadí při zadávání hodnot, které tvoří klíč.  
+Všimněte si, že pokud máte složené klíče, potřebujete použít ColumnAttribute nebo rozhraní API Fluent k určení řazení vlastností složeného klíče. Volání metody Find musí používat toto pořadí při zadávání hodnot, které tvoří klíč.  

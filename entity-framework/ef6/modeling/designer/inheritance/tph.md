@@ -1,111 +1,111 @@
 ---
-title: Dědičnost návrháře TPH - EF6
+title: Návrhář dědičnosti TPH – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
 ms.openlocfilehash: 43ba34a98c3960a7a3052a00e2ed2751c2f2b121
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490109"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418425"
 ---
-# <a name="designer-tph-inheritance"></a>Návrháře TPH dědičnosti
-Tento podrobný návod ukazuje, jak implementovat dědičnosti na hierarchii tabulky (TPH) v konceptuálním modelu se Návrhář Entity Framework (EF designeru). Dědičnost TPH pomocí jedné tabulky databáze zachovat data pro všechny typy entit v hierarchii dědičnosti.
+# <a name="designer-tph-inheritance"></a>Dědičnost typu TPH návrháře
+V tomto podrobném návodu se dozvíte, jak implementovat dědičnost typu Table-per-Hierarchy (TPH) ve koncepčním modelu pomocí Entity Framework Designer (EF Designer). Dědičnost TPH používá jednu databázovou tabulku k uchování dat pro všechny typy entit v hierarchii dědičnosti.
 
-V tomto názorném postupu jsme mapování tabulky osoba na tři typy entit: osoba (základní typ), studenty (je odvozena od osoby) a kurzů vedených (je odvozena od osoby). Vytvoříme Koncepční model z databáze (Database First) a poté změňte model implementovat dědičnost TPH pomocí EF designeru.
+V tomto návodu namapujeme tabulku Person na tři typy entit: osoba (základní typ), student (odvozený od osoby) a instruktor (odvozený od osoby). Vytvoříme koncepční model z databáze (Database First) a pak upravíte model pro implementaci dědičnosti TPH pomocí návrháře EF.
 
-Je možné namapovat na TPH dědičnosti pomocí modelu první, ale vy byste chtěli zapsat generování pracovního postupu vlastní databázi, což je komplexní. By pak přiřaďte tento pracovní postup **pracovní postup generování databáze** vlastnost v EF designeru. Jednodušší alternativu je použití Code First.
+Je možné namapovat na dědičnost TPH pomocí Model First, ale museli byste napsat vlastní pracovní postup generování databáze, který je složitý. Tento pracovní postup byste pak přiřadili vlastnosti **pracovního postupu generování databáze** v Návrháři EF. Jednodušší alternativou je použití Code First.
 
 ## <a name="other-inheritance-options"></a>Další možnosti dědičnosti
 
-Za typ tabulky (TPT) je jiný druh dědičnosti, ve kterém samostatných tabulek v databázi se mapují na entity, které se účastní dědičnosti.  Informace o tom, jak mapovat na typ tabulky dědičnosti s EF designeru najdete v tématu [EF návrháře TPT dědičnosti](~/ef6/modeling/designer/inheritance/tpt.md).
+Tabulka na typ (TPT) je jiný typ dědičnosti, ve kterém jsou oddělené tabulky v databázi mapovány na entity, které se účastní dědičnosti.  Informace o tom, jak namapovat dědičnost tabulek na typ pomocí návrháře EF, najdete v tématu [DĚDIČNOST TPT návrháře EF](~/ef6/modeling/designer/inheritance/tpt.md).
 
-Smíšené dědičnosti modely a tabulky na konkrétní typ dědičnosti (TPC) podporuje modul runtime rozhraní Entity Framework, ale nepodporuje EF designeru. Pokud chcete použít TPC nebo smíšené dědičnosti, máte dvě možnosti: použijte Code First, nebo ručně upravit soubor EDMX. Pokud budete chtít pracovat s souboru EDMX, v okně podrobností mapování zařadí do "nouzový režim" a nebude možné změnit mapování pomocí návrháře.
+Dědičnost typů (TPC) podle konkrétního typu () a smíšené modely dědičnosti jsou podporovány modulem runtime Entity Framework, ale Návrhář EF je nepodporuje. Pokud chcete použít TPC nebo smíšenou dědičnost, máte dvě možnosti: použijte Code First nebo ručně upravte soubor EDMX. Pokud se rozhodnete pracovat se souborem EDMX, bude okno Podrobnosti mapování přepnuto do bezpečného režimu a nebudete moci použít návrháře ke změně mapování.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 K dokončení toho návodu budete potřebovat:
 
-- Nejnovější verzi sady Visual Studio.
-- [Ukázkové databáze školy](~/ef6/resources/school-database.md).
+- Poslední verze sady Visual Studio.
+- [Ukázková databáze školy](~/ef6/resources/school-database.md).
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
--   Otevřít Visual Studio 2012.
--   Vyberte **souboru -&gt; nové –&gt; projektu**
--   V levém podokně klikněte na tlačítko **Visual C\#** a pak vyberte **konzoly** šablony.
--   Zadejte **TPHDBFirstSample** jako název.
--   Vyberte **OK**.
+-   Otevřete Visual Studio 2012.
+-   Vybrat **soubor-&gt; projekt New-&gt;**
+-   V levém podokně klikněte na položku **Visual C\#** a pak vyberte šablonu **konzoly** .
+-   Jako název zadejte **TPHDBFirstSample** .
+-   Vyberte **OK**.
 
 ## <a name="create-a-model"></a>Vytvoření modelu
 
--   Klikněte pravým tlačítkem na název projektu v Průzkumníku řešení a vyberte **Add -&gt; nová položka**.
--   Vyberte **Data** v levé nabídce a pak vyberte **datový Model Entity ADO.NET** v podokně šablon.
--   Zadejte **TPHModel.edmx** pro název souboru a pak klikněte na tlačítko **přidat**.
--   V dialogovém okně Výběr obsahu modelu vyberte **Generovat z databáze**a potom klikněte na tlačítko **Další**.
--   Klikněte na tlačítko **nové připojení**.
-    V dialogovém okně Vlastnosti připojení zadat název serveru (například **(localdb)\\mssqllocaldb**), vyberte metodu ověřování, zadejte **School** pro název databáze a pak Klikněte na tlačítko **OK**.
-    Dialogové okno Vybrat datové připojení se aktualizuje se nastavení připojení databáze.
--   V dialogovém okně Zvolte vaše databázové objekty tabulky uzlu, vyberte **osoba** tabulky.
--   Klikněte na tlačítko **Dokončit**.
+-   Klikněte pravým tlačítkem myši na název projektu v Průzkumník řešení a vyberte možnost **Přidat-&gt; novou položku**.
+-   V nabídce vlevo vyberte **data** a v podokně šablony vyberte **ADO.NET model EDM (Entity Data Model)** .
+-   Jako název souboru zadejte **TPHModel. edmx** a pak klikněte na **Přidat**.
+-   V dialogovém okně Vybrat obsah modelu vyberte možnost **Generovat z databáze**a poté klikněte na tlačítko **Další**.
+-   Klikněte na **nové připojení**.
+    V dialogovém okně Vlastnosti připojení zadejte název serveru (například **(LocalDB)\\mssqllocaldb**), vyberte metodu ověřování, jako název databáze zadejte **School** a pak klikněte na **OK**.
+    Dialogové okno zvolit datové připojení je aktualizováno nastavením připojení k databázi.
+-   V dialogovém okně zvolte objekty databáze v uzlu tabulky vyberte tabulku **osoba** .
+-   Klikněte na tlačítko **Dokončit**.
 
-V návrháři entit, které poskytuje návrhové ploše pro úpravy váš model, se zobrazí. Všechny objekty, které jste vybrali v dialogovém okně Zvolte vaše databázové objekty jsou přidány do modelu.
+Zobrazí se Entity Designer, která poskytuje návrhovou plochu pro úpravu vašeho modelu. Do modelu jsou přidány všechny objekty, které jste vybrali v dialogovém okně zvolit objekty databáze.
 
-To znamená jak **osoba** vypadá tabulka v databázi.
+To znamená, jak tabulka **osoby** vypadá v databázi.
 
-![Tabulka osoby](~/ef6/media/persontable.png) 
+![Tabulka Person](~/ef6/media/persontable.png) 
 
-## <a name="implement-table-per-hierarchy-inheritance"></a>Implementace tabulky za hierarchie dědičnosti
+## <a name="implement-table-per-hierarchy-inheritance"></a>Implementace dědičnosti tabulek na hierarchii
 
-**Osoba** tabulka má **diskriminátoru** sloupec, který může mít jednu ze dvou hodnot: "Studenta" a "Kurzů vedených". V závislosti na hodnotě **osoba** tabulky se namapují na **Student** entity nebo **kurzů vedených** entity. **Osoba** tabulka má také dva sloupce **HireDate** a **EnrollmentDate**, která musí být **s možnou hodnotou Null** vzhledem k tomu, že uživatel nemůže být pro studenty a instruktorem ve stejnou dobu (alespoň není v tomto názorném postupu).
+Tabulka **Person** má sloupec **diskriminátor** , který může mít jednu ze dvou hodnot: "student" a "instruktor". V závislosti na hodnotě, kterou bude tabulka **Person** namapována na entitu **studenta** nebo na entitu **instruktora** . Tabulka **Person** má také dva sloupce, **ZaměstnánOd** a **EnrollmentDate**, které musí mít **hodnotu null** , protože osoba nemůže být studentem a instruktorem ve stejnou dobu (alespoň v tomto návodu).
 
 ### <a name="add-new-entities"></a>Přidat nové entity
 
--   Přidáte novou entitu.
-    Chcete-li to provést, klikněte pravým tlačítkem na prázdné místo návrhové plochy Entity Framework Designer a vyberte **Add -&gt;Entity**.
--   Typ **kurzů vedených** pro **název Entity** a vyberte **osoba** z rozevíracího seznamu pro **základní typ**.
--   Klikněte na tlačítko **OK**.
--   Přidejte další novou entitu. Typ **Student** pro **název Entity** a vyberte **osoba** z rozevíracího seznamu pro **základní typ**.
+-   Přidejte novou entitu.
+    Provedete to tak, že kliknete pravým tlačítkem myši na prázdné místo na návrhové ploše Entity Framework Designer a vyberete **Přidat-&gt;entitu**.
+-   Do pole **název entity** zadejte  **instruktora** a v rozevíracím seznamu pro **základní typ**vyberte **osoba** .
+-   Klikněte na tlačítko **OK**.
+-   Přidejte další novou entitu. Jako **název entity** zadejte  **student** a v rozevíracím seznamu pro **základní typ**vyberte **Person** .
 
-Na návrhovou plochu byly přidány dva nové typy entit. Šipka ukazuje z nové typy entit, které se **osoba** typu entity; to znamená, že **osoba** je základním typem pro nové typy entit.
+Na návrhovou plochu se přidaly dva nové typy entit. Šipka směřuje od nových typů entit od typu **osoba** typ entity; To znamená, že  **osoba** je základním typem pro nové typy entit.
 
--   Klikněte pravým tlačítkem myši **HireDate** vlastnost **osoba** entity. Vyberte **Vyjmout** (nebo pomocí klávesy Ctrl-X).
--   Klikněte pravým tlačítkem myši **kurzů vedených** entity a vyberte **vložit** (nebo pomocí klávesy Ctrl-V).
--   Klikněte pravým tlačítkem myši **HireDate** vlastnosti a vyberte **vlastnosti**.
--   V **vlastnosti** okno, nastaveno **Nullable** vlastnost **false**.
--   Klikněte pravým tlačítkem myši **EnrollmentDate** vlastnost **osoba** entity. Vyberte **Vyjmout** (nebo pomocí klávesy Ctrl-X).
--   Klikněte pravým tlačítkem myši **Student** entity a vyberte **vložit (nebo klíče pomocí Ctrl-V).**
--   Vyberte **EnrollmentDate** vlastnost a nastavte **Nullable** vlastnost **false**.
--   Vyberte **osoba** typu entity. V **vlastnosti** okno, nastavte jeho **abstraktní** vlastnost **true**.
--   Odstranit **diskriminátoru** vlastnost z **osoba**. V následující části je vysvětlen z důvodů, proč je nutné ji odstranit.
+-   Klikněte pravým tlačítkem na vlastnost **zaměstnánod**  **osoby** entity. Vyberte **Vyjmout** (nebo použijte klávesu CTRL-X).
+-   Klikněte pravým tlačítkem myši na **instruktora** entitu a vyberte **Vložit** (nebo použijte klávesu CTRL-V).
+-   Klikněte pravým tlačítkem na vlastnost **HireDate** a vyberte možnost **vlastnosti**.
+-   V okně **vlastnosti** nastavte vlastnost **Nullable** na **false**.
+-   Klikněte pravým tlačítkem na vlastnost **EnrollmentDate**  **osoby** entity. Vyberte **Vyjmout** (nebo použijte klávesu CTRL-X).
+-   Klikněte pravým tlačítkem na entitu **studenta** a vyberte **Vložit (nebo použijte klávesu CTRL-V).**
+-   Vyberte vlastnost **EnrollmentDate** a nastavte vlastnost **Nullable** na **false**.
+-   Vyberte typ entity  **osoba** . V okně **vlastnosti** nastavte jeho vlastnost **abstract** na **hodnotu true**.
+-   Odstraňte vlastnost **diskriminátor** z **Person**. Důvod, proč by měl být odstraněn, je vysvětlen v následující části.
 
-### <a name="map-the-entities"></a>Mapovat entity
+### <a name="map-the-entities"></a>Mapování entit
 
--   Klikněte pravým tlačítkem myši **kurzů vedených** a vyberte **mapování tabulky.**
-    V okně Podrobnosti mapování je vybraná entita instruktorem.
--   Klikněte na tlačítko **&lt;přidat tabulku nebo zobrazení&gt;** v **podrobnosti mapování** okna.
-    **&lt;Přidat tabulku nebo zobrazení&gt;** pole stane rozevírací seznam tabulek nebo zobrazení pro které je možné mapovat vybrané entity.
--   Vyberte **osoba** z rozevíracího seznamu.
--   **Podrobnosti mapování** okno se aktualizuje s výchozí mapování sloupců a možnost pro přidání podmínky.
--   Klikněte na  **&lt;přidat podmínku&gt;**.
-    **&lt;Přidat podmínku&gt;** pole bude rozevírací seznam sloupců, pro které můžete nastavit podmínky.
--   Vyberte **diskriminátoru** z rozevíracího seznamu.
--   V **operátor** sloupec **podrobnosti mapování** okně = z rozevíracího seznamu.
--   V **/vlastnost Value** sloupců, typ **kurzů vedených**. Konečný výsledek by měl vypadat nějak takto:
+-   Klikněte pravým tlačítkem na **instruktor** a vyberte **mapování tabulky.**
+    V okně podrobností mapování je vybrána entita Instructor.
+-   V okna **podrobností mapování** klikněte na **&lt;přidat tabulku nebo zobrazení&gt;**  .
+     **&lt;přidání tabulky nebo zobrazení&gt;** pole se zobrazí rozevírací seznam tabulek nebo zobrazení, do kterých lze vybranou entitu namapovat.
+-   Z rozevíracího seznamu vyberte **osoba** .
+-   Okno  **podrobností mapování** se aktualizuje s výchozími mapováními sloupců a možností pro přidání podmínky.
+-   Klikněte na **&lt;přidat&gt;podmínky **.
+     **&lt;přidat podmínku&gt;**  pole se zobrazí rozevírací seznam sloupců, pro které lze nastavit podmínky.
+-   V rozevíracím seznamu vyberte **diskriminátor** .
+-   Ve sloupci **operátor** v okně **Podrobnosti mapování** v rozevíracím seznamu vyberte =.
+-   Do sloupce **hodnota nebo vlastnost** zadejte **instruktor**. Konečný výsledek by měl vypadat takto:
 
-    ![Podrobnosti mapování](~/ef6/media/mappingdetails2.png)
+    ![Mapování podrobností](~/ef6/media/mappingdetails2.png)
 
--   Opakujte tyto kroky pro **Student** typ entity, ale vytvořit podmínku, která je rovna **Student** hodnotu.  
-    *Z důvodu jsme chtěli odebrat **diskriminátoru** je vlastnost, protože sloupec tabulky nelze mapovat více než jednou. V tomto sloupci se použije pro podmíněné mapování, proto jej nelze použít pro vlastnost mapování také. Jediným způsobem, který může sloužit pro obě, pokud používá podmínku **Is Null** nebo **Is Not Null** porovnání.*
+-   Opakujte tento postup pro typ entity  **studenta** , ale nastavte podmínku rovnou hodnotě **student** .  
+    *Důvodem, proč jsme chtěli odebrat vlastnost **diskriminátoru** , je to, že sloupec tabulky nejde namapovat více než jednou. Tento sloupec bude použit pro podmíněné mapování, takže jej nelze použít také pro mapování vlastností. Jediným způsobem, jak lze použít pro obě, pokud podmínka používá **hodnotu null** nebo není **null** porovnání.*
 
-Tabulky na hierarchii dědičnosti je nyní implementována.
+Dědičnost tabulky na hierarchii je nyní implementována.
 
-![Poslední TPH](~/ef6/media/finaltph.png)
+![Konečný TPH](~/ef6/media/finaltph.png)
 
 ## <a name="use-the-model"></a>Použití modelu
 
-Otevřít **Program.cs** souboru, kde **hlavní** je definována metoda. Vložte následující kód do **hlavní** funkce. Kód spustí tři dotazy. První dotaz vrací všechny **osoba** objekty. Druhý dotaz používá **OfType** metoda vrátí **kurzů vedených** objekty. Používá se třetí dotaz **OfType** metoda vrátí **Student** objekty.
+Otevřete soubor **program.cs** , kde je definována metoda **Main** . Do funkce **Main** vložte následující kód. Kód spouští tři dotazy. První dotaz vrátí všechny objekty **Person** . Druhý dotaz používá metodu **OfType** k vrácení objektů **instruktora** . Třetí dotaz používá metodu **OfType** k vrácení objektů **studenta** .
 
 ``` csharp
     using (var context = new SchoolEntities())

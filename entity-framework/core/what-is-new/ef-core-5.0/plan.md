@@ -3,12 +3,12 @@ title: Plán pro Entity Framework Core 5,0
 author: ajcvickers
 ms.date: 01/14/2020
 uid: core/what-is-new/ef-core-5.0/plan.md
-ms.openlocfilehash: 0472841fdcd105ec8ea38db062c6768510b8735d
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: c5b7300c61c2f668b6f9393ae51bf9ebddf330a7
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76125380"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417874"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Plán pro Entity Framework Core 5,0
 
@@ -47,11 +47,13 @@ Velikost trička pro T: L
 
 Stav: probíhá
 
-Na nevyřízených položkách GitHubu je nejužitečnější funkce m:n (přibližně 407 hlasy). Podpora vztahů m:n je možné rozdělit na tři hlavní oblasti:
+Na nevyřízených položkách GitHubu je [nejužitečnější funkce](https://github.com/aspnet/EntityFrameworkCore/issues/1368) m:n (přibližně 407 hlasy).
 
-* Přeskočit navigační vlastnosti To umožňuje, aby byl model použit pro dotazy atd. bez odkazů na podkladovou entitu JOIN Table.
-* Typy entit kontejneru vlastností. Ty umožňují použití standardního typu CLR (např. `Dictionary`) pro instance entit tak, že pro každý typ entity není vyžadován explicitní typ CLR.
-* Cukr pro jednoduchou konfiguraci relací m:n.
+Podpora vztahů n:n v celém rozsahu je sledována jako [#10508](https://github.com/aspnet/EntityFrameworkCore/issues/10508). To může být rozdělené na tři hlavní oblasti:
+
+* Přeskočit navigační vlastnosti To umožňuje, aby byl model použit pro dotazy atd. bez odkazů na podkladovou entitu JOIN Table. ([#19003](https://github.com/aspnet/EntityFrameworkCore/issues/19003))
+* Typy entit kontejneru vlastností. Ty umožňují použití standardního typu CLR (např. `Dictionary`) pro instance entit tak, že pro každý typ entity není vyžadován explicitní typ CLR. (Stretch for 5,0: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914).)
+* Cukr pro jednoduchou konfiguraci relací m:n. (Stretch for 5,0.)
 
 Věříme, že nejvýznamnější blokování pro ty, kteří vyžadují podporu m:n, nedokáže používat "přirozené" vztahy, a to bez odkazování na tabulku spojení v obchodní logice, jako jsou dotazy. Typ entity tabulky join může stále existovat, ale neměl by se zobrazovat v cestě k obchodní logice. To je důvod, proč jsme se rozhodli Přeskočit navigační vlastnosti pro 5,0.
 
@@ -122,7 +124,7 @@ V současné době mnoho vývojářů migruje své databáze při spuštění ap
 * Více vláken/procesů/serverů se může pokusit o souběžnou migraci databáze
 * Aplikace se můžou pokusit o přístup k nekonzistentnímu stavu, když se děje.
 * Pro provádění aplikace by se obvykle neměla udělit oprávnění k databázi pro změnu schématu.
-* Vrátit zpět do čistého stavu, pokud se něco pokazilo
+* Vrátit se zpátky do čistého stavu, pokud se něco pokazilo
 
 Chceme doručovat toto lepší prostředí, které umožňuje snadný způsob migrace databáze v době nasazení. To by mělo:
 
@@ -144,7 +146,7 @@ Velikost trička pro T: L
 
 Stav: Nezahájeno
 
-Máme dobré doprovodné materiály k používání EF Core v tradičních webových aplikacích podobných MVC. Pokyny pro jiné platformy a modely aplikací buď chybí, nebo jsou zastaralé. Pro EF Core 5,0 plánujeme prozkoumat, vylepšit a zdokumentovat prostředí používání EF Core pomocí:
+Máme dobré doprovodné materiály k používání EF Core v tradičních webových aplikacích podobných MVC. Pokyny pro jiné platformy a modely aplikací buď chybí, nebo jsou zastaralé. V případě EF Core 5,0 plánujeme prozkoumat, vylepšit a zdokumentovat prostředí pro používání EF Core pomocí těchto možností:
 
 * Blazor
 * Xamarin, včetně scénáře použití AOT/linkeru
@@ -170,7 +172,7 @@ Velikost trička pro T: L
 
 Stav: probíhá
 
-Pro EF Core plánujeme vylepšit naši sadu srovnávacích testů výkonu a zvýšit výkon na modul runtime. Kromě toho plánujeme dokončit nové rozhraní API pro dávkování ADO.NET, které bylo prototypem v průběhu cyklu vydávání 3,0. Ve vrstvě ADO.NET máme také k dispozici další vylepšení výkonu pro poskytovatele Npgsql.
+Pro EF Core plánujeme zdokonalit naši sadu srovnávacích testů výkonu a zvýšit výkon na modul runtime. Kromě toho plánujeme dokončit nové rozhraní API pro dávkování ADO.NET, které bylo prototypem v průběhu cyklu vydávání 3,0. Ve vrstvě ADO.NET máme také k dispozici další vylepšení výkonu pro poskytovatele Npgsql.
 
 V rámci této práce také plánujeme podle potřeby přidat čítače výkonu ADO.NET/EF Core a další diagnostiku.
 
@@ -178,7 +180,7 @@ V rámci této práce také plánujeme podle potřeby přidat čítače výkonu 
 
 Vedoucí dokumentace: @ajcvickers
 
-Sledováno [#1920](https://github.com/aspnet/EntityFramework.Docs/issues/1920)
+Sledováno [#1920](https://github.com/dotnet/EntityFramework.Docs/issues/1920)
 
 Velikost trička pro T: L
 
@@ -194,7 +196,7 @@ Tady je postup, který usnadňuje pochopení toho, co se v vnitřních EF Corech
 
 Vedoucí dokumentace: @bricelam
 
-Sledováno [#1675](https://github.com/aspnet/EntityFramework.Docs/issues/1675)
+Sledováno [#1675](https://github.com/dotnet/EntityFramework.Docs/issues/1675)
 
 Velikost T-tričko: M
 
@@ -206,7 +208,7 @@ Tým EF také vlastní poskytovatele Microsoft. data. sqlite ADO.NET. V rámci v
 
 Vedoucí dokumentace: @ajcvickers
 
-Sledováno [problémy v úložišti dokumentů v milníku 5,0](https://github.com/aspnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
+Sledováno [problémy v úložišti dokumentů v milníku 5,0](https://github.com/dotnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
 
 Velikost trička pro T: L
 
@@ -252,6 +254,6 @@ Jedná se o opravy chyb a vylepšení, která **nejsou aktuálně** naplánovan�
 
 Kromě toho vždy vybereme [nejbezpečnější problémy](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) při plánování. Vyjmutí všech těchto problémů z verze je vždycky bolestivý, ale pro tyto prostředky potřebujeme realističtější plán.
 
-## <a name="feedback"></a>Názor
+## <a name="feedback"></a>Váš názor
 
 Váš názor na plánování je důležitý. Nejlepším způsobem, jak určit důležitost problému, je hlasovat (palec) pro daný problém na GitHubu. Tato data se pak budou předávat do [procesu plánování](../release-planning.md) pro další vydání.

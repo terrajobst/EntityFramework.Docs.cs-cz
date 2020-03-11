@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
 ms.openlocfilehash: 2e0092b526278597e8477d47eeb642598647bb91
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182473"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418390"
 ---
 # <a name="designer-query-stored-procedures"></a>Uložené procedury dotazu návrháře
 Tento podrobný návod ukazuje, jak použít Entity Framework Designer (EF Designer) k importu uložených procedur do modelu a následnému volání importovaných uložených procedur pro načtení výsledků. 
@@ -18,7 +18,7 @@ Všimněte si, že Code First nepodporuje mapování na uložené procedury nebo
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 ```
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 K dokončení toho návodu budete potřebovat:
 

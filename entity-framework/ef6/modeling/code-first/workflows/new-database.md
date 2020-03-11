@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
 ms.openlocfilehash: d540fc6e84049f345ae22998f94c309e0be73fc3
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182571"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418810"
 ---
 # <a name="code-first-to-a-new-database"></a>Code First k nové databázi
 Toto video a podrobný návod vám poskytnou Úvod do Code Firstho vývoje, který cílí na novou databázi. Tento scénář zahrnuje cílení na databázi, která neexistuje, Code First vytvoří nebo prázdnou databázi, do které Code First přidat nové tabulky. Code First umožňuje definovat model pomocí tříd C\# nebo VB.Net. Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
@@ -20,7 +20,7 @@ Toto video poskytuje Úvod do Code First vývoje cílící na novou databázi. T
 
 **Video**: [wmv](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 Abyste mohli dokončit tento návod, budete muset mít nainstalovanou aspoň Visual Studio 2010 nebo Visual Studio 2012.
 
@@ -30,11 +30,11 @@ Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](h
 
 Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům.
 
--   Otevřít Visual Studio
+-   Otevřete sadu Visual Studio.
 -   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **CodeFirstNewDatabaseSample** .
--   Vybrat **OK**
+-   Vyberte **OK**.
 
 ## <a name="2-create-the-model"></a>2. vytvoření modelu
 

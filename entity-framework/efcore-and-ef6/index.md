@@ -6,11 +6,11 @@ ms.date: 01/23/2019
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
 ms.openlocfilehash: e28c7d0299e5089f56fb0795d00917cfc30f5cf1
-ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2020
-ms.locfileid: "76888145"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419647"
 ---
 # <a name="compare-ef-core--ef6"></a>Porovnání EF Core a EF6
 
@@ -40,7 +40,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | Konstruktory s parametry                          |          | 2.1                                   |
 | Převody hodnot vlastností                            |          | 2.1                                   |
 | Mapované typy bez klíčů                             |          | 2.1                                   |
-| Konvence                                           | Ano      | 1.0                                   |
+| Zásady                                           | Ano      | 1.0                                   |
 | Vlastní konvence                                    | Ano      | 1,0 (částečně; [#214](https://github.com/dotnet/efcore/issues/214)) |
 | Datové poznámky                                      | Ano      | 1.0                                   |
 | Rozhraní Fluent API                                            | Ano      | 1.0                                   |
@@ -57,7 +57,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | Prostorová data                                          | Ano      | 2.2                                   |
 | Formát modelu: kód                                    | Ano      | 1.0                                   |
 | Vytvořit model z databáze: příkazový řádek              | Ano      | 1.0                                   |
-| Aktualizovat model z databáze                            | Částečné  | V backlogu ([#831](https://github.com/dotnet/efcore/issues/831)) |
+| Aktualizovat model z databáze                            | Částečně  | V backlogu ([#831](https://github.com/dotnet/efcore/issues/831)) |
 | Filtry globálních dotazů                                  |          | 2.0                                   |
 | Rozdělení tabulky                                       | Ano      | 2.0                                   |
 | Rozdělování entit                                      | Ano      | Roztáhnout na 5,0 ([#620](https://github.com/dotnet/efcore/issues/620)) <sup>(1)</sup> |
@@ -69,7 +69,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | Formát modelu: EDMX (XML)                              | Ano      | Žádná podpora není plánována <sup>(2)</sup>     |
 | Vytvořit model z databáze: Průvodce VS                 | Ano      | Žádná podpora není plánována <sup>(2)</sup>     |
 
-### <a name="querying-data"></a>Dotazy na data
+### <a name="querying-data"></a>Dotazování na data
 
 | **Funkce**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
@@ -119,7 +119,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 
 | **Funkce**                                           | **EF 6.4**| **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
-| Server SQL                                            | Ano      | 1.0                                   |
+| SQL Server                                            | Ano      | 1.0                                   |
 | MySQL                                                 | Ano      | 1.0                                   |
 | PostgreSQL                                            | Ano      | 1.0                                   |
 | Oracle                                                | Ano      | 1.0                                   |
@@ -128,7 +128,7 @@ Sloupec EF Core označuje verzi produktu, ve které se funkce poprvé objevila.
 | DB2                                                   | Ano      | 1.0                                   |
 | Firebird                                              | Ano      | 2.0                                   |
 | Jet (Microsoft Access)                                |          | 2,0 <sup>(4)</sup>                    |
-| Azure Cosmos DB                                       |          | 3,0                                   |
+| Databáze Azure Cosmos                                       |          | 3,0                                   |
 | V paměti (pro testování)                               |          | 1.0                                   |
 
 <sup>1</sup> cíle Stretch se pro danou verzi pravděpodobně nedosáhnou. Pokud se ale vše dostanou, pokusíme se je načíst do.
@@ -158,4 +158,4 @@ Při přesunu aplikace EF6 do .NET Core:
 * Port, který se má EF Core při vývoji kódu pro přístup k datům nebo pokud aplikace potřebuje nové funkce, které jsou k dispozici pouze v EF Core.
 * Pro výkon se také často provádí přenos do EF Core. Ale ne všechny scénáře jsou rychlejší, proto udělejte jako první profilaci.
 
-Další informace najdete v [článku o přechodu z EF6 na EF Core](porting/index.md).
+Další informace najdete v tématu [přenos z EF6 na EF Core](porting/index.md) .

@@ -3,12 +3,12 @@ title: Code First existující databáze – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: 61980bbd1f236f496a9d4fd92aa52264f1454615
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 0a51f826422d7e2bff33b968605eace1e754c425
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182619"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78418873"
 ---
 # <a name="code-first-to-an-existing-database"></a>Code First do existující databáze
 Toto video a podrobný návod vám poskytnou Úvod do Code First vývoje cílící na stávající databázi. Code First umožňuje definovat model pomocí tříd C\# nebo VB.Net. Volitelně můžete provést další konfiguraci pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.
@@ -16,7 +16,7 @@ Toto video a podrobný návod vám poskytnou Úvod do Code First vývoje cílíc
 ## <a name="watch-the-video"></a>Přehrát video
 Toto video je [teď k dispozici na Channel 9](https://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-).
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 Abyste mohli dokončit tento návod, budete muset mít nainstalovanou **aplikaci Visual Studio 2012** nebo **Visual Studio 2013** .
 
@@ -28,7 +28,7 @@ Když cílíte na existující databázi, bude už vytvořená, ale pro tento n�
 
 Pojďme dopředu a vygenerovat databázi.
 
--   Otevřít Visual Studio
+-   Otevřete sadu Visual Studio.
 -   **Zobrazení-&gt; Průzkumník serveru**
 -   Klikněte pravým tlačítkem na **datová připojení –&gt; přidat připojení...**
 -   Pokud jste se k databázi nepřipojili z **Průzkumník serveru** před tím, než bude nutné vybrat **Microsoft SQL Server** jako zdroj dat
@@ -72,19 +72,19 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 
 ## <a name="2-create-the-application"></a>2. Vytvoření aplikace
 
-Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům:
+Abychom mohli dělat jednoduché věci, vytvoříme základní konzolovou aplikaci, která používá Code First k přístupu k datům:
 
--   Otevřít Visual Studio
+-   Otevřete sadu Visual Studio.
 -   **Soubor –&gt; projekt New-&gt;...**
 -   V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .
 -   Jako název zadejte **CodeFirstExistingDatabaseSample** .
--   Vybrat **OK**
+-   Vyberte **OK**.
 
  
 
 ## <a name="3-reverse-engineer-model"></a>3. zpětná analýza modelu
 
-Využijeme Entity Framework Tools pro Visual Studio, abychom nám pomohli vygenerovat nějaký počáteční kód pro mapování na databázi. Tyto nástroje právě generují kód, který můžete zadat také v případě, že dáváte přednost.
+Použijeme Entity Framework Tools pro Visual Studio, abychom nám pomohli vygenerovat nějaký počáteční kód pro mapování na databázi. Tyto nástroje právě generují kód, který můžete zadat také v případě, že dáváte přednost.
 
 -   **Projekt –&gt; přidat novou položku...**
 -   V nabídce vlevo vyberte **data** a pak **ADO.NET model EDM (Entity Data Model)**

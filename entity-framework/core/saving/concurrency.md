@@ -3,12 +3,12 @@ title: Zpracování konfliktů souběžnosti – EF Core
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: b72fa472698e76e18f155cf96b738b0e193eee0f
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: a1d1a5a11d482f9104691aa3c072dbd1c548e9f1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654617"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417588"
 ---
 # <a name="handling-concurrency-conflicts"></a>Zpracování konfliktů souběžnosti
 
@@ -16,7 +16,7 @@ ms.locfileid: "73654617"
 > Tato stránka popisuje, jak souběžnost funguje v EF Core a jak zpracovávat konflikty souběžnosti ve vaší aplikaci. Podrobnosti o tom, jak konfigurovat tokeny souběžnosti v modelu, najdete v tématu [tokeny souběžnosti](xref:core/modeling/concurrency) .
 
 > [!TIP]
-> [Ukázku](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) tohoto článku můžete zobrazit na GitHubu.
+> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/) tohoto článku můžete zobrazit na GitHubu.
 
 _Souběžnost databáze_ odkazuje na situace, ve kterých více procesů nebo uživatelů přistupuje nebo mění stejná data v databázi ve stejnou dobu. _Řízení souběžnosti_ odkazuje na konkrétní mechanismy, které slouží k zajištění konzistence dat v přítomnosti souběžných změn.
 
@@ -24,7 +24,7 @@ EF Core implementuje _optimistické řízení souběžnosti_, což znamená, že
 
 ## <a name="how-concurrency-control-works-in-ef-core"></a>Jak funguje řízení souběžnosti v EF Core
 
-Vlastnosti konfigurované jako tokeny souběžnosti se používají k implementaci optimistického řízení souběžnosti: kdykoli se během `SaveChanges`provede operace Update nebo DELETE, hodnota tokenu souběžnosti v databázi se porovná s přečtenou původní hodnotou. EF Core.
+Vlastnosti konfigurované jako tokeny souběžnosti se používají k implementaci optimistického řízení souběžnosti: kdykoli se během `SaveChanges`provede operace Update nebo DELETE, hodnota tokenu souběžnosti v databázi se porovná s původní hodnotou čtenou EF Core.
 
 - Pokud se hodnoty shodují, operace může být dokončena.
 - Pokud se hodnoty neshodují, EF Core předpokládá, že jiný uživatel provedl konfliktní operaci a přeruší aktuální transakci.
@@ -67,6 +67,6 @@ Obecný přístup ke zpracování konfliktů souběžnosti je:
 3. Aktualizuje původní hodnoty tokenu souběžnosti tak, aby odrážely aktuální hodnoty v databázi.
 4. Opakujte tento postup, dokud nedojde k žádnému konfliktu.
 
-V následujícím příkladu jsou `Person.FirstName` a `Person.LastName` nastavení jako tokeny souběžnosti. K dispozici je `// TODO:` komentář v umístění, kam zahrnete logiku specifickou pro aplikaci pro výběr hodnoty, která se má uložit.
+V následujícím příkladu jsou `Person.FirstName` a `Person.LastName` nastaveny jako tokeny souběžnosti. K dispozici je `// TODO:` komentář v umístění, kam zahrnete logiku specifickou pro aplikaci pro výběr hodnoty, která se má uložit.
 
 [!code-csharp[Main](../../../samples/core/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]

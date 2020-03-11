@@ -1,97 +1,97 @@
 ---
-title: Rozhraní API Fluent – konfigurace a mapování vlastností a typy - EF6
+title: Fluent API – konfigurace a mapování vlastností a typů – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
 ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
-ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/27/2018
-ms.locfileid: "52339800"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419064"
 ---
-# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Rozhraní Fluent API – konfigurace a mapování vlastností a typy
-Při práci s Entity Framework Code First k mapování tříd POCO tabulky pomocí sady konvence vloženými do EF je výchozí chování. V některých případech však můžete nelze nebo nechcete, aby tyto zásady pro vytváření a potřebují mít možnost na mapování entit na něco jiného, než co konvencí diktování.  
+# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Rozhraní Fluent API – konfigurace a mapování vlastností a typů
+Při práci s Entity Framework Code First výchozím chováním je namapovat třídy POCO na tabulky pomocí sady konvencí vloženými na EF. V některých případech však nemůžete ani nebudete chtít tyto konvence namapovat na jinou, než jaké konvence určují.  
 
-Existují dva hlavní způsoby, jak můžete nakonfigurovat EF použít něco jiného než konvence, a to [poznámky](~/ef6/modeling/code-first/data-annotations.md) nebo rozhraní API fluent systémem souborů EFs. Poznámky se vztahují pouze na podmnožinu fluent funkcí rozhraní API, takže mapování scénářů, které není možné dosáhnout pomocí poznámek. Tento článek slouží k ukazují, jak použít rozhraní fluent API ke konfiguraci vlastností.  
+Existují dva hlavní způsoby, jak můžete nakonfigurovat EF, aby používaly jinou než konvenci, konkrétně [poznámky](~/ef6/modeling/code-first/data-annotations.md) nebo rozhraní EFs Fluent API. Poznámky se vztahují pouze na podmnožinu funkcí rozhraní Fluent API, takže existují mapování scénářů, které nelze dosáhnout pomocí poznámek. Tento článek je navržený tak, aby ukázal, jak pomocí rozhraní Fluent API konfigurovat vlastnosti.  
 
-První fluent API kód přistupuje nejčastěji tak, že přepíšete [OnModelCreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx) metodu na vaší odvozené [DbContext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx). Následující ukázky jsou navrženy pro ukazují, jak provádět různé úlohy s rozhraním api fluent a umožňují zkopírovat kód a přizpůsobit ho tak, aby odpovídala modelu, pokud chcete zobrazit model, který je možné použít s jako-je pak najdete na konci tohoto článku.  
+První rozhraní API pro Fluent kódu je nejčastěji dostupné přepsáním metody [OnModelCreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx) v odvozeném [DbContext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx). Následující ukázky jsou navržené tak, aby ukázaly, jak provádět různé úlohy pomocí rozhraní Fluent API, a umožňuje zkopírovat kód a přizpůsobit ho tak, aby vyhovoval vašemu modelu. Pokud si chcete prohlédnout model, který je možné použít s tak, jak je, je uvedený na konci tohoto článku.  
 
-## <a name="model-wide-settings"></a>Nastavení pro model  
+## <a name="model-wide-settings"></a>Nastavení pro nejrůznější modely  
 
-### <a name="default-schema-ef6-onwards"></a>Výchozí schéma (ef6 nebo novější)  
+### <a name="default-schema-ef6-onwards"></a>Výchozí schéma (EF6 a vyšší)  
 
-Počínaje EF6 můžete použít metodu HasDefaultSchema na DbModelBuilder určit schématu databáze pro všechny tabulky, uložené procedury, atd. Toto výchozí nastavení, budou ignorovány pro všechny objekty, které explicitně nakonfigurovat jiné schéma pro.  
+Počínaje EF6 můžete použít metodu HasDefaultSchema na DbModelBuilder k určení schématu databáze pro použití pro všechny tabulky, uložené procedury atd. Toto výchozí nastavení bude potlačeno pro všechny objekty, pro které explicitně nakonfigurujete jiné schéma pro.  
 
 ``` csharp
 modelBuilder.HasDefaultSchema("sales");
 ```  
 
-### <a name="custom-conventions-ef6-onwards"></a>Vlastní konvence (ef6 nebo novější)  
+### <a name="custom-conventions-ef6-onwards"></a>Vlastní konvence (EF6 a vyšší)  
 
-Spouští se s EF6, můžete vytvořit vlastní zásady odvíjející doplnit těm, které jsou součástí Code First. Další podrobnosti najdete v tématu [první konvence kódu vlastní](~/ef6/modeling/code-first/conventions/custom.md).  
+Počínaje EF6 můžete vytvořit vlastní konvence, které doplňují ta, která jsou obsažená v Code First. Další podrobnosti najdete v tématu [Vlastní konvence Code First](~/ef6/modeling/code-first/conventions/custom.md).  
 
 ## <a name="property-mapping"></a>Mapování vlastností  
 
-[Vlastnost](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx) metoda se používá ke konfiguraci atributy pro každou vlastnost patřící do entity nebo komplexního typu. Metoda vlastnosti slouží k získání objektu konfigurace pro danou vlastnost. Možnosti na objekt konfigurace jsou specifické pro daný typ, která se právě nastavuje; Například je k dispozici pouze pro vlastnosti řetězce IsUnicode.  
+Metoda [vlastnosti](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx) se používá ke konfiguraci atributů pro každou vlastnost patřící k entitě nebo komplexnímu typu. Metoda Property slouží k získání objektu konfigurace pro danou vlastnost. Možnosti objektu konfigurace jsou specifické pro nakonfigurovaný typ. Kódování Unicode je k dispozici pouze v případě vlastností řetězce.  
 
-### <a name="configuring-a-primary-key"></a>Konfigurace primární klíč  
+### <a name="configuring-a-primary-key"></a>Konfigurace primárního klíče  
 
 Entity Framework konvence pro primární klíče je:  
 
-1. Vaše třída definuje vlastnost, jejíž název je "ID" nebo "Id"  
-2. nebo název třídy následovaný "ID" nebo "Id"  
+1. Vaše třída definuje vlastnost, jejíž název je "ID" nebo "ID".  
+2. nebo název třídy následovaný "ID" nebo "ID"  
 
-Pokud chcete explicitně nastavit vlastnost, která má být primární klíč, můžete použít metodu HasKey. V následujícím příkladu metoda HasKey slouží ke konfiguraci primární klíč InstructorID OfficeAssignment typu.  
+Chcete-li explicitně nastavit vlastnost jako primární klíč, můžete použít metodu Haskey –. V následujícím příkladu se metoda Haskey – používá ke konfiguraci primárního klíče InstructorID na typu OfficeAssignment.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>().HasKey(t => t.InstructorID);
 ```  
 
-### <a name="configuring-a-composite-primary-key"></a>Konfigurace složený primární klíč  
+### <a name="configuring-a-composite-primary-key"></a>Konfigurace složeného primárního klíče  
 
-Následující příklad nastaví DepartmentID a název vlastnosti, které chcete být složený primární klíč typu oddělení.  
+Následující příklad konfiguruje vlastnosti DepartmentID a Name jako složený primární klíč typu oddělení.  
 
 ``` csharp
 modelBuilder.Entity<Department>().HasKey(t => new { t.DepartmentID, t.Name });
 ```  
 
-### <a name="switching-off-identity-for-numeric-primary-keys"></a>Vypínají se Identity pro číselné primární klíče  
+### <a name="switching-off-identity-for-numeric-primary-keys"></a>Vypínání identity pro číselné primární klíče  
 
-Následující příklad nastaví vlastnost DepartmentID System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None k označení, že hodnota nevygeneruje v databázi.  
+Následující příklad nastaví vlastnost DepartmentID na hodnotu System. ComponentModel. DataAnnotations. DatabaseGeneratedOption. None, aby označovala, že tato hodnota nebude vygenerována databází.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.DepartmentID)
     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 ```  
 
-### <a name="specifying-the-maximum-length-on-a-property"></a>Zadání maximální délku u vlastnosti  
+### <a name="specifying-the-maximum-length-on-a-property"></a>Určení maximální délky vlastnosti  
 
-V následujícím příkladu vlastnost Name by měla být delší než 50 znaků. Pokud provedete delší než 50 znaků. hodnota, zobrazí se [DbEntityValidationException](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx) výjimky. Pokud Code First vytvoří databázi z tohoto modelu také nastaví maximální délka sloupce název až 50 znaků.  
+V následujícím příkladu by vlastnost Name neměla být delší než 50 znaků. Pokud nastavíte hodnotu delší než 50 znaků, zobrazí se výjimka [DbEntityValidationException](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx) . Pokud Code First vytvoří databázi z tohoto modelu, nastaví se také maximální délka sloupce Name na 50 znaků.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).HasMaxLength(50);
 ```  
 
-### <a name="configuring-the-property-to-be-required"></a>Konfigurace vlastnosti jako povinné.  
+### <a name="configuring-the-property-to-be-required"></a>Konfigurace vlastnosti, která má být požadována  
 
-V následujícím příkladu se vyžaduje vlastnost Name. Pokud název nezadáte, zobrazí se výjimka DbEntityValidationException. Pokud Code First vytvoří databázi z tohoto modelu pak sloupec použitý k uložení této vlastnosti se obvykle mít hodnotu Null.  
+V následujícím příkladu je vyžadována vlastnost Name. Pokud název nezadáte, zobrazí se výjimka DbEntityValidationException. Pokud Code First vytvoří databázi z tohoto modelu, sloupec použitý k uložení této vlastnosti obvykle nebude možnou hodnotou null.  
 
 > [!NOTE]
-> V některých případech nemusí být možné pro sloupec v databázi být null, i když tato vlastnost je vyžadovaná. Například při použití dat TPH dědičnosti strategie pro více typů je uložené v jediné tabulce. Pokud odvozený typ obsahuje požadovanou vlastnost sloupec nelze nastavit jako Null protože ne všechny typy v hierarchii, bude mít tato vlastnost.  
+> V některých případech nemusí být možné, aby sloupec v databázi mohl mít hodnotu null, i když je požadovaná vlastnost. Pokud například použijete strategii dědičnosti TPH pro více typů, uloží se do jedné tabulky. Pokud odvozený typ obsahuje povinnou vlastnost, sloupec nemůže být nastaven na hodnotu null, protože ne všechny typy v hierarchii budou mít tuto vlastnost.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).IsRequired();
 ```  
 
-### <a name="configuring-an-index-on-one-or-more-properties"></a>Konfigurace na jednu nebo více vlastností indexu  
+### <a name="configuring-an-index-on-one-or-more-properties"></a>Konfigurace indexu pro jednu nebo více vlastností  
 
 > [!NOTE]
-> **EF6.1 a vyšší pouze** – atribut indexu byla zavedena v Entity Framework 6.1. Pokud používáte starší verzi informace v této části se nevztahují.  
+> **EF 6.1 a vyšší pouze** – atribut indexu byl představen v Entity Framework 6,1. Pokud používáte starší verzi, informace v této části se nevztahují.  
 
-Vytváření indexů nativně nepodporuje rozhraní Fluent API, ale můžete provádět pomocí podpory pro **IndexAttribute** prostřednictvím rozhraní Fluent API. Atributy indexu jsou zpracovány včetně poznámky k modelu na model, který pak bude převedena na Index v databázi později v kanálu. Můžete ručně přidat tyto stejné poznámky pomocí rozhraní Fluent API.  
+Vytváření indexů není v rozhraní API Fluent nativně podporované, ale můžete využít podporu **IndexAttribute** prostřednictvím rozhraní Fluent API. Atributy indexu jsou zpracovávány zahrnutím anotace modelu do modelu, který je poté převeden na index v databázi později v kanálu. Stejné Anotace můžete přidat ručně pomocí rozhraní Fluent API.  
 
-Nejjednodušší způsob, jak to provést, je vytvoření instance **IndexAttribute** , která obsahuje všechna nastavení pro nový index. Potom můžete vytvořit instanci **IndexAnnotation** což je EF konkrétní typ, který se převede **IndexAttribute** nastavení do poznámky k modelu, který může být uložená na EF modelu. Toto je pak možné předat do **HasColumnAnnotation** metodu na rozhraní Fluent API zadáním názvu **Index** pro poznámku.  
+Nejjednodušší způsob, jak to provést, je vytvořit instanci **IndexAttribute** , která obsahuje všechna nastavení nového indexu. Pak můžete vytvořit instanci **IndexAnnotation** , která je specifickým typem EF, který převede nastavení **IndexAttribute** na anotaci modelu, která může být uložena v modelu EF. Ty pak můžete předat metodě **HasColumnAnnotation** v rozhraní Fluent API a zadat **index** názvu pro anotaci.  
 
 ``` csharp
 modelBuilder
@@ -100,9 +100,9 @@ modelBuilder
     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
 ```  
 
-Úplný seznam nastavení, které jsou k dispozici v **IndexAttribute**, najdete v článku *Index* část [anotací dat při prvním kód](~/ef6/modeling/code-first/data-annotations.md). To zahrnuje přizpůsobení názvu indexu, vytváření jedinečných indexů a vytváření indexů více sloupci.  
+Úplný seznam nastavení dostupných v **IndexAttribute**najdete v části *Index* [datových poznámek Code First](~/ef6/modeling/code-first/data-annotations.md). To zahrnuje přizpůsobení názvu indexu, vytváření jedinečných indexů a vytváření indexů ve více sloupcích.  
 
-Je-li zadat více poznámek index podle jedné vlastnosti, předá pole **IndexAttribute** konstruktoru **IndexAnnotation**.  
+Můžete zadat více indexových poznámek pro jednu vlastnost předáním pole **IndexAttribute** do konstruktoru třídy **IndexAnnotation**.  
 
 ``` csharp
 modelBuilder
@@ -117,17 +117,17 @@ modelBuilder
             })));
 ```  
 
-### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>Zadání není pro mapování vlastnosti CLR na sloupec v databázi  
+### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>Určení, že se má mapovat vlastnost CLR na sloupec v databázi  
 
-Následující příklad ukazuje, jak určit, že vlastnost na typ CLR není mapováno na sloupec v databázi.  
+Následující příklad ukazuje, jak určit, že vlastnost u typu CLR není namapována na sloupec v databázi.  
 
 ``` csharp
 modelBuilder.Entity<Department>().Ignore(t => t.Budget);
 ```  
 
-### <a name="mapping-a-clr-property-to-a-specific-column-in-the-database"></a>Mapování vlastnosti CLR v určitém sloupci v databázi  
+### <a name="mapping-a-clr-property-to-a-specific-column-in-the-database"></a>Mapování vlastnosti CLR na konkrétní sloupec v databázi  
 
-Následující příklad namapuje vlastnost název CLR DepartmentName sloupce databáze.  
+V následujícím příkladu je mapována vlastnost název CLR na sloupec databáze oddělení.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -135,9 +135,9 @@ modelBuilder.Entity<Department>()
     .HasColumnName("DepartmentName");
 ```  
 
-### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>Přejmenování cizí klíč, který není definován v modelu  
+### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>Přejmenování cizího klíče, který není v modelu definován  
 
-Pokud se rozhodnete definovat cizí klíč pro typ CLR, ale chcete k zadání názvu, jaký by měl mít v databázi, postupujte takto:  
+Pokud se rozhodnete nedefinovat cizí klíč pro typ CLR, ale chcete určit, jaký název by měl mít v databázi, udělejte toto:  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -146,9 +146,9 @@ modelBuilder.Entity<Course>()
     .Map(m => m.MapKey("ChangedDepartmentID"));
 ```  
 
-### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>Konfiguruje, zda vlastnost řetězce podporuje kódování Unicode obsah  
+### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>Konfigurace, zda řetězcová vlastnost podporuje obsah v kódování Unicode  
 
-Ve výchozím nastavení jsou řetězce Unicode (nvarchar v systému SQL Server). Metoda IsUnicode můžete použít k určení, zda řetězec by měl být typu varchar.  
+Ve výchozím nastavení jsou řetězce znakové sady Unicode (nvarchar v SQL Server). Pomocí metody "v kódování Unicode" lze určit, že řetězec by měl být typu varchar.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -156,9 +156,9 @@ modelBuilder.Entity<Department>()
     .IsUnicode(false);
 ```  
 
-### <a name="configuring-the-data-type-of-a-database-column"></a>Konfigurace datový typ sloupce databáze  
+### <a name="configuring-the-data-type-of-a-database-column"></a>Konfigurace datového typu sloupce databáze  
 
-[HasColumnType](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx) metoda povolí mapování odlišné reprezentace stejného základního typu. Pomocí této metody neumožňuje k provádění jakýchkoli převodů dat za běhu. Upozorňujeme, že IsUnicode upřednostňovaný způsob nastavení sloupce varchar, protože je nezávislá na databázi.  
+Metoda [HasColumnType](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx) umožňuje mapování na různé reprezentace stejného základního typu. Použití této metody vám neumožňuje provádět převod dat za běhu. Všimněte si, že v kódování Unicode je preferovaný způsob, jak nastavit sloupce na varchar, protože se jedná o nezávislá databáze.  
 
 ``` csharp
 modelBuilder.Entity<Department>()   
@@ -166,11 +166,11 @@ modelBuilder.Entity<Department>()
     .HasColumnType("varchar");
 ```  
 
-### <a name="configuring-properties-on-a-complex-type"></a>Konfigurace vlastností komplexního typu.  
+### <a name="configuring-properties-on-a-complex-type"></a>Konfigurace vlastností komplexního typu  
 
-Existují dva způsoby, jak nakonfigurovat Skalární vlastnosti na komplexního typu.  
+Existují dva způsoby konfigurace skalárních vlastností pro komplexní typ.  
 
-Na položku ComplexTypeConfiguration lze volat vlastnost.  
+Můžete volat vlastnost v ComplexTypeConfiguration.  
 
 ``` csharp
 modelBuilder.ComplexType<Details>()
@@ -178,7 +178,7 @@ modelBuilder.ComplexType<Details>()
     .HasMaxLength(20);
 ```  
 
-Můžete také použít zápisu s tečkou pro přístup k vlastnosti komplexního typu.  
+Zápis tečky lze také použít pro přístup k vlastnosti komplexního typu.  
 
 ``` csharp
 modelBuilder.Entity<OnsiteCourse>()
@@ -186,9 +186,9 @@ modelBuilder.Entity<OnsiteCourse>()
     .HasMaxLength(20);
 ```  
 
-### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>Konfiguruje vlastnost, která má sloužit jako Token optimistického řízení souběžnosti  
+### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>Konfigurace vlastnosti, která se má použít jako Optimistická souběžnost tokenu  
 
-Chcete-li určit, že vlastnosti v entitě představuje tokenem souběžnosti, můžete použít atribut atribut ConcurrencyCheck nebo metoda IsConcurrencyToken.  
+Chcete-li určit, že vlastnost v entitě představuje token souběžnosti, můžete použít buď atribut ConcurrencyCheck, nebo metodu IsConcurrencyToken.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -196,7 +196,7 @@ modelBuilder.Entity<OfficeAssignment>()
     .IsConcurrencyToken();
 ```  
 
-Metoda IsRowVersion také můžete nakonfigurovat vlastnosti, která má být verze řádku v databázi. Nastavení vlastnosti, která má být, že verze řádku automaticky nakonfiguruje ho, aby se token optimistického řízení souběžnosti.  
+Můžete také použít metodu IsRowVersion a nakonfigurovat vlastnost tak, aby byla v databázi verze řádku. Nastavením vlastnosti na hodnotu je verze řádku automaticky nakonfigurujete, aby se jedná o optimistický Token souběžnosti.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -204,43 +204,43 @@ modelBuilder.Entity<OfficeAssignment>()
     .IsRowVersion();
 ```  
 
-## <a name="type-mapping"></a>Typ mapování  
+## <a name="type-mapping"></a>Mapování typů  
 
-### <a name="specifying-that-a-class-is-a-complex-type"></a>Určení, že třída je komplexního typu.  
+### <a name="specifying-that-a-class-is-a-complex-type"></a>Určení, že třída je komplexního typu  
 
-Podle konvence typ, který nemá žádný primární klíč zadán je považován za komplexní. Existují některé scénáře, kde Code First nerozpozná komplexní typ (například, pokud mají vlastnost zvanou ID, ale neznamená, aby se primární klíč). V takových případech můžete využít rozhraní fluent API explicitně určit, že typ je komplexní typ.  
+Podle konvence typ, který nemá zadaný primární klíč, se považuje za komplexní typ. Existují některé scénáře, kdy Code First nezjistí složitý typ (například pokud máte vlastnost s názvem ID, ale nepovažujete to za primární klíč). V takových případech byste pomocí rozhraní Fluent API explicitně určili, že typ je komplexní typ.  
 
 ``` csharp
 modelBuilder.ComplexType<Details>();
 ```  
 
-### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>Zadání není pro mapování typu CLR Entity do tabulky v databázi  
+### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>Určení nemapování typu entity CLR na tabulku v databázi  
 
-Následující příklad ukazuje, jak vyloučit typ CLR z mapovaný do tabulky v databázi.  
+Následující příklad ukazuje, jak vyloučit typ CLR z mapování na tabulku v databázi.  
 
 ``` csharp
 modelBuilder.Ignore<OnlineCourse>();
 ```  
 
-### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>Mapování typu Entity na určitou tabulku v databázi  
+### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>Mapování typu entity na konkrétní tabulku v databázi  
 
-Všechny vlastnosti oddělení budou zmapována do sloupce v tabulce nazvané t_ oddělení.  
+Všechny vlastnosti oddělení budou namapovány na sloupce v tabulce s názvem t_ oddělení.  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department");
 ```  
 
-Můžete také zadat název schématu takto:  
+Název schématu můžete zadat také takto:  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department", "school");
 ```  
 
-### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>Mapování dědičnosti za hierarchii tabulky (TPH)  
+### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>Mapování dědičnosti typu tabulka na hierarchii (TPH)  
 
-Ve scénáři TPH mapování všech typů v hierarchii dědičnosti se mapují na jednu tabulku. Sloupec diskriminátoru se používá k identifikaci typu každý řádek. Při vytváření modelu s Code First, TPH je výchozí strategie pro typy, které jsou součástí hierarchie dědičnosti. Ve výchozím nastavení sloupec diskriminátoru se přidá do tabulky s názvem "Diskriminátoru" a název typu CLR jednotlivých typů v hierarchii se používá pro hodnoty diskriminátoru. Výchozí chování lze upravit pomocí rozhraní API fluent.  
+Ve scénáři mapování TPH jsou všechny typy v hierarchii dědičnosti mapovány na jednu tabulku. Sloupec diskriminátoru se používá k identifikaci typu každého řádku. Při vytváření modelu pomocí Code First je pro typy, které se podílejí na hierarchii dědičnosti, výchozí strategie. Ve výchozím nastavení se sloupec diskriminátor přidá do tabulky s názvem "diskriminátor" a název typu CLR každého typu v hierarchii se používá pro hodnoty diskriminátoru. Výchozí chování můžete upravit pomocí rozhraní Fluent API.  
 
 ``` csharp
 modelBuilder.Entity<Course>()  
@@ -248,23 +248,23 @@ modelBuilder.Entity<Course>()
     .Map<OnsiteCourse>(m => m.Requires("Type").HasValue("OnsiteCourse"));
 ```  
 
-### <a name="mapping-the-table-per-type-tpt-inheritance"></a>Mapování dědičnosti za typ tabulky (TPT)  
+### <a name="mapping-the-table-per-type-tpt-inheritance"></a>Mapování dědičnosti typu tabulka na typ (TPT)  
 
-Ve scénáři TPT mapování jsou všechny typy mapovány na jednotlivé tabulky. Vlastnosti, které patří výhradně pro základní typ nebo odvozeného typu jsou uložené v tabulce, která se mapuje na tento typ. Tabulky, které se mapují k odvozené typy také uložit cizí klíč, který připojí odvozenou tabulku s základní tabulky.  
+Ve scénáři mapování TPT jsou všechny typy namapovány na jednotlivé tabulky. Vlastnosti, které patří výhradně k základnímu typu nebo odvozenému typu, jsou uloženy v tabulce, která je mapována na daný typ. Tabulky, které se mapují na odvozené typy, také uloží cizí klíč, který spojí odvozenou tabulku se základní tabulkou.  
 
 ``` csharp
 modelBuilder.Entity<Course>().ToTable("Course");  
 modelBuilder.Entity<OnsiteCourse>().ToTable("OnsiteCourse");
 ```  
 
-### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>Mapování tabulek na konkrétní třídy (TPC) dědičnosti  
+### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>Mapování dědičnosti třídy TPC (Table-per-beton)  
 
-Ve scénáři testu TPC mapování všechny typy neabstraktní v hierarchii se mapují na jednotlivé tabulky. Tabulky, které se mapují na odvozené třídy nemají žádný vztah k tabulce, která se mapuje na základní třídu v databázi. Všechny vlastnosti třídy, včetně zděděné vlastnosti, jsou mapovány na sloupce příslušné tabulky.  
+Ve scénáři mapování TPC jsou všechny neabstraktní typy v hierarchii namapovány na jednotlivé tabulky. Tabulky, které jsou mapovány na odvozené třídy, nemají žádnou relaci s tabulkou, která je v databázi mapována na základní třídu. Všechny vlastnosti třídy, včetně děděných vlastností, jsou namapovány na sloupce odpovídající tabulky.  
 
-Volání metody MapInheritedProperties ke konfiguraci jednotlivých odvozeného typu. MapInheritedProperties změní všechny vlastnosti, které byly zděděny ze základní třídy na nové sloupce v tabulce pro odvozenou třídu.  
+Pro konfiguraci každého odvozeného typu zavolejte metodu MapInheritedProperties. MapInheritedProperties přemapuje všechny vlastnosti, které byly děděny ze základní třídy na nové sloupce v tabulce pro odvozenou třídu.  
 
 > [!NOTE]
-> Všimněte si, že vzhledem k tomu, že tabulky účasti v hierarchii dědičnosti TPC nesdílejí primární klíč bude duplicitní entita klíče při vkládání do tabulek, které jsou mapovány na podtřídy, pokud máte hodnot v databázi vygeneruje se výchozí hodnota vlastnosti stejné identity. Pro vyřešení tohoto problému můžete zadat hodnotu různých počátečních pro každou tabulku nebo vypnout identitu na vlastnost primárního klíče. Identita je výchozí hodnota vlastnosti integer klíče při práci se službou Code First.  
+> Všimněte si, že vzhledem k tomu, že tabulky, které se účastní hierarchie dědičnosti TPC, nesdílejí primární klíč, budou při vkládání do tabulek mapovaných na podtřídy duplicitní klíče entit, pokud máte databáze vygenerované hodnotami se stejnou počáteční hodnotou identity. Chcete-li tento problém vyřešit, můžete buď zadat jinou počáteční počáteční hodnotu pro každou tabulku, nebo vypnout identitu u vlastnosti primárního klíče. Identita je výchozí hodnota vlastností celočíselného klíče při práci s Code First.  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -284,9 +284,9 @@ modelBuilder.Entity<OnlineCourse>().Map(m =>
 });
 ```  
 
-### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>Mapování vlastnosti typu Entity k několika tabulkám v databázi (rozdělení Entity)  
+### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>Mapování vlastností typu entity na více tabulek v databázi (rozdělení entity)  
 
-Entita rozdělení umožňuje vlastnosti typu entity k možné rozdělit do několika tabulek. V následujícím příkladu je entita oddělení rozdělit na dvě tabulky: oddělení a DepartmentDetails. Rozdělení entity pomocí více volání metody mapování mapuje podmnožinu vlastností do určité tabulky.  
+Rozdělení entit umožňuje rozdělit vlastnosti typu entity napříč více tabulkami. V následujícím příkladu je entita oddělení rozdělená na dvě tabulky: oddělení a DepartmentDetails. Rozdělování entit používá více volání metody map k mapování podmnožiny vlastností na konkrétní tabulku.  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -302,9 +302,9 @@ modelBuilder.Entity<Department>()
     });
 ```  
 
-### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>Mapování více typů entit na jedné tabulky v databázi (rozdělení tabulky)  
+### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>Mapování více typů entit na jednu tabulku v databázi (rozdělení tabulky)  
 
-Následující příklad namapuje dva typy entit, které sdílejí primární klíč do jedné tabulky.  
+Následující příklad mapuje dva typy entit, které sdílejí primární klíč s jednou tabulkou.  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -319,13 +319,13 @@ modelBuilder.Entity<Instructor>().ToTable("Instructor");
 modelBuilder.Entity<OfficeAssignment>().ToTable("Instructor");
 ```  
 
-### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>Mapování typu Entity na uložené procedury Insert/Update/Delete (ef6 nebo novější)  
+### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>Mapování typu entity na vložení, aktualizaci nebo odstranění uložených procedur (EF6 a vyšší)  
 
-Počínaje EF6 můžete mapovat entity pro použití uložené procedury pro vložení aktualizace a odstraňování. Další podrobnosti najdete v tématu, [kód první Insert/Update/Delete uložené procedury](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md).  
+Počínaje EF6 můžete namapovat entitu na použití uložených procedur pro vložení Update a DELETE. Další podrobnosti najdete v [Code First uložených procedurách INSERT, Update a DELETE](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md).  
 
-## <a name="model-used-in-samples"></a>Model použitý v ukázky  
+## <a name="model-used-in-samples"></a>Model používaný v ukázkách  
 
-Následující kód první model se používá pro ukázky na této stránce.  
+Následující model Code First se používá pro ukázky na této stránce.  
 
 ``` csharp
 using System.Data.Entity;

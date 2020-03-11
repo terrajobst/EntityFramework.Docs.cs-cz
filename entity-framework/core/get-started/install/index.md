@@ -4,16 +4,16 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 1121b2bde1ada74ee189287501bc770aeb65e358
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 987b6f38954c291f88b5167fa9b061853b15a6cb
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824435"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416880"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * EF Core je knihovna [.NET Standard 2,1](/dotnet/standard/net-standard) . Proto EF Core vyžaduje implementaci rozhraní .NET, která podporuje spuštění .NET Standard 2,1. Na EF Core můžou být taky odkazovány jinými knihovnami .NET Standard 2,1.
 
@@ -33,7 +33,7 @@ Pokud vytváříte aplikaci ASP.NET Core, nemusíte instalovat poskytovatele v p
 
 Chcete-li nainstalovat nebo aktualizovat balíčky NuGet, můžete použít rozhraní příkazového řádku (CLI) .NET Core, dialogové okno Správce balíčků sady Visual Studio nebo konzolu správce sady Visual Studio.
 
-### <a name="net-core-cli"></a>Rozhraní příkazového řádku .NET Core
+### <a name="net-core-cli"></a>.NET Core CLI
 
 * Chcete-li nainstalovat nebo aktualizovat poskytovatele služby EF Core SQL Server, použijte následující příkaz .NET Core CLI z příkazového řádku operačního systému:
 
@@ -98,8 +98,6 @@ Příkazy `dotnet ef` jsou součástí aktuálních verzí .NET Core SDK, ale po
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
-
-Pro ASP.NET Core aplikace je tento balíček zahrnutý automaticky.
 
 > [!IMPORTANT]
 > Vždy používejte verzi balíčku nástroje, která odpovídá hlavní verzi běhových balíčků.

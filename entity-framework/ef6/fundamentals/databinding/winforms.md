@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
 ms.openlocfilehash: 4b3eee20ff238864b94ef4edfb97c1bae0713300
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181791"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419601"
 ---
 # <a name="databinding-with-winforms"></a>Datová vazba s WinForms
 V tomto podrobném návodu se dozvíte, jak navazovat POCO typy na ovládací prvky WinForms (Window Forms) ve formuláři "Master-Detail". Aplikace používá Entity Framework k naplnění objektů daty z databáze, sledování změn a zachování dat v databázi.
@@ -17,7 +17,7 @@ Model definuje dva typy, které se účastní vztahu 1:1: kategorie (hlavní\\hl
 
 Snímky obrazovky a výpisy kódu v tomto návodu jsou pořízeny z Visual Studio 2013, ale můžete tento návod dokončit pomocí sady Visual Studio 2012 nebo Visual Studio 2010.
 
-## <a name="pre-requisites"></a>Předpoklady
+## <a name="pre-requisites"></a>Požadavky
 
 Pro dokončení tohoto Názorného postupu musíte mít nainstalovanou Visual Studio 2013, Visual Studio 2012 nebo Visual Studio 2010.
 
@@ -25,11 +25,11 @@ Pokud používáte Visual Studio 2010, je také nutné nainstalovat NuGet. Dalš
 
 ## <a name="create-the-application"></a>Vytvoření aplikace
 
--   Otevřít Visual Studio
+-   Otevřete sadu Visual Studio.
 -   **Soubor-&gt; projekt New-&gt;...**
 -   V levém podokně vyberte **Windows** a v pravém podokně klikněte na **Windows FormsApplication** .
 -   Jako název zadejte **WinFormswithEFSample** .
--   Vybrat **OK**
+-   Vyberte **OK**.
 
 ## <a name="install-the-entity-framework-nuget-package"></a>Instalace balíčku Entity Framework NuGet
 
@@ -189,7 +189,7 @@ Pojďme dopředu a vygenerovat databázi.
 
 -   Vyberte **OK** a zobrazí se dotaz, jestli chcete vytvořit novou databázi, a pak vyberte **Ano** .
 
-    ![Vytvoření databáze](~/ef6/media/createdatabase.png)
+    ![Create Database](~/ef6/media/createdatabase.png)
 
 -   Nová databáze se nyní zobrazí v Průzkumník serveru, klikněte na ni pravým tlačítkem myši a vyberte **Nový dotaz** .
 -   Zkopírujte následující příkaz SQL do nového dotazu, klikněte na něj pravým tlačítkem myši a vyberte **Spustit** .
@@ -280,7 +280,7 @@ Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto apl
 
     ![Zdroj dat](~/ef6/media/datasource.png)
 
--   Klikněte na tlačítko **Dokončit.**
+-   Klikněte na **Dokončit**.
     Pokud se nezobrazí okno zdroje dat, vyberte **zobrazení-&gt; jiné zdroje dat&gt; Windows.**
 -   Stiskněte ikonu připnutí, aby se okno zdroje dat neautomaticky skrylo. Pokud je okno již viditelné, může být nutné spustit tlačítko Aktualizovat.
 
@@ -297,7 +297,7 @@ Přidejte třídy, které jsou definovány v modelu jako zdroje dat pro tuto apl
     -   Klikněte pravým tlačítkem myši na ovládací prvek DataGridView a vyberte možnost **Upravit sloupce...** .
     -   Vyberte sloupec **ProductID** a nastavte vlastnost **ReadOnly** na **hodnotu true**.
     -   Vyberte sloupec **CategoryID** a stiskněte tlačítko **Odebrat** . Totéž proveďte se sloupcem **Category (kategorie** ).
-    -   Stisknutím klávesy **OK**.
+    -   Stiskněte **OK**.
 
     Zatím jsme přidružili ovládací prvky DataGridView k komponentám BindingSource v návrháři. V další části přidáme kód do kódu na pozadí pro nastavení categoryBindingSource. DataSource na kolekci entit, které jsou aktuálně sledovány pomocí DbContext. Když jsme přetáhli produkty z kategorie do kategorie, WinForms se postará o nastavení vlastnosti productsBindingSource. DataSource na categoryBindingSource a vlastnost productsBindingSource. DataMember na Products. Z důvodu této vazby budou v productDataGridView zobrazeny pouze produkty patřící do aktuálně vybrané kategorie.
 -   Na panelu nástrojů navigace povolte tlačítko **Uložit** kliknutím pravým tlačítkem myši a výběrem možnosti **povoleno**.

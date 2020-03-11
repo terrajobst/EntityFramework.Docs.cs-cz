@@ -1,18 +1,18 @@
 ---
-title: Přispívat k Entity Frameworku - EF6
+title: Přispívání do Entity Framework – EF6
 author: divega
 ms.date: 07/05/2018
 ms.assetid: EFA3C3F5-79A4-4A0A-BB37-035C31FC7372
-ms.openlocfilehash: fef724c33d5a21d71f266986c0b15ff370b63382
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 81159c2e1807122be90ef861805f94794f91493f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488956"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417065"
 ---
-# <a name="contribute-to-entity-framework-6"></a>Přispívat do Entity Framework 6
-Entity Framework 6 vyvinutý podle modelu opensourcových na Githubu. I když je hlavní fokus z týmu rozhraní Entity Framework společnosti Microsoft na přidávání nových funkcí do Entity Framework Core a neočekáváme všechny hlavní funkce, které mají být přidány do Entity Framework 6, budeme i nadále přijímat příspěvky.
+# <a name="contribute-to-entity-framework-6"></a>Přispět k Entity Framework 6
+Entity Framework 6 se vyvíjí pomocí Open Source modelu na GitHubu. I když je hlavní fokus týmu Entity Framework v Microsoftu přidávání nových funkcí do Entity Framework Core a neočekáváme, že by se do Entity Framework 6 přidaly žádné hlavní funkce, pořád přijímáme příspěvky.
 
-Za příspěvky v produktu, spusťte prosím na [wikistránka využité v našem úložišti GitHub](https://github.com/aspnet/EntityFramework6/wiki/Contributing).
+V případě příspěvků k produktu prosím Začněte na [přispívající stránce wikiwebu v našem úložišti GitHub](https://github.com/aspnet/EntityFramework6/wiki/Contributing).
 
-Za příspěvky v dokumentaci, spusťte prosím čtení [příspěvek pokyny](https://github.com/aspnet/EntityFramework.Docs/blob/master/CONTRIBUTING.md) v našem úložišti dokumentace.
+V případě příspěvků k dokumentaci prosím začněte Přečtěte si [pokyny k příspěvku](https://github.com/dotnet/EntityFramework.Docs/blob/master/CONTRIBUTING.md) v úložišti dokumentace.

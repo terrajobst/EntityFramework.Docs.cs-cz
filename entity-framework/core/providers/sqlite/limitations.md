@@ -5,11 +5,11 @@ ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
 ms.openlocfilehash: 2f80dc195265787318ac4925dd937da45ffad011
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179774"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417772"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>Omezení zprostředkovatele databáze EF Core SQLite
 
@@ -32,7 +32,7 @@ SQLite netivně podporuje následující datové typy. EF Core mohou číst a za
 * TimeSpan
 * UInt64
 
-Místo `DateTimeOffset` doporučujeme použít hodnoty DateTime. Při zpracování několika časových pásem doporučujeme před uložením a převodem zpět na příslušné časové pásmo převést hodnoty na čas UTC.
+Místo `DateTimeOffset`doporučujeme použít hodnoty DateTime. Při zpracování několika časových pásem doporučujeme před uložením a převodem zpět na příslušné časové pásmo převést hodnoty na čas UTC.
 
 Typ `Decimal` poskytuje vysokou úroveň přesnosti. Pokud ale tuto úroveň přesnosti nepotřebujete, doporučujeme místo toho použít Double. Pomocí [převaděče hodnot](../../modeling/value-conversions.md) můžete v třídách dál používat desetinné číslo.
 
@@ -46,7 +46,7 @@ modelBuilder.Entity<MyEntity>()
 
 Databázový stroj SQLite nepodporuje řadu operací schématu, které jsou podporovány většinou ostatních relačních databází. Pokud se pokusíte použít jednu z nepodporovaných operací na databázi SQLite, bude vyvolána `NotSupportedException`.
 
-| Operace            | Doložen? | Vyžaduje verzi |
+| Operace            | Podporované? | Vyžaduje verzi |
 |:---------------------|:-----------|:-----------------|
 | AddColumn            | ✔          | 1.0              |
 | AddForeignKey        | ✗          |                  |
@@ -68,7 +68,7 @@ Databázový stroj SQLite nepodporuje řadu operací schématu, které jsou podp
 | DropSchema           | ✔ (No-OP)  | 2.0              |
 | Vložit               | ✔          | 2.0              |
 | Aktualizace               | ✔          | 2.0              |
-| Odstranění               | ✔          | 2.0              |
+| Odstranit               | ✔          | 2.0              |
 
 ## <a name="migrations-limitations-workaround"></a>Omezení migrace – alternativní řešení
 

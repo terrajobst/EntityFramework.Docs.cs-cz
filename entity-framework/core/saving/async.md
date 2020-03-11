@@ -5,18 +5,18 @@ ms.date: 01/24/2017
 ms.assetid: b64a606e-ecd9-4807-829a-b6ec05ade33f
 uid: core/saving/async
 ms.openlocfilehash: 0823b86f0579dd3e42f6bd2aebfb433d3cbe00ab
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197816"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417640"
 ---
 # <a name="asynchronous-saving"></a>Asynchronní ukládání
 
 Asynchronní ukládání zabraňuje blokování vlákna během zápisu změn do databáze. To může být užitečné, aby nedocházelo k zamrznutí uživatelského rozhraní aplikace silného klienta. Asynchronní operace mohou také zvýšit propustnost ve webové aplikaci, kde může být vlákno uvolněno pro obsluhu dalších požadavků v době, kdy se operace databáze dokončí. Další informace naleznete v tématu [asynchronní programování v C# ](https://docs.microsoft.com/dotnet/csharp/async).
 
 > [!WARNING]  
-> EF Core nepodporuje více paralelních operací spuštěných ve stejné instanci kontextu. Před zahájením další operace byste vždy měli počkat na dokončení operace. To se obvykle provádí pomocí `await` klíčového slova pro každou asynchronní operaci.
+> EF Core nepodporuje více paralelních operací spuštěných ve stejné instanci kontextu. Před zahájením další operace byste vždy měli počkat na dokončení operace. To se obvykle provádí pomocí klíčového slova `await` pro každou asynchronní operaci.
 
 Entity Framework Core poskytuje `DbContext.SaveChangesAsync()` jako asynchronní alternativu k `DbContext.SaveChanges()`.
 

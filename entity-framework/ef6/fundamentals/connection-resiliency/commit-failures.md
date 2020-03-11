@@ -1,29 +1,29 @@
 ---
-title: Zpracování selhání potvrzení transakce - EF6
+title: Zpracování chyb potvrzení transakce – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
 ms.openlocfilehash: 27e75e6a1919ee2300fe76cfcdf67cceaad887b3
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283651"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78417368"
 ---
-# <a name="handling-transaction-commit-failures"></a>Zpracování selhání potvrzení transakce
+# <a name="handling-transaction-commit-failures"></a>Zpracování chyb potvrzení transakce
 > [!NOTE]
-> **EF6.1 a vyšší pouze** – funkce rozhraní API, atd. popsané na této stránce se zavedly v Entity Framework 6.1. Pokud používáte starší verzi, některé nebo všechny informace neplatí.  
+> **EF 6.1 a vyšší pouze** – funkce, rozhraní API atd. popsané na této stránce byly představeny v Entity Framework 6,1. Pokud používáte starší verzi, některé nebo všechny tyto informace neplatí.  
 
-Jako součást 6.1 Představujeme novou funkci odolnosti proti chybám připojení pro EF: schopnost detekovat a automatického obnovení po selhání přechodné připojení ovlivnit potvrzení potvrzení transakcí. Všechny podrobnosti scénáře jsou nejlépe popisuje tento blogový příspěvek [připojení k databázi SQL a problém idempotence](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Stručně řečeno tento scénář je, že když je výjimka vyvolána během zápisu transakce, existují dva možné příčiny:  
+V rámci 6,1 jsme zavedli novou funkci odolnosti připojení pro EF: schopnost detekovat a obnovovat automaticky v případě, že při přechodném selhání připojení dojde k ovlivnění potvrzení transakcí. Úplné podrobnosti o tomto scénáři se nejlépe popisují v příspěvku blogu [SQL Database možnosti připojení a problému idempotence](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx).  Ve shrnutí je scénář, že když je vyvolána výjimka během potvrzení transakce, existují dvě možné příčiny:  
 
-1. Potvrzení transakce nejde na serveru
-2. Potvrzení transakce byla úspěšně dokončena na serveru, ale problém s připojením zabránila oznámením o úspěšné dosažení klienta  
+1. Potvrzení transakce na serveru selhalo.
+2. Potvrzení transakce na serveru bylo úspěšné, ale potíže s připojením zabránily klientovi v navázání oznámení o úspěšnosti.  
 
-Při první situace nastane u uživatele nebo aplikace můžete operaci opakovat, ale pokud druhá situace nastane, mělo by se vyhnout opakovaných pokusů a aplikace může automaticky obnovit. Na výzvu je, že kdybychom neměli možnost zjistit, co byl skutečné důvod nahlášení výjimky během zápisu, aplikace nejde zvolit, ta správná cesta akce. Nová funkce v EF 6.1 umožňuje EF zkontrolujte s databází, pokud transakce byla úspěšná a transparentně trvat ta správná cesta akce.  
+Když se první situace stane aplikací nebo uživatel může operaci zopakovat, ale když dojde k druhé situaci, je třeba se vyhnout opakování a aplikace by se mohla automaticky obnovit. Důvodem je to, že bez možnosti rozpoznat, co byl skutečným důvodem, že se během potvrzení nahlásila výjimka, aplikace nemůže zvolit správný průběh akce. Nová funkce v EF 6,1 umožňuje EF pořídit databázi v případě úspěchu transakce a provedení správného postupu transparentního postupu.  
 
-## <a name="using-the-feature"></a>Pomocí funkce  
+## <a name="using-the-feature"></a>Používání funkce  
 
-Chcete-li povolit tuto funkci musí obsahovat volání [SetTransactionHandler](https://msdn.microsoft.com/library/system.data.entity.dbconfiguration.setdefaulttransactionhandler.aspx) v konstruktoru vaše **DbConfiguration**. Pokud nejste obeznámeni s **DbConfiguration**, naleznete v tématu [kódu na základě konfigurace](~/ef6/fundamentals/configuring/code-based.md). Tuto funkci můžete použít v kombinaci s Automatické opakované pokusy, kterou jsme představili v EF6, které pomáhají v situaci, ve kterém ve skutečnosti zápis transakce se nezdařil na serveru, protože došlo k přechodné chybě:  
+Aby bylo možné povolit funkci, kterou potřebujete, uveďte volání [SetTransactionHandler](https://msdn.microsoft.com/library/system.data.entity.dbconfiguration.setdefaulttransactionhandler.aspx) v konstruktoru svého **DbConfiguration**. Pokud neznáte **DbConfiguration**, přečtěte si téma [Konfigurace na základě kódu](~/ef6/fundamentals/configuring/code-based.md). Tato funkce se dá použít v kombinaci s automatickými pokusy, které jsme zavedli v EF6, což vám pomůže v situaci, kdy se transakci ve skutečnosti nepodařilo zapsat na serveru z důvodu přechodného selhání:  
 
 ``` csharp
 using System.Data.Entity;
@@ -40,33 +40,33 @@ public class MyConfiguration : DbConfiguration
 }
 ```  
 
-## <a name="how-transactions-are-tracked"></a>Způsob sledování transakce  
+## <a name="how-transactions-are-tracked"></a>Jak jsou sledovány transakce  
 
-Pokud je povolena funkce, EF automaticky přidá novou tabulku pro databázi s názvem **__Transactions**. V této tabulce je vložen nový řádek, pokaždé, když transakce je vytvořen pomocí EF a tento řádek je zaškrtnuté políčko existenci, pokud během zápisu dojde k selhání transakce.  
+Když je funkce povolená, EF automaticky přidá novou tabulku do databáze s názvem **__Transactions**. V této tabulce je vložen nový řádek pokaždé, když je transakce vytvořena pomocí EF a tento řádek je kontrolován pro existenci, pokud dojde k selhání transakce během zápisu.  
 
-I když EF provede nezaručené vyřadit řádky z tabulky, když už nejsou potřeba, můžou růst v tabulce, pokud se aplikace ukončí předčasně a z tohoto důvodu možná bude nutné k vyprázdnění tabulek ručně v některých případech.  
+I když EF dovede k vyřazení řádků z tabulky, když už nejsou potřeba, může tabulka růst, jestli se aplikace ukončí předčasně a z tohoto důvodu možná budete muset tabulku v některých případech vyprázdnit ručně.  
 
-## <a name="how-to-handle-commit-failures-with-previous-versions"></a>Jak řešit selhání potvrzení s předchozími verzemi
+## <a name="how-to-handle-commit-failures-with-previous-versions"></a>Postup zpracování selhání potvrzení s předchozími verzemi
 
-Před EF 6.1 není mechanismem pro zpracování selhání potvrzení do EF produktu. K práci s touto situací, který lze použít k předchozím verzím EF6 několika způsoby:  
+Před EF 6,1 neexistuje mechanismus pro zpracování selhání potvrzení v produktu EF. Existuje několik způsobů, jak v této situaci řešit, které je možné použít pro předchozí verze EF6:  
 
-* Možnost 1 - nedělat nic  
+* Možnost 1 – nedělat nic  
 
-  Pravděpodobnost selhání připojení během zápisu transakce tak může být přijatelný pro vaše aplikace právě selhat, pokud dojde k tomuto stavu dochází.  
+  Pravděpodobnost selhání připojení během potvrzení transakce je nízká, takže může být přijatelné, aby vaše aplikace v případě, že k této situaci skutečně dojde, nedošlo k chybě.  
 
-* Možnost 2 – databázi můžete obnovit stav  
+* Možnost 2 – obnovení stavu pomocí databáze  
 
-  1. Zrušit aktuální kontext databáze.  
-  2. Vytvořit nový kontext databáze a obnovení stavu aplikace z databáze  
-  3. Informujte uživatele, že poslední operaci možná nebyly úspěšně dokončeny  
+  1. Zahodit aktuální DbContext  
+  2. Vytvořte novou DbContext a obnovte stav aplikace z databáze.  
+  3. Informujte uživatele, že poslední operace nemusí být úspěšně dokončená.  
 
-* Možnost 3 - manuálně sledovat transakce  
+* Možnost 3 – ruční sledování transakce  
 
-  1. Přidáte tabulku – sledovat na databáze, která slouží ke sledování stavu transakce.  
-  2. Vložte řádek do tabulky na začátku každé transakci.  
-  3. Pokud se nepovede při potvrzení změn, zkontrolujte přítomnost odpovídající řádek v databázi.  
-     - Pokud se nachází na řádku, bude normálně pokračujte, protože transakce byla úspěšně zapsána  
-     - Pokud chybí na řádku, použijte strategie provádění aktuální operaci zopakovat.  
-  4. Pokud je potvrzení úspěšné, odstraňte odpovídající řádek, aby se zabránilo růst v tabulce.  
+  1. Přidejte nesledovanou tabulku do databáze použité ke sledování stavu transakcí.  
+  2. Vloží řádek do tabulky na začátku každé transakce.  
+  3. Pokud během potvrzení dojde k chybě připojení, vyhledejte přítomnost odpovídajícího řádku v databázi.  
+     - Pokud je řádek k dispozici, pokračujte normálně, protože transakce byla úspěšně potvrzena.  
+     - Pokud řádek chybí, použijte k opakování aktuální operace strategii spouštění.  
+  4. Pokud je potvrzení úspěšné, odstraňte odpovídající řádek, abyste se vyhnuli nárůstu tabulky.  
 
-[Tento příspěvek na blogu](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) obsahuje ukázkový kód pro provedení to v SQL Azure.  
+[Tento Blogový příspěvek](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx) obsahuje vzorový kód pro dosažení tohoto SQL Azure.  

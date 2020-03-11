@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 6d75b229-cc79-4d08-88cd-3a1c1b24d88f
 uid: core/miscellaneous/rc1-rc2-upgrade
 ms.openlocfilehash: 887b7cd539b9c0f5a680398f5039757420228710
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181278"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416608"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>Upgrade z verze EF Core 1,0 RC1 na 1,0 RC2
 
@@ -25,7 +25,7 @@ Mezi RC1 a RC2 jsme změnili z "Entity Framework 7" na "Entity Framework Core". 
 |:----------------------------------------------------------|:---------------------------------------------------------------------|
 | EntityFramework.MicrosoftSqlServer        7.0.0-rc1-final | Microsoft.EntityFrameworkCore.SqlServer         1.0.0-rc2-final      |
 | EntityFramework. SQLite 7.0.0-RC1-Final | Microsoft.EntityFrameworkCore.Sqlite            1.0.0-rc2-final      |
-| EntityFramework7.Npgsql                   3.1.0-rc1-3     | NpgSql.EntityFrameworkCore.Postgres             <to be advised>      |
+| EntityFramework7.Npgsql                   3.1.0-rc1-3     | NpgSql. EntityFrameworkCore. Postgres <to be advised>      |
 | EntityFramework.SqlServerCompact35        7.0.0-rc1-final | EntityFrameworkCore.SqlServerCompact35          1.0.0-rc2-final      |
 | EntityFramework.SqlServerCompact40        7.0.0-rc1-final | EntityFrameworkCore.SqlServerCompact40          1.0.0-rc2-final      |
 | EntityFramework. inMemory 7.0.0-RC1-Final | Microsoft. EntityFrameworkCore. inMemory 1.0.0-RC2-finální      |

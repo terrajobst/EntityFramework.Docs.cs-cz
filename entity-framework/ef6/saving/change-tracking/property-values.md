@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
 ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182146"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416965"
 ---
 # <a name="working-with-property-values"></a>Práce s hodnotami vlastností
 V rámci většiny Entity Framework se postará o sledování stavu, původních hodnot a aktuálních hodnot vlastností vašich instancí entit. Mohou však existovat některé případy – například odpojené scénáře – kde chcete zobrazit nebo manipulovat s informacemi, které se týkají vlastností EF. Techniky uvedené v tomto tématu se vztahují rovnoměrně na modely vytvořené pomocí Code First a návrháře EF.  
@@ -287,7 +287,7 @@ Klonovaný objekt může být užitečný pro řešení problémů související
 
 ## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>Získávání a nastavování aktuálních nebo původních hodnot komplexních vlastností  
 
-Hodnota celého komplexního objektu může být čtena a nastavena pomocí metody vlastnosti stejně, jako by mohla být pro primitivní vlastnost. Kromě toho můžete přejít k podrobnostem o složitém objektu a číst nebo nastavovat vlastnosti daného objektu nebo dokonce i vnořený objekt. Následuje několik příkladů:  
+Hodnota celého komplexního objektu může být čtena a nastavena pomocí metody vlastnosti stejně, jako by mohla být pro primitivní vlastnost. Kromě toho můžete přejít k podrobnostem o složitém objektu a číst nebo nastavovat vlastnosti daného objektu nebo dokonce i vnořený objekt. Zde je několik příkladů:  
 
 ``` csharp
 using (var context = new BloggingContext())
