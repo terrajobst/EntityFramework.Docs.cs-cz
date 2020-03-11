@@ -4,42 +4,42 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
 ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824826"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78419057"
 ---
-# <a name="fluent-api-with-vbnet"></a><span data-ttu-id="58825-102">Rozhraní Fluent API s VB.NET</span><span class="sxs-lookup"><span data-stu-id="58825-102">Fluent API with VB.NET</span></span>
-<span data-ttu-id="58825-103">Code First umožňuje definovat model pomocí tříd C\# nebo VB.NET.</span><span class="sxs-lookup"><span data-stu-id="58825-103">Code First allows you to define your model using C\# or VB.NET classes.</span></span> <span data-ttu-id="58825-104">Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.</span><span class="sxs-lookup"><span data-stu-id="58825-104">Additional configuration can optionally be performed using attributes on your classes and properties or by using a fluent API.</span></span> <span data-ttu-id="58825-105">Tento návod ukazuje, jak provést konfiguraci rozhraní Fluent API pomocí VB.NET.</span><span class="sxs-lookup"><span data-stu-id="58825-105">This walkthrough shows how to perform fluent API configuration using VB.NET.</span></span>
+# <a name="fluent-api-with-vbnet"></a><span data-ttu-id="ba6a4-102">Rozhraní Fluent API s VB.NET</span><span class="sxs-lookup"><span data-stu-id="ba6a4-102">Fluent API with VB.NET</span></span>
+<span data-ttu-id="ba6a4-103">Code First umožňuje definovat model pomocí tříd C\# nebo VB.NET.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-103">Code First allows you to define your model using C\# or VB.NET classes.</span></span> <span data-ttu-id="ba6a4-104">Další konfiguraci můžete volitelně provést pomocí atributů u tříd a vlastností nebo pomocí rozhraní API Fluent.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-104">Additional configuration can optionally be performed using attributes on your classes and properties or by using a fluent API.</span></span> <span data-ttu-id="ba6a4-105">Tento návod ukazuje, jak provést konfiguraci rozhraní Fluent API pomocí VB.NET.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-105">This walkthrough shows how to perform fluent API configuration using VB.NET.</span></span>
 
-<span data-ttu-id="58825-106">Tato stránka předpokládá, že máte základní znalosti o Code First.</span><span class="sxs-lookup"><span data-stu-id="58825-106">This page assumes you have a basic understanding of Code First.</span></span> <span data-ttu-id="58825-107">Další informace o Code First najdete v následujících návodech:</span><span class="sxs-lookup"><span data-stu-id="58825-107">Check out the following walkthroughs for more information on Code First:</span></span>
+<span data-ttu-id="ba6a4-106">Tato stránka předpokládá, že máte základní znalosti o Code First.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-106">This page assumes you have a basic understanding of Code First.</span></span> <span data-ttu-id="ba6a4-107">Další informace o Code First najdete v následujících návodech:</span><span class="sxs-lookup"><span data-stu-id="ba6a4-107">Check out the following walkthroughs for more information on Code First:</span></span>
 
--   [<span data-ttu-id="58825-108">Code First k nové databázi</span><span class="sxs-lookup"><span data-stu-id="58825-108">Code First to a New Database</span></span>](~/ef6/modeling/code-first/workflows/new-database.md)
--   [<span data-ttu-id="58825-109">Code First do existující databáze</span><span class="sxs-lookup"><span data-stu-id="58825-109">Code First to an Existing Database</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
+-   [<span data-ttu-id="ba6a4-108">Code First k nové databázi</span><span class="sxs-lookup"><span data-stu-id="ba6a4-108">Code First to a New Database</span></span>](~/ef6/modeling/code-first/workflows/new-database.md)
+-   [<span data-ttu-id="ba6a4-109">Code First do existující databáze</span><span class="sxs-lookup"><span data-stu-id="ba6a4-109">Code First to an Existing Database</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
 
-## <a name="pre-requisites"></a><span data-ttu-id="58825-110">Požadavky</span><span class="sxs-lookup"><span data-stu-id="58825-110">Pre-Requisites</span></span>
+## <a name="pre-requisites"></a><span data-ttu-id="ba6a4-110">Požadavky</span><span class="sxs-lookup"><span data-stu-id="ba6a4-110">Pre-Requisites</span></span>
 
-<span data-ttu-id="58825-111">Abyste mohli dokončit tento návod, budete muset mít nainstalovanou aspoň Visual Studio 2010 nebo Visual Studio 2012.</span><span class="sxs-lookup"><span data-stu-id="58825-111">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
+<span data-ttu-id="ba6a4-111">Abyste mohli dokončit tento návod, budete muset mít nainstalovanou aspoň Visual Studio 2010 nebo Visual Studio 2012.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-111">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
 
-<span data-ttu-id="58825-112">Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .</span><span class="sxs-lookup"><span data-stu-id="58825-112">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed</span></span>
+<span data-ttu-id="ba6a4-112">Pokud používáte Visual Studio 2010, budete také muset nainstalovat [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-112">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed</span></span>
 
-## <a name="create-the-application"></a><span data-ttu-id="58825-113">Vytvoření aplikace</span><span class="sxs-lookup"><span data-stu-id="58825-113">Create the Application</span></span>
+## <a name="create-the-application"></a><span data-ttu-id="ba6a4-113">Vytvoření aplikace</span><span class="sxs-lookup"><span data-stu-id="ba6a4-113">Create the Application</span></span>
 
-<span data-ttu-id="58825-114">Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům.</span><span class="sxs-lookup"><span data-stu-id="58825-114">To keep things simple we’re going to build a basic console application that uses Code First to perform data access.</span></span>
+<span data-ttu-id="ba6a4-114">Aby se zajistilo něco jednoduchého, vytvoříme základní konzolovou aplikaci, která používá Code First k provádění přístupu k datům.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-114">To keep things simple we’re going to build a basic console application that uses Code First to perform data access.</span></span>
 
--   <span data-ttu-id="58825-115">Otevřete sadu Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="58825-115">Open Visual Studio</span></span>
--   <span data-ttu-id="58825-116">**Soubor –&gt; projekt New-&gt;...**</span><span class="sxs-lookup"><span data-stu-id="58825-116">**File -&gt; New -&gt; Project…**</span></span>
--   <span data-ttu-id="58825-117">V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .</span><span class="sxs-lookup"><span data-stu-id="58825-117">Select **Windows** from the left menu and **Console Application**</span></span>
--   <span data-ttu-id="58825-118">Jako název zadejte **CodeFirstVBSample** .</span><span class="sxs-lookup"><span data-stu-id="58825-118">Enter **CodeFirstVBSample** as the name</span></span>
--   <span data-ttu-id="58825-119">Vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="58825-119">Select **OK**</span></span>
+-   <span data-ttu-id="ba6a4-115">Otevřete sadu Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-115">Open Visual Studio</span></span>
+-   <span data-ttu-id="ba6a4-116">**Soubor –&gt; projekt New-&gt;...**</span><span class="sxs-lookup"><span data-stu-id="ba6a4-116">**File -&gt; New -&gt; Project…**</span></span>
+-   <span data-ttu-id="ba6a4-117">V levé nabídce a v **konzolové aplikaci** vyberte **Windows** .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-117">Select **Windows** from the left menu and **Console Application**</span></span>
+-   <span data-ttu-id="ba6a4-118">Jako název zadejte **CodeFirstVBSample** .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-118">Enter **CodeFirstVBSample** as the name</span></span>
+-   <span data-ttu-id="ba6a4-119">Vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-119">Select **OK**</span></span>
 
-## <a name="define-the-model"></a><span data-ttu-id="58825-120">Definování modelu</span><span class="sxs-lookup"><span data-stu-id="58825-120">Define the Model</span></span>
+## <a name="define-the-model"></a><span data-ttu-id="ba6a4-120">Definování modelu</span><span class="sxs-lookup"><span data-stu-id="ba6a4-120">Define the Model</span></span>
 
-<span data-ttu-id="58825-121">V tomto kroku definujete typy entit VB.NET POCO, které reprezentují koncepční model.</span><span class="sxs-lookup"><span data-stu-id="58825-121">In this step you will define VB.NET POCO entity types that represent the conceptual model.</span></span> <span data-ttu-id="58825-122">Třídy nemusejí odvozovat ze žádné základní třídy ani implementovat žádná rozhraní.</span><span class="sxs-lookup"><span data-stu-id="58825-122">The classes do not need to derive from any base classes or implement any interfaces.</span></span>
+<span data-ttu-id="ba6a4-121">V tomto kroku definujete typy entit VB.NET POCO, které reprezentují koncepční model.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-121">In this step you will define VB.NET POCO entity types that represent the conceptual model.</span></span> <span data-ttu-id="ba6a4-122">Třídy nemusejí odvozovat ze žádné základní třídy ani implementovat žádná rozhraní.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-122">The classes do not need to derive from any base classes or implement any interfaces.</span></span>
 
--   <span data-ttu-id="58825-123">Přidejte do projektu novou třídu, jako název třídy zadejte **SchoolModel** .</span><span class="sxs-lookup"><span data-stu-id="58825-123">Add a new class to the project, enter **SchoolModel** for the class name</span></span>
--   <span data-ttu-id="58825-124">Nahraďte obsah nové třídy následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="58825-124">Replace the contents of the new class with the following code</span></span>
+-   <span data-ttu-id="ba6a4-123">Přidejte do projektu novou třídu, jako název třídy zadejte **SchoolModel** .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-123">Add a new class to the project, enter **SchoolModel** for the class name</span></span>
+-   <span data-ttu-id="ba6a4-124">Nahraďte obsah nové třídy následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="ba6a4-124">Replace the contents of the new class with the following code</span></span>
 
 ``` vb
 Public Class Department
@@ -133,21 +133,21 @@ Public Class OfficeAssignment
 End Class
 ```
 
-## <a name="define-a-derived-context"></a><span data-ttu-id="58825-125">Definovat odvozený kontext</span><span class="sxs-lookup"><span data-stu-id="58825-125">Define a Derived Context</span></span>
+## <a name="define-a-derived-context"></a><span data-ttu-id="ba6a4-125">Definovat odvozený kontext</span><span class="sxs-lookup"><span data-stu-id="ba6a4-125">Define a Derived Context</span></span>
 
-<span data-ttu-id="58825-126">Chystáme se začít používat typy z Entity Framework, takže musíme přidat balíček NuGet EntityFramework.</span><span class="sxs-lookup"><span data-stu-id="58825-126">We’re about to start to using types from the Entity Framework so we need to add the EntityFramework NuGet package.</span></span>
+<span data-ttu-id="ba6a4-126">Chystáme se začít používat typy z Entity Framework, takže musíme přidat balíček NuGet EntityFramework.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-126">We’re about to start to using types from the Entity Framework so we need to add the EntityFramework NuGet package.</span></span>
 
--   <span data-ttu-id="58825-127">\* \* Projekt –&gt; **Spravovat balíčky NuGet...**</span><span class="sxs-lookup"><span data-stu-id="58825-127">\*\*Project –&gt; **Manage NuGet Packages…**</span></span>
+-   <span data-ttu-id="ba6a4-127">\* \* Projekt –&gt; **Spravovat balíčky NuGet...**</span><span class="sxs-lookup"><span data-stu-id="ba6a4-127">\*\*Project –&gt; **Manage NuGet Packages…**</span></span>
 > [!NOTE]
-> <span data-ttu-id="58825-128">Pokud nemáte **balíčky pro správu NuGet...**</span><span class="sxs-lookup"><span data-stu-id="58825-128">If you don’t have the **Manage NuGet Packages…**</span></span> <span data-ttu-id="58825-129">možnost, měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .</span><span class="sxs-lookup"><span data-stu-id="58825-129">option you should install the [latest version of NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)</span></span>
--   <span data-ttu-id="58825-130">Vyberte **online** kartu.</span><span class="sxs-lookup"><span data-stu-id="58825-130">Select the **Online** tab</span></span>
--   <span data-ttu-id="58825-131">Výběr balíčku **EntityFramework**</span><span class="sxs-lookup"><span data-stu-id="58825-131">Select the **EntityFramework** package</span></span>
--   <span data-ttu-id="58825-132">Klikněte na **nainstalovat** .</span><span class="sxs-lookup"><span data-stu-id="58825-132">Click **Install**</span></span>
+> <span data-ttu-id="ba6a4-128">Pokud nemáte **balíčky pro správu NuGet...**</span><span class="sxs-lookup"><span data-stu-id="ba6a4-128">If you don’t have the **Manage NuGet Packages…**</span></span> <span data-ttu-id="ba6a4-129">možnost, měli byste nainstalovat [nejnovější verzi nugetu](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-129">option you should install the [latest version of NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)</span></span>
+-   <span data-ttu-id="ba6a4-130">Vyberte **online** kartu.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-130">Select the **Online** tab</span></span>
+-   <span data-ttu-id="ba6a4-131">Výběr balíčku **EntityFramework**</span><span class="sxs-lookup"><span data-stu-id="ba6a4-131">Select the **EntityFramework** package</span></span>
+-   <span data-ttu-id="ba6a4-132">Klikněte na **nainstalovat** .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-132">Click **Install**</span></span>
 
-<span data-ttu-id="58825-133">Nyní je čas definovat odvozený kontext, který představuje relaci s databází, a můžeme nám umožnit dotazování a ukládání dat.</span><span class="sxs-lookup"><span data-stu-id="58825-133">Now it’s time to define a derived context, which represents a session with the database, allowing us to query and save data.</span></span> <span data-ttu-id="58825-134">Definujeme kontext, který je odvozen z typu System. data. entity. DbContext a zpřístupňuje typ Negenerickými&lt;TEntity&gt; pro každou třídu v našem modelu.</span><span class="sxs-lookup"><span data-stu-id="58825-134">We define a context that derives from System.Data.Entity.DbContext and exposes a typed DbSet&lt;TEntity&gt; for each class in our model.</span></span>
+<span data-ttu-id="ba6a4-133">Nyní je čas definovat odvozený kontext, který představuje relaci s databází, a můžeme nám umožnit dotazování a ukládání dat.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-133">Now it’s time to define a derived context, which represents a session with the database, allowing us to query and save data.</span></span> <span data-ttu-id="ba6a4-134">Definujeme kontext, který je odvozen z typu System. data. entity. DbContext a zpřístupňuje typ Negenerickými&lt;TEntity&gt; pro každou třídu v našem modelu.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-134">We define a context that derives from System.Data.Entity.DbContext and exposes a typed DbSet&lt;TEntity&gt; for each class in our model.</span></span>
 
--   <span data-ttu-id="58825-135">Přidejte do projektu novou třídu, jako název třídy zadejte **SchoolContext** .</span><span class="sxs-lookup"><span data-stu-id="58825-135">Add a new class to the project, enter **SchoolContext** for the class name</span></span>
--   <span data-ttu-id="58825-136">Nahraďte obsah nové třídy následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="58825-136">Replace the contents of the new class with the following code</span></span>
+-   <span data-ttu-id="ba6a4-135">Přidejte do projektu novou třídu, jako název třídy zadejte **SchoolContext** .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-135">Add a new class to the project, enter **SchoolContext** for the class name</span></span>
+-   <span data-ttu-id="ba6a4-136">Nahraďte obsah nové třídy následujícím kódem</span><span class="sxs-lookup"><span data-stu-id="ba6a4-136">Replace the contents of the new class with the following code</span></span>
 
 ```vb
 Imports System.ComponentModel.DataAnnotations
@@ -169,11 +169,11 @@ Public Class SchoolContext
 End Class
 ```
 
-## <a name="configuring-with-the-fluent-api"></a><span data-ttu-id="58825-137">Konfigurace pomocí rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="58825-137">Configuring with the Fluent API</span></span>
+## <a name="configuring-with-the-fluent-api"></a><span data-ttu-id="ba6a4-137">Konfigurace pomocí rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="ba6a4-137">Configuring with the Fluent API</span></span>
 
-<span data-ttu-id="58825-138">V této části se dozvíte, jak používat rozhraní API Fluent ke konfiguraci typů na mapování tabulek, vlastností mapování sloupců a vztahů mezi tabulkami\\typu v modelu.</span><span class="sxs-lookup"><span data-stu-id="58825-138">This section demonstrates how to use the fluent APIs to configure types to tables mapping, properties to columns mapping, and relationships between tables\\type in your model.</span></span> <span data-ttu-id="58825-139">Rozhraní API Fluent se zveřejňuje prostřednictvím typu **DbModelBuilder** a nejčastěji se k němu používá přepsáním metody **OnModelCreating** na **DbContext**.</span><span class="sxs-lookup"><span data-stu-id="58825-139">The fluent API is exposed through the **DbModelBuilder** type and is most commonly accessed by overriding the **OnModelCreating** method on **DbContext**.</span></span>
+<span data-ttu-id="ba6a4-138">V této části se dozvíte, jak používat rozhraní API Fluent ke konfiguraci typů na mapování tabulek, vlastností mapování sloupců a vztahů mezi tabulkami\\typu v modelu.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-138">This section demonstrates how to use the fluent APIs to configure types to tables mapping, properties to columns mapping, and relationships between tables\\type in your model.</span></span> <span data-ttu-id="ba6a4-139">Rozhraní API Fluent se zveřejňuje prostřednictvím typu **DbModelBuilder** a nejčastěji se k němu používá přepsáním metody **OnModelCreating** na **DbContext**.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-139">The fluent API is exposed through the **DbModelBuilder** type and is most commonly accessed by overriding the **OnModelCreating** method on **DbContext**.</span></span>
 
--   <span data-ttu-id="58825-140">Zkopírujte následující kód a přidejte ho do metody **OnModelCreating** definované v třídě **SchoolContext** . komentáře objasňují, co každé mapování dělá.</span><span class="sxs-lookup"><span data-stu-id="58825-140">Copy the following code and add it to the **OnModelCreating** method defined on the **SchoolContext** class The comments explain what each mapping does</span></span>
+-   <span data-ttu-id="ba6a4-140">Zkopírujte následující kód a přidejte ho do metody **OnModelCreating** definované v třídě **SchoolContext** . komentáře objasňují, co každé mapování dělá.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-140">Copy the following code and add it to the **OnModelCreating** method defined on the **SchoolContext** class The comments explain what each mapping does</span></span>
 
 ``` vb
 ' Configure Code First to ignore PluralizingTableName convention
@@ -363,12 +363,12 @@ modelBuilder.Entity(Of Course)().
     WillCascadeOnDelete(False)
 ```
 
-## <a name="using-the-model"></a><span data-ttu-id="58825-141">Použití modelu</span><span class="sxs-lookup"><span data-stu-id="58825-141">Using the Model</span></span>
+## <a name="using-the-model"></a><span data-ttu-id="ba6a4-141">Použití modelu</span><span class="sxs-lookup"><span data-stu-id="ba6a4-141">Using the Model</span></span>
 
-<span data-ttu-id="58825-142">Pojďme k zobrazení modelu v akci použít nějaký přístup k datům pomocí **SchoolContext** .</span><span class="sxs-lookup"><span data-stu-id="58825-142">Let's perform some data access using the **SchoolContext** to see out model in action.</span></span>
+<span data-ttu-id="ba6a4-142">Pojďme k zobrazení modelu v akci použít nějaký přístup k datům pomocí **SchoolContext** .</span><span class="sxs-lookup"><span data-stu-id="ba6a4-142">Let's perform some data access using the **SchoolContext** to see out model in action.</span></span>
 
--   <span data-ttu-id="58825-143">Otevřete soubor Module1. vb, kde je definovaná funkce main.</span><span class="sxs-lookup"><span data-stu-id="58825-143">Open the Module1.vb file where the Main function is defined</span></span>
--   <span data-ttu-id="58825-144">Zkopírujte a vložte následující definici Module1</span><span class="sxs-lookup"><span data-stu-id="58825-144">Copy and paste the following Module1 definition</span></span>
+-   <span data-ttu-id="ba6a4-143">Otevřete soubor Module1. vb, kde je definovaná funkce main.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-143">Open the Module1.vb file where the Main function is defined</span></span>
+-   <span data-ttu-id="ba6a4-144">Zkopírujte a vložte následující definici Module1</span><span class="sxs-lookup"><span data-stu-id="ba6a4-144">Copy and paste the following Module1 definition</span></span>
 
 ``` vb
 Imports System.Data.Entity
@@ -408,7 +408,7 @@ Module Module1
 End Module
 ```
 
-<span data-ttu-id="58825-145">Nyní můžete spustit aplikaci a otestovat ji.</span><span class="sxs-lookup"><span data-stu-id="58825-145">You can now run the application and test it out.</span></span>
+<span data-ttu-id="ba6a4-145">Nyní můžete spustit aplikaci a otestovat ji.</span><span class="sxs-lookup"><span data-stu-id="ba6a4-145">You can now run the application and test it out.</span></span>
 
 ```console
 Enter a name for a new Department: Computing
