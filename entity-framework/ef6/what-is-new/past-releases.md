@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
 uid: ef6/what-is-new/past-releases
-ms.openlocfilehash: fada7740453cd9a55a1d0069236efcecbd9aa314
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: b7181334cd125c5cbf296d5b3674c0b5f087f438
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656143"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402171"
 ---
 # <a name="past-releases-of-entity-framework"></a>Minulé verze Entity Framework
 
@@ -19,7 +19,7 @@ Počínaje verzí EF 4.1 jsme dodali jako [balíček NuGet EntityFramework](http
 
 V rámci verze 4,1 a 5,0 balíček NuGet EntityFramework rozšířila knihovny EF, které byly dodávány jako součást .NET Framework.
 
-Počínaje verzí 6 se v EF stala otevřený zdrojový projekt a zároveň se .NET Framework úplně přesunula.
+Počínaje verzí 6 se EF stala otevřený zdrojový projekt a také zcela přesunul z .NET Framework.
 To znamená, že když přidáte balíček NuGet verze 6 EntityFramework do aplikace, získáte úplnou kopii knihovny EF, která nezávisí na bitech EF, které jsou dodávány jako součást .NET Framework.
 To vám pomohlo trochu zrychlit vývoj a doručování nových funkcí.
 
@@ -94,7 +94,7 @@ Tato dílčí aktualizace obsahuje velký počet nových funkcí:
 - **[Možnost konfigurovat zachycení prostřednictvím souboru app/web. config](~/ef6/fundamentals/configuring/config-file.md)** umožní, aby se přichytily k přidání bez opětovné kompilace aplikace.
 - **System. data. entity. Infrastructure. Intercept. DatabaseLogger**je nový zachytávací nástroj, který usnadňuje protokolování všech operací databáze do souboru. V kombinaci s předchozí funkcí vám to umožňuje snadno [Přepnout na protokolování operací databáze pro nasazenou aplikaci](~/ef6/fundamentals/configuring/config-file.md), aniž by bylo nutné znovu kompilovat.
 - Bylo vylepšeno **zjišťování změn modelů migrace** , aby bylo možné zajistit přesnější a migrační migrace. byl vylepšen i výkon procesu zjišťování změn.
-- **Vylepšení výkonu** , včetně méně databázových operací během inicializace, optimalizace pro porovnání rovnosti null v dotazech LINQ, rychlejší generování zobrazení (vytváření modelů) ve více scénářích a efektivnější materializace sledované entity s více přidruženími.
+- **Vylepšení výkonu** , včetně méně databázových operací během inicializace, optimalizace pro porovnání rovnosti null v dotazech LINQ, rychlejší generování zobrazení (vytváření modelů) ve více scénářích a efektivnější materializace sledovaných entit s více přidruženími.
 
 ## <a name="ef-602"></a>EF 6.0.2
 Modul runtime EF 6.0.2 byl vydán do NuGet v prosinci 2013.
@@ -121,7 +121,7 @@ Následující funkce fungují pro modely vytvořené pomocí Code First nebo n�
 - **[Řešení závislostí](~/ef6/fundamentals/configuring/dependency-resolution.md)** zavádí podporu pro vzor lokátoru služby a jsme vyhodnotili některé z funkcí, které se dají nahradit vlastními implementacemi.
 - **[Zachytávání/protokolování SQL](~/ef6/fundamentals/logging-and-interception.md)** poskytuje špičkové stavební bloky pro zachycení operací EF s jednoduchým protokolováním SQL postaveným na nejvyšší úrovni.
 - **Vylepšení testování** usnadňuje vytváření dvojitých testů pro DbContext a negenerickými při použití napodobné [architektury](~/ef6/fundamentals/testing/mocking.md) nebo [psaní vlastních testů](~/ef6/fundamentals/testing/writing-test-doubles.md).
-- **[DbContext se teď dají vytvořit pomocí DbConnection, který už je otevřený,](~/ef6/fundamentals/connection-management.md)** což umožňuje scénáře, kde by bylo užitečné, pokud by bylo možné otevřít připojení při vytváření kontextu (například sdílení propojení mezi součástmi, které nemůžete zaručit. stav připojení.
+- **[DbContext se teď dají vytvořit pomocí DbConnection, který už je otevřený,](~/ef6/fundamentals/connection-management.md)** což umožňuje scénáře, kde by bylo užitečné, pokud by bylo možné otevřít připojení při vytváření kontextu (například sdílení připojení mezi součástmi, u kterých nemůžete zaručit stav připojení).
 - **[Vylepšená podpora transakcí](~/ef6/saving/transactions.md)** poskytuje podporu pro transakci mimo rámec a také vylepšené způsoby vytváření transakcí v rámci rozhraní.
 - **Výčty, prostorové a lepší výkon na platformě .net 4,0** – přesunutím základních komponent, které se používají v .NET Framework do balíčku NuGet NuGet, teď můžeme nabízet podporu výčtu, prostorové datové typy a vylepšení výkonu z EF5 v .NET 4,0.
 - **Vylepšený výkon vyčíslitelné. obsahuje v dotazech LINQ**.
@@ -165,7 +165,7 @@ Tady je seznam obsahu, který jsme sepravili speciálně pro vydání EF 5:
 -   Nastavení modelu
     -   [Vytvoření modelu](~/ef6/modeling/index.md)
     -   [Připojení a modely](~/ef6/fundamentals/configuring/connection-strings.md)
-    -   [Faktory ovlivňující výkon](~/ef6/fundamentals/performance/perf-whitepaper.md)
+    -   [Důležité informace o výkonu](~/ef6/fundamentals/performance/perf-whitepaper.md)
     -   [Práce s Microsoft SQL Azure](~/ef6/fundamentals/connection-resiliency/retry-logic.md)
     -   [Nastavení konfiguračního souboru](~/ef6/fundamentals/configuring/config-file.md)
     -   [Glosář](~/ef6/resources/glossary.md)
@@ -234,7 +234,7 @@ Tady je seznam obsahu, který jsme společně zadali pro vydání EF 4,3. větš
 ## <a name="ef-42"></a>EF 4,2
 Modul runtime EF 4.2.0 byl vydán do NuGet v listopadu 2011.
 Tato verze zahrnuje opravy chyb pro vydání EF 4.1.1.
-Vzhledem k tomu, že tato verze obsahuje jenom opravy chyb, může se jednat o verzi produktu EF 4.1.2, ale zjistili jsme, že jsme přešli na 4,2, abychom mohli opustit číslo verze opravy založené na datu, které jsme použili ve verzích 4.1. x a přijali standard [sémantických verzí](https://semver.org) pro s. Správa verzí emantic.
+Vzhledem k tomu, že tato verze zahrnovala pouze opravy chyb, může se jednat o verzi produktu EF 4.1.2, ale rozhodli jsme se přejít na 4,2, abychom mohli opustit číslo verze opravy založené na datu, které jsme použili ve verzích 4.1. x a přijali jsme standard [sémantických verzí](https://semver.org) pro sémantickou správu verzí.
 
 Tady je seznam obsahu, který je určený speciálně pro vydání EF 4,2. obsah poskytovaný pro EF 4,1 se přesto vztahuje i na EF 4,2:
 

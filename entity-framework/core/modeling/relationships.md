@@ -5,11 +5,11 @@ author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
 ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
-ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77051404"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402164"
 ---
 # <a name="relationships"></a>Relace
 
@@ -118,13 +118,13 @@ Další podrobnosti o různých chováních při odstraňování a výchozích h
 
 ## <a name="manual-configuration"></a>Ruční konfigurace
 
-### <a name="fluent-apitabfluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Rozhraní Fluent API](#tab/fluent-api)
 
 Pokud chcete nakonfigurovat relaci v rozhraní Fluent API, začněte tím, že určíte navigační vlastnosti, které tvoří relaci. `HasOne` nebo `HasMany` identifikuje navigační vlastnost u typu entity, na které začínáte konfigurovat. Pak řetězení volání `WithOne` nebo `WithMany` k identifikaci invertované navigace. `HasOne`/`WithOne` se používají pro referenční vlastnosti navigace a `HasMany`/`WithMany` se používají pro navigační vlastnosti kolekce.
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?name=NoForeignKey&highlight=8-10)]
 
-### <a name="data-annotationstabdata-annotations"></a>[Datové poznámky](#tab/data-annotations)
+### <a name="data-annotations"></a>[Datové poznámky](#tab/data-annotations)
 
 Pomocí datových poznámek můžete nakonfigurovat, jak se mají spárovat vlastnosti navigace na závislých a hlavních entitách. To se obvykle provádí, pokud existuje více než jedna dvojice vlastností navigace mezi dvěma typy entit.
 
@@ -146,19 +146,19 @@ Pokud máte pouze jednu navigační vlastnost, existují přetížení `WithOne`
 
 ### <a name="foreign-key"></a>Cizí klíč
 
-#### <a name="fluent-api-simple-keytabfluent-api-simple-key"></a>[Rozhraní Fluent API (jednoduchý klíč)](#tab/fluent-api-simple-key)
+#### <a name="fluent-api-simple-key"></a>[Rozhraní Fluent API (jednoduchý klíč)](#tab/fluent-api-simple-key)
 
 Pomocí rozhraní Fluent API můžete nakonfigurovat, která vlastnost se má použít jako vlastnost cizího klíče pro daný vztah:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ForeignKey.cs?name=ForeignKey&highlight=11)]
 
-#### <a name="fluent-api-composite-keytabfluent-api-composite-key"></a>[Rozhraní Fluent API (složený klíč)](#tab/fluent-api-composite-key)
+#### <a name="fluent-api-composite-key"></a>[Rozhraní Fluent API (složený klíč)](#tab/fluent-api-composite-key)
 
 Pomocí rozhraní Fluent API můžete nakonfigurovat, které vlastnosti se mají použít jako vlastnosti složeného cizího klíče pro danou relaci:
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?name=CompositeForeignKey&highlight=13)]
 
-#### <a name="data-annotations-simple-keytabdata-annotations-simple-key"></a>[Datové poznámky (jednoduchý klíč)](#tab/data-annotations-simple-key)
+#### <a name="data-annotations-simple-key"></a>[Datové poznámky (jednoduchý klíč)](#tab/data-annotations-simple-key)
 
 Pomocí datových poznámek můžete nakonfigurovat, která vlastnost má být použita jako vlastnost cizího klíče pro danou relaci. To se obvykle provádí v případě, že vlastnost cizího klíče není zjištěna podle konvence:
 
@@ -196,11 +196,11 @@ Nemusíte nutně zadávat navigační vlastnost. Můžete jednoduše zadat cizí
 
 Pokud chcete, aby cizí klíč odkazoval na jinou vlastnost než na primární klíč, můžete pro relaci nakonfigurovat vlastnost klíče zabezpečení pomocí rozhraní Fluent API. Vlastnost, kterou nakonfigurujete jako hlavní klíč, se automaticky nastaví jako [alternativní klíč](alternate-keys.md).
 
-#### <a name="simple-keytabsimple-key"></a>[Jednoduchý klíč](#tab/simple-key)
+#### <a name="simple-key"></a>[Jednoduchý klíč](#tab/simple-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
-#### <a name="composite-keytabcomposite-key"></a>[Složený klíč](#tab/composite-key)
+#### <a name="composite-key"></a>[Složený klíč](#tab/composite-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=CompositePrincipalKey&highlight=11)]
 

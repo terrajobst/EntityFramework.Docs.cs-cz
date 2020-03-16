@@ -5,17 +5,17 @@ ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 uid: ef6/resources/glossary
 ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656148"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402199"
 ---
 # <a name="entity-framework-glossary"></a>Glosář Entity Framework
 ## <a name="code-first"></a>Code First
 Vytvoření modelu Entity Framework pomocí kódu. Model může cílit na existující databázi nebo novou databázi.
 
-## <a name="context"></a>Souvislost
+## <a name="context"></a>Kontext
 Třída, která představuje relaci s databází a umožňuje dotazování a ukládání dat. Kontext je odvozen z třídy DbContext nebo ObjectContext.
 
 ## <a name="convention-code-first"></a>Konvence (Code First)
@@ -30,28 +30,28 @@ Vzor načítání souvisejících dat, kde dotaz na jeden typ entity také načt
 ## <a name="ef-designer"></a>Návrhář EF
 Vizuální Návrhář v aplikaci Visual Studio, který umožňuje vytvořit Entity Framework model pomocí polí a čar.
 
-## <a name="entity"></a>Entity
+## <a name="entity"></a>Entita
 Třída nebo objekt reprezentující data aplikace, jako jsou například zákazníci, produkty a objednávky.
 
 ## <a name="entity-data-model"></a>Entity Data Model
 Model, který popisuje entity a vztahy mezi nimi. EF používá model EDM k popisu koncepčního modelu, proti kterému vývojářské programy. Model EDM sestaví na modelu vztahů mezi entitami, který zavádí Dr. Petra Chen. Model EDM byl původně vyvinut s primárním cílem, který se stane běžným datovým modelem v rámci sady technologií pro vývojáře a server od Microsoftu. Model EDM se používá také jako součást protokolu OData.
 
-## <a name="explicit-loading"></a>Explicitní načítání
+## <a name="explicit-loading"></a>explicitní načítání
 Vzor načítání souvisejících dat v případě, že související objekty jsou načteny voláním rozhraní API.
 
 ## <a name="fluent-api"></a>Rozhraní Fluent API
 Rozhraní API, které lze použít ke konfiguraci Code Firstho modelu.
 
-## <a name="foreign-key-association"></a>Přidružení cizího klíče
+## <a name="foreign-key-association"></a>přidružení cizího klíče
 Přidružení mezi entitami, kde vlastnost reprezentující cizí klíč je součástí třídy závislé entity. Například produkt obsahuje vlastnost KódKategorie.
 
 ## <a name="identifying-relationship"></a>Identifikace vztahu
 Vztah, ve kterém je primární klíč hlavní entity součástí primárního klíče závislé entity. V tomto typu relace nemůže závislá entita existovat bez hlavní entity.
 
-## <a name="independent-association"></a>Nezávislé přidružení
+## <a name="independent-association"></a>nezávislé přidružení
 Přidružení mezi entitami, kde neexistuje žádná vlastnost reprezentující cizí klíč ve třídě závislé entity. Například třída produktu obsahuje relaci ke kategorii, ale žádnou vlastnost KódKategorie. Entity Framework sleduje stav přidružení nezávisle na stavu entit na obou koncích přidružení.
 
-## <a name="lazy-loading"></a>Opožděné načítání
+## <a name="lazy-loading"></a>opožděné načítání
 Vzor načítání souvisejících dat, kde jsou související objekty automaticky načteny, když je k dispozici navigační vlastnost.
 
 ## <a name="model-first"></a>Model First
@@ -66,7 +66,7 @@ Zkratka pro objekt CLR v prostém starém formátu. Jednoduchá třída uživate
 ## <a name="relationship-inverse"></a>Inverzní relace
 Opačný konec relace, například produkt. Kategorie a kategorie. Produktu.
 
-## <a name="self-tracking-entity"></a>Entita pro sledování sebe
+## <a name="self-tracking-entity"></a>entita pro sledování sebe
 Entita vytvořená z šablony pro generování kódu, která pomáhá s vývojem na N-vrstvách.
 
 ## <a name="table-per-concrete-type-tpc"></a>Pro konkrétní typ tabulky (TPC)
