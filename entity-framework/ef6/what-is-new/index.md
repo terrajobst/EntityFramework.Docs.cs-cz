@@ -4,18 +4,22 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: 9daae787d0cec0ca536413e6263bb363ba76ff2c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: e0367aeefd682434bf520301776bcff4f0e72e06
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78419657"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136140"
 ---
 # <a name="whats-new-in-ef6"></a>Co je nového v EF6
 
 Důrazně doporučujeme, abyste používali nejnovější vydanou verzi Entity Framework, abyste měli jistotu, že získáte nejnovější funkce a nejvyšší stabilitu.
 Uvědomujeme si ale, že možná budete muset použít předchozí verzi nebo můžete chtít experimentovat s novými vylepšeními v nejnovější předběžné verzi.
 Chcete-li nainstalovat konkrétní verze EF, přečtěte si téma [Get Entity Framework](~/ef6/fundamentals/install.md).
+
+## <a name="ef-640"></a>EF 6.4.0
+
+Modul runtime EF 6.4.0 byl vydán do NuGet v prosinci 2019. Primárním cílem EF 6,4 je vyleštěnení funkcí a scénářů, které byly doručeny v EF 6,3. Podívejte se na [seznam důležitých oprav](https://github.com/dotnet/ef6/milestone/14?closed=1) na GitHubu.
 
 ## <a name="ef-630"></a>EF 6.3.0
 
@@ -31,7 +35,7 @@ Modul runtime EF 6.3.0 byl vydán do NuGet v září 2019. Hlavním cílem této
 
 ### <a name="ef-designer-support"></a>Podpora návrháře EF
 
-V tuto chvíli není dostupná podpora pro použití návrháře EF přímo v projektech .NET Core nebo .NET Standard. 
+V tuto chvíli není k dispozici podpora pro použití návrháře EF přímo v projektech .NET Core nebo .NET Standard nebo v projektu .NET Framework stylu sady SDK. 
 
 Toto omezení můžete obejít tak, že přidáte soubor EDMX a generované třídy pro entity a DbContext jako propojené soubory do projektu .NET Core 3,0 .NET Standard nebo 2,1 ve stejném řešení.
 
@@ -47,6 +51,8 @@ Propojené soubory budou vypadat jako v souboru projektu:
 ```
 
 Všimněte si, že soubor EDMX je propojený s akcí sestavení EntityDeploy. Jedná se o speciální úlohu MSBuild (teď zahrnutou v balíčku EF 6,3), která postará o přidání modelu EF do cílového sestavení jako vložené prostředky (nebo jejich zkopírování jako soubory ve výstupní složce v závislosti na nastavení zpracování artefaktu metadat v EDMX). Další podrobnosti o tom, jak toto nastavení získat, najdete v našem [příkladu pro edmx .NET Core Sample](https://aka.ms/EdmxDotNetCoreSample).
+
+Upozornění: Zajistěte, aby byl starý styl (tj. jiný typ než sada SDK) .NET Framework projekt definující "reálný" soubor. edmx _předchází_ projektu definujícímu propojení uvnitř souboru. sln. V opačném případě se při otevření souboru EDMX v Návrháři zobrazí chybová zpráva "Entity Framework není k dispozici v cílovém rozhraní aktuálně zadaném pro projekt. Můžete změnit cílovou architekturu projektu nebo upravit model v XmlEditor.
 
 ## <a name="past-releases"></a>Předchozí verze
 

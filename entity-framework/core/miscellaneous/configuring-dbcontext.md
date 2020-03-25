@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 53b38f288cd45e66d68ebcc3b6066646d59b0262
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416667"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136192"
 ---
 # <a name="configuring-a-dbcontext"></a>Konfigurace DbContext
 
@@ -186,11 +186,11 @@ Vždy čekají EF Core asynchronní metody okamžitě.
 
 Metoda rozšíření [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) registruje `DbContext` typů s [vymezenou životností](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes) ve výchozím nastavení.
 
-To je bezpečné před souběžnými problémy s přístupem v aplikacích ASP.NET Core, protože v daný okamžik probíhá pouze jedno vlákno, které spouští jednotlivé požadavky klienta, a protože každý požadavek získá samostatný rozsah vkládání závislostí (a tedy samostatnou `DbContext` instanci).
+To je bezpečné z hlediska souběžného přístupu ve většině aplikací ASP.NET Core, protože každé žádosti klienta provádí pouze jedno vlákno, a protože každý požadavek získá samostatný rozsah vkládání závislostí (a proto samostatnou `DbContext` instanci). Pro model hostování serveru Blazor se používá jeden logický požadavek na udržování uživatelského okruhu Blazor, takže v každém okruhu uživatele je k dispozici jenom jedna instance DbContext s oborem, pokud se používá výchozí rozsah vkládání.
 
-Nicméně jakýkoli kód, který explicitně spustí více vláken paralelně, musí zajistit, aby se instance `DbContext` nepoužily současně.
+Jakýkoli kód, který explicitně spustí více vláken paralelně, musí zajistit, aby se instance `DbContext` nepoužily současně.
 
-Pomocí injektáže závislosti lze dosáhnout toho, že buď zaregistrujete kontext jako obor a vytvoříte obory (pomocí `IServiceScopeFactory`) pro každé vlákno, nebo registrací `DbContext` jako přechodný (pomocí přetížení `AddDbContext`, který přebírá parametr `ServiceLifetime`).
+Pomocí injektáže závislostí lze dosáhnout toho, že zaregistrujete kontext jako obor a vytvoříte obory (pomocí `IServiceScopeFactory`) pro každé vlákno nebo registrací `DbContext` jako přechodný (pomocí přetížení `AddDbContext`, které přebírá parametr `ServiceLifetime`).
 
 ## <a name="more-reading"></a>Další čtení
 

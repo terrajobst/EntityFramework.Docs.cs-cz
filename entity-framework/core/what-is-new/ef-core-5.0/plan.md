@@ -3,12 +3,12 @@ title: Plán pro Entity Framework Core 5,0
 author: ajcvickers
 ms.date: 01/14/2020
 uid: core/what-is-new/ef-core-5.0/plan.md
-ms.openlocfilehash: c5b7300c61c2f668b6f9393ae51bf9ebddf330a7
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 8b4ca32524869019c04d5a4d4d55967f68181cd7
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78417874"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136221"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Plán pro Entity Framework Core 5,0
 
@@ -67,7 +67,7 @@ Sledováno [#2266](https://github.com/aspnet/EntityFrameworkCore/issues/2266)
 
 Velikost T-tričko: XL
 
-Stav: Nezahájeno
+Stav: probíhá
 
 Provádíme TPT, protože se jedná o vysoce požadovanou funkci (~ 254 hlasy, celkově třetí) a protože vyžaduje některé změny nízké úrovně, které jsou vhodné pro základní povahu celkového plánu .NET 5. Očekáváme, že dojde k zásadním změnám u zprostředkovatelů databází, i když by měly být mnohem méně závažné, než změny požadované pro 3,0.
 
@@ -79,7 +79,7 @@ Sledováno [#1833](https://github.com/aspnet/EntityFrameworkCore/issues/1833)
 
 Velikost T-tričko: M
 
-Stav: Nezahájeno
+Stav: probíhá
 
 Filtrované zahrnutí je vysoce vyžádaná funkce (~ 317 hlasy, druhá celková), která není obrovským objemem práce a že se domníváte, že bude odblokovat nebo dělat jednodušší mnoho scénářů, které aktuálně vyžadují filtry na úrovni modelu nebo složitější dotazy.
 
@@ -91,7 +91,7 @@ Sledováno [#17270](https://github.com/aspnet/EntityFrameworkCore/issues/17270)
 
 Velikost trička pro T: L
 
-Stav: Nezahájeno
+Stav: probíhá
 
 V předchozích verzích jsme udělali postup k podpoře nezpracovaných SQL, bez klíčůch typů a souvisejících oblastí. Existují však mezery i nekonzistence, jak vše funguje dohromady jako celek. Cílem 5,0 je opravit tyto možnosti a vytvořit dobré prostředí pro definování, migraci a používání různých typů entit a jejich přidružených dotazů a artefaktů databáze. To může také zahrnovat aktualizace zkompilovaného rozhraní API pro dotazy.
 
@@ -184,7 +184,7 @@ Sledováno [#1920](https://github.com/dotnet/EntityFramework.Docs/issues/1920)
 
 Velikost trička pro T: L
 
-Stav: Nezahájeno
+Stav: probíhá
 
 Tady je postup, který usnadňuje pochopení toho, co se v vnitřních EF Corech prochází. To může být užitečné pro kohokoli, kdo používá EF Core, ale primární motivace usnadňuje externím lidem:
 

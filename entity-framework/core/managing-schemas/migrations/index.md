@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: dc0c1ae1a03c98c6f230557dc0bdd4d29ec191dd
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 190057daed61c58c1f89ee8d775913458e413a50
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416856"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136201"
 ---
 # <a name="migrations"></a>Migrace
 
@@ -168,7 +168,7 @@ Někdy je vhodné přidat migraci bez provedení jakýchkoli změn modelu. V tak
 * Fulltextové vyhledávání
 * Functions
 * Uložené procedury
-* Triggery
+* Aktivační události
 * Zobrazení
 
 ## <a name="remove-a-migration"></a>Odebrání migrace
@@ -215,15 +215,43 @@ Při ladění migrací nebo jejich nasazení do provozní databáze je užitečn
 
 ### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/dotnet-core-cli)
 
+#### <a name="basic-usage"></a>Základní využití
 ```dotnetcli
 dotnet ef migrations script
 ```
 
+#### <a name="with-from-to-implied"></a>S od (do implicitního)
+Tím se z této migrace vygeneruje skript SQL na nejnovější migraci.
+```dotnetcli
+dotnet ef migrations script 20190725054716_Add_new_tables
+```
+
+#### <a name="with-from-and-to"></a>S z a na
+Tím se vygeneruje skript SQL z `from` migrace do zadané `to` migrace.
+```dotnetcli
+dotnet ef migrations script 20190725054716_Add_new_tables 20190829031257_Add_audit_table
+```
+Můžete použít `from`, který je novější než `to`, aby bylo možné vygenerovat skript pro vrácení zpět. *Vezměte prosím na vědomí potenciální scénáře ztráty dat.*
+
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
+#### <a name="basic-usage"></a>Základní využití
 ``` powershell
 Script-Migration
 ```
+
+#### <a name="with-from-to-implied"></a>S od (do implicitního)
+Tím se z této migrace vygeneruje skript SQL na nejnovější migraci.
+```powershell
+Script-Migration 20190725054716_Add_new_tables
+```
+
+#### <a name="with-from-and-to"></a>S z a na
+Tím se vygeneruje skript SQL z `from` migrace do zadané `to` migrace.
+```powershell
+Script-Migration 20190725054716_Add_new_tables 20190829031257_Add_audit_table
+```
+Můžete použít `from`, který je novější než `to`, aby bylo možné vygenerovat skript pro vrácení zpět. *Vezměte prosím na vědomí potenciální scénáře ztráty dat.*
 
 ***
 

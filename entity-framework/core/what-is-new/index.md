@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 03/03/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 2c41f65d1fead8430a39c6230a0f22506686504e
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 7b58b4de0eb8d9575f77e0b147da017eabad1867
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78417959"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136210"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core vydání a plánování
 
@@ -57,10 +57,12 @@ Tato data se pak budou předávat do procesu plánování pro další vydání.
 
 ### <a name="get-it-now"></a>Získejte ho hned teď!
 
-Balíčky EF Core 5,0 jsou **nyní k dispozici** jako [každodenní sestavení](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md). 
+Balíčky EF Core 5,0 jsou **nyní k dispozici** jako
 
-Použití denních buildů představuje skvělý způsob, jak najít problémy a co nejdříve poskytnout zpětnou vazbu.
+* [Každodenní sestavení](https://github.com/dotnet/aspnetcore/blob/master/docs/DailyBuilds.md)
+  * Všechny nejnovější funkce a opravy chyb. Obecně velmi stabilní; 57000 + testy se spouštějí pro každé sestavení.
+* [Verze Preview pro NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
+  * Zpoždění za každodenním sestavením, ale jsou testovány pro práci s odpovídajícími ASP.NET Core a verze Preview .NET Core.
+
+Použití náhledů nebo každodenních buildů představuje skvělý způsob, jak najít problémy a co nejdříve poskytnout zpětnou vazbu.
 Dřív získáme takovou zpětnou vazbu, což je pravděpodobnější, že se bude jednat ještě před dalším oficiálním vydáním.
-Pracujeme na tom, abychom každodenní sestavení v dobrém tvaru zachovali spuštěním více než 56 000 testů na jednu platformu pro každé sestavení.
-
-Balíčky Preview se budou do NuGet dodávat později v roce.

@@ -4,18 +4,18 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 987b6f38954c291f88b5167fa9b061853b15a6cb
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 6575b1ac028f8b67b49ca7f4e49d6f19500be98f
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416880"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136175"
 ---
 # <a name="installing-entity-framework-core"></a>Instalace Entity Framework Core
 
 ## <a name="prerequisites"></a>Předpoklady
 
-* EF Core je knihovna [.NET Standard 2,1](/dotnet/standard/net-standard) . Proto EF Core vyžaduje implementaci rozhraní .NET, která podporuje spuštění .NET Standard 2,1. Na EF Core můžou být taky odkazovány jinými knihovnami .NET Standard 2,1.
+* EF Core je knihovna [.NET Standard 2,0](/dotnet/standard/net-standard) . Proto EF Core vyžaduje implementaci rozhraní .NET, která podporuje spuštění .NET Standard 2,0. Na EF Core můžou být taky odkazovány jinými knihovnami .NET Standard 2,0.
 
 * Můžete například použít EF Core pro vývoj aplikací, které cílí na .NET Core. Sestavování aplikací .NET Core vyžaduje [.NET Core SDK](https://dotnet.microsoft.com/download). Volitelně můžete také použít vývojové prostředí, jako je [Visual Studio](https://visualstudio.microsoft.com/vs), [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac)nebo [Visual Studio Code](https://code.visualstudio.com). Další informace najdete v [Začínáme pomocí .NET Core](/dotnet/core/get-started).
 
@@ -33,7 +33,7 @@ Pokud vytváříte aplikaci ASP.NET Core, nemusíte instalovat poskytovatele v p
 
 Chcete-li nainstalovat nebo aktualizovat balíčky NuGet, můžete použít rozhraní příkazového řádku (CLI) .NET Core, dialogové okno Správce balíčků sady Visual Studio nebo konzolu správce sady Visual Studio.
 
-### <a name="net-core-cli"></a>.NET Core CLI
+### <a name="net-core-cli"></a>Rozhraní příkazového řádku .NET Core
 
 * Chcete-li nainstalovat nebo aktualizovat poskytovatele služby EF Core SQL Server, použijte následující příkaz .NET Core CLI z příkazového řádku operačního systému:
 
