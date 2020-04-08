@@ -67,7 +67,7 @@
           items:
             - name: Připojovací řetězce
               href: core/miscellaneous/connection-strings.md
-            - name: protokolování
+            - name: Protokolování
               href: core/miscellaneous/logging.md
             - name: Odolnost připojení
               href: core/miscellaneous/connection-resiliency.md
@@ -298,7 +298,7 @@
                   items:
                     - name: Přehled
                       href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
-                    - name: Návod
+                    - name: Názorný postup
                       href: ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md
             - name: Protokolování a zachytávání
               href: ef6/fundamentals/logging-and-interception.md
@@ -310,7 +310,7 @@
                   href: ef6/fundamentals/performance/ngen.md
                 - name: Použití předem vygenerovaných zobrazení
                   href: ef6/fundamentals/performance/pre-generated-views.md
-            - name: Zprostředkovatelé
+            - name: Poskytovatelé
               items:
                 - name: Přehled
                   href: ef6/fundamentals/providers/index.md
@@ -348,9 +348,9 @@
                   items:
                     - name: Výčty
                       href: ef6/modeling/code-first/data-types/enums.md
-                    - name: Prostorové
+                    - name: Spatial
                       href: ef6/modeling/code-first/data-types/spatial.md
-                - name: Konvence
+                - name: Zásady
                   items:
                     - name: Integrované konvence
                       href: ef6/modeling/code-first/conventions/built-in.md
@@ -396,7 +396,7 @@
                       href: ef6/modeling/designer/data-types/complex-types.md
                     - name: Výčty
                       href: ef6/modeling/designer/data-types/enums.md
-                    - name: Prostorové
+                    - name: Spatial
                       href: ef6/modeling/designer/data-types/spatial.md
                 - name: Mapování dělení
                   items:
@@ -412,7 +412,7 @@
                       href: ef6/modeling/designer/inheritance/tpt.md
                 - name: Mapování uložených procedur
                   items:
-                    - name: Dotazy
+                    - name: Dotaz
                       href: ef6/modeling/designer/stored-procedures/query.md
                     - name: Aktualizace
                       href: ef6/modeling/designer/stored-procedures/cud.md
@@ -428,7 +428,7 @@
                       href: ef6/modeling/designer/codegen/index.md
                     - name: Starší ObjectContext
                       href: ef6/modeling/designer/codegen/legacy-objectcontext.md
-                - name: Upřesnit
+                - name: Upřesňující
                   items:
                     - name: Formát souboru EDMX
                       items:
@@ -488,7 +488,7 @@
               href: ef6/resources/contribute.md
             - name: Podpora
               href: ef6/resources/get-help.md
-            - name: Slovníček
+            - name: Glosář
               href: ef6/resources/glossary.md
             - name: Ukázková školní databáze
               href: ef6/resources/school-database.md
