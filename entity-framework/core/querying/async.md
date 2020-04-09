@@ -1,26 +1,26 @@
 ---
-title: Asynchronní dotazy – EF Core
+title: Asynchronní dotazy – jádro EF
 author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: b6429b14-cba0-4af4-878f-b829777c89cb
 uid: core/querying/async
 ms.openlocfilehash: ce26db32a616dac5edac2a8451014ae63cbfc12d
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417751"
 ---
 # <a name="asynchronous-queries"></a>Asynchronní dotazy
 
-Asynchronní dotazy zabraňují zablokování vlákna při spuštění dotazu v databázi. Asynchronní dotazy jsou důležité pro udržení reagujícího uživatelského rozhraní ve silných klientských aplikacích. Můžou také zvýšit propustnost webových aplikací, kde uvolní vlákno pro obsluhu dalších požadavků ve webových aplikacích. Další informace naleznete v tématu [asynchronní programování v C# ](/dotnet/csharp/async).
+Asynchronní dotazy vyhnout blokování podprocesu při spuštění dotazu v databázi. Asynchronní dotazy jsou důležité pro udržování responzivní uživatelské rozhraní v aplikacích tlusté klienta. Mohou také zvýšit propustnost ve webových aplikacích, kde uvolní vlákno pro obsluhu jiných požadavků ve webových aplikacích. Další informace naleznete [v tématu Asynchronní programování v jazyce C#](/dotnet/csharp/async).
 
 > [!WARNING]  
-> EF Core nepodporuje spouštění více paralelních operací ve stejné instanci kontextu. Před zahájením další operace byste vždy měli počkat na dokončení operace. To se obvykle provádí pomocí klíčového slova `await` v každé asynchronní operaci.
+> EF Core nepodporuje více paralelních operací spuštěna na stejné instanci kontextu. Před zahájením další operace byste měli vždy počkat na dokončení operace. To se obvykle provádí `await` pomocí klíčového slova pro každou asynchronní operaci.
 
-Entity Framework Core poskytuje sadu asynchronních metod rozšíření podobných metodám LINQ, které spustí dotaz a vrátí výsledky. Příklady zahrnují `ToListAsync()`, `ToArrayAsync()``SingleAsync()`. Neexistují žádné asynchronní verze některých operátorů LINQ, jako je například `Where(...)` nebo `OrderBy(...)`, protože tyto metody sestavují pouze strom výrazů LINQ a nezpůsobí, že dotaz bude proveden v databázi.
+Entity Framework Core poskytuje sadu asynchronních rozšiřujících metod podobných metodám LINQ, které spouštějí dotaz a vracejí výsledky. Příklady `ToListAsync()`zahrnují `ToArrayAsync()` `SingleAsync()`, , . Neexistují žádné asynchronní verze některých operátorů LINQ, například `Where(...)` nebo `OrderBy(...)` protože tyto metody pouze vytvářejí strom výrazů LINQ a nezpůsobují spuštění dotazu v databázi.
 
 > [!IMPORTANT]  
-> Metody rozšíření EF Core Async jsou definovány v oboru názvů `Microsoft.EntityFrameworkCore`. Tento obor názvů musí být importován, aby byly metody k dispozici.
+> Metody rozšíření async EF Core `Microsoft.EntityFrameworkCore` jsou definovány v oboru názvů. Tento obor názvů musí být importován, aby byly metody k dispozici.
 
 [!code-csharp[Main](../../../samples/core/Querying/Async/Sample.cs#ToListAsync)]

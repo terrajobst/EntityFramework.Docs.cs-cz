@@ -1,72 +1,72 @@
 ---
-title: Přenos z EF6 do EF Core-EF
+title: Přenos z EF6 na EF Core – EF
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 826b58bd-77b0-4bbc-bfcd-24d1ed3a8f38
 uid: efcore-and-ef6/porting/index
 ms.openlocfilehash: 77096b9bffba6b8c2a3d7bfb0c2e41e2d170a7db
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416950"
 ---
 # <a name="porting-from-ef6-to-ef-core"></a>Přenesení z EF6 do EF Core
 
-Z důvodu zásadních změn v EF Core nedoporučujeme migraci z EF6 na EF Core, pokud pro takovou změnu nemáte dobrý důvod.
-Měli byste zobrazit přesun z EF6, aby se místo upgradu EF Core jako port.
+Vzhledem k zásadní změny v EF Core nedoporučujeme pokoušet se přesunout ef6 aplikace EFCore, pokud máte pádný důvod provést změnu.
+Měli byste zobrazit přechod z EF6 na EF Core jako port, nikoli upgrade.
 
 > [!IMPORTANT]
-> Než zahájíte proces přenosu, je důležité ověřit, že EF Core splňuje požadavky na přístup k datům pro vaši aplikaci.
+> Před zahájením procesu přenosu je důležité ověřit, zda EF Core splňuje požadavky na přístup k datům pro vaši aplikaci.
 
 ## <a name="missing-features"></a>Chybějící funkce
 
-Ujistěte se, že EF Core obsahuje všechny funkce, které v aplikaci potřebujete použít. Podrobné porovnání toho, jak je sada funkcí v EF Core porovnána s EF6, naleznete v tématu [porovnání funkcí](xref:efcore-and-ef6/index) . Pokud některé z požadovaných funkcí chybí, zajistěte, abyste před přenosem na EF Core mohli kompenzovat nedostatek těchto funkcí.
+Ujistěte se, že EF Core má všechny funkce, které potřebujete použít ve vaší aplikaci. Podrobné porovnání vlastností sady funkcí v EF Core s ef6 najdete v tématu [Porovnání funkcí.](xref:efcore-and-ef6/index) Pokud některé požadované funkce chybí, ujistěte se, že můžete kompenzovat nedostatek těchto funkcí před přenesením na EF Core.
 
 ## <a name="behavior-changes"></a>Změny chování
 
-Toto je nevyčerpávající seznam některých změn v chování mezi EF6 a EF Core. Je důležité mít na paměti, že vaše aplikace může měnit způsob, jakým se aplikace chová, ale po odchodu do EF Core se nezobrazí jako chyby kompilace.
+Toto je nevyčerpávající seznam některých změn v chování mezi EF6 a EF Core. Je důležité mít na paměti, jako port aplikace, protože mohou změnit způsob, jakým se vaše aplikace chová, ale nezobrazí se jako chyby kompilace po přepnutí na EF Core.
 
-### <a name="dbsetaddattach-and-graph-behavior"></a>Negenerickými. Přidání/připojení a chování grafu
+### <a name="dbsetaddattach-and-graph-behavior"></a>DbSet.Add/Attach a chování grafu
 
-V EF6 volání `DbSet.Add()` na entitu má za následek rekurzivní vyhledávání všech entit, na které se odkazuje ve vlastnostech navigace. Všechny nalezené entity a již nejsou sledovány kontextem, jsou také označeny jako přidané. `DbSet.Attach()` se chová stejně, s výjimkou všech entit jsou označeny jako beze změny.
+V EF6 `DbSet.Add()` volání entity má za následek rekurzivní hledání pro všechny entity odkazované v jeho navigační vlastnosti. Všechny entity, které jsou nalezeny a nejsou již sledovány kontextem, jsou také označeny jako přidané. `DbSet.Attach()`chová se stejně, s výjimkou všech entit jsou označeny jako nezměněné.
 
-**EF Core provádí podobné rekurzivní vyhledávání, ale s trochu odlišnými pravidly.**
+**EF Core provádí podobné rekurzivní vyhledávání, ale s některými mírně odlišnými pravidly.**
 
-*  Kořenová entita je vždy v požadovaném stavu (přidáno pro `DbSet.Add` a nezměněná pro `DbSet.Attach`).
+*  Kořenová entita je vždy v `DbSet.Add` požadovaném `DbSet.Attach`stavu (přidána pro a nezměněná pro ).
 
-*  **Pro entity, které byly nalezeny během rekurzivního prohledávání vlastností navigace:**
+*  **Pro entity, které se nacházejí během rekurzivního hledání navigačních vlastností:**
 
-    *  **Pokud je primární klíč entity vygenerovaný jako úložiště**
+    *  **Pokud je vygenerován primární klíč entity**
 
-        * Pokud primární klíč není nastaven na hodnotu, stav je nastaveno na přidáno. Hodnota primárního klíče se považuje za nenastavenou, pokud je přiřazena výchozí hodnota CLR pro daný typ vlastnosti (například `0` `int`, `null` pro `string`atd.).
+        * Pokud primární klíč není nastaven na hodnotu, stav je nastaven na přidán. `0` Hodnota primárního klíče je považována za "není nastavena", pokud je přiřazena `int`výchozí `null` `string`hodnota CLR pro typ vlastnosti (například pro , for , atd.).
 
-        * Pokud je primární klíč nastaven na hodnotu, stav je nastaven na nezměněný.
+        * Pokud je primární klíč nastaven na hodnotu, stav je nastaven na nezměněné.
 
-    *  Pokud primární klíč není vygenerovaný databází, entita se umístí do stejného stavu jako kořenový adresář.
+    *  Pokud primární klíč není generován databáze, entita je umístěn ve stejném stavu jako kořen.
 
-### <a name="code-first-database-initialization"></a>Inicializace databáze Code First
+### <a name="code-first-database-initialization"></a>První inicializace první databáze kódu
 
-**EF6 má velký výkon, který vychází z výběru připojení databáze a inicializace databáze. Mezi tato pravidla patří:**
+**EF6 má značné množství magie provádí kolem výběru připojení k databázi a inicializace databáze. Některá z těchto pravidel zahrnují:**
 
-* Pokud se neprovede žádná konfigurace, EF6 vybere databázi na SQL Express nebo LocalDb.
+* Pokud není provedena žádná konfigurace, EF6 vybere databázi na SQL Express nebo LocalDb.
 
-* Pokud je připojovací řetězec se stejným názvem jako kontext v souboru aplikace `App/Web.config`, bude použito toto připojení.
+* Pokud je v souboru aplikace `App/Web.config` připojovací řetězec se stejným názvem jako kontext, bude použito toto připojení.
 
-* Pokud databáze neexistuje, vytvoří se.
+* Pokud databáze neexistuje, je vytvořena.
 
-* Pokud v databázi neexistuje žádná z tabulek z modelu, je schéma pro aktuální model přidáno do databáze. Pokud jsou povolené migrace, použijí se k vytvoření databáze.
+* Pokud žádná z tabulek z modelu existují v databázi, schéma pro aktuální model je přidán do databáze. Pokud jsou povoleny migrace, pak se používají k vytvoření databáze.
 
-* Pokud databáze existuje a EF6 dříve vytvořila schéma, je u schématu kontrolována kompatibilita s aktuálním modelem. Výjimka je vyvolána, pokud se model od vytvoření schématu změnil.
+* Pokud databáze existuje a EF6 dříve vytvořil schéma, pak je schéma zkontrolováno kompatibilitu s aktuálním modelem. Výjimka je vyvolána, pokud se model změnil od vytvoření schématu.
 
-**EF Core neprovádí žádné z těchto Magic.**
+**EF Core neprovádí žádné z této magie.**
 
-* Připojení k databázi musí být explicitně nakonfigurované v kódu.
+* Připojení databáze musí být explicitně nakonfigurováno v kódu.
 
-* Není provedena žádná inicializace. Chcete-li použít migraci (nebo `DbContext.Database.EnsureCreated()` a `EnsureDeleted()` k vytvoření nebo odstranění databáze bez použití migrace), je nutné použít `DbContext.Database.Migrate()`.
+* Není provedena žádná inicializace. Je nutné `DbContext.Database.Migrate()` použít migrace `DbContext.Database.EnsureCreated()` (nebo `EnsureDeleted()` vytvořit nebo odstranit databázi bez použití migrace).
 
-### <a name="code-first-table-naming-convention"></a>Code First zásady vytváření názvů tabulek
+### <a name="code-first-table-naming-convention"></a>Konvence pojmenování první tabulky kódu
 
-EF6 spustí název třídy entity prostřednictvím služby pro pojmenování a vypočítá výchozí název tabulky, na kterou je entita namapována.
+EF6 spustí název třídy entity prostřednictvím služby pluralizace k výpočtu výchozího názvu tabulky, na který je entita mapována.
 
-EF Core používá název vlastnosti `DbSet`, ke které je entita vystavena v odvozeném kontextu. Pokud entita nemá vlastnost `DbSet`, použije se název třídy.
+EF Core používá název `DbSet` vlastnosti, která je vystavena v na odvozeném kontextu. Pokud entita nemá `DbSet` vlastnost, použije se název třídy.

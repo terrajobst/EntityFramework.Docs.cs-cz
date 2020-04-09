@@ -1,196 +1,196 @@
 ---
-title: Přerušující změny v EF Core 3,0 – EF Core
+title: Nejnovější změny v EF Core 3.0 - EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
 ms.openlocfilehash: 6e0c17a22b56b206f18e47f678e3e237d5c42375
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417459"
 ---
-# <a name="breaking-changes-included-in-ef-core-30"></a>Přerušující změny zahrnuté v EF Core 3,0
+# <a name="breaking-changes-included-in-ef-core-30"></a>Nejnovější změny zahrnuté v EF Core 3.0
 
-Následující změny rozhraní API a chování mají možnost rušit existující aplikace při jejich upgradu na 3.0.0.
-Změny, které očekáváme jenom o to, aby ovlivnili pouze poskytovatele databází, jsou popsané v části [změny zprostředkovatele](xref:core/providers/provider-log).
+Následující změny rozhraní API a chování mají potenciál přerušit existující aplikace při jejich upgradu na 3.0.0.
+Změny, které očekáváme, že ovlivní pouze zprostředkovatele databáze, jsou dokumentovány v rámci [změn zprostředkovatele](xref:core/providers/provider-log).
 
 ## <a name="summary"></a>Souhrn
 
-| **Zásadní změna**                                                                                               | **Dopad** |
+| **Narušující změny**                                                                                               | **Dopad** |
 |:------------------------------------------------------------------------------------------------------------------|------------|
-| [Dotazy LINQ již nejsou vyhodnocovány na klientovi.](#linq-queries-are-no-longer-evaluated-on-the-client)         | Vysoký       |
-| [EF Core 3,0 cíle .NET Standard 2,1 místo .NET Standard 2,0](#netstandard21) | Vysoký      |
-| [EF Core nástroj příkazového řádku dotnet EF již není součástí .NET Core SDK](#dotnet-ef) | Vysoký      |
-| [DetectChanges respektuje hodnoty klíčů generované úložištěm.](#dc) | Vysoký      |
-| [Z tabulek, ExecuteSql a ExecuteSqlAsync byly přejmenovány.](#fromsql) | Vysoký      |
-| [Typy dotazů jsou konsolidovány s typy entit](#qt) | Vysoký      |
-| [Entity Framework Core už není součástí sdílené ASP.NET Core architektury.](#no-longer) | Střednědobé používání      |
-| [Odstranění kaskádových operací se teď ve výchozím nastavení provádí hned.](#cascade) | Střednědobé používání      |
-| [Eager načítání souvisejících entit se teď děje v jednom dotazu.](#eager-loading-single-query) | Střednědobé používání      |
-| [DeleteBehavior. restrict má sémantiku čištění.](#deletebehavior) | Střednědobé používání      |
-| [Změnilo se konfigurační rozhraní API pro vztahy vlastněných typů.](#config) | Střednědobé používání      |
-| [Každá vlastnost používá nezávislou generaci celočíselného klíče v paměti.](#each) | Střednědobé používání      |
-| [Žádné dotazy pro sledování neprovádějí překlad identity](#notrackingresolution) | Střednědobé používání      |
-| [Změny rozhraní API pro metadata](#metadata-api-changes) | Střednědobé používání      |
-| [Změny rozhraní API pro konkrétního zprostředkovatele](#provider) | Střednědobé používání      |
-| [UseRowNumberForPaging se odebral.](#urn) | Střednědobé používání      |
-| [Metoda Z tabulek při použití s uloženou procedurou nemůže být složená.](#fromsqlsproc) | Střednědobé používání      |
-| [Metody Z tabulek se dají zadat jenom v kořenech dotazů.](#fromsql) | Nízká      |
-| [~~Provádění dotazu se protokoluje na úrovni ladění~~ . Vrátit](#qe) | Nízká      |
-| [Dočasné hodnoty klíčů už nejsou nastavené na instance entit.](#tkv) | Nízká      |
-| [Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.](#de) | Nízká      |
-| [Všechny entity sdílející tabulku se sloupcem souběžného tokenu musí být namapovány na vlastnost.](#aes) | Nízká      |
-| [Na vlastněné entity se nedá dotazovat bez vlastníka pomocí sledovacího dotazu.](#owned-query) | Nízká      |
-| [Zděděné vlastnosti z nemapovaných typů jsou nyní namapovány na jeden sloupec pro všechny odvozené typy.](#ip) | Nízká      |
-| [Konvence vlastností cizího klíče už neodpovídá stejnému názvu jako vlastnost Principal.](#fkp) | Nízká      |
-| [Připojení k databázi je teď zavřené, pokud už nepoužíváte dřív, než se dokončí jeho objekt TransactionScope.](#dbc) | Nízká      |
-| [Ve výchozím nastavení se používají pole pro zálohování.](#backing-fields-are-used-by-default) | Nízká      |
-| [Vyvolat, zda je nalezeno více kompatibilních zálohovaných polí](#throw-if-multiple-compatible-backing-fields-are-found) | Nízká      |
-| [Názvy vlastností pouze pro pole se musí shodovat s názvem pole.](#field-only-property-names-should-match-the-field-name) | Nízká      |
-| [AddDbContext/AddDbContextPool už nevolá AddLogging a AddMemoryCache.](#adddbc) | Nízká      |
-| [AddEntityFramework * přidá IMemoryCache s omezením velikosti.](#addentityframework-adds-imemorycache-with-a-size-limit) | Nízká      |
-| [DbContext. entry teď provádí místní DetectChanges.](#dbe) | Nízká      |
-| [Klíče řetězce a pole bajtů nejsou ve výchozím nastavení generovány klientem.](#string-and-byte-array-keys-are-not-client-generated-by-default) | Nízká      |
-| [ILoggerFactory je teď služba s vymezeným oborem.](#ilf) | Nízká      |
-| [Opožděné načítání proxy serverů už nepředpokládá navigační vlastnosti, jsou plně načtené.](#lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded) | Nízká      |
-| [Nadměrné vytváření interních zprostředkovatelů služeb je teď ve výchozím nastavení chyba.](#excessive-creation-of-internal-service-providers-is-now-an-error-by-default) | Nízká      |
-| [Nové chování pro HasOne/HasMany se volá s jedním řetězcem.](#nbh) | Nízká      |
-| [Návratový typ pro několik asynchronních metod byl změněn z úlohy na ValueTask](#rtnt) | Nízká      |
-| [Relační: anotace TypeMapping je nyní pouze TypeMapping](#rtt) | Nízká      |
-| [ToTable na odvozeném typu vyvolá výjimku.](#totable-on-a-derived-type-throws-an-exception) | Nízká      |
-| [EF Core už neposílá direktivu pragma pro vynucení KOFK SQLite.](#pragma) | Nízká      |
-| [Microsoft. EntityFrameworkCore. sqlite teď závisí na SQLitePCLRaw. bundle_e_sqlite3](#sqlite3) | Nízká      |
-| [Hodnoty GUID se teď ukládají jako TEXT na SQLite.](#guid) | Nízká      |
-| [Hodnoty char se teď ukládají jako TEXT na SQLite.](#char) | Nízká      |
-| [ID migrace se teď generují pomocí kalendáře invariantní jazykové verze.](#migid) | Nízká      |
-| [Informace o rozšíření/metadata se odebraly z IDbContextOptionsExtension.](#xinfo) | Nízká      |
-| [LogQueryPossibleExceptionWithAggregateOperator se přejmenovalo.](#lqpe) | Nízká      |
-| [Vysvětlení rozhraní API pro názvy omezení cizího klíče](#clarify) | Nízká      |
-| [IRelationalDatabaseCreator. HasTables/HasTablesAsync byly zveřejněny.](#irdc2) | Nízká      |
-| [Microsoft. EntityFrameworkCore. Design je teď balíček DevelopmentDependency.](#dip) | Nízká      |
-| [SQLitePCL. Raw aktualizováno na verzi 2.0.0](#SQLitePCL) | Nízká      |
-| [NetTopologySuite aktualizace na verzi 2.0.0](#NetTopologySuite) | Nízká      |
-| [Místo typu System. data. SqlClient se používá Microsoft. data. SqlClient.](#SqlClient) | Nízká      |
-| [Je nutné nakonfigurovat více dvojznačných relací odkazujících na sebe.](#mersa) | Nízká      |
-| [DbFunction. Schema má hodnotu null nebo je prázdný řetězec, který nakonfiguruje, aby byl ve výchozím schématu modelu.](#udf-empty-string) | Nízká      |
+| [Dotazy LINQ již nejsou vyhodnocovány na straně klienta.](#linq-queries-are-no-longer-evaluated-on-the-client)         | Vysoká       |
+| [Cíle EF Core 3.0 .NET Standard 2.1 spíše než .NET Standard 2.0](#netstandard21) | Vysoká      |
+| [Nástroj příkazového řádku EF Core, dotnet ef, již není součástí sady .NET Core SDK](#dotnet-ef) | Vysoká      |
+| [DetectChanges respektuje hodnoty klíče generované úložištěm](#dc) | Vysoká      |
+| [FromSql, ExecuteSql a ExecuteSqlAsync byly přejmenovány](#fromsql) | Vysoká      |
+| [Typy dotazů jsou konsolidovány s typy entit.](#qt) | Vysoká      |
+| [Core rámce účetních údajů již není součástí sdíleného rámce ASP.NET Core](#no-longer) | Střednědobé používání      |
+| [Kaskádové odstranění se nyní ve výchozím nastavení děje okamžitě](#cascade) | Střednědobé používání      |
+| [Eager načítání souvisejících entit se nyní děje v jednom dotazu](#eager-loading-single-query) | Střednědobé používání      |
+| [DeleteBehavior.Restrict má čistší sémantiku.](#deletebehavior) | Střednědobé používání      |
+| [Konfigurační rozhraní API pro vztahy vlastněných typů bylo změněno.](#config) | Střednědobé používání      |
+| [Každá vlastnost používá nezávislé generování celého klíče v paměti](#each) | Střednědobé používání      |
+| [Dotazy bez sledování již neprovádějí rozlišení identity](#notrackingresolution) | Střednědobé používání      |
+| [Změny rozhraní API metadat](#metadata-api-changes) | Střednědobé používání      |
+| [Změny rozhraní METADAT SPECIFICKÉ Pro zprostředkovatele](#provider) | Střednědobé používání      |
+| [UseRowNumberForPaging byl odebrán.](#urn) | Střednědobé používání      |
+| [FromSql metodu při použití s uloženou proceduru nelze skládat](#fromsqlsproc) | Střednědobé používání      |
+| [FromSql metody lze zadat pouze na kořeny dotazu](#fromsql) | Nízká      |
+| [~~Spuštění dotazu je zaznamenáno na úrovni ladění.~~ Vráceny](#qe) | Nízká      |
+| [Hodnoty dočasného klíče již nejsou nastaveny na instance entit.](#tkv) | Nízká      |
+| [Závislé entity sdílející tabulku s objektem zabezpečení jsou nyní volitelné.](#de) | Nízká      |
+| [Všechny entity sdílející tabulku se sloupcem tokenu souběžnosti musí mapovat na vlastnost](#aes) | Nízká      |
+| [Vlastněné entity nelze dotazovat bez vlastníka pomocí sledovacího dotazu.](#owned-query) | Nízká      |
+| [Zděděné vlastnosti z nemapovaných typů jsou nyní mapovány na jeden sloupec pro všechny odvozené typy.](#ip) | Nízká      |
+| [Konvence vlastností cizího klíče již neodpovídá stejnému názvu jako hlavní vlastnost.](#fkp) | Nízká      |
+| [Připojení databáze je nyní uzavřena, pokud již není použit a před dokončením TransactionScope](#dbc) | Nízká      |
+| [Ve výchozím nastavení se používají záložní pole.](#backing-fields-are-used-by-default) | Nízká      |
+| [Vyvolání, pokud je nalezeno více kompatibilních doprovodových polí](#throw-if-multiple-compatible-backing-fields-are-found) | Nízká      |
+| [Názvy vlastností pouze pro pole by měly odpovídat názvu pole.](#field-only-property-names-should-match-the-field-name) | Nízká      |
+| [AddDbContext/AddDbContextPool již nevolá addlogging a addmemorycache](#adddbc) | Nízká      |
+| [AddEntityFramework* přidá IMemoryCache s limitem velikosti](#addentityframework-adds-imemorycache-with-a-size-limit) | Nízká      |
+| [DbContext.Entry nyní provádí místní DetectChanges](#dbe) | Nízká      |
+| [Klíče pole řetězce a bajtů nejsou ve výchozím nastavení generovány klientem.](#string-and-byte-array-keys-are-not-client-generated-by-default) | Nízká      |
+| [ILoggerFactory je nyní oborová služba](#ilf) | Nízká      |
+| [Opožděné načítání proxy servery již předpokládat, navigační vlastnosti jsou plně načteny](#lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded) | Nízká      |
+| [Nadměrné vytváření interních poskytovatelů služeb je nyní ve výchozím nastavení chybou](#excessive-creation-of-internal-service-providers-is-now-an-error-by-default) | Nízká      |
+| [Nové chování pro HasOne/HasMany volána s jedním řetězcem](#nbh) | Nízká      |
+| [Návratový typ pro několik asynchronních metod byl změněn z Task na ValueTask.](#rtnt) | Nízká      |
+| [Relační a textová poznámka je nyní pouze typemapping](#rtt) | Nízká      |
+| [ToTable na odvozený typ vyvolá výjimku](#totable-on-a-derived-type-throws-an-exception) | Nízká      |
+| [EF Core již neodesílá pragma pro vynucení SQLite FK](#pragma) | Nízká      |
+| [Microsoft.EntityFrameworkCore.Sqlite nyní závisí na SQLitePCLRaw.bundle_e_sqlite3](#sqlite3) | Nízká      |
+| [Hodnoty guid jsou nyní uloženy jako TEXT na SQLite](#guid) | Nízká      |
+| [Hodnoty Char jsou nyní uloženy jako TEXT na SQLite](#char) | Nízká      |
+| [ID migrace jsou nyní generovány pomocí kalendáře invariantní jazykové verze](#migid) | Nízká      |
+| [Informace/metadata rozšíření byly odebrány z rozšíření IDbContextOptionsExtension.](#xinfo) | Nízká      |
+| [LogQueryPossibleExceptionWithAggregateOperator byl přejmenován.](#lqpe) | Nízká      |
+| [Objasnit rozhraní API pro názvy omezení cizího klíče](#clarify) | Nízká      |
+| [IRelationalDatabaseCreator.HasTables/HasTablesAsync byly zveřejněny](#irdc2) | Nízká      |
+| [Microsoft.EntityFrameworkCore.Design je nyní balíček DevelopmentDependency](#dip) | Nízká      |
+| [SQLitePCL.raw aktualizován na verzi 2.0.0](#SQLitePCL) | Nízká      |
+| [NetTopologySuite aktualizován na verzi 2.0.0](#NetTopologySuite) | Nízká      |
+| [Místo klienta System.Data.SqlClient se používá místo klienta System.Data.SqlClient](#SqlClient) | Nízká      |
+| [Musí být nakonfigurováno více nejednoznačných vztahů, které samy odkazují na sebe.](#mersa) | Nízká      |
+| [DbFunction.Schema je null nebo prázdný řetězec nakonfiguruje, aby byl ve výchozím schématu modelu](#udf-empty-string) | Nízká      |
 
-### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Dotazy LINQ již nejsou vyhodnocovány na klientovi.
+### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>Dotazy LINQ již nejsou vyhodnocovány na straně klienta.
 
 [Sledování problému #14935](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
-[také zobrazit #12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[Také zobrazit #12795 problému](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
 **Staré chování**
 
-Před 3,0, když EF Core nedokázal převést výraz, který byl součástí dotazu na buď SQL, nebo parametr, automaticky vyhodnotí výraz na straně klienta.
-Ve výchozím nastavení vyhodnocování klientů u potenciálně nákladných výrazů aktivovalo pouze upozornění.
+Před 3.0, když EF Core nelze převést výraz, který byl součástí dotazu buď SQL nebo parametr, automaticky vyhodnocenvýrazv klientovi.
+Ve výchozím nastavení klienthodnocení potenciálně nákladné výrazy pouze spustila upozornění.
 
 **Nové chování**
 
-Počínaje 3,0 EF Core v projekci nejvyšší úrovně povolit jenom výrazy (poslední `Select()` volání v dotazu), které se mají vyhodnotit na straně klienta.
-Pokud výrazy v jakékoli jiné části dotazu nelze převést na buď SQL, nebo parametr, je vyvolána výjimka.
+Počínaje 3.0 EF Core umožňuje pouze výrazy v projekci nejvyšší úrovně (poslední `Select()` volání v dotazu) vyhodnoceny na straně klienta.
+Pokud výrazy v jakékoli jiné části dotazu nelze převést na SQL nebo parametr, je vyvolána výjimka.
 
 **Proč**
 
-Automatické hodnocení dotazů umožňuje provádět mnoho dotazů i v případě, že není možné přeložit jejich důležité části.
-Toto chování může vést k neočekávanému a potenciálně škodlivému chování, které může být jen zřejmé v produkčním prostředí.
-Například podmínka ve volání `Where()`, která se nedá přeložit, může způsobit, že se všechny řádky z tabulky přenesou z databázového serveru a filtr, který se má použít na straně klienta.
-Tato situace může snadno přejít zpět, pokud tabulka obsahuje jenom několik řádků ve vývoji, ale při přesunu aplikace do produkčního prostředí zasáhnout, kde tabulka může obsahovat miliony řádků.
-Upozornění na vyhodnocení klientů se také během vývoje ukázala jako příliš jednoduchá.
+Automatické vyhodnocení dotazů klienta umožňuje mnoho dotazů, které mají být provedeny i v případě, že důležité části z nich nelze přeložit.
+Toto chování může mít za následek neočekávané a potenciálně škodlivé chování, které může být zřejmé pouze v produkčním prostředí.
+Například podmínka ve `Where()` volání, které nelze přeložit, může způsobit přenos všech řádků z tabulky z databázového serveru a filtru, který má být použit na klienta.
+Tato situace může snadno přejít nezjištěný, pokud tabulka obsahuje pouze několik řádků ve vývoji, ale tvrdě přístupů při aplikaci přesune do produkčního prostředí, kde tabulka může obsahovat miliony řádků.
+Upozornění na vyhodnocení klienta se také ukázala jako příliš snadno ignorovat během vývoje.
 
-Kromě toho může automatické hodnocení klienta vést k problémům s tím, že vylepšení překladu dotazů pro konkrétní výrazy způsobilo nezamýšlené neúmyslné změny mezi verzemi.
+Kromě toho automatické vyhodnocení klienta může vést k problémům, ve kterých zlepšení překladu dotazů pro konkrétní výrazy způsobily nechtěné změny mezi verzemi.
 
 **Omezení rizik**
 
-Pokud dotaz nelze plně přeložit, přepište ho do formuláře, který se dá přeložit, nebo použijte `AsEnumerable()`, `ToList()`nebo podobným způsobem, aby se data vrátila zpět do klienta, kde je pak možné dále zpracovávat pomocí LINQ-to-Objects.
+Pokud dotaz nelze plně přeložit, přepište dotaz ve formuláři, který lze přeložit, `AsEnumerable()` `ToList()`nebo použijte , nebo podobně jako explicitně převést data zpět do klienta, kde je pak možné dále zpracovat pomocí LINQ-to-Objects.
 
 <a name="netstandard21"></a>
-### <a name="ef-core-30-targets-net-standard-21-rather-than-net-standard-20"></a>EF Core 3,0 cíle .NET Standard 2,1 místo .NET Standard 2,0
+### <a name="ef-core-30-targets-net-standard-21-rather-than-net-standard-20"></a>Cíle EF Core 3.0 .NET Standard 2.1 spíše než .NET Standard 2.0
 
-[Sledování problému #15498](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
+[Sledování #15498 problému](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
 
 > [!IMPORTANT] 
-> EF Core 3,1 cílů .NET Standard 2,0 znovu. To přináší zpětnou podporu pro .NET Framework.
+> EF Core 3.1 opět cílí na standard .NET Standard 2.0. To přináší zpět podporu pro rozhraní .NET Framework.
 
 **Staré chování**
 
-Před 3,0 EF Core cílené .NET Standard 2,0 a spustí se na všech platformách, které podporují tento standard, včetně .NET Framework.
+Před 3.0 EF Core cílené .NET Standard 2.0 a bude fungovat na všech platformách, které podporují tento standard, včetně rozhraní .NET Framework.
 
 **Nové chování**
 
-Počínaje 3,0 se EF Core cíle .NET Standard 2,1 a spustí se na všech platformách, které podporují tento standard. To nezahrnuje .NET Framework.
+Počínaje 3.0, EF Core cíle .NET Standard 2.1 a bude spuštěna na všech platformách, které podporují tento standard. To nezahrnuje rozhraní .NET Framework.
 
 **Proč**
 
-Toto je součást strategického rozhodnutí napříč technologiemi .NET a zaměřuje se na energii na platformě .NET Core a dalších moderních platformách .NET, jako je Xamarin.
+Toto je součástí strategického rozhodnutí napříč technologiemi .NET zaměřit energii na .NET Core a další moderní .NET platformy, jako je například Xamarin.
 
 **Omezení rizik**
 
-Použijte EF Core 3,1.
+Použijte EF Core 3.1.
 
 <a name="no-longer"></a>
-### <a name="entity-framework-core-is-no-longer-part-of-the-aspnet-core-shared-framework"></a>Entity Framework Core už není součástí sdílené ASP.NET Core architektury.
+### <a name="entity-framework-core-is-no-longer-part-of-the-aspnet-core-shared-framework"></a>Core rámce účetních údajů již není součástí sdíleného rámce ASP.NET Core
 
-[Sledování oznámení o problémech # 325](https://github.com/aspnet/Announcements/issues/325)
+[Sledování oznámení o problému#325](https://github.com/aspnet/Announcements/issues/325)
 
 **Staré chování**
 
-Před ASP.NET Core 3,0 se při přidání odkazu na balíček do `Microsoft.AspNetCore.App` nebo `Microsoft.AspNetCore.All`zahrnuly EF Core a někteří poskytovatelé EF Core dat jako poskytovatelé SQL Server.
+Před ASP.NET Core 3.0, když jste `Microsoft.AspNetCore.App` `Microsoft.AspNetCore.All`přidali odkaz na balíček nebo , by to zahrnovalo EF Core a některé zprostředkovatele dat EF Core, jako je poskytovatel serveru SQL Server.
 
 **Nové chování**
 
-Počínaje 3,0 ASP.NET Core sdílené rozhraní nezahrnuje EF Core nebo žádné poskytovatele EF Core dat.
+Počínaje 3.0 ASP.NET základní sdílené rozhraní nezahrnuje EF Core nebo zprostředkovatele dat EF Core.
 
 **Proč**
 
-Před touto změnou EF Core nutné jiné kroky v závislosti na tom, zda je aplikace cílena ASP.NET Core a SQL Server. Upgrade ASP.NET Core taky vynutil upgrade EF Core a poskytovatele SQL Server, který není vždycky žádoucí.
+Před touto změnou, získání EF Core vyžaduje různé kroky v závislosti na tom, zda aplikace cílené ASP.NET Core a SQL Server nebo ne. Také inovace ASP.NET Core vynutila upgrade EF Core a zprostředkovatele SQL Server, což není vždy žádoucí.
 
-V důsledku této změny je prostředí získání EF Core stejné u všech poskytovatelů, podporovaných implementací rozhraní .NET a typů aplikací.
-Vývojáři teď můžou přesně řídit, když EF Core a EF Core se upgradují poskytovatelé dat.
+S touto změnou je prostředí získávání EF Core stejné napříč všemi poskytovateli, podporovanými implementacemi rozhraní .NET a typy aplikací.
+Vývojáři teď taky můžou přesně řídit, kdy jsou upgradováni zprostředkovatelé dat EF Core a EF Core.
 
 **Omezení rizik**
 
-Chcete-li použít EF Core v aplikaci ASP.NET Core 3,0 nebo v jakékoli jiné podporované aplikaci, explicitně přidejte odkaz na balíček EF Coreho poskytovatele databáze, který bude aplikace používat.
+Chcete-li použít EF Core v ASP.NET core 3.0 aplikace nebo jiné podporované aplikace, explicitně přidejte odkaz na balíček zprostředkovatele databáze EF Core, který bude vaše aplikace používat.
 
 <a name="dotnet-ef"></a>
-### <a name="the-ef-core-command-line-tool-dotnet-ef-is-no-longer-part-of-the-net-core-sdk"></a>EF Core nástroj příkazového řádku dotnet EF již není součástí .NET Core SDK
+### <a name="the-ef-core-command-line-tool-dotnet-ef-is-no-longer-part-of-the-net-core-sdk"></a>Nástroj příkazového řádku EF Core, dotnet ef, již není součástí sady .NET Core SDK
 
-[Sledování problému #14016](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
+[#14016 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
 
 **Staré chování**
 
-Před 3,0 byl nástroj `dotnet ef` součástí .NET Core SDK a byl snadno dostupný pro použití z příkazového řádku z libovolného projektu bez nutnosti dalších kroků. 
+Před 3.0 `dotnet ef` byl nástroj zahrnut do sady .NET Core SDK a byl snadno dostupný z příkazového řádku z libovolného projektu bez nutnosti dalších kroků. 
 
 **Nové chování**
 
-Počínaje 3,0 sada .NET SDK neobsahuje nástroj `dotnet ef`, takže před tím, než ho bude možné použít, je nutné explicitně nainstalovat jako místní nebo globální nástroj. 
+Počínaje 3.0 sada .NET SDK neobsahuje `dotnet ef` nástroj, takže před použitím jej musíte explicitně nainstalovat jako místní nebo globální nástroj. 
 
 **Proč**
 
-Tato změna nám umožňuje distribuovat a aktualizovat `dotnet ef` jako regulární nástroj rozhraní příkazového řádku .NET v NuGet, a to v souladu se skutečností, že EF Core 3,0 je také vždy distribuován jako balíček NuGet.
+Tato změna nám umožňuje `dotnet ef` distribuovat a aktualizovat jako běžný nástroj .NET CLI na NuGet, konzistentní se skutečností, že EF Core 3.0 je také vždy distribuován jako balíček NuGet.
 
 **Omezení rizik**
 
-Aby bylo možné spravovat migrace nebo `DbContext`uživatelského rozhraní, nainstalujte `dotnet-ef` jako globální nástroj:
+Chcete-li spravovat migrace nebo lešení `DbContext` `dotnet-ef` a , nainstalujte jako globální nástroj:
 
   ``` console
     $ dotnet tool install --global dotnet-ef
   ```
 
-Můžete také získat místní nástroj při obnovování závislostí projektu, který deklaruje jako závislost nástrojů pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
+Můžete také získat místní nástroj při obnovení závislostí projektu, který deklaruje jako závislost nástroje pomocí [souboru manifestu nástroje](https://github.com/dotnet/cli/issues/10288).
 
 <a name="fromsql"></a>
-### <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>Z tabulek, ExecuteSql a ExecuteSqlAsync byly přejmenovány.
+### <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>FromSql, ExecuteSql a ExecuteSqlAsync byly přejmenovány
 
-[Sledování problému #10996](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
+[#10996 sledování problému](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
 
 **Staré chování**
 
-Před EF Core 3,0 byly tyto názvy metod přetíženy, aby fungovaly s normálním řetězcem nebo řetězcem, které by měly být interpolované na SQL a parametry.
+Před EF Core 3.0 byly tyto názvy metod přetíženy, aby pracovaly s normálním řetězcem nebo řetězcem, který by měl být interpolován do SQL a parametrů.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 použijte `FromSqlRaw`, `ExecuteSqlRaw`a `ExecuteSqlRawAsync` k vytvoření parametrizovaného dotazu, kde jsou parametry předány nezávisle na řetězci dotazu.
+Počínaje EF Core 3.0, `ExecuteSqlRaw`použijte `ExecuteSqlRawAsync` `FromSqlRaw`, a vytvořit parametrizovaný dotaz, kde jsou parametry předány odděleně od řetězce dotazu.
 Příklad:
 
 ```csharp
@@ -199,7 +199,7 @@ context.Products.FromSqlRaw(
     product.Name);
 ```
 
-Pomocí `FromSqlInterpolated`, `ExecuteSqlInterpolated`a `ExecuteSqlInterpolatedAsync` vytvořte parametrizovaný dotaz, ve kterém jsou parametry předány jako součást interpolované řetězce dotazu.
+Použijte `FromSqlInterpolated` `ExecuteSqlInterpolated`, `ExecuteSqlInterpolatedAsync` a vytvořte parametrizovaný dotaz, kde jsou parametry předány jako součást řetězce interpolovaného dotazu.
 Příklad:
 
 ```csharp
@@ -207,25 +207,25 @@ context.Products.FromSqlInterpolated(
     $"SELECT * FROM Products WHERE Name = {product.Name}");
 ```
 
-Všimněte si, že obě výše uvedené dotazy vytvoří stejný parametrizovaný SQL se stejnými parametry SQL.
+Všimněte si, že oba výše uvedené dotazy vytvoří stejné parametrizované SQL se stejnými parametry SQL.
 
 **Proč**
 
-Přetížení metody, jako to, usnadňuje náhodné volání nezpracované řetězcové metody, pokud by záměr byl zavolat interpolovaná řetězcová metoda a druhá možnost kolem.
-To může vést k tomu, že dotazy nejsou parametrizované, pokud by měly být.
+Přetížení metody, jako je tento, usnadňují náhodné volání metody raw string, když záměrem bylo volání interpolované metody řetězce a naopak.
+To může mít za následek dotazy nejsou parametrizovány, když by měly být.
 
 **Omezení rizik**
 
-Přepněte na použití nových názvů metod.
+Přepněte, abyste použili nové názvy metod.
 
 <a name="fromsqlsproc"></a>
-### <a name="fromsql-method-when-used-with-stored-procedure-cannot-be-composed"></a>Metoda Z tabulek při použití s uloženou procedurou nemůže být složená.
+### <a name="fromsql-method-when-used-with-stored-procedure-cannot-be-composed"></a>FromSql metodu při použití s uloženou proceduru nelze skládat
 
-[Sledování problému #15392](https://github.com/aspnet/EntityFrameworkCore/issues/15392)
+[Sledování #15392 problému](https://github.com/aspnet/EntityFrameworkCore/issues/15392)
 
 **Staré chování**
 
-Před EF Core 3,0 se metoda Z tabulek pokusila zjistit, zda je možné sestavit předaný SQL. Vyvolalo se hodnocení klienta, pokud SQL bylo bez možnosti složení, jako je uložená procedura. Následující dotaz fungoval spuštěním uložené procedury na serveru a provedením FirstOrDefault na straně klienta.
+Před EF Core 3.0, FromSql metoda se pokusil zjistit, pokud předané SQL lze skládat na. Provedla vyhodnocení klienta, když sql byl non-composable jako uložená procedura. Následující dotaz fungoval spuštěním uložené procedury na serveru a provedením FirstOrDefault na straně klienta.
 
 ```csharp
 context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").FirstOrDefault();
@@ -233,15 +233,15 @@ context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").FirstOrDefaul
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se EF Core nepokusí analyzovat SQL. Takže pokud vytváříte po FromSqlRaw/FromSqlInterpolated, pak EF Core vytvoří příkaz SQL, který by způsobil dotaz sub. Takže pokud používáte uloženou proceduru se složením, zobrazí se výjimka pro neplatnou syntaxi SQL.
+Počínaje EF Core 3.0 EF Core se nepokusí analyzovat SQL. Takže pokud jste skládání po FromSqlRaw/FromSqlInterpolated, pak EF Core bude skládat SQL tím, že způsobí dílčí dotaz. Takže pokud používáte uloženou proceduru s kompozicí, pak získáte výjimku pro neplatnou syntaxi SQL.
 
 **Proč**
 
-EF Core 3,0 nepodporuje automatické hodnocení klienta, protože to bylo náchylné k chybám, jak je vysvětleno [zde](#linq-queries-are-no-longer-evaluated-on-the-client).
+EF Core 3.0 nepodporuje automatické hodnocení klienta, protože byl náchylný k chybám, jak je vysvětleno [zde](#linq-queries-are-no-longer-evaluated-on-the-client).
 
 **Omezení rizik**
 
-Pokud používáte uloženou proceduru v FromSqlRaw/FromSqlInterpolated, znamená to, že se na ni nelze založit, takže můžete přidat __AsEnumerable/AsAsyncEnumerable__ hned po volání metody z tabulek, aby se zabránilo jakémukoli složení na straně serveru.
+Pokud používáte uloženou proceduru v FromSqlRaw/FromSqlInterpolated, víte, že ji nelze skládat, takže můžete přidat __AsEnumerable/AsAsyncEnumerable__ hned po volání metody FromSql, abyste se vyhnuli jakékoli kompozici na straně serveru.
 
 ```csharp
 context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").AsEnumerable().FirstOrDefault();
@@ -249,59 +249,59 @@ context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").AsEnumerable(
 
 <a name="fromsql"></a>
 
-### <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>Metody Z tabulek se dají zadat jenom v kořenech dotazů.
+### <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>FromSql metody lze zadat pouze na kořeny dotazu
 
-[Sledování problému #15704](https://github.com/aspnet/EntityFrameworkCore/issues/15704)
+[#15704 sledování problému](https://github.com/aspnet/EntityFrameworkCore/issues/15704)
 
 **Staré chování**
 
-Před EF Core 3,0 lze zadat `FromSql` metodu, která je kdekoli v dotazu.
+Před EF Core `FromSql` 3.0, metoda může být zadán kdekoli v dotazu.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 lze nové metody `FromSqlRaw` a `FromSqlInterpolated` (které nahrazují `FromSql`) zadat pouze v kořenech dotazu, tj. přímo na `DbSet<>`. Pokud se pokusíte zadat jiné místo jinak, dojde k chybě kompilace.
+Počínaje EF Core 3.0, `FromSqlRaw` `FromSqlInterpolated` nové a `FromSql`metody (které nahrazují ) lze zadat pouze na `DbSet<>`kořeny dotazu, tj. Pokus o jejich zadání kdekoli jinde bude mít za následek chybu kompilace.
 
 **Proč**
 
-Určení `FromSql` kdekoli jinde než na `DbSet` neobsahovalo žádný význam nebo přidaná hodnota a v některých scénářích může způsobit nejednoznačnost.
+Zadání `FromSql` kdekoli jinde než `DbSet` na neměl žádný význam nebo přidanou hodnotu a může způsobit nejednoznačnost v určitých scénářích.
 
 **Omezení rizik**
 
-volání `FromSql` by se měla přesunout přímo na `DbSet`, na které se vztahují.
+`FromSql`by měla být přesunuta tak, `DbSet` aby byla přímo na základě toho, na které se vztahují.
 
 <a name="notrackingresolution"></a>
-### <a name="no-tracking-queries-no-longer-perform-identity-resolution"></a>Žádné dotazy pro sledování neprovádějí překlad identity
+### <a name="no-tracking-queries-no-longer-perform-identity-resolution"></a>Dotazy bez sledování již neprovádějí rozlišení identity
 
-[Sledování problému #13518](https://github.com/aspnet/EntityFrameworkCore/issues/13518)
+[Sledování #13518 problému](https://github.com/aspnet/EntityFrameworkCore/issues/13518)
 
 **Staré chování**
 
-Před EF Core 3,0 se stejná instance entity používá pro všechny výskyty entity se zadaným typem a ID. To odpovídá chování sledovacích dotazů. Například tento dotaz:
+Před EF Core 3.0 by se stejná instance entity použila pro každý výskyt entity s daným typem a ID. To odpovídá chování sledování dotazů. Například tento dotaz:
 
 ```csharp
 var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
 ```
-vrátí stejnou instanci `Category` pro každý `Product` přidruženou k dané kategorii.
+vrátí stejnou `Category` instanci `Product` pro každou, která je přidružena k dané kategorii.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 budou vytvořeny různé instance entit při výskytu entity se zadaným typem a ID na různých místech vráceného grafu. Například dotaz výše bude nyní vracet novou instanci `Category` pro každý `Product`, i když jsou ke stejné kategorii přidruženy dva produkty.
+Počínaje EF Core 3.0, budou vytvořeny různé instance entity, když se na různých místech vráceného grafu objeví entita s daným typem a ID. Například výše uvedený dotaz nyní `Category` vrátí novou `Product` instanci pro každou z nich i v případě, že dva produkty jsou přidruženy ke stejné kategorii.
 
 **Proč**
 
-Překlad identity (to znamená, že určení, že entita má stejný typ a ID jako dříve zjištěná entita) přidává další výkon a režii paměti. Obvykle se spustí čítač, aby se v prvním místě nepoužily žádné dotazy na sledování. I když může být v některých případech užitečný překlad identity, není potřeba, pokud se entity mají serializovat a odeslat klientovi, což je běžné pro žádné dotazy pro sledování.
+Rozlišení identity (to znamená určení, že entita má stejný typ a ID jako dříve zjištěná entita) přidává další výkon a nároky na paměť. To obvykle běží v rozporu s tím, proč žádné sledování dotazy jsou používány na prvním místě. Také zatímco překlad identity může být někdy užitečné, není potřeba, pokud entity mají být serializovány a odeslány klientovi, což je běžné pro dotazy bez sledování.
 
 **Omezení rizik**
 
-Pokud je vyžadováno rozlišení identity, použijte dotaz sledování.
+Pokud je vyžadováno rozlišení identity, použijte sledovací dotaz.
 
 <a name="qe"></a>
 
-### <a name="query-execution-is-logged-at-debug-level-reverted"></a>~~Provádění dotazu se protokoluje na úrovni ladění~~ . Vrátit
+### <a name="query-execution-is-logged-at-debug-level-reverted"></a>~~Spuštění dotazu je zaznamenáno na úrovni ladění.~~ Vráceny
 
-[Sledování problému #14523](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
+[#14523 sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-Tuto změnu jsme vrátili, protože nová konfigurace v EF Core 3,0 umožňuje, aby byla úroveň protokolu pro libovolnou událost specifikována aplikací. Chcete-li například přepnout protokolování SQL na `Debug`, explicitně nakonfigurujte úroveň v `OnConfiguring` nebo `AddDbContext`:
+Tuto změnu jsme vrátili zpět, protože nová konfigurace v EF Core 3.0 umožňuje úroveň protokolu pro každou událost, která má být určena aplikací. Chcete-li například přepnout `Debug`protokolování sql `OnConfiguring` na `AddDbContext`, explicitně nakonfigurujte úroveň v nebo :
 ```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
@@ -311,57 +311,57 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 <a name="tkv"></a>
 
-### <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>Dočasné hodnoty klíčů už nejsou nastavené na instance entit.
+### <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>Hodnoty dočasného klíče již nejsou nastaveny na instance entit.
 
-[Sledování problému #12378](https://github.com/aspnet/EntityFrameworkCore/issues/12378)
+[#12378 sledování problému](https://github.com/aspnet/EntityFrameworkCore/issues/12378)
 
 **Staré chování**
 
-Před EF Core 3,0 byly přiřazeny dočasné hodnoty ke všem klíčovým vlastnostem, které by později měly skutečnou hodnotu vygenerovanou databází.
-Obvykle jsou tyto dočasné hodnoty velkými zápornými čísly.
+Před EF Core 3.0 dočasné hodnoty byly přiřazeny ke všem vlastnostem klíče, které by později mít reálnou hodnotu generovanou databází.
+Obvykle tyto dočasné hodnoty byly velké záporná čísla.
 
 **Nové chování**
 
-Počínaje 3,0 EF Core ukládá hodnotu dočasného klíče jako součást informací o sledování entity a ponechá vlastnost klíče beze změny.
+Počínaje 3.0 EF Core ukládá hodnotu dočasného klíče jako součást informací o sledování entity a ponechá samotnou vlastnost klíče beze změny.
 
 **Proč**
 
-Tato změna byla provedena, aby se předešlo omylům hodnotám klíčů v případě, že entita, která byla dříve sledována instancí `DbContext`, je přesunuta do jiné instance `DbContext`. 
+Tato změna byla provedena, aby se zabránilo chybně dočasným hodnotám klíče, aby `DbContext` se chybně staly `DbContext` trvalými, když je entita, která byla dříve sledována nějakou instancí, přesunuta do jiné instance. 
 
 **Omezení rizik**
 
-Aplikace, které přiřazují hodnoty primárního klíče k cizím klíčům k vytvoření přidružení mezi entitami, můžou záviset na starém chování, pokud jsou primární klíče generované úložištěm a patří do entit ve stavu `Added`.
-K tomu je možné se vyhnout:
-* Nepoužívejte klíče generované úložištěm.
-* Nastavení vlastností navigace pro vytváření relací místo nastavení hodnot cizích klíčů.
-* Získá aktuální dočasné hodnoty klíče z informací o sledování entity.
+Aplikace, které přiřazují hodnoty primárního klíče cizím klíčům k vytvoření přidružení mezi entitami, `Added` mohou záviset na starém chování, pokud jsou primární klíče generovány v úložišti a patří k entitám ve státě.
+Tomu se lze vyhnout:
+* Nepoužíváte klíče generované úložištěm.
+* Nastavení navigačních vlastností na vytvoření relací namísto nastavení hodnot cizího klíče.
+* Získejte skutečné hodnoty dočasného klíče z informací o sledování entity.
 Například `context.Entry(blog).Property(e => e.Id).CurrentValue` vrátí dočasnou hodnotu, i když `blog.Id` sama nebyla nastavena.
 
 <a name="dc"></a>
 
-### <a name="detectchanges-honors-store-generated-key-values"></a>DetectChanges respektuje hodnoty klíčů generované úložištěm.
+### <a name="detectchanges-honors-store-generated-key-values"></a>DetectChanges respektuje hodnoty klíče generované úložištěm
 
-[Sledování problému #14616](https://github.com/aspnet/EntityFrameworkCore/issues/14616)
+[#14616 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/14616)
 
 **Staré chování**
 
-Před EF Core 3,0 se Nesledovaná entita, kterou najde `DetectChanges`, sledovala ve stavu `Added` a vložila se jako nový řádek při volání `SaveChanges`.
+Před EF Core 3.0, nesledované `DetectChanges` entity nalezeny by `Added` být sledovány ve stavu `SaveChanges` a vloženy jako nový řádek, když je volána.
 
 **Nové chování**
 
-Od EF Core 3,0 platí, že pokud entita používá vygenerované hodnoty klíčů a je nastavená nějaká hodnota klíče, bude se entita sledovat ve stavu `Modified`.
-To znamená, že se předpokládá, že řádek pro entitu existuje a že se bude aktualizovat při volání `SaveChanges`.
-Pokud hodnota klíče není nastavená, nebo pokud typ entity nepoužívá vygenerované klíče, bude nová entita dál sledována jako `Added` jako v předchozích verzích.
+Počínaje EF Core 3.0, pokud entita používá generované hodnoty klíče a je nastavena některá hodnota klíče, bude entita sledována ve `Modified` stavu.
+To znamená, že se předpokládá, že existuje řádek `SaveChanges` pro entitu a bude aktualizován, když je volána.
+Pokud není nastavena hodnota klíče nebo pokud typ entity nepoužívá generované klíče, bude nová entita stále sledována jako `Added` v předchozích verzích.
 
 **Proč**
 
-Tato změna byla provedena tak, aby byla pro práci s nepřipojenými grafy entit při použití klíčů generovaných úložištěm snazší.
+Tato změna byla provedena, aby bylo snazší a konzistentnější pracovat s grafy odpojených entit při použití klíčů generovaných úložištěm.
 
 **Omezení rizik**
 
-Tato změna může přerušit aplikaci, pokud je typ entity nakonfigurovaný na používání vygenerovaných klíčů, ale hodnoty klíčů jsou explicitně nastavené pro nové instance.
-Opravou je explicitně nakonfigurovat klíčové vlastnosti tak, aby nepoužívaly vygenerované hodnoty.
-Například s rozhraním API Fluent:
+Tato změna může přerušit aplikaci, pokud je typ entity nakonfigurován pro použití generovaných klíčů, ale hodnoty klíčů jsou explicitně nastaveny pro nové instance.
+Oprava je explicitně nakonfigurovat vlastnosti klíče nepoužívat generované hodnoty.
+Například s fluent API:
 
 ```csharp
 modelBuilder
@@ -370,33 +370,33 @@ modelBuilder
     .ValueGeneratedNever();
 ```
 
-Nebo s poznámkami k datům:
+Nebo s poznámkami o datech:
 
 ```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.None)]
 public string Id { get; set; }
 ```
 <a name="cascade"></a>
-### <a name="cascade-deletions-now-happen-immediately-by-default"></a>Odstranění kaskádových operací se teď ve výchozím nastavení provádí hned.
+### <a name="cascade-deletions-now-happen-immediately-by-default"></a>Kaskádové odstranění se nyní ve výchozím nastavení děje okamžitě
 
-[Sledování problému #10114](https://github.com/aspnet/EntityFrameworkCore/issues/10114)
+[Sledování #10114 problému](https://github.com/aspnet/EntityFrameworkCore/issues/10114)
 
 **Staré chování**
 
-Před 3,0 EF Core aplikovány kaskádové akce (odstraňování závislých entit, když se odstraní požadovaný objekt zabezpečení nebo když je vztah k požadovanému objektu zabezpečení vážně) nevznikl, dokud není voláno SaveChanges.
+Před 3.0 EF Core použít kaskádové akce (odstranění závislých entit při odstranění požadované ho objektu zabezpečení nebo při přerušeném vztahu k požadované jistiny) nedošlo, dokud SaveChanges byla volána.
 
 **Nové chování**
 
-Od 3,0 EF Core aplikuje kaskádové akce hned po zjištění spouštěcí podmínky.
-Například volání `context.Remove()` k odstranění objektu zabezpečení bude mít za následek, že jsou všechny sledované související závislé položky nastaveny také pro `Deleted` hned.
+Počínaje 3.0, EF Core použije kaskádové akce, jakmile je zjištěna spouštěcí podmínka.
+Například volání `context.Remove()` k odstranění hlavní entity bude mít za následek všechny `Deleted` sledované související požadované závislé osoby také nastavena na okamžitě.
 
 **Proč**
 
-Tato změna byla provedena za účelem zlepšení prostředí pro scénáře vytváření datových vazeb a auditování, kde je důležité pochopit, které entity budou odstraněny _před_ zavoláním `SaveChanges`.
+Tato změna byla provedena ke zlepšení prostředí pro data vazby a auditování scénáře, kde je důležité pochopit, které entity budou odstraněny _před_ `SaveChanges` nazývá.
 
 **Omezení rizik**
 
-Předchozí chování lze obnovit pomocí nastavení na `context.ChangeTracker`.
+Předchozí chování lze obnovit pomocí `context.ChangeTracker`nastavení na .
 Příklad:
 
 ```csharp
@@ -404,100 +404,100 @@ context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
 <a name="eager-loading-single-query"></a>
-### <a name="eager-loading-of-related-entities-now-happens-in-a-single-query"></a>Eager načítání souvisejících entit se teď děje v jednom dotazu.
+### <a name="eager-loading-of-related-entities-now-happens-in-a-single-query"></a>Eager načítání souvisejících entit se nyní děje v jednom dotazu
 
-[Sledování problému #18022](https://github.com/aspnet/EntityFrameworkCore/issues/18022)
+[Sledování #18022 problému](https://github.com/aspnet/EntityFrameworkCore/issues/18022)
 
 **Staré chování**
 
-Před 3,0 eagerly načítání navigace kolekce prostřednictvím operátorů `Include` způsobilo, že se v relační databázi generují vícenásobné dotazy, jednu pro každý typ související entity.
+Před 3.0 dychtivě načítání kolekce `Include` navigace prostřednictvím operátorů způsobil více dotazů, které mají být generovány na relační databáze, jeden pro každý typ související entity.
 
 **Nové chování**
 
-Počínaje 3,0 EF Core generuje jediný dotaz s spojeními relačních databází.
+Počínaje 3.0, EF Core generuje jeden dotaz s JOINs na relační databáze.
 
 **Proč**
 
-Vydání více dotazů pro implementaci jednoho dotazu LINQ způsobilo velký počet problémů, včetně negativního výkonu, protože bylo nutné použít více databázových převodů, a problémy s integritou dat v případě, že každý dotaz může sledovat jiný stav databáze.
+Vydávání více dotazů k implementaci jednoho dotazu LINQ způsobil řadu problémů, včetně negativní výkon jako více databázových roundtrips byly nezbytné a problémy s koherence dat jako každý dotaz mohl sledovat jiný stav databáze.
 
 **Omezení rizik**
 
-I když se jedná o zásadní změnu, může to mít výrazný vliv na výkon aplikace, když jeden dotaz obsahuje velký počet `Include`ch operátorů v navigaci kolekcí. [Podívejte se na tento komentář](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-542397085) , kde najdete další informace a rychlé psaní dotazů.
+I když technicky to není narušující změny, může mít značný vliv na výkon `Include` aplikace, pokud jeden dotaz obsahuje velký počet operátorna navigační služby kolekce. Další informace a přepisování dotazů efektivněji naleznete v [tomto komentáři.](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-542397085)
 
 **
 
 <a name="deletebehavior"></a>
-### <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior. restrict má sémantiku čištění.
+### <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior.Restrict má čistší sémantiku.
 
-[Sledování problému #12661](https://github.com/aspnet/EntityFrameworkCore/issues/12661)
+[Sledování #12661 problému](https://github.com/aspnet/EntityFrameworkCore/issues/12661)
 
 **Staré chování**
 
-Před 3,0 `DeleteBehavior.Restrict` vytvořili cizí klíče v databázi se sémantikou `Restrict`, ale zároveň jsme změnili interní opravu nezřetelným způsobem.
+Před 3.0, `DeleteBehavior.Restrict` vytvořil cizí klíče `Restrict` v databázi s sémantiku, ale také změnil vnitřní opravu v non-zřejmým způsobem.
 
 **Nové chování**
 
-Počínaje 3,0 `DeleteBehavior.Restrict` zajišťuje, aby se cizí klíče vytvořily s `Restrict` sémantikou – tedy bez kaskády. porušení omezení throw – bez vlivu na interní opravu EF
+Počínaje 3.0 `DeleteBehavior.Restrict` zajišťuje, že cizí klíče `Restrict` jsou vytvořeny sémantikou -- to znamená, že žádné kaskády; vyvolat porušení omezení – bez dopadu také EF interní opravy.
 
 **Proč**
 
-Tato změna byla provedena pro zlepšení prostředí pro použití `DeleteBehavior` intuitivním způsobem bez neočekávaných vedlejších účinků.
+Tato změna byla provedena s `DeleteBehavior` cílem zlepšit zkušenosti pro použití intuitivním způsobem, bez neočekávaných vedlejších účinků.
 
 **Omezení rizik**
 
-Předchozí chování lze obnovit pomocí `DeleteBehavior.ClientNoAction`.
+Předchozí chování lze obnovit pomocí `DeleteBehavior.ClientNoAction`aplikace .
 
 <a name="qt"></a>
-### <a name="query-types-are-consolidated-with-entity-types"></a>Typy dotazů jsou konsolidovány s typy entit
+### <a name="query-types-are-consolidated-with-entity-types"></a>Typy dotazů jsou konsolidovány s typy entit.
 
-[Sledování problému #14194](https://github.com/aspnet/EntityFrameworkCore/issues/14194)
+[Sledování #14194 problému](https://github.com/aspnet/EntityFrameworkCore/issues/14194)
 
 **Staré chování**
 
-Před EF Core 3,0 byly [typy dotazů](xref:core/modeling/keyless-entity-types) prostředkem pro dotazování na data, která nedefinují primární klíč strukturovaným způsobem.
-To znamená, že typ dotazu byl použit pro mapování typů entit bez klíčů (pravděpodobnější z pohledu, ale také z tabulky), zatímco byl použit regulární typ entity, když byl klíč k dispozici (pravděpodobnější z tabulky, ale případně z pohledu).
+Před EF Core 3.0, [typy dotazů](xref:core/modeling/keyless-entity-types) byly prostředkem pro dotazování dat, která nedefinuje primární klíč strukturovaným způsobem.
+To znamená, že typ dotazu byl použit pro mapování typů entit bez klíčů (spíše ze zobrazení, ale případně z tabulky), zatímco normální typ entity byl použit, když byl k dispozici klíč (pravděpodobně z tabulky, ale případně ze zobrazení).
 
 **Nové chování**
 
-Typ dotazu se teď bude jednat jenom o typ entity bez primárního klíče.
-Typy entit bez klíčů mají stejné funkce jako typy dotazů v předchozích verzích.
+Typ dotazu se nyní stane pouze typem entity bez primárního klíče.
+Typy bezklíčových entit mají stejné funkce jako typy dotazů v předchozích verzích.
 
 **Proč**
 
-Tato změna byla provedena proto, aby se snížila nejasnost v souvislosti s typy dotazů.
-Konkrétně jsou bez klíčů typy entit a jsou ze své podstaty jen pro čtení, ale neměly by být použity pouze proto, že typ entity musí být jen pro čtení.
-Podobně jsou často mapovány na zobrazení, ale to je pouze v případě, že zobrazení často nedefinují klíče.
+Tato změna byla provedena snížit nejasnosti kolem účelu typů dotazů.
+Konkrétně jsou bezklíčové typy entit a jsou ze své podstaty jen pro čtení z tohoto důvodu, ale neměly by být použity pouze proto, že typ entity musí být jen pro čtení.
+Podobně jsou často mapovány na zobrazení, ale je to jen proto, že zobrazení často nedefinují klíče.
 
 **Omezení rizik**
 
-Následující části rozhraní API jsou teď zastaralé:
-* **`ModelBuilder.Query<>()`** – místo toho je nutné volat `ModelBuilder.Entity<>().HasNoKey()` pro označení typu entity, protože neobsahují žádné klíče.
-Tato služba by se ještě nenakonfigurovala pomocí konvence, aby nedocházelo k chybám konfigurace, když je primární klíč očekávaný, ale neodpovídá konvenci.
-* **`DbQuery<>`** – místo toho by měla být použita `DbSet<>`.
-* **`DbContext.Query<>()`** – místo toho by měla být použita `DbContext.Set<>()`.
+Následující části rozhraní API jsou nyní zastaralé:
+* **`ModelBuilder.Query<>()`**- `ModelBuilder.Entity<>().HasNoKey()` Místo toho je třeba volat označit typ entity jako bez klíčů.
+To by stále není nakonfigurován podle konvence, aby se zabránilo chybné konfiguraci, když je očekáván primární klíč, ale neodpovídá konvenci.
+* **`DbQuery<>`**- `DbSet<>` Místo toho by měl být použit.
+* **`DbContext.Query<>()`**- `DbContext.Set<>()` Místo toho by měl být použit.
 
 <a name="config"></a>
-### <a name="configuration-api-for-owned-type-relationships-has-changed"></a>Změnilo se konfigurační rozhraní API pro vztahy vlastněných typů.
+### <a name="configuration-api-for-owned-type-relationships-has-changed"></a>Konfigurační rozhraní API pro vztahy vlastněných typů bylo změněno.
 
 [Sledování problému #12444](https://github.com/aspnet/EntityFrameworkCore/issues/12444)
 [sledování problému #9148](https://github.com/aspnet/EntityFrameworkCore/issues/9148)
-[sledování problému #14153](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
+[#14153 sledování](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
 
 **Staré chování**
 
-Před EF Core 3,0 byla konfigurace vztahu vlastníka provedena přímo po volání `OwnsOne` nebo `OwnsMany`. 
+Před EF Core 3.0 konfigurace vztahu vlastněné `OwnsOne` byla `OwnsMany` provedena přímo po nebo volání. 
 
 **Nové chování**
 
-Od EF Core 3,0 teď existuje Fluent API pro konfiguraci navigační vlastnosti pro vlastníka pomocí `WithOwner()`.
+Počínaje EF Core 3.0, je nyní fluent ROZHRANÍ API pro `WithOwner()`konfiguraci navigační vlastnost vlastníka pomocí .
 Příklad:
 
 ```csharp
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 ```
 
-Konfigurace vztahující se k vztahu mezi vlastníkem a vlastníkem by nyní měla být zřetězena po `WithOwner()` podobným způsobem, jakým jsou konfigurovány jiné vztahy.
-I když se konfigurace samotného vlastního typu bude i nadále zřetězit po `OwnsOne()/OwnsMany()`.
+Konfigurace související se vztahem mezi vlastníkem a vlastněným by nyní měla být zřetězena podobně jako `WithOwner()` ostatní vztahy.
+Zatímco konfigurace pro vlastněný typ sám by `OwnsOne()/OwnsMany()`stále být zřetězené po .
 Příklad:
 
 ```csharp
@@ -522,26 +522,26 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
     });
 ```
 
-Kromě toho, že volání `Entity()`, `HasOne()`nebo `Set()` s cílem vlastněného typu teď vyvolá výjimku.
+Navíc volání `Entity()` `HasOne()`, `Set()` nebo s cílem typu vlastněného nyní vyvolá výjimku.
 
 **Proč**
 
-Tato změna byla provedena za účelem vytvoření čisticího oddělení mezi konfigurací samotného typu a _vztahu k_ typu, který je vlastníkem.
-Tím se zase odeberou nejednoznačnosti a nejasnosti u metod, jako je `HasForeignKey`.
+Tato změna byla provedena k vytvoření čistší oddělení mezi konfigurací vlastněného typu samotného a _vztah k_ vlastněného typu.
+To zase odstraňuje nejednoznačnost a `HasForeignKey`zmatek kolem metod, jako je .
 
 **Omezení rizik**
 
-Změňte konfiguraci vztahů vlastněných typů tak, aby používala novou plochu rozhraní API, jak je znázorněno v předchozím příkladu.
+Změňte konfiguraci vztahů vlastněných typů tak, aby používaly nový povrch rozhraní API, jak je znázorněno ve výše uvedeném příkladu.
 
 <a name="de"></a>
 
-### <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislé entity, které sdílí tabulku s objektem zabezpečení, jsou teď volitelné.
+### <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>Závislé entity sdílející tabulku s objektem zabezpečení jsou nyní volitelné.
 
-[Sledování problému #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+[Sledování #9005](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
 
 **Staré chování**
 
-Vezměte v úvahu následující model:
+Zvažte následující model:
 ```csharp
 public class Order
 {
@@ -556,27 +556,27 @@ public class OrderDetails
     public string ShippingAddress { get; set; }
 }
 ```
-Před EF Core 3,0 platí, že pokud `OrderDetails` vlastní `Order` nebo explicitně namapované na stejnou tabulku, při přidávání nového `Order`se vždycky vyžadovala instance `OrderDetails`.
+Před EF Core `OrderDetails` 3.0, `Order` pokud je vlastněna nebo explicitně mapována na stejnou tabulku, byla `OrderDetails` instance vždy vyžadována při přidávání nového `Order`.
 
 
 **Nové chování**
 
-Počínaje 3,0 EF Core umožňuje přidat `Order` bez `OrderDetails` a provede mapování všech `OrderDetails`ch vlastností s výjimkou primárního klíče na sloupce s možnou hodnotou null.
-Při dotazování EF Core sady `OrderDetails` na `null`, pokud některá z jejích požadovaných vlastností nemá hodnotu, nebo pokud se kromě primárního klíče nevyžadují žádné vlastnosti, a `null`.
+Počínaje 3.0, EF Core umožňuje `Order` přidat `OrderDetails` bez a `OrderDetails` mapuje všechny vlastnosti s výjimkou primárního klíče na sloupce s možnou hodnotou null.
+Při dotazování EF `OrderDetails` `null` Core sady, pokud některý z jeho požadovaných vlastností nemá hodnotu nebo pokud `null`nemá žádné požadované vlastnosti kromě primárního klíče a všechny vlastnosti jsou .
 
 **Omezení rizik**
 
-Pokud má váš model sdílení tabulky závislé na všech volitelných sloupcích, ale navigace ukazující na něj se neočekává `null` pak by aplikace měla být upravena tak, aby zpracovávala případy, kdy je navigace `null`. Pokud to není možné, měla by být do typu entity přidána požadovaná vlastnost, nebo alespoň jedna vlastnost musí mít přiřazenou jinou ne`null` hodnotu.
+Pokud váš model má tabulka sdílení závislé se všemi volitelnými sloupci, ale navigace ukazující na něj se neočekává, že bude `null` pak aplikace by měla být upravena tak, aby zpracování případů, kdy navigace je `null`. Pokud to není možné, požadovaná vlastnost by měla být přidána k`null` typu entity nebo alespoň jedna vlastnost by měla mít non-hodnota přiřazena k němu.
 
 <a name="aes"></a>
 
-### <a name="all-entities-sharing-a-table-with-a-concurrency-token-column-have-to-map-it-to-a-property"></a>Všechny entity sdílející tabulku se sloupcem souběžného tokenu musí být namapovány na vlastnost.
+### <a name="all-entities-sharing-a-table-with-a-concurrency-token-column-have-to-map-it-to-a-property"></a>Všechny entity sdílející tabulku se sloupcem tokenu souběžnosti musí mapovat na vlastnost
 
-[Sledování problému #14154](https://github.com/aspnet/EntityFrameworkCore/issues/14154)
+[#14154 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/14154)
 
 **Staré chování**
 
-Vezměte v úvahu následující model:
+Zvažte následující model:
 ```csharp
 public class Order
 {
@@ -598,20 +598,20 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
         .Property(o => o.Version).IsRowVersion().HasColumnName("Version");
 }
 ```
-Před EF Core 3,0 platí, že pokud `OrderDetails` vlastní `Order` nebo explicitně namapované na stejnou tabulku, aktualizace pouze `OrderDetails` nebude aktualizovat `Version` hodnotu v klientovi a další aktualizace nebude úspěšná.
+Před EF Core `OrderDetails` 3.0, `Order` pokud je vlastněna nebo explicitně `OrderDetails` mapována na stejnou tabulku, pak aktualizace prostě nebude aktualizovat `Version` hodnotu na straně klienta a další aktualizace se nezdaří.
 
 
 **Nové chování**
 
-Počínaje 3,0 EF Core rozšíří novou hodnotu `Version` na `Order`, pokud vlastní `OrderDetails`. V opačném případě je při ověřování modelu vyvolána výjimka.
+Počínaje 3.0, EF Core rozšíří `Version` novou `Order` hodnotu, `OrderDetails`pokud vlastní . V opačném případě je vyvolána výjimka během ověřování modelu.
 
 **Proč**
 
-Tato změna byla provedena, aby nedocházelo k zastaralé hodnotě tokenu souběžnosti, pokud je aktualizována pouze jedna z entit mapovaných na stejnou tabulku.
+Tato změna byla provedena, aby se zabránilo zatuchlé hodnota tokenu souběžnosti při aktualizaci pouze jedné entity mapované na stejnou tabulku.
 
 **Omezení rizik**
 
-Všechny entity, které sdílejí tabulku, musí obsahovat vlastnost, která je namapovaná na sloupec tokenu souběžnosti. Je možné, že ho vytvoříte ve stínovém stavu:
+Všechny entity sdílející tabulku musí obsahovat vlastnost, která je mapována na sloupec tokenu souběžnosti. Je možné, že vytvořit jeden ve stínovém stavu:
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -622,13 +622,13 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 <a name="owned-query"></a>
 
-### <a name="owned-entities-cannot-be-queried-without-the-owner-using-a-tracking-query"></a>Na vlastněné entity se nedá dotazovat bez vlastníka pomocí sledovacího dotazu.
+### <a name="owned-entities-cannot-be-queried-without-the-owner-using-a-tracking-query"></a>Vlastněné entity nelze dotazovat bez vlastníka pomocí sledovacího dotazu.
 
-[Sledování problému #18876](https://github.com/aspnet/EntityFrameworkCore/issues/18876)
+[Sledování #18876 problému](https://github.com/aspnet/EntityFrameworkCore/issues/18876)
 
 **Staré chování**
 
-Před EF Core 3,0 se jako jakákoli jiná navigace mohla zadat dotaz na vlastněné entity.
+Před EF Core 3.0, vlastněné entity mohou být dotazovánjako jakékoli jiné navigace.
 
 ```csharp
 context.People.Select(p => p.Address);
@@ -636,17 +636,17 @@ context.People.Select(p => p.Address);
 
 **Nové chování**
 
-Počínaje 3,0 EF Core vyvolá výjimku, pokud dotaz sledování provede vlastní entitu bez vlastníka.
+Počínaje 3.0 EF Core vyvolá, pokud dotaz sledování projekty vlastněné entity bez vlastníka.
 
 **Proč**
 
-Vlastněné entity nemůžou manipulovat bez vlastníka, takže v převážné většině případů se na ně dotazuje tímto způsobem je chyba.
+S vlastněnými entitami nelze manipulovat bez vlastníka, takže v převážné většině případů je dotazování tímto způsobem chybou.
 
 **Omezení rizik**
 
-Pokud by měla být vlastní entita sledována tak, aby se změnila jakýmkoli způsobem, měl by být vlastník zahrnut v dotazu.
+Pokud by měla být vlastněná entita sledována, aby byla později změněna, měl by být do dotazu zahrnut vlastník.
 
-V opačném případě přidejte `AsNoTracking()` volání:
+V opačném `AsNoTracking()` případě přidejte volání:
 
 ```csharp
 context.People.Select(p => p.Address).AsNoTracking();
@@ -654,13 +654,13 @@ context.People.Select(p => p.Address).AsNoTracking();
 
 <a name="ip"></a>
 
-### <a name="inherited-properties-from-unmapped-types-are-now-mapped-to-a-single-column-for-all-derived-types"></a>Zděděné vlastnosti z nemapovaných typů jsou nyní namapovány na jeden sloupec pro všechny odvozené typy.
+### <a name="inherited-properties-from-unmapped-types-are-now-mapped-to-a-single-column-for-all-derived-types"></a>Zděděné vlastnosti z nemapovaných typů jsou nyní mapovány na jeden sloupec pro všechny odvozené typy.
 
-[Sledování problému #13998](https://github.com/aspnet/EntityFrameworkCore/issues/13998)
+[Sledování #13998 problému](https://github.com/aspnet/EntityFrameworkCore/issues/13998)
 
 **Staré chování**
 
-Vezměte v úvahu následující model:
+Zvažte následující model:
 ```csharp
 public abstract class EntityBase
 {
@@ -689,19 +689,19 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-Před EF Core 3,0 bude vlastnost `ShippingAddress` namapována na samostatné sloupce pro `BulkOrder` a `Order` ve výchozím nastavení.
+Před EF Core 3.0 by `ShippingAddress` vlastnost byla mapována na samostatné sloupce pro `BulkOrder` a `Order` ve výchozím nastavení.
 
 **Nové chování**
 
-Počínaje 3,0 EF Core pro `ShippingAddress`vytvoří pouze jeden sloupec.
+Počínaje 3.0, EF Core vytvoří `ShippingAddress`pouze jeden sloupec pro .
 
 **Proč**
 
-Starý behavoir nebyl očekáván.
+Starý behavoir byl nečekaný.
 
 **Omezení rizik**
 
-Vlastnost může být stále explicitně namapována na samostatný sloupec odvozených typů:
+Vlastnost může být stále explicitně mapována na samostatný sloupec na odvozených typech:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -717,13 +717,13 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 <a name="fkp"></a>
 
-### <a name="the-foreign-key-property-convention-no-longer-matches-same-name-as-the-principal-property"></a>Konvence vlastností cizího klíče už neodpovídá stejnému názvu jako vlastnost Principal.
+### <a name="the-foreign-key-property-convention-no-longer-matches-same-name-as-the-principal-property"></a>Konvence vlastností cizího klíče již neodpovídá stejnému názvu jako hlavní vlastnost.
 
-[Sledování problému #13274](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
+[#13274 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
 
 **Staré chování**
 
-Vezměte v úvahu následující model:
+Zvažte následující model:
 ```csharp
 public class Customer
 {
@@ -737,13 +737,13 @@ public class Order
     public int CustomerId { get; set; }
 }
 ```
-Před EF Core 3,0 se pro cizí klíč podle konvence použije vlastnost `CustomerId`.
-Pokud je však `Order` vlastněný typ, pak by to mělo také `CustomerId` primární klíč a to není obvykle očekávané.
+Před EF Core 3.0, `CustomerId` vlastnost by být použity pro cizí klíč podle konvence.
+Pokud `Order` je však vlastněný typ, pak `CustomerId` by to také primární klíč, a to není obvykle očekávání.
 
 **Nové chování**
 
-Počínaje 3,0 se EF Core nepokouší použít vlastnosti pro cizí klíče podle konvence, pokud mají stejný název jako vlastnost Principal.
-Název objektu zabezpečení zřetězený s názvem vlastnosti objektu zabezpečení a název navigace zřetězený s vzory názvů hlavních vlastností se pořád shodují.
+Počínaje 3.0 EF Core nepokouší použít vlastnosti pro cizí klíče podle konvence, pokud mají stejný název jako hlavní vlastnost.
+Název hlavního typu spojený s názvem hlavní vlastnosti a název navigace spojený se vzory názvů hlavní vlastnosti jsou stále spárovány.
 Příklad:
 
 ```csharp
@@ -777,21 +777,21 @@ public class Order
 
 **Proč**
 
-Tato změna byla provedena, aby nedocházelo k chybnému definování vlastností primárního klíče u vlastněných typů.
+Tato změna byla provedena, aby se zabránilo chybné definování vlastnosti primárního klíče na vlastněném typu.
 
 **Omezení rizik**
 
-Pokud by vlastnost měla být cizí klíč, a proto je součástí primárního klíče, pak ji explicitně nakonfigurujte jako takovou.
+Pokud vlastnost byla určena jako cizí klíč a proto součástí primárního klíče, pak explicitně nakonfigurovat jako takové.
 
 <a name="dbc"></a>
 
-### <a name="database-connection-is-now-closed-if-not-used-anymore-before-the-transactionscope-has-been-completed"></a>Připojení k databázi je teď zavřené, pokud už nepoužíváte dřív, než se dokončí jeho objekt TransactionScope.
+### <a name="database-connection-is-now-closed-if-not-used-anymore-before-the-transactionscope-has-been-completed"></a>Připojení databáze je nyní uzavřena, pokud již není použit a před dokončením TransactionScope
 
-[Sledování problému #14218](https://github.com/aspnet/EntityFrameworkCore/issues/14218)
+[Sledování #14218 problému](https://github.com/aspnet/EntityFrameworkCore/issues/14218)
 
 **Staré chování**
 
-Pokud se během EF Core 3,0 v rámci kontextu otevře připojení v `TransactionScope`, zůstane připojení otevřené, zatímco je aktivní aktuální `TransactionScope`.
+Před EF Core 3.0, pokud kontext `TransactionScope`otevře připojení uvnitř , `TransactionScope` připojení zůstane otevřené, zatímco aktuální je aktivní.
 
 ```csharp
 using (new TransactionScope())
@@ -810,15 +810,15 @@ using (new TransactionScope())
 
 **Nové chování**
 
-Od 3,0 EF Core ukončí připojení, jakmile ho dokončí jeho používání.
+Počínaje 3.0 EF Core ukončí připojení, jakmile je to hotovo.
 
 **Proč**
 
-Tato změna umožňuje použít více kontextů ve stejném `TransactionScope`. Nové chování se také shoduje s EF6.
+Tato změna umožňuje použít více kontextů ve stejném `TransactionScope`. Nové chování také odpovídá EF6.
 
 **Omezení rizik**
 
-Pokud připojení potřebuje zůstat otevřeným explicitním voláním `OpenConnection()`, zajistíte, že EF Core nebude předčasně ukončen:
+Pokud připojení musí zůstat otevřené `OpenConnection()` explicitní volání zajistí, že EF Core nezavře předčasně:
 
 ```csharp
 using (new TransactionScope())
@@ -837,76 +837,76 @@ using (new TransactionScope())
 
 <a name="each"></a>
 
-### <a name="each-property-uses-independent-in-memory-integer-key-generation"></a>Každá vlastnost používá nezávislou generaci celočíselného klíče v paměti.
+### <a name="each-property-uses-independent-in-memory-integer-key-generation"></a>Každá vlastnost používá nezávislé generování celého klíče v paměti
 
-[Sledování problému #6872](https://github.com/aspnet/EntityFrameworkCore/issues/6872)
-
-**Staré chování**
-
-Před EF Core 3,0 byl pro všechny vlastnosti celého čísla klíče v paměti použit jeden generátor sdílených hodnot.
-
-**Nové chování**
-
-Počínaje EF Core 3,0 každé klíčové vlastnosti celého čísla získá vlastní generátor hodnot při použití databáze v paměti.
-Také pokud je databáze odstraněna, generování klíče se obnoví pro všechny tabulky.
-
-**Proč**
-
-Tato změna byla provedená tak, aby se při vytváření klíčů v paměti lépe rovnala generování klíčů v paměti a vylepšila se možnost izolovat testy od sebe při použití databáze v paměti.
-
-**Omezení rizik**
-
-To může poškodit aplikaci, která se spoléhá na konkrétní hodnoty klíče v paměti, které se mají nastavit.
-Místo toho se nemusíte spoléhat na konkrétní hodnoty klíčů nebo aktualizovat tak, aby odpovídaly novému chování.
-
-### <a name="backing-fields-are-used-by-default"></a>Ve výchozím nastavení se používají pole pro zálohování.
-
-[Sledování problému #12430](https://github.com/aspnet/EntityFrameworkCore/issues/12430)
+[#6872 sledování problému](https://github.com/aspnet/EntityFrameworkCore/issues/6872)
 
 **Staré chování**
 
-Před 3,0, a to i v případě, že je známé pole zálohování pro vlastnost, EF Core ve výchozím nastavení přečetl a zapsat hodnotu vlastnosti pomocí metod getter a setter vlastnosti.
-Výjimkou je provedení dotazu, kde by se pole zálohování nastavilo přímo, pokud je známé.
+Před EF Core 3.0 jeden generátor sdílených hodnot byl použit pro všechny vlastnosti klíče v paměti celé číslo.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 platí, že pokud je známé pole zálohování pro vlastnost, pak EF Core tuto vlastnost vždy přečte a zapíše pomocí pole pro zálohování.
-To může způsobit přerušení aplikace, pokud se aplikace spoléhá na další chování kódované v metodách getter nebo setter.
+Počínaje EF Core 3.0, každá vlastnost celočíselný klíč získá vlastní generátor hodnot při použití databáze v paměti.
+Také pokud je databáze odstraněna, generování klíčů se resetuje pro všechny tabulky.
 
 **Proč**
 
-Tato změna byla provedena EF Core proto, aby při provádění databázových operací, které obsahují entity, ve výchozím nastavení nechybně aktivovala obchodní logiku.
+Tato změna byla provedena za účelem těsnějšího zarovnání generování klíče v paměti s generováním skutečného klíče databáze a zlepšením možnosti izolovat testy od sebe navzájem při použití databáze v paměti.
 
 **Omezení rizik**
 
-Chování před 3,0 se dá obnovit pomocí konfigurace režimu přístupu vlastnosti na `ModelBuilder`.
+To může přerušit aplikaci, která je závislá na konkrétní hodnoty klíče v paměti, které mají být nastaveny.
+Zvažte místo toho není spoléhat na konkrétní hodnoty klíče nebo aktualizace tak, aby odpovídaly nové chování.
+
+### <a name="backing-fields-are-used-by-default"></a>Ve výchozím nastavení se používají záložní pole.
+
+[Sledování #12430 problému](https://github.com/aspnet/EntityFrameworkCore/issues/12430)
+
+**Staré chování**
+
+Před 3.0, i v případě, že bylo známo záložní pole pro vlastnost, EF Core by stále ve výchozím nastavení číst a zapisovat hodnotu vlastnosti pomocí metody getter vlastnost a setter.
+Výjimkou bylo spuštění dotazu, kde by bylo záložní pole nastaveno přímo, pokud je známo.
+
+**Nové chování**
+
+Počínaje EF Core 3.0, pokud je známé záložní pole pro vlastnost, pak EF Core bude vždy číst a zapisovat tuto vlastnost pomocí záložního pole.
+To může způsobit přerušení aplikace, pokud aplikace spoléhá na další chování kódované do metody getter nebo setter.
+
+**Proč**
+
+Tato změna byla provedena, aby se zabránilo EF Core z chybně spouštění obchodní logiky ve výchozím nastavení při provádění databázových operací zahrnujících entity.
+
+**Omezení rizik**
+
+Chování pre-3.0 lze obnovit prostřednictvím konfigurace režimu `ModelBuilder`přístupu vlastnosti na .
 Příklad:
 
 ```csharp
 modelBuilder.UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruction);
 ```
 
-### <a name="throw-if-multiple-compatible-backing-fields-are-found"></a>Vyvolat, zda je nalezeno více kompatibilních zálohovaných polí
+### <a name="throw-if-multiple-compatible-backing-fields-are-found"></a>Vyvolání, pokud je nalezeno více kompatibilních doprovodových polí
 
-[Sledování problému #12523](https://github.com/aspnet/EntityFrameworkCore/issues/12523)
+[#12523 sledování problémů](https://github.com/aspnet/EntityFrameworkCore/issues/12523)
 
 **Staré chování**
 
-Pokud se v EF Core 3,0 shodovalo více polí s pravidly pro hledání zálohovacího pole vlastnosti, bude jedno pole zvoleno na základě pořadí priorit.
-To může způsobit, že se nesprávné pole použije v nejednoznačných případech.
+Před EF Core 3.0, pokud více polí uzavřeno pravidla pro hledání záložní pole vlastnosti, pak jedno pole by bylo vybráno na základě některé pořadí priorit.
+To může způsobit nesprávné pole, které mají být použity v nejednoznačných případech.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 platí, že pokud je více polí spárováno se stejnou vlastností, je vyvolána výjimka.
+Počínaje EF Core 3.0, pokud více polí jsou spárovány se stejnou vlastností, pak je vyvolána výjimka.
 
 **Proč**
 
-Tato změna byla provedena, aby nedocházelo k tichému použití jednoho pole v případě, že může být pouze jedna z nich správná.
+Tato změna byla provedena, aby se zabránilo tichépoužití jednoho pole přes jiné, když pouze jeden může být správné.
 
 **Omezení rizik**
 
-Vlastnosti s nejednoznačnými zálohovacími poli musí obsahovat pole, které se má explicitně použít.
-Například pomocí rozhraní Fluent API:
+Vlastnosti s nejednoznačnými opěrnými poli musí mít zadané pole, které má být explicitně určeno.
+Například pomocí fluent API:
 
 ```csharp
 modelBuilder
@@ -915,11 +915,11 @@ modelBuilder
     .HasField("_id");
 ```
 
-### <a name="field-only-property-names-should-match-the-field-name"></a>Názvy vlastností pouze pro pole se musí shodovat s názvem pole.
+### <a name="field-only-property-names-should-match-the-field-name"></a>Názvy vlastností pouze pro pole by měly odpovídat názvu pole.
 
 **Staré chování**
 
-Před EF Core 3,0 může být vlastnost určena hodnotou řetězce a v případě, že v typu .NET nebyla nalezena žádná vlastnost s tímto názvem, EF Core by se pokusila ji porovnat s polem pomocí pravidel konvence.
+Před EF Core 3.0, vlastnost může být určena řetězcovou hodnotou a pokud žádná vlastnost s tímto názvem byla nalezena na typu .NET pak EF Core by se pokusit porovnat s polem pomocí pravidel konvence.
 
 ```csharp
 private class Blog
@@ -937,7 +937,7 @@ modelBuilder
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se vlastnost pouze pole musí přesně shodovat s názvem pole.
+Počínaje EF Core 3.0, vlastnost pouze pole musí přesně odpovídat názvu pole.
 
 ```csharp
 modelBuilder
@@ -947,12 +947,12 @@ modelBuilder
 
 **Proč**
 
-Tato změna byla provedena, aby se nepoužívalo stejné pole pro dvě vlastnosti s názvem podobně, ale také pravidla pro porovnání vlastností pouze pro pole, která jsou shodná s vlastnostmi mapovanými na vlastnosti CLR.
+Tato změna byla provedena, aby se zabránilo použití stejné pole pro dvě vlastnosti pojmenované podobně, také umožňuje odpovídající pravidla pro vlastnosti pouze pole stejné jako pro vlastnosti mapované na clr vlastnosti.
 
 **Omezení rizik**
 
-Vlastnosti pouze polí musí být pojmenovány stejně jako pole, na které jsou namapována.
-V budoucí verzi EF Core po 3,0 plánujeme znovu povolit explicitní konfiguraci názvu pole, který se liší od názvu vlastnosti (viz téma věnované problému [#15307](https://github.com/aspnet/EntityFrameworkCore/issues/15307)):
+Vlastnosti pouze pro pole musí být pojmenovány stejně jako pole, na které jsou mapovány.
+V budoucí verzi EF Core po 3.0 plánujeme znovu povolit explicitně konfiguraci názvu pole, který se liší od názvu vlastnosti (viz problém [#15307](https://github.com/aspnet/EntityFrameworkCore/issues/15307)):
 
 ```csharp
 modelBuilder
@@ -963,97 +963,97 @@ modelBuilder
 
 <a name="adddbc"></a>
 
-### <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool už nevolá AddLogging a AddMemoryCache.
+### <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool již nevolá addlogging a addmemorycache
 
-[Sledování problému #14756](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
+[#14756 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
 
 **Staré chování**
 
-Před EF Core 3,0 by volání `AddDbContext` nebo `AddDbContextPool` také registrovalo protokolování a služby ukládání do mezipaměti v paměti s DI prostřednictvím volání [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) a [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+Před EF Core `AddDbContext` 3.0, volání nebo `AddDbContextPool` by také zaregistrovat protokolování a ukládání do mezipaměti služby s DI prostřednictvím volání [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) a [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se `AddDbContext` a `AddDbContextPool` nebudou nadále registrovat tyto služby se vkládáním závislostí (DI).
+Počínaje EF Core `AddDbContext` 3.0 `AddDbContextPool` a již nebude registrovat tyto služby s vkládání závislostí (DI).
 
 **Proč**
 
-EF Core 3,0 nevyžaduje, aby se tyto služby nacházejí v kontejneru aplikace DI. Pokud je však v kontejneru aplikace `ILoggerFactory` zaregistrován, bude nadále používána EF Core.
+EF Core 3.0 nevyžaduje, aby tyto služby jsou v kontejneru DI aplikace. Však `ILoggerFactory` pokud je registrována v kontejneru DI aplikace, pak bude stále používán EF Core.
 
 **Omezení rizik**
 
 Pokud vaše aplikace potřebuje tyto služby, zaregistrujte je explicitně pomocí kontejneru DI pomocí [AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) nebo [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
 
-### <a name="addentityframework-adds-imemorycache-with-a-size-limit"></a>AddEntityFramework * přidá IMemoryCache s omezením velikosti.
+### <a name="addentityframework-adds-imemorycache-with-a-size-limit"></a>AddEntityFramework* přidá IMemoryCache s limitem velikosti
 
-[Sledování problému #12905](https://github.com/aspnet/EntityFrameworkCore/issues/12905)
+[#12905 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/12905)
 
 **Staré chování**
 
-Před EF Core 3,0 by volání `AddEntityFramework*`ch metod také registrovalo služby ukládání do mezipaměti paměti s DI bez omezení velikosti.
+Před EF Core 3.0 by volající `AddEntityFramework*` metody také zaregistrovat služby ukládání do mezipaměti paměti s DI bez omezení velikosti.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 `AddEntityFramework*` zaregistruje službu IMemoryCache s omezením velikosti. Pokud se jakékoli jiné služby přidané následně závisejí na IMemoryCache, můžou rychle dosáhnout výchozího limitu, který způsobuje výjimky nebo snížení výkonu.
+Počínaje EF Core 3.0, `AddEntityFramework*` zaregistruje službu IMemoryCache s limitem velikosti. Pokud některé další služby přidané později závisí na IMemoryCache mohou rychle dosáhnout výchozího limitu způsobuje výjimky nebo snížený výkon.
 
 **Proč**
 
-Použití IMemoryCache bez omezení by mohlo vést k neřízenému využití paměti, pokud dojde k chybě v logice mezipaměti dotazů nebo když jsou dotazy generovány dynamicky. Výchozí omezení snižuje potenciální útok DoS.
+Použití IMemoryCache bez omezení může mít za následek nekontrolované využití paměti, pokud je chyba v dotazu ukládání do mezipaměti logiky nebo dotazy jsou generovány dynamicky. Výchozí limit zmírňuje potenciální útok DoS.
 
 **Omezení rizik**
 
-Ve většině případů volání `AddEntityFramework*` není nutné, pokud se volá také `AddDbContext` nebo `AddDbContextPool`. Z toho důvodu je nejlepší zmírnit odebrání `AddEntityFramework*` volání.
+Ve většině `AddEntityFramework*` případů volání `AddDbContext` není `AddDbContextPool` nutné, pokud nebo je volána také. Proto nejlepší zmírnění je odebrat `AddEntityFramework*` volání.
 
-Pokud vaše aplikace potřebuje tyto služby, zaregistrujte implementaci IMemoryCache explicitně pomocí kontejneru DI předem pomocí [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
+Pokud vaše aplikace potřebuje tyto služby, zaregistrujte implementaci IMemoryCache explicitně s kontejnerem DI předem pomocí [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache).
 
 <a name="dbe"></a>
 
-### <a name="dbcontextentry-now-performs-a-local-detectchanges"></a>DbContext. entry teď provádí místní DetectChanges.
+### <a name="dbcontextentry-now-performs-a-local-detectchanges"></a>DbContext.Entry nyní provádí místní DetectChanges
 
-[Sledování problému #13552](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
-
-**Staré chování**
-
-Před EF Core 3,0 by volání `DbContext.Entry` způsobilo zjištění změn všech sledovaných entit.
-Tím je zajištěno, že stav zpřístupněný v `EntityEntry` byl aktuální.
-
-**Nové chování**
-
-Počínaje EF Core 3,0 se volání `DbContext.Entry` nyní pokusí zjistit pouze změny v dané entitě a všechny sledované hlavní entity, které se k ní vztahují.
-To znamená, že změny jinde nemohly být zjištěny voláním této metody, což by mohlo mít vliv na stav aplikace.
-
-Všimněte si, že pokud je `ChangeTracker.AutoDetectChangesEnabled` nastaveno na `false` pak i toto místní zjišťování změn bude zakázáno.
-
-Jiné metody, které způsobují detekci změn – například `ChangeTracker.Entries` a `SaveChanges`, stále způsobují kompletní `DetectChanges` všech sledovaných entit.
-
-**Proč**
-
-Tato změna byla provedena za účelem zlepšení výchozího výkonu použití `context.Entry`.
-
-**Omezení rizik**
-
-Před voláním `Entry` zajistěte, aby bylo zajištěno chování před 3,0m voláním `ChangeTracker.DetectChanges()` explicitně.
-
-### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>Klíče řetězce a pole bajtů nejsou ve výchozím nastavení generovány klientem.
-
-[Sledování problému #14617](https://github.com/aspnet/EntityFrameworkCore/issues/14617)
+[Sledování #13552 problému](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
 
 **Staré chování**
 
-Před EF Core 3,0 lze použít `string` a `byte[]` vlastnosti klíče, aniž byste museli explicitně nastavit hodnotu, která není null.
-V takovém případě se hodnota klíče vygeneruje na klientovi jako identifikátor GUID serializovaný na bajty pro `byte[]`.
+Před EF Core 3.0 volání `DbContext.Entry` by způsobit změny, které mají být zjištěny pro všechny sledované entity.
+To zajistilo, že `EntityEntry` stav vystavený v aktuálním stavu.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 bude vyvolána výjimka oznamující, že nebyla nastavena žádná hodnota klíče.
+Počínaje EF Core 3.0 `DbContext.Entry` volání se nyní pokusí pouze zjistit změny v dané entitě a všechny sledované hlavní entity s ním související.
+To znamená, že změny jinde nemusí být zjištěny voláním této metody, což může mít vliv na stav aplikace.
+
+Všimněte `ChangeTracker.AutoDetectChangesEnabled` si, `false` že pokud je nastavena na pak i toto místní zjišťování změn bude zakázáno.
+
+Jiné metody, které způsobují `ChangeTracker.Entries` zjišťování `SaveChanges`změn-- například a --stále způsobují plné `DetectChanges` všech sledovaných entit.
 
 **Proč**
 
-Tato změna byla provedena, protože /`byte[]` hodnoty `string`generované klientem nejsou všeobecně užitečné a výchozí chování způsobilo, že je obtížné vygenerovat hodnoty klíčů běžným způsobem.
+Tato změna byla provedena ke zlepšení `context.Entry`výchozího výkonu použití .
 
 **Omezení rizik**
 
-Chování před 3,0 lze získat explicitním určením, že klíčové vlastnosti by měly používat generované hodnoty, pokud není nastavena žádná jiná hodnota, která není null.
-Například s rozhraním API Fluent:
+Volání `ChangeTracker.DetectChanges()` explicitně `Entry` před voláním zajistit pre-3.0 chování.
+
+### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>Klíče pole řetězce a bajtů nejsou ve výchozím nastavení generovány klientem.
+
+[Sledování #14617 problému](https://github.com/aspnet/EntityFrameworkCore/issues/14617)
+
+**Staré chování**
+
+Před EF Core 3.0 `string` a `byte[]` vlastnosti klíče lze použít bez explicitního nastavení hodnoty bez null.
+V takovém případě by hodnota klíče byla generována na straně klienta jako identifikátor `byte[]`GUID serializovaný na bajty pro .
+
+**Nové chování**
+
+Počínaje EF Core 3.0 bude vyvolána výjimka označující, že nebyla nastavena žádná hodnota klíče.
+
+**Proč**
+
+Tato změna byla provedena, `string` / `byte[]` protože klient generované hodnoty obecně nejsou užitečné a výchozí chování ztěžovalo důvod o generovaných hodnotklíče běžným způsobem.
+
+**Omezení rizik**
+
+Chování pre-3.0 lze získat explicitním zadáním, že vlastnosti klíče by měly používat generované hodnoty, pokud není nastavena žádná jiná hodnota bez nuly.
+Například s fluent API:
 
 ```csharp
 modelBuilder
@@ -1062,7 +1062,7 @@ modelBuilder
     .ValueGeneratedOnAdd();
 ```
 
-Nebo s poznámkami k datům:
+Nebo s poznámkami o datech:
 
 ```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -1071,75 +1071,75 @@ public string Id { get; set; }
 
 <a name="ilf"></a>
 
-### <a name="iloggerfactory-is-now-a-scoped-service"></a>ILoggerFactory je teď služba s vymezeným oborem.
+### <a name="iloggerfactory-is-now-a-scoped-service"></a>ILoggerFactory je nyní oborová služba
 
-[Sledování problému #14698](https://github.com/aspnet/EntityFrameworkCore/issues/14698)
+[#14698 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/14698)
 
 **Staré chování**
 
-Před EF Core 3,0 byl `ILoggerFactory` zaregistrován jako služba s jedním prvkem.
+Před EF Core 3.0, `ILoggerFactory` byl registrován jako singleton služby.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se `ILoggerFactory` nyní zaregistroval jako vymezený obor.
+Počínaje EF Core 3.0, `ILoggerFactory` je nyní registrována jako vymezené.
 
 **Proč**
 
-Tato změna byla provedena, aby bylo možné povolit přidružení protokolovacího nástroje k instanci `DbContext`, která umožňuje další funkce a odebírá některé případy patologického chování, jako je například rozbalení interních poskytovatelů služeb.
+Tato změna byla provedena tak, aby `DbContext` přidružení protokolování s instancí, která umožňuje další funkce a odstraňuje některé případy patologického chování, jako je například rozpad interních poskytovatelů služeb.
 
 **Omezení rizik**
 
-Tato změna by neměla mít vliv na kód aplikace, pokud se neregistruje a nepoužívá vlastní služby pro EF Core interního poskytovatele služeb.
+Tato změna by neměla mít vliv na kód aplikace, pokud není registrace a používání vlastních služeb na zprostředkovatele interních služeb EF Core.
 To není běžné.
-V těchto případech bude většina věcí pořád fungovat, ale jakákoliv služba typu Singleton, která byla v závislosti na `ILoggerFactory`, musí být změněna tak, aby získala `ILoggerFactory` jiným způsobem.
+V těchto případech bude většina věcí stále fungovat, ale `ILoggerFactory` jakákoli služba singleton, `ILoggerFactory` která byla závislá na, bude muset být změněna, aby získala jiným způsobem.
 
-Pokud narazíte na takové situace, zajistěte prosím problém na [EF Core sledování problémů GitHubu](https://github.com/aspnet/EntityFrameworkCore/issues) , abychom nás věděli, jak používáte `ILoggerFactory` tak, abychom mohli lépe porozumět tomu, jak toto řešení v budoucnu zrušit.
+Pokud narazíte na situace, jako je tato, podejte prosím problém na EF Core `ILoggerFactory` [GitHub problém tracker,](https://github.com/aspnet/EntityFrameworkCore/issues) dejte nám vědět, jak používáte tak, že můžeme lépe pochopit, jak to v budoucnu znovu nerozbít.
 
-### <a name="lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded"></a>Opožděné načítání proxy serverů už nepředpokládá navigační vlastnosti, jsou plně načtené.
+### <a name="lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded"></a>Opožděné načítání proxy servery již předpokládat, navigační vlastnosti jsou plně načteny
 
-[Sledování problému #12780](https://github.com/aspnet/EntityFrameworkCore/issues/12780)
-
-**Staré chování**
-
-Před EF Core 3,0 byla po zrušení `DbContext` nijak nevěděla, zda byla daná vlastnost navigace u entity získané z tohoto kontextu plně načtena nebo nikoli.
-Proxy místo toho předpokládají, že je načtena odkazová navigace, pokud má hodnotu jinou než null a že je načtena navigace kolekce, pokud není prázdná.
-V těchto případech by byl pokus o opožděné načtení no-op.
-
-**Nové chování**
-
-Počínaje EF Core 3,0 budou proxy servery sledovat, zda je načtena vlastnost navigace.
-To znamená, že při pokusu o přístup k navigační vlastnosti, která je načtena po vyřazení kontextu, bude vždy ta no-op, i když je načtená navigace prázdná nebo má hodnotu null.
-Naopak při pokusu o přístup k navigační vlastnosti, která není načtená, vyvolá výjimku, pokud je kontext vyřazený, i když je vlastnost navigace neprázdná kolekce.
-Pokud nastane tato situace, znamená to, že se kód aplikace pokouší použít opožděné načítání v neplatném čase a aplikace by se měla změnit, aby to nevedlo.
-
-**Proč**
-
-Tato změna byla provedena, aby při pokusu o opožděné načtení na uvolněnou instanci `DbContext` bylo chování konzistentní a správné.
-
-**Omezení rizik**
-
-Aktualizujte kód aplikace, aby se nepokoušel opožděné načtení s odstraněným kontextem, nebo nastavte tuto hodnotu jako No-op, jak je popsáno ve zprávě výjimky.
-
-### <a name="excessive-creation-of-internal-service-providers-is-now-an-error-by-default"></a>Nadměrné vytváření interních zprostředkovatelů služeb je teď ve výchozím nastavení chyba.
-
-[Sledování problému #10236](https://github.com/aspnet/EntityFrameworkCore/issues/10236)
+[Sledování #12780 problému](https://github.com/aspnet/EntityFrameworkCore/issues/12780)
 
 **Staré chování**
 
-Před EF Core 3,0 se pro aplikaci, která vytváří patologický počet interních poskytovatelů služeb, zaprotokoluje upozornění.
+Před EF Core 3.0, jakmile `DbContext` byl vyřazen neexistuje žádný způsob, jak zjistit, zda dané navigační vlastnost na entitu získané z tohoto kontextu byla plně načtena nebo ne.
+Proxy servery by místo toho předpokládat, že navigace odkazu je načten, pokud má hodnotu non-null a že navigace kolekce je načten, pokud není prázdný.
+V těchto případech pokus o opožděné zatížení by bez operace.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 je toto upozornění nyní považováno za chybu a je vyvolána výjimka. 
+Počínaje EF Core 3.0 proxy sledovat, zda je načten navigační vlastnost.
+To znamená, že pokus o přístup k navigační vlastnosti, která je načtena po zpřístupnění kontextu bude vždy no-op, i když načtená navigace je prázdná nebo null.
+Naopak pokus o přístup k navigační vlastnost, která není načten vyvolá výjimku, pokud je uvolněn kontext i v případě, že navigační vlastnost je neprázdná kolekce.
+Pokud k této situaci nastane, znamená to, že kód aplikace se pokouší použít opožděné načítání v neplatný čas a aplikace by měla být změněna tak, aby to neudělala.
 
 **Proč**
 
-Tato změna byla provedená tak, že se tento patologický případ výslovně zveřejňuje tak, aby se zlepšil kód aplikace.
+Tato změna byla provedena tak, aby chování konzistentní a správné při `DbContext` pokusu opožděné zatížení na vyřazené instance.
 
 **Omezení rizik**
 
-Nejvhodnější příčinou této chyby je pochopení hlavní příčiny a zastavení vytváření, takže mnoho interních poskytovatelů služeb.
-Chybu však lze převést zpět na varování (nebo ignorováno) prostřednictvím konfigurace na `DbContextOptionsBuilder`.
+Aktualizujte kód aplikace tak, aby se nepokoušel opožděné načítání s vyřazeným kontextem, nebo nakonfigurujte tento kód jako no-op, jak je popsáno ve zprávě o výjimce.
+
+### <a name="excessive-creation-of-internal-service-providers-is-now-an-error-by-default"></a>Nadměrné vytváření interních poskytovatelů služeb je nyní ve výchozím nastavení chybou
+
+[Sledování #10236 problému](https://github.com/aspnet/EntityFrameworkCore/issues/10236)
+
+**Staré chování**
+
+Před EF Core 3.0 by bylo zaznamenáno upozornění pro aplikaci, která vytváří patologický počet interních poskytovatelů služeb.
+
+**Nové chování**
+
+Počínaje EF Core 3.0, toto upozornění je nyní považováno za a je vyvolána chyba a je vyvolána výjimka. 
+
+**Proč**
+
+Tato změna byla provedena řídit lepší kód aplikace prostřednictvím vystavení tohoto patologického případu explicitněji.
+
+**Omezení rizik**
+
+Nejvhodnější příčinou akce při výskytu této chyby je pochopit hlavní příčinu a zastavit vytváření tolik interních poskytovatelů služeb.
+Chybu však lze převést zpět na upozornění (nebo ignorovány) prostřednictvím konfigurace na `DbContextOptionsBuilder`.
 Příklad:
 
 ```csharp
@@ -1152,25 +1152,25 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 <a name="nbh"></a>
 
-### <a name="new-behavior-for-hasonehasmany-called-with-a-single-string"></a>Nové chování pro HasOne/HasMany se volá s jedním řetězcem.
+### <a name="new-behavior-for-hasonehasmany-called-with-a-single-string"></a>Nové chování pro HasOne/HasMany volána s jedním řetězcem
 
-[Sledování problému #9171](https://github.com/aspnet/EntityFrameworkCore/issues/9171)
+[Sledování #9171 problému](https://github.com/aspnet/EntityFrameworkCore/issues/9171)
 
 **Staré chování**
 
-Před EF Core 3,0 byl kód volání `HasOne` nebo `HasMany` s jedním řetězcem interpretován jako matoucí způsob.
+Před EF Core 3.0, volání `HasOne` kódu nebo `HasMany` s jedním řetězcem byla interpretována matoucím způsobem.
 Příklad:
 ```csharp
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
 
-Kód vypadá jako v souvislosti s `Samurai` pro jiný typ entity pomocí navigační vlastnosti `Entrance`, která může být soukromá.
+Kód vypadá, že se `Samurai` týká některého jiného `Entrance` typu entity pomocí navigační vlastnosti, která může být soukromá.
 
-Ve skutečnosti se tento kód pokusí vytvořit relaci k některému typu entity s názvem `Entrance` bez vlastnosti navigace.
+Ve skutečnosti se tento kód pokusí vytvořit vztah `Entrance` k nějakému typu entity volané bez navigační vlastnosti.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 výše uvedený kód má nyní podobný vzhled jako předtím.
+Počínaje EF Core 3.0, kód výše nyní dělá to, co to vypadalo, že by měl dělat dříve.
 
 **Proč**
 
@@ -1178,9 +1178,9 @@ Staré chování bylo velmi matoucí, zejména při čtení konfiguračního kó
 
 **Omezení rizik**
 
-Tím dojde pouze k přerušení aplikací, které jsou explicitně konfigurovány pomocí řetězců pro názvy typů, a bez explicitního určení vlastnosti navigace.
+Tím se přeruší pouze aplikace, které explicitně konfigurují vztahy pomocí řetězců pro názvy typů a bez explicitního zadání vlastnosti navigace.
 To není běžné.
-Předchozí chování se dá získat pomocí explicitního předání `null` názvu vlastnosti navigace.
+Předchozí chování lze získat prostřednictvím explicitní předávání `null` pro název vlastnosti navigace.
 Příklad:
 
 ```csharp
@@ -1189,106 +1189,106 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 
 <a name="rtnt"></a>
 
-### <a name="the-return-type-for-several-async-methods-has-been-changed-from-task-to-valuetask"></a>Návratový typ pro několik asynchronních metod byl změněn z úlohy na ValueTask
+### <a name="the-return-type-for-several-async-methods-has-been-changed-from-task-to-valuetask"></a>Návratový typ pro několik asynchronních metod byl změněn z Task na ValueTask.
 
-[Sledování problému #15184](https://github.com/aspnet/EntityFrameworkCore/issues/15184)
+[Sledování #15184 problému](https://github.com/aspnet/EntityFrameworkCore/issues/15184)
 
 **Staré chování**
 
-Následující asynchronní metody dříve vrátily `Task<T>`:
+Následující asynchronní metody `Task<T>`dříve vrátily :
 
 * `DbContext.FindAsync()`
 * `DbSet.FindAsync()`
 * `DbContext.AddAsync()`
 * `DbSet.AddAsync()`
-* `ValueGenerator.NextValueAsync()` (a odvozování tříd)
+* `ValueGenerator.NextValueAsync()`(a odvozené třídy)
 
 **Nové chování**
 
-Výše uvedené metody nyní vrací `ValueTask<T>` přes stejný `T` jako předtím.
+Výše uvedené metody nyní vrátit `ValueTask<T>` více než `T` stejné jako dříve.
 
 **Proč**
 
-Tato změna snižuje počet přidělení haldy, které vznikly při vyvolání těchto metod, což zlepšuje obecný výkon.
+Tato změna snižuje počet přidělení haldy vzniklé při vyvolání těchto metod, zlepšení obecného výkonu.
 
 **Omezení rizik**
 
-Aplikace jednoduše čekají na rozhraní API, které je třeba znovu zkompilovat – nejsou nutné žádné změny zdrojového kódu.
-Složitější využití (například předání vrácených `Task` do `Task.WhenAny()`) obvykle vyžaduje, aby vrácený `ValueTask<T>` byl převeden na `Task<T>` voláním `AsTask()`.
-Všimněte si, že se tím sníží omezení přidělení, které tato změna přináší.
+Aplikace, které jednoduše čekají na výše uvedená api, je třeba pouze překompilovat - nejsou nutné žádné změny zdroje.
+Složitější použití (např. předání vrácené `Task` `Task.WhenAny()`do) obvykle vyžaduje, `ValueTask<T>` aby vrácené `Task<T>` převedeny na volání `AsTask()` na něj.
+Všimněte si, že to neguje snížení přidělení, které tato změna přináší.
 
 <a name="rtt"></a>
 
-### <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Relační: anotace TypeMapping je nyní pouze TypeMapping
+### <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Relační a textová poznámka je nyní pouze typemapping
 
-[Sledování problému #9913](https://github.com/aspnet/EntityFrameworkCore/issues/9913)
+[Sledování #9913 problému](https://github.com/aspnet/EntityFrameworkCore/issues/9913)
 
 **Staré chování**
 
-Název poznámky pro poznámky k mapování typů byl "relační: TypeMapping".
+Název poznámky pro poznámky mapování typů byl "Relational:TypeMapping".
 
 **Nové chování**
 
-Název poznámky pro mapování typů je nyní "TypeMapping".
+Název poznámky pro poznámky mapování typů je nyní "TypeMapping".
 
 **Proč**
 
-Mapování typů se nyní používají pro více než stejné poskytovatele relačních databází.
+Mapování typů se nyní používá pro více než jen zprostředkovatelé relační databáze.
 
 **Omezení rizik**
 
-Tím dojde pouze k přerušení aplikací, které přistupují k mapování typu přímo jako anotaci, což není běžné.
-Nejvhodnější akcí pro opravu je použití prostoru rozhraní API pro přístup k mapování typů namísto použití anotace přímo.
+Tím se pouze poruší aplikace, které přistupují k mapování typů přímo jako poznámku, která není běžná.
+Nejvhodnější akcí k opravě je použití povrchu rozhraní API pro přístup k mapování typu, nikoli k přímému použití poznámky.
 
-### <a name="totable-on-a-derived-type-throws-an-exception"></a>ToTable na odvozeném typu vyvolá výjimku. 
+### <a name="totable-on-a-derived-type-throws-an-exception"></a>ToTable na odvozený typ vyvolá výjimku 
 
-[Sledování problému #11811](https://github.com/aspnet/EntityFrameworkCore/issues/11811)
+[Sledování #11811 problému](https://github.com/aspnet/EntityFrameworkCore/issues/11811)
 
 **Staré chování**
 
-Před EF Core 3,0 by byl `ToTable()` volaný pro odvozený typ ignorován, protože pouze dědičnost dědičnosti mapování je typu TPH, který není platný. 
+Před EF Core 3.0, `ToTable()` volal na odvozený typ by být ignorována, protože pouze mapování dědičnosti strategie byla TPH, kde to není platný. 
 
 **Nové chování**
 
-Počínaje EF Core 3,0 a při přípravě na přidání podpory TPT a TPC v novější verzi nyní `ToTable()` volána na odvozeném typu vyvolá výjimku, aby nedošlo k neočekávané změně mapování v budoucnu.
+Počínaje EF Core 3.0 a v rámci přípravy na přidání `ToTable()` podpory TPT a TPC v novější verzi, volal na odvozený typ bude nyní vyvolat výjimku, aby se zabránilo neočekávané změny mapování v budoucnu.
 
 **Proč**
 
-V současné době není platný pro mapování odvozeného typu na jinou tabulku.
-Tato změna zabrání v budoucnosti v budoucnu, pokud se to stalo platným.
+V současné době není platný mapovat odvozený typ do jiné tabulky.
+Tato změna se zabrání lámání v budoucnu, když se stane platnou věc udělat.
 
 **Omezení rizik**
 
-Odeberte všechny pokusy o mapování odvozených typů na jiné tabulky.
+Odeberte všechny pokusy o mapování odvozených typů do jiných tabulek.
 
-### <a name="forsqlserverhasindex-replaced-with-hasindex"></a>ForSqlServerHasIndex nahrazeno HasIndex 
+### <a name="forsqlserverhasindex-replaced-with-hasindex"></a>ForSqlServerHasIndex nahrazen HasIndex 
 
-[Sledování problému #12366](https://github.com/aspnet/EntityFrameworkCore/issues/12366)
+[Sledování #12366](https://github.com/aspnet/EntityFrameworkCore/issues/12366)
 
 **Staré chování**
 
-Před EF Core 3,0 `ForSqlServerHasIndex().ForSqlServerInclude()` poskytnout způsob, jak nakonfigurovat sloupce používané `INCLUDE`.
+Před EF Core 3.0, za předpokladu, že způsob, `ForSqlServerHasIndex().ForSqlServerInclude()` jak nakonfigurovat sloupce používané s `INCLUDE`.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se teď na relační úrovni podporuje použití `Include` na indexu.
+Počínaje EF Core 3.0, pomocí `Include` na indexu je nyní podporována na relační úrovni.
 Použijte `HasIndex().ForSqlServerInclude()`.
 
 **Proč**
 
-Tato změna byla provedena za účelem konsolidace rozhraní API pro indexy s `Include` na jednom místě pro všechny poskytovatele databáze.
+Tato změna byla provedena ke konsolidaci `Include` rozhraní API pro indexy s na jednom místě pro všechny poskytovatele databáze.
 
 **Omezení rizik**
 
-Použijte nové rozhraní API, jak vidíte výše.
+Použijte nové rozhraní API, jak je znázorněno výše.
 
-### <a name="metadata-api-changes"></a>Změny rozhraní API pro metadata
+### <a name="metadata-api-changes"></a>Změny rozhraní API metadat
 
-[Sledování problému #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+[Sledování #214 problému](https://github.com/aspnet/EntityFrameworkCore/issues/214)
 
 **Nové chování**
 
-Následující vlastnosti byly převedeny na rozšiřující metody:
+Následující vlastnosti byly převedeny na metody rozšíření:
 
 * `IEntityType.QueryFilter` -> `GetQueryFilter()`
 * `IEntityType.DefiningQuery` -> `GetDefiningQuery()`
@@ -1306,13 +1306,13 @@ Použijte nové metody rozšíření.
 
 <a name="provider"></a>
 
-### <a name="provider-specific-metadata-api-changes"></a>Změny rozhraní API pro konkrétního zprostředkovatele
+### <a name="provider-specific-metadata-api-changes"></a>Změny rozhraní METADAT SPECIFICKÉ Pro zprostředkovatele
 
-[Sledování problému #214](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+[Sledování #214 problému](https://github.com/aspnet/EntityFrameworkCore/issues/214)
 
 **Nové chování**
 
-Metody rozšíření specifické pro poskytovatele budou shrnuty:
+Metody rozšíření specifické pro zprostředkovatele budou srovnány se sloučí:
 
 * `IProperty.Relational().ColumnName` -> `IProperty.GetColumnName()`
 * `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.IsMemoryOptimized()`
@@ -1320,7 +1320,7 @@ Metody rozšíření specifické pro poskytovatele budou shrnuty:
 
 **Proč**
 
-Tato změna zjednodušuje implementaci výše uvedených rozšiřujících metod.
+Tato změna zjednodušuje implementaci výše uvedených metod rozšíření.
 
 **Omezení rizik**
 
@@ -1328,68 +1328,68 @@ Použijte nové metody rozšíření.
 
 <a name="pragma"></a>
 
-### <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core už neposílá direktivu pragma pro vynucení KOFK SQLite.
+### <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core již neodesílá pragma pro vynucení SQLite FK
 
-[Sledování problému #12151](https://github.com/aspnet/EntityFrameworkCore/issues/12151)
+[Sledování #12151 problému](https://github.com/aspnet/EntityFrameworkCore/issues/12151)
 
 **Staré chování**
 
-Před EF Core 3,0 by EF Core při otevření připojení k SQLite odeslal `PRAGMA foreign_keys = 1`.
+Před EF Core 3.0 EF `PRAGMA foreign_keys = 1` Core by odeslat při otevření připojení k SQLite.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 EF Core již neposílá `PRAGMA foreign_keys = 1` při otevření připojení k SQLite.
+Počínaje EF Core 3.0 EF Core `PRAGMA foreign_keys = 1` již odešle při otevření připojení k SQLite.
 
 **Proč**
 
-Tato změna byla provedena, protože ve výchozím nastavení používá EF Core `SQLitePCLRaw.bundle_e_sqlite3`, což zase znamená, že je ve výchozím nastavení zapnuté vynucení CK a není nutné je explicitně povolit při každém otevření připojení.
+Tato změna byla provedena, `SQLitePCLRaw.bundle_e_sqlite3` protože EF Core používá ve výchozím nastavení, což zase znamená, že vynucení FK je ve výchozím nastavení zapnuto a nemusí být explicitně povoleno při každém otevření připojení.
 
 **Omezení rizik**
 
-Cizí klíče jsou ve výchozím nastavení povolené v SQLitePCLRaw. bundle_e_sqlite3, která se ve výchozím nastavení používá pro EF Core.
-V ostatních případech je možné povolit cizí klíče zadáním `Foreign Keys=True` v připojovacím řetězci.
+Cizí klíče jsou ve výchozím nastavení povoleny v souboru SQLitePCLRaw.bundle_e_sqlite3, který se ve výchozím nastavení používá pro EF Core.
+V ostatních případech lze povolit `Foreign Keys=True` cizí klíče zadáním v připojovacím řetězci.
 
 <a name="sqlite3"></a>
 
-### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundle_e_sqlite3"></a>Microsoft. EntityFrameworkCore. sqlite teď závisí na SQLitePCLRaw. bundle_e_sqlite3
+### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundle_e_sqlite3"></a>Microsoft.EntityFrameworkCore.Sqlite nyní závisí na SQLitePCLRaw.bundle_e_sqlite3
 
 **Staré chování**
 
-Před EF Core 3,0 EF Core použito `SQLitePCLRaw.bundle_green`.
+Před EF Core 3.0 `SQLitePCLRaw.bundle_green`použil EF Core .
 
 **Nové chování**
 
-Počínaje EF Core 3,0 EF Core používá `SQLitePCLRaw.bundle_e_sqlite3`.
+Počínaje EF Core 3.0, `SQLitePCLRaw.bundle_e_sqlite3`EF Core používá .
 
 **Proč**
 
-Tato změna byla provedena tak, že verze SQLiteu použitá v iOS je konzistentní s jinými platformami.
+Tato změna byla provedena tak, aby verze SQLite používané v systému iOS v souladu s jinými platformami.
 
 **Omezení rizik**
 
-Pokud chcete použít nativní verzi SQLite v iOS, nakonfigurujte `Microsoft.Data.Sqlite` tak, aby používala jiný svazek `SQLitePCLRaw`.
+Chcete-li použít nativní verzi SQLite `Microsoft.Data.Sqlite` v systému iOS, nakonfigurujte použití jiného `SQLitePCLRaw` balíčku.
 
 <a name="guid"></a>
 
-### <a name="guid-values-are-now-stored-as-text-on-sqlite"></a>Hodnoty GUID se teď ukládají jako TEXT na SQLite.
+### <a name="guid-values-are-now-stored-as-text-on-sqlite"></a>Hodnoty guid jsou nyní uloženy jako TEXT na SQLite
 
-[Sledování problému #15078](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
+[Sledování #15078 problému](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
 
 **Staré chování**
 
-Hodnoty GUID byly dříve uloženy jako hodnoty objektů BLOB u SQLite.
+Guid hodnoty byly dříve uloženy jako hodnoty BLOB na SQLite.
 
 **Nové chování**
 
-Hodnoty GUID jsou nyní uloženy jako TEXT.
+Hodnoty guid jsou nyní uloženy jako TEXT.
 
 **Proč**
 
-Binární formát identifikátorů GUID není standardizovaný. Uložení hodnot jako textu zajistí, že databáze bude lépe kompatibilní s jinými technologiemi.
+Binární formát identifikátorů Guids není standardizován. Ukládání hodnot jako TEXT umožňuje databázi více kompatibilní s jinými technologiemi.
 
 **Omezení rizik**
 
-Existující databáze můžete migrovat do nového formátu tím, že spustíte příkaz SQL podobně jako následující.
+Existující databáze můžete migrovat do nového formátu spuštěním sql jako následující.
 
 ``` sql
 UPDATE MyTable
@@ -1406,7 +1406,7 @@ SET GuidColumn = hex(substr(GuidColumn, 4, 1)) ||
 WHERE typeof(GuidColumn) == 'blob';
 ```
 
-V EF Core můžete i nadále používat předchozí chování nakonfigurováním převaděče hodnot na těchto vlastnostech.
+V EF Core můžete také pokračovat v používání předchozí chování konfigurací převaděče hodnot na tyto vlastnosti.
 
 ``` csharp
 modelBuilder
@@ -1417,29 +1417,29 @@ modelBuilder
         b => new Guid(b));
 ```
 
-Microsoft. data. sqlite zůstává schopný přečítat hodnoty GUID z objektů BLOB a textových sloupců. vzhledem k tomu, že výchozí formát pro parametry a konstanty se změnil, bude pravděpodobně nutné provést akci u většiny scénářů, které zahrnují identifikátory GUID.
+Microsoft.Data.Sqlite zůstává schopen číst guid hodnoty z blob a TEXT sloupce; vzhledem k tomu, že výchozí formát parametrů a konstant se však změnil, budete pravděpodobně muset provést akci pro většinu scénářů zahrnujících identifikátory GUID.
 
 <a name="char"></a>
 
-### <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Hodnoty char se teď ukládají jako TEXT na SQLite.
+### <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Hodnoty Char jsou nyní uloženy jako TEXT na SQLite
 
-[Sledování problému #15020](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
+[Sledování #15020 problému](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
 
 **Staré chování**
 
-Hodnoty typu char byly dříve sored jako CELOČÍSELNé hodnoty u SQLite. Například hodnota znaku *a* byla uložena jako celočíselná hodnota 65.
+Char hodnoty byly dříve sored jako integer hodnoty na SQLite. Například hodnota char *A* byla uložena jako celá hodnota 65.
 
 **Nové chování**
 
-Hodnoty typu char jsou nyní uloženy jako TEXT.
+Hodnoty Char jsou nyní uloženy jako TEXT.
 
 **Proč**
 
-Ukládání hodnot jako TEXT je přirozenější a databáze usnadňuje kompatibilitu s jinými technologiemi.
+Ukládání hodnot jako TEXT je přirozenější a databáze je více kompatibilní s jinými technologiemi.
 
 **Omezení rizik**
 
-Existující databáze můžete migrovat do nového formátu tím, že spustíte příkaz SQL podobně jako následující.
+Existující databáze můžete migrovat do nového formátu spuštěním sql jako následující.
 
 ``` sql
 UPDATE MyTable
@@ -1447,7 +1447,7 @@ SET CharColumn = char(CharColumn)
 WHERE typeof(CharColumn) = 'integer';
 ```
 
-V EF Core můžete i nadále používat předchozí chování nakonfigurováním převaděče hodnot na těchto vlastnostech.
+V EF Core můžete také pokračovat v používání předchozí chování konfigurací převaděče hodnot na tyto vlastnosti.
 
 ``` csharp
 modelBuilder
@@ -1458,31 +1458,31 @@ modelBuilder
         i => (char)i);
 ```
 
-Microsoft. data. sqlite také zůstává schopný číst znakové hodnoty z CELOČÍSELNého i TEXTOVÉHO sloupce, takže některé scénáře nemusí vyžadovat žádnou akci.
+Microsoft.Data.Sqlite také zůstává schopen číst hodnoty znaků z obou INTEGER a TEXT sloupce, takže některé scénáře nemusí vyžadovat žádnou akci.
 
 <a name="migid"></a>
 
-### <a name="migration-ids-are-now-generated-using-the-invariant-cultures-calendar"></a>ID migrace se teď generují pomocí kalendáře invariantní jazykové verze.
+### <a name="migration-ids-are-now-generated-using-the-invariant-cultures-calendar"></a>ID migrace jsou nyní generovány pomocí kalendáře invariantní jazykové verze
 
-[Sledování problému #12978](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
+[Sledování #12978 problému](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
 
 **Staré chování**
 
-ID migrace se nechtěně vygenerovala pomocí kalendáře aktuální jazykové verze.
+ID migrace byly neúmyslně generovány pomocí kalendáře aktuální jazykové verze.
 
 **Nové chování**
 
-ID migrace se nyní vždy generují pomocí kalendáře neutrální jazykové verze (gregoriánský).
+ID migrace jsou nyní vždy generovány pomocí kalendáře invariantní jazykové verze (gregoriánský).
 
 **Proč**
 
-Pořadí migrace je důležité při aktualizaci databáze nebo řešení konfliktů při slučování. Pomocí invariantního kalendáře se vyhnete problémům s řazením, které mohou být výsledkem členů týmu jiné systémové kalendáře.
+Pořadí migrace je důležité při aktualizaci databáze nebo řešení konfliktů sloučení. Použití invariantní kalendář vyhýbá řazení problémy, které mohou vyplývat z členů týmu, které mají různé systémové kalendáře.
 
 **Omezení rizik**
 
-Tato změna má vliv na kohokoli, kdo používá negregoriánský kalendář, ve kterém je rok větší než gregoriánský kalendář (například thajský buddhistický kalendář). Existující identifikátory migrace se budou muset aktualizovat, aby se nové migrace objednaly po stávajících migracích.
+Tato změna ovlivní každého, kdo používá kalendář mimo gregoriánský, kde je rok větší než gregoriánský kalendář (například thajský buddhistický kalendář). Existující ID migrace bude nutné aktualizovat tak, aby nové migrace jsou seřazeny po existující migrace.
 
-ID migrace najdete v atributu migrace v souborech návrháře migrace.
+ID migrace lze nalézt v atributu Migrace v souborech návrháře migrace.
 
 ``` diff
  [DbContext(typeof(MyDbContext))]
@@ -1492,7 +1492,7 @@ ID migrace najdete v atributu migrace v souborech návrháře migrace.
  {
 ```
 
-Také je potřeba aktualizovat tabulku historie migrace.
+Tabulka historie migrace je také třeba aktualizovat.
 
 ``` sql
 UPDATE __EFMigrationsHistory
@@ -1501,63 +1501,63 @@ SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 
 
 <a name="urn"></a>
 
-### <a name="userownumberforpaging-has-been-removed"></a>UseRowNumberForPaging se odebral.
+### <a name="userownumberforpaging-has-been-removed"></a>UseRowNumberForPaging byl odebrán.
 
-[Sledování problému #16400](https://github.com/aspnet/EntityFrameworkCore/issues/16400)
+[Sledování #16400 problému](https://github.com/aspnet/EntityFrameworkCore/issues/16400)
 
 **Staré chování**
 
-Před EF Core 3,0 lze pomocí `UseRowNumberForPaging` vygenerovat SQL pro stránkování, které je kompatibilní s SQL Server 2008.
+Před EF Core 3.0, `UseRowNumberForPaging` lze použít ke generování SQL pro stránkování, který je kompatibilní s SQL Server 2008.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 bude EF generovat pouze SQL pro stránkování, které je kompatibilní pouze s novějšími verzemi SQL Server. 
+Počínaje EF Core 3.0 ef bude generovat pouze SQL pro stránkování, který je kompatibilní pouze s novějšími verzemi SERVERU SQL. 
 
 **Proč**
 
-Tuto změnu provedeme, protože [SQL Server 2008 už není podporovaným produktem](https://blogs.msdn.microsoft.com/sqlreleaseservices/end-of-mainstream-support-for-sql-server-2008-and-sql-server-2008-r2/) a aktualizace této funkce tak, aby fungovala se změnami dotazů provedenými v EF Core 3,0 je významná práce.
+Tuto změnu provádíme, protože [SQL Server 2008 již není podporovaným produktem](https://blogs.msdn.microsoft.com/sqlreleaseservices/end-of-mainstream-support-for-sql-server-2008-and-sql-server-2008-r2/) a aktualizace této funkce pro práci se změnami dotazu provedenými v EF Core 3.0 je významná práce.
 
 **Omezení rizik**
 
-Doporučujeme aktualizovat na novější verzi SQL Server nebo pomocí vyšší úrovně kompatibility, aby byl vygenerovaný SQL podporován. To znamená, že pokud to nemůžete udělat, [komentář k problému s sledováním](https://github.com/aspnet/EntityFrameworkCore/issues/16400) najdete v podrobnostech. Toto rozhodnutí můžeme znovu navštívit na základě zpětné vazby.
+Doporučujeme aktualizovat na novější verzi SERVERU SQL Nebo pomocí vyšší úrovně kompatibility, aby byl podporován generovaný SQL. Jak bylo řečeno, pokud to nemůžete udělat, pak prosím [komentujte problém se sledováním](https://github.com/aspnet/EntityFrameworkCore/issues/16400) s podrobnostmi. Toto rozhodnutí můžeme přehodnotit na základě zpětné vazby.
 
 <a name="xinfo"></a>
 
-### <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>Informace o rozšíření/metadata se odebraly z IDbContextOptionsExtension.
+### <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>Informace/metadata rozšíření byly odebrány z rozšíření IDbContextOptionsExtension.
 
-[Sledování problému #16119](https://github.com/aspnet/EntityFrameworkCore/issues/16119)
+[#16119 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/16119)
 
 **Staré chování**
 
-`IDbContextOptionsExtension` obsahovaly metody pro poskytování metadat o rozšíření.
+`IDbContextOptionsExtension`obsažené metody pro poskytování metadat o rozšíření.
 
 **Nové chování**
 
-Tyto metody byly přesunuty do nové `DbContextOptionsExtensionInfo` abstraktní základní třídy, která je vrácena z nové vlastnosti `IDbContextOptionsExtension.Info`.
+Tyto metody byly přesunuty `DbContextOptionsExtensionInfo` do nové abstraktní základní třídy, která je vrácena z nové `IDbContextOptionsExtension.Info` vlastnosti.
 
 **Proč**
 
-V rámci vydání od 2,0 do 3,0 jsme potřebovali přidat nebo změnit tyto metody několikrát.
-Rozbalením do nové abstraktní základní třídy bude snazší vytvořit tyto změny bez přerušení stávajících rozšíření.
+Během vydání od 2.0 do 3.0 jsme potřebovali přidat nebo změnit tyto metody několikrát.
+Jejich rozdělení do nové abstraktní základní třídy usnadní provádění těchto změn bez přerušení existujících rozšíření.
 
 **Omezení rizik**
 
-Aktualizovat rozšíření tak, aby následovala nový vzor.
-Příklady najdete v mnoha implementacích `IDbContextOptionsExtension` různých druhů rozšíření ve zdrojovém kódu EF Core.
+Aktualizujte rozšíření tak, aby sledovala nový vzor.
+Příklady jsou nalezeny v `IDbContextOptionsExtension` mnoha implementací pro různé druhy rozšíření ve zdrojovém kódu EF Core.
 
 <a name="lqpe"></a>
 
-### <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator se přejmenovalo.
+### <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator byl přejmenován.
 
-[Sledování problému #10985](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
+[Sledování #10985 problému](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
 
-**Mění**
+**Změnit**
 
-`RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` bylo přejmenováno na `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`.
+`RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator`byl přejmenován `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning`na .
 
 **Proč**
 
-Zarovná pojmenování této události varování se všemi ostatními událostmi upozornění.
+Zarovná pojmenování této události upozornění se všemi ostatními událostmi upozornění.
 
 **Omezení rizik**
 
@@ -1565,13 +1565,13 @@ Použijte nový název. (Všimněte si, že číslo ID události se nezměnilo.)
 
 <a name="clarify"></a>
 
-### <a name="clarify-api-for-foreign-key-constraint-names"></a>Vysvětlení rozhraní API pro názvy omezení cizího klíče
+### <a name="clarify-api-for-foreign-key-constraint-names"></a>Objasnit rozhraní API pro názvy omezení cizího klíče
 
-[Sledování problému #10730](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
+[Sledování #10730 problému](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
 
 **Staré chování**
 
-Před EF Core 3,0 se názvy omezení cizího klíče odkazovaly jenom na "název". Příklad:
+Před EF Core 3.0, názvy omezení cizího klíče byly označovány jako jednoduše "název". Příklad:
 
 ```csharp
 var constraintName = myForeignKey.Name;
@@ -1579,7 +1579,7 @@ var constraintName = myForeignKey.Name;
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se názvy omezení cizích klíčů teď označují jako "název omezení". Příklad:
+Počínaje EF Core 3.0, názvy omezení cizího klíče jsou nyní označovány jako "název omezení". Příklad:
 
 ```csharp
 var constraintName = myForeignKey.ConstraintName;
@@ -1587,7 +1587,7 @@ var constraintName = myForeignKey.ConstraintName;
 
 **Proč**
 
-Tato změna přináší konzistenci pro pojmenování v této oblasti a také vysvětluje, že se jedná o název omezení cizího klíče, a nikoli název sloupce nebo vlastnosti, ve kterém je definován cizí klíč.
+Tato změna přináší konzistenci pojmenování v této oblasti a také objasňuje, že se jedná o název omezení cizího klíče a nikoli název sloupce nebo vlastnosti, na který je cizí klíč definován.
 
 **Omezení rizik**
 
@@ -1595,21 +1595,21 @@ Použijte nový název.
 
 <a name="irdc2"></a>
 
-### <a name="irelationaldatabasecreatorhastableshastablesasync-have-been-made-public"></a>IRelationalDatabaseCreator. HasTables/HasTablesAsync byly zveřejněny.
+### <a name="irelationaldatabasecreatorhastableshastablesasync-have-been-made-public"></a>IRelationalDatabaseCreator.HasTables/HasTablesAsync byly zveřejněny
 
-[Sledování problému #15997](https://github.com/aspnet/EntityFrameworkCore/issues/15997)
+[Sledování #15997 problému](https://github.com/aspnet/EntityFrameworkCore/issues/15997)
 
 **Staré chování**
 
-Před EF Core 3,0 byly tyto metody chráněné.
+Před EF Core 3.0 byly tyto metody chráněny.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 jsou tyto metody veřejné.
+Počínaje EF Core 3.0 jsou tyto metody veřejné.
 
 **Proč**
 
-Tyto metody jsou používány EF k určení, jestli je databáze vytvořená, ale prázdná. To může být užitečné taky od vnějšího EF při určování, jestli se mají migrace použít.
+Tyto metody jsou používány EF k určení, pokud je databáze vytvořena, ale prázdné. To může být také užitečné z mimo EF při určování, zda použít migrace.
 
 **Omezení rizik**
 
@@ -1617,25 +1617,25 @@ Změňte přístupnost všech přepsání.
 
 <a name="dip"></a>
 
-### <a name="microsoftentityframeworkcoredesign-is-now-a-developmentdependency-package"></a>Microsoft. EntityFrameworkCore. Design je teď balíček DevelopmentDependency.
+### <a name="microsoftentityframeworkcoredesign-is-now-a-developmentdependency-package"></a>Microsoft.EntityFrameworkCore.Design je nyní balíček DevelopmentDependency
 
-[Sledování problému #11506](https://github.com/aspnet/EntityFrameworkCore/issues/11506)
+[Sledování #11506 problému](https://github.com/aspnet/EntityFrameworkCore/issues/11506)
 
 **Staré chování**
 
-Před EF Core 3,0 byl Microsoft. EntityFrameworkCore. Design regulárním balíčkem NuGet, na kterém by mohly být na sestavení odkazovány projekty, které na něm závisejí.
+Před EF Core 3.0, Microsoft.EntityFrameworkCore.Design byl pravidelný Balíček NuGet, jehož sestavení může být odkazováno projekty, které na něm závisely.
 
 **Nové chování**
 
-Počínaje EF Core 3,0 se jedná o balíček DevelopmentDependency. To znamená, že závislost nebude nijak přesměrovat do jiných projektů a že již ve výchozím nastavení nemůžete, aby odkazoval na jeho sestavení.
+Počínaje EF Core 3.0, je balíček DevelopmentDependency. To znamená, že závislost nebude toku přechodně do jiných projektů a že již nelze ve výchozím nastavení odkazovat na jeho sestavení.
 
 **Proč**
 
-Tento balíček se má použít jenom v době návrhu. Nasazené aplikace by neměli na ni odkazovat. Díky tomu, že balíček DevelopmentDependency, toto doporučení posiluje.
+Tento balíček je určen pouze k použití v době návrhu. Nasazené aplikace by na něj neměly odkazovat. Vytvoření balíčku DevelopmentDependency posiluje toto doporučení.
 
 **Omezení rizik**
 
-Pokud potřebujete odkazovat na tento balíček, aby bylo možné přepsat EF Core chování při návrhu, můžete aktualizovat metadata položky PackageReference v projektu.
+Pokud potřebujete odkazovat na tento balíček přepsat EF Core chování návrhu, pak můžete aktualizovat PackageReference metadata položky ve vašem projektu.
 
 ``` xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
@@ -1645,84 +1645,84 @@ Pokud potřebujete odkazovat na tento balíček, aby bylo možné přepsat EF Co
 </PackageReference>
 ```
 
-Pokud se na balíček odkazuje přes Microsoft. EntityFrameworkCore. Tools, budete muset do balíčku přidat explicitní PackageReference, aby se změnila jeho metadata. Takový explicitní odkaz musí být přidán do jakéhokoli projektu, kde jsou požadovány typy z balíčku.
+Pokud je balíček odkazován přechodně prostřednictvím Microsoft.EntityFrameworkCore.Tools, budete muset přidat explicitní PackageReference do balíčku změnit jeho metadata. Takový explicitní odkaz musí být přidán do každého projektu, kde jsou potřebné typy z balíčku.
 
 <a name="SQLitePCL"></a>
 
-### <a name="sqlitepclraw-updated-to-version-200"></a>SQLitePCL. Raw aktualizováno na verzi 2.0.0
+### <a name="sqlitepclraw-updated-to-version-200"></a>SQLitePCL.raw aktualizován na verzi 2.0.0
 
-[Sledování problému #14824](https://github.com/aspnet/EntityFrameworkCore/issues/14824)
+[Sledování #14824 problému](https://github.com/aspnet/EntityFrameworkCore/issues/14824)
 
 **Staré chování**
 
-Microsoft. EntityFrameworkCore. sqlite byl dřív závislý na 1.1.12 verze SQLitePCL. Raw.
+Microsoft.EntityFrameworkCore.Sqlite dříve závisel na verzi 1.1.12 SQLitePCL.raw.
 
 **Nové chování**
 
-Aktualizovali jsme náš balíček tak, aby byl závislý na verzi 2.0.0.
+Aktualizovali jsme náš balíček tak, aby závisel na verzi 2.0.0.
 
 **Proč**
 
-2\.0.0 verze SQLitePCL. Raw TARGETS .NET Standard 2,0. Dříve cílí na .NET Standard 1,1, které vyžadovaly, aby se při práci vytvořil velký uzávěr přenosných balíčků.
+Verze 2.0.0 cílů SQLitePCL.raw .NET Standard 2.0. Dříve se zaměřila na standard .NET Standard 1.1, který vyžadoval rozsáhlé uzavření přenositých balíčků.
 
 **Omezení rizik**
 
-SQLitePCL. Raw 2.0.0 verze obsahuje některé zásadní změny. Podrobnosti najdete v [poznámkách k verzi](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md) .
+SQLitePCL.raw verze 2.0.0 obsahuje některé změny. Podrobnosti najdete v [poznámkách k verzi.](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md)
 
 <a name="NetTopologySuite"></a>
 
-### <a name="nettopologysuite-updated-to-version-200"></a>NetTopologySuite aktualizace na verzi 2.0.0
+### <a name="nettopologysuite-updated-to-version-200"></a>NetTopologySuite aktualizován na verzi 2.0.0
 
-[Sledování problému #14825](https://github.com/aspnet/EntityFrameworkCore/issues/14825)
+[Sledování #14825 problému](https://github.com/aspnet/EntityFrameworkCore/issues/14825)
 
 **Staré chování**
 
-Prostorové balíčky byly dříve závislé na 1.15.1 verze NetTopologySuite.
+Prostorové balíčky dříve závisely na verzi 1.15.1 NetTopologySuite.
 
 **Nové chování**
 
-Náš balíček jsme aktualizovali tak, aby byl závislý na verzi 2.0.0.
+Aktualizovali jsme náš balíček tak, aby závisel na verzi 2.0.0.
 
 **Proč**
 
-2\.0.0 verze NetTopologySuite má za cíl řešit několik problémů s použitelností, ke kterým se EF Core uživatelé setkali.
+Verze 2.0.0 NetTopologySuite si klade za cíl řešit několik problémů použitelnosti, s nimiž se setkávají uživatelé EF Core.
 
 **Omezení rizik**
 
-NetTopologySuite verze 2.0.0 obsahuje některé průlomové změny. Podrobnosti najdete v [poznámkách k verzi](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001) .
+NetTopologySuite verze 2.0.0 obsahuje některé změny. Podrobnosti najdete v [poznámkách k verzi.](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001)
 
 <a name="SqlClient"></a>
 
-### <a name="microsoftdatasqlclient-is-used-instead-of-systemdatasqlclient"></a>Místo typu System. data. SqlClient se používá Microsoft. data. SqlClient.
+### <a name="microsoftdatasqlclient-is-used-instead-of-systemdatasqlclient"></a>Místo klienta System.Data.SqlClient se používá místo klienta System.Data.SqlClient
 
-[Sledování problému #15636](https://github.com/aspnet/EntityFrameworkCore/issues/15636)
+[Sledování #15636 problému](https://github.com/aspnet/EntityFrameworkCore/issues/15636)
 
 **Staré chování**
 
-Microsoft. EntityFrameworkCore. SqlServer byl dřív závislý na System. data. SqlClient.
+Microsoft.EntityFrameworkCore.SqlServer dříve závisel na systému.Data.SqlClient.
 
 **Nové chování**
 
-Balíček jsme aktualizovali tak, aby byl závislý na Microsoft. data. SqlClient.
+Aktualizovali jsme náš balíček tak, aby závisel na microsoft.Data.SqlClient.
 
 **Proč**
 
-Microsoft. data. SqlClient je nejdůležitější ovladač pro přístup k datům, který je k dispozici pro SQL Server a System. data. SqlClient již není zaměřuje na vývoj.
-Některé důležité funkce, například Always Encrypted, jsou k dispozici pouze v Microsoft. data. SqlClient.
+Microsoft.Data.SqlClient je vlajkovou lodí ovladač přístupu k datům pro SQL Server do budoucna a System.Data.SqlClient již není středem vývoje.
+Některé důležité funkce, například Vždy šifrované, jsou k dispozici pouze na Microsoft.Data.SqlClient.
 
 **Omezení rizik**
 
-Pokud váš kód používá přímou závislost na System. data. SqlClient, musíte ho změnit tak, aby odkazoval na Microsoft. data. SqlClient místo toho. vzhledem k tomu, že oba balíčky udržují velmi vysoký stupeň kompatibility rozhraní API, mělo by to být jenom jednoduchý balíček a Změna oboru názvů.
+Pokud váš kód přebírá přímou závislost na System.Data.SqlClient, musíte jej změnit tak, aby odkazoval microsoft.Data.SqlClient místo; jako dva balíčky udržovat velmi vysoký stupeň kompatibility rozhraní API, by to mělo být pouze jednoduchý balíček a změna oboru názvů.
 
 <a name="mersa"></a>
 
-### <a name="multiple-ambiguous-self-referencing-relationships-must-be-configured"></a>Je nutné nakonfigurovat více dvojznačných relací odkazujících na sebe. 
+### <a name="multiple-ambiguous-self-referencing-relationships-must-be-configured"></a>Musí být nakonfigurováno více nejednoznačných vztahů, které samy odkazují na sebe. 
 
-[Sledování problému #13573](https://github.com/aspnet/EntityFrameworkCore/issues/13573)
+[#13573 problému sledování](https://github.com/aspnet/EntityFrameworkCore/issues/13573)
 
 **Staré chování**
 
-Typ entity s více jednosměrnou navigační vlastností a s vyhovující FKs byl nesprávně nakonfigurován jako jeden vztah. Příklad:
+Typ entity s více samoodkazujícími jednosměrnými navigačními vlastnostmi a odpovídajícími jednotkami FK byl nesprávně nakonfigurován jako jeden vztah. Příklad:
 
 ```csharp
 public class User 
@@ -1737,11 +1737,11 @@ public class User
 
 **Nové chování**
 
-Tento scénář je nyní zjištěn v sestavování modelu a je vyvolána výjimka označující, že je model dvojznačný.
+Tento scénář je nyní zjištěna v budově modelu a je vyvolána výjimka označující, že model je nejednoznačný.
 
 **Proč**
 
-Výsledný model byl nejednoznačný a pravděpodobně bude pro tento případ obvykle špatný.
+Výsledný model byl nejednoznačný a bude pravděpodobně obvykle špatné pro tento případ.
 
 **Omezení rizik**
 
@@ -1760,13 +1760,13 @@ modelBuilder
 ```
 
 <a name="udf-empty-string"></a>
-### <a name="dbfunctionschema-being-null-or-empty-string-configures-it-to-be-in-models-default-schema"></a>DbFunction. Schema má hodnotu null nebo je prázdný řetězec, který nakonfiguruje, aby byl ve výchozím schématu modelu.
+### <a name="dbfunctionschema-being-null-or-empty-string-configures-it-to-be-in-models-default-schema"></a>DbFunction.Schema je null nebo prázdný řetězec nakonfiguruje, aby byl ve výchozím schématu modelu
 
-[Sledování problému #12757](https://github.com/aspnet/EntityFrameworkCore/issues/12757)
+[Sledování #12757 problému](https://github.com/aspnet/EntityFrameworkCore/issues/12757)
 
 **Staré chování**
 
-DbFunction nakonfigurovaný se schématem jako prázdný řetězec byl považován za vestavěnou funkci bez schématu. Například následující kód bude mapován `DatePart` funkci CLR na `DATEPART` vestavěnou funkci na SqlServer.
+Funkce DbFunction nakonfigurovaná se schématem jako prázdný řetězec byla považována za vestavěnou funkci bez schématu. Například následující kód `DatePart` namapuje `DATEPART` funkci CLR na vestavěnou funkci na serveru SqlServer.
 
 ```csharp
 [DbFunction("DATEPART", Schema = "")]
@@ -1776,15 +1776,15 @@ public static int? DatePart(string datePartArg, DateTime? date) => throw new Exc
 
 **Nové chování**
 
-Všechna mapování DbFunction se považují za namapovaná na uživatelsky definované funkce. Proto je prázdná hodnota řetězce vložena do výchozího schématu pro model. To může být schéma, které je explicitně nakonfigurované prostřednictvím rozhraní Fluent API `modelBuilder.HasDefaultSchema()` nebo `dbo` jinak.
+Všechna mapování funkce DbFunction jsou považována za mapovaná na uživatelem definované funkce. Proto prázdná hodnota řetězce by umístit funkci uvnitř výchozí schéma pro model. Což by mohlo být schéma nakonfigurované explicitně prostřednictvím fluent API `modelBuilder.HasDefaultSchema()` nebo `dbo` jinak.
 
 **Proč**
 
-Dříve prázdné schéma bylo způsobem, jak se zacházet s touto funkcí, ale tato funkce je k dispozici pouze pro SqlServer, kde předdefinované funkce nepatří do žádného schématu.
+Dříve schéma prázdné byl způsob, jak zacházet s funkcí je vestavěný, ale tato logika je použitelná pouze pro SqlServer, kde vestavěné funkce nepatří do žádné schéma.
 
 **Omezení rizik**
 
-Nakonfigurujte převod DbFunction ručně, abyste ho namapovali na vestavěnou funkci.
+Nakonfigurujte překlad dbfunction ručně, abyste jej namapovali na vestavěnou funkci.
 
 ```csharp
 modelBuilder

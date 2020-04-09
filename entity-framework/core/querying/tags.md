@@ -1,23 +1,23 @@
 ---
-title: Značky dotazů – EF Core
+title: Značky dotazů – ef jádro
 author: divega
 ms.date: 11/14/2018
 ms.assetid: 73C7A627-C8E9-452D-9CD5-AFCC8FEFE395
 uid: core/querying/tags
 ms.openlocfilehash: e8415b237df45ce652dcd152013f4f12a992aed7
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417888"
 ---
-# <a name="query-tags"></a>Značky dotazů
+# <a name="query-tags"></a>Značky dotazu
 
 > [!NOTE]
-> Tato funkce je v EF Core 2,2 novinkou.
+> Tato funkce je v EF Core 2.2 nová.
 
-Tato funkce pomáhá korelovat dotazy LINQ v kódu s generovanými dotazy SQL zaznamenanými v protokolech.
-Dotaz LINQ můžete opatřit pomocí nové metody `TagWith()`:
+Tato funkce pomáhá korelovat linq dotazy v kódu s generovanými dotazy SQL zachycenými v protokolech.
+Dotaz LINQ oslníte pomocí `TagWith()` nové metody:
 
 ``` csharp
   var nearestFriends =
@@ -56,7 +56,7 @@ Následující dotaz:
 var results = Limit(GetNearestFriends(myLocation), 25).ToList();
 ```
 
-Překládá se na:
+Překládá na:
 
 ``` sql
 -- GetNearestFriends
@@ -77,7 +77,7 @@ var results = Limit(GetNearestFriends(myLocation), 25).TagWith(
 string").ToList();
 ```
 
-Vytvoří následující SQL:
+Vytváří následující SQL:
 
 ``` sql
 -- GetNearestFriends
@@ -94,5 +94,5 @@ ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 
 ## <a name="known-limitations"></a>Známá omezení
 
-**Značky dotazu nejsou parametrizovat:** EF Core vždy zpracovává značky dotazů v dotazu LINQ jako řetězcové literály, které jsou zahrnuty ve vygenerovaném jazyce SQL.
-Zkompilované dotazy, které přijímají značky dotazu jako parametry nejsou povoleny.
+**Značky dotazu nelze parametrizovat:** EF Core vždy považuje značky dotazu v linq dotazu jako řetězcové literály, které jsou zahrnuty v generované SQL.
+Zkompilované dotazy, které berou značky dotazu jako parametry nejsou povoleny.

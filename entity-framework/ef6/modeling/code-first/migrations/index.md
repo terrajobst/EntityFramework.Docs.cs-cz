@@ -1,33 +1,33 @@
 ---
-title: Migrace Code First – EF6
+title: Migrace prvního kódu – EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
 ms.openlocfilehash: e5a91af73bab9d45b0f1f4242ce503c6b6f407f6
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78418962"
 ---
-# <a name="code-first-migrations"></a>Migrace Code First
-Migrace Code First je doporučený způsob, jak vyvíjet schéma databáze vaší aplikace, pokud používáte pracovní postup Code First. Migrace poskytují sadu nástrojů, které umožňují:
+# <a name="code-first-migrations"></a>První migrace kódu
+Migrace code first je doporučený způsob, jak vyvíjet schéma databáze vaší aplikace, pokud používáte pracovní postup Code First. Migrace poskytují sadu nástrojů, které umožňují:
 
-1. Vytvoření počáteční databáze, která funguje s vaším modelem EF
+1. Vytvoření počáteční databáze, která funguje s modelem EF
 2. Generování migrace pro sledování změn, které provedete v modelu EF
-2. Udržujte databázi v aktuálním stavu pomocí těchto změn
+2. Udržujte databázi aktuální s těmito změnami
 
-Následující návod vám poskytne přehled Migrace Code First v Entity Framework. Můžete buď dokončit celý návod, nebo přeskočit k tématu, které vás zajímá. Jsou pokryta následující témata:
+Následující návod bude poskytovat přehled migrace code first v rámci entity. Můžete buď dokončit celý návod, nebo přeskočit na téma, které vás zajímá. Jsou popsána následující témata:
 
-## <a name="building-an-initial-model--database"></a>Vytvoření počátečního & databáze modelu
+## <a name="building-an-initial-model--database"></a>Vytváření počátečního modelu & databáze
 
-Než začneme používat migrace, potřebujeme projekt a model Code First, se kterým pracujete. V tomto návodu budeme používat kanonický **blog** a model **post** .
+Než začneme používat migrace, potřebujeme projekt a model Code First pro práci s. Pro tento návod budeme používat kanonický **blog** a **post** model.
 
--   Vytvořit novou konzolovou aplikaci **MigrationsDemo**
--   Přidejte do projektu nejnovější verzi balíčku NuGet **EntityFramework** .
-    -   **Nástroje –&gt; správce balíčků knihovny –&gt; konzolu Správce balíčků**
+-   Vytvoření nové aplikace **MigrationsDemo** Console
+-   Přidání nejnovější verze balíčku **EntityFramework** NuGet do projektu
+    -   **Nástroje&gt; – Správce&gt; balíčků knihovny – konzola Správce balíčků**
     -   Spuštění příkazu **Install-Package EntityFramework**
--   Přidejte soubor **model.cs** s kódem zobrazeným níže. Tento kód definuje jednu třídu **blogu** , která poskytuje náš doménový model a třídu **BlogContext** , která je náš Code First kontextem EF.
+-   Přidejte **soubor Model.cs** s níže uvedeným kódem. Tento kód definuje jednu třídu **Blog,** která tvoří náš model domény a třídu **BlogContext,** která je naším kontextem EF Code First
 
   ``` csharp
       using System.Data.Entity;
@@ -50,7 +50,7 @@ Než začneme používat migrace, potřebujeme projekt a model Code First, se kt
       }
   ```
 
--   Teď, když máme model, je čas ho použít k provedení přístupu k datům. Aktualizujte soubor **program.cs** pomocí kódu uvedeného níže.
+-   Teď, když máme model, je čas ho použít k provedení přístupu k datům. Aktualizujte soubor **Program.cs** s níže uvedeným kódem.
 
   ``` csharp
       using System;
@@ -82,50 +82,50 @@ Než začneme používat migrace, potřebujeme projekt a model Code First, se kt
       }
   ```
 
--   Spusťte aplikaci a zobrazí se vám pro vás vytvořená databáze **MigrationsCodeDemo. BlogContext** .
+-   Spusťte aplikaci a uvidíte, že **MigrationsCodeDemo.BlogContext** databáze je vytvořena pro vás.
 
-    ![LocalDB databáze](~/ef6/media/databaselocaldb.png)
+    ![Databáze LocalDB](~/ef6/media/databaselocaldb.png)
 
-## <a name="enabling-migrations"></a>Povolování migrací
+## <a name="enabling-migrations"></a>Povolení migrace
 
-Je čas udělat další změny v našem modelu.
+Je čas udělat nějaké další změny v našem modelu.
 
--   Pojďme do třídy blogu přivést vlastnost URL.
+-   Pojďme představit url vlastnost blog třídy.
 
 ``` csharp
     public string Url { get; set; }
 ```
 
-Pokud byste chtěli aplikaci znovu spustit, měli byste obdržet zprávu, že došlo ke *změně modelu zálohování kontextu ' BlogContext ', protože databáze byla vytvořena. Pokud chcete aktualizovat databázi (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *)* , zvažte použití migrace Code First.
+Pokud byste měli spustit aplikaci znovu byste získat InvalidOperationException oznamující *model podporující kontext 'BlogContext' kontext se změnil od vytvoření databáze. Zvažte použití migrace code first k aktualizaci databáze (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269) *).*
 
-Vzhledem k tomu, že výjimka navrhuje, je čas začít používat Migrace Code First. Prvním krokem je povolit migrace pro náš kontext.
+Jak naznačuje výjimka, je čas začít používat migrace Code First. Prvním krokem je umožnit migraci pro náš kontext.
 
--   Spuštění příkazu **Povolit – migrace** v konzole správce balíčků
+-   Spuštění příkazu **Enable-Migrations** v konzole Správce balíčků
 
-    Tento příkaz přidal do našeho projektu složku **migrace** . Tato nová složka obsahuje dva soubory:
+    Tento příkaz přidal do našeho projektu složku **Migrace.** Tato nová složka obsahuje dva soubory:
 
--   **Třída Configuration** Tato třída umožňuje nakonfigurovat, jak se budou migrace chovat pro váš kontext. V tomto návodu použijeme jenom výchozí konfiguraci.
-    *Vzhledem k tomu, že v projektu existuje jen jeden Code First kontext, Enable – migrace se automaticky vyplní v kontextu typu, pro který je tato konfigurace platná.*
--   **Migrace InitialCreate** Tato migrace se vygenerovala, protože už jsme Code First vytvořit databázi pro nás, než jsme povolili migrace. Kód v této vygenerované migraci představuje objekty, které již byly vytvořeny v databázi. V našem případě je to tabulka **blogu** se sloupci **BlogId** a **Name** . Název souboru obsahuje časové razítko, které vám pomůžou s řazením.
-    *Pokud databáze ještě není vytvořená, migrace InitialCreate by se do projektu nepřidala. Místo toho se při prvním volání metody přidání migrace kód pro vytvoření těchto tabulek vytvoří při nové migraci na základě uživatelského rozhraní.*
+-   **Configuration třídy.** Tato třída umožňuje nakonfigurovat, jak se migrace chová pro váš kontext. Pro tento návod použijeme pouze výchozí konfiguraci.
+    *Vzhledem k tomu, že je pouze jeden kontext Code First v projektu, Enable-Migrations automaticky vyplnil v typu kontextu této konfigurace se vztahuje.*
+-   **Počáteční Vytvoření migrace**. Tato migrace byla vygenerována, protože jsme již měli Code First vytvořit databázi pro nás, než jsme povolili migrace. Kód v této šástavlo migrace představuje objekty, které již byly vytvořeny v databázi. V našem případě je tabulka **Blog** se **sloupci BlogId** a **Name.** Název souboru obsahuje časové razítko, které vám pomůže s řazením.
+    *Pokud databáze nebyla již vytvořena tato migrace InitialCreate by nebyly přidány do projektu. Místo toho při prvním volání Add-Migration kód k vytvoření těchto tabulek by být šetrné k vytvoření nové migrace.*
 
-### <a name="multiple-models-targeting-the-same-database"></a>Několik modelů cílících na stejnou databázi
+### <a name="multiple-models-targeting-the-same-database"></a>Více modelů zaměřených na stejnou databázi
 
-Při používání verzí starších než EF6 může být pro generování a správu schématu databáze použit pouze jeden model Code First. Jedná se o výsledek jednoho **\_\_tabulce MigrationsHistory** na databázi bez možnosti určit, které položky patří do daného modelu.
+Při použití verze před EF6 pouze jeden model Code First lze použít ke generování nebo správě schématu databáze. Toto je výsledek jedné ** \_ \_MigrationsHistory** tabulka na databázi s žádný způsob, jak zjistit, které položky patří do které modelu.
 
-Počínaje EF6 třída **Configuration** zahrnuje vlastnost **ContextKey** . To funguje jako jedinečný identifikátor pro každý model Code First. Odpovídající sloupec v tabulce **\_\_MigrationsHistory** umožňuje položkám z více modelů sdílet tabulku. Ve výchozím nastavení je tato vlastnost nastavena na plně kvalifikovaný název vašeho kontextu.
+Počínaje EF6, **Configuration** třída obsahuje **ContextKey** vlastnost. To funguje jako jedinečný identifikátor pro každý model Code First. Odpovídající sloupec v ** \_ \_tabulce MigrationsHistory** umožňuje položkám z více modelů sdílet tabulku. Ve výchozím nastavení je tato vlastnost nastavena na plně kvalifikovaný název kontextu.
 
-## <a name="generating--running-migrations"></a>Generují se & spouští migrace.
+## <a name="generating--running-migrations"></a>Generování & běžícímigrace
 
 Migrace Code First má dva primární příkazy, se kterými se seznámíte.
 
--   **Přidání – při migraci** dojde k další migraci vygenerované na základě změn, které jste provedli v modelu od vytvoření poslední migrace.
--   **Aktualizace – databáze** bude používat všechny nedokončené migrace do databáze.
+-   **Přidání migrace** bude zasévat další migraci na základě změn, které jste provedli v modelu od vytvoření poslední migrace
+-   **Update-Database** použije všechny čekající migrace do databáze
 
-Abychom se postaral o novou vlastnost URL, kterou jsme přidali, potřebujeme vytvořit nové uživatelské rozhraní. Příkaz **Add-Migration** nám umožňuje dát těmto migracim název, Pojďme ale volat náš **AddBlogUrl**.
+Musíme vytvořit uživatelské zařízení pro migraci, abychom se postarali o novou vlastnost URL, kterou jsme přidali. **Příkaz Přidat-migrace** nám umožňuje dát tyto migrace název, pojďme jen volat naše **AddBlogUrl**.
 
--   Spuštění příkazu **Add-Migration AddBlogUrl** v konzole správce balíčků
--   Ve složce **migrace** teď máme novou migraci **AddBlogUrl** . Název souboru migrace je předem vyřešen s časovým razítkem, které vám pomůžou s řazením.
+-   Spuštění příkazu **Add-Migration AddBlogUrl** v konzole Správce balíčků
+-   Ve složce **Migrace** máme nyní novou migraci **AddBlogUrl.** Název migračního souboru je předem opraven časovým razítkem, které vám pomůže s řazením
 
 ``` csharp
     namespace MigrationsDemo.Migrations
@@ -148,24 +148,24 @@ Abychom se postaral o novou vlastnost URL, kterou jsme přidali, potřebujeme vy
     }
 ```
 
-Tuto migraci teď můžeme upravit nebo přidat, ale vše vypadá poměrně dobré. Pojďme použít tuto migraci do databáze pomocí **Update-Database** .
+Nyní bychom mohli upravit nebo přidat k této migraci, ale všechno vypadá docela dobře. Pojďme použít **Update-Database** použít tuto migraci do databáze.
 
--   Spuštění příkazu **Update-Database** v konzole správce balíčků
--   Migrace Code First porovná migrace v našich složkách **migrace** s těmi, které byly použity pro databázi. Uvidí, že je potřeba použít migraci **AddBlogUrl** a spustit ji.
+-   Spuštění příkazu **Aktualizovat databázi** v konzole Správce balíčků
+-   Migrace Code First porovná migrace ve složce **Migrace** s těmi, které byly použity v databázi. Uvidí, že migrace **AddBlogUrl** musí být použita a spustit.
 
-Databáze **MigrationsDemo. BlogContext** se teď aktualizovala tak, aby obsahovala sloupec **URL** v tabulce **Blogy** .
+Databáze **MigrationsDemo.BlogContext** je nyní aktualizována tak, aby zahrnovala sloupec **URL** v tabulce **Blogy.**
 
-## <a name="customizing-migrations"></a>Přizpůsobení migrací
+## <a name="customizing-migrations"></a>Přizpůsobení migrace
 
-Zatím jsme vygenerovali a spustili migraci bez provedení změn. Teď se podíváme na úpravu kódu, který se vygeneruje ve výchozím nastavení.
+Zatím jsme vygenerovali a spouštěli migraci bez jakýchkoli změn. Nyní se podívejme na úpravy kódu, který se generuje ve výchozím nastavení.
 
--   Je čas udělat další změny v našem modelu. Pojďme do třídy **blogu** přidat novou vlastnost **hodnocení** .
+-   Je čas provést další změny v našem modelu, přidáme novou vlastnost **Hodnocení** do třídy **Blog**
 
 ``` csharp
     public int Rating { get; set; }
 ```
 
--   Pojďme také přidat novou třídu **post**
+-   Přidáme také novou třídu **Post**
 
 ``` csharp
     public class Post
@@ -180,21 +180,21 @@ Zatím jsme vygenerovali a spustili migraci bez provedení změn. Teď se podív
     }
 ```
 
--   Do třídy **blog** přidáme také kolekci **příspěvky** , která bude tvořit druhý konec relace mezi **blogem** a **příspěvkem** .
+-   Přidáme také **kolekci Příspěvky** do třídy **Blog,** abychom vytvořili druhý konec vztahu mezi **blogem** a **příspěvkem**
 
 ``` csharp
     public virtual List<Post> Posts { get; set; }
 ```
 
-K umožnění Migrace Code Firstho uživatelského rozhraní využijeme k dispozici nejlepší odhad na migraci pro nás pomocí příkazu **Add-Migration** . Budeme volat tuto **AddPostClass**migrace.
+Použijeme příkaz **Přidat-migrace,** abychom nechali code first migrations zakódovat svůj nejlepší odhad migrace pro nás. Budeme volat tuto migraci **AddPostClass**.
 
--   Spusťte příkaz **Add-Migration AddPostClass** v konzole správce balíčků.
+-   Spusťte příkaz **Add-Migration AddPostClass** v konzole Správce balíčků.
 
-Migrace Code First pro tyto změny bylo poměrně dobré úlohy, ale můžete chtít změnit několik věcí:
+Code First Migrations odvedli docela dobrou práci při lešení těchto změn, ale existují některé věci, které bychom mohli chtít změnit:
 
-1.  Nejprve přidáme jedinečný index do **příspěvku. sloupec title** (přidávání na řádku 22 & 29 v kódu níže).
-2.  Také přidáváme do tohoto sloupce **hodnocení** , které neumožňují hodnotu null. Pokud v tabulce existují nějaká existující data, zobrazí se jim výchozí hodnota CLR datového typu pro nový sloupec (hodnocení je celé číslo, takže by to bylo **0**). Ale chceme zadat výchozí hodnotu **3** , aby se stávající řádky v tabulce **Blogy** spouštěly se hodnocením dát.
-    (Můžete zobrazit výchozí hodnotu zadanou na řádku 24 v kódu níže)
+1.  Nejprve přidáme do sloupce **Posts.Title** jedinečný index (Přidání do řádku 22 & 29 v níže uvedeném kódu).
+2.  Přidáváme také sloupec **Blogs,** který neuplatní její platnost. Pokud jsou v tabulce nějaká existující data, bude mu přiřazeno výchozí nastavení CLR datového typu pro nový sloupec (Hodnocení je celé číslo, takže by to bylo **0).** Chceme však určit výchozí hodnotu **3,** aby stávající řádky v tabulce **Blogy začaly** se slušným hodnocením.
+    (Výchozí hodnotu zadanou na řádku 24 níže uvedeného kódu)
 
 ``` csharp
     namespace MigrationsDemo.Migrations
@@ -235,25 +235,25 @@ Migrace Code First pro tyto změny bylo poměrně dobré úlohy, ale můžete ch
     }
 ```
 
-Naše upravená migrace je připravená k tomu, takže pomocí **Update-Database** přineseme databázi do aktuálního stavu. Tentokrát je nutné zadat příznak **– verbose** , abyste viděli SQL, na kterém je spuštěný migrace Code First.
+Naše upravená migrace je připravena k přechodu, proto pomocí **aktualizace databáze** aktualizujte databázi. Tentokrát pojďme zadat **–Verbose** příznak tak, aby můžete vidět SQL, které je spuštěna migrace code first.
 
--   Spusťte příkaz **Update-Database – verbose** v konzole správce balíčků.
+-   Spusťte příkaz **Update-Database –Verbose** v konzole Správce balíčků.
 
-## <a name="data-motion--custom-sql"></a>Pohyb dat/vlastní SQL
+## <a name="data-motion--custom-sql"></a>Pohyb dat / Vlastní SQL
 
-Zatím jsme si prohlédli operace migrace, které nemění ani nepřesouvá žádná data, teď se podíváme na něco, co potřebuje přesunout některá data. Ještě není k dispozici žádná nativní podpora pro pohyb dat, ale v jakémkoli okamžiku v našem skriptu můžeme spustit libovolné příkazy SQL.
+Zatím jsme se podívali na migrační operace, které nemění ani nepřesouvají žádná data, nyní se podívejme na něco, co potřebuje přesunout některá data. Neexistuje žádná nativní podpora pro pohyb dat ještě, ale můžeme spustit některé libovolné příkazy SQL v libovolném bodě v našem skriptu.
 
--   Pojďme do našeho modelu přidat vlastnost **post. Abstract** . Později teď vyplníme **abstrakci** pro existující příspěvky pomocí textu, který se nachází na začátku sloupce **Content (obsah** ).
+-   Pojďme přidat **Post.Abstract** vlastnost našeho modelu. Později budeme předem vyplnit **Abstrakt** pro existující příspěvky pomocí nějakého textu od začátku sloupce **Obsah.**
 
 ``` csharp
     public string Abstract { get; set; }
 ```
 
-K umožnění Migrace Code Firstho uživatelského rozhraní využijeme k dispozici nejlepší odhad na migraci pro nás pomocí příkazu **Add-Migration** .
+Použijeme příkaz **Přidat-migrace,** abychom nechali code first migrations zakódovat svůj nejlepší odhad migrace pro nás.
 
--   Spusťte příkaz **Add-Migration AddPostAbstract** v konzole správce balíčků.
--   Vygenerovaná migrace se stará o změny schématu, ale chceme také předem naplnit **abstraktní** sloupec s použitím prvních 100 znaků obsahu pro každý příspěvek. To můžeme udělat vyřazením dolů na SQL a spuštěním příkazu **Update** po přidání sloupce.
-    (Přidání na řádku 12 v kódu níže)
+-   Spusťte příkaz **Add-Migration Add-Migration AddPostAbstract** v konzole Správce balíčků.
+-   Vygenerovaná migrace se postará o změny schématu, ale chceme také předem vyplnit sloupec **Abstract** pomocí prvních 100 znaků obsahu pro každý příspěvek. Můžeme to udělat tím, že klesne na SQL a spuštění **příkazu UPDATE** po přidání sloupce.
+    (Přidání do řádku 12 v níže uvedeném kódu)
 
 ``` csharp
     namespace MigrationsDemo.Migrations
@@ -278,43 +278,43 @@ K umožnění Migrace Code Firstho uživatelského rozhraní využijeme k dispoz
     }
 ```
 
-Naše upravená migrace je dobrá, takže použijeme **příkaz Update-Database** , aby se databáze aktualizovala v aktuálním stavu. Určíme příznak **– verbose** , aby bylo možné vidět, že je SQL spuštěný proti databázi.
+Naše upravená migrace vypadá dobře, proto použijte **update-database** k aktualizaci databáze aktuální. Zadáme příznak **–Verbose,** abychom viděli, že sql je spuštěna proti databázi.
 
--   Spusťte příkaz **Update-Database – verbose** v konzole správce balíčků.
+-   Spusťte příkaz **Update-Database –Verbose** v konzole Správce balíčků.
 
-## <a name="migrate-to-a-specific-version-including-downgrade"></a>Migrace na konkrétní verzi (včetně downgradu)
+## <a name="migrate-to-a-specific-version-including-downgrade"></a>Migrace na konkrétní verzi (včetně přechodu na nižší verzi)
 
-Zatím jsme se vždycky upgradovali na nejnovější migraci, ale může nastat situace, kdy budete chtít upgradovat nebo downgradovat na konkrétní migraci.
+Zatím jsme vždy upgradovali na nejnovější migraci, ale mohou nastaly časy, kdy chcete upgradovat / downgrade na konkrétní migraci.
 
-Řekněme, že chceme migrovat naši databázi do stavu, ve kterém byl po spuštění naší migrace **AddBlogUrl** . Pro přechod na tuto migraci můžeme použít přepínač **– TargetMigration** .
+Řekněme, že chceme migrovat naši databázi do stavu, ve kterém byla po spuštění migrace **AddBlogUrl.** Můžeme použít **-TargetMigration** přepínač downgrade na tuto migraci.
 
--   Spusťte příkaz **Update-Database – TargetMigration: AddBlogUrl** v konzole správce balíčků.
+-   Spusťte příkaz **Update-Database –TargetMigration: AddBlogUrl** v konzole Správce balíčků.
 
-Tento příkaz spustí skript pro migrace našich **AddBlogAbstract** a **AddPostClass** .
+Tento příkaz spustí skript Dolů pro naše migrace **AddBlogAbstract** a **AddPostClass.**
 
-Pokud chcete vrátit všechny možnosti zpátky do prázdné databáze, můžete použít příkaz **Update-Database – TargetMigration: $InitialDatabase** .
+Pokud chcete vrátit celou cestu zpět do prázdné databáze pak můžete použít **Update-Database -TargetMigration: $InitialDatabase** příkaz.
 
 ## <a name="getting-a-sql-script"></a>Získání skriptu SQL
 
-Pokud jiný vývojář tuto změnu na svém počítači přeje, může se po kontrole změn do správy zdrojových kódů synchronizovat jenom jednou. Jakmile naši nové migrace dostanou, stačí spustit příkaz Update-Database, aby se změny používaly lokálně. Pokud ale chceme tyto změny nabízet na testovacím serveru a nakonec v produkčním prostředí, nejspíš chceme, aby se skript SQL, který můžeme předat našímu DBA.
+Pokud jiný vývojář chce tyto změny na svém počítači, které můžete synchronizovat, jakmile zkontrolujeme naše změny do správy zdrojového kódu. Jakmile mají naše nové migrace, stačí spustit příkaz Aktualizovat databázi, aby změny byly použity místně. Nicméně pokud chceme tlačit tyto změny na testovací server a nakonec výroby, pravděpodobně chceme skript SQL můžeme předat naše DBA.
 
--   Spusťte příkaz **Update-Database** , ale tentokrát určete příznak **– Script** , aby se změny zapsaly do skriptu místo použití. Také určíme migraci zdroje a cíle pro vygenerování skriptu pro. Chceme, aby se skript přešel z prázdné databáze ( **$InitialDatabase**) na nejnovější verzi ( **AddPostAbstract**migrace).
-    *Pokud nezadáte cílovou migraci, budou migrace používat jako cíl nejnovější migraci. Pokud neurčíte zdrojová migrace, budou migrace používat aktuální stav databáze.*
--   Spusťte příkaz **Update-Database-Script-SourceMigration: $InitialDatabase-TargetMigration: AddPostAbstract** v konzole správce balíčků.
+-   Spusťte příkaz **Aktualizovat databázi,** ale tentokrát zadejte příznak **–Script** tak, aby změny byly zapsány do skriptu, nikoli použity. Také určíme zdrojovou a cílovou migraci, pro kterou bude skript vygenerován. Chceme, aby skript přešel z prázdné databáze **($InitialDatabase)** na nejnovější verzi (migrace **AddPostAbstract).**
+    *Pokud cílovou migraci nezadáte, migrace použije jako cíl nejnovější migraci. Pokud nezadáte zdrojové migrace, migrace bude používat aktuální stav databáze.*
+-   Spuštění příkazu **Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract** v konzole Správce balíčků
 
-Migrace Code First spustí kanál migrace, ale místo toho, aby se změny projevily, ho za vás zapíše do souboru. SQL. Po vygenerování skriptu je tento skript otevřený pro vás v aplikaci Visual Studio, který jste připraveni k zobrazení nebo uložení.
+Migrace Code First spustí kanál migrace, ale místo toho, aby skutečně použilzměny, zapíše je do souboru .sql za vás. Jakmile je skript vygenerován, otevře se pro vás v sadě Visual Studio, připravený k zobrazení nebo uložení.
 
-### <a name="generating-idempotent-scripts"></a>Generování skriptů Idempotentní
+### <a name="generating-idempotent-scripts"></a>Generování idempotentních skriptů
 
-Začínáte-li s EF6, pokud zadáte **– SourceMigration $InitialDatabase** pak bude vygenerovaný skript "idempotentní". Idempotentní skripty mohou upgradovat databázi aktuálně v libovolné verzi na nejnovější verzi (nebo na zadanou verzi, pokud používáte **– TargetMigration**). Vygenerovaný skript obsahuje logiku pro kontrolu **\_tabulky \_MigrationsHistory** a pouze změny, které se předtím nepoužily.
+Počínaje EF6, pokud zadáte **–SourceMigration $InitialDatabase** pak vygenerovaný skript bude "idempotentní". Idempotentní skripty můžete upgradovat databázi aktuálně v libovolné verzi na nejnovější verzi (nebo zadanou verzi, pokud používáte **-TargetMigration**). Vygenerovaný skript obsahuje ** \_ \_** logiku pro kontrolu tabulky MigrationsHistory a platí pouze změny, které nebyly dříve použity.
 
-## <a name="automatically-upgrading-on-application-startup-migratedatabasetolatestversion-initializer"></a>Automatické upgradování při spuštění aplikace (inicializátor MigrateDatabaseToLatestVersion)
+## <a name="automatically-upgrading-on-application-startup-migratedatabasetolatestversion-initializer"></a>Automatická inovace při spuštění aplikace (MigrateDatabaseToLatestVersion Initializer)
 
-Pokud nasazujete aplikaci, možná budete chtít, aby při spuštění aplikace automaticky upgradovali databázi (pomocí všech nedokončených migrací). To můžete provést tak, že zaregistrujete inicializátor databáze **MigrateDatabaseToLatestVersion** . Inicializátor databáze jednoduše obsahuje logiku, která se používá k zajištění správného nastavení databáze. Tato logika se spustí při prvním použití kontextu v procesu aplikace (**AppDomain**).
+Pokud nasazujete aplikaci, můžete chtít, aby automaticky upgradovala databázi (použitím všech čekajících migrací) při spuštění aplikace. Můžete to provést registrací **MigrateDatabaseToLatestVersion** inicializátoru databáze. Inicializátor databáze jednoduše obsahuje některé logiky, která se používá k ujistěte se, že databáze je správně nastavena. Tato logika je spuštěna při prvním použití kontextu v rámci procesu aplikace **(AppDomain**).
 
-Soubor **program.cs** můžeme aktualizovat, jak je vidět níže, pro nastavení inicializátoru **MigrateDatabaseToLatestVersion** pro BlogContext předtím, než použijeme kontext (řádek 14). Všimněte si, že je také nutné přidat příkaz using pro obor názvů **System. data. entity** (řádek 5).
+Můžeme aktualizovat **Program.cs** soubor, jak je znázorněno níže, nastavit **MigrateDatabaseToLatestVersion** inicializátor pro BlogContext před použitím kontextu (Řádek 14). Všimněte si, že je také nutné přidat using prohlášení pro **System.Data.Entity** obor názvů (řádek 5).
 
-*Když vytvoříme instanci tohoto inicializátoru, musíme zadat typ kontextu (**BlogContext**) a konfiguraci migrace (**Konfigurace**) – konfigurace migrace je třída, která se přidala do naší složky **migrace** po povolení migrace.*
+*Když vytvoříme instanci tohoto inicializátoru, musíme zadat typ kontextu (**BlogContext**) a konfiguraci migrace (**Konfigurace**) - konfigurace migrace je třída, která byla přidána do naší složky **Migrace,** když jsme povolili migrace.*
 
 ``` csharp
     using System;
@@ -350,4 +350,4 @@ Soubor **program.cs** můžeme aktualizovat, jak je vidět níže, pro nastaven�
     }
 ```
 
-Teď, když se aplikace spustí, nejdřív zkontroluje, jestli je databáze, na kterou cílí, v aktuálním stavu, a pokud není, použijte všechny nedokončené migrace.
+Nyní vždy, když naše aplikace spustí, bude nejprve zkontrolovat, zda databáze je cílení je aktuální a použít všechny čekající migrace, pokud tomu tak není.

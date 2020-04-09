@@ -1,53 +1,53 @@
 ---
-title: Globální filtry dotazů – EF Core
+title: Globální filtry dotazů – jádro EF
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
 ms.openlocfilehash: 9262ff7970b0502945480c673315071cbc3f44b9
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417727"
 ---
 # <a name="global-query-filters"></a>Globální filtry dotazů
 
 > [!NOTE]
-> Tato funkce byla představena v EF Core 2,0.
+> Tato funkce byla zavedena v EF Core 2.0.
 
-Globální filtry dotazů jsou predikáty dotazů LINQ (logický výraz obvykle předaný operátoru dotazu *LINQ)* , který je použit na typy entit v modelu metadat (obvykle v *OnModelCreating*). Tyto filtry se automaticky použijí na všechny LINQ dotazy zahrnující tyto typy entit, včetně odkazy na typy entit odkazované nepřímo, jako například pomocí zahrnutí nebo přímé navigační vlastnosti. Jsou některé běžné aplikace tuto funkci:
+Globální filtry dotazů jsou predikáty dotazů LINQ (logický výraz obvykle předávaný operátoru linq *where* query) aplikovaný na typy entit v modelu metadat (obvykle v *OnModelCreating).* Tyto filtry jsou automaticky použity na všechny dotazy LINQ zahrnující tyto typy entit, včetně typů entit, na které se nepřímo odkazuje, například pomocí odkazů na vlastnosti Include nebo přímé navigace. Některé běžné aplikace této funkce jsou:
 
-* **Obnovitelné odstranění** – typ entity definuje vlastnost *IsDeleted* .
-* **Víceklientská** architektura – typ entity definuje vlastnost *TenantId* .
+* **Obnovitelné odstranění** - Typ entity definuje vlastnost *IsDeleted.*
+* **Víceklientský** - Typ entity definuje *vlastnost TenantId.*
 
 ## <a name="example"></a>Příklad
 
-Následující příklad ukazuje, jak použít globální filtry dotazů k implementaci chování dotazu obnovitelného odstranění a více tenantů v modelu jednoduché blogů.
+Následující příklad ukazuje, jak pomocí globálních filtrů dotazů implementovat chování dotazů s měkkým odstraněním a více nájemců v jednoduchém modelu blogování.
 
 > [!TIP]
-> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters) tohoto článku můžete zobrazit na GitHubu.
+> Ukázku tohoto článku [sample](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters) můžete zobrazit na GitHubu.
 
 Nejprve definujte entity:
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Entities)]
 
-Všimněte si deklarace pole _tenantId_ v entitě _blogu_ . Ten se použije pro každou instanci blogu přidružit konkrétního tenanta. Také definováno je vlastnost _IsDeleted_ v typu entity _post_ . Slouží k udržení přehledu o tom, zda byla instance _příspěvku_ "soft-Deleted". To znamená, že instance je označen jako odstraněný bez fyzickým odebráním podkladová data.
+Poznamenejte si deklaraci pole _tenantId_ v entitě _Blog._ To se použije k přidružení každé instance blogu k určitému tenantovi. Definována je také vlastnost _IsDeleted_ u typu entity _Post._ Používá se ke sledování, zda _post_ instance byla "obnovitelné odstranění". To znamená, že instance je označena jako odstraněná bez fyzického odebrání podkladových dat.
 
-Dále nakonfigurujte filtry dotazů v _OnModelCreating_ pomocí rozhraní API pro `HasQueryFilter`.
+Dále nakonfigurujte filtry dotazů v _OnModelCreating_ pomocí `HasQueryFilter` rozhraní API.
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Configuration)]
 
-Výrazy predikátu předané voláním _HasQueryFilter_ se teď automaticky použijí na všechny dotazy LINQ pro tyto typy.
+Predikátové výrazy předané volání _HasQueryFilter_ budou nyní automaticky použity pro všechny dotazy LINQ pro tyto typy.
 
 > [!TIP]
-> Všimněte si použití pole na úrovni instance DbContext: `_tenantId` slouží k nastavení aktuálního tenanta. Filtry na úrovni modelu bude používat hodnotu z instance správného kontextu (to znamená, instance, který spouští dotaz).
+> Všimněte si použití pole úrovně `_tenantId` instance DbContext: slouží k nastavení aktuálního klienta. Filtry na úrovni modelu budou používat hodnotu z instance správného kontextu (to znamená, že instance, která je provádění dotazu).
 
 > [!NOTE]
-> V současné době není možné definovat více filtrů dotazů na stejnou entitu. použije se jenom poslední z nich. Můžete však definovat jeden filtr s více podmínkami pomocí logického operátoru _and_ ([`&&` in C# ](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)).
+> V současné době není možné definovat více filtrů dotazů na stejné entitě - bude použita pouze poslední. Můžete však definovat jeden filtr s více podmínkami pomocí logického operátoru _AND_ ([ `&&` v c#](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)).
 
 ## <a name="disabling-filters"></a>Zakázání filtrů
 
-Filtry mohou být zakázány pro jednotlivé dotazy LINQ pomocí operátoru `IgnoreQueryFilters()`.
+Filtry mohou být zakázány pro jednotlivé `IgnoreQueryFilters()` dotazy LINQ pomocí operátoru.
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#IgnoreFilters)]
 
@@ -55,4 +55,4 @@ Filtry mohou být zakázány pro jednotlivé dotazy LINQ pomocí operátoru `Ign
 
 Globální filtry dotazů mají následující omezení:
 
-* Filtry je možné definovat pouze pro kořenový typ Entity hierarchie dědičnosti.
+* Filtry lze definovat pouze pro kořenový typ entity hierarchie dědičnosti.

@@ -1,61 +1,61 @@
 ---
-title: Podporované implementace .NET – EF Core
+title: Podporované implementace rozhraní .NET – ef core
 author: bricelam
 ms.date: 03/03/2020
 uid: core/platforms/index
 ms.openlocfilehash: 693d4cae85eddf86d01e17084415147c52a008c7
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417322"
 ---
-# <a name="net-implementations-supported-by-ef-core"></a>Implementace rozhraní .NET podporované nástrojem EF Core
+# <a name="net-implementations-supported-by-ef-core"></a>Implementace .NET podporované EF Core
 
-Chceme, aby bylo EF Core k dispozici pro vývojáře na všech moderních implementacích .NET a pořád pracujeme na tomto cíli. I když je podpora EF Core pro .NET Core pokrytá automatizovaným testováním a řada aplikací, které ji používala, je úspěšně používá, mono, Xamarin a UWP mají problémy.
+Chceme EF Core být k dispozici vývojářům na všech moderních implementací .NET a stále pracujeme na dosažení tohoto cíle. Zatímco ef core podpora na .NET Core je pokryta automatizované testování a mnoho aplikací známo, že jej úspěšně používat, Mono, Xamarin a UPW mají některé problémy.
 
 ## <a name="overview"></a>Přehled
 
-Následující tabulka uvádí pokyny pro každou implementaci rozhraní .NET:
+Následující tabulka obsahuje pokyny pro každou implementaci rozhraní .NET:
 
-| EF Core                       | 2,1 a 3,1 |
+| EF Core                       | 2.1 a 3.1 |
 |:------------------------------|:------------|
 | .NET Standard                 | 2.0         |
 | .NET Core                     | 2.0         |
-| .NET Framework<sup>(1)</sup>  | 4.7.2       |
+| Rozhraní .NET<sup>Framework (1)</sup>  | 4.7.2       |
 | Mono                          | 5.4         |
-| Xamarin. iOS<sup>(2)</sup>     | 10,14       |
-| Xamarin. Android<sup>(2)</sup> | 8.0         |
-| UWP<sup>(3)</sup>             | 10.0.16299  |
-| Unity<sup>(4)</sup>           | 2018,1      |
+| Xamarin.iOS<sup>(2)</sup>     | 10.14       |
+| Xamarin.Android<sup>(2)</sup> | 8.0         |
+| Upw<sup>(3)</sup>             | 10.0.16299  |
+| Jednota<sup>(4)</sup>           | 2018.1      |
 
-<sup>(1)</sup> viz část [.NET Framework](#net-framework) níže.
+<sup>(1)</sup> Viz část [.NET Framework](#net-framework) níže.
 
-<sup>(2)</sup> k dispozici jsou problémy a známá omezení pro Xamarin, které mohou bránit aplikacím vyvinutým pomocí EF Core, aby fungovaly správně. Projděte si seznam [aktivních problémů](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin) pro alternativní řešení.
+<sup>(2)</sup> Existují problémy a známá omezení s Xamarin, které mohou zabránit některé aplikace vyvinuté pomocí EF Core pracovat správně. Zkontrolujte seznam [aktivních problémů](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin) pro řešení.
 
-<sup>(3)</sup> doporučuje se EF Core 2.0.1 a novější. Nainstalujte [balíček .NET Core UWP 6. x](https://www.nuget.org/packages/Microsoft.NETCore.UniversalWindowsPlatform/). Přečtěte si část [Univerzální platforma Windows](#universal-windows-platform) tohoto článku.
+<sup>(3)</sup> EF Core 2.0.1 a novější doporučeno. Nainstalujte [balíček .NET Core UPW 6.x](https://www.nuget.org/packages/Microsoft.NETCore.UniversalWindowsPlatform/). V tomto článku najdete v části [Univerzální platforma Windows.](#universal-windows-platform)
 
-<sup>(4)</sup> existují problémy a známá omezení s Unity. Podívejte se na seznam [aktivních problémů](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-unity).
+<sup>(4)</sup> Existují problémy a známá omezení s Unity. Podívejte se na seznam [aktivních problémů](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-unity).
 
 ## <a name="net-framework"></a>.NET Framework
 
-Aplikace, které cílí na .NET Framework, můžou potřebovat změny pro práci s .NET Standard knihovnami:
+Aplikace, které cílí na rozhraní .NET Framework, mohou vyžadovat změny pro práci s knihovnami .NET Standard:
 
-Upravte soubor projektu a ujistěte se, že se v počáteční skupině vlastností zobrazuje následující položka:
+Upravte soubor projektu a ujistěte se, že se v počáteční skupině vlastností zobrazí následující položka:
 
 ``` xml
 <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 ```
 
-V případě testovacích projektů se ujistěte také, že je k dispozici následující položka:
+U testovacích projektů se také ujistěte, že je k dispozici následující položka:
 
 ``` xml
 <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 ```
 
-Pokud chcete použít starší verzi sady Visual Studio, ujistěte se, že [upgradujete klienta NuGet na verzi 3.6.0](https://www.nuget.org/downloads) , aby fungoval s knihovnami .NET Standard 2,0.
+Pokud chcete použít starší verzi sady Visual Studio, ujistěte se, že [upgrade klienta NuGet na verzi 3.6.0](https://www.nuget.org/downloads) pro práci s knihovnami .NET Standard 2.0.
 
-Doporučujeme také migrovat z balíčků NuGet. config na PackageReference, pokud je to možné. Do souboru projektu přidejte následující vlastnost:
+Doporučujeme také migraci z NuGet packages.config na PackageReference, pokud je to možné. Do souboru projektu přidejte následující vlastnost:
 
 ``` xml
 <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
@@ -63,14 +63,14 @@ Doporučujeme také migrovat z balíčků NuGet. config na PackageReference, pok
 
 ## <a name="universal-windows-platform"></a>Univerzální platforma Windows
 
-Starší verze EF Core a prostředí .NET UWP obsahovaly nejrůznější problémy s kompatibilitou, zejména s aplikacemi, které jsou kompilovány s .NET Native sada nástrojů. Nová verze rozhraní .NET UWP přidává podporu pro .NET Standard 2,0 a obsahuje .NET Native 2,0, které řeší většinu problémů s kompatibilitou, které byly dříve hlášeny. EF Core 2.0.1 byl důkladně testován pomocí UWP, ale testování není automatizované.
+Dřívější verze EF Core a .NET UWP měly mnoho problémů s kompatibilitou, zejména s aplikacemi zkompilovanými pomocí řetězce nástrojů .NET Native. Nová verze .NET UPW přidává podporu pro rozhraní .NET Standard 2.0 a obsahuje rozhraní .NET Native 2.0, které opravuje většinu dříve oznámených problémů s kompatibilitou. EF Core 2.0.1 byl testován důkladněji s UPW, ale testování není automatizováno.
 
-Při použití EF Core na UWP:
+Při použití EF Core na UPW:
 
-* Chcete-li optimalizovat výkon dotazů, vyhněte se anonymním typům v dotazech LINQ. Nasazení aplikace UWP do obchodu s aplikacemi vyžaduje, aby byla aplikace kompilována s .NET Native. Dotazy s anonymními typy mají horší výkon u .NET Native.
+* Chcete-li optimalizovat výkon dotazů, vyhněte se anonymní typy v dotazech LINQ. Nasazení aplikace UPW do obchodu s aplikacemi vyžaduje kompilaci aplikace pomocí nativní ho .NET. Dotazy s anonymnítypy mají horší výkon na .NET Native.
 
-* Pro optimalizaci výkonu `SaveChanges()` použijte [ChangeTrackingStrategy. ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) a implementujte [INotifyPropertyChanged](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanged.aspx), [INotifyPropertyChanging](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanging.aspx)a [INotifyCollectionChanged](https://msdn.microsoft.com/library/system.collections.specialized.inotifycollectionchanged.aspx) ve svých typech entit.
+* Chcete-li optimalizovat `SaveChanges()` výkon, použijte [ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) a implementujte [INotifyPropertyChanged](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanged.aspx), [INotifyPropertyChanging](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanging.aspx)a [INotifyCollectionChanged](https://msdn.microsoft.com/library/system.collections.specialized.inotifycollectionchanged.aspx) v typech entit.
 
-## <a name="report-issues"></a>Nahlásit problémy
+## <a name="report-issues"></a>Nahlášení potíží
 
-Pro libovolnou kombinaci, která nefunguje podle očekávání, doporučujeme vytvořit nové problémy na [EF Core sledování problémů](https://github.com/aspnet/entityframeworkcore/issues/new). V případě problémů specifických pro Xamarin použijte modul pro sledování problémů pro [Xamarin. Android](https://github.com/xamarin/xamarin-android/issues/new) nebo [Xamarin. iOS](https://github.com/xamarin/xamarin-macios/issues/new).
+Pro každou kombinaci, která nefunguje podle očekávání, doporučujeme vytvářet nové problémy na [ef core problém tracker](https://github.com/aspnet/entityframeworkcore/issues/new). Pro problémy specifické pro Xamarin použijte nástroj pro sledování problémů pro [Xamarin.Android](https://github.com/xamarin/xamarin-android/issues/new) nebo [Xamarin.iOS](https://github.com/xamarin/xamarin-macios/issues/new).

@@ -1,50 +1,50 @@
 ---
-title: Přehled Entity Framework 6 – EF6
+title: Přehled rámce entity 6 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
 ms.openlocfilehash: 28a13879416a52cbe8035c23013f16390c75c4c9
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416332"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
-Entity Framework 6 (EF6) je vyzkoušený a testovaný objektově-relační Mapovač (O/RM) pro .NET s mnoha roky vývoje a stabilizací funkcí.
+Entity Framework 6 (EF6) je osvědčená objekt-relační mapovač (O/RM) pro .NET s mnohaletou vývojem a stabilizací funkcí.
 
-EF6 v/RM snižuje nesoulad mezi relačními a objektově orientovanými světů a umožňuje vývojářům psát aplikace, které pracují s daty uloženými v relačních databázích pomocí objektů .NET se silnými typy, které představují doménu aplikace, a eliminují nutnost velké části kódu "domovníace" přístupu k datům, které obvykle potřebují zapisovat.
+Jako O/RM EF6 snižuje nesoulad impedance mezi relačnía objekty a objektově orientované světy, umožňuje vývojářům psát aplikace, které interagují s daty uloženými v relačních databázích pomocí objektů silného typu .NET, které představují doménu aplikace, a eliminuje potřebu velké části kódu "instalatérské" přístupu k datům, který obvykle potřebují k zápisu.
 
-EF6 implementuje spoustu oblíbených funkcí O/RM:
-- Mapování tříd entit [POCO](xref:ef6/resources/glossary#poco) , které nezávisí na žádných typech EF
+EF6 implementuje mnoho populárních funkcí O/RM:
+- Mapování tříd entit [POCO,](xref:ef6/resources/glossary#poco) které nezávisí na žádných typech EF
 - Automatické sledování změn
-- Rozlišení identity a jednotka práce
-- Eager, opožděné a explicitní načítání
-- Překlad silně typových dotazů pomocí [LINQ (jazyk integrovaný dotaz)](https://aka.ms/AA6hsvu)
-- Možnosti formátovaného mapování, včetně podpory pro:
-  - Relace 1:1, relací 1: n a m:n
-  - Dědičnost (tabulka na hierarchii, tabulka na typ a tabulka na konkrétní třídu)
+- Řešení identity a jednotka práce
+- Dychtivé, líné a explicitní načítání
+- Překlad dotazů silného typu pomocí [LINQ (Jazyk INtegrated Query)](https://aka.ms/AA6hsvu)
+- Bohaté možnosti mapování, včetně podpory:
+  - Vztahy 1:1, 1:N a N:N
+  - Dědičnost (tabulka podle hierarchie, tabulka podle typu a tabulka na konkrétní třídu)
   - Komplexní typy
   - Uložené procedury
-- Vizuální Návrhář pro vytváření modelů entit
-- Prostředí "Code First" pro vytváření modelů entit pomocí psaní kódu.
-- Modely lze buď vygenerovat z existujících databází, a pak je ručně upravit, nebo je můžete vytvořit od začátku a potom použít ke generování nových databází.
-- Integrace s .NET Framework aplikačními modely, včetně ASP.NET, a prostřednictvím vázání dat s použitím WPF a WinForms.
-- Připojení k databázi založené na ADO.NET a mnoha [poskytovatelích](xref:ef6/fundamentals/providers/index) dostupných pro připojení k SQL Server, Oracle, MySQL, SQLite, POSTGRESQL, DB2 atd.
+- Vizuální návrhář pro vytváření modelů entit.
+- "Code First" zkušenosti vytvořit modely entit zápisem kódu.
+- Modely mohou být buď generovány z existujících databází a pak ručně editovány, nebo je lze vytvořit od začátku a poté použít ke generování nových databází.
+- Integrace s aplikačními modely rozhraní .NET Framework, včetně ASP.NET a prostřednictvím datové vazby, s WPF a WinForms.
+- Připojení k databázi na základě ADO.NET a mnoha [poskytovatelů, kteří](xref:ef6/fundamentals/providers/index) jsou k dispozici pro připojení k SQL Serveru, Oracle, MySQL, SQLite, PostgreSQL, DB2 atd.
 
 ## <a name="should-i-use-ef6-or-ef-core"></a>Mám použít EF6 nebo EF Core?
 
-EF Core je moderní, odlehčená a rozšiřitelná verze Entity Framework, která má velmi podobné možnosti a výhody EF6.
-EF Core je kompletní přepisování a obsahuje mnoho nových funkcí, které nejsou v EF6 k dispozici, i když stále chybí některé z nejpokročilejších možností mapování EF6.
-Pokud sada funkcí vyhovuje vašim požadavkům, zvažte použití EF Core v nových aplikacích.
-[Compare EF Core &AMP; EF6](xref:efcore-and-ef6/index) prověřuje tuto volbu podrobněji.
+EF Core je modernější, lehčí a rozšiřitelná verze entity frameworku, která má velmi podobné funkce a výhody jako EF6.
+EF Core je kompletní přepsání a obsahuje mnoho nových funkcí, které nejsou k dispozici v EF6, i když také stále postrádá některé z nejpokročilejších možností mapování EF6.
+Zvažte použití EF Core v nových aplikacích, pokud sada funkcí odpovídá vašim požadavkům.
+[Porovnejte EF Core & EF6](xref:efcore-and-ef6/index) zkoumá tuto volbu podrobněji.
 
 ## <a name="get-started"></a>[Začínáme](xref:ef6/get-started)
 
-Přidejte do svého projektu balíček NuGet EntityFramework nebo nainstalujte [Entity Framework Tools pro Visual Studio](https://aka.ms/AA6i8c5). Pak Sledujte videa, přečtěte si kurzy a pokročilou dokumentaci, která vám pomůžou s tím, aby vám EF6.
+Přidejte balíček EntityFramework NuGet do projektu nebo nainstalujte [nástroje entity framework pro visual studio](https://aka.ms/AA6i8c5). Pak sledujte videa, přečtěte si kurzy a pokročilou dokumentaci, která vám pomůže co nejlépe využít EF6.
 
-## <a name="past-entity-framework-versions"></a>Minulé verze Entity Framework
+## <a name="past-entity-framework-versions"></a>Verze rozhraní pro minulé entity
 
-Toto je dokumentace pro nejnovější verzi Entity Framework 6, i když velká z nich platí i pro starší verze.
-Úplný seznam verzí EF a funkcí, které zavádějí, najdete v části [co je nového](xref:ef6/what-is-new/index) a [starší verze](xref:ef6/what-is-new/past-releases) .
+Toto je dokumentace pro nejnovější verzi entity Framework 6, i když velká část z toho platí i pro minulé verze.
+Podívejte se [na what's new](xref:ef6/what-is-new/index) a [past releases](xref:ef6/what-is-new/past-releases) a najdete úplný seznam verzí EF a funkcí, které zavedli.

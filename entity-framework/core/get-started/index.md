@@ -5,32 +5,32 @@ ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
 ms.openlocfilehash: 0e7a1ee159cdf5b72448fe6d73c972975b1ab95b
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416883"
 ---
 # <a name="getting-started-with-ef-core"></a>Začínáme s EF Core
 
-V tomto kurzu vytvoříte konzolovou aplikaci .NET Core, která provádí přístup k datům v databázi SQLite pomocí Entity Framework Core.
+V tomto kurzu vytvoříte konzolovou aplikaci .NET Core, která provádí přístup k datům proti databázi SQLite pomocí jádra entity frameworku.
 
-Můžete postupovat podle kurzu pomocí sady Visual Studio ve Windows nebo pomocí .NET Core CLI ve Windows, macOS nebo Linux.
+Kurz můžete sledovat pomocí Visual Studia ve Windows nebo pomocí rozhraní .NET Core CLI ve Windows, macOS nebo Linuxu.
 
-[Podívejte se na ukázku tohoto článku na GitHubu](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/GetStarted).
+[Zobrazit ukázku tohoto článku na GitHubu](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/GetStarted).
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Nainstalujte následující software:
 
 ### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-* [.NET Core SDK](https://www.microsoft.com/net/download/core).
+* [Sada SDK jádra .NET](https://www.microsoft.com/net/download/core).
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* [Visual Studio 2019 verze 16,3 nebo novější](https://www.visualstudio.com/downloads/) s touto úlohou:
-  * **Vývoj pro různé platformy .NET Core** (v **jiných sad nástrojů**)
+* [Visual Studio 2019 verze 16.3 nebo novější](https://www.visualstudio.com/downloads/) s tímto zatížením:
+  * **Vývoj napříč platformami .NET Core** (v části **Jiné sady nástrojů)**
 
 ---
 
@@ -46,15 +46,15 @@ cd EFGetStarted
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Otevřete sadu Visual Studio.
-* Klikněte na **vytvořit nový projekt** .
-* Vyberte možnost **aplikace konzoly (.NET Core)** se **C#** značkou a klikněte na **Další** .
-* Jako název zadejte **EFGetStarted** a klikněte na **vytvořit** .
+* Klikněte na **Vytvořit nový projekt.**
+* Vyberte **Konzolovou aplikaci (.NET Core)** pomocí značky **C#** a klikněte na **Další.**
+* Zadejte **EFGetStarted** pro název a klepněte na **vytvořit**
 
 ---
 
-## <a name="install-entity-framework-core"></a>Nainstalovat Entity Framework Core
+## <a name="install-entity-framework-core"></a>Instalace jádra rozhraní entity
 
-Chcete-li nainstalovat EF Core, nainstalujte balíček pro zprostředkovatele EF Corech databází, které chcete cílit. V tomto kurzu se používá SQLite, protože běží na všech platformách, které .NET Core podporuje. Seznam dostupných zprostředkovatelů najdete v tématu [poskytovatelé databází](../providers/index.md).
+Chcete-li nainstalovat EF Core, nainstalujte balíček pro zprostředkovatele databáze EF Core, na které chcete cílit. Tento kurz používá SQLite, protože běží na všech platformách, které podporuje .NET Core. Seznam dostupných zprostředkovatelů naleznete v [tématu Database Providers](../providers/index.md).
 
 ### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -64,14 +64,14 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **Nástroje > Správce balíčků NuGet > konzole správce balíčků**
+* **Nástroje >, že správce balíčků NuGet > konzoli správce balíčků**
 * Spusťte následující příkazy:
 
   ``` PowerShell
   Install-Package Microsoft.EntityFrameworkCore.Sqlite
   ```
 
-Tip: balíčky můžete nainstalovat také tak, že kliknete pravým tlačítkem na projekt a vyberete **Spravovat balíčky NuGet** .
+Tip: Balíčky můžete nainstalovat také kliknutím pravým tlačítkem myši na projekt a výběrem **možnosti Spravovat balíčky NuGet**
 
 ---
 
@@ -81,25 +81,25 @@ Definujte třídu kontextu a třídy entit, které tvoří model.
 
 ### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-* V adresáři projektu vytvořte **model.cs** s následujícím kódem.
+* V adresáři projektu vytvořte **Model.cs** s následujícím kódem.
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Klikněte pravým tlačítkem na projekt a vyberte **přidat > třídy** .
-* Jako název zadejte **model.cs** a klikněte na **Přidat** .
-* Obsah souboru nahraďte následujícím kódem.
+* Klikněte pravým tlačítkem myši na projekt a vyberte **přidat > třídu.**
+* Zadejte **Model.cs** jako název a klikněte na **Přidat.**
+* Nahrazení obsahu souboru následujícím kódem
 
 ---
 
 [!code-csharp[Main](../../../samples/core/GetStarted/Model.cs)]
 
-EF Core může také provádět [zpětnou analýzu](../managing-schemas/scaffolding.md) modelu z existující databáze.
+EF Core můžete také [zpětnou analýzu](../managing-schemas/scaffolding.md) modelu z existující databáze.
 
-Tip: v reálné aplikaci vložíte každou třídu do samostatného souboru a [připojovací řetězec](../miscellaneous/connection-strings.md) umístíte do konfiguračního souboru nebo proměnné prostředí. V případě jednoduchého kurzu je vše obsaženo v jednom souboru.
+Tip: V reálné aplikaci vložíte každou třídu do samostatného souboru a [vložíte připojovací řetězec](../miscellaneous/connection-strings.md) do konfiguračního souboru nebo proměnné prostředí. Chcete-li, aby byl výukový program jednoduchý, je vše obsaženo v jednom souboru.
 
 ## <a name="create-the-database"></a>Vytvoření databáze
 
-V následujících krocích se k vytvoření databáze používají [migrace](xref:core/managing-schemas/migrations/index) .
+Následující kroky používají [migrace](xref:core/managing-schemas/migrations/index) k vytvoření databáze.
 
 ### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -112,11 +112,11 @@ V následujících krocích se k vytvoření databáze používají [migrace](xr
   dotnet ef database update
   ```
 
-  Tím se nainstaluje [dotnet EF](../miscellaneous/cli/dotnet.md) a návrhový balíček, který je nutný ke spuštění příkazu na projektu. Příkaz `migrations` vygeneruje migraci k vytvoření počáteční sady tabulek pro model. Příkaz `database update` vytvoří databázi a použije novou migraci na ni.
+  Tím [nainstalujete dotnet ef](../miscellaneous/cli/dotnet.md) a návrhový balíček, který je nutný ke spuštění příkazu v projektu. Příkaz `migrations` přisycování kašovina migrace vytvořit počáteční sadu tabulek pro model. Příkaz `database update` vytvoří databázi a použije na něj novou migraci.
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V **konzole správce balíčků** spusťte následující příkazy.
+* Spuštění následujících příkazů v **konzole Správce balíčků**
 
   ``` PowerShell
   Install-Package Microsoft.EntityFrameworkCore.Tools
@@ -124,13 +124,13 @@ V následujících krocích se k vytvoření databáze používají [migrace](xr
   Update-Database
   ```
 
-  Tím se nainstaluje [nástroje PMC pro EF Core](../miscellaneous/cli/powershell.md). Příkaz `Add-Migration` vygeneruje migraci k vytvoření počáteční sady tabulek pro model. Příkaz `Update-Database` vytvoří databázi a použije novou migraci na ni.
+  Tím se nainstaluje [nástroje PMC pro EF Core](../miscellaneous/cli/powershell.md). Příkaz `Add-Migration` přisycování kašovina migrace vytvořit počáteční sadu tabulek pro model. Příkaz `Update-Database` vytvoří databázi a použije na něj novou migraci.
 
 ---
 
-## <a name="create-read-update--delete"></a>Vytvořit, číst, aktualizovat & Odstranit
+## <a name="create-read-update--delete"></a>Vytvořit, číst, aktualizovat & odstranit
 
-* Otevřete *program.cs* a nahraďte obsah následujícím kódem:
+* Otevřete *Program.cs* a nahraďte obsah následujícím kódem:
 
   [!code-csharp[Main](../../../samples/core/GetStarted/Program.cs)]
 
@@ -144,10 +144,10 @@ dotnet run
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Visual Studio používá nekonzistentní pracovní adresář při spuštění konzolových aplikací .NET Core. (viz [dotnet/Project-System # 3619](https://github.com/dotnet/project-system/issues/3619)) Výsledkem je výjimka, která je vyvolána: *žádná taková tabulka: Blogy*. Aktualizace pracovního adresáře:
+Visual Studio používá nekonzistentní pracovní adresář při spuštění konzolových aplikací .NET Core. (viz [dotnet/project-system#3619](https://github.com/dotnet/project-system/issues/3619)) Výsledkem je vyvolání výjimky: *žádná taková tabulka: Blogy*. Aktualizace pracovního adresáře:
 
-* Klikněte pravým tlačítkem na projekt a vyberte **Upravit soubor projektu** .
-* Hned pod vlastností *targetFramework* přidejte následující:
+* Klikněte pravým tlačítkem myši na projekt a vyberte **Upravit soubor projektu.**
+* Těsně pod *TargetFramework* vlastnost, přidejte následující:
 
   ``` XML
   <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
@@ -155,15 +155,15 @@ Visual Studio používá nekonzistentní pracovní adresář při spuštění ko
 
 * Soubor uložte
 
-Teď můžete aplikaci spustit:
+Nyní můžete spustit aplikaci:
 
-* **Ladit > Spustit bez ladění**
+* **Ladění > spustit bez ladění**
 
 ---
 
 ## <a name="next-steps"></a>Další kroky
 
-* Pokud chcete používat EF Core ve webové aplikaci, postupujte podle [kurzu ASP.NET Core](/aspnet/core/data/ef-rp/intro) .
+* Používání ef core ve webové aplikaci pomocí [základního ASP.NET](/aspnet/core/data/ef-rp/intro)
 * Další informace o [výrazech dotazů LINQ](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)
-* [Nakonfigurujte svůj model](xref:core/modeling/index) tak, aby určoval například [požadované](xref:core/modeling/entity-properties#required-and-optional-properties) a [maximální délku](xref:core/modeling/entity-properties#maximum-length) .
+* [Konfigurace modelu](xref:core/modeling/index) pro určení požadovaných [a](xref:core/modeling/entity-properties#required-and-optional-properties) maximální [délky](xref:core/modeling/entity-properties#maximum-length)
 * Aktualizace schématu databáze po změně modelu pomocí [migrace](xref:core/managing-schemas/migrations/index)

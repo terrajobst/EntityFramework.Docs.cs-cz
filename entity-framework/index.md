@@ -1,15 +1,15 @@
 ---
 layout: HubPage
-title: Entity Framework – EF
+title: Účetní rámec – EF
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
 ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416926"
 ---
 <div id="main" class="v2">
@@ -17,7 +17,7 @@ ms.locfileid: "78416926"
         <h1>Dokumentace Entity Framework</h1>
         <ul class="pivots">
             <li>
-                <a href="#entityfmwk">Entity Framework</a>
+                <a href="#entityfmwk">Účetní rozhraní</a>
                 <ul id="entityfmwk">
                     <li>
                         <a href="#entityfmwk1"></a>
@@ -96,7 +96,7 @@ ms.locfileid: "78416926"
                                                 </div>
                                                 <div class="cardText">
                                                     <h3>Přechod na EF Core</h3>
-                                                    <p>Pokyny k přenosu stávající aplikace pro EF 6 do EF Core.</p>
+                                                    <p>Pokyny pro přenesení existující aplikace EF 6 do EF Core.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,10 +108,10 @@ ms.locfileid: "78416926"
                 </ul>
             </li>
             <li>
-                <a href="#efcore">EF Core</a>
+                <a href="#efcore">Ef jádro</a>
                 <ul id="efcore">
                     <li>
-                        <a href="#efcore-all">vše</a>
+                        <a href="#efcore-all">Všechny</a>
                         <ul id="efcore-all" class="cardsF">
                             <li>
                                 <div class="container intro">
@@ -138,10 +138,10 @@ ms.locfileid: "78416926"
                                                     <a href="/ef/core/modeling/">Vytvoření modelu</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/querying/">Dotazy na data</a>
+                                                    <a href="/ef/core/querying/">Data dotazu</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/saving/">Ukládání dat</a>
+                                                    <a href="/ef/core/saving/">Uložení dat</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -159,10 +159,10 @@ ms.locfileid: "78416926"
                                             </div>
                                             <div class="cardText">
                                                 <h3>
-                                                    <a href="/ef/core/get-started/">Kurzy</a>
+                                                    <a href="/ef/core/get-started/">Návody</a>
                                                 </h3>
                                                 <p>
-                                                    <a href="/ef/core/get-started/">další…</a>
+                                                    <a href="/ef/core/get-started/">Více...</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -186,19 +186,19 @@ ms.locfileid: "78416926"
                                                     <a href="/ef/core/providers/sql-server/">SQL Server</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/mysql/">MySQL</a>
+                                                    <a href="/ef/core/providers/mysql/">Mysql</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/npgsql/">PostgreSQL</a>
+                                                    <a href="/ef/core/providers/npgsql/">Postgresql</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/sqlite/">SQLite</a>
+                                                    <a href="/ef/core/providers/sqlite/">Sqlite</a>
                                                 </p>
                                                 <p>
                                                     <a href="/ef/core/providers/cosmos/">Cosmos</a>
                                                 </p>
                                                 <p>
-                                                    <a href="/ef/core/providers/">další…</a>
+                                                    <a href="/ef/core/providers/">Více...</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -216,16 +216,16 @@ ms.locfileid: "78416926"
                                             </div>
                                             <div class="cardText">
                                                 <h3>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">Referenční materiály k rozhraní API</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">Odkaz na rozhraní API</a>
                                                 </h3>
                                                 <p>
                                                     <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a>
                                                 </p>
                                                 <p>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbset-1">DbSet&lt;TEntity&gt;</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbset-1">Datta dbSet&lt;&gt;</a>
                                                 </p>
                                                 <p>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">další…</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">Více...</a>
                                                 </p>
                                             </div>
                                         </div>

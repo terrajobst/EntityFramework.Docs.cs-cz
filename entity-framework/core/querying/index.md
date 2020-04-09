@@ -1,30 +1,30 @@
 ---
-title: Dotazování na data – EF Core
+title: Dotazování dat – jádro EF
 author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 7c65ec3e-46c8-48f8-8232-9e31f96c277b
 uid: core/querying/index
 ms.openlocfilehash: 0e1e50d1a3f647d65301552d0a447f9fcae81438
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78417687"
 ---
 # <a name="querying-data"></a>Dotazování na data
 
-Entity Framework Core používá k dotazování dat z databáze jazykově integrovaný dotaz (LINQ). LINQ umožňuje použít C# (nebo vlastní jazyk rozhraní .NET) k zápisu silně typových dotazů. Používá odvozený kontext a třídy entit k odkazování databázových objektů. EF Core předá reprezentace dotazu LINQ poskytovateli databáze. Poskytovatelé databází pak převádějí do dotazovacího jazyka specifického pro databázi (například SQL pro relační databázi).
+Jádro entity framework používá jazykový integrovaný dotaz (LINQ) k dotazování dat z databáze. LINQ umožňuje používat C# (nebo váš jazyk .NET volby) psát dotazy silného typu. Používá odvozené kontext a entity třídy pro odkaz databázové objekty. EF Core předá reprezentaci dotazu LINQ poskytovateli databáze. Zprostředkovatelé databáze zase přeložit do dotazovacího jazyka specifické ho v databázi (například SQL pro relační databáze).
 
 > [!TIP]
-> [Ukázku](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) tohoto článku můžete zobrazit na GitHubu.
+> Ukázku tohoto článku [sample](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying) můžete zobrazit na GitHubu.
 
-Následující fragmenty kódu ukazují několik příkladů, jak dosáhnout běžných úloh pomocí Entity Framework Core.
+Následující úryvky ukazují několik příkladů, jak dosáhnout běžných úkolů s jádrem entity frameworku.
 
 ## <a name="loading-all-data"></a>Načítání všech dat
 
 [!code-csharp[Main](../../../samples/core/Querying/Basics/Sample.cs#LoadingAllData)]
 
-## <a name="loading-a-single-entity"></a>Načítá se jedna entita.
+## <a name="loading-a-single-entity"></a>Načítání jedné entity
 
 [!code-csharp[Main](../../../samples/core/Querying/Basics/Sample.cs#LoadingSingleEntity)]
 
@@ -32,7 +32,7 @@ Následující fragmenty kódu ukazují několik příkladů, jak dosáhnout bě
 
 [!code-csharp[Main](../../../samples/core/Querying/Basics/Sample.cs#Filtering)]
 
-## <a name="further-readings"></a>Další čtení
+## <a name="further-readings"></a>Další hodnoty
 
 - Další informace o [výrazech dotazů LINQ](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)
-- Podrobnější informace o tom, jak se dotaz zpracovává v EF Core, najdete v tématu [Jak funguje dotaz](xref:core/querying/how-query-works).
+- Podrobnější informace o tom, jak je dotaz zpracován v ef core, naleznete v [tématu Jak funguje dotaz](xref:core/querying/how-query-works).

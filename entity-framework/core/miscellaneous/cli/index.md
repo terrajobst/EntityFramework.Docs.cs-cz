@@ -1,27 +1,27 @@
 ---
-title: Referenční informace k nástrojům Entity Framework Core Tools – EF Core
+title: Odkaz na základní nástroje rámce entity – ef core
 author: bricelam
 ms.author: bricelam
 ms.date: 09/19/2018
 uid: core/miscellaneous/cli/index
 ms.openlocfilehash: 237192c55ea3542521a7a292ac8550d72e4ef82c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78416721"
 ---
-# <a name="entity-framework-core-tools-reference"></a>Referenční informace k nástrojům pro Entity Framework Core
+# <a name="entity-framework-core-tools-reference"></a>Odkaz na základní nástroje entity frameworku
 
-Nástroje pro Entity Framework Core vám pomůžou s úlohami vývoje při návrhu. Primárně se používají ke správě migrace a k vytvoření `DbContext` a typů entit pomocí zpětné analýzy schématu databáze.
+Nástroje Core framework entity pomáhají s úlohami vývoje v době návrhu. Používají se především ke správě migrace a k `DbContext` vytvoření uživatelského diagramu a typů entit pomocí zpětné analýzy schématu databáze.
 
-* [Nástroje EF Core konzoly Správce balíčků](powershell.md) se spouštějí v [konzole správce balíčků](https://docs.microsoft.com/nuget/tools/package-manager-console) v aplikaci Visual Studio.
+* [Nástroje konzoly EF Core Package Manager jsou spuštěny](powershell.md) v [konzole Správce balíčků](https://docs.microsoft.com/nuget/tools/package-manager-console) v sadě Visual Studio.
 
-* [Nástroje rozhraní příkazového řádku EF Core .NET (CLI)](dotnet.md) jsou rozšířením nástrojů pro více platforem [.NET Core CLI](https://docs.microsoft.com/dotnet/core/tools/). Tyto nástroje vyžadují projekt .NET Core SDK (jeden s `Sdk="Microsoft.NET.Sdk"` nebo podobný v souboru projektu).
+* Nástroje [rozhraní příkazového řádku EF Core .NET (CLI)](dotnet.md) jsou rozšířením [nástrojů rozhraní CLI rozhraní .NET pro](https://docs.microsoft.com/dotnet/core/tools/)více platforem . Tyto nástroje vyžadují projekt sady .NET Core `Sdk="Microsoft.NET.Sdk"` SDK (jeden s nebo podobným v souboru projektu).
 
-Oba nástroje zveřejňují stejné funkce. Pokud vyvíjíte v aplikaci Visual Studio, doporučujeme používat nástroje **konzoly Správce balíčků** , protože poskytují více integrovaných prostředí.
+Oba nástroje zveřejňují stejné funkce. Pokud vyvíjíte v sadě Visual Studio, doporučujeme používat nástroje **správce balíčků konzoly,** protože poskytují integrovanější prostředí.
 
 ## <a name="next-steps"></a>Další kroky
 
-* [Reference k nástrojům konzoly Správce balíčků EF Core](powershell.md)
-* [Referenční informace k nástrojům EF Core .NET CLI](dotnet.md)
+* [Odkaz na nástroje konzoly správce balíčků EF Core](powershell.md)
+* [Odkaz na nástroje ROZHRANÍ OK EF Core .NET](dotnet.md)
